@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  neo4j:
+    image: neo4j:5.26-community
+    container_name: grcot-neo4j
+    ports:
+      - "7474:7474"  # HTTP (Browser)
+      - "7687:7687"  # Bolt
+    environment:
+      - NEO4J_AUTH=neo4j/password123
+      - NEO4J_PLUGINS=["apoc"]
+      - NEO4J_apoc_export_file_enabled=true
+      - NEO4J_apoc_import_file_enabled=true
+      - NEO4J_apoc_import_file_use__neo4j__config=true
+      # Performance tuning for large imports
+      - NEO4J_server_memory_heap_initial__size=2G
+      - NEO4J_server_memory_heap_max__size=4G
+      - NEO4J_server_memory_pagecache_size=2G
+      - NEO4J_dbms_memory_transaction_total_max=4G
+    volumes:
+      - neo4j_data:/data
+      - neo4j_logs:/logs
+      - ./data/umls/extracted:/import  # UMLS RRF files for import
+    networks:
+      - grcot-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:7474"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+volumes:
+  neo4j_data:
+  neo4j_logs:
+
+networks:
+  grcot-network:
+    driver: bridge
