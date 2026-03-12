@@ -20,6 +20,17 @@ class DiagnosisCandidate:
 
 
 @dataclass
+class RelatedDisease:
+    """증상과 연관된 질환 정보."""
+
+    cui: str
+    name: str
+    score: float  # 정규화 점수 (0-1)
+    matched_symptoms: int  # 일치하는 confirmed 증상 수
+    total_symptoms: int  # 질환의 총 증상 수
+
+
+@dataclass
 class SymptomCandidate:
     """다음 질문 후보 증상."""
 
@@ -27,6 +38,37 @@ class SymptomCandidate:
     name: str
     disease_coverage: int  # 연결된 질환 수
     information_gain: float = 0.0
+    related_diseases: list[RelatedDisease] = field(default_factory=list)  # Top 연관 질환
+
+
+@dataclass
+class ExplainedDiagnosis:
+    """설명 가능한 진단 결과.
+
+    현재 KG 구조(INDICATES 관계만 존재)에서 제공 가능한 설명:
+    - 일치/불일치 증상 목록
+    - Coverage 기반 점수
+    - Synthesized 스타일 설명 텍스트
+    """
+
+    cui: str
+    name: str
+    score: float  # 정규화된 확신도 (0-1)
+    rank: int  # 순위 (1부터 시작)
+
+    # 증상 목록 (실제 이름)
+    matched_symptoms: list[str]  # 확인된 증상 중 이 질환과 연관된 것
+    denied_symptoms: list[str]  # 부정된 증상 중 이 질환과 연관된 것
+    unasked_symptoms: list[str]  # 아직 질문하지 않은 연관 증상
+
+    # 통계
+    matched_count: int
+    denied_count: int
+    total_symptoms: int
+    coverage: float  # matched_count / total_symptoms
+
+    # 설명 텍스트
+    explanation: str
 
 
 @dataclass
@@ -238,6 +280,105 @@ class UMLSKG:
                 )
                 for r in result
             ]
+
+    def get_related_diseases_for_symptom(
+        self,
+        symptom_cui: str,
+        top_k: int = 3,
+        *,
+        confirmed_cuis: set[str] | None = None,
+        denied_cuis: set[str] | None = None,
+    ) -> list[RelatedDisease]:
+        """증상과 연관된 상위 질환 목록 반환 (설명용).
+
+        Args:
+            symptom_cui: 증상 CUI
+            top_k: 반환할 최대 질환 수
+            confirmed_cuis: confirmed 증상 CUI 집합
+            denied_cuis: denied 증상 CUI 집합
+
+        Returns:
+            RelatedDisease 리스트 (score 내림차순, 정규화됨)
+        """
+        _confirmed = confirmed_cuis if confirmed_cuis is not None else self.state.confirmed_cuis
+        _denied = denied_cuis if denied_cuis is not None else self.state.denied_cuis
+
+        # 증상과 연결된 질환들의 점수 계산
+        query = """
+        MATCH (s:Symptom {cui: $symptom_cui})-[:INDICATES]->(d:Disease)
+        OPTIONAL MATCH (d)<-[:INDICATES]-(all_symptom:Symptom)
+        WITH d, collect(DISTINCT all_symptom.cui) AS disease_symptom_cuis,
+             count(DISTINCT all_symptom) AS total_symptoms
+        WITH d, disease_symptom_cuis, total_symptoms,
+             [c IN $confirmed_cuis WHERE c IN disease_symptom_cuis] AS matched_confirmed,
+             [c IN $denied_cuis WHERE c IN disease_symptom_cuis] AS matched_denied
+        WITH d, total_symptoms,
+             size(matched_confirmed) + 1 AS confirmed_count,  // +1 for the symptom itself
+             size(matched_denied) AS denied_count
+        WITH d, confirmed_count, denied_count, total_symptoms,
+             (toFloat(confirmed_count) / (toFloat(total_symptoms) + 1.0) * toFloat(confirmed_count))
+             * (1.0 - 0.1 * toFloat(denied_count) / (toFloat(total_symptoms) + 1.0)) AS raw_score
+        WHERE raw_score > 0
+        WITH collect({
+            cui: d.cui, name: d.name, raw_score: raw_score,
+            confirmed_count: confirmed_count, total_symptoms: total_symptoms
+        }) AS all_candidates
+        WITH all_candidates,
+             reduce(total = 0.0, c IN all_candidates | total + c.raw_score) AS total_score
+        UNWIND all_candidates AS c
+        RETURN c.cui AS cui, c.name AS name,
+               CASE WHEN total_score > 0 THEN c.raw_score / total_score ELSE 0.0 END AS score,
+               c.confirmed_count AS confirmed_count,
+               c.total_symptoms AS total_symptoms
+        ORDER BY score DESC
+        LIMIT $top_k
+        """
+        with self.driver.session() as session:
+            result = session.run(
+                query,
+                symptom_cui=symptom_cui,
+                confirmed_cuis=list(_confirmed),
+                denied_cuis=list(_denied),
+                top_k=top_k,
+            )
+            return [
+                RelatedDisease(
+                    cui=r["cui"],
+                    name=r["name"],
+                    score=r["score"],
+                    matched_symptoms=r["confirmed_count"],
+                    total_symptoms=r["total_symptoms"],
+                )
+                for r in result
+            ]
+
+    def enrich_candidates_with_diseases(
+        self,
+        candidates: list[SymptomCandidate],
+        top_k_diseases: int = 3,
+        *,
+        confirmed_cuis: set[str] | None = None,
+        denied_cuis: set[str] | None = None,
+    ) -> list[SymptomCandidate]:
+        """후보 증상에 연관 질환 정보 추가.
+
+        Args:
+            candidates: 후보 증상 리스트
+            top_k_diseases: 각 증상당 표시할 최대 질환 수
+            confirmed_cuis: confirmed 증상 CUI 집합
+            denied_cuis: denied 증상 CUI 집합
+
+        Returns:
+            관련 질환 정보가 추가된 SymptomCandidate 리스트
+        """
+        for candidate in candidates:
+            candidate.related_diseases = self.get_related_diseases_for_symptom(
+                symptom_cui=candidate.cui,
+                top_k=top_k_diseases,
+                confirmed_cuis=confirmed_cuis,
+                denied_cuis=denied_cuis,
+            )
+        return candidates
 
     def get_diagnosis_candidates(
         self,
@@ -501,3 +642,178 @@ class UMLSKG:
         """Top-1 진단 반환."""
         candidates = self.get_diagnosis_candidates(top_k=1)
         return candidates[0] if candidates else None
+
+    def get_explained_diagnosis_candidates(
+        self,
+        top_k: int = 5,
+        *,
+        confirmed_cuis: set[str] | None = None,
+        denied_cuis: set[str] | None = None,
+    ) -> list[ExplainedDiagnosis]:
+        """설명이 포함된 진단 후보 반환.
+
+        현재 KG 구조에서 제공 가능한 설명:
+        1. 일치/불일치 증상 목록 (실제 이름)
+        2. Coverage 기반 점수
+        3. Synthesized 스타일 설명 텍스트
+
+        Args:
+            top_k: 반환할 최대 질환 수
+            confirmed_cuis: confirmed 증상 CUI 집합
+            denied_cuis: denied 증상 CUI 집합
+
+        Returns:
+            ExplainedDiagnosis 리스트 (score 내림차순)
+        """
+        _confirmed = confirmed_cuis if confirmed_cuis is not None else self.state.confirmed_cuis
+        _denied = denied_cuis if denied_cuis is not None else self.state.denied_cuis
+
+        if not _confirmed:
+            return []
+
+        # 증상 목록까지 포함하는 확장 쿼리
+        query = """
+        MATCH (confirmed:Symptom)-[:INDICATES]->(d:Disease)
+        WHERE confirmed.cui IN $confirmed_cuis
+        WITH DISTINCT d
+
+        // 질환의 모든 증상 수집
+        OPTIONAL MATCH (d)<-[:INDICATES]-(s:Symptom)
+        WITH d, collect(DISTINCT {cui: s.cui, name: s.name}) AS all_symptoms
+
+        // 증상 분류
+        WITH d, all_symptoms,
+             [s IN all_symptoms WHERE s.cui IN $confirmed_cuis] AS matched,
+             [s IN all_symptoms WHERE s.cui IN $denied_cuis] AS denied,
+             [s IN all_symptoms WHERE NOT s.cui IN $confirmed_cuis AND NOT s.cui IN $denied_cuis] AS unasked
+
+        WITH d,
+             matched, denied, unasked,
+             size(matched) AS matched_count,
+             size(denied) AS denied_count,
+             size(all_symptoms) AS total_symptoms
+
+        WHERE matched_count > 0
+
+        // 점수 계산 (v23_mild_denied)
+        WITH d, matched, denied, unasked, matched_count, denied_count, total_symptoms,
+             (toFloat(matched_count) / (toFloat(total_symptoms) + 1.0) * toFloat(matched_count))
+             * (1.0 - 0.1 * toFloat(denied_count) / (toFloat(total_symptoms) + 1.0)) AS raw_score
+
+        WHERE raw_score > 0
+
+        WITH collect({
+            cui: d.cui, name: d.name, raw_score: raw_score,
+            matched: matched, denied: denied, unasked: unasked,
+            matched_count: matched_count, denied_count: denied_count, total_symptoms: total_symptoms
+        }) AS all_candidates
+
+        WITH all_candidates,
+             reduce(total = 0.0, c IN all_candidates | total + c.raw_score) AS total_score
+
+        UNWIND all_candidates AS c
+
+        RETURN c.cui AS cui, c.name AS name,
+               CASE WHEN total_score > 0 THEN c.raw_score / total_score ELSE 0.0 END AS score,
+               [s IN c.matched | s.name] AS matched_symptoms,
+               [s IN c.denied | s.name] AS denied_symptoms,
+               [s IN c.unasked | s.name] AS unasked_symptoms,
+               c.matched_count AS matched_count,
+               c.denied_count AS denied_count,
+               c.total_symptoms AS total_symptoms
+        ORDER BY score DESC
+        LIMIT $top_k
+        """
+
+        results: list[ExplainedDiagnosis] = []
+
+        with self.driver.session() as session:
+            result = session.run(
+                query,
+                confirmed_cuis=list(_confirmed),
+                denied_cuis=list(_denied),
+                top_k=top_k,
+            )
+
+            for rank, record in enumerate(result, start=1):
+                matched_count = record["matched_count"]
+                total_symptoms = record["total_symptoms"]
+                coverage = matched_count / total_symptoms if total_symptoms > 0 else 0.0
+
+                # Synthesized 설명 생성
+                explanation = self._generate_explanation(
+                    name=record["name"],
+                    score=record["score"],
+                    rank=rank,
+                    matched_symptoms=record["matched_symptoms"],
+                    denied_symptoms=record["denied_symptoms"],
+                    matched_count=matched_count,
+                    denied_count=record["denied_count"],
+                    total_symptoms=total_symptoms,
+                    coverage=coverage,
+                )
+
+                results.append(
+                    ExplainedDiagnosis(
+                        cui=record["cui"],
+                        name=record["name"],
+                        score=record["score"],
+                        rank=rank,
+                        matched_symptoms=record["matched_symptoms"],
+                        denied_symptoms=record["denied_symptoms"],
+                        unasked_symptoms=record["unasked_symptoms"][:5],  # Top 5만
+                        matched_count=matched_count,
+                        denied_count=record["denied_count"],
+                        total_symptoms=total_symptoms,
+                        coverage=coverage,
+                        explanation=explanation,
+                    )
+                )
+
+        return results
+
+    def _generate_explanation(
+        self,
+        name: str,
+        score: float,
+        rank: int,
+        matched_symptoms: list[str],
+        denied_symptoms: list[str],
+        matched_count: int,
+        denied_count: int,
+        total_symptoms: int,
+        coverage: float,
+    ) -> str:
+        """Synthesized 스타일 설명 텍스트 생성.
+
+        Inventory 방식(단순 나열)이 아닌 Synthesized 방식(근거 설명)으로
+        진단 오류 감소에 도움. (PMC6994315)
+        """
+        # 확신도 레벨
+        if score >= 0.3:
+            confidence = "LIKELY"
+        elif score >= 0.15:
+            confidence = "POSSIBLE"
+        else:
+            confidence = "UNLIKELY"
+
+        lines = [f"{rank}. {name} ({score:.1%}) - {confidence}"]
+
+        # 일치 증상
+        if matched_symptoms:
+            symptom_str = ", ".join(matched_symptoms[:5])
+            if len(matched_symptoms) > 5:
+                symptom_str += f" (+{len(matched_symptoms) - 5} more)"
+            lines.append(f"   ✓ Matched: {symptom_str}")
+
+        # 불일치 증상 (기대했으나 부정됨)
+        if denied_symptoms:
+            denied_str = ", ".join(denied_symptoms[:3])
+            if len(denied_symptoms) > 3:
+                denied_str += f" (+{len(denied_symptoms) - 3} more)"
+            lines.append(f"   ✗ Denied: {denied_str}")
+
+        # Coverage 정보
+        lines.append(f"   Coverage: {matched_count}/{total_symptoms} ({coverage:.0%})")
+
+        return "\n".join(lines)

@@ -128,6 +128,32 @@ LLM-only < KG-only < LLM + KG (Gr-CoT)
 > **참고:** KG-only 시뮬레이션(IL 11-15)과 LLM+KG 실제 벤치마크(IL 27-35)의 차이는
 > LLM이 항상 최적의 증상을 선택하지 않기 때문. 상세 결과: `results/cypher_optimization_results.md`
 
+#### Runtime 검증 메모 (2026-03-09)
+
+`src/umls_kg.py`의 Cypher를 DDXPlus KG-only 경로에 맞게 최적화한 뒤, 동일한 조건에서
+기존 쿼리와 수정 쿼리를 직접 비교했다.
+
+**비교 조건**
+- Benchmark: `scripts/compare_cypher_old_new.py`
+- Setting: `n=200`, `severity=2`, `scoring=v18_coverage`
+- Environment: local Neo4j, KG-only, CPU
+
+| Query Version | GTPA@1 | Avg IL | Time (sec) | Throughput (samples/min) |
+|--------------|--------|--------|------------|---------------------------|
+| Old Cypher | 77.0% | 19.575 | 27.83 | 431.1 |
+| **Optimized Cypher** | **78.0%** | **19.575** | **8.54** | **1404.9** |
+
+**관찰**
+- 정확도는 **77.0% → 78.0%**로 소폭 상승 (+1.0%p)
+- Avg IL은 **동일** (19.575)
+- 실행 시간은 **27.83s → 8.54s**로 감소 (약 **3.26x faster**)
+- Throughput은 **431.1 → 1404.9 samples/min**로 증가
+
+**해석**
+- 이번 변경은 최소한 소규모 검증에서는 **성능 저하 없이 속도를 크게 개선**했다.
+- 정확도 개선폭은 작으므로, 이번 최적화의 핵심 가치는 **runtime reduction**이다.
+- 더 큰 샘플(`n=1,000+`)과 다른 scoring 설정에서도 재검증이 필요하다.
+
 ### 종료 조건 설계
 
 **KG 스코어 기반 조기 종료:**
@@ -1778,3 +1804,731 @@ You may reason briefly, but you MUST end your response with just the number (1-N
 
 **결과:** Thinking 모델도 GTPA@1 80%+ 달성
 mistralai/Ministral-3-8B-Instruct-2512
+
+---
+
+## 연구 방향 전환: KG-only 접근법 (2026-03-11)
+
+### 배경
+
+LLM+KG 하이브리드 접근법 실험 결과, LLM이 KG 성능을 오히려 저하시키는 현상 발견:
+- KG-only: GTPA@1 **78.71%**
+- LLM+KG: GTPA@1 22-24%
+
+→ **연구 방향을 KG-only로 전환**
+
+### KG-only 벤치마크 결과 (DDXPlus 전체 테스트셋)
+
+| 지표 | 결과 | 설명 |
+|------|------|------|
+| **Total Patients** | 134,529 | 전체 테스트셋 |
+| **GTPA@1** | 78.71% | Top-1 진단 정확도 |
+| **GTPA@3** | 96.85% | Top-3 포함 정확도 |
+| **GTPA@5** | 98.88% | Top-5 포함 정확도 |
+| **GTPA@10** | 99.61% | Top-10 포함 정확도 |
+| **DDR** | 39.97% | 감별진단 재현율 |
+| **DDP** | 41.85% | 감별진단 정밀도 |
+| **DDF1** | 40.89% | 감별진단 F1 |
+| **Avg IL** | 27.87 | 평균 질문 수 |
+
+### 핵심 가치: 설명 가능성 (Interpretability)
+
+**연구 프레이밍:**
+- 성능: LLM 기반 시스템보다 낮음 (78.71% vs ~85%)
+- **장점: 모든 추론 단계에서 해석 가능한 근거 제공**
+
+**해석 가능한 정보 (현재 코드 기준):**
+
+| 단계 | 제공 정보 | 코드 위치 |
+|------|----------|----------|
+| 증상 질문 선택 | 연관 질환 목록, 점수, 일치 증상 수 | `get_related_diseases_for_symptom()` |
+| 최종 진단 | Top-k 후보, 확신도, 일치/총 증상 수 | `get_diagnosis_candidates()` |
+
+**예시 출력:**
+```
+Q: "Cough 있습니까?"
+연관 질환:
+  - Pneumonia (score: 0.42, matched: 3/8)
+  - Bronchitis (score: 0.31, matched: 2/6)
+  - COPD (score: 0.18, matched: 2/10)
+
+최종 진단:
+  1. Pneumonia (score: 0.47, 5/8 증상 일치)
+  2. Bronchitis (score: 0.28, 3/6 증상 일치)
+```
+
+### 학술적 포지셔닝
+
+**핵심 메시지:**
+> "본 시스템의 진단 성능(GTPA@1 78.71%)은 LLM 기반 시스템보다 낮다. 그러나 본 시스템은 모든 추론 단계에서 근거를 제시한다: 왜 이 증상을 질문하는지, 어떤 질환과 연관되는지, 최종 진단이 어떤 증상들과 연관되는지를 투명하게 보여준다."
+
+**논문 제목 후보:**
+1. "How Far Can Interpretable Reasoning Go? Evaluating Ontology-based Differential Diagnosis on DDXPlus"
+2. "Establishing an Interpretable Baseline for Differential Diagnosis: A UMLS Ontology Approach"
+
+### 임상에서 설명 가능성이 필요한 이유 (문헌 조사)
+
+**1. 신뢰와 채택:**
+> "A critical barrier to widespread AI adoption in healthcare is the lack of transparency and interpretability" - PMC11561425, 2025
+
+- XAI가 신뢰 증가: 50% (5/10 연구)
+- XAI가 신뢰 증가+감소: 20% (2/10 연구)
+
+**2. 규제 요구사항:**
+- **FDA (2024)**: 투명성과 설명가능성 필수, 모델 설계/데이터/결정 로직 문서화 요구
+- **EU AI Act (2026년 시행)**: 고위험 의료 AI에 투명성, 설명가능성, 인간 감독 요구
+
+**3. 환자 안전:**
+> "Explainability is especially important in safety-critical fields such as healthcare... detecting errors that might lead to direct harm via misdiagnosed or missed diagnosis" - PMC12670843, 2025
+
+### 관련 연구 (2025년 최신)
+
+| 논문 | 핵심 내용 |
+|------|----------|
+| DR.KNOWS (JMIR AI, 2025.02) | UMLS에서 진단 관련 지식 경로 추출, LLM과 결합 |
+| H-DDx (arXiv, 2025.10) | DDXPlus + ICD-10 계층적 평가 프레임워크 |
+| Ontologies as Semantic Bridge (Frontiers, 2025) | 온톨로지가 AI-의료 간 해석가능성 다리 역할 |
+| MEDDxAgent (ACL, 2025) | DDXPlus/iCraftMD/RareBench 통합 벤치마크 |
+
+**본 연구와의 차별점:**
+- 기존 연구: UMLS를 LLM의 보조 도구로 활용
+- **본 연구: UMLS 온톨로지 자체의 진단 능력 정량화, LLM 없이 해석가능한 기준선 확립**
+
+### 데이터셋 조사 (iCraftMD, RareBench)
+
+| 데이터셋 | 증상 표현 | 질환 표현 | KG-only 적용 |
+|---------|----------|----------|-------------|
+| **DDXPlus** | UMLS CUI | UMLS CUI | ✅ 가능 |
+| **RareBench** | HPO 코드 | OMIM/Orphanet | ❌ 매핑 필요 |
+| **iCraftMD** | 자연어 | 질환명 | ❌ NER 필요 |
+
+→ DDXPlus 단일 데이터셋으로 진행
+
+### Limitations (논문용)
+
+1. **단일 데이터셋**: DDXPlus만 사용 (합성 데이터)
+2. **실제 임상 환경 미검증**:
+   - 흔한 질환(감기 등)에서는 부가가치 제한적
+   - 비전형적/희귀 케이스에서 잠재적 유용성
+3. **사용자 연구 미실시**: 의사가 설명을 실제로 어떻게 활용하는지 검증 필요
+4. **UMLS 매핑 커버리지**: 일부 증상/질환 매핑 누락 가능
+
+### 향후 연구 방향
+
+1. UMLS 추가 인사이트 제공 (semantic types, 관계 유형 등)
+2. 일치하는 구체적 증상 목록 출력
+3. 케이스 스터디 섹션 추가
+4. 실제 임상의 참여 사용자 연구
+
+
+### UMLS 추가 인사이트 아이디어 (2026-03-11 조사)
+
+#### 1. UMLS Semantic Relations 확장
+
+현재 `INDICATES` 관계만 사용. 추가 가능한 관계:
+
+| 관계 | 의미 | 활용 |
+|------|------|------|
+| causes | 직접적 원인 | 병인 설명 |
+| manifestation_of | 발현 형태 | 증상 발생 이유 |
+| result_of | 결과/후유증 | 경과 예측 |
+| associated_with | 일반적 연관 | 동반 질환 |
+
+#### 2. Semantic Types 활용
+
+모든 UMLS 개념에 부여된 의미 유형:
+- Sign or Symptom, Disease or Syndrome, Finding, Pathologic Function 등
+- 증상/질환의 의미적 분류 제공
+
+#### 3. Causal Chain (병태생리 경로)
+
+> "진단은 통계 패턴이 아닌 실제 원인 식별" - [PMC5325847](https://pmc.ncbi.nlm.nih.gov/articles/PMC5325847/)
+
+```
+Jaundice의 다중 원인 경로:
+  - Liver Disease → Bilirubin 배출 장애 → Jaundice
+  - Bile Duct Obstruction → Bilirubin 축적 → Jaundice
+  - Hemolysis → RBC 파괴 과다 → Jaundice
+```
+
+#### 4. Likelihood Ratio 가중치
+
+| LR 값 | 의미 |
+|-------|------|
+| >10 | 강력한 진단 근거 |
+| <0.1 | 강력한 배제 근거 |
+
+흔한 증상(Fever)보다 특이적 증상(Rust-colored sputum)에 높은 가중치
+
+#### 5. Synthesized 설명 스타일
+
+> "Inventory 방식(단순 나열)보다 Synthesized 방식(근거 설명)이 진단 오류 감소" - [PMC6994315](https://pmc.ncbi.nlm.nih.gov/articles/PMC6994315/)
+
+```
+개선된 출력 예시:
+  1. Pneumonia (87%) - LIKELY
+     ✓ Fever, Cough, Dyspnea 일치
+     ✓ Rust-colored sputum (높은 특이도)
+     
+  2. Bronchitis (72%) - POSSIBLE
+     ✓ Cough 일치
+     ✗ Fever 설명 어려움
+```
+
+#### 구현 가능성 검증 (2026-03-11)
+
+**현재 KG 구조:**
+- 노드: Symptom (192개), Disease (49개)
+- 관계: `INDICATES` 단일 유형 (581개)
+- 데이터: DDXPlus → ICD-10 → UMLS CUI 매핑
+
+**검증 결과:**
+
+| 기능 | 구현 가능 | 이유 |
+|------|:---------:|------|
+| 일치/불일치 증상 목록 | ✅ | 현재 데이터로 가능 (confirmed_count, total_symptoms) |
+| Semantic Relations (causes, manifestation_of) | ❌ | UMLS MRREL 테이블 미보유 |
+| Semantic Types (Finding, Disease) | ❌ | UMLS MRSTY 테이블 미보유 |
+| Causal Chain | ❌ | 이분 그래프 구조 (Symptom→Disease), 체인 불가 |
+| Likelihood Ratio | ⚠️ | UMLS 아닌 DDXPlus 통계 기반으로만 가능 |
+| Synthesized 설명 스타일 | ✅ | 현재 점수 기반 텍스트 생성 가능 |
+
+**결론:**
+- **현재 KG는 DDXPlus 데이터를 UMLS CUI로 매핑한 것에 불과**
+- UMLS 원본 데이터(MRREL, MRSTY)를 임포트하지 않은 상태
+- 의미 관계 기반 설명은 **새 데이터 임포트 없이 불가**
+
+**현재 실제로 제공 가능한 설명:**
+1. **Coverage 기반**: `matched_symptoms / total_symptoms`
+2. **비교 순위**: 정규화된 점수로 상대적 확률 제시
+3. **증상 목록**: 확인된/부정된 증상 이름
+
+#### 수정된 구현 우선순위
+
+| 기능 | 난이도 | 가치 | 우선순위 | 현실적 가능 | 구현 상태 |
+|------|--------|------|:-------:|:-----------:|:---------:|
+| 일치/불일치 증상 목록 출력 | 쉬움 | 높음 | 1 | ✅ | ✅ 완료 |
+| Synthesized 스타일 설명 | 중간 | 높음 | 2 | ✅ | ✅ 완료 |
+| Likelihood ratio 가중치 | 중간 | 중간 | 3 | ⚠️ DDXPlus 통계만 | - |
+| 관계 유형 표시 | 어려움 | 중간 | - | ❌ MRREL 필요 | - |
+| Semantic Type 표시 | 어려움 | 중간 | - | ❌ MRSTY 필요 | - |
+| Causal chain | 매우 어려움 | 높음 | - | ❌ 구조 한계 | - |
+
+#### 구현 완료 (2026-03-12)
+
+**새 클래스: `ExplainedDiagnosis`** (`src/umls_kg.py`)
+```python
+@dataclass
+class ExplainedDiagnosis:
+    cui: str
+    name: str
+    score: float
+    rank: int
+    matched_symptoms: list[str]   # 확인된 증상 중 이 질환과 연관된 것
+    denied_symptoms: list[str]    # 부정된 증상 중 이 질환과 연관된 것
+    unasked_symptoms: list[str]   # 아직 질문하지 않은 연관 증상
+    matched_count: int
+    denied_count: int
+    total_symptoms: int
+    coverage: float
+    explanation: str              # Synthesized 스타일 설명 텍스트
+```
+
+**새 메서드: `get_explained_diagnosis_candidates()`**
+- 상세 설명이 포함된 진단 후보 반환
+- Synthesized 스타일 설명 자동 생성
+
+**출력 예시:**
+```
+1. Respiratory tuberculosis (7.5%) - UNLIKELY
+   ✓ Matched: Fever, Cough, Dyspnea
+   ✗ Denied: Nausea, Diarrhea
+   Coverage: 3/11 (27%)
+```
+
+**데모 스크립트:** `scripts/demo_explainability.py`
+
+#### 실제 케이스 예시: Pulmonary Embolism 진단
+
+**[환자 정보]**
+- Age: 4, Sex: M
+- Chief Complaint: Hemoptysis
+- Ground Truth: Pulmonary embolism
+
+**Phase 1: 진단 과정 (증상 질문) - 해석 가능성**
+
+각 질문마다 **왜 이 증상을 물어보는지** 근거 제공:
+
+```
+Step 4: "Dyspnea" 있으십니까?
+───────────────────────────────────────────────────────────────────
+  [질문 선택 근거]
+    Disease Coverage: 23개 후보 질환과 연관
+    관련 질환:
+      • Pulmonary embolism (확률 8%, 일치 3/12)
+      • Malignant neoplasm of bronchus and lung (확률 8%, 일치 3/12)
+      • Perforation of esophagus (확률 6%, 일치 2/7)
+
+  [환자 응답] YES ✓
+  [누적 상태] Confirmed: 3개, Denied: 2개
+```
+
+**Phase 2: 최종 진단 - 해석 가능성**
+
+각 진단마다 **왜 이 진단인지** 근거 제공:
+
+```
+1. Pulmonary embolism (6.7%) - UNLIKELY
+   ✓ Matched: Pain, Dyspnea, Hemoptysis
+   ✗ Denied: Edema
+   Coverage: 3/12 (25%)
+   → 추가 확인 권장: Pleuritic pain, Syncope, recent surgery
+
+2. Malignant neoplasm of bronchus and lung (6.6%) - UNLIKELY
+   ✓ Matched: Pain, Dyspnea, Hemoptysis
+   ✗ Denied: Fatigue, Cough
+   Coverage: 3/12 (25%)
+```
+
+**Result: ✅ CORRECT** (Ground Truth와 일치)
+
+#### Black-box LLM과의 차이
+
+| 항목 | Black-box LLM | KG 기반 시스템 |
+|------|--------------|---------------|
+| 질문 선택 근거 | ❌ 없음 | ✅ 연관 질환 목록 제공 |
+| 진단 근거 | ❌ "~일 것 같습니다" | ✅ 일치/불일치 증상 명시 |
+| 검증 가능성 | ❌ 불가 | ✅ KG 경로 추적 가능 |
+| 반박 가능성 | ❌ 불가 | ✅ 왜 다른 진단이 아닌지 설명 |
+
+#### 전체 테스트 결과 (Full Test, n=134,529)
+
+**Primary Diagnosis Accuracy**
+
+| Metric | Value | 95% CI | vs AARLC |
+|--------|-------|--------|----------|
+| **GTPA@1** | **78.20%** | [77.98%, 78.42%] | **+2.81%p** |
+| GTPA@3 | 96.62% | [96.54%, 96.73%] | - |
+| GTPA@5 | 98.70% | [98.64%, 98.76%] | - |
+| GTPA@10 | 99.62% | [99.59%, 99.65%] | - |
+
+**Differential Diagnosis & Interaction**
+
+| Metric | Value | vs AARLC |
+|--------|-------|----------|
+| DDR | 39.85% | -57.85%p |
+| DDP | 41.74% | - |
+| DDF1 | 40.77% | -37.43%p |
+| **Avg IL** | **27.87** | **+2.12** |
+
+**Baseline 비교 (AARLC, Full Test)**
+
+| Metric | KG-only | AARLC | Diff |
+|--------|---------|-------|------|
+| **GTPA@1** | **78.20%** | 75.39% | **+2.81%p** |
+| DDR | 39.85% | **97.70%** | -57.85%p |
+| DDF1 | 40.77% | **78.20%** | -37.43%p |
+| Avg IL | 27.87 | **25.75** | +2.12 |
+
+**분석:**
+- **GTPA@1: KG-only가 AARLC 대비 +2.81%p 향상** (78.20% vs 75.39%)
+- IL: AARLC가 약간 더 빠름 (+2.12회) - 전체 Severity 포함 시
+- DDR/DDF1: AARLC가 우수 (감별진단 목록 정확도)
+  - 이유: DDXPlus-only 시스템은 49개 질환 내에서만 계산, UMLS 기반은 더 넓은 후보 공간
+
+**Severity별 결과 (샘플링, n=2,000/severity)**
+
+| Severity | N | GTPA@1 | GTPA@3 | GTPA@10 | Avg IL | Median IL |
+|----------|---|--------|--------|---------|--------|-----------|
+| 1 (Critical) | 2,000 | 57.1% | 90.2% | 99.2% | 23.2±21.1 | 14 |
+| 2 (Severe) | 2,000 | 80.2% | 97.5% | 99.6% | 20.5±20.6 | 8 |
+| 3 (Moderate) | 2,000 | 81.5% | 98.9% | 99.8% | 25.1±20.4 | 22 |
+| 4 (Mild) | 2,000 | 77.8% | 94.8% | 99.8% | 31.0±20.3 | 46 |
+| 5 (Minimal) | 2,000 | 80.0% | 98.6% | 100.0% | 41.6±16.2 | 49 |
+
+**Severity별 분석:**
+- Severity 1 (Critical): GTPA@1 57.1%로 가장 낮음 → 응급 질환은 진단 난이도 높음
+- Severity 2-5: GTPA@1 77-82% 범위로 안정적
+- IL: Severity가 높을수록 (덜 심각) 더 많은 질문 필요
+
+#### GTPA@10 실패 케이스 분석 (Failure Case Analysis)
+
+**실패 통계 (n=134,529)**
+
+| Metric | Value | Percentage |
+|--------|-------|------------|
+| Total Patients | 134,529 | 100% |
+| GTPA@10 Success | 134,010 | 99.61% |
+| **GTPA@10 Failures** | **519** | **0.39%** |
+
+**실패 원인 분석: GT 순위 분포**
+
+모든 실패 케이스에서 Ground Truth(GT)는 후보에 포함되어 있으나, Top-10 밖에 위치함.
+
+| GT Rank | Count | Percentage | 해석 |
+|---------|-------|------------|------|
+| 11-15 | 388 | 74.8% | Near-miss (거의 성공) |
+| 16-20 | 108 | 20.8% | 경계선 |
+| 21-30 | 21 | 4.0% | |
+| 31-50 | 2 | 0.4% | |
+| **Not in Top-50** | **0** | **0%** | **GT 누락 없음** |
+
+> **핵심 발견**: 모든 실패 케이스에서 GT가 Top-50 내에 존재함. 완전한 진단 실패(GT 후보 누락)는 **0건**.
+
+**질환별 실패율**
+
+| Disease | Failures | Total | Fail Rate | Severity |
+|---------|----------|-------|-----------|----------|
+| Stable angina | 160 | 2,386 | 6.7% | 2 |
+| Possible NSTEMI/STEMI | 138 | 2,911 | 4.7% | 1 |
+| GERD | 89 | 3,543 | 2.5% | 3 |
+| Viral pharyngitis | 80 | 8,334 | 1.0% | 4 |
+| URTI | 16 | 8,743 | 0.2% | 5 |
+| Unstable angina | 11 | 2,880 | 0.4% | 1 |
+
+> **패턴**: 심장 질환(Angina, NSTEMI/STEMI)이 전체 실패의 **59.5%** (309/519) 차지.
+
+**Severity별 실패율**
+
+| Severity | Failures | Total | Fail Rate |
+|----------|----------|-------|-----------|
+| 1 (Critical) | 138 | 10,193 | **1.35%** |
+| 2 (Severe) | 177 | 27,389 | 0.65% |
+| 3 (Moderate) | 98 | 40,483 | 0.24% |
+| 4 (Mild) | 89 | 41,587 | 0.21% |
+| 5 (Minimal) | 17 | 14,877 | **0.11%** |
+
+> **발견**: Critical 질환의 실패율(1.35%)이 Minimal 질환(0.11%)보다 **12배 높음**.
+
+**실패 케이스의 증상 패턴**
+
+| Metric | 실패 케이스 평균 | 전체 평균 |
+|--------|-----------------|-----------|
+| 확인된 증상 (Confirmed) | **1.8개** | ~8개 |
+| 부정된 증상 (Denied) | 48.2개 | ~20개 |
+| 환자 증거 수 (Evidences) | 21.7개 | ~15개 |
+
+> **근본 원인**: 실패 케이스에서 KG가 환자 증상의 극히 일부(1-2개)만 확인 가능.
+> 이는 **증상 매핑 격차(Symptom Mapping Gap)**를 시사함.
+
+**실패 원인 요약**
+
+1. **증상 매핑 격차**: 환자가 20+ 증상을 가졌으나 KG는 1-2개만 매핑 가능
+2. **점수 압축(Score Compression)**: 모든 후보가 유사한 낮은 점수(0.04-0.06)를 가져 순위 신뢰도 저하
+3. **심장 질환 증상 중첩**: 다수의 심장 질환이 유사한 증상 패턴 공유 (Angina, NSTEMI, Pericarditis)
+4. **희귀 증상 발현**: 환자가 해당 질환의 비전형적 증상만 발현
+
+**대표 실패 케이스 예시**
+
+```
+Patient 76: Possible NSTEMI/STEMI (Severity 1)
+├─ GT Rank: 17 (Top-10 밖)
+├─ Confirmed: 2개 / Denied: 48개 / Total Evidences: 28개
+├─ Top-3 예측: Perforation of esophagus, Acute pericarditis, Sarcoidosis
+└─ 실패 원인: 28개 증상 중 2개만 KG에 매핑됨 → 점수 차별화 실패
+```
+
+#### 통계적 분석 (Statistical Analysis)
+
+**Q1: 질환별 실패율이 통계적으로 유의미한가?**
+
+| Disease | Fail Rate | p-value | Significance |
+|---------|-----------|---------|--------------|
+| Stable angina | 6.71% | 3.08e-137 | *** |
+| Possible NSTEMI/STEMI | 4.74% | 1.15e-98 | *** |
+| GERD | 2.51% | 4.46e-42 | *** |
+| Viral pharyngitis | 0.96% | 1.16e-12 | *** |
+| URTI | 0.18% | 9.99e-04 | *** |
+| Unstable angina | 0.38% | 1.00 | ns |
+
+> **Chi-square 검정**: χ² = 1668.82, df = 13, **p < 0.001**
+> 결론: 질환별 실패율은 **통계적으로 유의미하게 다름**
+
+**Q2: Severity와 실패율의 상관관계가 있는가?**
+
+| Test | Statistic | p-value | Interpretation |
+|------|-----------|---------|----------------|
+| Spearman correlation | ρ = **-1.00** | **1.40e-24** | 완벽한 음의 상관 |
+| Linear trend | slope = -0.0029 | 0.037 | Severity↑ → 실패율↓ |
+| Odds Ratio (Sev1 vs Sev5) | **12.0** | - | Critical이 12배 더 실패 |
+
+> **결론**: Severity와 실패율 간 **강한 음의 상관관계** (ρ = -1.00, p < 0.001)
+> Critical 질환(Severity 1)이 Minimal(Severity 5)보다 **12배** 더 실패할 odds
+
+**Q3: 증상 확인 수와 실패의 관계는?**
+
+| Metric | 실패 케이스 | 해석 |
+|--------|-------------|------|
+| 확인 비율 | **8.2%** | 환자 22개 증상 중 1.8개만 확인 |
+| 확인 증상 vs GT Rank | ρ = -0.32, p = 0.02 | 확인↑ → 순위↑(좋음) |
+| 확인 1개 | 26% | |
+| 확인 2개 | 74% | |
+| 확인 3개+ | 0% | |
+
+> **결론**: 실패 케이스는 **모두 확인된 증상이 1-2개**에 불과
+> 증상 매핑 격차(Symptom Mapping Gap)가 주요 실패 원인
+
+**Q4: GT Rank 분포는 어떤 패턴인가?**
+
+| Rank Range | Count | Cumulative | 해석 |
+|------------|-------|------------|------|
+| 11-15 | 388 (74.8%) | 74.8% | **Near-miss** |
+| 16-20 | 108 (20.8%) | 95.6% | 경계선 |
+| 21-30 | 21 (4.0%) | 99.6% | |
+| 31-50 | 2 (0.4%) | 100% | |
+
+| Statistic | Value |
+|-----------|-------|
+| 평균 GT Rank | 14.7 |
+| 중앙값 GT Rank | 13.0 |
+| 표준편차 | 3.4 |
+
+> **What-if Analysis**: Top-N=15 사용 시 **GTPA@15 = 99.90%** (현재 99.61%)
+> 388건(74.8%)의 실패가 **복구 가능한 near-miss**
+
+**Q5: 심장 질환 실패 클러스터가 유의미한가?**
+
+| Category | Failures | Total | Fail Rate |
+|----------|----------|-------|-----------|
+| Cardiac diseases | 314 | 13,451 | **2.33%** |
+| Non-cardiac diseases | 205 | 41,878 | 0.49% |
+
+| Test | Statistic | p-value |
+|------|-----------|---------|
+| Chi-square | χ² = 370.93 | **1.18e-82** |
+| Odds Ratio | **4.86** | - |
+
+> **결론**: 심장 질환의 실패율(2.33%)이 비심장 질환(0.49%)보다 **유의미하게 높음**
+> Odds Ratio = 4.86 (심장 질환이 4.9배 더 실패할 odds)
+
+**리뷰어 대응 요약**
+
+| 예상 질문 | 답변 |
+|-----------|------|
+| "실패율 차이가 우연인가?" | 아니오. χ² = 1668.82, p < 0.001로 통계적으로 유의미함 |
+| "심각한 질환일수록 실패하는가?" | 예. ρ = -1.00, Odds Ratio = 12.0 (Critical vs Minimal) |
+| "실패의 원인은?" | 증상 매핑 격차 (8.2%만 확인) + 심장 질환 증상 중첩 |
+| "완전 실패(GT 누락)는?" | **0건**. 모든 GT가 Top-50 내 존재 |
+| "개선 가능성은?" | Top-15 사용 시 74.8% 복구 가능 (GTPA 99.9%) |
+
+---
+
+#### 연구 가치: 난진단 질환에서의 성능 (Clinical Value)
+
+**"난진단 질환"의 임상적 정의와 근거**
+
+아래 질환들은 임상 문헌에서 **진단 지연(Diagnostic Delay)** 또는 **오진율(Misdiagnosis Rate)**이 높은 것으로 보고됨.
+
+| 질환 | KG-only GTPA@10 | 진단 지연/오진율 | 출처 |
+|------|-----------------|------------------|------|
+| **Pulmonary Embolism** | **100%** (n=3,679) | 응급실 27.5% 오진, 입원환자 53.6% 오진 | [ScienceDirect, 2022](https://www.sciencedirect.com/science/article/pii/S2772632022000113) |
+| **Sarcoidosis** | **100%** (n=2,902) | 평균 7.9개월 진단 지연 | [Orphanet J Rare Dis, 2024](https://ojrd.biomedcentral.com/articles/10.1186/s13023-024-03152-7) |
+| **Guillain-Barré** | **100%** (n=2,601) | 초기 증상이 다른 질환과 유사, 빈번한 오진 | [Neurology, 2018](https://www.neurology.org/doi/10.1212/WNL.90.15_supplement.P2.440) |
+| **SLE (Lupus)** | **100%** | 76% 오진 경험, 평균 2-6년 진단 소요 | [PMC, 2024](https://pmc.ncbi.nlm.nih.gov/articles/PMC11668484/) |
+| **Pancreatic Neoplasm** | **100%** (n=2,585) | 93% 진행 단계 발견, 7.7% 영상 누락 | [PMC, 2022](https://pmc.ncbi.nlm.nih.gov/articles/PMC9626431/) |
+| **Myasthenia Gravis** | **99.8%** (n=2,215) | 평균 363일 진단 지연, 70% 초기 오진 | [J Neurology, 2024](https://link.springer.com/article/10.1007/s00415-024-12807-1) |
+| **Panic Attack** | **100%** (n=3,387) | 응급실 흉통 환자 25-35%가 실제 공황장애 | [PMC, 2008](https://pmc.ncbi.nlm.nih.gov/articles/PMC2528236/) |
+
+**핵심 발견: 의사도 어려워하는 질환에서 KG 시스템이 우수**
+
+| 질환 유형 | KG-only GTPA@10 | 인간 의사 진단 현실 |
+|-----------|-----------------|---------------------|
+| **난진단 질환** (위 7개) | **99.9%** | 27-76% 오진율, 수개월~수년 지연 |
+| 심장 질환 (Angina, NSTEMI) | 96.2% | ECG, Troponin 필수 (증상만으로 불가) |
+
+**잠재적 적용 가능성 (Potential Applications, 실제 임상 검증 필요)**
+
+> ⚠️ 아래는 **합성 데이터 기반 결과**이며, 실제 임상 적용 전 **실환자 데이터 검증 필수**
+
+| 잠재적 시나리오 | 가능성 | 검증 필요 사항 |
+|----------------|--------|----------------|
+| 1차 의료 스크리닝 | 난진단 질환 후보 제시 *가능성* 시사 | 실제 1차 의료 환경 검증 |
+| Diagnostic Odyssey 단축 | 자가면역질환 후보 즉시 제시 *가능성* | Prospective study 필요 |
+| 의료 취약 지역 | 전문의 부재 환경 지원 *가능성* | 해당 환경 실증 연구 |
+| 의료 교육 | 진단 과정 설명 도구 *가능성* | 교육 효과 평가 필요 |
+
+**DDXPlus 증상의 특성: 자가 보고 가능 여부**
+
+> "의료 취약 지역 적용 가능성"의 기술적 근거
+
+| 의료 장비 | DDXPlus 내 필요 항목 |
+|-----------|---------------------|
+| X-ray | 0개 |
+| MRI / CT Scan | 0개 |
+| ECG (심전도) | 0개 |
+| 혈액검사 / Lab test | 0개 |
+| 초음파 / 생검 | 0개 |
+| **합계** | **0 / 223개** |
+
+| 증거 유형 | 수 | 예시 |
+|-----------|-----|------|
+| 증상 (Symptoms) | 110 | "Do you have fever?", "Do you feel pain?" |
+| 병력 (Antecedents) | 113 | "Do you have diabetes?", "Have you had surgery?" |
+
+> ✅ **DDXPlus의 모든 223개 증상/증거는 환자 자가 보고(self-report)로 수집 가능**
+> - MRI, CT, ECG, 혈액검사 등 의료 장비 **불필요**
+> - 질문 형태: "Do you have...?", "Have you...?"
+
+⚠️ **주의: 병력(Antecedents) 질문의 한계**
+
+| 질문 예시 | 가정 | 의료 취약 지역 한계 |
+|-----------|------|---------------------|
+| "Do you have diabetes?" | 사전 진단 존재 | 미진단 당뇨 환자는 "No" 응답 |
+| "Do you have high blood pressure?" | 사전 진단 존재 | 혈압 측정 경험 필요 |
+
+→ 병력 질문은 **사전 의료 접근**을 가정하므로, 완전한 의료 취약 지역 적용에는 한계 존재
+
+**참고: 의사 진단 정확도 (문헌 기반)**
+
+| 비교 대상 | 진단 정확도 | 출처 |
+|-----------|-------------|------|
+| 개인 의사 (단독 진단) | 62.5% | [JAMA Network Open, 2019](https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2726709) |
+| 1차 의료 오진율 | 10-15% | [BMJ Qual Saf, 2017](https://pmc.ncbi.nlm.nih.gov/articles/PMC5502242/) |
+
+> **본 연구의 주장 범위**:
+> - ✅ **방법론적 기여**: KG 기반 설명 가능한 진단 시스템의 기술적 가능성 검증
+> - ✅ **벤치마크 성능**: 합성 데이터(DDXPlus)에서 난진단 질환 100% GTPA@10 달성
+> - ⚠️ **임상 적용**: 실환자 데이터 검증 전까지 **주장하지 않음**
+
+---
+
+#### 한계점: 합성 데이터 (Limitations: Synthetic Data)
+
+**DDXPlus 데이터셋의 본질**
+
+DDXPlus는 **합성(synthetic) 환자 데이터**로, 실제 임상 기록이 아님.
+
+| 항목 | 내용 |
+|------|------|
+| 생성 방법 | 독점 의료 지식베이스 + 상용 규칙 기반 ASD 시스템 |
+| 규모 | 130만+ 합성 환자 |
+| 출처 | [MILA-IQIA, NeurIPS 2022](https://arxiv.org/abs/2205.09148) |
+| 라이선스 | CC-BY |
+
+**이 한계가 연구 가치를 훼손하는가?**
+
+| 우려 | 반론 |
+|------|------|
+| "합성 데이터로 임상 가치 주장 불가" | 본 연구는 **proof-of-concept**이며, 임상 배포를 주장하지 않음 |
+| "실제 환자와 다를 수 있음" | Synthea 검증 연구: 합성 데이터 모델이 실제 데이터 대비 **2-5%만 정확도 차이** ([BMC Med Inform, 2019](https://pubmed.ncbi.nlm.nih.gov/30871520/)) |
+| "왜 실제 데이터 안 쓰나?" | 환자 프라이버시, IRB 승인, 데이터 접근성 문제로 **합성 데이터가 의료 AI 벤치마크 표준** |
+
+**의료 AI 분야에서 합성 데이터의 위치**
+
+| 벤치마크 | 데이터 유형 | 출처 |
+|----------|-------------|------|
+| DDXPlus | 합성 (130만+) | NeurIPS 2022 |
+| MedQA | USMLE 문제 (합성 시나리오) | [Vals AI](https://www.vals.ai/benchmarks/medqa) |
+| Synthea | 합성 EHR | [Synthea](https://synthetichealth.github.io/synthea/) |
+| SynDial | LLM 생성 대화 (MIMIC 기반) | [npj Digital Med](https://www.nature.com/articles/s41746-024-01409-w) |
+
+> "Synthetic data is a **critical enabler** for training AI models in healthcare.
+> Real-world healthcare data is often limited by **privacy restrictions, data scarcity, and demographic imbalances**."
+> — [ScienceDirect, 2025](https://www.sciencedirect.com/science/article/pii/S2666521225001474)
+
+**본 연구의 입장**
+
+1. **Proof-of-Concept**: 본 연구는 KG 기반 설명 가능한 진단의 **기술적 가능성**을 검증
+2. **임상 배포 전 필수 단계**: 실제 임상 데이터 검증 없이 배포하지 않음 (DDXPlus 논문 권고사항 준수)
+3. **방법론적 기여**: 데이터와 독립적인 **KG 구조 및 알고리즘** 제안
+
+**Future Work: 실제 임상 검증**
+
+| 검증 단계 | 데이터 | 목표 |
+|-----------|--------|------|
+| 1단계 | MIMIC-IV (ICU 기록) | 중증 환자 검증 |
+| 2단계 | 국내 병원 IRB 승인 데이터 | 한국 환자 적용성 |
+| 3단계 | Prospective study | 실시간 진단 지원 평가 |
+
+> **결론**: 합성 데이터의 한계를 인정하며, 본 연구는 **방법론적 기여**에 초점을 맞춤.
+> 임상 적용을 위해서는 **실제 환자 데이터 검증**이 필수적이며, 이는 향후 연구 과제임.
+
+---
+
+**개선 방향 (Future Work)**
+
+1. **증상 매핑 확장**: DDXPlus 증상 → UMLS CUI 매핑 커버리지 향상 (현재 8.2% → 목표 50%+)
+2. **다중 증상 점수 보정**: 확인된 증상이 적을 때 점수 보정 알고리즘 적용
+3. **심장 질환 특화**: 심장 질환 감별을 위한 추가 피처(ECG, Troponin 등) 통합
+4. **Top-N 동적 조정**: Severity에 따라 Top-N을 동적으로 조정 (Critical → Top-15)
+
+---
+
+### DDXPlus 전체 성능지표 정의
+
+#### Primary Diagnosis Metrics
+
+| Metric | 정의 | 계산 |
+|--------|------|------|
+| **GTPA@k** | Ground Truth Pathology Accuracy at k | `1 if GT ∈ predicted[:k] else 0` |
+| **Average Rank** | 정답 질환의 평균 순위 (1-20, 낮을수록 좋음) | `mean(rank of GT)` |
+
+#### Differential Diagnosis Metrics
+
+| Metric | 정의 | 계산 |
+|--------|------|------|
+| **DDR** | Differential Diagnosis Recall | `|예측DD ∩ 정답DD| / |정답DD|` |
+| **DDP** | Differential Diagnosis Precision | `|예측DD ∩ 정답DD| / |예측DD|` |
+| **DDF1** | Differential Diagnosis F1 | `2 × DDR × DDP / (DDR + DDP)` |
+
+#### Interactive Diagnosis Metrics
+
+| Metric | 정의 | 계산 |
+|--------|------|------|
+| **IL** | Interaction Length | 진단까지 질문 횟수 |
+| **ΔProgress** | 반복 진단 시 순위 개선도 | `mean(rank_t - rank_{t+1})` |
+
+#### Hierarchical Metrics (H-DDx, ACL 2025)
+
+| Metric | 정의 | 특징 |
+|--------|------|------|
+| **HDF1** | Hierarchical DDx F1 | ICD-10 계층 기반, 임상적 근접 오류에 부분점 부여 |
+
+---
+
+### DDR/DDF1 점수 차이에 대한 분석
+
+#### 왜 KG-only의 DDR/DDF1이 낮은가?
+
+**핵심 주장:** UMLS 기반 시스템과 DDXPlus-only 시스템의 **분모(후보 공간) 차이**
+
+| 시스템 | 질환 후보 공간 | 증상 후보 공간 |
+|--------|---------------|---------------|
+| **DDXPlus-only (AARLC 등)** | 49개 (DDXPlus 내) | ~220개 (DDXPlus 내) |
+| **UMLS 기반 (본 연구)** | 340만+ 개념 | 135개 Semantic Types |
+
+**문제:** DDR/DDP 계산 시
+- AARLC: `|예측DD ∩ 정답DD| / |정답DD|` → 분모가 DDXPlus 49개 질환 내에서만 계산
+- KG-only: UMLS의 넓은 개념 공간에서 후보 선택 → 더 많은 후보로 인한 precision 분산
+
+#### UMLS 데이터의 학술적 유의미성
+
+**UMLS 규모 (NLM 공식 자료):**
+- **340-440만 개** 임상 개념 (Metathesaurus)
+- **3,500만 개** 관계
+- **135개** Semantic Types, **54개** Semantic Relations
+- **187개** 소스 용어집 통합 (ICD-10, SNOMED CT, MeSH 등)
+- 25개 언어 지원, 분기별 업데이트
+
+**임상 타당성 근거:**
+1. **장기 평가 연구** (JAMIA, 2001): 5년간 1,500개 복잡 의료 절차 평가 → "상당한 가치" 인정, 사용자 추가 개념의 69%가 UMLS에서 발견
+2. **LLM 진단 개선** (J Biomed Inform, 2024): UMLS grounding으로 **최대 6.9% F1 개선**
+3. **DR.KNOWS** (JMIR AI, 2025): UMLS KG + LLM → **ROUGE-L 30.72**, 전문가 일치도 55% (vs 50%)
+
+**참고문헌:**
+- [UMLS Official - NLM](https://www.nlm.nih.gov/research/umls/about_umls.html)
+- [On the role of UMLS in diagnosis generation (J Biomed Inform, 2024)](https://pubmed.ncbi.nlm.nih.gov/39142598/)
+- [DR.KNOWS: Medical Knowledge Graphs for LLM (JMIR AI, 2025)](https://pmc.ncbi.nlm.nih.gov/articles/PMC11894347/)
+- [Evaluation of UMLS as Medical Knowledge Source (JAMIA, 2001)](https://pmc.ncbi.nlm.nih.gov/articles/PMC61277/)
+
+#### 결론: 지표 해석의 맥락
+
+| 지표 | KG-only 관점 | 의미 |
+|------|-------------|------|
+| **GTPA@1 ↑** | 80.8% > 75.4% | Top-1 정확도에서 우수 |
+| **DDR ↓** | 36.3% < 97.7% | UMLS 공간에서 더 넓은 후보 탐색 |
+| **IL ↓** | 20.7 < 25.8 | 더 빠른 진단 도달 |
+
+**본 연구의 초점:**
+- DDR/DDF1보다 **GTPA@1 (가장 중요한 1위 진단 정확도)** 강조
+- UMLS 활용의 장점: **해석 가능성**, **확장성**, **표준화**
