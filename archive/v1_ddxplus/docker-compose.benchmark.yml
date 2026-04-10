@@ -1,0 +1,162 @@
+services:
+  neo4j-1:
+    image: neo4j:5.26-community
+    container_name: neo4j-bench-1
+    ports:
+      - "7687:7687"
+      - "7474:7474"
+    environment:
+      - NEO4J_AUTH=neo4j/password
+      - NEO4J_dbms_memory_heap_initial__size=2G
+      - NEO4J_dbms_memory_heap_max__size=4G
+      - NEO4J_dbms_memory_pagecache_size=2G
+    volumes:
+      - neo4j_data_1:/data
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:7474"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+  neo4j-2:
+    image: neo4j:5.26-community
+    container_name: neo4j-bench-2
+    ports:
+      - "7688:7687"
+      - "7475:7474"
+    environment:
+      - NEO4J_AUTH=neo4j/password
+      - NEO4J_dbms_memory_heap_initial__size=2G
+      - NEO4J_dbms_memory_heap_max__size=4G
+      - NEO4J_dbms_memory_pagecache_size=2G
+    volumes:
+      - neo4j_data_2:/data
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:7474"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+  neo4j-3:
+    image: neo4j:5.26-community
+    container_name: neo4j-bench-3
+    ports:
+      - "7689:7687"
+      - "7476:7474"
+    environment:
+      - NEO4J_AUTH=neo4j/password
+      - NEO4J_dbms_memory_heap_initial__size=2G
+      - NEO4J_dbms_memory_heap_max__size=4G
+      - NEO4J_dbms_memory_pagecache_size=2G
+    volumes:
+      - neo4j_data_3:/data
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:7474"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+  neo4j-4:
+    image: neo4j:5.26-community
+    container_name: neo4j-bench-4
+    ports:
+      - "7690:7687"
+      - "7477:7474"
+    environment:
+      - NEO4J_AUTH=neo4j/password
+      - NEO4J_dbms_memory_heap_initial__size=2G
+      - NEO4J_dbms_memory_heap_max__size=4G
+      - NEO4J_dbms_memory_pagecache_size=2G
+    volumes:
+      - neo4j_data_4:/data
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:7474"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+  neo4j-5:
+    image: neo4j:5.26-community
+    container_name: neo4j-bench-5
+    ports:
+      - "7691:7687"
+      - "7478:7474"
+    environment:
+      - NEO4J_AUTH=neo4j/password
+      - NEO4J_dbms_memory_heap_initial__size=2G
+      - NEO4J_dbms_memory_heap_max__size=4G
+      - NEO4J_dbms_memory_pagecache_size=2G
+    volumes:
+      - neo4j_data_5:/data
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:7474"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+  neo4j-6:
+    image: neo4j:5.26-community
+    container_name: neo4j-bench-6
+    ports:
+      - "7692:7687"
+      - "7479:7474"
+    environment:
+      - NEO4J_AUTH=neo4j/password
+      - NEO4J_dbms_memory_heap_initial__size=2G
+      - NEO4J_dbms_memory_heap_max__size=4G
+      - NEO4J_dbms_memory_pagecache_size=2G
+    volumes:
+      - neo4j_data_6:/data
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:7474"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+  neo4j-7:
+    image: neo4j:5.26-community
+    container_name: neo4j-bench-7
+    ports:
+      - "7693:7687"
+      - "7480:7474"
+    environment:
+      - NEO4J_AUTH=neo4j/password
+      - NEO4J_dbms_memory_heap_initial__size=2G
+      - NEO4J_dbms_memory_heap_max__size=4G
+      - NEO4J_dbms_memory_pagecache_size=2G
+    volumes:
+      - neo4j_data_7:/data
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:7474"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+  neo4j-8:
+    image: neo4j:5.26-community
+    container_name: neo4j-bench-8
+    ports:
+      - "7694:7687"
+      - "7481:7474"
+    environment:
+      - NEO4J_AUTH=neo4j/password
+      - NEO4J_dbms_memory_heap_initial__size=2G
+      - NEO4J_dbms_memory_heap_max__size=4G
+      - NEO4J_dbms_memory_pagecache_size=2G
+    volumes:
+      - neo4j_data_8:/data
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:7474"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+volumes:
+  neo4j_data_1:
+  neo4j_data_2:
+  neo4j_data_3:
+  neo4j_data_4:
+  neo4j_data_5:
+  neo4j_data_6:
+  neo4j_data_7:
+  neo4j_data_8:

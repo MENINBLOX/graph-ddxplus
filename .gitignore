@@ -17,6 +17,7 @@ data/
 
 # Logs
 *.log
+logs/
 
 # Results (generated)
 results/
@@ -27,4 +28,11 @@ results/
 # Legacy code
 legacy/
 
-# Paper drafts (now tracked for Hantopic submission)
+# External repositories (cloned separately, have their own .git)
+external/
+
+# Claude Code session data
+.claude/
+
+# Temporary files
+tmp.md

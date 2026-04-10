@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fig. 1 — System Overview</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 40px;
+  }
+  .canvas {
+    width: 960px;
+    background: #fff;
+  }
+  .fig-label {
+    font-family: 'Source Serif 4', serif;
+    font-size: 14px;
+    font-weight: 600;
+    color: #444;
+    margin-bottom: 20px;
+  }
+  .fig-label span {
+    font-weight: 400;
+    font-style: italic;
+  }
+  .svg-diagram { width: 100%; display: flex; justify-content: center; }
+  .caption {
+    font-family: 'Source Serif 4', serif;
+    font-size: 12.5px;
+    color: #555;
+    text-align: center;
+    margin-top: 16px;
+    line-height: 1.65;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+</style>
+</head>
+<body>
+
+<div class="canvas">
+  <div class="svg-diagram">
+    <svg width="960" height="1200" viewBox="-60 0 960 1200" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+          <path d="M0,0 L8,3 L0,6 Z" fill="#222"/>
+        </marker>
+        <marker id="arr-dash" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+          <path d="M0,0 L8,3 L0,6 Z" fill="#555"/>
+        </marker>
+      </defs>
+
+      <!-- ===== PHASE LABELS (×2) ===== -->
+      <rect x="40" y="80" width="10" height="700" rx="5" fill="#222" opacity="0.18"/>
+      <text x="26" y="430" font-family="DM Sans" font-size="44" font-weight="700" fill="#333"
+            letter-spacing="0.14em" text-anchor="middle" transform="rotate(-90,26,430)">INQUIRY</text>
+
+      <rect x="40" y="830" width="10" height="340" rx="5" fill="#222" opacity="0.18"/>
+      <text x="26" y="1000" font-family="DM Sans" font-size="44" font-weight="700" fill="#333"
+            letter-spacing="0.14em" text-anchor="middle" transform="rotate(-90,26,1000)">DECISION</text>
+
+      <!-- ===== 1. PATIENT (×1.5) ===== -->
+      <rect x="270" y="15" width="400" height="82" rx="41" fill="#f0f0f0" stroke="#222" stroke-width="3"/>
+      <text x="470" y="68" font-family="DM Sans" font-size="33" font-weight="700" fill="#111" text-anchor="middle">Patient</text>
+
+      <!-- Arrow: Patient → 1st Hop -->
+      <line x1="470" y1="97" x2="470" y2="152" stroke="#222" stroke-width="3" marker-end="url(#arr)"/>
+
+      <!-- ===== 2. 1ST HOP ===== -->
+      <rect x="255" y="162" width="430" height="82" rx="20" fill="#fff" stroke="#222" stroke-width="3"/>
+      <text x="470" y="214" font-family="DM Sans" font-size="30" font-weight="700" fill="#111" text-anchor="middle">1st Hop: Symptom</text>
+
+      <!-- Arrow: 1st Hop → 2nd Hop -->
+      <line x1="470" y1="244" x2="470" y2="348" stroke="#222" stroke-width="3" marker-end="url(#arr)"/>
+
+      <!-- ===== 3. 2ND HOP ===== -->
+      <rect x="255" y="358" width="430" height="82" rx="20" fill="#fff" stroke="#222" stroke-width="3"/>
+      <text x="470" y="410" font-family="DM Sans" font-size="30" font-weight="700" fill="#111" text-anchor="middle">2nd Hop: Disease</text>
+
+      <!-- Arrow: 2nd Hop → Ask -->
+      <line x1="470" y1="440" x2="470" y2="508" stroke="#222" stroke-width="3" marker-end="url(#arr)"/>
+
+      <!-- ===== 4. ASK PATIENT ===== -->
+      <rect x="270" y="518" width="400" height="78" rx="39" fill="#e8e8e8" stroke="#222" stroke-width="3"/>
+      <text x="470" y="568" font-family="DM Sans" font-size="32" font-weight="700" fill="#111" text-anchor="middle">Ask Patient</text>
+
+      <!-- Arrow: Ask → Split -->
+      <line x1="470" y1="596" x2="470" y2="636" stroke="#222" stroke-width="2.5"/>
+
+      <!-- ===== 5. YES / NO SPLIT ===== -->
+      <!-- Left: Yes -->
+      <line x1="470" y1="636" x2="320" y2="636" stroke="#222" stroke-width="2.5"/>
+      <line x1="320" y1="636" x2="320" y2="670" stroke="#222" stroke-width="2.5" marker-end="url(#arr)"/>
+      <rect x="218" y="680" width="204" height="72" rx="14" fill="#fff" stroke="#222" stroke-width="3"/>
+      <text x="320" y="726" font-family="DM Sans" font-size="30" font-weight="700" fill="#111" text-anchor="middle">Yes (+)</text>
+
+      <!-- Right: No -->
+      <line x1="470" y1="636" x2="620" y2="636" stroke="#222" stroke-width="2.5"/>
+      <line x1="620" y1="636" x2="620" y2="670" stroke="#222" stroke-width="2.5" marker-end="url(#arr)"/>
+      <rect x="518" y="680" width="204" height="72" rx="14" fill="#d9d9d9" stroke="#222" stroke-width="3"/>
+      <text x="620" y="726" font-family="DM Sans" font-size="30" font-weight="700" fill="#111" text-anchor="middle">No (−)</text>
+
+      <!-- Merge -->
+      <line x1="320" y1="752" x2="320" y2="778" stroke="#222" stroke-width="2.5"/>
+      <line x1="620" y1="752" x2="620" y2="778" stroke="#222" stroke-width="2.5"/>
+      <line x1="320" y1="778" x2="620" y2="778" stroke="#222" stroke-width="2.5"/>
+      <line x1="470" y1="778" x2="470" y2="830" stroke="#222" stroke-width="3" marker-end="url(#arr)"/>
+
+      <!-- ===== 6. STOPPING CRITERIA ===== -->
+      <rect x="255" y="840" width="430" height="76" rx="14" fill="#e8e8e8" stroke="#222" stroke-width="3"/>
+      <text x="470" y="888" font-family="DM Sans" font-size="29" font-weight="700" fill="#111" text-anchor="middle">Stopping Criteria</text>
+
+      <!-- NOT MET → Loop back -->
+      <line x1="685" y1="878" x2="770" y2="878" stroke="#555" stroke-width="2.5"/>
+      <text x="726" y="860" font-family="DM Sans" font-size="30" fill="#333" font-weight="700" text-anchor="middle">No</text>
+      <line x1="770" y1="878" x2="770" y2="142" stroke="#555" stroke-width="2.5" stroke-dasharray="12,6"/>
+      <line x1="770" y1="142" x2="482" y2="142" stroke="#555" stroke-width="2.5" stroke-dasharray="12,6" marker-end="url(#arr-dash)"/>
+
+      <!-- ITERATE label on loop -->
+      <text x="794" y="530" font-family="DM Sans" font-size="30" font-weight="700" fill="#333"
+            letter-spacing="0.12em" text-anchor="middle" transform="rotate(90,794,530)">ITERATE</text>
+
+      <!-- MET → Scoring -->
+      <line x1="470" y1="916" x2="470" y2="978" stroke="#222" stroke-width="3" marker-end="url(#arr)"/>
+      <text x="500" y="960" font-family="DM Sans" font-size="30" fill="#333" font-weight="700">Yes</text>
+
+      <!-- ===== 7. DIAGNOSTIC SCORING ===== -->
+      <rect x="240" y="988" width="460" height="76" rx="16" fill="#fff" stroke="#222" stroke-width="3"/>
+      <text x="470" y="1036" font-family="DM Sans" font-size="29" font-weight="700" fill="#111" text-anchor="middle">Diagnostic Scoring</text>
+
+      <!-- Arrow: Scoring → Output -->
+      <line x1="470" y1="1064" x2="470" y2="1098" stroke="#222" stroke-width="3" marker-end="url(#arr)"/>
+
+      <!-- ===== 8. OUTPUT ===== -->
+      <rect x="150" y="1108" width="640" height="72" rx="16" fill="#f0f0f0" stroke="#222" stroke-width="3"/>
+      <text x="470" y="1154" font-family="DM Sans" font-size="30" font-weight="700" fill="#111" text-anchor="middle">Ranked Differential Diagnosis</text>
+
+    </svg>
+  </div>
+
+  <p class="caption">
+    <strong>Fig. 1.</strong> Overview of the 2-hop knowledge graph exploration system for automatic differential diagnosis.
+    All operations are performed on a UMLS-based knowledge graph stored in Neo4j.
+    In the <em>inquiry phase</em>, confirmed symptoms retrieve candidate diseases from the knowledge graph (1st hop),
+    and these candidate diseases generate the next symptom to ask the patient (2nd hop).
+    The patient responds Yes (+), adding a confirmed symptom, or No (−), adding a denied symptom.
+    This cycle repeats (dashed line) until the <em>stopping criteria</em> are met — the top-3 ranked diagnoses remain unchanged for <em>n</em> consecutive turns.
+    In the <em>decision phase</em>, the evidence ratio scoring function ranks all candidate diseases based on accumulated confirmed and denied symptoms,
+    producing the final ranked differential diagnosis.
+  </p>
+</div>
+
+</body>
+</html>

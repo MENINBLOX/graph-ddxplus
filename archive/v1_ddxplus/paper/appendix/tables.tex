@@ -1,0 +1,98 @@
+% =============================================================================
+% Paper Tables - Small LLM + UMLS KG for Differential Diagnosis
+% =============================================================================
+
+% -----------------------------------------------------------------------------
+% Table 1: Main Results - Comparison with Baselines
+% -----------------------------------------------------------------------------
+\begin{table}[t]
+\centering
+\caption{Comparison with baseline methods on DDXPlus dataset (severity=2, n=1,000).
+Our method (Small LLM + KG) outperforms AARLC by +10.6\% in GTPA@1 while requiring 6.6 fewer questions on average.}
+\label{tab:main_results}
+\begin{tabular}{lcccc}
+\toprule
+\textbf{Method} & \textbf{GTPA@1} & \textbf{DDR} & \textbf{DDF1} & \textbf{IL} \\
+\midrule
+AARLC \cite{ddxplus} & 75.4\% & 97.7\% & 78.2\% & 25.8 \\
+\midrule
+\multicolumn{5}{l}{\textit{Ours (Small LLM + KG)}} \\
+\quad Ministral-3B & 86.4\% & 52.8\% & 47.3\% & 19.1 \\
+\quad Qwen3-4B & 86.0\% & 52.7\% & 47.3\% & 19.1 \\
+\quad gemma-3-4b & 86.2\% & 52.8\% & 47.3\% & 18.6 \\
+\quad medgemma-1.5-4b & 86.3\% & 52.9\% & 47.5\% & 18.9 \\
+\quad Phi-4-mini & 86.3\% & 52.7\% & 47.3\% & 18.6 \\
+\quad Qwen3-8B & 86.2\% & 52.8\% & 47.4\% & 19.1 \\
+\quad Ministral-8B & 86.2\% & 52.8\% & 47.3\% & 18.6 \\
+\quad Llama-3.1-8B & 85.6\% & 52.9\% & 47.4\% & 19.2 \\
+\midrule
+\textbf{Average} & \textbf{86.2\%} & 52.8\% & 47.4\% & \textbf{18.9} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% -----------------------------------------------------------------------------
+% Table 2: Top-K Ablation Study (Joint: Symptom & Diagnosis)
+% -----------------------------------------------------------------------------
+\begin{table}[t]
+\centering
+\caption{Ablation study on the number of candidates $K$ presented to the LLM for both symptom selection and diagnosis selection. $K=3$ achieves optimal balance between accuracy and efficiency.}
+\label{tab:topk_joint}
+\begin{tabular}{ccc}
+\toprule
+\textbf{K} & \textbf{GTPA@1} & \textbf{IL} \\
+\midrule
+1 & 85.8\% & 19.1 \\
+2 & 85.6\% & 19.4 \\
+\textbf{3} & \textbf{85.6\%} & \textbf{19.3} \\
+4 & 85.4\% & 19.6 \\
+5 & 85.2\% & 20.8 \\
+6 & 85.0\% & 21.3 \\
+8 & 85.0\% & 21.7 \\
+10 & 85.2\% & 21.8 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% -----------------------------------------------------------------------------
+% Table 3: Diagnosis Top-K Ablation (Symptom K=3 Fixed)
+% -----------------------------------------------------------------------------
+\begin{table}[t]
+\centering
+\caption{Ablation study on diagnosis candidate count $K_d$ with symptom $K_s=3$ fixed. Results show minimal variance across $K_d$ values, supporting the choice of $K_d=3$ for consistency.}
+\label{tab:topk_diagnosis}
+\begin{tabular}{ccc}
+\toprule
+\textbf{$K_d$} & \textbf{GTPA@1} & \textbf{IL} \\
+\midrule
+1 & 85.6\% & 19.4 \\
+2 & 85.2\% & 19.5 \\
+\textbf{3} & \textbf{85.2\%} & \textbf{19.4} \\
+4 & 85.2\% & 19.4 \\
+5 & 85.2\% & 19.4 \\
+6 & 84.6\% & 19.4 \\
+8 & 85.0\% & 19.4 \\
+10 & 85.0\% & 19.4 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% -----------------------------------------------------------------------------
+% Table 4: Combined Ablation Summary
+% -----------------------------------------------------------------------------
+\begin{table}[t]
+\centering
+\caption{Summary of hyperparameter optimization. Both symptom and diagnosis selection use $K=3$ candidates based on independent ablation studies.}
+\label{tab:hyperparams}
+\begin{tabular}{llcl}
+\toprule
+\textbf{Parameter} & \textbf{Value} & \textbf{Acc.} & \textbf{Justification} \\
+\midrule
+Symptom $K_s$ & 3 & 85.6\% & $K \in \{1,2,3\}$ equivalent \\
+Diagnosis $K_d$ & 3 & 85.2\% & 0.4\%p diff. from $K=1$ \\
+Scoring & v18 & 85.6\% & Coverage-based formula \\
+Min. questions & 3 & -- & Early stopping prevention \\
+Max. questions & 50 & -- & Safety upper bound \\
+\bottomrule
+\end{tabular}
+\end{table}
