@@ -33,6 +33,7 @@ external/
 
 # Claude Code session data
 .claude/
+CLAUDE.md
 
 # Temporary files
 tmp.md
