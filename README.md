@@ -536,12 +536,13 @@ DDXPlus 56.2% → 80% 목표를 위한 추가 실험:
 - α=0.5 균형: @1=47.9% (악화)
 - LLM이 dominant signal; Bayesian 추가 marginal effect
 
-**v54 (per-candidate scoring 0-100 fine scale, 30K 평가 완료)**:
+**v54 (per-candidate scoring 0-100 fine scale, full 134K 평가 완료)**:
 - v50의 0-9 scale 대신 0-100 percentage 사용
 - finer granularity로 ties 감소, LLM이 분포 더 잘 활용
-- **GTPA@1 = 60.9%** (NEW BEST, +1.8%p over v50)
-- @3 = 81.1%, @5 = 85.0%
-- 60% 이상 달성!
+- **GTPA@1 = 60.4%** (full 134K, 최종 확정, +4.2%p over v17)
+- @3 = 81.1%, @5 = 84.5%
+- 30K subset: 60.9% (variance ±0.5%p)
+- 60% 이상 달성
 
 **v55 (v54 + Bayesian 가중 결합, 5K 평가)**:
 - α=1.0 (v54 only): @1=60.4%
@@ -559,13 +560,13 @@ DDXPlus 56.2% → 80% 목표를 위한 추가 실험:
 - LLM이 reasoning을 score에 반영하나 dramatic 차이 없음
 
 **핵심 결론** (DDXPlus 평가 기준):
-- v54 (per-candidate scoring 0-100) 가 최고: **GTPA@1 = 60.9%** (30K)
-- @3 = 81.1% (top-3에 정답 포함), @5 = 85.0%
-- 80% 목표 (@1) 달성 못함 → 19.1%p 격차
+- v54 (per-candidate scoring 0-100) 가 최고: **GTPA@1 = 60.4%** (full 134K, 최종)
+- @3 = 81.1%, @5 = 84.5%
+- 80% 목표 (@1) 달성 못함 → 19.6%p 격차
 - list pick보다 per-candidate scoring이 +1.2%p
 - 0-100 fine scale이 0-9 coarse scale보다 +1.8%p
 - 후보 비교 시 anchoring bias가 LLM 선택 정확도 저하시킴
-- v50 + Bayesian 결합 (α=0.9)도 marginal 효과만
+- v50/v54 + Bayesian 결합도 marginal 효과만
 
 **80% 달성을 막는 구조적 한계**:
 - KG top10 recall = 86.5% (이론적 상한)
@@ -587,7 +588,8 @@ DDXPlus 56.2% → 80% 목표를 위한 추가 실험:
 | v52 (two-stage v50→v28) | 5K | 58.3% | 80.7% | - | stage2 효과 없음 |
 | v50 (per-candidate 0-9 score) | 30K | 59.1% | 79.8% | 83.8% | scoring 효과 |
 | v53 (v50 + Bay α=0.9) | 5K | 59.0% | 80.8% | 85.6% | marginal 결합 |
-| **v54 (per-candidate 0-100 score)** | **30K** | **60.9%** | **81.1%** | **85.0%** | **BEST** |
+| v54 (per-candidate 0-100 score) | 30K | 60.9% | 81.1% | 85.0% | scale 효과 |
+| **v54 (per-candidate 0-100 score)** | **134K** | **60.4%** | **81.1%** | **84.5%** | **FINAL BEST** |
 
 주요 발견:
 - 초록 500편이 최적 (2000편은 노이즈 증가로 하락)
