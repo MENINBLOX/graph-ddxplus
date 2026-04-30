@@ -548,6 +548,11 @@ DDXPlus 56.2% → 80% 목표를 위한 추가 실험:
 - α=0.9 (LLM 90% + Bay 10%): @1=59.8%
 - v54 단독이 최고; Bayesian 결합 효과 없음
 
+**v56 (구조화된 평가 기준 prompt, 5K 평가)**:
+- prompt에 "symptom match + demographic fit + symptom pattern" criteria 추가
+- @1=59.7% (v54와 비슷, 효과 marginal)
+- 구조화된 criteria도 큰 효과 없음 — LLM이 이미 implicit하게 모두 고려
+
 **핵심 결론** (DDXPlus 평가 기준):
 - v54 (per-candidate scoring 0-100) 가 최고: **GTPA@1 = 60.9%** (30K)
 - @3 = 81.1% (top-3에 정답 포함), @5 = 85.0%
