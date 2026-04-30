@@ -559,6 +559,11 @@ DDXPlus 56.2% → 80% 목표를 위한 추가 실험:
 - @1=60.1% (v54 5K=59.6%와 거의 동일)
 - LLM이 reasoning을 score에 반영하나 dramatic 차이 없음
 
+**v58 (self-consistency, temperature=0.5, n=5 samples 평균, 5K 평가)**:
+- 각 (patient, candidate) 쌍을 5번 sample → 평균 score
+- @1=58.8% (v54 5K=59.6%보다 나쁨)
+- Temperature 노이즈가 정확도 저하 → deterministic (temp=0) 이 최적
+
 **핵심 결론** (DDXPlus 평가 기준):
 - v54 (per-candidate scoring 0-100) 가 최고: **GTPA@1 = 60.4%** (full 134K, 최종)
 - @3 = 81.1%, @5 = 84.5%
