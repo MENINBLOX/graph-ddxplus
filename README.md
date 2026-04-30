@@ -553,6 +553,11 @@ DDXPlus 56.2% → 80% 목표를 위한 추가 실험:
 - @1=59.7% (v54와 비슷, 효과 marginal)
 - 구조화된 criteria도 큰 효과 없음 — LLM이 이미 implicit하게 모두 고려
 
+**v57 (brief reasoning + score, CoT-lite, 5K 평가)**:
+- "Match: <one sentence> Score: <0-100>" 형식
+- @1=60.1% (v54 5K=59.6%와 거의 동일)
+- LLM이 reasoning을 score에 반영하나 dramatic 차이 없음
+
 **핵심 결론** (DDXPlus 평가 기준):
 - v54 (per-candidate scoring 0-100) 가 최고: **GTPA@1 = 60.9%** (30K)
 - @3 = 81.1% (top-3에 정답 포함), @5 = 85.0%
