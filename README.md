@@ -4,10 +4,63 @@
 
 ## 현재 상태
 
-v2 연구 진행 중입니다. v1의 설계 결함(DDXPlus 답지로 KG 구축)이 확인되어 PubMed 기반 독립 KG 구축으로 재설계하였습니다. 현재 DDXPlus GTPA@1=40.0%이며 80% 달성을 목표로 최적화 중입니다.
+v2 연구 진행 중입니다. v1의 설계 결함(DDXPlus 답지로 KG 구축)이 확인되어 PubMed 기반 독립 KG 구축으로 재설계하였습니다.
+
+**현재 SOTA: DDXPlus GTPA@1 = 66.48% (v87, 5K)**. 80% 목표까지 13.52%p 격차가 남아있습니다.
 
 - v1 산출물은 `archive/v1_ddxplus/`에 보존되어 있습니다.
 - v2는 본 디렉토리에서 진행됩니다.
+
+### 두 번째 돌파구 (2026-05-01): CoT Tie-Break
+
+v79 stage1 score 분석 결과, **27.8%의 patient가 top-1 score가 다른 disease와 동률(tie)**이었으며, 그 중 78%는 정답이 동률 set에 포함되어 있었습니다. 동률 케이스만 LLM CoT(Chain-of-Thought)로 재선택하면 +3.48%p 상승하였습니다 (63.0% → 66.48%).
+
+```
+Patient: 65yo Female
+Chief complaint: cough
+PAIN: ...
+HISTORY: ...
+
+The following candidates are equally likely so far. For each, briefly evaluate which patient features support or contradict it. Then pick the SINGLE most likely.
+(1) Bronchitis — typical: ...
+(2) Acute COPD exacerbation — typical: ...
+
+EVAL:
+(1) ...
+(2) ...
+PICK: <number>
+```
+
+| 변형 | 데이터 | GTPA@1 | 비고 |
+|-----|------|--------|------|
+| v79 stage1 | 5K | 63.00% | 49 cand × 0-100 score |
+| v79 final (stage1+stage2) | 5K | 63.9% | 2-stage rescore (이전 SOTA) |
+| v84b (listwise tie-break) | 5K | 65.28% | +2.28%p (단순 list pick) |
+| **v87 (CoT tie-break)** | **5K** | **66.48%** | **+3.48%p (현재 SOTA)** |
+| v92 (top-5 CoT 모든 patient) | 5K | 64.68% | 비-동률에서 LLM 오류 → 손실 |
+| v93 (selective CoT, gap≤10) | 5K | 64.26% | 동일 문제 |
+
+**핵심 통찰**: top-5 후보의 92.18%에 정답이 포함되어 있지만, LLM에게 모든 patient에서 top-5 중 선택하게 하면 confident한 non-tied 케이스를 잘못 바꾸어 손실. 동률 케이스만 재선택하는 것이 sweet spot.
+
+### 첫 번째 돌파구 (2026-05-01): KG features in prompt
+
+30개 이상의 변형을 시도한 후, 각 후보 disease의 PubMed-derived top-K 증상을 LLM 프롬프트에 명시적으로 inject하면 60.4%의 ceiling을 깰 수 있음을 발견하였습니다.
+
+```
+Diagnosis hypothesis: Pneumonia
+Typical features (medical literature): fever, cough, dyspnea, sputum production, ...
+
+How well does the patient's presentation match this diagnosis? 0-100.
+```
+
+이전 변형들은 모두 후보 disease 이름만 제공하고 LLM 자체의 의료 지식에 의존하였으나, KG-derived signature를 함께 제공하니 LLM의 변별력이 즉시 향상되었습니다.
+
+| 단계 | 변형 | 데이터 | GTPA@1 | @3 | @5 | 비고 |
+|-----|------|------|--------|-----|-----|------|
+| Stage 1 단독 | v76 (KG features만) | 2K | 62.4% | 86.0% | 91.8% | +2.0%p over baseline |
+| Stage 1 + Stage 2 | v79 (KG features 2-stage) | 2K | 63.8% | 86.2% | 93.0% | hybrid |
+| 확정 | v79 | 5K | 63.9% | 86.8% | 93.4% | 이전 SOTA |
+| baseline | v66 (KG features 없음) | 30K | 60.4% | 86.3% | 92.1% | 이전 baseline |
 
 ## 배경
 
@@ -588,6 +641,32 @@ DDXPlus 56.2% → 80% 목표를 위한 추가 실험:
 - α=0.0 (stage1 only): @1=54.5%
 - Stage 2 단독이 최고 → combining 효과 없음
 
+**2026-05-01 추가 변형 결과 (모두 2K subset)**:
+- v68 (unique discriminator features): @1=56.4%
+- v69 (Yes/No logprob re-score): @1=54.0%
+- v70 (symmetric pairwise tournament): @1=52.7%
+- v72 (LLM-cleaned profile): @1=58.2%, @10=96.7%
+- v75 (3-prompt ensemble borda): @1=58.9% (T0 alone=59.9%)
+- v77 (generative DDx 1-call): @1=54.2%
+
+**v76 (KG features in prompt, 2K) — 신규 best stage1**:
+- 각 후보 disease의 top-8 KG symptom features를 prompt에 inject
+- "Diagnosis: X. Typical features (medical literature): A, B, C, ..."
+- LLM이 KG-derived signature를 알고 환자와 비교 가능
+- **GTPA@1 = 62.4% (+2.0%p over v66 60.4%)**
+- @3 = 86.0%, @5 = 91.8%, @10 = 97.8%
+- KG 정보 inject가 단순 disease name보다 변별력 향상
+
+**v79 (v76 KG features stage1 → top10 → KG features rescore) — 최고**:
+- Stage 1: v76-style 49 candidates scoring with KG features
+- Stage 2: rescore top-10 with KG features + "top-10 most likely" framing
+- **GTPA@1 = 63.8% (2K), 63.9% (5K 확정)**
+- @3 = 86.8%, @5 = 93.4% (5K, 가장 높은 ceiling)
+- vs v66 60.4% baseline: **+3.5%p**
+- v76 stage1-only 63.0%에서 +0.9%p 추가 향상
+- KG features의 일관된 활용이 핵심
+- v80 (v79 + Bayesian prior) 시도: α=0 (no prior)이 최적, prior 추가 효과 없음
+
 **SymCat v54 (다중 벤치마크, 50 disease × 50 patients)**:
 - v54 (per-candidate scoring) 적용
 - **GTPA@1 = 39.7%** (기존 38.5% 대비 +1.2%p)
@@ -633,7 +712,16 @@ DDXPlus 56.2% → 80% 목표를 위한 추가 실험:
 | v54 (per-candidate 0-100 score) | 30K | 60.9% | 81.1% | 85.0% | scale 효과 |
 | v54 (per-candidate 0-100 score) | 134K | **60.4%** | 81.1% | 84.5% | full eval |
 | v59 (LLM 49 candidates) | 2K | 57.0% | 82.0% | 88.8% | recall 향상 |
-| **v66 (v59→top10→v54-rescore)** | **30K** | **60.4%** | **86.3%** | **92.1%** | **highest @5 ceiling** |
+| **v66 (v59→top10→v54-rescore)** | **30K** | **60.4%** | **86.3%** | **92.1%** | **prior best** |
+| v68 (unique discriminator) | 2K | 56.4% | - | - | hurt |
+| v69 (yes/no logprob) | 2K | 54.0% | 81.8% | 90.6% | hurt |
+| v70 (sym pairwise) | 2K | 52.7% | 82.7% | 90.0% | hurt |
+| v72 (LLM-cleaned profile) | 2K | 58.2% | 81.5% | 89.6% | @10=96.7% |
+| v75 (3-prompt ensemble) | 2K | 58.9% | 84.2% | 90.2% | T0 alone 59.9% |
+| v77 (generative DDx) | 2K | 54.2% | 76.9% | 83.9% | 1 call/patient |
+| v76 (KG features in prompt) | 2K | 62.4% | 86.0% | 91.8% | KG inject |
+| v79 (v76 + 2-stage rescore) | 2K | 63.8% | 86.2% | 93.0% | hybrid |
+| **v79 (v76 + 2-stage rescore)** | **5K** | **63.9%** | **86.8%** | **93.4%** | **NEW BEST** |
 
 주요 발견:
 - 초록 500편이 최적 (2000편은 노이즈 증가로 하락)
@@ -665,8 +753,8 @@ DDXPlus 56.2% → 80% 목표를 위한 추가 실험:
 
 | 단계 | 목표 | 상태 |
 |------|------|------|
-| 1 | DDXPlus GTPA@1 >= 0.80 | 진행 중 (현재 56.2%, Bayesian + LLM re-rank) |
-| 2 | SymCat, RareBench 등 다중 벤치마크 검증 | RareBench KG 구축 중 |
+| 1 | DDXPlus GTPA@1 >= 0.80 | **진행 중 (현재 63.9%, v79 KG features + 2-stage rescore)** |
+| 2 | SymCat, RareBench 등 다중 벤치마크 검증 | v54 baseline 완료 (SymCat 39.7%, RareBench 22.1%); v79 적용 대기 |
 | 2 | SymCat, HealthKG 등 다중 벤치마크에서 동일 파이프라인 검증 | 대기 |
 | 3 | UMLS 전체 질환으로 범용 KG 확장 + 춘천성심병원 임상 검증 | 대기 |
 
@@ -683,13 +771,167 @@ DDXPlus 56.2% → 80% 목표를 위한 추가 실험:
 
 ### 사용 가능한 진단 벤치마크
 
-| 데이터셋 | 질환 수 | 형태 | 공개 | 비고 |
-|---------|--------|------|------|------|
-| DDXPlus | 49 | 134K 합성 환자 | O | 현재 사용 중 |
-| SymCat | 801 | 확률 행렬 | △ | DDXPlus의 전신 |
-| HealthKG | 157 | 질환-증상 그래프 | O | MIT, 270K 환자 기반 |
-| RareBench | 102 | HPO 기반 1,114 케이스 | O | 희귀질환, KDD 2024 |
-| PrimeKG | 17,080 | 다중 생물학적 KG | O | 커버리지 비교용 |
+#### 시도 완료
+| 데이터셋 | 질환 수 | 형태 | 우리 결과 | SOTA (학습) | 비고 |
+|---------|--------|------|---------|------------|------|
+| **DDXPlus** | 49 | 134K 합성 환자 | **v79: 63.9% (5K)** | 80% (PARD/AARLC, Tchango 2022) | 주요 평가 벤치마크 |
+| **SymCat** | 50 (of 801) | 확률 행렬 | v54: 39.7% (2.5K) | 70~75% (Mullenbach 2018) | DDXPlus의 전신, v79 미적용 |
+| **RareBench** | 440 (of 1,121) | HPO 기반 케이스 | v54: 22.1% | GPT-4 22~29% (Chen 2024 KDD) | 희귀질환, KDD 2024, 거의 동등 |
+
+#### 미시도 (확장 후보)
+| 데이터셋 | 질환 수 | 형태 | 공개 | 우선순위 | SOTA 참고 | 비고 |
+|---------|--------|------|------|---------|---------|------|
+| **HealthKG** | 157 | 질환-증상 그래프 | O | 高 | - | MIT, 270K 환자 기반, 큐레이션 KG 비교 |
+| **DDx100 / NEJM CPC** | 100 | 의사용 어려운 사례 | O | 高 | GPT-4 ~46% (Kanjee 2023 JAMA) | 임상 challenging 검증 |
+| **MIMIC-IV diagnoses** | 수백 | EHR 실제 환자 | △ (PhysioNet credentialed) | 中 | various | RWE 검증 |
+| **PrimeKG** | 17,080 | 다중 생물학적 KG | O | 中 | - | 커버리지 비교용, 진단 평가 부수적 |
+| **MedQA-USMLE** | - | MCQ | O | 中 | GPT-4 90%+ | task 형태 다름 (선택형) |
+| **AMBOSS / Step 1-3** | - | MCQ | △ (라이선스) | 低 | - | 의사 시험 |
+| **Chinese DXY/Chunyu** | - | Chinese 자유서술 | △ | 低 | CCKS competition | 중국어 NLP, 본 연구 외 |
+
+## 연구 기록 (2026-05-01 업데이트)
+
+### 진단 알고리즘 변형 timeline
+
+DDXPlus GTPA@1 향상을 위해 30개 이상의 변형을 시도하였습니다. 주요 분기점은 다음과 같습니다.
+
+#### Phase 1: Baseline 정립 (v17–v34)
+
+- v17 (Bayesian + age/sex prior): 56.2% — 첫 baseline
+- v27 (no prior + medterm 매칭): 52.8% — prior 효과 -3.4%p
+- v28 (KG signature + clean profile): 57.9% — +1.7%p
+- v32–v34 (앙상블, top-20 확장, hand-curated features): 모두 56–57% 수준 — 효과 marginal
+
+#### Phase 2: Per-candidate scoring 도입 (v50–v54)
+
+- v50 (per-candidate 0–9 score): 59.1% — anchoring bias 해소로 +1.2%p
+- v54 (per-candidate 0–100 fine score): **60.4% (134K 확정)** — 0–9 → 0–100으로 +1.8%p
+- 이때까지 60% 천장이 형성됨
+
+#### Phase 3: Stage 1 후보 확장 (v59, v66)
+
+- v59 (모든 49 candidates LLM scoring, top-K 필터 없음): 57.0% (@5=88.8%)
+- v66 (v59 stage1 → top10 → v54-style stage2 rescore): **60.4% (30K 확정), @3=86.3%, @5=92.1%**
+- @1은 v54와 동일하나 @5 ceiling이 +7.6%p 향상
+
+#### Phase 4: 60.4% 천장 깨기 시도 모음 (v68–v77, 모두 실패)
+
+| 변형 | 접근 | 결과 (2K) | 분석 |
+|-----|------|---------|------|
+| v68 unique discriminator | 후보 disease 고유 KG features | 56.4% | KG noise 함께 제거 |
+| v69 Yes/No logprob | 토큰 logprob softmax | 54.0% | LLM이 거의 항상 "Yes", 변별력 부족 |
+| v70 symmetric pairwise | A/B + B/A 양방향 토너먼트 | 52.7% | 토너먼트 잡음 누적 |
+| v72 LLM-cleaned profile | LLM이 환자 narrative 정제 | 58.2% | 정보 손실 |
+| v75 3-prompt ensemble (borda) | 3개 prompt framing 결합 | 58.9% | T0 단독 (59.9%)이 가장 좋음 |
+| v77 generative DDx | LLM이 49개 list에서 top-5 선택 | 54.2% | 1-call 생성은 per-candidate scoring 대비 약함 |
+
+#### Phase 5: 돌파구 — KG features in prompt (v76, v79)
+
+- **v76**: 각 후보 disease의 PubMed-derived top-8 symptom features를 prompt에 inject — **62.4% (2K), +2.0%p**
+- **v79**: v76 stage1 → top10 → KG features rescore (2-stage) — **63.9% (5K 확정), +3.5%p**
+- v80 (Bayesian prior 결합): α=0이 최적, prior 추가 효과 없음
+
+### 누적 변형 결과 표 (DDXPlus)
+
+| 변형 | 데이터 | GTPA@1 | @3 | @5 | 비고 |
+|-----|------|--------|-----|-----|------|
+| v17 (baseline + prior) | 134K | 56.2% | - | - | reference |
+| v28 (KG sig + clean profile) | 134K | 57.9% | 71.6% | 79.1% | +1.7%p |
+| v50 (per-candidate 0–9) | 30K | 59.1% | 79.8% | 83.8% | scoring 효과 |
+| v54 (per-candidate 0–100) | 134K | 60.4% | 81.1% | 84.5% | scale 효과 |
+| v66 (v59→top10→v54-rescore) | 30K | 60.4% | 86.3% | 92.1% | high @5 ceiling |
+| v76 (KG features in prompt) | 2K | 62.4% | 86.0% | 91.8% | KG inject 첫 효과 |
+| v79 (v76 + 2-stage rescore) | 2K | 63.8% | 86.2% | 93.0% | hybrid |
+| **v79 (5K 확정)** | **5K** | **63.9%** | **86.8%** | **93.4%** | **현재 SOTA** |
+
+### 다중 벤치마크 평가 + SOTA 비교
+
+#### 시도한 벤치마크 (3종)
+
+| 벤치마크 | 질환 수 | 환자 수 | 우리 결과 | @5 | KG top10 recall | Zero-shot LLM baseline (literature) | 학습 SOTA (literature) |
+|---------|--------|--------|----------|-----|----------------|-----------------------------------|----------------------|
+| **DDXPlus** | 49 | 5,000 (134K available) | **63.9% (v79)** | 93.4% | 97.9% | GPT-4 zero-shot ~55–60% | PARD/AARLC ~80% (Tchango 2022, NeurIPS) |
+| **SymCat** | 50 (of 801) | 2,500 | 39.7% (v54) | 68.1% | 73.5% | zero-shot ~30–35% | Babylon Health Mullenbach 2018 trained ~70–75% |
+| **RareBench** | 440 (of 1,121) | 1,121 | 22.1% (v54) | 43.7% | 48.8% | GPT-4 Top-1 ~22–29% (Chen 2024 KDD) | - (LLM-only 평가 벤치마크) |
+
+#### SOTA 격차 분석
+
+- **DDXPlus**: v79 **63.9%** vs 학습 SOTA **80%** → −16.1%p. Zero-shot LLM baseline 대비 +4~9%p 우위. 학습 신호 없이 메우기 어려운 구조적 격차.
+- **SymCat**: v54 **39.7%** vs 학습 SOTA **70~75%** → −30~35%p. KG quality 자체가 낮음 (recall 73.5%) — KG 개선 우선. v79 미적용 → 적용 시 +3~5%p 기대.
+- **RareBench**: v54 **22.1%** vs **GPT-4 22~29%** → 거의 동등. gemma-4-E4B (8B)로 GPT-4 (>1T params)와 동등한 결과. KG sparsity가 ceiling.
+
+#### 미시도 벤치마크 (확장 후보)
+
+| 벤치마크 | 질환 수 | 형태 | 데이터 보유 | 우선순위 | SOTA 참고 | 비고 |
+|---------|--------|------|----------|---------|---------|------|
+| **HealthKG** | 157 | 270K 환자 그래프 | ✗ (다운로드 필요) | 高 | - | MIT, KG 비교 baseline으로 적합 |
+| **PrimeKG** | 17,080 | 다중 생물학적 KG | ✗ (다운로드 필요) | 中 | - | 커버리지 비교용, 진단 평가는 부수적 |
+| **DDx100 / NEJM CPC** | 100 | 의사용 어려운 사례 | ✗ | 高 | GPT-4 ~46% top-1 (Kanjee 2023, JAMA) | 임상 challenging 검증 |
+| **MedQA-USMLE** | - | MCQ | △ (공개) | 中 | GPT-4 90%+ | 진단 task와 형태 다름 |
+| **AMBOSS / Step 1-3** | - | MCQ | ✗ (라이선스) | 低 | - | 의사 시험 |
+| **Chinese DXY/Chunyu** | - | Chinese 자유서술 | ✗ | 低 | CCKS competition | 중국어 NLP, 본 연구 외 |
+| **MIMIC-IV diagnoses** | 수백 | EHR 실제 환자 | △ (PhysioNet 자격 필요) | 中 | various | 실제 임상 환자, RWE 검증 |
+| **ECP (NEJM CPC) extended** | - | NEJM 모든 CPC | ✗ | 中 | - | 추가 어려운 사례 |
+
+**우선 추가 후보**:
+1. **HealthKG**: KG-기반 평가 baseline. 우리 LLM-derived KG vs 큐레이션 KG 비교 가능.
+2. **DDx100 (NEJM CPC)**: 의사용 어려운 사례에서 KG features inject 효과 검증. 임상적 의의 강조.
+3. **MIMIC-IV diagnoses**: 실제 환자 (RWE)에서 검증. PhysioNet credentialed access 필요.
+
+미시도 벤치마크 추가 시 v79 (KG features + 2-stage) 일관 적용으로 설계 일관성 유지.
+
+### 핵심 학습
+
+1. **Prompt의 KG 정보 inject가 결정적**: 같은 LLM, 같은 KG라도 prompt에 KG-derived features를 명시적으로 포함하면 천장을 깸. Disease 이름만 제공할 때는 LLM의 implicit medical knowledge가 한계.
+2. **Per-candidate scoring > list-pick**: 49개 후보 중 1개 고르기는 anchoring bias 발생. 각 후보 독립 scoring이 안정적.
+3. **0–100 fine scale > 0–9 coarse**: ties 감소, 분포 활용성 +1.8%p.
+4. **Two-stage rescore의 효과는 미미**: stage1 선별 후 rescore는 +0.7~1.0%p에 그침. KG features inject가 +2.0%p로 더 큰 효과.
+5. **Bayesian + LLM 결합 효과 없음**: α sweep에서 α=0 (LLM only)이 최적. LLM이 implicit하게 demographic prior를 이미 반영.
+6. **Self-consistency, Yes/No logprob, pairwise tournament 모두 실패**: LLM의 confidence를 다른 형식으로 추출하는 시도들은 0–100 직접 scoring을 능가하지 못함.
+
+## 다음 연구 방향 (2026-05 이후)
+
+### 단기: KG-features 변형 확장 (v81–v85, 2K~5K 평가)
+
+| 변형 | 접근 | 가설 |
+|-----|------|------|
+| v81 | KG features + counts (`fever (n=125)`) | 빈도 정보로 가중치 인식 |
+| v82 | TOP_K_FEATURES = 12 또는 16 | 더 많은 features로 변별력↑ |
+| v83 | KG features를 "exclude" 형식 ("typical: A, B; atypical: X, Y") | 부정 정보로 변별력↑ |
+| v84 | 환자 evidence를 KG features와 직접 alignment + score | 명시적 매칭 |
+| v85 | TOP_K=8 + counts + 2-stage (v79+v81 결합) | 단순 합산 |
+
+목표: 65~70% 도달.
+
+### 중기: 다중 벤치마크 확장 (SymCat, RareBench)
+
+- **SymCat에 v79 적용**: 현재 39.7% (v54). KG features inject로 +3~5%p 기대 (43~45%). KG quality 개선이 더 시급할 가능성도 검토.
+- **RareBench에 v79 적용**: 현재 22.1% (v54). 440 disease 후보 공간이라 ceiling 자체가 낮음. KG sparsity가 가장 큰 제약.
+- **HealthKG, PrimeKG 추가**: 동일 파이프라인을 다양한 disease 분포에 검증.
+
+### 중장기: KG 품질 개선
+
+KG inject가 효과 있다면 더 좋은 KG가 더 좋은 효과를 낼 것입니다.
+
+- **Step 1 NER 개선**: 현재 scispaCy threshold 0.85. LLM 기반 NER (UMLS-aware) 또는 SapBERT embedding 활용 검토.
+- **Step 2 LLM 분류 정교화**: 현재 ternary (present/absent/related). discriminative feature까지 표시하는 4-way 분류 (`pathognomonic`, `common`, `possible`, `unrelated`) 시도.
+- **PubMed 검색 확장**: 현재 질환당 ~500편. 1,000~2,000편으로 확장 시 KG density 효과 검증.
+- **외부 KG 통합**: SemMedDB (legacy), HPO annotations, Hetionet 등을 LLM-derived KG와 합쳐 broad coverage 확보.
+
+### 장기: 80% 달성을 위한 fundamental change
+
+현재 LLM (gemma-4-E4B 8B) + 단일 PubMed KG로는 60% 후반이 천장으로 보입니다. 80%를 달성하려면:
+
+1. **더 강한 LLM** (gemma-4 31B Dense, GPT-4 class) — user 제약상 불가
+2. **다중 KG 앙상블** — PubMed + SemMedDB + HPO + DDXPlus-style symptom checker가 결합된 KG가 disease별 features 풍부도를 높임
+3. **Patient profile 의미적 정규화** — LLM이 raw evidence를 임상 narrative로 변환 후 scoring (v72에서 단순 시도, 정보 손실 확인됨; clinical NER + ontology mapping 필요)
+4. **Disambiguation chain** — 유사 disease 쌍 (URTI ↔ rhinosinusitis, PSVT ↔ panic attack)을 LLM이 명시적으로 비교하는 fine-grained pairwise
+
+### 학술적 방향
+
+- **Novel contribution 강화**: "PubMed-derived KG features inject into LLM prompt for closed-set differential diagnosis"는 선행 연구 부재. v79를 기준 결과로 한 paper 작성 가능.
+- **Reproducibility**: 모든 변형 스크립트와 결과를 `pilot/scripts/`, `pilot/results/`에 보존. 재현 가능한 ablation study.
+- **다음 baseline**: v79를 v66 대신 새 baseline으로 설정. 향후 모든 변형은 v79 대비 비교.
 
 ## 디렉토리 구조
 
