@@ -594,6 +594,13 @@ DDXPlus 56.2% → 80% 목표를 위한 추가 실험:
 - @3 = 61.1%, @5 = 68.1%
 - Bayesian top-10 = 73.5% (DDXPlus의 86.5%보다 낮음, KG quality 문제)
 
+**RareBench v54 (다중 벤치마크, 440 rare diseases × 1,121 patients)**:
+- v54 (per-candidate scoring) 적용
+- **GTPA@1 = 22.1%** (기존 16.4% 대비 +5.7%p)
+- @3 = 36.4%, @5 = 43.7%
+- Bayesian top-10 = 48.8% (440 disease 후보, KG 매우 sparse)
+- 큰 후보 공간이 ceiling 결정
+
 **핵심 결론** (DDXPlus 평가 기준):
 - v54 (per-candidate scoring 0-100) 가 최고: **GTPA@1 = 60.4%** (full 134K, 최종)
 - @3 = 81.1%, @5 = 84.5%
