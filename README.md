@@ -564,6 +564,36 @@ DDXPlus 56.2% → 80% 목표를 위한 추가 실험:
 - @1=58.8% (v54 5K=59.6%보다 나쁨)
 - Temperature 노이즈가 정확도 저하 → deterministic (temp=0) 이 최적
 
+**v59 (모든 49 candidates LLM scoring, 2K 평가)**:
+- KG top-10 필터 없이 모든 49 disease를 LLM이 score
+- @1=57.0%, @3=82.0%, **@5=88.8%**
+- 후보 폭이 넓어서 @1은 낮지만 @5는 v54보다 높음 (recall ceiling 상향)
+
+**v60 (v59 → top5 → v28-style list pick, 2K)**: @1=60.0% (v54와 비슷)
+**v61 (v59 → top5 → CoT, 2K)**: @1=14.9% (parser 실패)
+**v62 (v59 → top5 → pairwise tournament, 2K)**: @1=48.0% (LLM A/B bias)
+**v63 (negative evidence missing symptoms, 5K)**: @1=56.3% (오히려 하락)
+**v64 (KG cleaned top-50 per disease, 5K)**: @1=52.9% (KG noise 제거가 신호 함께 제거)
+
+**v66 (v59 stage1 → top10 → v54-style stage2 rescore, 30K 확정)**:
+- Stage 1: v59 score 49 candidates → top-10 (recall 96.9%, vs Bayesian 85.5%)
+- Stage 2: v54-style 0-100 re-score on top-10 → top-1
+- **GTPA@1 = 60.4%** (v54와 동일 @1)
+- **@3 = 86.3%, @5 = 92.1%** (v54 @5=84.5%보다 +7.6%p)
+- 같은 @1이지만 더 높은 recall ceiling
+
+**v67 (v66 stage1 + stage2 weighted combined, 2K)**:
+- α=1.0 (stage2 only): @1=58.4%
+- α=0.5: @1=58.2%
+- α=0.0 (stage1 only): @1=54.5%
+- Stage 2 단독이 최고 → combining 효과 없음
+
+**SymCat v54 (다중 벤치마크, 50 disease × 50 patients)**:
+- v54 (per-candidate scoring) 적용
+- **GTPA@1 = 39.7%** (기존 38.5% 대비 +1.2%p)
+- @3 = 61.1%, @5 = 68.1%
+- Bayesian top-10 = 73.5% (DDXPlus의 86.5%보다 낮음, KG quality 문제)
+
 **핵심 결론** (DDXPlus 평가 기준):
 - v54 (per-candidate scoring 0-100) 가 최고: **GTPA@1 = 60.4%** (full 134K, 최종)
 - @3 = 81.1%, @5 = 84.5%
@@ -594,7 +624,9 @@ DDXPlus 56.2% → 80% 목표를 위한 추가 실험:
 | v50 (per-candidate 0-9 score) | 30K | 59.1% | 79.8% | 83.8% | scoring 효과 |
 | v53 (v50 + Bay α=0.9) | 5K | 59.0% | 80.8% | 85.6% | marginal 결합 |
 | v54 (per-candidate 0-100 score) | 30K | 60.9% | 81.1% | 85.0% | scale 효과 |
-| **v54 (per-candidate 0-100 score)** | **134K** | **60.4%** | **81.1%** | **84.5%** | **FINAL BEST** |
+| v54 (per-candidate 0-100 score) | 134K | **60.4%** | 81.1% | 84.5% | full eval |
+| v59 (LLM 49 candidates) | 2K | 57.0% | 82.0% | 88.8% | recall 향상 |
+| **v66 (v59→top10→v54-rescore)** | **30K** | **60.4%** | **86.3%** | **92.1%** | **highest @5 ceiling** |
 
 주요 발견:
 - 초록 500편이 최적 (2000편은 노이즈 증가로 하락)
