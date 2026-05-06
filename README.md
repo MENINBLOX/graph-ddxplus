@@ -82,14 +82,29 @@ v2 프롬프트 구성: Entity Type Specification (HPO-aligned) + Annotation Gui
 |----|-----|------|---------|-----|
 | Gemini v1 | 79 | 31 | 39.2% | 0.94 |
 | Gemma v1 | 37 | 22 | 59.5% | 1.38 |
-| **Gemini v2** | 34 | 22 | **64.7%** (+25.5%p) | **1.44** |
-| **Gemma v2** | 24 | 19 | **79.2%** (+19.7%p) | **1.75** |
+| **Gemini v2** (papers1) | 34 | 22 | **64.7%** (+25.5%p) | **1.44** |
+| **Gemma v2** (papers1) | 24 | 19 | **79.2%** (+19.7%p) | **1.75** |
+
+**Step 3 재현성 검증** (다른 10 papers, seed=99, disease 중복 회피):
+
+| 모델 + 프롬프트 | 총 추출 | useful | useful% | mean score |
+|----|-----|------|---------|-----|
+| Gemini v2 (papers2) | 38 | 28 | 73.7% | 1.71 |
+| Gemma v2 (papers2) | 33 | 25 | 75.8% | 1.67 |
+
+**Combined (papers1 + papers2 = 20 papers)**:
+
+| 모델 + v2 프롬프트 | 총 추출 | useful | useful% | mean score |
+|----|-----|------|---------|-----|
+| Gemini v2 | 72 | 50 | **69.4%** | 1.58 |
+| **Gemma v2** | 57 | 44 | **77.2%** (+7.8%p) | **1.71** |
 
 **핵심 발견**:
-1. **IE 프롬프트 개선이 모델 capability보다 영향 큼**: 두 모델 모두 precision +20~26%p 향상
-2. **동일 v2 프롬프트에서 Gemma가 Gemini보다 precision 14.5%p 높음** (79.2% vs 64.7%); useful 추출량은 Gemma 19 vs Gemini 22 (3개 차이로 동등 수준)
+1. **IE 프롬프트 개선이 모델 capability보다 영향 큼**: 두 모델 모두 precision +20~26%p 향상 (재현됨)
+2. **Gemma가 Gemini보다 precision 우위가 일관적** (papers1 +14.5%p, papers2 +2.1%p, combined **+7.8%p**)
 3. **"Gemma는 IE가 부족" 가설 완전 폐기** — 프롬프트 설계의 문제였음
-4. 둘 다 실패하는 abstracts (HIV 분자생물학, TB autophagy, AFib 분자기전 paper) → 실제 병목은 **PubMed paper 선별** (분자/기전/역학 paper 포함 → 임상/진단 paper만 선별 필요)
+4. **Paper-level 변동성이 모델 차이보다 큼**: 둘 다 0 findings 추출한 paper 존재 (HIV 분자생물학, TB autophagy, Pulmonary embolism, URTI, Spontaneous pneumothorax). 좋은 임상 abstract에서는 둘 다 100% useful (예: Acute COPD exacerbation 6/6).
+5. 실제 병목은 **PubMed paper 선별** (분자/기전/역학 paper 포함 → 임상/진단 paper만 선별 필요)
 
 ### 최종 결론: 진정한 병목과 향후 방향
 
