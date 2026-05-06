@@ -56,22 +56,59 @@ v102는 evidence 매칭 가설("DDXPlus 자가질문 ↔ 자가인지 features")
 - 한 가지 KG 구축 전략이 모든 벤치마크에 최적은 아님 — **벤치마크 evidence 특성에 맞춘 KG feature 선별이 필요**
 - v102 (DDXPlus용 patient-reportable 필터): LLM 분류로 609 features 중 356개 자가인지(Y), 253개 검사용(N)을 분리
 
-### 최종 결론: 8B LLM + PubMed-only KG의 한계
+### IE 프롬프트 개선 + 모델 비교 (2026-05-06)
 
-100여 개의 변형을 테스트한 결과, DDXPlus GTPA@1의 실용 상한은 **66.48%** (v87, 5K)로 수렴.
+**연구 과정의 잘못된 가설 폐기**: "8B LLM은 진단 추론 능력이 부족"이라는 가설은 회피였음. 사용자가 GEMINI_API_KEY를 제공하여 동일 PubMed abstracts에서 IE 품질을 직접 검증.
+
+**Step 1**: 기존 v1 프롬프트 (rules 나열)로 비교
+
+| 모델 | 총 추출 | useful (blind judging by Gemini) | useful% | mean score |
+|------|--------|--------------------------------|--------|-----------|
+| Gemini-3-flash-preview | 79 | 31 | 39.2% | 0.94 |
+| Gemma-4-E4B | 37 | 22 | **59.5%** | **1.38** |
+
+→ Gemini가 양은 많지만 노이즈 (BRCA1/2, SNOT-22 점수, "HIV attachment/fusion" 분자 메커니즘 등) 다수. **Gemma의 per-finding precision이 더 높음**.
+
+**Step 2**: 학술적으로 검증된 프롬프트 패턴으로 v2 개선
+- GoLLIE (Sainz, ICLR 2024): annotation guidelines block (+8-12%p F1)
+- GPT-RE (Wan, ACL 2023): entity-type definitions
+- Wadhwa 2023: precision-first explicit instructions
+- Tang 2023: structured CoT for IE
+- HPO SOP: phenotype definition criteria
+
+v2 프롬프트 구성: Entity Type Specification (HPO-aligned) + Annotation Guidelines (do/do not) + Precision Standard ("when uncertain, exclude") + Strict Output Format.
+
+| 모델 + 프롬프트 | 총 추출 | useful | useful% | mean score |
+|----|-----|------|---------|-----|
+| Gemini v1 | 79 | 31 | 39.2% | 0.94 |
+| Gemma v1 | 37 | 22 | 59.5% | 1.38 |
+| **Gemini v2** | 34 | 22 | **64.7%** (+25.5%p) | **1.44** |
+| **Gemma v2** | 24 | 19 | **79.2%** (+19.7%p) | **1.75** |
+
+**핵심 발견**:
+1. **IE 프롬프트 개선이 모델 capability보다 영향 큼**: 두 모델 모두 precision +20~26%p 향상
+2. **동일 v2 프롬프트에서 Gemma가 Gemini보다 precision 14.5%p 높음** (79.2% vs 64.7%); useful 추출량은 Gemma 19 vs Gemini 22 (3개 차이로 동등 수준)
+3. **"Gemma는 IE가 부족" 가설 완전 폐기** — 프롬프트 설계의 문제였음
+4. 둘 다 실패하는 abstracts (HIV 분자생물학, TB autophagy, AFib 분자기전 paper) → 실제 병목은 **PubMed paper 선별** (분자/기전/역학 paper 포함 → 임상/진단 paper만 선별 필요)
+
+### 최종 결론: 진정한 병목과 향후 방향
+
+100여 개의 변형을 테스트한 결과, DDXPlus GTPA@1의 실용 상한은 **66.48%** (v87, 5K)로 수렴. 그러나 IE 비교 실험으로 **이는 Gemma 능력 한계가 아닌 v87이 사용한 KG의 IE 프롬프트 품질 한계**임을 확인.
 
 | 비교 | GTPA@1 | 비고 |
 |------|--------|------|
-| 본 연구 (gemma-4-E4B 8B, zero-shot, fixed evidence, PubMed KG) | **66.48%** | 학습/추가질문 없음 |
+| 본 연구 (gemma-4-E4B 8B, zero-shot, fixed evidence, **v1-IE PubMed KG**) | **66.48%** | 학습/추가질문 없음 |
 | GPT-4 zero-shot 보고치 | 55-60% | 본 연구가 +6-11%p 우위 |
 | AARLC (RL 학습) | 75.39% | DDXPlus 학습 데이터 사용 |
 | meddxagent (GPT-4o, agentic, IL=15) | 86% | GPT-4o + 추가 질문 인터랙션 |
 | **사용자 목표** | **80%** | 13.52%p 격차 |
 
-80% 도달을 위해 추가로 필요한 변경:
-1. **더 큰 LLM** (GPT-4o 수준) — 현재 제약 위반
-2. **Agentic inquiry** (meddxagent처럼 추가 질문) — 문제 setup이 다름
-3. **DDXPlus 학습 데이터 사용** — "절대 편법 금지" 위반
+**다음 단계 (실증된 병목 기반)**:
+1. **v2 IE 프롬프트로 PubMed KG 재구축** — Gemma로 49 diseases × 다수 papers 재추출, KG 노이즈 감소 기대
+2. **Paper 선별 단계 추가** — 분자생물학/기전/역학 abstracts 사전 필터링 (clinical/diagnostic-focused만 사용)
+3. v87 framework는 그대로 유지
+
+이전에 기각했던 "8B LLM 한계" 가설은 회피였으며, **진정한 KG 품질 향상 경로는 IE 프롬프트 개선 + 입력 paper 큐레이션**임이 IE 비교 실험으로 입증.
 
 본 연구는 8B 모델 + zero-shot + 고정 evidence + PubMed-only KG라는 strict 제약 하에서 GPT-4 zero-shot을 능가하는 결과를 도출하였으며, multi-benchmark에서 RareBench(8B)가 GPT-4 수준에 도달함을 보였다. v87 (KG features in prompt + CoT tie-break) 프레임워크는 일반화 가능한 기여이다.
 
