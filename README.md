@@ -1,18 +1,28 @@
 # Graph-DDXPlus
 
-## 🎯 현재 Strict Universal SOTA: 58.70% @1 (DDXPlus 30K, 2026-05-14 22:48)
+## 🎯 현재 Strict Universal SOTA: 58.74% @1 (DDXPlus 30K, 2026-05-14 22:59)
 
 | Config | @1 | @3 | @5 | @10 | MRR |
 |---|---|---|---|---|---|
 | v23 baseline (3-channel) | 46.76% | 69.47% | 79.68% | 92.18% | 0.6137 |
 | v28 UMLS Q-expand (ck=28, sig_w=7) | 58.27% | 75.58% | 83.80% | 92.49% | 0.6938 |
-| **v28 + tuned (ck=35, sig_w=9)** | **58.70%** | **75.66%** | 82.13% | 91.96% | **0.6938** |
+| v28 + tuned (ck=35, sig_w=9) | 58.70% | 75.66% | 82.13% | 91.96% | 0.6938 |
+| **v34: v28 + Wikipedia Q-expand** | **58.74%** | **75.96%** | 82.41% | 92.07% | **0.6956** |
 
-핵심 발견: KG의 phen 중 17%만 questionnaire (Q) universe 안에 있어 83%가 scoring 미기여. UMLS MRREL (RB/RN/RO/SY/PAR/CHD)로 non-Q phen → Q-CUI 브릿지하여 graph augmentation. KG content 변경 없이 **+11.94%p 달성**.
+핵심 발견: KG의 phen 중 17%만 questionnaire (Q) universe 안에 있어 83%가 scoring 미기여. UMLS MRREL (RB/RN/RO/SY/PAR/CHD)로 non-Q phen → Q-CUI 브릿지하여 graph augmentation. KG content 변경 없이 **+11.98%p 달성**.
 
-**Phase 3-v2 BFS 통합 결과 무효** (regression -16%p): BFS edges가 v28의 IDF balance와 충돌. v28 standalone가 최선.
+**Phase 3-v2 BFS 통합 결과 무효** (regression -16%p): BFS edges가 v28의 IDF balance와 충돌.
 
-**80% 목표까지: 21.30%p 잔여.**
+**Failure pattern analysis** (5K subset):
+- 105 PE → Pulmonary neoplasm (anatomy 동일, etiology 다름)
+- 91 Acute laryngitis → Viral pharyngitis (인접 throat)
+- 72 Acute COPD exacerbation → Bronchitis (specific vs generic)
+- 71 AFib → PSVT (둘다 arrhythmia)
+- 69 Acute rhinosinusitis → Chronic rhinosinusitis (시간 경과 차이)
+
+Top confusion pairs require: 시간 경과 (acute/chronic), 해부학적 specificity, exposure history. KG content 한계.
+
+**80% 목표까지: 21.26%p 잔여.**
 
 ---
 
