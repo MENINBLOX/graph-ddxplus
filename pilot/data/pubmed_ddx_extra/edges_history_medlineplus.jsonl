@@ -1,0 +1,747 @@
+{"disease": "Bronchiolitis", "umls_cui": "C0001311", "phenotype": "Smoking history", "source": "history_ie", "source_id": "acute_bronchiolitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiolitis", "umls_cui": "C0001311", "phenotype": "Alcohol use", "source": "history_ie", "source_id": "acute_bronchiolitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiolitis", "umls_cui": "C0001311", "phenotype": "Drug use", "source": "history_ie", "source_id": "acute_bronchiolitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiolitis", "umls_cui": "C0001311", "phenotype": "Prior respiratory infections", "source": "history_ie", "source_id": "acute_bronchiolitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiolitis", "umls_cui": "C0001311", "phenotype": "Asthma history", "source": "history_ie", "source_id": "acute_bronchiolitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiolitis", "umls_cui": "C0001311", "phenotype": "COPD history", "source": "history_ie", "source_id": "acute_bronchiolitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiolitis", "umls_cui": "C0001311", "phenotype": "Diabetes history", "source": "history_ie", "source_id": "acute_bronchiolitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiolitis", "umls_cui": "C0001311", "phenotype": "Hypertension history", "source": "history_ie", "source_id": "acute_bronchiolitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiolitis", "umls_cui": "C0001311", "phenotype": "Prior hospitalization", "source": "history_ie", "source_id": "acute_bronchiolitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiolitis", "umls_cui": "C0001311", "phenotype": "Immunization status", "source": "history_ie", "source_id": "acute_bronchiolitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiolitis", "umls_cui": "C0001311", "phenotype": "Pregnancy status", "source": "history_ie", "source_id": "acute_bronchiolitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiolitis", "umls_cui": "C0001311", "phenotype": "Recent childbirth", "source": "history_ie", "source_id": "acute_bronchiolitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiolitis", "umls_cui": "C0001311", "phenotype": "Family history of respiratory illness", "source": "history_ie", "source_id": "acute_bronchiolitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiolitis", "umls_cui": "C0001311", "phenotype": "Recent travel", "source": "history_ie", "source_id": "acute_bronchiolitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiolitis", "umls_cui": "C0001311", "phenotype": "Exposure to sick contacts", "source": "history_ie", "source_id": "acute_bronchiolitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiolitis", "umls_cui": "C0001311", "phenotype": "Occupational dust exposure", "source": "history_ie", "source_id": "acute_bronchiolitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiolitis", "umls_cui": "C0001311", "phenotype": "Chemical exposure", "source": "history_ie", "source_id": "acute_bronchiolitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiolitis", "umls_cui": "C0001311", "phenotype": "Age group", "source": "history_ie", "source_id": "acute_bronchiolitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiolitis", "umls_cui": "C0001311", "phenotype": "Sex", "source": "history_ie", "source_id": "acute_bronchiolitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiolitis", "umls_cui": "C0001311", "phenotype": "Age group (child)", "source": "history_ie", "source_id": "bronchiolitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiolitis", "umls_cui": "C0001311", "phenotype": "Pregnancy status", "source": "history_ie", "source_id": "bronchiolitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiolitis", "umls_cui": "C0001311", "phenotype": "Recent childbirth", "source": "history_ie", "source_id": "bronchiolitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiolitis", "umls_cui": "C0001311", "phenotype": "Exposure (sick person contact)", "source": "history_ie", "source_id": "bronchiolitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "Smoking history", "source": "history_ie", "source_id": "acute_bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "Alcohol use", "source": "history_ie", "source_id": "acute_bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "Drug use", "source": "history_ie", "source_id": "acute_bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "Prior respiratory infections", "source": "history_ie", "source_id": "acute_bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "Prior asthma diagnosis", "source": "history_ie", "source_id": "acute_bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "Prior COPD diagnosis", "source": "history_ie", "source_id": "acute_bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "Prior diabetes diagnosis", "source": "history_ie", "source_id": "acute_bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "Prior hypertension diagnosis", "source": "history_ie", "source_id": "acute_bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "Prior hospitalization", "source": "history_ie", "source_id": "acute_bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "Immunization status", "source": "history_ie", "source_id": "acute_bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "Exposure to tobacco smoke", "source": "history_ie", "source_id": "acute_bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "Exposure to air pollution", "source": "history_ie", "source_id": "acute_bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "Exposure to dusts", "source": "history_ie", "source_id": "acute_bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "Exposure to vapors", "source": "history_ie", "source_id": "acute_bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "Exposure to fumes", "source": "history_ie", "source_id": "acute_bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "Recent sick person contact", "source": "history_ie", "source_id": "acute_bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "Age group", "source": "history_ie", "source_id": "acute_bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "Sex", "source": "history_ie", "source_id": "acute_bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "Smoking history", "source": "history_ie", "source_id": "bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "Alcohol use", "source": "history_ie", "source_id": "bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "Drug use", "source": "history_ie", "source_id": "bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "Prior respiratory infections", "source": "history_ie", "source_id": "bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "Prior asthma diagnosis", "source": "history_ie", "source_id": "bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "Prior COPD diagnosis", "source": "history_ie", "source_id": "bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "Prior diabetes diagnosis", "source": "history_ie", "source_id": "bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "Prior hypertension diagnosis", "source": "history_ie", "source_id": "bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "Prior hospitalization", "source": "history_ie", "source_id": "bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "Immunization status", "source": "history_ie", "source_id": "bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "Exposure to tobacco smoke", "source": "history_ie", "source_id": "bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "Exposure to air pollution", "source": "history_ie", "source_id": "bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "Exposure to dusts", "source": "history_ie", "source_id": "bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "Exposure to vapors", "source": "history_ie", "source_id": "bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "Exposure to fumes", "source": "history_ie", "source_id": "bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "Recent sick person contact", "source": "history_ie", "source_id": "bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "Age group", "source": "history_ie", "source_id": "bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "Sex", "source": "history_ie", "source_id": "bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute laryngitis", "umls_cui": "C0001327", "phenotype": "Smoking history", "source": "history_ie", "source_id": "laryngitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute laryngitis", "umls_cui": "C0001327", "phenotype": "Alcohol use", "source": "history_ie", "source_id": "laryngitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute laryngitis", "umls_cui": "C0001327", "phenotype": "Drug use", "source": "history_ie", "source_id": "laryngitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute laryngitis", "umls_cui": "C0001327", "phenotype": "Prior respiratory infections", "source": "history_ie", "source_id": "laryngitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute laryngitis", "umls_cui": "C0001327", "phenotype": "Prior allergies", "source": "history_ie", "source_id": "laryngitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute laryngitis", "umls_cui": "C0001327", "phenotype": "Occupational exposure to irritants", "source": "history_ie", "source_id": "laryngitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute laryngitis", "umls_cui": "C0001327", "phenotype": "Recent exposure to sick individuals", "source": "history_ie", "source_id": "laryngitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute laryngitis", "umls_cui": "C0001327", "phenotype": "Stress levels", "source": "history_ie", "source_id": "laryngitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute laryngitis", "umls_cui": "C0001327", "phenotype": "Sleep quality", "source": "history_ie", "source_id": "laryngitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute laryngitis", "umls_cui": "C0001327", "phenotype": "Age", "source": "history_ie", "source_id": "laryngitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute laryngitis", "umls_cui": "C0001327", "phenotype": "Sex", "source": "history_ie", "source_id": "laryngitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute otitis media", "umls_cui": "C0029882", "phenotype": "Age group (child)", "source": "history_ie", "source_id": "acute_otitis_media_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute otitis media", "umls_cui": "C0029882", "phenotype": "Age group (adult)", "source": "history_ie", "source_id": "acute_otitis_media_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute otitis media", "umls_cui": "C0029882", "phenotype": "Prior surgery", "source": "history_ie", "source_id": "acute_otitis_media_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute otitis media", "umls_cui": "C0029882", "phenotype": "Prior hospitalization", "source": "history_ie", "source_id": "acute_otitis_media_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute otitis media", "umls_cui": "C0029882", "phenotype": "Immunization status", "source": "history_ie", "source_id": "acute_otitis_media_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute otitis media", "umls_cui": "C0029882", "phenotype": "Pregnancy status", "source": "history_ie", "source_id": "acute_otitis_media_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute otitis media", "umls_cui": "C0029882", "phenotype": "Recent childbirth", "source": "history_ie", "source_id": "acute_otitis_media_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute otitis media", "umls_cui": "C0029882", "phenotype": "Age group (child)", "source": "history_ie", "source_id": "chronic_otitis_media_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute otitis media", "umls_cui": "C0029882", "phenotype": "Age group (adult)", "source": "history_ie", "source_id": "chronic_otitis_media_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute otitis media", "umls_cui": "C0029882", "phenotype": "Prior surgery", "source": "history_ie", "source_id": "chronic_otitis_media_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute otitis media", "umls_cui": "C0029882", "phenotype": "Prior hospitalization", "source": "history_ie", "source_id": "chronic_otitis_media_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute otitis media", "umls_cui": "C0029882", "phenotype": "Immunization status", "source": "history_ie", "source_id": "chronic_otitis_media_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute otitis media", "umls_cui": "C0029882", "phenotype": "Pregnancy status", "source": "history_ie", "source_id": "chronic_otitis_media_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute otitis media", "umls_cui": "C0029882", "phenotype": "Recent childbirth", "source": "history_ie", "source_id": "chronic_otitis_media_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute otitis media", "umls_cui": "C0029882", "phenotype": "Age group (child)", "source": "history_ie", "source_id": "otitis_media_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute otitis media", "umls_cui": "C0029882", "phenotype": "Age group (adult)", "source": "history_ie", "source_id": "otitis_media_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute otitis media", "umls_cui": "C0029882", "phenotype": "Prior surgery", "source": "history_ie", "source_id": "otitis_media_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute otitis media", "umls_cui": "C0029882", "phenotype": "Prior hospitalization", "source": "history_ie", "source_id": "otitis_media_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute otitis media", "umls_cui": "C0029882", "phenotype": "Immunization status", "source": "history_ie", "source_id": "otitis_media_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute otitis media", "umls_cui": "C0029882", "phenotype": "Pregnancy status", "source": "history_ie", "source_id": "otitis_media_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute otitis media", "umls_cui": "C0029882", "phenotype": "Recent childbirth", "source": "history_ie", "source_id": "otitis_media_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute pulmonary edema", "umls_cui": "C0155919", "phenotype": "Prior history of COPD", "source": "history_ie", "source_id": "acute_pulmonary_edema_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute pulmonary edema", "umls_cui": "C0155919", "phenotype": "Prior history of asthma", "source": "history_ie", "source_id": "acute_pulmonary_edema_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute pulmonary edema", "umls_cui": "C0155919", "phenotype": "Prior history of hypertension", "source": "history_ie", "source_id": "acute_pulmonary_edema_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute pulmonary edema", "umls_cui": "C0155919", "phenotype": "Prior history of diabetes", "source": "history_ie", "source_id": "acute_pulmonary_edema_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute pulmonary edema", "umls_cui": "C0155919", "phenotype": "Smoking history", "source": "history_ie", "source_id": "acute_pulmonary_edema_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute pulmonary edema", "umls_cui": "C0155919", "phenotype": "Alcohol use", "source": "history_ie", "source_id": "acute_pulmonary_edema_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute pulmonary edema", "umls_cui": "C0155919", "phenotype": "Family history of cardiac conditions", "source": "history_ie", "source_id": "acute_pulmonary_edema_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute pulmonary edema", "umls_cui": "C0155919", "phenotype": "Family history of lung disease", "source": "history_ie", "source_id": "acute_pulmonary_edema_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute pulmonary edema", "umls_cui": "C0155919", "phenotype": "Recent travel history", "source": "history_ie", "source_id": "acute_pulmonary_edema_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute pulmonary edema", "umls_cui": "C0155919", "phenotype": "Occupational exposure to hazards", "source": "history_ie", "source_id": "acute_pulmonary_edema_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute pulmonary edema", "umls_cui": "C0155919", "phenotype": "Sedentary lifestyle", "source": "history_ie", "source_id": "acute_pulmonary_edema_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute pulmonary edema", "umls_cui": "C0155919", "phenotype": "Sleep disorder history", "source": "history_ie", "source_id": "acute_pulmonary_edema_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute pulmonary edema", "umls_cui": "C0155919", "phenotype": "History of high stress or anxiety", "source": "history_ie", "source_id": "acute_pulmonary_edema_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute pulmonary edema", "umls_cui": "C0155919", "phenotype": "Age group", "source": "history_ie", "source_id": "acute_pulmonary_edema_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "Smoking status", "source": "history_ie", "source_id": "acute_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "Alcohol use", "source": "history_ie", "source_id": "acute_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "Drug use", "source": "history_ie", "source_id": "acute_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "Prior respiratory infections", "source": "history_ie", "source_id": "acute_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "Asthma history", "source": "history_ie", "source_id": "acute_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "Diabetes history", "source": "history_ie", "source_id": "acute_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "Hypertension history", "source": "history_ie", "source_id": "acute_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "Prior sinus surgery", "source": "history_ie", "source_id": "acute_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "Allergy history", "source": "history_ie", "source_id": "acute_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "Recent travel history", "source": "history_ie", "source_id": "acute_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "Exposure to sick contacts", "source": "history_ie", "source_id": "acute_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "Occupational dust or chemical exposure", "source": "history_ie", "source_id": "acute_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "History of chronic nasal issues", "source": "history_ie", "source_id": "acute_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "Age", "source": "history_ie", "source_id": "acute_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "Sex", "source": "history_ie", "source_id": "acute_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "Smoking status", "source": "history_ie", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "Alcohol use", "source": "history_ie", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "Drug use", "source": "history_ie", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "Prior respiratory infections", "source": "history_ie", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "Asthma history", "source": "history_ie", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "Diabetes history", "source": "history_ie", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "Hypertension history", "source": "history_ie", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "Prior sinus surgery", "source": "history_ie", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "Allergy history", "source": "history_ie", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "Recent travel history", "source": "history_ie", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "Exposure to sick contacts", "source": "history_ie", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "Occupational dust exposure", "source": "history_ie", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "Exposure to chemical irritants", "source": "history_ie", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "Sedentary lifestyle", "source": "history_ie", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "Sleep disorder history", "source": "history_ie", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "Chronic stress levels", "source": "history_ie", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "Age group", "source": "history_ie", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "Sex", "source": "history_ie", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Allergic sinusitis", "umls_cui": "C0018621", "phenotype": "Prior history of allergies", "source": "history_ie", "source_id": "allergic_sinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Allergic sinusitis", "umls_cui": "C0018621", "phenotype": "History of asthma", "source": "history_ie", "source_id": "allergic_sinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Allergic sinusitis", "umls_cui": "C0018621", "phenotype": "History of hay fever", "source": "history_ie", "source_id": "allergic_sinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Allergic sinusitis", "umls_cui": "C0018621", "phenotype": "Occupational exposure to allergens", "source": "history_ie", "source_id": "allergic_sinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Allergic sinusitis", "umls_cui": "C0018621", "phenotype": "Recent exposure to airborne irritants", "source": "history_ie", "source_id": "allergic_sinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Allergic sinusitis", "umls_cui": "C0018621", "phenotype": "History of chronic nasal congestion", "source": "history_ie", "source_id": "allergic_sinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anaphylaxis", "umls_cui": "C0685898", "phenotype": "Prior history of allergic reactions", "source": "history_ie", "source_id": "anaphylaxis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anaphylaxis", "umls_cui": "C0685898", "phenotype": "Known food allergies", "source": "history_ie", "source_id": "anaphylaxis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anaphylaxis", "umls_cui": "C0685898", "phenotype": "Known medication allergies", "source": "history_ie", "source_id": "anaphylaxis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anaphylaxis", "umls_cui": "C0685898", "phenotype": "History of insect stings", "source": "history_ie", "source_id": "anaphylaxis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anaphylaxis", "umls_cui": "C0685898", "phenotype": "History of exercise-induced reactions", "source": "history_ie", "source_id": "anaphylaxis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anaphylaxis", "umls_cui": "C0685898", "phenotype": "History of latex exposure", "source": "history_ie", "source_id": "anaphylaxis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anaphylaxis", "umls_cui": "C0685898", "phenotype": "History of asthma", "source": "history_ie", "source_id": "anaphylaxis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anaphylaxis", "umls_cui": "C0685898", "phenotype": "History of diabetes", "source": "history_ie", "source_id": "anaphylaxis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anaphylaxis", "umls_cui": "C0685898", "phenotype": "History of hypertension", "source": "history_ie", "source_id": "anaphylaxis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anaphylaxis", "umls_cui": "C0685898", "phenotype": "Smoking status", "source": "history_ie", "source_id": "anaphylaxis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anaphylaxis", "umls_cui": "C0685898", "phenotype": "Alcohol use", "source": "history_ie", "source_id": "anaphylaxis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anaphylaxis", "umls_cui": "C0685898", "phenotype": "Drug use", "source": "history_ie", "source_id": "anaphylaxis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anaphylaxis", "umls_cui": "C0685898", "phenotype": "Family history of severe allergic reactions", "source": "history_ie", "source_id": "anaphylaxis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anaphylaxis", "umls_cui": "C0685898", "phenotype": "Recent travel history", "source": "history_ie", "source_id": "anaphylaxis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anaphylaxis", "umls_cui": "C0685898", "phenotype": "Occupational exposure to allergens", "source": "history_ie", "source_id": "anaphylaxis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anaphylaxis", "umls_cui": "C0685898", "phenotype": "Dietary habits", "source": "history_ie", "source_id": "anaphylaxis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Atrial fibrillation", "umls_cui": "C3264374", "phenotype": "Smoking", "source": "history_ie", "source_id": "atrial_fibrillation_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Atrial fibrillation", "umls_cui": "C3264374", "phenotype": "Alcohol use", "source": "history_ie", "source_id": "atrial_fibrillation_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Atrial fibrillation", "umls_cui": "C3264374", "phenotype": "Drug use", "source": "history_ie", "source_id": "atrial_fibrillation_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Atrial fibrillation", "umls_cui": "C3264374", "phenotype": "Prior hypertension", "source": "history_ie", "source_id": "atrial_fibrillation_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Atrial fibrillation", "umls_cui": "C3264374", "phenotype": "Prior diabetes", "source": "history_ie", "source_id": "atrial_fibrillation_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Atrial fibrillation", "umls_cui": "C3264374", "phenotype": "Prior heart failure", "source": "history_ie", "source_id": "atrial_fibrillation_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Atrial fibrillation", "umls_cui": "C3264374", "phenotype": "Prior COPD", "source": "history_ie", "source_id": "atrial_fibrillation_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Atrial fibrillation", "umls_cui": "C3264374", "phenotype": "Obesity", "source": "history_ie", "source_id": "atrial_fibrillation_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Atrial fibrillation", "umls_cui": "C3264374", "phenotype": "Sleep apnea", "source": "history_ie", "source_id": "atrial_fibrillation_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Atrial fibrillation", "umls_cui": "C3264374", "phenotype": "Age over 65", "source": "history_ie", "source_id": "atrial_fibrillation_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Atrial fibrillation", "umls_cui": "C3264374", "phenotype": "Family history of heart disease", "source": "history_ie", "source_id": "atrial_fibrillation_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Atrial fibrillation", "umls_cui": "C3264374", "phenotype": "Recent surgery", "source": "history_ie", "source_id": "atrial_fibrillation_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Atrial fibrillation", "umls_cui": "C3264374", "phenotype": "Prior heart surgery", "source": "history_ie", "source_id": "atrial_fibrillation_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Atrial fibrillation", "umls_cui": "C3264374", "phenotype": "Prior lung surgery", "source": "history_ie", "source_id": "atrial_fibrillation_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Atrial fibrillation", "umls_cui": "C3264374", "phenotype": "Prior esophagus surgery", "source": "history_ie", "source_id": "atrial_fibrillation_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Atrial fibrillation", "umls_cui": "C3264374", "phenotype": "Family history of AFib", "source": "history_ie", "source_id": "atrial_fibrillation_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Atrial fibrillation", "umls_cui": "C3264374", "phenotype": "Alcohol use", "source": "history_ie", "source_id": "atrial_fibrillation_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Atrial fibrillation", "umls_cui": "C3264374", "phenotype": "Smoking", "source": "history_ie", "source_id": "atrial_fibrillation_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Atrial fibrillation", "umls_cui": "C3264374", "phenotype": "Alcohol use", "source": "history_ie", "source_id": "atrial_fibrillation_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Atrial fibrillation", "umls_cui": "C3264374", "phenotype": "Illegal drug use", "source": "history_ie", "source_id": "atrial_fibrillation_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Atrial fibrillation", "umls_cui": "C3264374", "phenotype": "Sedentary lifestyle", "source": "history_ie", "source_id": "atrial_fibrillation_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Atrial fibrillation", "umls_cui": "C3264374", "phenotype": "Poor diet", "source": "history_ie", "source_id": "atrial_fibrillation_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Atrial fibrillation", "umls_cui": "C3264374", "phenotype": "Stress", "source": "history_ie", "source_id": "atrial_fibrillation_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Atrial fibrillation", "umls_cui": "C3264374", "phenotype": "Anxiety", "source": "history_ie", "source_id": "atrial_fibrillation_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Atrial fibrillation", "umls_cui": "C3264374", "phenotype": "Hypertension (implied by need for heart-healthy changes)", "source": "history_ie", "source_id": "atrial_fibrillation_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Atrial fibrillation", "umls_cui": "C3264374", "phenotype": "Diabetes (implied by need for heart-healthy changes)", "source": "history_ie", "source_id": "atrial_fibrillation_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "Recent travel to Latin America", "source": "history_ie", "source_id": "chagas_disease_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "Living in rural areas of Latin America", "source": "history_ie", "source_id": "chagas_disease_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "Exposure to triatomine bugs", "source": "history_ie", "source_id": "chagas_disease_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "Staying in a house with a thatched roof", "source": "history_ie", "source_id": "chagas_disease_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "Staying in a house with walls that have cracks or crevices", "source": "history_ie", "source_id": "chagas_disease_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "Recent travel to areas where it occurs", "source": "history_ie", "source_id": "chagas_disease_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "Sleeping outdoors", "source": "history_ie", "source_id": "chagas_disease_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "Staying in poor housing conditions", "source": "history_ie", "source_id": "chagas_disease_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "Recent travel to Latin America", "source": "history_ie", "source_id": "chagas_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "Living in rural areas of Latin America", "source": "history_ie", "source_id": "chagas_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "Exposure to triatomine bugs", "source": "history_ie", "source_id": "chagas_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "Staying in a house with a thatched roof", "source": "history_ie", "source_id": "chagas_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "Staying in a house with walls that have cracks or crevices", "source": "history_ie", "source_id": "chagas_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "Recent travel to areas where it occurs", "source": "history_ie", "source_id": "chagas_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "Sleeping outdoors", "source": "history_ie", "source_id": "chagas_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "Staying in poor housing conditions", "source": "history_ie", "source_id": "chagas_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chronic rhinosinusitis", "umls_cui": "C0037199", "phenotype": "Smoking history", "source": "history_ie", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chronic rhinosinusitis", "umls_cui": "C0037199", "phenotype": "Alcohol use", "source": "history_ie", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chronic rhinosinusitis", "umls_cui": "C0037199", "phenotype": "Drug use", "source": "history_ie", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chronic rhinosinusitis", "umls_cui": "C0037199", "phenotype": "Prior history of asthma", "source": "history_ie", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chronic rhinosinusitis", "umls_cui": "C0037199", "phenotype": "Prior history of COPD", "source": "history_ie", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chronic rhinosinusitis", "umls_cui": "C0037199", "phenotype": "Prior history of diabetes", "source": "history_ie", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chronic rhinosinusitis", "umls_cui": "C0037199", "phenotype": "Prior history of hypertension", "source": "history_ie", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chronic rhinosinusitis", "umls_cui": "C0037199", "phenotype": "Prior history of sinus surgery", "source": "history_ie", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chronic rhinosinusitis", "umls_cui": "C0037199", "phenotype": "Prior history of hospitalization", "source": "history_ie", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chronic rhinosinusitis", "umls_cui": "C0037199", "phenotype": "Immunization status", "source": "history_ie", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chronic rhinosinusitis", "umls_cui": "C0037199", "phenotype": "Pregnancy status", "source": "history_ie", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chronic rhinosinusitis", "umls_cui": "C0037199", "phenotype": "Recent childbirth", "source": "history_ie", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chronic rhinosinusitis", "umls_cui": "C0037199", "phenotype": "Family history of autoimmune conditions", "source": "history_ie", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chronic rhinosinusitis", "umls_cui": "C0037199", "phenotype": "Family history of chronic respiratory issues", "source": "history_ie", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chronic rhinosinusitis", "umls_cui": "C0037199", "phenotype": "Recent travel history", "source": "history_ie", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chronic rhinosinusitis", "umls_cui": "C0037199", "phenotype": "Exposure to known allergens", "source": "history_ie", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chronic rhinosinusitis", "umls_cui": "C0037199", "phenotype": "Occupational exposure to irritants", "source": "history_ie", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chronic rhinosinusitis", "umls_cui": "C0037199", "phenotype": "History of chronic stress", "source": "history_ie", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chronic rhinosinusitis", "umls_cui": "C0037199", "phenotype": "History of sleep disorders", "source": "history_ie", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Epiglottitis", "umls_cui": "C0155814", "phenotype": "Age group (child)", "source": "history_ie", "source_id": "epiglottitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Epiglottitis", "umls_cui": "C0155814", "phenotype": "Immunization status (Hib vaccine)", "source": "history_ie", "source_id": "epiglottitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Epiglottitis", "umls_cui": "C0155814", "phenotype": "Exposure (being around other children or adults who may have the bacteria)", "source": "history_ie", "source_id": "epiglottitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "Smoking", "source": "history_ie", "source_id": "pulmonary_neoplasm_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "Alcohol use", "source": "history_ie", "source_id": "pulmonary_neoplasm_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "Beta carotene supplement use", "source": "history_ie", "source_id": "pulmonary_neoplasm_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "Secondhand smoke exposure", "source": "history_ie", "source_id": "pulmonary_neoplasm_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "Family history of lung cancer", "source": "history_ie", "source_id": "pulmonary_neoplasm_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "Occupational exposure to asbestos", "source": "history_ie", "source_id": "pulmonary_neoplasm_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "Occupational exposure to arsenic", "source": "history_ie", "source_id": "pulmonary_neoplasm_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "Occupational exposure to chromium", "source": "history_ie", "source_id": "pulmonary_neoplasm_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "Occupational exposure to beryllium", "source": "history_ie", "source_id": "pulmonary_neoplasm_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "Occupational exposure to nickel", "source": "history_ie", "source_id": "pulmonary_neoplasm_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "Occupational exposure to soot", "source": "history_ie", "source_id": "pulmonary_neoplasm_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "Occupational exposure to tar", "source": "history_ie", "source_id": "pulmonary_neoplasm_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "Exposure to radiation", "source": "history_ie", "source_id": "pulmonary_neoplasm_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "Exposure to radon", "source": "history_ie", "source_id": "pulmonary_neoplasm_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "HIV infection", "source": "history_ie", "source_id": "pulmonary_neoplasm_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "Air pollution exposure", "source": "history_ie", "source_id": "pulmonary_neoplasm_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "smoking", "source": "history_ie", "source_id": "pulmonary_neoplasm_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "alcohol use", "source": "history_ie", "source_id": "pulmonary_neoplasm_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "drug use", "source": "history_ie", "source_id": "pulmonary_neoplasm_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "addictive behavior", "source": "history_ie", "source_id": "pulmonary_neoplasm_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "prior diseases", "source": "history_ie", "source_id": "pulmonary_neoplasm_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "prior surgery", "source": "history_ie", "source_id": "pulmonary_neoplasm_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "prior hospitalization", "source": "history_ie", "source_id": "pulmonary_neoplasm_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "immunization status", "source": "history_ie", "source_id": "pulmonary_neoplasm_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "vaccinations", "source": "history_ie", "source_id": "pulmonary_neoplasm_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "pregnancy status", "source": "history_ie", "source_id": "pulmonary_neoplasm_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "recent childbirth", "source": "history_ie", "source_id": "pulmonary_neoplasm_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "family death from similar condition", "source": "history_ie", "source_id": "pulmonary_neoplasm_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "hereditary conditions", "source": "history_ie", "source_id": "pulmonary_neoplasm_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "recent travel", "source": "history_ie", "source_id": "pulmonary_neoplasm_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "occupational hazard", "source": "history_ie", "source_id": "pulmonary_neoplasm_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "chemical exposure", "source": "history_ie", "source_id": "pulmonary_neoplasm_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "sedentary lifestyle", "source": "history_ie", "source_id": "pulmonary_neoplasm_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "poor diet", "source": "history_ie", "source_id": "pulmonary_neoplasm_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "malnutrition", "source": "history_ie", "source_id": "pulmonary_neoplasm_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "sleep disorder", "source": "history_ie", "source_id": "pulmonary_neoplasm_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "stress", "source": "history_ie", "source_id": "pulmonary_neoplasm_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "anxiety", "source": "history_ie", "source_id": "pulmonary_neoplasm_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "age group", "source": "history_ie", "source_id": "pulmonary_neoplasm_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "sex-specific factors", "source": "history_ie", "source_id": "pulmonary_neoplasm_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "Smoking history", "source": "history_ie", "source_id": "pulmonary_neoplasm_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "Exposure to hazardous substances at work", "source": "history_ie", "source_id": "pulmonary_neoplasm_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "Exposure to radon", "source": "history_ie", "source_id": "pulmonary_neoplasm_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Smoking history", "source": "history_ie", "source_id": "anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Alcohol use", "source": "history_ie", "source_id": "anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Drug use", "source": "history_ie", "source_id": "anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Prior diseases (e.g., chronic GI issues, autoimmune conditions)", "source": "history_ie", "source_id": "anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Prior surgery or hospitalization", "source": "history_ie", "source_id": "anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Immunization status", "source": "history_ie", "source_id": "anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Pregnancy status", "source": "history_ie", "source_id": "anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Recent childbirth", "source": "history_ie", "source_id": "anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Family history of blood disorders", "source": "history_ie", "source_id": "anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Family history of cancer", "source": "history_ie", "source_id": "anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Recent travel", "source": "history_ie", "source_id": "anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Occupational exposure to hazards", "source": "history_ie", "source_id": "anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Dietary intake (iron, folic acid, B12)", "source": "history_ie", "source_id": "anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Sedentary lifestyle", "source": "history_ie", "source_id": "anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Stress levels", "source": "history_ie", "source_id": "anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Age group", "source": "history_ie", "source_id": "anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Sex-specific factors", "source": "history_ie", "source_id": "anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Smoking history", "source": "history_ie", "source_id": "anemia_hemolytic_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Alcohol use", "source": "history_ie", "source_id": "anemia_hemolytic_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Drug use", "source": "history_ie", "source_id": "anemia_hemolytic_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Prior diseases (e.g., chronic GI issues, autoimmune conditions)", "source": "history_ie", "source_id": "anemia_hemolytic_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Prior surgery or hospitalization", "source": "history_ie", "source_id": "anemia_hemolytic_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Immunization status", "source": "history_ie", "source_id": "anemia_hemolytic_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Pregnancy status", "source": "history_ie", "source_id": "anemia_hemolytic_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Recent childbirth", "source": "history_ie", "source_id": "anemia_hemolytic_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Family history of blood disorders", "source": "history_ie", "source_id": "anemia_hemolytic_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Family history of cancer", "source": "history_ie", "source_id": "anemia_hemolytic_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Recent travel", "source": "history_ie", "source_id": "anemia_hemolytic_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Occupational exposure to hazards", "source": "history_ie", "source_id": "anemia_hemolytic_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Dietary intake (iron, folic acid, B12)", "source": "history_ie", "source_id": "anemia_hemolytic_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Sedentary lifestyle", "source": "history_ie", "source_id": "anemia_hemolytic_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Stress levels", "source": "history_ie", "source_id": "anemia_hemolytic_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Age group", "source": "history_ie", "source_id": "anemia_hemolytic_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Sex-specific factors", "source": "history_ie", "source_id": "anemia_hemolytic_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Smoking history", "source": "history_ie", "source_id": "anemia_of_chronic_disease_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Alcohol use", "source": "history_ie", "source_id": "anemia_of_chronic_disease_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Drug use", "source": "history_ie", "source_id": "anemia_of_chronic_disease_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Prior diseases (e.g., chronic GI issues, autoimmune conditions)", "source": "history_ie", "source_id": "anemia_of_chronic_disease_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Prior surgery or hospitalization", "source": "history_ie", "source_id": "anemia_of_chronic_disease_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Immunization status", "source": "history_ie", "source_id": "anemia_of_chronic_disease_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Pregnancy status", "source": "history_ie", "source_id": "anemia_of_chronic_disease_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Recent childbirth", "source": "history_ie", "source_id": "anemia_of_chronic_disease_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Family history of blood disorders", "source": "history_ie", "source_id": "anemia_of_chronic_disease_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Family history of cancer", "source": "history_ie", "source_id": "anemia_of_chronic_disease_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Recent travel", "source": "history_ie", "source_id": "anemia_of_chronic_disease_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Occupational exposure to hazards", "source": "history_ie", "source_id": "anemia_of_chronic_disease_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Dietary intake (iron, folic acid, B12)", "source": "history_ie", "source_id": "anemia_of_chronic_disease_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Sedentary lifestyle", "source": "history_ie", "source_id": "anemia_of_chronic_disease_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Stress levels", "source": "history_ie", "source_id": "anemia_of_chronic_disease_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Age group", "source": "history_ie", "source_id": "anemia_of_chronic_disease_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Sex-specific factors", "source": "history_ie", "source_id": "anemia_of_chronic_disease_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Age group", "source": "history_ie", "source_id": "anemia_sickle_cell_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Sex-specific factors", "source": "history_ie", "source_id": "anemia_sickle_cell_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Family history of inherited conditions", "source": "history_ie", "source_id": "anemia_sickle_cell_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Family history of similar blood disorders", "source": "history_ie", "source_id": "anemia_sickle_cell_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Hispanic background", "source": "history_ie", "source_id": "anemia_sickle_cell_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Southern European background", "source": "history_ie", "source_id": "anemia_sickle_cell_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Middle Eastern background", "source": "history_ie", "source_id": "anemia_sickle_cell_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Asian Indian background", "source": "history_ie", "source_id": "anemia_sickle_cell_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Pregnancy status (implied by discussion of pre-birth testing)", "source": "history_ie", "source_id": "anemia_sickle_cell_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Age group", "source": "history_ie", "source_id": "anemia_sickle_cell_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Sex-specific factors", "source": "history_ie", "source_id": "anemia_sickle_cell_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Prior diseases", "source": "history_ie", "source_id": "anemia_sickle_cell_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Prior surgery", "source": "history_ie", "source_id": "anemia_sickle_cell_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Immunization status", "source": "history_ie", "source_id": "anemia_sickle_cell_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Pregnancy status", "source": "history_ie", "source_id": "anemia_sickle_cell_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Heavy periods", "source": "history_ie", "source_id": "iron_deficiency_anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Pregnancy status", "source": "history_ie", "source_id": "iron_deficiency_anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Dietary intake (iron, folic acid, vitamin B12)", "source": "history_ie", "source_id": "iron_deficiency_anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Family history of blood disorders", "source": "history_ie", "source_id": "iron_deficiency_anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Family history of inherited disorders", "source": "history_ie", "source_id": "iron_deficiency_anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Prior HIV diagnosis", "source": "history_ie", "source_id": "aplastic_anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Prior exposure to toxic substances", "source": "history_ie", "source_id": "aplastic_anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Prior exposure to radiation therapy", "source": "history_ie", "source_id": "aplastic_anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Prior exposure to chemotherapy", "source": "history_ie", "source_id": "aplastic_anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Prior viral infections", "source": "history_ie", "source_id": "aplastic_anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Pregnancy status", "source": "history_ie", "source_id": "aplastic_anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Croup", "umls_cui": "C0010380", "phenotype": "Age group (child)", "source": "history_ie", "source_id": "croup_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Croup", "umls_cui": "C0010380", "phenotype": "Age group (6 months to 3 years)", "source": "history_ie", "source_id": "croup_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Croup", "umls_cui": "C0010380", "phenotype": "Sex-specific factors (Not mentioned, but would be asked)", "source": "history_ie", "source_id": "croup_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Croup", "umls_cui": "C0010380", "phenotype": "Prior diseases (Asthma)", "source": "history_ie", "source_id": "croup_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Croup", "umls_cui": "C0010380", "phenotype": "Prior diseases (Allergies)", "source": "history_ie", "source_id": "croup_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Croup", "umls_cui": "C0010380", "phenotype": "Recent travel (Not mentioned, but would be asked)", "source": "history_ie", "source_id": "croup_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Croup", "umls_cui": "C0010380", "phenotype": "Exposure (Sick person contact)", "source": "history_ie", "source_id": "croup_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Croup", "umls_cui": "C0010380", "phenotype": "Exposure (Allergen)", "source": "history_ie", "source_id": "croup_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Age over 55", "source": "history_ie", "source_id": "sarcoidosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Living or working near insecticides", "source": "history_ie", "source_id": "sarcoidosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Living or working near mold", "source": "history_ie", "source_id": "sarcoidosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Having a close relative with sarcoidosis", "source": "history_ie", "source_id": "sarcoidosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Taking certain medicines", "source": "history_ie", "source_id": "sarcoidosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Being of African descent", "source": "history_ie", "source_id": "sarcoidosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Being of Scandinavian descent", "source": "history_ie", "source_id": "sarcoidosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Being female", "source": "history_ie", "source_id": "sarcoidosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Smoking history", "source": "history_ie", "source_id": "sarcoidosis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Alcohol use", "source": "history_ie", "source_id": "sarcoidosis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Drug use", "source": "history_ie", "source_id": "sarcoidosis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Prior history of HIV", "source": "history_ie", "source_id": "sarcoidosis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Prior history of COPD", "source": "history_ie", "source_id": "sarcoidosis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Prior history of asthma", "source": "history_ie", "source_id": "sarcoidosis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Prior history of diabetes", "source": "history_ie", "source_id": "sarcoidosis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Prior history of hypertension", "source": "history_ie", "source_id": "sarcoidosis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Prior surgeries", "source": "history_ie", "source_id": "sarcoidosis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Prior hospitalizations", "source": "history_ie", "source_id": "sarcoidosis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Immunization status", "source": "history_ie", "source_id": "sarcoidosis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Pregnancy status", "source": "history_ie", "source_id": "sarcoidosis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Recent childbirth", "source": "history_ie", "source_id": "sarcoidosis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Family history of autoimmune conditions", "source": "history_ie", "source_id": "sarcoidosis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Family history of hereditary conditions", "source": "history_ie", "source_id": "sarcoidosis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Recent travel history", "source": "history_ie", "source_id": "sarcoidosis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Occupational exposure history", "source": "history_ie", "source_id": "sarcoidosis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Exposure to sick contacts", "source": "history_ie", "source_id": "sarcoidosis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Exposure to allergens", "source": "history_ie", "source_id": "sarcoidosis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Exposure to chemical toxins or pollutants", "source": "history_ie", "source_id": "sarcoidosis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Sedentary lifestyle", "source": "history_ie", "source_id": "sarcoidosis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Dietary habits", "source": "history_ie", "source_id": "sarcoidosis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Sleep disorder history", "source": "history_ie", "source_id": "sarcoidosis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Stress levels", "source": "history_ie", "source_id": "sarcoidosis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Anxiety levels", "source": "history_ie", "source_id": "sarcoidosis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Age group", "source": "history_ie", "source_id": "sarcoidosis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Sex", "source": "history_ie", "source_id": "sarcoidosis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Spontaneous pneumothorax", "umls_cui": "C0032326", "phenotype": "Smoking history", "source": "history_ie", "source_id": "spontaneous_pneumothorax_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Spontaneous pneumothorax", "umls_cui": "C0032326", "phenotype": "History of COPD", "source": "history_ie", "source_id": "spontaneous_pneumothorax_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Spontaneous pneumothorax", "umls_cui": "C0032326", "phenotype": "History of asthma", "source": "history_ie", "source_id": "spontaneous_pneumothorax_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Spontaneous pneumothorax", "umls_cui": "C0032326", "phenotype": "History of prior lung disease", "source": "history_ie", "source_id": "spontaneous_pneumothorax_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Spontaneous pneumothorax", "umls_cui": "C0032326", "phenotype": "History of prior chest injury", "source": "history_ie", "source_id": "spontaneous_pneumothorax_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Spontaneous pneumothorax", "umls_cui": "C0032326", "phenotype": "Family history of lung disease", "source": "history_ie", "source_id": "spontaneous_pneumothorax_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Spontaneous pneumothorax", "umls_cui": "C0032326", "phenotype": "Age", "source": "history_ie", "source_id": "spontaneous_pneumothorax_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Spontaneous pneumothorax", "umls_cui": "C0032326", "phenotype": "Sex", "source": "history_ie", "source_id": "spontaneous_pneumothorax_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Stable angina", "umls_cui": "C0002962", "phenotype": "Smoking status", "source": "history_ie", "source_id": "stable_angina_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Stable angina", "umls_cui": "C0002962", "phenotype": "Alcohol use", "source": "history_ie", "source_id": "stable_angina_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Stable angina", "umls_cui": "C0002962", "phenotype": "Drug use", "source": "history_ie", "source_id": "stable_angina_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Stable angina", "umls_cui": "C0002962", "phenotype": "Prior history of diabetes", "source": "history_ie", "source_id": "stable_angina_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Stable angina", "umls_cui": "C0002962", "phenotype": "Prior history of hypertension", "source": "history_ie", "source_id": "stable_angina_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Stable angina", "umls_cui": "C0002962", "phenotype": "Prior history of COPD", "source": "history_ie", "source_id": "stable_angina_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Stable angina", "umls_cui": "C0002962", "phenotype": "Prior history of asthma", "source": "history_ie", "source_id": "stable_angina_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Stable angina", "umls_cui": "C0002962", "phenotype": "Prior history of cardiac conditions in family", "source": "history_ie", "source_id": "stable_angina_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Stable angina", "umls_cui": "C0002962", "phenotype": "Family history of heart disease", "source": "history_ie", "source_id": "stable_angina_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Stable angina", "umls_cui": "C0002962", "phenotype": "Sedentary lifestyle", "source": "history_ie", "source_id": "stable_angina_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Stable angina", "umls_cui": "C0002962", "phenotype": "Dietary habits", "source": "history_ie", "source_id": "stable_angina_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Stable angina", "umls_cui": "C0002962", "phenotype": "Stress levels", "source": "history_ie", "source_id": "stable_angina_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Stable angina", "umls_cui": "C0002962", "phenotype": "Age", "source": "history_ie", "source_id": "stable_angina_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Stable angina", "umls_cui": "C0002962", "phenotype": "Sex", "source": "history_ie", "source_id": "stable_angina_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "Recent travel to countries where TB disease is common", "source": "history_ie", "source_id": "tuberculosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "Exposure to a person with TB disease", "source": "history_ie", "source_id": "tuberculosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "Occupation as a health care worker", "source": "history_ie", "source_id": "tuberculosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "Having HIV", "source": "history_ie", "source_id": "tuberculosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "Prior TB infection within the last 2 years", "source": "history_ie", "source_id": "tuberculosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "Having diabetes", "source": "history_ie", "source_id": "tuberculosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "Alcohol use disorder", "source": "history_ie", "source_id": "tuberculosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "Injecting illegal drugs", "source": "history_ie", "source_id": "tuberculosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "Prior incorrect treatment for TB", "source": "history_ie", "source_id": "tuberculosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "Being under age 5", "source": "history_ie", "source_id": "tuberculosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "Being an older adult", "source": "history_ie", "source_id": "tuberculosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "Prior HIV diagnosis", "source": "history_ie", "source_id": "tuberculosis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "Immune system weakening medications use", "source": "history_ie", "source_id": "tuberculosis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "Organ transplant history", "source": "history_ie", "source_id": "tuberculosis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "Steroid use", "source": "history_ie", "source_id": "tuberculosis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "Autoimmune disease treatment history", "source": "history_ie", "source_id": "tuberculosis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "Prior HIV diagnosis", "source": "history_ie", "source_id": "tuberculosis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Unstable angina", "umls_cui": "C0002965", "phenotype": "Smoking status", "source": "history_ie", "source_id": "unstable_angina_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Unstable angina", "umls_cui": "C0002965", "phenotype": "Alcohol use", "source": "history_ie", "source_id": "unstable_angina_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Unstable angina", "umls_cui": "C0002965", "phenotype": "Drug use", "source": "history_ie", "source_id": "unstable_angina_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Unstable angina", "umls_cui": "C0002965", "phenotype": "Prior history of diabetes", "source": "history_ie", "source_id": "unstable_angina_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Unstable angina", "umls_cui": "C0002965", "phenotype": "Prior history of hypertension", "source": "history_ie", "source_id": "unstable_angina_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Unstable angina", "umls_cui": "C0002965", "phenotype": "Prior history of COPD", "source": "history_ie", "source_id": "unstable_angina_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Unstable angina", "umls_cui": "C0002965", "phenotype": "Prior history of asthma", "source": "history_ie", "source_id": "unstable_angina_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Unstable angina", "umls_cui": "C0002965", "phenotype": "Prior history of heart disease in family", "source": "history_ie", "source_id": "unstable_angina_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Unstable angina", "umls_cui": "C0002965", "phenotype": "Family history of cardiac conditions", "source": "history_ie", "source_id": "unstable_angina_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Unstable angina", "umls_cui": "C0002965", "phenotype": "Sedentary lifestyle", "source": "history_ie", "source_id": "unstable_angina_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Unstable angina", "umls_cui": "C0002965", "phenotype": "Dietary habits", "source": "history_ie", "source_id": "unstable_angina_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Unstable angina", "umls_cui": "C0002965", "phenotype": "Stress levels", "source": "history_ie", "source_id": "unstable_angina_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Unstable angina", "umls_cui": "C0002965", "phenotype": "Age", "source": "history_ie", "source_id": "unstable_angina_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Unstable angina", "umls_cui": "C0002965", "phenotype": "Sex", "source": "history_ie", "source_id": "unstable_angina_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "GERD", "umls_cui": "C0017168", "phenotype": "Overweight", "source": "history_ie", "source_id": "gerd_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "GERD", "umls_cui": "C0017168", "phenotype": "Obesity", "source": "history_ie", "source_id": "gerd_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "GERD", "umls_cui": "C0017168", "phenotype": "Pregnancy status", "source": "history_ie", "source_id": "gerd_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "GERD", "umls_cui": "C0017168", "phenotype": "Smoking", "source": "history_ie", "source_id": "gerd_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "GERD", "umls_cui": "C0017168", "phenotype": "Exposure to secondhand smoke", "source": "history_ie", "source_id": "gerd_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "GERD", "umls_cui": "C0017168", "phenotype": "Hiatal hernia", "source": "history_ie", "source_id": "gerd_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "GERD", "umls_cui": "C0017168", "phenotype": "Smoking", "source": "history_ie", "source_id": "gerd_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "GERD", "umls_cui": "C0017168", "phenotype": "Alcohol use", "source": "history_ie", "source_id": "gerd_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "GERD", "umls_cui": "C0017168", "phenotype": "Dietary habits (implied by trigger foods)", "source": "history_ie", "source_id": "gerd_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "GERD", "umls_cui": "C0017168", "phenotype": "Weight status (implied by losing weight)", "source": "history_ie", "source_id": "gerd_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "GERD", "umls_cui": "C0017168", "phenotype": "Stress/Anxiety (implied by lifestyle changes)", "source": "history_ie", "source_id": "gerd_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "GERD", "umls_cui": "C0017168", "phenotype": "Age group (implied by general advice)", "source": "history_ie", "source_id": "gerd_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Guillain-Barré syndrome", "umls_cui": "C0018378", "phenotype": "Smoking status", "source": "history_ie", "source_id": "guillain_barr_syndrome_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Guillain-Barré syndrome", "umls_cui": "C0018378", "phenotype": "Alcohol use", "source": "history_ie", "source_id": "guillain_barr_syndrome_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Guillain-Barré syndrome", "umls_cui": "C0018378", "phenotype": "Drug use", "source": "history_ie", "source_id": "guillain_barr_syndrome_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Guillain-Barré syndrome", "umls_cui": "C0018378", "phenotype": "History of HIV", "source": "history_ie", "source_id": "guillain_barr_syndrome_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Guillain-Barré syndrome", "umls_cui": "C0018378", "phenotype": "History of COPD", "source": "history_ie", "source_id": "guillain_barr_syndrome_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Guillain-Barré syndrome", "umls_cui": "C0018378", "phenotype": "History of asthma", "source": "history_ie", "source_id": "guillain_barr_syndrome_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Guillain-Barré syndrome", "umls_cui": "C0018378", "phenotype": "History of diabetes", "source": "history_ie", "source_id": "guillain_barr_syndrome_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Guillain-Barré syndrome", "umls_cui": "C0018378", "phenotype": "History of hypertension", "source": "history_ie", "source_id": "guillain_barr_syndrome_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Guillain-Barré syndrome", "umls_cui": "C0018378", "phenotype": "History of prior surgery", "source": "history_ie", "source_id": "guillain_barr_syndrome_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Guillain-Barré syndrome", "umls_cui": "C0018378", "phenotype": "History of prior hospitalization", "source": "history_ie", "source_id": "guillain_barr_syndrome_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Guillain-Barré syndrome", "umls_cui": "C0018378", "phenotype": "Immunization status", "source": "history_ie", "source_id": "guillain_barr_syndrome_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Guillain-Barré syndrome", "umls_cui": "C0018378", "phenotype": "Pregnancy status", "source": "history_ie", "source_id": "guillain_barr_syndrome_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Guillain-Barré syndrome", "umls_cui": "C0018378", "phenotype": "Recent childbirth", "source": "history_ie", "source_id": "guillain_barr_syndrome_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Guillain-Barré syndrome", "umls_cui": "C0018378", "phenotype": "Family history of autoimmune conditions", "source": "history_ie", "source_id": "guillain_barr_syndrome_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Guillain-Barré syndrome", "umls_cui": "C0018378", "phenotype": "Recent travel history", "source": "history_ie", "source_id": "guillain_barr_syndrome_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Guillain-Barré syndrome", "umls_cui": "C0018378", "phenotype": "Exposure to sick person contact", "source": "history_ie", "source_id": "guillain_barr_syndrome_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Guillain-Barré syndrome", "umls_cui": "C0018378", "phenotype": "Occupational hazard exposure", "source": "history_ie", "source_id": "guillain_barr_syndrome_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Guillain-Barré syndrome", "umls_cui": "C0018378", "phenotype": "Chemical exposure history", "source": "history_ie", "source_id": "guillain_barr_syndrome_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Guillain-Barré syndrome", "umls_cui": "C0018378", "phenotype": "Sedentary lifestyle", "source": "history_ie", "source_id": "guillain_barr_syndrome_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Guillain-Barré syndrome", "umls_cui": "C0018378", "phenotype": "History of recent immobility", "source": "history_ie", "source_id": "guillain_barr_syndrome_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Guillain-Barré syndrome", "umls_cui": "C0018378", "phenotype": "Dietary habits", "source": "history_ie", "source_id": "guillain_barr_syndrome_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Guillain-Barré syndrome", "umls_cui": "C0018378", "phenotype": "History of sleep disorder", "source": "history_ie", "source_id": "guillain_barr_syndrome_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Guillain-Barré syndrome", "umls_cui": "C0018378", "phenotype": "Current stress levels", "source": "history_ie", "source_id": "guillain_barr_syndrome_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Guillain-Barré syndrome", "umls_cui": "C0018378", "phenotype": "Current anxiety levels", "source": "history_ie", "source_id": "guillain_barr_syndrome_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Guillain-Barré syndrome", "umls_cui": "C0018378", "phenotype": "Age group", "source": "history_ie", "source_id": "guillain_barr_syndrome_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Guillain-Barré syndrome", "umls_cui": "C0018378", "phenotype": "Sex", "source": "history_ie", "source_id": "guillain_barr_syndrome_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Inguinal hernia", "umls_cui": "C0019294", "phenotype": "Prior surgery", "source": "history_ie", "source_id": "hernia_inguinal_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Inguinal hernia", "umls_cui": "C0019294", "phenotype": "Age group", "source": "history_ie", "source_id": "hernia_inguinal_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Inguinal hernia", "umls_cui": "C0019294", "phenotype": "Sex-specific factors", "source": "history_ie", "source_id": "hernia_inguinal_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Inguinal hernia", "umls_cui": "C0019294", "phenotype": "Prior surgery", "source": "history_ie", "source_id": "inguinal_hernia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Inguinal hernia", "umls_cui": "C0019294", "phenotype": "Age group", "source": "history_ie", "source_id": "inguinal_hernia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Inguinal hernia", "umls_cui": "C0019294", "phenotype": "Sex-specific factors", "source": "history_ie", "source_id": "inguinal_hernia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Inguinal hernia", "umls_cui": "C0019294", "phenotype": "History of heavy lifting", "source": "history_ie", "source_id": "inguinal_hernia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Prior surgery", "source": "history_ie", "source_id": "pulmonary_embolism_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Cancers", "source": "history_ie", "source_id": "pulmonary_embolism_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Heart diseases", "source": "history_ie", "source_id": "pulmonary_embolism_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Lung diseases", "source": "history_ie", "source_id": "pulmonary_embolism_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Broken hip or leg bone or other trauma", "source": "history_ie", "source_id": "pulmonary_embolism_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Use of hormone-based medicines", "source": "history_ie", "source_id": "pulmonary_embolism_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Pregnancy status", "source": "history_ie", "source_id": "pulmonary_embolism_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Recent childbirth", "source": "history_ie", "source_id": "pulmonary_embolism_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Immobility", "source": "history_ie", "source_id": "pulmonary_embolism_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Age", "source": "history_ie", "source_id": "pulmonary_embolism_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Family history", "source": "history_ie", "source_id": "pulmonary_embolism_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Obesity", "source": "history_ie", "source_id": "pulmonary_embolism_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Smoking history", "source": "history_ie", "source_id": "pulmonary_embolism_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Alcohol use", "source": "history_ie", "source_id": "pulmonary_embolism_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Drug use", "source": "history_ie", "source_id": "pulmonary_embolism_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Addictive behavior", "source": "history_ie", "source_id": "pulmonary_embolism_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Prior diseases", "source": "history_ie", "source_id": "pulmonary_embolism_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Prior surgery", "source": "history_ie", "source_id": "pulmonary_embolism_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Prior hospitalization", "source": "history_ie", "source_id": "pulmonary_embolism_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Immunization status", "source": "history_ie", "source_id": "pulmonary_embolism_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Pregnancy status", "source": "history_ie", "source_id": "pulmonary_embolism_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Recent childbirth", "source": "history_ie", "source_id": "pulmonary_embolism_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Family history of similar condition", "source": "history_ie", "source_id": "pulmonary_embolism_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Hereditary conditions", "source": "history_ie", "source_id": "pulmonary_embolism_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Recent travel", "source": "history_ie", "source_id": "pulmonary_embolism_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Occupational exposure", "source": "history_ie", "source_id": "pulmonary_embolism_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Chemical exposure", "source": "history_ie", "source_id": "pulmonary_embolism_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Sedentary lifestyle", "source": "history_ie", "source_id": "pulmonary_embolism_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Recent immobility", "source": "history_ie", "source_id": "pulmonary_embolism_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Dietary habits", "source": "history_ie", "source_id": "pulmonary_embolism_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Sleep disorder", "source": "history_ie", "source_id": "pulmonary_embolism_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Stress levels", "source": "history_ie", "source_id": "pulmonary_embolism_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Anxiety levels", "source": "history_ie", "source_id": "pulmonary_embolism_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Age group", "source": "history_ie", "source_id": "pulmonary_embolism_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Sex", "source": "history_ie", "source_id": "pulmonary_embolism_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Smoking", "source": "history_ie", "source_id": "pulmonary_embolism_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Sedentary lifestyle", "source": "history_ie", "source_id": "pulmonary_embolism_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Recent immobility", "source": "history_ie", "source_id": "pulmonary_embolism_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Prior surgery", "source": "history_ie", "source_id": "pulmonary_embolism_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Recent hospitalization", "source": "history_ie", "source_id": "pulmonary_embolism_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Smoking", "source": "history_ie", "source_id": "psvt_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Family history of arrhythmias", "source": "history_ie", "source_id": "psvt_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Heart and blood vessel diseases", "source": "history_ie", "source_id": "psvt_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Lung diseases", "source": "history_ie", "source_id": "psvt_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Kidney diseases", "source": "history_ie", "source_id": "psvt_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Obesity", "source": "history_ie", "source_id": "psvt_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Sleep apnea", "source": "history_ie", "source_id": "psvt_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Age group (older adult)", "source": "history_ie", "source_id": "psvt_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Prior surgery (heart, lungs, or throat)", "source": "history_ie", "source_id": "psvt_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Use of illegal drugs", "source": "history_ie", "source_id": "psvt_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Stress", "source": "history_ie", "source_id": "psvt_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Anxiety", "source": "history_ie", "source_id": "psvt_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Smoking status", "source": "history_ie", "source_id": "psvt_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Alcohol use", "source": "history_ie", "source_id": "psvt_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Drug use", "source": "history_ie", "source_id": "psvt_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Prior diseases", "source": "history_ie", "source_id": "psvt_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Prior surgery", "source": "history_ie", "source_id": "psvt_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Prior hospitalization", "source": "history_ie", "source_id": "psvt_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Immunization status", "source": "history_ie", "source_id": "psvt_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Pregnancy status", "source": "history_ie", "source_id": "psvt_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Family history of cardiac conditions", "source": "history_ie", "source_id": "psvt_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Family history of hereditary conditions", "source": "history_ie", "source_id": "psvt_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Recent travel", "source": "history_ie", "source_id": "psvt_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Occupational hazards", "source": "history_ie", "source_id": "psvt_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Chemical exposure", "source": "history_ie", "source_id": "psvt_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Sedentary lifestyle", "source": "history_ie", "source_id": "psvt_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Dietary habits", "source": "history_ie", "source_id": "psvt_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Sleep disorder", "source": "history_ie", "source_id": "psvt_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Stress levels", "source": "history_ie", "source_id": "psvt_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Anxiety levels", "source": "history_ie", "source_id": "psvt_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Age group", "source": "history_ie", "source_id": "psvt_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Sex", "source": "history_ie", "source_id": "psvt_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pancreatic neoplasm", "umls_cui": "C0346647", "phenotype": "Smoking", "source": "history_ie", "source_id": "pancreatic_neoplasm_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pancreatic neoplasm", "umls_cui": "C0346647", "phenotype": "Long-term diabetes", "source": "history_ie", "source_id": "pancreatic_neoplasm_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pancreatic neoplasm", "umls_cui": "C0346647", "phenotype": "Chronic pancreatitis", "source": "history_ie", "source_id": "pancreatic_neoplasm_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pancreatic neoplasm", "umls_cui": "C0346647", "phenotype": "Hereditary disorders", "source": "history_ie", "source_id": "pancreatic_neoplasm_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Panic attack", "umls_cui": "C0349232", "phenotype": "Family history of similar condition", "source": "history_ie", "source_id": "panic_attack_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Panic attack", "umls_cui": "C0349232", "phenotype": "Genetics", "source": "history_ie", "source_id": "panic_attack_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Panic attack", "umls_cui": "C0349232", "phenotype": "Major stress", "source": "history_ie", "source_id": "panic_attack_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Panic attack", "umls_cui": "C0349232", "phenotype": "History of trauma", "source": "history_ie", "source_id": "panic_attack_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Panic attack", "umls_cui": "C0349232", "phenotype": "Sex-specific factors (female)", "source": "history_ie", "source_id": "panic_attack_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Panic attack", "umls_cui": "C0349232", "phenotype": "Age group (late teens or early adulthood)", "source": "history_ie", "source_id": "panic_attack_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Panic attack", "umls_cui": "C0349232", "phenotype": "Stress", "source": "history_ie", "source_id": "panic_attack_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Panic attack", "umls_cui": "C0349232", "phenotype": "Anxiety", "source": "history_ie", "source_id": "panic_attack_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Panic attack", "umls_cui": "C0349232", "phenotype": "Alcohol use", "source": "history_ie", "source_id": "panic_attack_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Panic attack", "umls_cui": "C0349232", "phenotype": "Caffeine intake", "source": "history_ie", "source_id": "panic_attack_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Panic attack", "umls_cui": "C0349232", "phenotype": "Sleep disorder", "source": "history_ie", "source_id": "panic_attack_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Panic attack", "umls_cui": "C0349232", "phenotype": "Sedentary lifestyle", "source": "history_ie", "source_id": "panic_attack_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pericarditis", "umls_cui": "C0155679", "phenotype": "Smoking status", "source": "history_ie", "source_id": "pericarditis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pericarditis", "umls_cui": "C0155679", "phenotype": "Alcohol use", "source": "history_ie", "source_id": "pericarditis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pericarditis", "umls_cui": "C0155679", "phenotype": "Drug use", "source": "history_ie", "source_id": "pericarditis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pericarditis", "umls_cui": "C0155679", "phenotype": "History of HIV", "source": "history_ie", "source_id": "pericarditis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pericarditis", "umls_cui": "C0155679", "phenotype": "History of COPD", "source": "history_ie", "source_id": "pericarditis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pericarditis", "umls_cui": "C0155679", "phenotype": "History of asthma", "source": "history_ie", "source_id": "pericarditis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pericarditis", "umls_cui": "C0155679", "phenotype": "History of diabetes", "source": "history_ie", "source_id": "pericarditis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pericarditis", "umls_cui": "C0155679", "phenotype": "History of hypertension", "source": "history_ie", "source_id": "pericarditis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pericarditis", "umls_cui": "C0155679", "phenotype": "History of prior surgery", "source": "history_ie", "source_id": "pericarditis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pericarditis", "umls_cui": "C0155679", "phenotype": "History of prior hospitalization", "source": "history_ie", "source_id": "pericarditis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pericarditis", "umls_cui": "C0155679", "phenotype": "Immunization status", "source": "history_ie", "source_id": "pericarditis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pericarditis", "umls_cui": "C0155679", "phenotype": "Pregnancy status", "source": "history_ie", "source_id": "pericarditis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pericarditis", "umls_cui": "C0155679", "phenotype": "Recent childbirth", "source": "history_ie", "source_id": "pericarditis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pericarditis", "umls_cui": "C0155679", "phenotype": "Family history of autoimmune conditions", "source": "history_ie", "source_id": "pericarditis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pericarditis", "umls_cui": "C0155679", "phenotype": "Family history of cardiac conditions", "source": "history_ie", "source_id": "pericarditis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pericarditis", "umls_cui": "C0155679", "phenotype": "Recent travel history", "source": "history_ie", "source_id": "pericarditis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pericarditis", "umls_cui": "C0155679", "phenotype": "Exposure to sick person contact", "source": "history_ie", "source_id": "pericarditis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pericarditis", "umls_cui": "C0155679", "phenotype": "Occupational hazard exposure", "source": "history_ie", "source_id": "pericarditis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pericarditis", "umls_cui": "C0155679", "phenotype": "Chemical exposure history", "source": "history_ie", "source_id": "pericarditis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pericarditis", "umls_cui": "C0155679", "phenotype": "Sedentary lifestyle", "source": "history_ie", "source_id": "pericarditis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pericarditis", "umls_cui": "C0155679", "phenotype": "Dietary habits", "source": "history_ie", "source_id": "pericarditis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pericarditis", "umls_cui": "C0155679", "phenotype": "Sleep disorder history", "source": "history_ie", "source_id": "pericarditis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pericarditis", "umls_cui": "C0155679", "phenotype": "Stress levels", "source": "history_ie", "source_id": "pericarditis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pericarditis", "umls_cui": "C0155679", "phenotype": "Anxiety levels", "source": "history_ie", "source_id": "pericarditis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pericarditis", "umls_cui": "C0155679", "phenotype": "Age group", "source": "history_ie", "source_id": "pericarditis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pericarditis", "umls_cui": "C0155679", "phenotype": "Sex", "source": "history_ie", "source_id": "pericarditis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "Smoking", "source": "history_ie", "source_id": "pneumonia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "Heavy alcohol use", "source": "history_ie", "source_id": "pneumonia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "Malnourishment", "source": "history_ie", "source_id": "pneumonia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "Age (children under 2)", "source": "history_ie", "source_id": "pneumonia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "Age (adults 65 and older)", "source": "history_ie", "source_id": "pneumonia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "Exposure to certain chemicals", "source": "history_ie", "source_id": "pneumonia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "Exposure to pollutants", "source": "history_ie", "source_id": "pneumonia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "Exposure to toxic fumes", "source": "history_ie", "source_id": "pneumonia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "Being in a hospital", "source": "history_ie", "source_id": "pneumonia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "Being in the ICU", "source": "history_ie", "source_id": "pneumonia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "Being sedated", "source": "history_ie", "source_id": "pneumonia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "Being on a ventilator", "source": "history_ie", "source_id": "pneumonia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "Having a lung disease", "source": "history_ie", "source_id": "pneumonia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "Having a weakened immune system", "source": "history_ie", "source_id": "pneumonia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "Having trouble coughing", "source": "history_ie", "source_id": "pneumonia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "Having trouble swallowing", "source": "history_ie", "source_id": "pneumonia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "Recently being sick with a cold", "source": "history_ie", "source_id": "pneumonia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "Recently being sick with the flu", "source": "history_ie", "source_id": "pneumonia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "Prior serious illnesses", "source": "history_ie", "source_id": "pneumonia_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "Older age", "source": "history_ie", "source_id": "pneumonia_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "Weak immune systems", "source": "history_ie", "source_id": "pneumonia_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "smoking", "source": "history_ie", "source_id": "pneumonia_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "prior diseases", "source": "history_ie", "source_id": "pneumonia_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "immunization status", "source": "history_ie", "source_id": "pneumonia_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "recent travel", "source": "history_ie", "source_id": "pneumonia_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "exposure", "source": "history_ie", "source_id": "pneumonia_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "sedentary lifestyle", "source": "history_ie", "source_id": "pneumonia_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "diet", "source": "history_ie", "source_id": "pneumonia_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "stress", "source": "history_ie", "source_id": "pneumonia_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "age group", "source": "history_ie", "source_id": "pneumonia_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "sex-specific factors", "source": "history_ie", "source_id": "pneumonia_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Viral pharyngitis", "umls_cui": "C0001344", "phenotype": "Prior history of allergies", "source": "history_ie", "source_id": "viral_pharyngitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Viral pharyngitis", "umls_cui": "C0001344", "phenotype": "Prior history of mononucleosis", "source": "history_ie", "source_id": "viral_pharyngitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Viral pharyngitis", "umls_cui": "C0001344", "phenotype": "Smoking history", "source": "history_ie", "source_id": "viral_pharyngitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Viral pharyngitis", "umls_cui": "C0001344", "phenotype": "Recent travel history", "source": "history_ie", "source_id": "viral_pharyngitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Viral pharyngitis", "umls_cui": "C0001344", "phenotype": "Sick person contact", "source": "history_ie", "source_id": "viral_pharyngitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Viral pharyngitis", "umls_cui": "C0001344", "phenotype": "Age group", "source": "history_ie", "source_id": "viral_pharyngitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiectasis", "umls_cui": "C0006267", "phenotype": "Smoking history", "source": "history_ie", "source_id": "bronchiectasis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiectasis", "umls_cui": "C0006267", "phenotype": "Alcohol use", "source": "history_ie", "source_id": "bronchiectasis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiectasis", "umls_cui": "C0006267", "phenotype": "Drug use", "source": "history_ie", "source_id": "bronchiectasis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiectasis", "umls_cui": "C0006267", "phenotype": "History of COPD", "source": "history_ie", "source_id": "bronchiectasis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiectasis", "umls_cui": "C0006267", "phenotype": "History of asthma", "source": "history_ie", "source_id": "bronchiectasis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiectasis", "umls_cui": "C0006267", "phenotype": "History of diabetes", "source": "history_ie", "source_id": "bronchiectasis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiectasis", "umls_cui": "C0006267", "phenotype": "History of hypertension", "source": "history_ie", "source_id": "bronchiectasis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiectasis", "umls_cui": "C0006267", "phenotype": "Prior respiratory infections", "source": "history_ie", "source_id": "bronchiectasis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiectasis", "umls_cui": "C0006267", "phenotype": "Prior lung infections", "source": "history_ie", "source_id": "bronchiectasis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiectasis", "umls_cui": "C0006267", "phenotype": "Prior hospitalization for respiratory issues", "source": "history_ie", "source_id": "bronchiectasis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiectasis", "umls_cui": "C0006267", "phenotype": "Exposure to airborne irritants", "source": "history_ie", "source_id": "bronchiectasis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiectasis", "umls_cui": "C0006267", "phenotype": "Occupational exposure to dust or chemicals", "source": "history_ie", "source_id": "bronchiectasis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiectasis", "umls_cui": "C0006267", "phenotype": "History of severe childhood respiratory illness", "source": "history_ie", "source_id": "bronchiectasis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiectasis", "umls_cui": "C0006267", "phenotype": "History of immune system disorders", "source": "history_ie", "source_id": "bronchiectasis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiectasis", "umls_cui": "C0006267", "phenotype": "Family history of chronic lung disease", "source": "history_ie", "source_id": "bronchiectasis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiectasis", "umls_cui": "C0006267", "phenotype": "Family history of cystic fibrosis", "source": "history_ie", "source_id": "bronchiectasis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiectasis", "umls_cui": "C0006267", "phenotype": "Age group", "source": "history_ie", "source_id": "bronchiectasis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiectasis", "umls_cui": "C0006267", "phenotype": "Sex", "source": "history_ie", "source_id": "bronchiectasis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Influenza", "umls_cui": "C0021400", "phenotype": "Age over 65", "source": "history_ie", "source_id": "influenza_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Influenza", "umls_cui": "C0021400", "phenotype": "Pregnancy status", "source": "history_ie", "source_id": "influenza_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Influenza", "umls_cui": "C0021400", "phenotype": "Childhood", "source": "history_ie", "source_id": "influenza_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Influenza", "umls_cui": "C0021400", "phenotype": "History of asthma", "source": "history_ie", "source_id": "influenza_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Influenza", "umls_cui": "C0021400", "phenotype": "History of diabetes", "source": "history_ie", "source_id": "influenza_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Influenza", "umls_cui": "C0021400", "phenotype": "History of heart disease", "source": "history_ie", "source_id": "influenza_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Influenza", "umls_cui": "C0021400", "phenotype": "Age group (elderly)", "source": "history_ie", "source_id": "influenza_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Influenza", "umls_cui": "C0021400", "phenotype": "Pregnancy status", "source": "history_ie", "source_id": "influenza_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Influenza", "umls_cui": "C0021400", "phenotype": "Age group (child)", "source": "history_ie", "source_id": "influenza_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Influenza", "umls_cui": "C0021400", "phenotype": "Prior diseases (asthma)", "source": "history_ie", "source_id": "influenza_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Influenza", "umls_cui": "C0021400", "phenotype": "Prior diseases (diabetes)", "source": "history_ie", "source_id": "influenza_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Influenza", "umls_cui": "C0021400", "phenotype": "Prior diseases (heart disease)", "source": "history_ie", "source_id": "influenza_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Influenza", "umls_cui": "C0021400", "phenotype": "Immunization status (flu vaccine)", "source": "history_ie", "source_id": "influenza_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Ebola", "umls_cui": "C0282687", "phenotype": "Recent travel to Africa", "source": "history_ie", "source_id": "ebola_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Ebola", "umls_cui": "C0282687", "phenotype": "Contact with sick person", "source": "history_ie", "source_id": "ebola_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Ebola", "umls_cui": "C0282687", "phenotype": "Occupational exposure to potential hazard", "source": "history_ie", "source_id": "ebola_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Ebola", "umls_cui": "C0282687", "phenotype": "Recent travel to regions where Ebola virus may be present", "source": "history_ie", "source_id": "ebola_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Ebola", "umls_cui": "C0282687", "phenotype": "Contact with blood and body fluids of sick people", "source": "history_ie", "source_id": "ebola_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Ebola", "umls_cui": "C0282687", "phenotype": "Contact with semen from a man who has recovered from Ebola", "source": "history_ie", "source_id": "ebola_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Ebola", "umls_cui": "C0282687", "phenotype": "Contact with bats", "source": "history_ie", "source_id": "ebola_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Ebola", "umls_cui": "C0282687", "phenotype": "Contact with forest antelopes", "source": "history_ie", "source_id": "ebola_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Ebola", "umls_cui": "C0282687", "phenotype": "Contact with nonhuman primates (such as monkeys and chimpanzees)", "source": "history_ie", "source_id": "ebola_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Whooping cough", "umls_cui": "C0043168", "phenotype": "Immunization status", "source": "history_ie", "source_id": "whooping_cough_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Whooping cough", "umls_cui": "C0043168", "phenotype": "Pregnancy status", "source": "history_ie", "source_id": "whooping_cough_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Whooping cough", "umls_cui": "C0043168", "phenotype": "Age group (child)", "source": "history_ie", "source_id": "whooping_cough_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Whooping cough", "umls_cui": "C0043168", "phenotype": "Age group (elderly)", "source": "history_ie", "source_id": "whooping_cough_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Whooping cough", "umls_cui": "C0043168", "phenotype": "Recent exposure to sick person", "source": "history_ie", "source_id": "whooping_cough_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Whooping cough", "umls_cui": "C0043168", "phenotype": "Recent travel", "source": "history_ie", "source_id": "whooping_cough_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Whooping cough", "umls_cui": "C0043168", "phenotype": "Immunization status", "source": "history_ie", "source_id": "whooping_cough_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Whooping cough", "umls_cui": "C0043168", "phenotype": "Pregnancy status", "source": "history_ie", "source_id": "whooping_cough_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Whooping cough", "umls_cui": "C0043168", "phenotype": "Recent childbirth", "source": "history_ie", "source_id": "whooping_cough_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Whooping cough", "umls_cui": "C0043168", "phenotype": "Prior respiratory infection", "source": "history_ie", "source_id": "whooping_cough_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Whooping cough", "umls_cui": "C0043168", "phenotype": "Immunization status", "source": "history_ie", "source_id": "whooping_cough_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Whooping cough", "umls_cui": "C0043168", "phenotype": "Prior diseases (e.g., asthma, COPD, diabetes)", "source": "history_ie", "source_id": "whooping_cough_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Whooping cough", "umls_cui": "C0043168", "phenotype": "Recent exposure to sick individuals", "source": "history_ie", "source_id": "whooping_cough_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Whooping cough", "umls_cui": "C0043168", "phenotype": "Recent travel history", "source": "history_ie", "source_id": "whooping_cough_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Whooping cough", "umls_cui": "C0043168", "phenotype": "Age group", "source": "history_ie", "source_id": "whooping_cough_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Whooping cough", "umls_cui": "C0043168", "phenotype": "Pregnancy status", "source": "history_ie", "source_id": "whooping_cough_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Cluster headache", "umls_cui": "C0009088", "phenotype": "Smoking status", "source": "history_ie", "source_id": "cluster_headache_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Cluster headache", "umls_cui": "C0009088", "phenotype": "Alcohol use", "source": "history_ie", "source_id": "cluster_headache_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Cluster headache", "umls_cui": "C0009088", "phenotype": "Drug use", "source": "history_ie", "source_id": "cluster_headache_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Cluster headache", "umls_cui": "C0009088", "phenotype": "Addictive behavior", "source": "history_ie", "source_id": "cluster_headache_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Cluster headache", "umls_cui": "C0009088", "phenotype": "Prior diseases", "source": "history_ie", "source_id": "cluster_headache_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Cluster headache", "umls_cui": "C0009088", "phenotype": "Prior surgery", "source": "history_ie", "source_id": "cluster_headache_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Cluster headache", "umls_cui": "C0009088", "phenotype": "Prior hospitalization", "source": "history_ie", "source_id": "cluster_headache_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Cluster headache", "umls_cui": "C0009088", "phenotype": "Immunization status", "source": "history_ie", "source_id": "cluster_headache_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Cluster headache", "umls_cui": "C0009088", "phenotype": "Pregnancy status", "source": "history_ie", "source_id": "cluster_headache_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Cluster headache", "umls_cui": "C0009088", "phenotype": "Recent childbirth", "source": "history_ie", "source_id": "cluster_headache_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Cluster headache", "umls_cui": "C0009088", "phenotype": "Family history of similar conditions", "source": "history_ie", "source_id": "cluster_headache_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Cluster headache", "umls_cui": "C0009088", "phenotype": "Family history of hereditary conditions", "source": "history_ie", "source_id": "cluster_headache_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Cluster headache", "umls_cui": "C0009088", "phenotype": "Recent travel", "source": "history_ie", "source_id": "cluster_headache_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Cluster headache", "umls_cui": "C0009088", "phenotype": "Occupational hazard exposure", "source": "history_ie", "source_id": "cluster_headache_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Cluster headache", "umls_cui": "C0009088", "phenotype": "Allergen exposure", "source": "history_ie", "source_id": "cluster_headache_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Cluster headache", "umls_cui": "C0009088", "phenotype": "Chemical exposure", "source": "history_ie", "source_id": "cluster_headache_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Cluster headache", "umls_cui": "C0009088", "phenotype": "Sedentary lifestyle", "source": "history_ie", "source_id": "cluster_headache_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Cluster headache", "umls_cui": "C0009088", "phenotype": "Dietary habits", "source": "history_ie", "source_id": "cluster_headache_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Cluster headache", "umls_cui": "C0009088", "phenotype": "Sleep disorder", "source": "history_ie", "source_id": "cluster_headache_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Cluster headache", "umls_cui": "C0009088", "phenotype": "Stress levels", "source": "history_ie", "source_id": "cluster_headache_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Cluster headache", "umls_cui": "C0009088", "phenotype": "Anxiety levels", "source": "history_ie", "source_id": "cluster_headache_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Cluster headache", "umls_cui": "C0009088", "phenotype": "Age group", "source": "history_ie", "source_id": "cluster_headache_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Cluster headache", "umls_cui": "C0009088", "phenotype": "Sex", "source": "history_ie", "source_id": "cluster_headache_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "Sex", "source": "history_ie", "source_id": "myasthenia_gravis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "Age group", "source": "history_ie", "source_id": "myasthenia_gravis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "Family history of autoimmune conditions", "source": "history_ie", "source_id": "myasthenia_gravis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "age group", "source": "history_ie", "source_id": "myasthenia_gravis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "sex-specific factors", "source": "history_ie", "source_id": "myasthenia_gravis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "pregnancy status", "source": "history_ie", "source_id": "myasthenia_gravis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "Prior diseases", "source": "history_ie", "source_id": "myasthenia_gravis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "Smoking history", "source": "history_ie", "source_id": "myasthenia_gravis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "Alcohol use", "source": "history_ie", "source_id": "myasthenia_gravis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "Drug use", "source": "history_ie", "source_id": "myasthenia_gravis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "Addictive behavior", "source": "history_ie", "source_id": "myasthenia_gravis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "Prior surgery", "source": "history_ie", "source_id": "myasthenia_gravis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "Prior hospitalization", "source": "history_ie", "source_id": "myasthenia_gravis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "Immunization status", "source": "history_ie", "source_id": "myasthenia_gravis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "Pregnancy status", "source": "history_ie", "source_id": "myasthenia_gravis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "Recent childbirth", "source": "history_ie", "source_id": "myasthenia_gravis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "Family history of autoimmune conditions", "source": "history_ie", "source_id": "myasthenia_gravis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "Family history of hereditary conditions", "source": "history_ie", "source_id": "myasthenia_gravis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "Recent travel", "source": "history_ie", "source_id": "myasthenia_gravis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "Occupational exposure to hazards", "source": "history_ie", "source_id": "myasthenia_gravis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "Exposure to sick person contact", "source": "history_ie", "source_id": "myasthenia_gravis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "Chemical exposure", "source": "history_ie", "source_id": "myasthenia_gravis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "Sedentary lifestyle", "source": "history_ie", "source_id": "myasthenia_gravis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "Sleep disorder", "source": "history_ie", "source_id": "myasthenia_gravis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "Stress levels", "source": "history_ie", "source_id": "myasthenia_gravis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "Anxiety levels", "source": "history_ie", "source_id": "myasthenia_gravis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "Age group", "source": "history_ie", "source_id": "myasthenia_gravis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "Sex", "source": "history_ie", "source_id": "myasthenia_gravis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myocarditis", "umls_cui": "C0027059", "phenotype": "Prior infections", "source": "history_ie", "source_id": "myocarditis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myocarditis", "umls_cui": "C0027059", "phenotype": "High blood pressure", "source": "history_ie", "source_id": "myocarditis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myocarditis", "umls_cui": "C0027059", "phenotype": "Infections", "source": "history_ie", "source_id": "myocarditis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myocarditis", "umls_cui": "C0027059", "phenotype": "Other diseases", "source": "history_ie", "source_id": "myocarditis_0", "extracted_by": "gemma-4-E4B"}
