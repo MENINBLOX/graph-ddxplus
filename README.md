@@ -1,6 +1,6 @@
 # Graph-DDXPlus
 
-## 🎯 현재 Strict Universal SOTA: 59.03% @1 (DDXPlus 30K, 2026-05-15)
+## 🎯 현재 Strict Universal SOTA: 59.28% @1 (DDXPlus 30K, 2026-05-15)
 
 | Config | @1 | @3 | @5 | @10 | MRR |
 |---|---|---|---|---|---|
@@ -8,11 +8,41 @@
 | v28 UMLS Q-expand (ck=28, sig_w=7) | 58.27% | 75.58% | 83.80% | 92.49% | 0.6938 |
 | v28 + tuned (ck=35, sig_w=9) | 58.70% | 75.66% | 82.13% | 91.96% | 0.6938 |
 | v34: v28 + Wikipedia Q-expand | 58.74% | 75.96% | 82.41% | 92.07% | 0.6956 |
-| **v36: v28 + Compound 4ch (w=0.1, rare<5)** | **59.03%** | **76.10%** | 82.60% | **92.35%** | **0.6976** |
+| v36: v28 + Compound 4ch (rare<5, w=0.1) | 59.03% | 76.10% | 82.60% | 92.35% | 0.6976 |
+| **v38: v36 + MedlinePlus IE (49 disease)** | **59.28%** | **76.18%** | **82.93%** | **93.16%** | **0.6999** |
+| Oracle ceiling (train-leaked GT 추가) | 69.78%* | 87.38%* | 93.38%* | 97.66%* | 0.7943* |
+
+*Oracle은 train labels 사용 = zero-shot 위반. KG content 한계 측정용.
 
 핵심 발견: KG의 phen 중 17%만 questionnaire (Q) universe 안에 있어 83%가 scoring 미기여. UMLS MRREL (RB/RN/RO/SY/PAR/CHD)로 non-Q phen → Q-CUI 브릿지하여 graph augmentation. KG content 변경 없이 **+11.98%p 달성**.
 
 **Phase 3-v2 BFS 통합 결과 무효** (regression -16%p): BFS edges가 v28의 IDF balance와 충돌.
+
+### Disease-evidence GT Recall 정량 분석 (2026-05-15)
+
+DDXPlus benchmark의 실제 환자 응답에서 추출한 GT (≥30% 환자에 등장)를 KG와 비교:
+
+| Metric | Value |
+|---|---|
+| 전체 GT recall (clean GT, ≥30% threshold) | **52.5% (446/849)** |
+| Disease별 평균 recall | 53.8% |
+| Disease 분포 (recall <25%) | 1 / 49 |
+| Disease 분포 (75%+) | 6 / 49 |
+| Best (Myasthenia gravis) | 87.5% |
+| Worst (Spontaneous rib fracture) | 12.5% |
+
+**카테고리별 Recall**:
+- Sign/Symptom: 68.1% ✓ (IE pipeline 정상 작동)
+- PhysiologicFunc: 67.6% ✓
+- Disease (history): 60.3%
+- PathFunction: 60.0%
+- BodyPart: 40.4%
+- Finding: 31.4%
+- **BodyLocation: 22.7%** ❌ (큰 손실)
+- **MentalDisorder: 15.0%** ❌
+- **Tissue, Procedure: 0%** ❌❌
+
+**Oracle test**: v28 KG에 missing GT 403 edges 직접 추가 → @1=69.78%. 즉 KG content만으로 약 +10%p ceiling. 그 이상은 scoring 알고리즘 한계.
 
 **Failure pattern analysis** (5K subset):
 - 105 PE → Pulmonary neoplasm (anatomy 동일, etiology 다름)
