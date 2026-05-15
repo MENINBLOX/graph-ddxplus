@@ -1,13 +1,14 @@
 # Graph-DDXPlus
 
-## 🎯 현재 Strict Universal SOTA: 58.74% @1 (DDXPlus 30K, 2026-05-14 22:59)
+## 🎯 현재 Strict Universal SOTA: 59.03% @1 (DDXPlus 30K, 2026-05-15)
 
 | Config | @1 | @3 | @5 | @10 | MRR |
 |---|---|---|---|---|---|
 | v23 baseline (3-channel) | 46.76% | 69.47% | 79.68% | 92.18% | 0.6137 |
 | v28 UMLS Q-expand (ck=28, sig_w=7) | 58.27% | 75.58% | 83.80% | 92.49% | 0.6938 |
 | v28 + tuned (ck=35, sig_w=9) | 58.70% | 75.66% | 82.13% | 91.96% | 0.6938 |
-| **v34: v28 + Wikipedia Q-expand** | **58.74%** | **75.96%** | 82.41% | 92.07% | **0.6956** |
+| v34: v28 + Wikipedia Q-expand | 58.74% | 75.96% | 82.41% | 92.07% | 0.6956 |
+| **v36: v28 + Compound 4ch (w=0.1, rare<5)** | **59.03%** | **76.10%** | 82.60% | **92.35%** | **0.6976** |
 
 핵심 발견: KG의 phen 중 17%만 questionnaire (Q) universe 안에 있어 83%가 scoring 미기여. UMLS MRREL (RB/RN/RO/SY/PAR/CHD)로 non-Q phen → Q-CUI 브릿지하여 graph augmentation. KG content 변경 없이 **+11.98%p 달성**.
 
@@ -22,7 +23,35 @@
 
 Top confusion pairs require: 시간 경과 (acute/chronic), 해부학적 specificity, exposure history. KG content 한계.
 
-**80% 목표까지: 21.26%p 잔여.**
+**80% 목표까지: 20.97%p 잔여.**
+
+### Evaluation 최적화 4-방향 테스트 결과 (2026-05-15)
+
+사용자 제안: DDXPlus evidence가 KG와 vocabulary mismatch. CUI 매핑 한계 (예: 'chest' vs 'chest pain'은 다른 CUI).
+
+**문제 확인**:
+- DDXPlus evidence value CUIs는 14개 evidence가 모두 generic `C0030193 (Pain)`으로 매핑됨
+- 'douleurxx_endroitducorps_@_côté_du_thorax' → Q:[Pain] + V:[Thorax structure] (분해됨)
+- KG의 `C0008031 Chest pain` (compound CUI)는 매칭 안 됨
+- 무의미한 modifier CUIs (Increased, Difficulty, Deeply) 포함
+
+**4-방향 테스트** (5K baseline 59.58%):
+| 방향 | @1 | 결과 |
+|---|---|---|
+| (a) Compound CUI injection (pcuis에 추가) | 51.54% | -8.04%p (regression) |
+| (a-rare) Rare compound (<5 diseases only) | 59.18% | -0.40%p |
+| (b) Patient-side UMLS expansion | 29.92% | -29.66%p (재앙) |
+| (c) Body location fill (55 entries) | 59.50% | -0.08%p (neutral) |
+| (c) Pain character fill (15 entries) | 59.02% | -0.56%p |
+| (d) Noise/modifier CUI filter | 57.70% | -1.88%p |
+| All combined | 49.58% | -10.00%p |
+| **v36: Compound 4ch (rare<5, w=0.1)** | **59.84%** | **+0.26%p** |
+
+**핵심 insight**: 
+- pcuis에 직접 추가 → cov 분모 증가, IDF 희석으로 regression
+- Compound 매칭을 **별도 Stage 2 채널** (4번째)로 처리하고 weight 0.1로 약한 boost → 안정적 개선
+- Rare compound (49 diseases 중 <5개에만 등장) 필터링이 필수 (Chest pain은 30/49 = generic)
+- v28의 UMLS Q-expansion이 이미 generic mismatch (Pain↔Chest pain)를 hop-1로 해결중 — compound는 보강 역할만
 
 ---
 
