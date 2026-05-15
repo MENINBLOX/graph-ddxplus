@@ -1,0 +1,312 @@
+{
+  "C0001311": {
+    "severe": 44,
+    "mild": 10,
+    "chronic": 38,
+    "gradual": 5,
+    "sudden": 2
+  },
+  "C0001327": {
+    "severe": 19,
+    "chronic": 26,
+    "mild": 8,
+    "gradual": 2,
+    "fever_high": 1,
+    "sudden": 1
+  },
+  "C0001344": {
+    "sudden": 5,
+    "severe": 6,
+    "chronic": 15,
+    "mild": 2,
+    "gradual": 1
+  },
+  "C0002871": {
+    "chronic": 48,
+    "severe": 30,
+    "mild": 25,
+    "sudden": 2,
+    "gradual": 1
+  },
+  "C0002962": {
+    "chronic": 16,
+    "sudden": 3,
+    "gradual": 2,
+    "severe": 0
+  },
+  "C0002965": {
+    "sudden": 2,
+    "chronic": 3,
+    "gradual": 1,
+    "mild": 1,
+    "severe": 0
+  },
+  "C0004096": {
+    "severe": 8,
+    "chronic": 8,
+    "mild": 2,
+    "gradual": 1,
+    "sudden": 0
+  },
+  "C0006267": {
+    "mild": 9,
+    "chronic": 69,
+    "gradual": 7,
+    "severe": 21,
+    "sudden": 0
+  },
+  "C0006277": {
+    "chronic": 53,
+    "gradual": 2,
+    "severe": 7,
+    "fever_high": 1,
+    "sudden": 0
+  },
+  "C0009088": {
+    "severe": 11,
+    "chronic": 8,
+    "gradual": 1,
+    "sudden": 2,
+    "mild": 1
+  },
+  "C0010072": {
+    "sudden": 2,
+    "chronic": 0,
+    "severe": 0
+  },
+  "C0010380": {
+    "sudden": 4,
+    "chronic": 22,
+    "severe": 39,
+    "mild": 22,
+    "gradual": 2
+  },
+  "C0013609": {
+    "chronic": 25,
+    "gradual": 9,
+    "mild": 15,
+    "severe": 30,
+    "sudden": 2
+  },
+  "C0017168": {
+    "chronic": 33,
+    "severe": 16,
+    "mild": 9,
+    "sudden": 1,
+    "gradual": 1
+  },
+  "C0018378": {
+    "severe": 5,
+    "mild": 2,
+    "chronic": 4,
+    "sudden": 1,
+    "gradual": 2
+  },
+  "C0019294": {
+    "chronic": 8,
+    "severe": 1,
+    "sudden": 0
+  },
+  "C0021400": {
+    "severe": 19,
+    "chronic": 8,
+    "gradual": 1,
+    "mild": 5,
+    "sudden": 0
+  },
+  "C0023066": {
+    "severe": 3,
+    "sudden": 2,
+    "chronic": 0
+  },
+  "C0027059": {
+    "mild": 14,
+    "chronic": 31,
+    "severe": 27,
+    "sudden": 18,
+    "gradual": 6
+  },
+  "C0029882": {
+    "chronic": 7,
+    "severe": 3,
+    "sudden": 0
+  },
+  "C0032326": {
+    "chronic": 10,
+    "severe": 4,
+    "mild": 2,
+    "sudden": 2
+  },
+  "C0034065": {
+    "chronic": 2,
+    "severe": 2,
+    "sudden": 0
+  },
+  "C0036202": {
+    "gradual": 11,
+    "chronic": 33,
+    "sudden": 5,
+    "severe": 10,
+    "mild": 6
+  },
+  "C0037199": {
+    "chronic": 104,
+    "mild": 1,
+    "severe": 7,
+    "sudden": 0
+  },
+  "C0039240": {
+    "sudden": 13,
+    "chronic": 12,
+    "mild": 8,
+    "severe": 5,
+    "gradual": 0
+  },
+  "C0041234": {
+    "chronic": 48,
+    "sudden": 7,
+    "severe": 17,
+    "gradual": 5,
+    "mild": 1
+  },
+  "C0041912": {
+    "severe": 18,
+    "chronic": 22,
+    "mild": 9,
+    "sudden": 0
+  },
+  "C0043168": {
+    "severe": 1,
+    "sudden": 0,
+    "chronic": 0
+  },
+  "C0149512": {
+    "chronic": 77,
+    "severe": 21,
+    "mild": 7,
+    "gradual": 2,
+    "sudden": 2,
+    "fever_high": 1
+  },
+  "C0155679": {
+    "chronic": 45,
+    "sudden": 2,
+    "severe": 6,
+    "gradual": 1,
+    "mild": 1
+  },
+  "C0155814": {
+    "gradual": 11,
+    "chronic": 5,
+    "severe": 14,
+    "sudden": 4,
+    "fever_high": 1,
+    "mild": 8
+  },
+  "C0155919": {
+    "sudden": 3,
+    "severe": 9,
+    "chronic": 4,
+    "gradual": 1,
+    "mild": 1
+  },
+  "C0236832": {
+    "chronic": 20,
+    "sudden": 3,
+    "severe": 5,
+    "gradual": 3,
+    "mild": 8
+  },
+  "C0275143": {
+    "mild": 2,
+    "severe": 1,
+    "sudden": 0,
+    "chronic": 0
+  },
+  "C0282687": {
+    "severe": 28,
+    "gradual": 1,
+    "mild": 3,
+    "chronic": 4,
+    "fever_high": 3,
+    "sudden": 1
+  },
+  "C0340044": {
+    "chronic": 18,
+    "gradual": 2,
+    "severe": 1,
+    "sudden": 0
+  },
+  "C0346647": {
+    "severe": 5,
+    "chronic": 22,
+    "mild": 4,
+    "gradual": 4,
+    "sudden": 0
+  },
+  "C0348343": {
+    "chronic": 24,
+    "gradual": 4,
+    "severe": 10,
+    "mild": 6,
+    "fever_high": 1,
+    "sudden": 1
+  },
+  "C0349232": {
+    "chronic": 16,
+    "severe": 23,
+    "mild": 7,
+    "sudden": 7,
+    "gradual": 1
+  },
+  "C0685898": {
+    "severe": 53,
+    "mild": 10,
+    "chronic": 8,
+    "sudden": 8,
+    "gradual": 0
+  },
+  "C0694504": {
+    "severe": 23,
+    "mild": 7,
+    "gradual": 4,
+    "chronic": 16,
+    "fever_high": 1,
+    "sudden": 0
+  },
+  "C0018621": {
+    "chronic": 26,
+    "mild": 3,
+    "sudden": 1,
+    "severe": 6,
+    "gradual": 3
+  },
+  "C3264374": {
+    "chronic": 2,
+    "sudden": 0,
+    "severe": 0
+  },
+  "C0014860": {
+    "sudden": 12,
+    "severe": 21,
+    "mild": 5,
+    "chronic": 12,
+    "gradual": 1
+  },
+  "C0024141": {
+    "chronic": 25,
+    "severe": 18,
+    "mild": 4,
+    "gradual": 2,
+    "fever_high": 1,
+    "sudden": 0
+  },
+  "C0041327": {
+    "gradual": 4,
+    "severe": 6,
+    "chronic": 7,
+    "mild": 1,
+    "fever_high": 1,
+    "sudden": 0
+  }
+}
