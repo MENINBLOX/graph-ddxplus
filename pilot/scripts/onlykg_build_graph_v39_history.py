@@ -20,6 +20,7 @@ PHEN_TO_Q = Path("pilot/data/phen_to_q_umls.json")
 SOURCES = [
     ("hist_mlp", Path("pilot/data/pubmed_ddx_extra/edges_history_medlineplus.jsonl")),
     ("hist_sp", Path("pilot/data/pubmed_ddx_extra/edges_history_statpearls.jsonl")),
+    ("hist_v3", Path("pilot/data/pubmed_ddx_extra/edges_history_v3.jsonl")),
 ]
 
 PREFERRED_SABS = ["HPO", "SNOMEDCT_US", "MSH", "MEDCIN", "NCI", "ICD10CM"]

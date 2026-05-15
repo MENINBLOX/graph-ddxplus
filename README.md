@@ -1,6 +1,6 @@
 # Graph-DDXPlus
 
-## 🎯 현재 Strict Universal SOTA: 59.49% @1 (DDXPlus 30K, 2026-05-15)
+## 🎯 현재 Strict Universal SOTA: 60.18% @1 (DDXPlus 30K, 2026-05-15)
 
 | Config | @1 | @3 | @5 | @10 | MRR |
 |---|---|---|---|---|---|
@@ -10,7 +10,8 @@
 | v34: v28 + Wikipedia Q-expand | 58.74% | 75.96% | 82.41% | 92.07% | 0.6956 |
 | v36: v28 + Compound 4ch (rare<5, w=0.1) | 59.03% | 76.10% | 82.60% | 92.35% | 0.6976 |
 | v38: v36 + MedlinePlus IE (49 disease) | 59.28% | 76.18% | 82.93% | 93.16% | 0.6999 |
-| **v39: v38 + History/Risk Factor IE (MLP+SP)** | **59.49%** | **76.18%** | **82.91%** | **93.11%** | **0.7011** |
+| v39: v38 + History/Risk Factor IE (MLP+SP) | 59.49% | 76.18% | 82.91% | 93.11% | 0.7011 |
+| **v41: v39 + Per-channel min-max normalize (ws=0.7)** | **60.18%** | **76.71%** | **84.70%** | **93.98%** | **0.7088** |
 | Oracle ceiling (train-leaked GT 추가) | 69.78%* | 87.38%* | 93.38%* | 97.66%* | 0.7943* |
 
 *Oracle은 train labels 사용 = zero-shot 위반. KG content 한계 측정용.
