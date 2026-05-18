@@ -1,6 +1,25 @@
 # Graph-DDXPlus
 
-## 🎯 현재 Strict Universal SOTA: 60.18% @1 (DDXPlus 30K, 2026-05-15)
+## 🎯 Strict Universal SOTA (zero-shot KG-only): 60.18% @1 / Few-shot NB: 99.43% @1
+
+**Zero-shot path (strict)**: v41 normalized 3-channel = **60.18% @1** (30K)
+- 9 architecture 변형 모두 60% plateau 확인 (v42-v51)
+- KG content + scoring 한계 (Oracle ceiling 70%)
+
+**Few-shot architectural breakthrough**: v53 per-evidence Naive Bayes
+| n_shot | Train samples | @1 | MRR |
+|---|---|---|---|
+| 0 (zero-shot v41) | 0 | 60.18% | 0.7088 |
+| 5 | 245 | **97.78%** | 0.9887 |
+| 10 | 490 | 98.61% | 0.9930 |
+| 50 | 2,450 | **99.43%** | 0.9971 |
+| 100 | 4,900 | 99.52% | 0.9976 |
+| Full supervised NB | 1,025,602 | 99.73% | - |
+
+**핵심 architecture 차이** (v52 → v53, +29%p jump):
+- v52: aggregate statistics (mean intensity, mean sudden)
+- v53: full per-evidence conditional probability `P(E_value | D)` × 209 evidences
+- 같은 train 데이터로 정보 밀도 100x 차이
 
 | Config | @1 | @3 | @5 | @10 | MRR |
 |---|---|---|---|---|---|
