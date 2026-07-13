@@ -1,15 +1,191 @@
 # Graph-DDXPlus
 
-## 🎯 Strict Universal SOTA (zero-shot KG-only): 60.18% @1 / Few-shot NB: 99.43% @1
+## 🧭 방법론 원칙 (Architecture Principle)
 
-**Zero-shot path (strict)**: v41 normalized 3-channel = **60.18% @1** (30K)
+### Unified Evidence Approach (질환-증상 통합)
+
+본 연구는 **질환(disease)과 증상(symptom/phenotype)을 구분하지 않고 모두 "evidences"로 통합** 처리한다.
+
+**이유**: DDXPlus 환자 evidence는 본질적으로 혼합형 — chief complaint(증상), 병력(질환), 검사 답변(symptom), demographic이 한 set에 섞임. 예:
+- `douleurxx` (binary YES) → C0030193 Pain — **증상**
+- `i25.1` (binary YES) → C0742281 "Heart attack history" — **질환 (병력)**
+- `e66` (binary YES) → C0497406 Obesity — **상태 (history)**
+
+**구조적 결정**:
+1. **Patient evidence vector**: 모든 CUI를 단일 set으로 처리 (disease/symptom 구분 X)
+2. **KG schema**: Bipartite (Disease node → Phenotype CUI 단방향 `HAS_PHENOTYPE`)
+   - Disease CUI(예: Asthma C0004096)도 다른 disease profile의 phenotype edge target으로 등장 가능 (= 병력)
+3. **Scoring**: Patient evidence CUI vector ↔ Disease phenotype profile vector 직접 cosine (no 2-hop reasoning)
+4. **2-hop reasoning 미사용**: KG에는 phenotype↔phenotype 직접 edge 없음. 두 phenotype은 disease 매개 2-hop으로만 연결되나, 알고리즘은 이를 활용하지 않음. 각 evidence가 disease profile에 직접 매칭되는지 독립 평가.
+
+**의미하는 바**:
+- 단순함 — single edge type (`HAS_PHENOTYPE`), single scoring (cosine + IDF + negative penalty)
+- 표현력 한계 — phenotype 간 co-occurrence/cluster 패턴 모델링 안 함
+- 환자 evidence에서 disease-like CUI vs phenotype-like CUI 차별 처리 안 함 (모두 동등 가중치, IDF로만 보정)
+
+### 결과
+- DDXPlus 30K @1 = **62.14%** (v95_full SOTA, 2026-05-22)
+- PhenoBrain LIRICAL @1 = **9.19%**
+- 자세한 변천 history는 아래 SOTA 표.
+
+---
+
+## 🛠️ 다음 IE cycle 계획 — 속성(attribute) 추출 재설계 (2026-06-01)
+
+### 왜 IE부터 다시 하나 (촉발 발견)
+속성(location/severity/onset/character) 레이어를 검증한 결과, **현재 IE가 뽑은 속성 데이터가 신뢰할 수 없음**이 확인됨.
+
+- **외부검증 FAILED**: data-derived applicability ↔ 임상 semiology gold(18증상×4속성, SOCRATES 기반, benchmark-무관) 상관 **Pearson r = −0.27, 이진 일치율 33%** (음의 상관).
+- **편향 패턴**:
+  - `location`이 거의 모든 증상에서 과충전 — dyspnea 0.93, fever 0.86, wheezing 1.00 (임상적으로 "위치"가 없는 증상조차). 원인: PubMed abstract가 어떤 증상이든 해부·병태생리를 서술하며 organ 위치 토큰을 흘림.
+  - `severity/onset/character`는 거의 모든 증상에서 과소충전(0.0~0.2). 원인: IE/post-validation이 이 qualifier를 잘 못 뽑거나 과하게 drop.
+- **결과**: "applicability 가중으로 @1 33.35→35.00" 은 원리적 효과가 아니라 **sparse 노이즈 채널을 죽인 artifact**. contrastive 변별(qualifier IDF)도 DDXPlus negative.
+- **결론**: 속성 레이어는 논문에 넣을 수준 아님. **IE 속성추출 편향 교정이 선행 과제.**
+
+### 다음에 시도할 것 (우선순위)
+1. **location 과추출 억제 — "환자보고 위치 vs 장기 해부위치" 구분**
+   - IE 프롬프트: 증상이 환자가 부위로 국소화하는 종류(pain·swelling·rash·lesion)일 때만 location 부여. 전신/감각 증상(fever·dyspnea·fatigue·nausea·dizziness)엔 abstract가 organ을 언급해도 location 부여 금지.
+   - 또는 post-filter: "localizable symptom" semantic-type 화이트리스트로 비국소 증상의 location_dist drop.
+2. **severity/onset/character 추출 강화**
+   - source-grounded keyword post-validation이 과하게 drop하는지 점검 → 완화.
+   - clinical-presentation-rich 텍스트(case report 등) 비중 ↑.
+   - onset(acute/chronic)·severity(mild/severe)·character 명시 지침 보강.
+3. **character_dist enum 강제** — 현재 "clinical and radiographic signs" 같은 비-성상 텍스트 혼입. sharp/dull/burning/cramping/throbbing/pressure/stabbing/aching 등 폐쇄 vocab로 제한, free-text drop.
+4. **(idea B) 문헌 근거 속성 추가**: laterality(좌/우/양측, HPO 정식 modifier), radiation(방사, DDXPlus douleurxx_irrad 존재), 시간패턴(constant↔intermittent).
+5. **(idea C-대안) applicability를 PubMed 빈도가 아닌 HPO modifier 구조에서 도출** 검토 (단 HPO disease 주석은 RareBench leakage라 modifier subontology 구조만 사용).
+
+### 검증 게이트 (이걸 통과해야 속성 레이어 사용)
+- **leakage-safe 외부검증**: `pilot/scripts/v103_eval_applicability.py`의 semiology gold 상관 **r > 0 (목표 > 0.5)** 회복 확인. (현재 r=−0.27)
+- 회복 후에야 @1 gain이 artifact 아닌 원리적 효과라고 주장 가능.
+- 속성 풍부+신뢰 가능한 **RareBench(HPO)** 에서 교차 재검증.
+
+### 관련 파일
+- 진단/검증: `pilot/scripts/v103_eval_applicability.py` (none/unif/appl/discrim 모드 + semiology gold 상관)
+- IE: `pilot/scripts/v103_grounded_ie.py` (속성 schema + post-validation), `v103_run_shard.py`
+- KG build: `v103_build_kg_cui.py`
+- 근거 문헌: SOCRATES/OLDCARTS, HPO clinical modifier(HP:0012823), semantic qualifiers(Bordage), 임상 NLP(cTAKES/i2b2)
+
+---
+
+## 🔬 Dual-Direction IE Methodology (v103+, 2026-05-29)
+
+KG의 모든 evidence를 UMLS CUI로 표현하되, **source 종류에 따라 IE 방향을 다르게** 적용한다.
+
+### 방향 1: CUI-driven IE (PubMed — top-down)
+시작점이 **CUI**인 source (UMLS 등 CUI를 가진 vocabulary).
+```
+[UMLS CUI: 부종 C0013604]
+   → CUI의 preferred name / synonym으로 PubMed 검색
+   → 검색된 abstracts에서 IE
+   → C0013604 → {연관 phenotype CUI + attributes (location/severity/onset/character)}
+```
+- Seed = CUI (이미 알고 있음)
+- 질문: "이 CUI에 대해 문헌이 무엇을 말하나?"
+- 추출된 CUI를 다음 seed로 (꼬리물기 recursive)
+
+### 방향 2: Text-driven IE (의학교과서 — bottom-up)
+완성된 문서 (MedlinePlus, GeneReviews, OMIM, Orphanet 등).
+```
+[완성된 교과서 문서]
+   → 문단 단위 chunking
+   → 각 chunk에서 등장하는 모든 CUI를 NER 추출 (scispaCy + UMLS linker)
+   → 같은 chunk의 CUI 간 관계 + attribute IE
+   → {chunk 내 disease, phenotype CUI들이 함께 등장} → edges with attributes
+```
+- Seed 없음 — 문서가 CUI를 발견시킴
+- 질문: "이 문단에 어떤 CUI들이 함께 있고 어떻게 연결되나?"
+- 한 문단에 disease + 그 증상들이 함께 서술 → 풍부한 (disease, phenotype, attr) 동시 추출
+
+### 통합
+```
+[Seed pool: UMLS CUI 39K (benchmark-blind universal)]
+       ↓
+   ┌──────────────────┬───────────────────┐
+   ↓ CUI-driven       ↓ text-driven
+[PubMed 검색 → IE]  [교과서 chunking → NER+IE]
+   ↓ CUI→phen+attr    ↓ chunk CUI 간 edge+attr
+   └────────┬─────────┘
+            ↓ merge (같은 CUI 통합)
+   [Property graph KG (edge에 attribute distribution)]
+            ↓ 꼬리물기 (추출 CUI를 새 seed로 recursive)
+   [최종 KG → Hypergraph 확장 (Option C)]
+```
+
+### 왜 두 방향이 필요한가 (sparse 문제 해결)
+- **CUI-driven (PubMed)만**: disease당 abstract 12개 → phenotype 12개만 추출 → sparse (환자 evidence 매칭 6.8%, DDXPlus @1 15%)
+- **Text-driven (교과서) 추가**: 한 교과서 문단이 disease + 다수 증상을 함께 서술 → 한 문서에서 50+ phenotype을 grounded로 추출 → richness 확보하면서 hallucination 없음
+- PubMed = specificity/recency, 교과서 = richness/co-occurrence
+
+### 학술적 정당성
+- 모든 edge가 source-grounded (PubMed citation 또는 교과서 chunk citation)
+- LLM 자기지식 사용 금지 (no hallucination), temperature=0 reproducible
+- HPO/SNOMED/Phenopackets 정합 attribute taxonomy
+- Text-driven chunk = 자연스러운 hyperedge 후보 (Option C hypergraph 직결)
+
+---
+
+## 📌 DDXPlus SOTA 점수 (2026-05-19 기준, 고정)
+
+### 외부 published SOTA — 비교 대상
+
+| Setting | Method | Top-1 (GTPA@1) | 비고 |
+|---|---|---|---|
+| **Supervised (최종 진단)** | AARLC / DDxT 등 | **~99-100%** | Train labels 사용, multi-label classifier |
+| **Zero-shot agentic (interactive)** | meddxagent (GPT-4o + Q&A loops) | **86%** | LLM에 추가 질문 권한, no train labels |
+| **Differential diagnosis (top-N ranked)** | various | **~86%** GTPA@5 | DDR/DDP/DDF1 metrics |
+
+### 본 연구 현재 SOTA
+
+| Architecture | Constraint | DDXPlus 134K @1 | @3 | @5 | @10 | MRR |
+|---|---|---|---|---|---|---|
+| v59 cosine (prior) | strict zero-shot KG-only | 52.96% | — | — | — | 0.6700 |
+| v63 +IDF | " | 59.10% | 78.71% | 85.69% | 92.57% | 0.7085 |
+| v64 +top-K=80 | " | 59.71% | 79.02% | 86.16% | 92.86% | 0.7126 |
+| v69 +negative evidence | " | 59.94% | 80.17% | 86.83% | 93.86% | 0.7185 |
+| v71 +self-aware neg | strict zero-shot KG-only | 60.33% | 79.90% | 86.??% | 92.??% | 0.7202 |
+| **v83 +academic LLM IE augmentation** (현재 SOTA) | zero-shot KG (LLM IE only, benchmark-blind) | **62.04%** | **82.34%** | — | — | **0.7386** |
+| Few-shot NB (참조) | 5-shot supervised | 97.78% | — | — | — | 0.9887 |
+| Full supervised NB (참조) | full train | 99.73% | — | — | — | — |
+
+⚠️ **v75/v77 ensemble은 제약 위반으로 무효**: LLM은 IE 단계에서만 사용해야 하는데, ensemble은 inference time에 LLM-NB score를 직접 결합. v76 LLM-Prior IE 결과는 KG에 통합되는 방식으로만 활용 가능.
+
+### 핵심 격차 (학술적 정직 보고)
+
+- **SOTA 100% (supervised) vs 우리 62.49%** = **37.51%p 격차**. 절반 이상 진전했지만 아직 부족.
+- **SOTA 86% (zero-shot agentic GPT-4o) vs 우리 62.49% (Gemma 8B)** = **23.51%p 격차**. 더 큰 LLM + agentic Q&A 필요.
+- 우리 **@10=95.32%** = 정답이 top-10 안에 있는 비율 → re-rank로 더 진전 가능성.
+
+### 평가 framework 정정 필요 사항
+
+DDXPlus 원래 task는 **differential diagnosis**:
+- 우리는 GTPA@1만 측정 → top-1 ranking accuracy
+- 추가 측정 필요: DDR (recall), DDP (precision), DDF1 — predicted ranked list ↔ GT differential 비교
+- DIFFERENTIAL_DIAGNOSIS column의 ranked GT distribution 활용
+
+### 연구 진행 단계
+
+- ✅ Phase A: KG 구축 (PubMed + Wikipedia + MedlinePlus + scispaCy, 1.95M edges)
+- ✅ Phase B: Scoring algorithm (cosine + IDF + top-K + self-aware negative)
+- ✅ Phase C: Evidence-side completeness (default_value=0 활용)
+- 🔄 **Phase D: Stage 2 LLM disambiguation** (top-10 → top-1, 86% 목표)
+- ⏳ Phase E: Differential metrics (DDR/DDP/DDF1) 측정 + 보고
+- ⏳ Phase F: Agentic Q&A (meddxagent style) 또는 KG content cleanup
+- ⏳ Phase G: 100% 목표 — supervised information bridging 방향 탐색
+
+---
+
+## 🎯 Strict Universal SOTA (zero-shot KG-only): 60.33% @1 / Few-shot NB: 99.43% @1
+
+**Zero-shot path (strict)**: v71 self-aware negative = **60.33% @1** (134K)
 - 9 architecture 변형 모두 60% plateau 확인 (v42-v51)
+- v63 IDF + v64 top-K + v69 negative + v71 self-aware = +7.37%p over v59 (52.96%)
 - KG content + scoring 한계 (Oracle ceiling 70%)
 
 **Few-shot architectural breakthrough**: v53 per-evidence Naive Bayes
 | n_shot | Train samples | @1 | MRR |
 |---|---|---|---|
 | 0 (zero-shot v41) | 0 | 60.18% | 0.7088 |
+| 0 (zero-shot v71 current SOTA) | 0 | **60.33%** | **0.7202** |
 | 5 | 245 | **97.78%** | 0.9887 |
 | 10 | 490 | 98.61% | 0.9930 |
 | 50 | 2,450 | **99.43%** | 0.9971 |
