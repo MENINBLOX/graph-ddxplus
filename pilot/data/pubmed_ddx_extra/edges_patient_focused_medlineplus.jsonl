@@ -1,0 +1,566 @@
+{"disease": "Bronchiolitis", "umls_cui": "C0001311", "phenotype": "cough", "source": "pubmed_patient_focused", "source_id": "acute_bronchiolitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiolitis", "umls_cui": "C0001311", "phenotype": "productive cough", "source": "pubmed_patient_focused", "source_id": "acute_bronchiolitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiolitis", "umls_cui": "C0001311", "phenotype": "shortness of breath", "source": "pubmed_patient_focused", "source_id": "acute_bronchiolitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiolitis", "umls_cui": "C0001311", "phenotype": "wheezing", "source": "pubmed_patient_focused", "source_id": "acute_bronchiolitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiolitis", "umls_cui": "C0001311", "phenotype": "fever", "source": "pubmed_patient_focused", "source_id": "acute_bronchiolitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiolitis", "umls_cui": "C0001311", "phenotype": "chest tightness", "source": "pubmed_patient_focused", "source_id": "acute_bronchiolitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiolitis", "umls_cui": "C0001311", "phenotype": "exposure to cold", "source": "pubmed_patient_focused", "source_id": "acute_bronchiolitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiolitis", "umls_cui": "C0001311", "phenotype": "exposure to dusts", "source": "pubmed_patient_focused", "source_id": "acute_bronchiolitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiolitis", "umls_cui": "C0001311", "phenotype": "exposure to fumes", "source": "pubmed_patient_focused", "source_id": "acute_bronchiolitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiolitis", "umls_cui": "C0001311", "phenotype": "shortness of breath", "source": "pubmed_patient_focused", "source_id": "bronchiolitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiolitis", "umls_cui": "C0001311", "phenotype": "wheezing", "source": "pubmed_patient_focused", "source_id": "bronchiolitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiolitis", "umls_cui": "C0001311", "phenotype": "cough", "source": "pubmed_patient_focused", "source_id": "bronchiolitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiolitis", "umls_cui": "C0001311", "phenotype": "fatigue", "source": "pubmed_patient_focused", "source_id": "bronchiolitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "cough", "source": "pubmed_patient_focused", "source_id": "acute_bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "productive cough", "source": "pubmed_patient_focused", "source_id": "acute_bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "dry cough", "source": "pubmed_patient_focused", "source_id": "acute_bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "shortness of breath", "source": "pubmed_patient_focused", "source_id": "acute_bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "wheezing", "source": "pubmed_patient_focused", "source_id": "acute_bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "fever", "source": "pubmed_patient_focused", "source_id": "acute_bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "chest tightness", "source": "pubmed_patient_focused", "source_id": "acute_bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "fatigue", "source": "pubmed_patient_focused", "source_id": "acute_bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "cough", "source": "pubmed_patient_focused", "source_id": "bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "productive cough", "source": "pubmed_patient_focused", "source_id": "bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "dry cough", "source": "pubmed_patient_focused", "source_id": "bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "shortness of breath", "source": "pubmed_patient_focused", "source_id": "bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "wheezing", "source": "pubmed_patient_focused", "source_id": "bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "fever", "source": "pubmed_patient_focused", "source_id": "bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "chest tightness", "source": "pubmed_patient_focused", "source_id": "bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchitis", "umls_cui": "C0006277", "phenotype": "fatigue", "source": "pubmed_patient_focused", "source_id": "bronchitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute laryngitis", "umls_cui": "C0001327", "phenotype": "sore throat", "source": "pubmed_patient_focused", "source_id": "laryngitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute laryngitis", "umls_cui": "C0001327", "phenotype": "hoarse voice", "source": "pubmed_patient_focused", "source_id": "laryngitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute laryngitis", "umls_cui": "C0001327", "phenotype": "loss of voice", "source": "pubmed_patient_focused", "source_id": "laryngitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute laryngitis", "umls_cui": "C0001327", "phenotype": "cough", "source": "pubmed_patient_focused", "source_id": "laryngitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute otitis media", "umls_cui": "C0029882", "phenotype": "Tugging at ears", "source": "pubmed_patient_focused", "source_id": "acute_otitis_media_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute otitis media", "umls_cui": "C0029882", "phenotype": "Crying more than usual", "source": "pubmed_patient_focused", "source_id": "acute_otitis_media_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute otitis media", "umls_cui": "C0029882", "phenotype": "Fluid draining from the ear", "source": "pubmed_patient_focused", "source_id": "acute_otitis_media_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute otitis media", "umls_cui": "C0029882", "phenotype": "Trouble sleeping", "source": "pubmed_patient_focused", "source_id": "acute_otitis_media_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute otitis media", "umls_cui": "C0029882", "phenotype": "Balance difficulties", "source": "pubmed_patient_focused", "source_id": "acute_otitis_media_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute otitis media", "umls_cui": "C0029882", "phenotype": "Hearing problems", "source": "pubmed_patient_focused", "source_id": "acute_otitis_media_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute otitis media", "umls_cui": "C0029882", "phenotype": "Pain (location: ear)", "source": "pubmed_patient_focused", "source_id": "acute_otitis_media_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute otitis media", "umls_cui": "C0029882", "phenotype": "Tugging at ears", "source": "pubmed_patient_focused", "source_id": "chronic_otitis_media_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute otitis media", "umls_cui": "C0029882", "phenotype": "Crying more than usual", "source": "pubmed_patient_focused", "source_id": "chronic_otitis_media_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute otitis media", "umls_cui": "C0029882", "phenotype": "Fluid draining from the ear", "source": "pubmed_patient_focused", "source_id": "chronic_otitis_media_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute otitis media", "umls_cui": "C0029882", "phenotype": "Trouble sleeping", "source": "pubmed_patient_focused", "source_id": "chronic_otitis_media_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute otitis media", "umls_cui": "C0029882", "phenotype": "Balance difficulties", "source": "pubmed_patient_focused", "source_id": "chronic_otitis_media_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute otitis media", "umls_cui": "C0029882", "phenotype": "Hearing problems", "source": "pubmed_patient_focused", "source_id": "chronic_otitis_media_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute otitis media", "umls_cui": "C0029882", "phenotype": "Pain (location: ear)", "source": "pubmed_patient_focused", "source_id": "chronic_otitis_media_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute otitis media", "umls_cui": "C0029882", "phenotype": "Tugging at ears", "source": "pubmed_patient_focused", "source_id": "otitis_media_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute otitis media", "umls_cui": "C0029882", "phenotype": "Crying more than usual", "source": "pubmed_patient_focused", "source_id": "otitis_media_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute otitis media", "umls_cui": "C0029882", "phenotype": "Fluid draining from the ear", "source": "pubmed_patient_focused", "source_id": "otitis_media_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute otitis media", "umls_cui": "C0029882", "phenotype": "Trouble sleeping", "source": "pubmed_patient_focused", "source_id": "otitis_media_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute otitis media", "umls_cui": "C0029882", "phenotype": "Balance difficulties", "source": "pubmed_patient_focused", "source_id": "otitis_media_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute otitis media", "umls_cui": "C0029882", "phenotype": "Hearing problems", "source": "pubmed_patient_focused", "source_id": "otitis_media_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute otitis media", "umls_cui": "C0029882", "phenotype": "Pain (location: ear)", "source": "pubmed_patient_focused", "source_id": "otitis_media_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute pulmonary edema", "umls_cui": "C0155919", "phenotype": "shortness of breath", "source": "pubmed_patient_focused", "source_id": "acute_pulmonary_edema_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute pulmonary edema", "umls_cui": "C0155919", "phenotype": "cough", "source": "pubmed_patient_focused", "source_id": "acute_pulmonary_edema_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute pulmonary edema", "umls_cui": "C0155919", "phenotype": "wheezing", "source": "pubmed_patient_focused", "source_id": "acute_pulmonary_edema_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute pulmonary edema", "umls_cui": "C0155919", "phenotype": "fatigue", "source": "pubmed_patient_focused", "source_id": "acute_pulmonary_edema_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute pulmonary edema", "umls_cui": "C0155919", "phenotype": "weakness", "source": "pubmed_patient_focused", "source_id": "acute_pulmonary_edema_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute pulmonary edema", "umls_cui": "C0155919", "phenotype": "dizziness", "source": "pubmed_patient_focused", "source_id": "acute_pulmonary_edema_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute pulmonary edema", "umls_cui": "C0155919", "phenotype": "lightheadedness", "source": "pubmed_patient_focused", "source_id": "acute_pulmonary_edema_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "fever", "source": "pubmed_patient_focused", "source_id": "acute_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "weakness", "source": "pubmed_patient_focused", "source_id": "acute_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "fatigue", "source": "pubmed_patient_focused", "source_id": "acute_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "cough", "source": "pubmed_patient_focused", "source_id": "acute_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "congestion", "source": "pubmed_patient_focused", "source_id": "acute_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "mucus drainage in the back of the throat", "source": "pubmed_patient_focused", "source_id": "acute_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "fever", "source": "pubmed_patient_focused", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "weakness", "source": "pubmed_patient_focused", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "fatigue", "source": "pubmed_patient_focused", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "cough", "source": "pubmed_patient_focused", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "congestion", "source": "pubmed_patient_focused", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Acute rhinosinusitis", "umls_cui": "C0149512", "phenotype": "mucus drainage in the back of the throat", "source": "pubmed_patient_focused", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Allergic sinusitis", "umls_cui": "C0018621", "phenotype": "Sneezing", "source": "pubmed_patient_focused", "source_id": "allergic_sinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Allergic sinusitis", "umls_cui": "C0018621", "phenotype": "Runny nose", "source": "pubmed_patient_focused", "source_id": "allergic_sinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Allergic sinusitis", "umls_cui": "C0018621", "phenotype": "Clogged nose", "source": "pubmed_patient_focused", "source_id": "allergic_sinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Allergic sinusitis", "umls_cui": "C0018621", "phenotype": "Coughing", "source": "pubmed_patient_focused", "source_id": "allergic_sinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Allergic sinusitis", "umls_cui": "C0018621", "phenotype": "Postnasal drip", "source": "pubmed_patient_focused", "source_id": "allergic_sinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Allergic sinusitis", "umls_cui": "C0018621", "phenotype": "Itching nose", "source": "pubmed_patient_focused", "source_id": "allergic_sinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Allergic sinusitis", "umls_cui": "C0018621", "phenotype": "Itching throat", "source": "pubmed_patient_focused", "source_id": "allergic_sinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Allergic sinusitis", "umls_cui": "C0018621", "phenotype": "Red eyes", "source": "pubmed_patient_focused", "source_id": "allergic_sinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Allergic sinusitis", "umls_cui": "C0018621", "phenotype": "Watery eyes", "source": "pubmed_patient_focused", "source_id": "allergic_sinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anaphylaxis", "umls_cui": "C0685898", "phenotype": "itching", "source": "pubmed_patient_focused", "source_id": "anaphylaxis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anaphylaxis", "umls_cui": "C0685898", "phenotype": "redness", "source": "pubmed_patient_focused", "source_id": "anaphylaxis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anaphylaxis", "umls_cui": "C0685898", "phenotype": "swelling", "source": "pubmed_patient_focused", "source_id": "anaphylaxis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anaphylaxis", "umls_cui": "C0685898", "phenotype": "sneezing", "source": "pubmed_patient_focused", "source_id": "anaphylaxis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anaphylaxis", "umls_cui": "C0685898", "phenotype": "stuffy nose", "source": "pubmed_patient_focused", "source_id": "anaphylaxis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anaphylaxis", "umls_cui": "C0685898", "phenotype": "runny nose", "source": "pubmed_patient_focused", "source_id": "anaphylaxis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anaphylaxis", "umls_cui": "C0685898", "phenotype": "itching (mouth)", "source": "pubmed_patient_focused", "source_id": "anaphylaxis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anaphylaxis", "umls_cui": "C0685898", "phenotype": "swelling (lips)", "source": "pubmed_patient_focused", "source_id": "anaphylaxis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anaphylaxis", "umls_cui": "C0685898", "phenotype": "swelling (tongue)", "source": "pubmed_patient_focused", "source_id": "anaphylaxis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anaphylaxis", "umls_cui": "C0685898", "phenotype": "itching (throat)", "source": "pubmed_patient_focused", "source_id": "anaphylaxis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anaphylaxis", "umls_cui": "C0685898", "phenotype": "tightness (throat)", "source": "pubmed_patient_focused", "source_id": "anaphylaxis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anaphylaxis", "umls_cui": "C0685898", "phenotype": "trouble swallowing", "source": "pubmed_patient_focused", "source_id": "anaphylaxis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anaphylaxis", "umls_cui": "C0685898", "phenotype": "swelling (throat)", "source": "pubmed_patient_focused", "source_id": "anaphylaxis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anaphylaxis", "umls_cui": "C0685898", "phenotype": "shortness of breath", "source": "pubmed_patient_focused", "source_id": "anaphylaxis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anaphylaxis", "umls_cui": "C0685898", "phenotype": "coughing", "source": "pubmed_patient_focused", "source_id": "anaphylaxis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anaphylaxis", "umls_cui": "C0685898", "phenotype": "wheezing", "source": "pubmed_patient_focused", "source_id": "anaphylaxis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anaphylaxis", "umls_cui": "C0685898", "phenotype": "chest pain", "source": "pubmed_patient_focused", "source_id": "anaphylaxis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anaphylaxis", "umls_cui": "C0685898", "phenotype": "chest tightness", "source": "pubmed_patient_focused", "source_id": "anaphylaxis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anaphylaxis", "umls_cui": "C0685898", "phenotype": "weak pulse", "source": "pubmed_patient_focused", "source_id": "anaphylaxis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anaphylaxis", "umls_cui": "C0685898", "phenotype": "dizziness", "source": "pubmed_patient_focused", "source_id": "anaphylaxis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anaphylaxis", "umls_cui": "C0685898", "phenotype": "fainting", "source": "pubmed_patient_focused", "source_id": "anaphylaxis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anaphylaxis", "umls_cui": "C0685898", "phenotype": "vomiting", "source": "pubmed_patient_focused", "source_id": "anaphylaxis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anaphylaxis", "umls_cui": "C0685898", "phenotype": "diarrhea", "source": "pubmed_patient_focused", "source_id": "anaphylaxis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anaphylaxis", "umls_cui": "C0685898", "phenotype": "cramps", "source": "pubmed_patient_focused", "source_id": "anaphylaxis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Atrial fibrillation", "umls_cui": "C3264374", "phenotype": "dizziness", "source": "pubmed_patient_focused", "source_id": "atrial_fibrillation_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Atrial fibrillation", "umls_cui": "C3264374", "phenotype": "fatigue", "source": "pubmed_patient_focused", "source_id": "atrial_fibrillation_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Atrial fibrillation", "umls_cui": "C3264374", "phenotype": "pounding heartbeat", "source": "pubmed_patient_focused", "source_id": "atrial_fibrillation_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Atrial fibrillation", "umls_cui": "C3264374", "phenotype": "Extreme fatigue", "source": "pubmed_patient_focused", "source_id": "atrial_fibrillation_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Atrial fibrillation", "umls_cui": "C3264374", "phenotype": "Heart palpitations", "source": "pubmed_patient_focused", "source_id": "atrial_fibrillation_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Atrial fibrillation", "umls_cui": "C3264374", "phenotype": "Trouble breathing", "source": "pubmed_patient_focused", "source_id": "atrial_fibrillation_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Atrial fibrillation", "umls_cui": "C3264374", "phenotype": "Chest pain", "source": "pubmed_patient_focused", "source_id": "atrial_fibrillation_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Atrial fibrillation", "umls_cui": "C3264374", "phenotype": "Dizziness", "source": "pubmed_patient_focused", "source_id": "atrial_fibrillation_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Atrial fibrillation", "umls_cui": "C3264374", "phenotype": "Fainting", "source": "pubmed_patient_focused", "source_id": "atrial_fibrillation_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Atrial fibrillation", "umls_cui": "C3264374", "phenotype": "palpitations", "source": "pubmed_patient_focused", "source_id": "atrial_fibrillation_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Atrial fibrillation", "umls_cui": "C3264374", "phenotype": "fast heart rate", "source": "pubmed_patient_focused", "source_id": "atrial_fibrillation_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Atrial fibrillation", "umls_cui": "C3264374", "phenotype": "fatigue", "source": "pubmed_patient_focused", "source_id": "atrial_fibrillation_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Atrial fibrillation", "umls_cui": "C3264374", "phenotype": "weakness", "source": "pubmed_patient_focused", "source_id": "atrial_fibrillation_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Atrial fibrillation", "umls_cui": "C3264374", "phenotype": "dizziness", "source": "pubmed_patient_focused", "source_id": "atrial_fibrillation_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Atrial fibrillation", "umls_cui": "C3264374", "phenotype": "lightheadedness", "source": "pubmed_patient_focused", "source_id": "atrial_fibrillation_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "Fever", "source": "pubmed_patient_focused", "source_id": "chagas_disease_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "Fatigue", "source": "pubmed_patient_focused", "source_id": "chagas_disease_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "Body aches", "source": "pubmed_patient_focused", "source_id": "chagas_disease_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "Headache", "source": "pubmed_patient_focused", "source_id": "chagas_disease_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "Loss of appetite", "source": "pubmed_patient_focused", "source_id": "chagas_disease_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "Diarrhea", "source": "pubmed_patient_focused", "source_id": "chagas_disease_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "Vomiting", "source": "pubmed_patient_focused", "source_id": "chagas_disease_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "Rash", "source": "pubmed_patient_focused", "source_id": "chagas_disease_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "Swollen eyelid", "source": "pubmed_patient_focused", "source_id": "chagas_disease_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "fatigue", "source": "pubmed_patient_focused", "source_id": "chagas_disease_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "weakness", "source": "pubmed_patient_focused", "source_id": "chagas_disease_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "loss of appetite", "source": "pubmed_patient_focused", "source_id": "chagas_disease_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "weight loss", "source": "pubmed_patient_focused", "source_id": "chagas_disease_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "palpitations", "source": "pubmed_patient_focused", "source_id": "chagas_disease_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "shortness of breath", "source": "pubmed_patient_focused", "source_id": "chagas_disease_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "cough", "source": "pubmed_patient_focused", "source_id": "chagas_disease_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "nausea", "source": "pubmed_patient_focused", "source_id": "chagas_disease_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "diarrhea", "source": "pubmed_patient_focused", "source_id": "chagas_disease_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "abdominal pain", "source": "pubmed_patient_focused", "source_id": "chagas_disease_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "chest pain", "source": "pubmed_patient_focused", "source_id": "chagas_disease_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "Fever", "source": "pubmed_patient_focused", "source_id": "chagas_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "Fatigue", "source": "pubmed_patient_focused", "source_id": "chagas_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "Body aches", "source": "pubmed_patient_focused", "source_id": "chagas_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "Headache", "source": "pubmed_patient_focused", "source_id": "chagas_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "Loss of appetite", "source": "pubmed_patient_focused", "source_id": "chagas_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "Diarrhea", "source": "pubmed_patient_focused", "source_id": "chagas_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "Vomiting", "source": "pubmed_patient_focused", "source_id": "chagas_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "Rash", "source": "pubmed_patient_focused", "source_id": "chagas_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "Swollen eyelid", "source": "pubmed_patient_focused", "source_id": "chagas_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "Arrhythmia", "source": "pubmed_patient_focused", "source_id": "chagas_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "Problems with digestion", "source": "pubmed_patient_focused", "source_id": "chagas_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "Problems with bowel movements", "source": "pubmed_patient_focused", "source_id": "chagas_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "fatigue", "source": "pubmed_patient_focused", "source_id": "chagas_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "weakness", "source": "pubmed_patient_focused", "source_id": "chagas_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "loss of appetite", "source": "pubmed_patient_focused", "source_id": "chagas_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "weight loss", "source": "pubmed_patient_focused", "source_id": "chagas_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "palpitations", "source": "pubmed_patient_focused", "source_id": "chagas_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "shortness of breath", "source": "pubmed_patient_focused", "source_id": "chagas_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "cough", "source": "pubmed_patient_focused", "source_id": "chagas_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "nausea", "source": "pubmed_patient_focused", "source_id": "chagas_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "diarrhea", "source": "pubmed_patient_focused", "source_id": "chagas_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "abdominal pain", "source": "pubmed_patient_focused", "source_id": "chagas_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chagas", "umls_cui": "C0041234", "phenotype": "chest pain", "source": "pubmed_patient_focused", "source_id": "chagas_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chronic rhinosinusitis", "umls_cui": "C0037199", "phenotype": "pain", "source": "pubmed_patient_focused", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chronic rhinosinusitis", "umls_cui": "C0037199", "phenotype": "fatigue", "source": "pubmed_patient_focused", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chronic rhinosinusitis", "umls_cui": "C0037199", "phenotype": "weakness", "source": "pubmed_patient_focused", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chronic rhinosinusitis", "umls_cui": "C0037199", "phenotype": "cough", "source": "pubmed_patient_focused", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chronic rhinosinusitis", "umls_cui": "C0037199", "phenotype": "mucus drainage in the back of the throat", "source": "pubmed_patient_focused", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chronic rhinosinusitis", "umls_cui": "C0037199", "phenotype": "congestion", "source": "pubmed_patient_focused", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Chronic rhinosinusitis", "umls_cui": "C0037199", "phenotype": "fever", "source": "pubmed_patient_focused", "source_id": "chronic_rhinosinusitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Epiglottitis", "umls_cui": "C0155814", "phenotype": "pain throat", "source": "pubmed_patient_focused", "source_id": "epiglottitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Epiglottitis", "umls_cui": "C0155814", "phenotype": "difficulty breathing", "source": "pubmed_patient_focused", "source_id": "epiglottitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Epiglottitis", "umls_cui": "C0155814", "phenotype": "shortness of breath", "source": "pubmed_patient_focused", "source_id": "epiglottitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Epiglottitis", "umls_cui": "C0155814", "phenotype": "sore throat", "source": "pubmed_patient_focused", "source_id": "epiglottitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Epiglottitis", "umls_cui": "C0155814", "phenotype": "fever", "source": "pubmed_patient_focused", "source_id": "epiglottitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Epiglottitis", "umls_cui": "C0155814", "phenotype": "chills", "source": "pubmed_patient_focused", "source_id": "epiglottitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Epiglottitis", "umls_cui": "C0155814", "phenotype": "fatigue", "source": "pubmed_patient_focused", "source_id": "epiglottitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Epiglottitis", "umls_cui": "C0155814", "phenotype": "pain neck", "source": "pubmed_patient_focused", "source_id": "epiglottitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "Chest pain", "source": "pubmed_patient_focused", "source_id": "pulmonary_neoplasm_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "Cough", "source": "pubmed_patient_focused", "source_id": "pulmonary_neoplasm_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "Chest discomfort", "source": "pubmed_patient_focused", "source_id": "pulmonary_neoplasm_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "Chest pain", "source": "pubmed_patient_focused", "source_id": "pulmonary_neoplasm_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "Cough", "source": "pubmed_patient_focused", "source_id": "pulmonary_neoplasm_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "Coughing up blood", "source": "pubmed_patient_focused", "source_id": "pulmonary_neoplasm_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "Trouble breathing", "source": "pubmed_patient_focused", "source_id": "pulmonary_neoplasm_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "Wheezing", "source": "pubmed_patient_focused", "source_id": "pulmonary_neoplasm_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "Hoarseness", "source": "pubmed_patient_focused", "source_id": "pulmonary_neoplasm_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "Loss of appetite", "source": "pubmed_patient_focused", "source_id": "pulmonary_neoplasm_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "Weight loss", "source": "pubmed_patient_focused", "source_id": "pulmonary_neoplasm_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "Feeling very tired", "source": "pubmed_patient_focused", "source_id": "pulmonary_neoplasm_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "Trouble swallowing", "source": "pubmed_patient_focused", "source_id": "pulmonary_neoplasm_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "Swelling in the face", "source": "pubmed_patient_focused", "source_id": "pulmonary_neoplasm_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "Veins in the neck", "source": "pubmed_patient_focused", "source_id": "pulmonary_neoplasm_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "cough", "source": "pubmed_patient_focused", "source_id": "pulmonary_neoplasm_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "shortness of breath", "source": "pubmed_patient_focused", "source_id": "pulmonary_neoplasm_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "fatigue", "source": "pubmed_patient_focused", "source_id": "pulmonary_neoplasm_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "weight loss", "source": "pubmed_patient_focused", "source_id": "pulmonary_neoplasm_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "loss of appetite", "source": "pubmed_patient_focused", "source_id": "pulmonary_neoplasm_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary neoplasm", "umls_cui": "C0348343", "phenotype": "chest pain", "source": "pubmed_patient_focused", "source_id": "pulmonary_neoplasm_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "fatigue", "source": "pubmed_patient_focused", "source_id": "anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "weakness", "source": "pubmed_patient_focused", "source_id": "anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "dizzy", "source": "pubmed_patient_focused", "source_id": "anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "shortness of breath", "source": "pubmed_patient_focused", "source_id": "anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "headache", "source": "pubmed_patient_focused", "source_id": "anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "fatigue", "source": "pubmed_patient_focused", "source_id": "anemia_hemolytic_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "weakness", "source": "pubmed_patient_focused", "source_id": "anemia_hemolytic_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "dizzy", "source": "pubmed_patient_focused", "source_id": "anemia_hemolytic_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "shortness of breath", "source": "pubmed_patient_focused", "source_id": "anemia_hemolytic_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "headache", "source": "pubmed_patient_focused", "source_id": "anemia_hemolytic_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "fatigue", "source": "pubmed_patient_focused", "source_id": "anemia_of_chronic_disease_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "weakness", "source": "pubmed_patient_focused", "source_id": "anemia_of_chronic_disease_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "dizzy", "source": "pubmed_patient_focused", "source_id": "anemia_of_chronic_disease_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "shortness of breath", "source": "pubmed_patient_focused", "source_id": "anemia_of_chronic_disease_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "headache", "source": "pubmed_patient_focused", "source_id": "anemia_of_chronic_disease_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "fatigue", "source": "pubmed_patient_focused", "source_id": "anemia_sickle_cell_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "weakness", "source": "pubmed_patient_focused", "source_id": "anemia_sickle_cell_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "pain", "source": "pubmed_patient_focused", "source_id": "anemia_sickle_cell_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "shortness of breath", "source": "pubmed_patient_focused", "source_id": "anemia_sickle_cell_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "dizziness", "source": "pubmed_patient_focused", "source_id": "anemia_sickle_cell_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "pain", "source": "pubmed_patient_focused", "source_id": "anemia_sickle_cell_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "fatigue", "source": "pubmed_patient_focused", "source_id": "anemia_sickle_cell_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "weakness", "source": "pubmed_patient_focused", "source_id": "anemia_sickle_cell_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "jaundice", "source": "pubmed_patient_focused", "source_id": "anemia_sickle_cell_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "fatigue", "source": "pubmed_patient_focused", "source_id": "anemia_sickle_cell_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "weakness", "source": "pubmed_patient_focused", "source_id": "anemia_sickle_cell_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "dizziness", "source": "pubmed_patient_focused", "source_id": "anemia_sickle_cell_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "lightheadedness", "source": "pubmed_patient_focused", "source_id": "anemia_sickle_cell_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "pain", "source": "pubmed_patient_focused", "source_id": "anemia_sickle_cell_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "fatigue", "source": "pubmed_patient_focused", "source_id": "iron_deficiency_anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "weakness", "source": "pubmed_patient_focused", "source_id": "iron_deficiency_anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "dizzy", "source": "pubmed_patient_focused", "source_id": "iron_deficiency_anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "shortness of breath", "source": "pubmed_patient_focused", "source_id": "iron_deficiency_anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "headache", "source": "pubmed_patient_focused", "source_id": "iron_deficiency_anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Fatigue", "source": "pubmed_patient_focused", "source_id": "aplastic_anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Weakness", "source": "pubmed_patient_focused", "source_id": "aplastic_anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Dizziness", "source": "pubmed_patient_focused", "source_id": "aplastic_anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Shortness of breath", "source": "pubmed_patient_focused", "source_id": "aplastic_anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Easy bruising", "source": "pubmed_patient_focused", "source_id": "aplastic_anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Anemia", "umls_cui": "C0002871", "phenotype": "Bleeding", "source": "pubmed_patient_focused", "source_id": "aplastic_anemia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Croup", "umls_cui": "C0010380", "phenotype": "cough", "source": "pubmed_patient_focused", "source_id": "croup_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Croup", "umls_cui": "C0010380", "phenotype": "hoarse voice", "source": "pubmed_patient_focused", "source_id": "croup_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Croup", "umls_cui": "C0010380", "phenotype": "difficulty breathing", "source": "pubmed_patient_focused", "source_id": "croup_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Croup", "umls_cui": "C0010380", "phenotype": "fever", "source": "pubmed_patient_focused", "source_id": "croup_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Croup", "umls_cui": "C0010380", "phenotype": "high-pitched noisy sounds when breathing", "source": "pubmed_patient_focused", "source_id": "croup_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Croup", "umls_cui": "C0010380", "phenotype": "worse at night", "source": "pubmed_patient_focused", "source_id": "croup_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Fatigue", "source": "pubmed_patient_focused", "source_id": "sarcoidosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Weight loss", "source": "pubmed_patient_focused", "source_id": "sarcoidosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Fever", "source": "pubmed_patient_focused", "source_id": "sarcoidosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Night sweats", "source": "pubmed_patient_focused", "source_id": "sarcoidosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Wheezing", "source": "pubmed_patient_focused", "source_id": "sarcoidosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Cough", "source": "pubmed_patient_focused", "source_id": "sarcoidosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Shortness of breath", "source": "pubmed_patient_focused", "source_id": "sarcoidosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Chest pain", "source": "pubmed_patient_focused", "source_id": "sarcoidosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Jaundice", "source": "pubmed_patient_focused", "source_id": "sarcoidosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Headache", "source": "pubmed_patient_focused", "source_id": "sarcoidosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Dizziness", "source": "pubmed_patient_focused", "source_id": "sarcoidosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Numbness", "source": "pubmed_patient_focused", "source_id": "sarcoidosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Tingling", "source": "pubmed_patient_focused", "source_id": "sarcoidosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Heart palpitations", "source": "pubmed_patient_focused", "source_id": "sarcoidosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Pain in joints", "source": "pubmed_patient_focused", "source_id": "sarcoidosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Swelling in joints", "source": "pubmed_patient_focused", "source_id": "sarcoidosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Rash", "source": "pubmed_patient_focused", "source_id": "sarcoidosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Growths under the skin", "source": "pubmed_patient_focused", "source_id": "sarcoidosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Heart palpitations", "source": "pubmed_patient_focused", "source_id": "sarcoidosis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Pain", "source": "pubmed_patient_focused", "source_id": "sarcoidosis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Swelling in the joints", "source": "pubmed_patient_focused", "source_id": "sarcoidosis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Rash", "source": "pubmed_patient_focused", "source_id": "sarcoidosis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Itchy bumps", "source": "pubmed_patient_focused", "source_id": "sarcoidosis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Blurred vision", "source": "pubmed_patient_focused", "source_id": "sarcoidosis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Eye pain", "source": "pubmed_patient_focused", "source_id": "sarcoidosis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Redness in the eye", "source": "pubmed_patient_focused", "source_id": "sarcoidosis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Light sensitivity", "source": "pubmed_patient_focused", "source_id": "sarcoidosis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Watery eyes", "source": "pubmed_patient_focused", "source_id": "sarcoidosis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Joint pain", "source": "pubmed_patient_focused", "source_id": "sarcoidosis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Stiffness in the joints", "source": "pubmed_patient_focused", "source_id": "sarcoidosis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "Fever", "source": "pubmed_patient_focused", "source_id": "sarcoidosis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "fatigue", "source": "pubmed_patient_focused", "source_id": "sarcoidosis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "weakness", "source": "pubmed_patient_focused", "source_id": "sarcoidosis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "joint pain", "source": "pubmed_patient_focused", "source_id": "sarcoidosis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Sarcoidosis", "umls_cui": "C0036202", "phenotype": "skin problems", "source": "pubmed_patient_focused", "source_id": "sarcoidosis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Spontaneous pneumothorax", "umls_cui": "C0032326", "phenotype": "sharp pain", "source": "pubmed_patient_focused", "source_id": "spontaneous_pneumothorax_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Spontaneous pneumothorax", "umls_cui": "C0032326", "phenotype": "shortness of breath", "source": "pubmed_patient_focused", "source_id": "spontaneous_pneumothorax_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Spontaneous pneumothorax", "umls_cui": "C0032326", "phenotype": "cough", "source": "pubmed_patient_focused", "source_id": "spontaneous_pneumothorax_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Stable angina", "umls_cui": "C0002962", "phenotype": "pressure in chest", "source": "pubmed_patient_focused", "source_id": "stable_angina_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Stable angina", "umls_cui": "C0002962", "phenotype": "squeezing pain in chest", "source": "pubmed_patient_focused", "source_id": "stable_angina_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Stable angina", "umls_cui": "C0002962", "phenotype": "indigestion", "source": "pubmed_patient_focused", "source_id": "stable_angina_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Stable angina", "umls_cui": "C0002962", "phenotype": "pain in arms", "source": "pubmed_patient_focused", "source_id": "stable_angina_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Stable angina", "umls_cui": "C0002962", "phenotype": "pain in neck", "source": "pubmed_patient_focused", "source_id": "stable_angina_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Stable angina", "umls_cui": "C0002962", "phenotype": "pain in jaw", "source": "pubmed_patient_focused", "source_id": "stable_angina_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Stable angina", "umls_cui": "C0002962", "phenotype": "pain in back", "source": "pubmed_patient_focused", "source_id": "stable_angina_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "cough", "source": "pubmed_patient_focused", "source_id": "tuberculosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "fatigue", "source": "pubmed_patient_focused", "source_id": "tuberculosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "weakness", "source": "pubmed_patient_focused", "source_id": "tuberculosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "chills", "source": "pubmed_patient_focused", "source_id": "tuberculosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "night sweats", "source": "pubmed_patient_focused", "source_id": "tuberculosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "weight loss", "source": "pubmed_patient_focused", "source_id": "tuberculosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "loss of appetite", "source": "pubmed_patient_focused", "source_id": "tuberculosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "sweating", "source": "pubmed_patient_focused", "source_id": "tuberculosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "shortness of breath", "source": "pubmed_patient_focused", "source_id": "tuberculosis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "Chills", "source": "pubmed_patient_focused", "source_id": "tuberculosis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "Fever", "source": "pubmed_patient_focused", "source_id": "tuberculosis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "Night sweats", "source": "pubmed_patient_focused", "source_id": "tuberculosis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "Weight loss", "source": "pubmed_patient_focused", "source_id": "tuberculosis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "Loss of appetite", "source": "pubmed_patient_focused", "source_id": "tuberculosis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "Weakness", "source": "pubmed_patient_focused", "source_id": "tuberculosis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "Fatigue", "source": "pubmed_patient_focused", "source_id": "tuberculosis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "Cough", "source": "pubmed_patient_focused", "source_id": "tuberculosis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "Coughing up blood", "source": "pubmed_patient_focused", "source_id": "tuberculosis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "Sputum", "source": "pubmed_patient_focused", "source_id": "tuberculosis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "Chest pain", "source": "pubmed_patient_focused", "source_id": "tuberculosis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "cough", "source": "pubmed_patient_focused", "source_id": "tuberculosis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "fatigue", "source": "pubmed_patient_focused", "source_id": "tuberculosis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "weakness", "source": "pubmed_patient_focused", "source_id": "tuberculosis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "night sweats", "source": "pubmed_patient_focused", "source_id": "tuberculosis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "sweating", "source": "pubmed_patient_focused", "source_id": "tuberculosis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "loss of appetite", "source": "pubmed_patient_focused", "source_id": "tuberculosis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Tuberculosis", "umls_cui": "C0041327", "phenotype": "weight loss", "source": "pubmed_patient_focused", "source_id": "tuberculosis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Unstable angina", "umls_cui": "C0002965", "phenotype": "pressure in chest", "source": "pubmed_patient_focused", "source_id": "unstable_angina_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Unstable angina", "umls_cui": "C0002965", "phenotype": "squeezing pain in chest", "source": "pubmed_patient_focused", "source_id": "unstable_angina_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Unstable angina", "umls_cui": "C0002965", "phenotype": "indigestion", "source": "pubmed_patient_focused", "source_id": "unstable_angina_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Unstable angina", "umls_cui": "C0002965", "phenotype": "pain in arms", "source": "pubmed_patient_focused", "source_id": "unstable_angina_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Unstable angina", "umls_cui": "C0002965", "phenotype": "pain in neck", "source": "pubmed_patient_focused", "source_id": "unstable_angina_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Unstable angina", "umls_cui": "C0002965", "phenotype": "pain in jaw", "source": "pubmed_patient_focused", "source_id": "unstable_angina_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Unstable angina", "umls_cui": "C0002965", "phenotype": "pain in back", "source": "pubmed_patient_focused", "source_id": "unstable_angina_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "GERD", "umls_cui": "C0017168", "phenotype": "burning feeling in your chest", "source": "pubmed_patient_focused", "source_id": "gerd_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "GERD", "umls_cui": "C0017168", "phenotype": "burning feeling in your throat", "source": "pubmed_patient_focused", "source_id": "gerd_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "GERD", "umls_cui": "C0017168", "phenotype": "tasting acid or food in the back of your mouth", "source": "pubmed_patient_focused", "source_id": "gerd_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "GERD", "umls_cui": "C0017168", "phenotype": "dry cough", "source": "pubmed_patient_focused", "source_id": "gerd_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "GERD", "umls_cui": "C0017168", "phenotype": "hoarse voice", "source": "pubmed_patient_focused", "source_id": "gerd_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "GERD", "umls_cui": "C0017168", "phenotype": "trouble swallowing", "source": "pubmed_patient_focused", "source_id": "gerd_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "GERD", "umls_cui": "C0017168", "phenotype": "chest pain", "source": "pubmed_patient_focused", "source_id": "gerd_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "GERD", "umls_cui": "C0017168", "phenotype": "shortness of breath", "source": "pubmed_patient_focused", "source_id": "gerd_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "GERD", "umls_cui": "C0017168", "phenotype": "pain in your jaw", "source": "pubmed_patient_focused", "source_id": "gerd_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "GERD", "umls_cui": "C0017168", "phenotype": "pain in your arm", "source": "pubmed_patient_focused", "source_id": "gerd_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "GERD", "umls_cui": "C0017168", "phenotype": "chronic cough", "source": "pubmed_patient_focused", "source_id": "gerd_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "GERD", "umls_cui": "C0017168", "phenotype": "hoarseness", "source": "pubmed_patient_focused", "source_id": "gerd_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "GERD", "umls_cui": "C0017168", "phenotype": "chest pain", "source": "pubmed_patient_focused", "source_id": "gerd_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Guillain-Barré syndrome", "umls_cui": "C0018378", "phenotype": "tingling", "source": "pubmed_patient_focused", "source_id": "guillain_barr_syndrome_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Guillain-Barré syndrome", "umls_cui": "C0018378", "phenotype": "weakness", "source": "pubmed_patient_focused", "source_id": "guillain_barr_syndrome_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Guillain-Barré syndrome", "umls_cui": "C0018378", "phenotype": "pain", "source": "pubmed_patient_focused", "source_id": "guillain_barr_syndrome_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Guillain-Barré syndrome", "umls_cui": "C0018378", "phenotype": "numbness", "source": "pubmed_patient_focused", "source_id": "guillain_barr_syndrome_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Guillain-Barré syndrome", "umls_cui": "C0018378", "phenotype": "tingling", "source": "pubmed_patient_focused", "source_id": "guillain_barr_syndrome_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Guillain-Barré syndrome", "umls_cui": "C0018378", "phenotype": "weakness", "source": "pubmed_patient_focused", "source_id": "guillain_barr_syndrome_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Guillain-Barré syndrome", "umls_cui": "C0018378", "phenotype": "weakness", "source": "pubmed_patient_focused", "source_id": "guillain_barr_syndrome_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Guillain-Barré syndrome", "umls_cui": "C0018378", "phenotype": "shortness of breath", "source": "pubmed_patient_focused", "source_id": "guillain_barr_syndrome_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Inguinal hernia", "umls_cui": "C0019294", "phenotype": "pain", "source": "pubmed_patient_focused", "source_id": "hernia_inguinal_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Inguinal hernia", "umls_cui": "C0019294", "phenotype": "swelling (groin)", "source": "pubmed_patient_focused", "source_id": "hernia_inguinal_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Inguinal hernia", "umls_cui": "C0019294", "phenotype": "lumps (groin)", "source": "pubmed_patient_focused", "source_id": "hernia_inguinal_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Inguinal hernia", "umls_cui": "C0019294", "phenotype": "pain (groin)", "source": "pubmed_patient_focused", "source_id": "hernia_inguinal_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Inguinal hernia", "umls_cui": "C0019294", "phenotype": "pain", "source": "pubmed_patient_focused", "source_id": "inguinal_hernia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Inguinal hernia", "umls_cui": "C0019294", "phenotype": "swelling (groin)", "source": "pubmed_patient_focused", "source_id": "inguinal_hernia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Inguinal hernia", "umls_cui": "C0019294", "phenotype": "lumps (groin)", "source": "pubmed_patient_focused", "source_id": "inguinal_hernia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Inguinal hernia", "umls_cui": "C0019294", "phenotype": "pain (groin)", "source": "pubmed_patient_focused", "source_id": "inguinal_hernia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Shortness of breath", "source": "pubmed_patient_focused", "source_id": "pulmonary_embolism_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Chest pain", "source": "pubmed_patient_focused", "source_id": "pulmonary_embolism_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Increased heart rate", "source": "pubmed_patient_focused", "source_id": "pulmonary_embolism_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Cough", "source": "pubmed_patient_focused", "source_id": "pulmonary_embolism_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Coughing up blood", "source": "pubmed_patient_focused", "source_id": "pulmonary_embolism_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "Lightheadedness", "source": "pubmed_patient_focused", "source_id": "pulmonary_embolism_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "shortness of breath", "source": "pubmed_patient_focused", "source_id": "pulmonary_embolism_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "chest pain", "source": "pubmed_patient_focused", "source_id": "pulmonary_embolism_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "fatigue", "source": "pubmed_patient_focused", "source_id": "pulmonary_embolism_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "weakness", "source": "pubmed_patient_focused", "source_id": "pulmonary_embolism_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "dizziness", "source": "pubmed_patient_focused", "source_id": "pulmonary_embolism_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "palpitations", "source": "pubmed_patient_focused", "source_id": "pulmonary_embolism_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "nausea", "source": "pubmed_patient_focused", "source_id": "pulmonary_embolism_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "fatigue", "source": "pubmed_patient_focused", "source_id": "pulmonary_embolism_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pulmonary embolism", "umls_cui": "C0034065", "phenotype": "weakness", "source": "pubmed_patient_focused", "source_id": "pulmonary_embolism_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Fast heartbeat", "source": "pubmed_patient_focused", "source_id": "psvt_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Slow heartbeat", "source": "pubmed_patient_focused", "source_id": "psvt_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Skipping heartbeats", "source": "pubmed_patient_focused", "source_id": "psvt_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Fluttering heartbeats", "source": "pubmed_patient_focused", "source_id": "psvt_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Pounding heartbeats", "source": "pubmed_patient_focused", "source_id": "psvt_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Chest pain", "source": "pubmed_patient_focused", "source_id": "psvt_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Chest discomfort", "source": "pubmed_patient_focused", "source_id": "psvt_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Dizziness", "source": "pubmed_patient_focused", "source_id": "psvt_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Fainting", "source": "pubmed_patient_focused", "source_id": "psvt_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Shortness of breath", "source": "pubmed_patient_focused", "source_id": "psvt_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Sweating", "source": "pubmed_patient_focused", "source_id": "psvt_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Tiredness", "source": "pubmed_patient_focused", "source_id": "psvt_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Fast heart rate", "source": "pubmed_patient_focused", "source_id": "psvt_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Skipping heartbeats", "source": "pubmed_patient_focused", "source_id": "psvt_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Fluttering heartbeats", "source": "pubmed_patient_focused", "source_id": "psvt_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Pounding heartbeats", "source": "pubmed_patient_focused", "source_id": "psvt_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Chest pain", "source": "pubmed_patient_focused", "source_id": "psvt_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Chest discomfort", "source": "pubmed_patient_focused", "source_id": "psvt_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Dizziness", "source": "pubmed_patient_focused", "source_id": "psvt_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Shortness of breath", "source": "pubmed_patient_focused", "source_id": "psvt_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Sweating", "source": "pubmed_patient_focused", "source_id": "psvt_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Tiredness", "source": "pubmed_patient_focused", "source_id": "psvt_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "PSVT", "umls_cui": "C0039240", "phenotype": "Weakness", "source": "pubmed_patient_focused", "source_id": "psvt_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pancreatic neoplasm", "umls_cui": "C0346647", "phenotype": "yellowing of the skin", "source": "pubmed_patient_focused", "source_id": "pancreatic_neoplasm_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pancreatic neoplasm", "umls_cui": "C0346647", "phenotype": "yellowing of the eyes", "source": "pubmed_patient_focused", "source_id": "pancreatic_neoplasm_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pancreatic neoplasm", "umls_cui": "C0346647", "phenotype": "pain in the abdomen", "source": "pubmed_patient_focused", "source_id": "pancreatic_neoplasm_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pancreatic neoplasm", "umls_cui": "C0346647", "phenotype": "pain in the back", "source": "pubmed_patient_focused", "source_id": "pancreatic_neoplasm_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pancreatic neoplasm", "umls_cui": "C0346647", "phenotype": "weight loss", "source": "pubmed_patient_focused", "source_id": "pancreatic_neoplasm_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pancreatic neoplasm", "umls_cui": "C0346647", "phenotype": "fatigue", "source": "pubmed_patient_focused", "source_id": "pancreatic_neoplasm_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Panic attack", "umls_cui": "C0349232", "phenotype": "pounding heart", "source": "pubmed_patient_focused", "source_id": "panic_attack_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Panic attack", "umls_cui": "C0349232", "phenotype": "racing heart", "source": "pubmed_patient_focused", "source_id": "panic_attack_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Panic attack", "umls_cui": "C0349232", "phenotype": "feeling of being out of control", "source": "pubmed_patient_focused", "source_id": "panic_attack_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Panic attack", "umls_cui": "C0349232", "phenotype": "fear of death", "source": "pubmed_patient_focused", "source_id": "panic_attack_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Panic attack", "umls_cui": "C0349232", "phenotype": "overwhelming anxiety", "source": "pubmed_patient_focused", "source_id": "panic_attack_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Panic attack", "umls_cui": "C0349232", "phenotype": "intense fear", "source": "pubmed_patient_focused", "source_id": "panic_attack_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Panic attack", "umls_cui": "C0349232", "phenotype": "fear or avoidance of places and situations", "source": "pubmed_patient_focused", "source_id": "panic_attack_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Panic attack", "umls_cui": "C0349232", "phenotype": "Pounding or racing heart", "source": "pubmed_patient_focused", "source_id": "panic_attack_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Panic attack", "umls_cui": "C0349232", "phenotype": "Sweating", "source": "pubmed_patient_focused", "source_id": "panic_attack_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Panic attack", "umls_cui": "C0349232", "phenotype": "Chills", "source": "pubmed_patient_focused", "source_id": "panic_attack_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Panic attack", "umls_cui": "C0349232", "phenotype": "Trembling or shaking", "source": "pubmed_patient_focused", "source_id": "panic_attack_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Panic attack", "umls_cui": "C0349232", "phenotype": "Trouble breathing", "source": "pubmed_patient_focused", "source_id": "panic_attack_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Panic attack", "umls_cui": "C0349232", "phenotype": "Feeling that they are choking", "source": "pubmed_patient_focused", "source_id": "panic_attack_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Panic attack", "umls_cui": "C0349232", "phenotype": "Weakness", "source": "pubmed_patient_focused", "source_id": "panic_attack_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Panic attack", "umls_cui": "C0349232", "phenotype": "Dizziness", "source": "pubmed_patient_focused", "source_id": "panic_attack_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Panic attack", "umls_cui": "C0349232", "phenotype": "Chest pain", "source": "pubmed_patient_focused", "source_id": "panic_attack_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Panic attack", "umls_cui": "C0349232", "phenotype": "Stomach pain", "source": "pubmed_patient_focused", "source_id": "panic_attack_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Panic attack", "umls_cui": "C0349232", "phenotype": "Nausea", "source": "pubmed_patient_focused", "source_id": "panic_attack_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pericarditis", "umls_cui": "C0155679", "phenotype": "chest pain", "source": "pubmed_patient_focused", "source_id": "pericarditis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pericarditis", "umls_cui": "C0155679", "phenotype": "rapid heartbeat", "source": "pubmed_patient_focused", "source_id": "pericarditis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pericarditis", "umls_cui": "C0155679", "phenotype": "difficulty breathing", "source": "pubmed_patient_focused", "source_id": "pericarditis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pericarditis", "umls_cui": "C0155679", "phenotype": "fever", "source": "pubmed_patient_focused", "source_id": "pericarditis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "Fever", "source": "pubmed_patient_focused", "source_id": "pneumonia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "Chills", "source": "pubmed_patient_focused", "source_id": "pneumonia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "Cough", "source": "pubmed_patient_focused", "source_id": "pneumonia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "Fatigue", "source": "pubmed_patient_focused", "source_id": "pneumonia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "Weakness", "source": "pubmed_patient_focused", "source_id": "pneumonia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "Shortness of breath", "source": "pubmed_patient_focused", "source_id": "pneumonia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "Chest pain", "source": "pubmed_patient_focused", "source_id": "pneumonia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "Night sweats", "source": "pubmed_patient_focused", "source_id": "pneumonia_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "Fever", "source": "pubmed_patient_focused", "source_id": "pneumonia_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "Chills", "source": "pubmed_patient_focused", "source_id": "pneumonia_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "Cough", "source": "pubmed_patient_focused", "source_id": "pneumonia_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "Phlegm", "source": "pubmed_patient_focused", "source_id": "pneumonia_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "Shortness of breath", "source": "pubmed_patient_focused", "source_id": "pneumonia_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "Chest pain", "source": "pubmed_patient_focused", "source_id": "pneumonia_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "Nausea", "source": "pubmed_patient_focused", "source_id": "pneumonia_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "Vomiting", "source": "pubmed_patient_focused", "source_id": "pneumonia_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "Diarrhea", "source": "pubmed_patient_focused", "source_id": "pneumonia_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "Fatigue", "source": "pubmed_patient_focused", "source_id": "pneumonia_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "Weakness", "source": "pubmed_patient_focused", "source_id": "pneumonia_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "Restlessness", "source": "pubmed_patient_focused", "source_id": "pneumonia_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "Confusion", "source": "pubmed_patient_focused", "source_id": "pneumonia_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "cough", "source": "pubmed_patient_focused", "source_id": "pneumonia_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "shortness of breath", "source": "pubmed_patient_focused", "source_id": "pneumonia_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "fatigue", "source": "pubmed_patient_focused", "source_id": "pneumonia_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "chills", "source": "pubmed_patient_focused", "source_id": "pneumonia_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "fever", "source": "pubmed_patient_focused", "source_id": "pneumonia_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "weakness", "source": "pubmed_patient_focused", "source_id": "pneumonia_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "night sweats", "source": "pubmed_patient_focused", "source_id": "pneumonia_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Pneumonia", "umls_cui": "C0694504", "phenotype": "pain (chest)", "source": "pubmed_patient_focused", "source_id": "pneumonia_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Viral pharyngitis", "umls_cui": "C0001344", "phenotype": "sore throat", "source": "pubmed_patient_focused", "source_id": "viral_pharyngitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Viral pharyngitis", "umls_cui": "C0001344", "phenotype": "pain", "source": "pubmed_patient_focused", "source_id": "viral_pharyngitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Viral pharyngitis", "umls_cui": "C0001344", "phenotype": "fatigue", "source": "pubmed_patient_focused", "source_id": "viral_pharyngitis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiectasis", "umls_cui": "C0006267", "phenotype": "shortness of breath", "source": "pubmed_patient_focused", "source_id": "bronchiectasis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiectasis", "umls_cui": "C0006267", "phenotype": "wheezing", "source": "pubmed_patient_focused", "source_id": "bronchiectasis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiectasis", "umls_cui": "C0006267", "phenotype": "cough", "source": "pubmed_patient_focused", "source_id": "bronchiectasis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiectasis", "umls_cui": "C0006267", "phenotype": "productive cough", "source": "pubmed_patient_focused", "source_id": "bronchiectasis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiectasis", "umls_cui": "C0006267", "phenotype": "sputum", "source": "pubmed_patient_focused", "source_id": "bronchiectasis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiectasis", "umls_cui": "C0006267", "phenotype": "fatigue", "source": "pubmed_patient_focused", "source_id": "bronchiectasis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Bronchiectasis", "umls_cui": "C0006267", "phenotype": "weakness", "source": "pubmed_patient_focused", "source_id": "bronchiectasis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Influenza", "umls_cui": "C0021400", "phenotype": "Fever", "source": "pubmed_patient_focused", "source_id": "influenza_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Influenza", "umls_cui": "C0021400", "phenotype": "Chills", "source": "pubmed_patient_focused", "source_id": "influenza_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Influenza", "umls_cui": "C0021400", "phenotype": "Cough", "source": "pubmed_patient_focused", "source_id": "influenza_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Influenza", "umls_cui": "C0021400", "phenotype": "Sore throat", "source": "pubmed_patient_focused", "source_id": "influenza_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Influenza", "umls_cui": "C0021400", "phenotype": "Runny nose", "source": "pubmed_patient_focused", "source_id": "influenza_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Influenza", "umls_cui": "C0021400", "phenotype": "Stuffy nose", "source": "pubmed_patient_focused", "source_id": "influenza_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Influenza", "umls_cui": "C0021400", "phenotype": "Muscle aches", "source": "pubmed_patient_focused", "source_id": "influenza_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Influenza", "umls_cui": "C0021400", "phenotype": "Body aches", "source": "pubmed_patient_focused", "source_id": "influenza_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Influenza", "umls_cui": "C0021400", "phenotype": "Headaches", "source": "pubmed_patient_focused", "source_id": "influenza_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Influenza", "umls_cui": "C0021400", "phenotype": "Fatigue", "source": "pubmed_patient_focused", "source_id": "influenza_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Influenza", "umls_cui": "C0021400", "phenotype": "Tiredness", "source": "pubmed_patient_focused", "source_id": "influenza_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Influenza", "umls_cui": "C0021400", "phenotype": "Vomiting", "source": "pubmed_patient_focused", "source_id": "influenza_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Influenza", "umls_cui": "C0021400", "phenotype": "Diarrhea", "source": "pubmed_patient_focused", "source_id": "influenza_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Influenza", "umls_cui": "C0021400", "phenotype": "fever", "source": "pubmed_patient_focused", "source_id": "influenza_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Influenza", "umls_cui": "C0021400", "phenotype": "chills", "source": "pubmed_patient_focused", "source_id": "influenza_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Influenza", "umls_cui": "C0021400", "phenotype": "fatigue", "source": "pubmed_patient_focused", "source_id": "influenza_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Influenza", "umls_cui": "C0021400", "phenotype": "weakness", "source": "pubmed_patient_focused", "source_id": "influenza_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Influenza", "umls_cui": "C0021400", "phenotype": "cough", "source": "pubmed_patient_focused", "source_id": "influenza_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Influenza", "umls_cui": "C0021400", "phenotype": "sore throat", "source": "pubmed_patient_focused", "source_id": "influenza_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Ebola", "umls_cui": "C0282687", "phenotype": "Fever", "source": "pubmed_patient_focused", "source_id": "ebola_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Ebola", "umls_cui": "C0282687", "phenotype": "Headache", "source": "pubmed_patient_focused", "source_id": "ebola_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Ebola", "umls_cui": "C0282687", "phenotype": "Joint pain", "source": "pubmed_patient_focused", "source_id": "ebola_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Ebola", "umls_cui": "C0282687", "phenotype": "Muscle aches", "source": "pubmed_patient_focused", "source_id": "ebola_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Ebola", "umls_cui": "C0282687", "phenotype": "Weakness", "source": "pubmed_patient_focused", "source_id": "ebola_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Ebola", "umls_cui": "C0282687", "phenotype": "Fatigue", "source": "pubmed_patient_focused", "source_id": "ebola_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Ebola", "umls_cui": "C0282687", "phenotype": "Sore throat", "source": "pubmed_patient_focused", "source_id": "ebola_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Ebola", "umls_cui": "C0282687", "phenotype": "Abdominal pain", "source": "pubmed_patient_focused", "source_id": "ebola_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Ebola", "umls_cui": "C0282687", "phenotype": "Diarrhea", "source": "pubmed_patient_focused", "source_id": "ebola_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Ebola", "umls_cui": "C0282687", "phenotype": "Vomiting", "source": "pubmed_patient_focused", "source_id": "ebola_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Ebola", "umls_cui": "C0282687", "phenotype": "Loss of appetite", "source": "pubmed_patient_focused", "source_id": "ebola_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Ebola", "umls_cui": "C0282687", "phenotype": "Bruising", "source": "pubmed_patient_focused", "source_id": "ebola_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Ebola", "umls_cui": "C0282687", "phenotype": "Rash", "source": "pubmed_patient_focused", "source_id": "ebola_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Ebola", "umls_cui": "C0282687", "phenotype": "Red eyes", "source": "pubmed_patient_focused", "source_id": "ebola_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Ebola", "umls_cui": "C0282687", "phenotype": "Hiccups", "source": "pubmed_patient_focused", "source_id": "ebola_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Ebola", "umls_cui": "C0282687", "phenotype": "fatigue", "source": "pubmed_patient_focused", "source_id": "ebola_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Ebola", "umls_cui": "C0282687", "phenotype": "muscle aches", "source": "pubmed_patient_focused", "source_id": "ebola_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Ebola", "umls_cui": "C0282687", "phenotype": "stomach pain", "source": "pubmed_patient_focused", "source_id": "ebola_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Ebola", "umls_cui": "C0282687", "phenotype": "eye problems", "source": "pubmed_patient_focused", "source_id": "ebola_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Ebola", "umls_cui": "C0282687", "phenotype": "vision problems", "source": "pubmed_patient_focused", "source_id": "ebola_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Whooping cough", "umls_cui": "C0043168", "phenotype": "runny nose", "source": "pubmed_patient_focused", "source_id": "whooping_cough_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Whooping cough", "umls_cui": "C0043168", "phenotype": "mild fever", "source": "pubmed_patient_focused", "source_id": "whooping_cough_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Whooping cough", "umls_cui": "C0043168", "phenotype": "mild, occasional cough", "source": "pubmed_patient_focused", "source_id": "whooping_cough_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Whooping cough", "umls_cui": "C0043168", "phenotype": "fits of many, rapid coughs", "source": "pubmed_patient_focused", "source_id": "whooping_cough_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Whooping cough", "umls_cui": "C0043168", "phenotype": "high-pitched whoop sound", "source": "pubmed_patient_focused", "source_id": "whooping_cough_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Whooping cough", "umls_cui": "C0043168", "phenotype": "vomiting during or after coughing fits", "source": "pubmed_patient_focused", "source_id": "whooping_cough_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Whooping cough", "umls_cui": "C0043168", "phenotype": "exhaustion after coughing fits", "source": "pubmed_patient_focused", "source_id": "whooping_cough_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Whooping cough", "umls_cui": "C0043168", "phenotype": "coughing fits happening more often", "source": "pubmed_patient_focused", "source_id": "whooping_cough_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Whooping cough", "umls_cui": "C0043168", "phenotype": "coughing fits happening especially at night", "source": "pubmed_patient_focused", "source_id": "whooping_cough_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Whooping cough", "umls_cui": "C0043168", "phenotype": "cough", "source": "pubmed_patient_focused", "source_id": "whooping_cough_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Whooping cough", "umls_cui": "C0043168", "phenotype": "shortness of breath", "source": "pubmed_patient_focused", "source_id": "whooping_cough_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Whooping cough", "umls_cui": "C0043168", "phenotype": "cough", "source": "pubmed_patient_focused", "source_id": "whooping_cough_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Whooping cough", "umls_cui": "C0043168", "phenotype": "chills", "source": "pubmed_patient_focused", "source_id": "whooping_cough_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Whooping cough", "umls_cui": "C0043168", "phenotype": "fatigue", "source": "pubmed_patient_focused", "source_id": "whooping_cough_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Whooping cough", "umls_cui": "C0043168", "phenotype": "weakness", "source": "pubmed_patient_focused", "source_id": "whooping_cough_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Whooping cough", "umls_cui": "C0043168", "phenotype": "shortness of breath", "source": "pubmed_patient_focused", "source_id": "whooping_cough_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Whooping cough", "umls_cui": "C0043168", "phenotype": "wheezing", "source": "pubmed_patient_focused", "source_id": "whooping_cough_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Whooping cough", "umls_cui": "C0043168", "phenotype": "loss of appetite", "source": "pubmed_patient_focused", "source_id": "whooping_cough_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Whooping cough", "umls_cui": "C0043168", "phenotype": "night sweats", "source": "pubmed_patient_focused", "source_id": "whooping_cough_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Cluster headache", "umls_cui": "C0009088", "phenotype": "pain", "source": "pubmed_patient_focused", "source_id": "cluster_headache_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Cluster headache", "umls_cui": "C0009088", "phenotype": "throbbing", "source": "pubmed_patient_focused", "source_id": "cluster_headache_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Cluster headache", "umls_cui": "C0009088", "phenotype": "head", "source": "pubmed_patient_focused", "source_id": "cluster_headache_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Cluster headache", "umls_cui": "C0009088", "phenotype": "pain in the eye", "source": "pubmed_patient_focused", "source_id": "cluster_headache_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Cluster headache", "umls_cui": "C0009088", "phenotype": "pain in the ear", "source": "pubmed_patient_focused", "source_id": "cluster_headache_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Cluster headache", "umls_cui": "C0009088", "phenotype": "fever", "source": "pubmed_patient_focused", "source_id": "cluster_headache_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Cluster headache", "umls_cui": "C0009088", "phenotype": "confusion", "source": "pubmed_patient_focused", "source_id": "cluster_headache_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Cluster headache", "umls_cui": "C0009088", "phenotype": "loss of consciousness", "source": "pubmed_patient_focused", "source_id": "cluster_headache_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "weakness", "source": "pubmed_patient_focused", "source_id": "myasthenia_gravis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "fatigue", "source": "pubmed_patient_focused", "source_id": "myasthenia_gravis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "difficulty moving eye", "source": "pubmed_patient_focused", "source_id": "myasthenia_gravis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "difficulty moving eyelid", "source": "pubmed_patient_focused", "source_id": "myasthenia_gravis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "difficulty with facial expressions", "source": "pubmed_patient_focused", "source_id": "myasthenia_gravis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "difficulty chewing", "source": "pubmed_patient_focused", "source_id": "myasthenia_gravis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "difficulty talking", "source": "pubmed_patient_focused", "source_id": "myasthenia_gravis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "difficulty swallowing", "source": "pubmed_patient_focused", "source_id": "myasthenia_gravis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "shortness of breath", "source": "pubmed_patient_focused", "source_id": "myasthenia_gravis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "weakness in arms", "source": "pubmed_patient_focused", "source_id": "myasthenia_gravis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "weakness in legs", "source": "pubmed_patient_focused", "source_id": "myasthenia_gravis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "weakness in other muscles", "source": "pubmed_patient_focused", "source_id": "myasthenia_gravis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "weakness gets worse with activity", "source": "pubmed_patient_focused", "source_id": "myasthenia_gravis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "weakness gets better with rest", "source": "pubmed_patient_focused", "source_id": "myasthenia_gravis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "Weakness of the eye muscles", "source": "pubmed_patient_focused", "source_id": "myasthenia_gravis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "Drooping of one or both eyelids", "source": "pubmed_patient_focused", "source_id": "myasthenia_gravis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "Blurred vision", "source": "pubmed_patient_focused", "source_id": "myasthenia_gravis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "Double vision", "source": "pubmed_patient_focused", "source_id": "myasthenia_gravis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "Changes in facial expressions", "source": "pubmed_patient_focused", "source_id": "myasthenia_gravis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "Trouble swallowing", "source": "pubmed_patient_focused", "source_id": "myasthenia_gravis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "Shortness of breath", "source": "pubmed_patient_focused", "source_id": "myasthenia_gravis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "Speech problems", "source": "pubmed_patient_focused", "source_id": "myasthenia_gravis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "Weakness in the arms", "source": "pubmed_patient_focused", "source_id": "myasthenia_gravis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "Weakness in the hands", "source": "pubmed_patient_focused", "source_id": "myasthenia_gravis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "Weakness in the fingers", "source": "pubmed_patient_focused", "source_id": "myasthenia_gravis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "Weakness in the legs", "source": "pubmed_patient_focused", "source_id": "myasthenia_gravis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "Weakness in the neck", "source": "pubmed_patient_focused", "source_id": "myasthenia_gravis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "Muscle weakness", "source": "pubmed_patient_focused", "source_id": "myasthenia_gravis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "Weakness that varies from day to day", "source": "pubmed_patient_focused", "source_id": "myasthenia_gravis_2000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "weakness", "source": "pubmed_patient_focused", "source_id": "myasthenia_gravis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "fatigue", "source": "pubmed_patient_focused", "source_id": "myasthenia_gravis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "shortness of breath", "source": "pubmed_patient_focused", "source_id": "myasthenia_gravis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "difficulty swallowing", "source": "pubmed_patient_focused", "source_id": "myasthenia_gravis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "double vision", "source": "pubmed_patient_focused", "source_id": "myasthenia_gravis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myasthenia gravis", "umls_cui": "C0026896", "phenotype": "muscle weakness in limbs", "source": "pubmed_patient_focused", "source_id": "myasthenia_gravis_4000", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myocarditis", "umls_cui": "C0027059", "phenotype": "fatigue", "source": "pubmed_patient_focused", "source_id": "myocarditis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myocarditis", "umls_cui": "C0027059", "phenotype": "weakness", "source": "pubmed_patient_focused", "source_id": "myocarditis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myocarditis", "umls_cui": "C0027059", "phenotype": "shortness of breath", "source": "pubmed_patient_focused", "source_id": "myocarditis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myocarditis", "umls_cui": "C0027059", "phenotype": "palpitations", "source": "pubmed_patient_focused", "source_id": "myocarditis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myocarditis", "umls_cui": "C0027059", "phenotype": "fast heart rate", "source": "pubmed_patient_focused", "source_id": "myocarditis_0", "extracted_by": "gemma-4-E4B"}
+{"disease": "Myocarditis", "umls_cui": "C0027059", "phenotype": "chest pain", "source": "pubmed_patient_focused", "source_id": "myocarditis_0", "extracted_by": "gemma-4-E4B"}
