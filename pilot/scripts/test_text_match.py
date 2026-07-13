@@ -3,6 +3,8 @@
 
 CUI의 UMLS 영문 이름으로 초록 텍스트를 직접 검색하여
 MeSH/NER 없이 CUI를 추출하는 방법의 효과를 측정한다.
+
+Aho-Corasick 알고리즘으로 수십만 패턴을 O(n) 매칭.
 """
 from __future__ import annotations
 
@@ -12,6 +14,8 @@ import sqlite3
 import time
 from collections import defaultdict
 from pathlib import Path
+
+import ahocorasick
 
 UMLS_DIR = Path("data/umls_extracted")
 DB_PATH = Path("/home/max/pubmed_data/pubmed.db")
@@ -30,41 +34,55 @@ def load_cui_stys():
     return dict(r)
 
 
-def load_diso_cui_names():
-    """DISO CUI의 모든 영문 이름 (동의어 포함) 수집."""
+def build_aho_automaton():
+    """DISO CUI의 모든 영문 이름으로 Aho-Corasick automaton 구축."""
     cui_stys = load_cui_stys()
-    # 1차: DISO CUI 목록
     diso_cuis = {cui for cui, stys in cui_stys.items() if stys & ALLOWED_STYS}
     diso_cuis -= BLACKLIST
 
-    # 2차: 각 CUI의 영문 이름들 수집
-    cui_names = defaultdict(set)       # cui -> {name1, name2, ...}
-    cui_preferred = {}                  # cui -> preferred name
+    # CUI별 영문 이름 수집
+    cui_preferred = {}
+    name_to_cui = {}  # lowercase name -> cui
+    total_names = 0
+
     with open(UMLS_DIR / "MRCONSO.RRF") as f:
         for line in f:
             p = line.strip().split("|")
             cui = p[0]
-            if cui not in diso_cuis:
+            if cui not in diso_cuis or p[1] != "ENG":
                 continue
-            if p[1] != "ENG":
-                continue
-            name = p[14].lower().strip()
-            if len(name) >= 3:  # 3글자 미만 무시 (노이즈)
-                cui_names[cui].add(name)
+            name = p[14].strip()
+            lower = name.lower()
+            if len(lower) >= 4:  # 4글자 미만 무시
+                name_to_cui[lower] = cui
+                total_names += 1
             if p[2] == "P" and cui not in cui_preferred:
-                cui_preferred[cui] = p[14]
+                cui_preferred[cui] = name
 
-    return cui_names, cui_preferred, cui_stys
+    # Aho-Corasick automaton 구축
+    A = ahocorasick.Automaton()
+    for name, cui in name_to_cui.items():
+        A.add_word(name, (name, cui))
+    A.make_automaton()
+
+    print(f"  DISO CUI: {len(diso_cuis):,}, 이름 패턴: {total_names:,}")
+    return A, cui_preferred, cui_stys
 
 
-def load_parent_map():
-    parents = defaultdict(set)
-    with open(UMLS_DIR / "MRREL.RRF") as f:
-        for line in f:
-            p = line.strip().split("|")
-            if p[3] in ("PAR", "RB"):
-                parents[p[0]].add(p[4])
-    return dict(parents)
+def text_match_aho(text_lower: str, automaton, disease_cui: str) -> set:
+    """Aho-Corasick으로 초록에서 CUI 매칭."""
+    matched = set()
+    for end_idx, (name, cui) in automaton.iter(text_lower):
+        if cui == disease_cui:
+            continue
+        # 단어 경계 확인
+        start_idx = end_idx - len(name) + 1
+        if start_idx > 0 and text_lower[start_idx - 1].isalpha():
+            continue
+        if end_idx + 1 < len(text_lower) and text_lower[end_idx + 1].isalpha():
+            continue
+        matched.add(cui)
+    return matched
 
 
 def load_mesh_to_cui():
@@ -76,6 +94,16 @@ def load_mesh_to_cui():
                 if p[13] not in m:
                     m[p[13]] = p[0]
     return m
+
+
+def load_parent_map():
+    parents = defaultdict(set)
+    with open(UMLS_DIR / "MRREL.RRF") as f:
+        for line in f:
+            p = line.strip().split("|")
+            if p[3] in ("PAR", "RB"):
+                parents[p[0]].add(p[4])
+    return dict(parents)
 
 
 def prepare_gold():
@@ -133,27 +161,16 @@ def count_gold_hits(extracted_cuis, gold_cuis, parent_map):
     return len(expanded & gold_expanded)
 
 
-def text_match_cuis(abstract_lower: str, cui_names: dict, disease_cui: str) -> set:
-    """초록 텍스트에서 CUI 이름을 직접 검색하여 매칭된 CUI 반환."""
-    matched = set()
-    for cui, names in cui_names.items():
-        if cui == disease_cui:
-            continue
-        for name in names:
-            # 단어 경계 매칭 (부분 문자열 방지)
-            if re.search(r'\b' + re.escape(name) + r'\b', abstract_lower):
-                matched.add(cui)
-                break  # 하나만 매칭되면 충분
-    return matched
-
-
 def main():
     print("=" * 80)
-    print("텍스트 매칭 vs MeSH vs NER: CUI 추출 비교")
+    print("텍스트 매칭 vs MeSH: CUI 추출 비교 (Aho-Corasick)")
     print("=" * 80)
 
-    print("\n[1] UMLS 로드...")
-    cui_names_map, cui_preferred, cui_stys = load_diso_cui_names()
+    print("\n[1] Aho-Corasick automaton 구축...")
+    t0 = time.time()
+    automaton, cui_preferred, cui_stys = build_aho_automaton()
+    print(f"  구축 시간: {time.time()-t0:.1f}초")
+
     parent_map = load_parent_map()
     mesh_to_cui = load_mesh_to_cui()
     cui_to_mesh = defaultdict(set)
@@ -161,16 +178,12 @@ def main():
         cui_to_mesh[cui].add(mesh)
 
     disease_gold, disease_cuis = prepare_gold()
-    print(f"  DISO CUI (이름 있는): {len(cui_names_map):,}개")
-    print(f"  평균 동의어 수: {sum(len(v) for v in cui_names_map.values()) / len(cui_names_map):.1f}개/CUI")
-    print(f"  질환: {len(disease_cuis)}개")
 
-    # DB 연결
     conn = sqlite3.connect(str(DB_PATH))
     c = conn.cursor()
 
     print(f"\n[2] 질환별 비교 (각 {ABSTRACTS_PER_DISEASE}편)...")
-    print(f"{'질환':<35} {'Gold':>4} | {'MeSH':>4} {'Hit':>3} {'%':>5} | {'Text':>4} {'Hit':>3} {'%':>5} | {'시간':>5}")
+    print(f"{'질환':<35} {'Gold':>4} | {'MeSH':>5} {'Hit':>3} {'%':>5} | {'Text':>5} {'Hit':>3} {'%':>5} | {'ms':>5}")
     print("-" * 90)
 
     totals_mesh = {"cuis": 0, "hits": 0, "gold": 0}
@@ -182,10 +195,8 @@ def main():
         dn = dinfo["umls_name"]
         if dc not in disease_gold:
             continue
-
         gold_cuis = disease_gold[dc]
 
-        # 초록 검색 (MeSH 또는 키워드)
         mesh_uids = cui_to_mesh.get(dc, set())
         if mesh_uids:
             mesh_cond = " OR ".join(f"mesh_terms LIKE '%{m}%'" for m in mesh_uids)
@@ -211,7 +222,7 @@ def main():
         if not rows:
             continue
 
-        # MeSH 방식
+        # MeSH
         mesh_cuis_all = set()
         for _, mesh_json, _ in rows:
             try:
@@ -224,24 +235,23 @@ def main():
                     mesh_cuis_all.add(cui)
         mesh_hits = count_gold_hits(mesh_cuis_all, gold_cuis, parent_map)
 
-        # 텍스트 매칭 방식
+        # 텍스트 매칭
         text_cuis_all = set()
         t0 = time.time()
         for _, _, abstract in rows:
-            matched = text_match_cuis(abstract.lower(), cui_names_map, dc)
+            matched = text_match_aho(abstract.lower(), automaton, dc)
             text_cuis_all.update(matched)
-        text_time = time.time() - t0
+        text_ms = (time.time() - t0) * 1000
         text_hits = count_gold_hits(text_cuis_all, gold_cuis, parent_map)
 
-        # 출력
         mesh_pct = 100 * mesh_hits / len(gold_cuis) if gold_cuis else 0
         text_pct = 100 * text_hits / len(gold_cuis) if gold_cuis else 0
 
         short_name = disease_name[:33]
         print(f"{short_name:<35} {len(gold_cuis):>4} | "
-              f"{len(mesh_cuis_all):>4} {mesh_hits:>3} {mesh_pct:>4.0f}% | "
-              f"{len(text_cuis_all):>4} {text_hits:>3} {text_pct:>4.0f}% | "
-              f"{text_time:>4.1f}s")
+              f"{len(mesh_cuis_all):>5} {mesh_hits:>3} {mesh_pct:>4.0f}% | "
+              f"{len(text_cuis_all):>5} {text_hits:>3} {text_pct:>4.0f}% | "
+              f"{text_ms:>4.0f}ms")
 
         n_diseases += 1
         totals_mesh["cuis"] += len(mesh_cuis_all)
@@ -256,12 +266,12 @@ def main():
     print("-" * 90)
     mesh_r = 100 * totals_mesh["hits"] / totals_mesh["gold"] if totals_mesh["gold"] else 0
     text_r = 100 * totals_text["hits"] / totals_text["gold"] if totals_text["gold"] else 0
-    print(f"\n{'요약':<35} {'':>4} | "
-          f"{totals_mesh['cuis']:>4} {totals_mesh['hits']:>3} {mesh_r:>4.1f}% | "
-          f"{totals_text['cuis']:>4} {totals_text['hits']:>3} {text_r:>4.1f}% |")
-    print(f"\n  테스트 질환: {n_diseases}개")
-    print(f"  MeSH:     평균 {totals_mesh['cuis']/n_diseases:.0f} CUI/질환, gold recall {mesh_r:.1f}%")
-    print(f"  텍스트매칭: 평균 {totals_text['cuis']/n_diseases:.0f} CUI/질환, gold recall {text_r:.1f}%")
+    print(f"\n요약 ({n_diseases}개 질환)")
+    print(f"  MeSH:      평균 {totals_mesh['cuis']/n_diseases:.0f} CUI/질환, "
+          f"total hits {totals_mesh['hits']}/{totals_mesh['gold']}, recall {mesh_r:.1f}%")
+    print(f"  텍스트매칭: 평균 {totals_text['cuis']/n_diseases:.0f} CUI/질환, "
+          f"total hits {totals_text['hits']}/{totals_text['gold']}, recall {text_r:.1f}%")
+    print(f"\n  텍스트매칭/MeSH recall 비율: {text_r/mesh_r:.1f}x" if mesh_r > 0 else "")
 
 
 if __name__ == "__main__":
