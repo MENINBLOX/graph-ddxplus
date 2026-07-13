@@ -1,5 +1,45 @@
 # Graph-DDXPlus
 
+> **Attribute-normalized knowledge graph for traceable, cross-benchmark, zero-shot differential diagnosis — built by a local 8B/12B LLM.**
+
+## 📍 현재 상태 (2026-07)
+
+### 무엇을 하는 연구인가
+로컬 8B/12B LLM으로 질환 지식 텍스트에서 증상(finding) + **임상 표준 속성**(Bates seven attributes)을 추출해 표준 온톨로지(UMLS/HPO/SNOMED)에 정규화하고, **단일 KG**로 여러 벤치마크(DDXPlus·SymCat·RareBench·…)를 **strict zero-shot**으로 진단한다.
+
+### 기여 (SOTA 점수가 아님)
+1. **표준-정규화 속성 IE** — 공개 gold + extrinsic으로 품질 검증
+2. **속성 = cross-benchmark interlingua** — 단일 KG가 이종 벤치마크를 가로질러 작동
+3. **cross-benchmark robustness + traceable provenance + 8B 비용효율** — 이 연구의 강점(교수님 자문 명시). GTPA@1 SOTA는 정직한 위치 보고용이지 헤드라인이 아님.
+
+### 정직한 위치 (외부 SOTA 대비, DDXPlus Top-1)
+
+| Setting | Method | Top-1 |
+|---|---|---|
+| Supervised (train labels) | AARLC / DDxT | ~99–100% |
+| Zero-shot agentic (interactive Q&A) | meddxagent (GPT-4o) | 86% |
+| **Ours** — strict zero-shot, KG-only, benchmark-blind LLM IE | v95_full (Gemma) | **62.14%** (@10 ~95%) |
+
+### 속성 검증 방향 (교수님 자문 2026-07 확정)
+- **location / severity**: 공개 gold(MACCROBAT/SemEval) F1으로 추출 능력 검증.
+- **나머지 4 (character / timing / aggravating / relieving)**: 공개 정답 없음을 논문에 명시 + **진단 성능(extrinsic, leave-one-out ablation)** 으로 검증.
+- **gold 새로 만들지 않음. faithfulness는 논문 미사용(내부 fallback).** ablation testbed = SymCat/NLICE (DDXPlus는 속성이 코드에 녹아 부적합).
+
+### 현재 단계 / 다음
+- ✅ 속성 스키마 확정 (Bates 6, 교수님 검토·승인) — `docs/attribute_rationale_draft_ko.md`
+- ✅ 개선 IE 실측 (12B, 원자화 프롬프트 P2; 840 질환) — `docs/ie_verification_results.md`
+- 🔄 **다음: IE 방법론 정의** (오픈 모델 패널 × 추출 전략, 지표=공개 F1+구조) → 속성 KG 구축 → **leave-one-out ablation**
+
+### 핵심 문서
+- 속성 스키마·Method: `docs/attribute_rationale_draft_ko.md`
+- IE 실측·정규화율: `docs/ie_verification_results.md` · 논문 초안: `docs/paper_draft.md`
+- 프로젝트 원칙: `CLAUDE.md` · 서버 이전: `HANDOFF.md` · 학술 글쓰기: `docs/academic_writing_guide.md`
+- 교수님 자문 스레드: `email/README.md`
+
+---
+
+> ⏳ **아래는 시간순 연구 로그(히스토리 보존).** 최신 방향은 위 「현재 상태」를 참조. 일부 오래된 항목(예: "속성 레이어는 논문에 넣을 수준 아님", 2026-06-01)은 이후 극복되어 현재와 다를 수 있음.
+
 ## 🧭 방법론 원칙 (Architecture Principle)
 
 ### Unified Evidence Approach (질환-증상 통합)
