@@ -234,8 +234,34 @@ IE 결과물·원문을 각각 scispaCy UMLS CUI로 정규화 후 **개념(CUI) 
 - **한계**: 공개 gold(MACCROBAT relation)는 multi-site 중복·노이즈·불완전으로 raw pair-F1 부적합 → conditioned accuracy + gold-free grounding으로 보고. 진짜 검증은 extrinsic(진단 gain).
 
 ## 13.4 다음
-- 모델패널·전략비교를 전체 corpus로 재확인(상대순위 검증).
 - severity 정규화 강제(raw→{mild/moderate/severe} 매핑) 프롬프트 개선 → vocab-conf 0.54 회복 시도.
 - onset 과다배정 점검(grounded 0.52).
-- SemEval Task14(깨끗한 2번째 gold) 교차검증(DUA).
 - 확정(gemma-4-E4B+V4)으로 대규모 IE → 속성 KG → extrinsic leave-one-out.
+
+---
+
+# === §14. IE 검증 = gold-free CUI/SNOMED grounding으로 확정 (2026-07-14) ===
+
+**결정(사용자)**: IE 검증에서 **공개 벤치마크(MACCROBAT gold) 사용 중단**. 이유: 소규모(재추출 후에도 코퍼스 특성)·구조결함(multi-site/노이즈/불완전)·IE 비최적화 코퍼스. gold-free CUI-grounding이 IE 검증의 전부.
+
+**파이프라인 `v152_normalize_pipeline.py`** (별도 `.venv-sci`): IE 결과물·원문을 scispaCy UMLS로 정규화 후 개념(CUI) 수준 비교 + CUI→SNOMED(MRCONSO 452K) + semantic-type(MRSTY) 검증. **IE 검증 = KG 정규화 단계** 동시 수행. 출력 = KG-ready 레코드(`v152_normalized_full.json`).
+
+### 전체 corpus (gemma-4-E4B, V4) — 개념형
+| field | n | CUI-link | SNOMED | clin-type | grounding | halluc |
+|-------|:---:|:---:|:---:|:---:|:---:|:---:|
+| finding | 2903 | 0.84 | 0.76 | **0.59** | **1.00** | **0.00** |
+| location | 1348 | 0.83 | 0.74 | 0.64 | 1.00 | 0.00 |
+| character | 401 | 0.61 | 0.49 | 0.36 | 1.00 | 0.00 |
+
+범주형: severity vocab-conf 0.54 / grounded 1.00, onset vocab 1.00 / grounded 0.50.
+
+- **grounding 1.00 / hallucination 0.00** (n=2903/1348) = 의미 수준 충실성. gold 무관, 결정론적(NLI 아님).
+- **clin-type = 진짜 KG-usable 하한**(finding 0.59): CUI-link(0.84)와의 격차 25%p는 anatomy-mislink(예 "Ebstein's anomaly"→"tricuspid valve" C0040960/T023)·qualifier 등 노이즈 → semantic-type 필터가 자동 배제(§12 정합). finding 타입은 disease/symptom/finding만 인정(anatomy 제외).
+- **SNOMED 0.76/0.74** = KG 타깃 용어 코드까지 매핑.
+
+### 한계 (정직)
+- gold-free는 **faithfulness(원문에 있나)·normalization coverage(어떤 CUI에 링크되나)는 재나, CUI-correctness(맞는 CUI인가)는 못 잼.** scispaCy linking SOTA도 MedMentions ~56%. → right-CUI 검증은 gold 또는 **소표본 수동감사** 필요(선행연구 다수가 병기; 상세 [[ie-validation-priorwork-2026-07]]).
+- 모델선정: gold-free는 faithfulness가 모든 모델 高(halluc ≤2%)라 accuracy 변별력 약함 → 모델 accuracy 최종선정은 extrinsic 몫. gemma-4-E4B 기본값(halluc 0%, 최고 volume).
+
+### 검증 스토리 최종
+faithfulness(gold-free, halluc 0%/grounding 100%) + normalizability(CUI/SNOMED, clin-type 0.59) + [보강예정: 소표본 수동감사] + **extrinsic 진단 gain(main)**. 공개 벤치마크 F1은 미사용.
