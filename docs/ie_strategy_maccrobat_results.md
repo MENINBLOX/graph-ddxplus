@@ -1,19 +1,27 @@
-# IE 추출전략 비교 (MACCROBAT location/severity) — 실측 결과
+# IE 추출전략·모델·평가 — MACCROBAT location/severity 실측 결과
 
-**작성 2026-07-13 · 모델 고정 = gemma-4-E4B-it (greedy, no few-shot) · n=200 MACCROBAT case report**
-**스크립트**: `pilot/scripts/v145_strategy_scope.py` (S/C/V1/V2), `v146_decomp.py` (V3/C3),
-`v146_bucketB_forensic.py`, `v146_D_forensic.py`, `v146_adjudicated_score.py`
-**gold**: MACCROBAT brat relation `MODIFY(Biological_structure→Sign_symptom)` = location,
-`MODIFY(Severity→Sign_symptom)` = severity. location gold pair=228, severity gold pair=39.
+**작성 2026-07-13, 갱신 2026-07-14 · n=200 MACCROBAT case report · greedy, no few-shot**
+**스크립트**: `v145_strategy_scope.py`(전략 S/C/V1/V2), `v146_decomp.py`(V3/C3), `v147_single6.py`(단일프롬프트 V4),
+`v148_model_panel.py`(모델패널), `v149_broadscope.py`(V5 scope test), `v150_conditioned_eval.py`(교정 평가),
+포렌식 `v146_bucketB_forensic.py`·`v146_D_forensic.py`·`v147_A_forensic.py`, 채점 `v146_adjudicated_score.py`·`v147_adjudicate.py`
+**gold**: MACCROBAT brat `MODIFY(Biological_structure→Sign_symptom)`=location, `MODIFY(Severity→Sign_symptom)`=severity.
 
-## 요약 (headline)
+## 요약 (최종 headline — 2026-07-14)
 
-- **추출전략 선정**: location = **decomposition(V3)**, severity = **2-stage cot(C)**.
-- **가장 중요한 발견**: MACCROBAT relation gold는 **불완전(incomplete)** 하다. location 예측의
-  **hallucination 0%**, 명목상 "false positive"의 **83–87%가 원문에 실제로 서술된 correct-but-unannotated**.
-  → **raw binding-F1은 precision을 ~0.3 과소평가**하며, 추출 품질이 아니라 gold coverage를 재는 지표다.
-- 편향 보정(source-adjudicated) 후 location precision은 **0.86–0.98**(raw 0.50–0.66이 아님).
-- 이 보정을 균일 적용하면 **순위가 뒤집힌다**: raw-F1 1등이던 C가 아니라 **decomposition(V3)**이 최고.
+- **평가가 문제였다.** raw pair-level binding-F1(location 0.54 / severity 0.58)은 세 결함으로 좋은 추출을 과소평가했다:
+  (1) gold 불완전 → precision 과소, (2) multi-site 중복(32%)·노이즈 finding(17%) → recall 과소, (3) finding-추출과 속성-배정을 혼합.
+- **표준 평가(SemEval-style, finding에 conditioned)로 재면 추출은 강하다** — gemma-4-E4B:
+  **location accuracy 0.85 / severity accuracy 1.00**, hallucination 0%. (속성을 배정하면 그만큼 맞다 = 우리 주장.)
+- **모델 선정**: 6모델 패널에서 **gemma-4-E4B(최소 모델)가 최고** (coverage×accuracy). 더 크거나 의료특화 모델이 못 이김 → **8B 비용효율** 강화.
+- **추출전략**: **단일 프롬프트 V4**(1회 호출, 6속성 동시, location 원자화 + severity 보수적)로 확정 — 순차/2-stage 불필요.
+- 반증된 가설들: 인접성 완화(V1/V2)·scope 확대(V5)·모델 확대 전부 raw F1 못 올림 → 병목은 프롬프트도 모델도 아닌 **평가**였다.
+
+<details><summary>이전 headline (2026-07-13, source-adjudicated 단계 — 아래 상세 보존)</summary>
+
+- 추출전략 선정: location = decomposition(V3), severity = 2-stage cot(C).
+- MACCROBAT relation gold 불완전: location halluc 0%, 명목 FP의 83–87%가 correct-but-unannotated. raw binding-F1이 precision을 ~0.3 과소평가.
+- source-adjudicated 후 location precision 0.86–0.98. 균일 적용 시 순위 역전(C→V3).
+</details>
 
 ## 1. 6-strategy raw 결과
 
@@ -109,8 +117,69 @@ recall은 gold-bound 유지(sparse gold가 상한). 전 전략 동일 규칙 →
 - **한계 명시**: recall은 sparse gold가 상한(진짜 recall은 더 높을 수 있음). adjP의 STATED-IN-SRC 판정은
   문장 단위 근접 heuristic(느슨한 상한). location/severity 2속성만 공개 gold 존재.
 
-## 6. 다음 단계
+## 6. (구) 다음 단계 — 아래 7~11에서 실제로 수행·갱신됨
 
-- **SemEval 2015 Task 14** disorder-attribute gold로 동일 프로토콜 반복(2번째 공개 gold, severity/location 교차 확인).
-- 확정 레시피(location-decomp + severity-cot)로 rare-disease 포함 대규모 IE → 속성 KG → extrinsic leave-one-out.
+---
+
+# === 2026-07-14 갱신: 단일 프롬프트 · 모델 패널 · 평가 교정 ===
+
+## 7. 단일 프롬프트 아키텍처 V4 (`v147_single6.py`)
+
+**1회 호출/문서, 6속성 동시** (내부 STEP1 원자 나열 → STEP2 속성 배정; 여러 호출/속성별 순차 아님).
+데이터 기반 확정: **location=원자화 ON**(V3 win), **severity=보수적**(분해 OFF — V3의 severity 과다트리거 회피).
+onset/character + timing/aggravating/relieving까지 같은 프롬프트에 포함(뒤 4속성은 공개 gold 없음→extrinsic 전용).
+
+source-adjudicated: **location F1 0.68**(전략 통틀어 1등), severity 0.68(2-stage cot 0.74와 39쌍 노이즈 내).
+→ "6속성 동시 주의" 간섭손실 = location 0, severity 노이즈. **순차·전용프롬프트 불필요.**
+
+## 8. 모델 패널 (`v148_model_panel.py`, V4 프롬프트 고정)
+
+| 모델 | src-adj location F1 | (참고) |
+|------|:---:|---|
+| **gemma-4-E4B** (bf16) | **0.68** | 최고 |
+| gemma-4-12B (4bit) | 0.51 | 24GB 미달로 4bit |
+| Qwen2.5-14B (4bit) | 0.46 | recall 낮음 |
+| Qwen2.5-7B (bf16) | 0.49 | recall 낮음 |
+| medgemma-4b (bf16) | 0.52 | 의료특화도 못 이김 |
+
+차이는 전부 **recall**(gemma-4-E4B 0.55 vs 나머지 0.31–0.41), precision 비슷. **모델 레버 소진 → 8B 비용효율 강화.**
+(BioMistral/Med42/OpenBio는 HF xet 401 gated, 토큰으로 medgemma만 확보. Llama gated.)
+
+## 9. "낮은 점수" 원인 규명 — prompt도 model도 아니고 **평가**
+
+- **prompt scope 가설 반증** (`v149_broadscope.py`, V5): 병리/영상 finding 포함하도록 STEP1 확대 → recall **하락**(0.55→0.50), bucket A **증가**(65→70). scope 넓혀도 안 오름.
+- **finding 미추출(bucket A) 65건 분석**(`v147_A_forensic.py`): 98%가 환자증상 아님(necrosis/metastatic lesions/cholestasis) — 그러나 이는 corpus라기보다 **gold 구조** 문제로 판명(아래).
+- **gold 구조 결함 정량화**:
+  - **multi-site 중복 32%**: 한 finding이 N장기에 링크 → gold N쌍, 1추출=1매칭(예: `mtdna depletion`→colon/stomach/ileum/liver 4쌍).
+  - **노이즈 finding 17%**: gold가 `normal`, `remarkable changes`를 finding으로 주석.
+  - pair-level recall 0.55 → **finding-level(중복 제거) recall 0.68**.
+
+## 10. 교정된 표준 평가 (`v150_conditioned_eval.py`) — SemEval-Task14 style
+
+속성을 **finding에 conditioned**해 채점(중복=사이트 SET 중 하나면 정답, 노이즈 제외, finding-추출/속성-배정 분리 보고).
+
+### conditioned attribute accuracy (n=200)
+| 모델 | LOCATION acc | LOCATION cov | SEVERITY acc | SEVERITY cov |
+|------|:---:|:---:|:---:|:---:|
+| **gemma-4-E4B** | **0.85** | 0.68 | **1.00** | 0.91 |
+| gemma-4-12B | 0.91 | 0.55 | 1.00 | 0.63 |
+| Qwen2.5-7B | 0.86 | 0.51 | 1.00 | 0.60 |
+| medgemma-4b | 0.79 | 0.66 | 0.92 | 0.63 |
+
+- **accuracy** = 속성을 배정했을 때 gold와 맞는 비율 = 우리 주장("표준 속성 추출"). **location 0.85 / severity 1.00.**
+- gemma-4-E4B가 coverage 최고 → end-to-end(correct/all-gold) 최고(location 0.53, severity 0.80). gemma-12B는 acc 약간↑지만 coverage↓.
+- location 0.85는 **보수적 하한**: miss 상당수가 granularity 차이(`nodules` lung↔subpleural, `dilation` intestinal↔bowel wall)로 임상적으로 맞음. anat-normalization으론 gemma-4-E4B 불변(그 miss들은 string 변형 아님).
+
+## 11. 결론 · 논문 반영 (갱신)
+
+- **모델 = gemma-4-E4B**, **전략 = 단일 프롬프트 V4**(location 원자화 + severity 보수적).
+- **intrinsic 지표 = conditioned attribute accuracy(location 0.85 / severity 1.00) + coverage(별도) + faithfulness(halluc 0%)**. raw pair-F1은 gold 구조(중복·노이즈·불완전)로 하한이므로 단독 보고 금지 — 이 측정-타당성 분석 자체가 기여.
+- 교수님 "gold 새로 안 만든다"와 정합: 기존 gold를 표준 방식(conditioned)으로 올바르게 채점할 뿐 새 주석 생성 아님.
+- **한계**: coverage(finding-추출)는 MACCROBAT이 radiology/pathology라 상한. accuracy 매칭은 string/anat 기반(full UMLS-CUI 정규화가 최종 표준, 파이프라인 downstream에서 사용). location/severity 2속성만 공개 gold.
+
+## 12. 다음 단계
+
+- **SemEval-2015 Task 14**(구조 깨끗한 2번째 gold)로 conditioned accuracy 교차검증 — multi-site·노이즈 없는 gold에서 raw F1이 오르면 artifact 가설 확정. (ShARe DUA 등록 필요.)
+- full UMLS-CUI 매칭으로 location accuracy 최종 확정(scispaCy; nmslib/py3.12 이슈 주의).
+- 확정(gemma-4-E4B + V4)으로 rare-disease 포함 대규모 IE → 속성 KG → extrinsic leave-one-out.
 - character/timing/aggravating/relieving 4속성은 공개 gold 없음 → extrinsic(진단 gain)으로만 검증(한계 명시).
