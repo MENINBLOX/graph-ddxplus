@@ -6,6 +6,10 @@
 포렌식 `v146_bucketB_forensic.py`·`v146_D_forensic.py`·`v147_A_forensic.py`, 채점 `v146_adjudicated_score.py`·`v147_adjudicate.py`
 **gold**: MACCROBAT brat `MODIFY(Biological_structure→Sign_symptom)`=location, `MODIFY(Severity→Sign_symptom)`=severity.
 
+## ⚠️ 데이터 무결성 정정 (2026-07-14 저녁) — 아래 §13이 최종
+
+**§1~12는 깨진 brat 추출(200 중 33문서만 텍스트, gold 30/18문서)에서 나온 수치다.** zip은 온전했으나 압축해제가 33개만 채웠음. **재추출 후 전체 corpus(location 1539쌍/193문서, severity 276쌍/121문서 = 6~7배)로 재실행 → §13.** raw pair-F1은 소·대 표본에서 안정적(location 0.50, severity 0.57)이었고, **교정 지표도 유지**(§13): location 배정정확도 0.88(n=563), severity 0.96(n=149, 소표본 "1.00"은 표본편향이었음). gold-free CUI grounding도 유지(halluc 0%, 정규화 0.84). §1~12 수치는 방법론 기록으로 보존하되, **인용은 §13 전체-corpus 수치를 쓸 것.**
+
 ## 요약 (최종 headline — 2026-07-14)
 
 - **평가가 문제였다.** raw pair-level binding-F1(location 0.54 / severity 0.58)은 세 결함으로 좋은 추출을 과소평가했다:
@@ -183,3 +187,55 @@ source-adjudicated: **location F1 0.68**(전략 통틀어 1등), severity 0.68(2
 - full UMLS-CUI 매칭으로 location accuracy 최종 확정(scispaCy; nmslib/py3.12 이슈 주의).
 - 확정(gemma-4-E4B + V4)으로 rare-disease 포함 대규모 IE → 속성 KG → extrinsic leave-one-out.
 - character/timing/aggravating/relieving 4속성은 공개 gold 없음 → extrinsic(진단 gain)으로만 검증(한계 명시).
+
+---
+
+# === §13. 전체-corpus 재실행 + gold-free CUI grounding (2026-07-14, 최종) ===
+
+**데이터 버그**: `brat/` 추출이 200 중 33문서만 채움(나머지 빈 파일). zip(200 txt+200 ann) 온전 → 재추출.
+전체 gold: **location 1539쌍 / 991 unique finding / 193문서**, **severity 276쌍 / 243 finding / 121문서** (기존 30/18문서의 6~7배).
+
+## 13.1 교정 conditioned eval — 전체 corpus (gemma-4-E4B, V4)
+| attribute | coverage | **assignment accuracy** | end-to-end | n(filled) |
+|-----------|:---:|:---:|:---:|:---:|
+| **location** | 0.65 | **0.88** | 0.50 | 563 |
+| **severity** | 0.81 | **0.96** | 0.59 | 149 |
+
+- 소표본(§10) location 0.85 → 전체 **0.88**(n=563), severity **1.00→0.96**(n=149). **"1.00"은 소표본(n=28) 편향이었고 진짜는 0.96.** 두 지표 모두 큰 표본에서 유지.
+- raw pair-F1도 안정: location 0.50(0.54/0.47), severity 0.57(0.54/0.60).
+
+## 13.2 gold-free CUI-grounding 검증 (`v151_cui_grounding.py`, 전체 corpus)
+IE 결과물·원문을 각각 scispaCy UMLS CUI로 정규화 후 **개념(CUI) 단위** 비교. gold 불필요, 결정론적(NLI 아님).
+
+**개념형 (UMLS CUI)**
+| field | n | 정규화-cov | grounding | hallucination |
+|-------|:---:|:---:|:---:|:---:|
+| finding | 2903 | 0.84 | **1.00** | **0.00** |
+| location | 1348 | 0.83 | **1.00** | **0.00** |
+| character | 401 | 0.61 | 1.00 | 0.00 |
+
+**범주형 (통제어휘; grounding=원문 동의어 존재)**
+| field | n | vocab-conf | grounded |
+|-------|:---:|:---:|:---:|
+| severity | 348 | 0.54 | 1.00 |
+| onset | 371 | 1.00 | **0.52** |
+
+- **hallucination 0% + grounding 100%** (finding/location/character, n=2903/1348/401) → 의미 수준에서도 지어내지 않음. **핵심 IE 검증 카드.**
+- **정규화 커버리지 finding 0.84 / location 0.83** → KG interlingua(UMLS/SNOMED)로 바로 쓸 수 있는 표준 개념.
+- **character 0.61** → 성상어 free-text 결정 정량 확인.
+- **severity vocab 0.54** → 모델이 severity를 {mild/moderate/severe}로 정규화 안 하고 raw 복사(serious/strong/partial)가 ~46%. faithful하나 미정규화. (∴ §10의 severity accuracy는 "복사 충실도"이지 정규화 아님 — 정직 caveat.)
+- **onset grounded 0.52** → 유일한 약점. sudden/gradual를 원문 onset 단서 없이 배정 ~48%(과다배정 의심). onset은 비채점 속성(timing 하위)이라 치명적 아니나 명시.
+
+## 13.3 IE 검증 최종 정리 (gold 소규모 문제를 gold-free로 우회)
+- **faithfulness (gold-free, 강함)**: 의미-level hallucination 0%, grounding 100%.
+- **normalizability (gold-free)**: finding/location UMLS 링크 84%/83% → KG-ready. character 61%(free-text). severity vocab 54%(정규화 갭).
+- **배정 정확도 (공개 gold, sanity)**: location 0.88, severity 0.96 (전체 corpus, 큰 표본).
+- **모델·전략 선정**: gemma-4-E4B + V4 (상대비교, §7~10). ※모델패널·전략비교는 33문서 위였으므로 재확인은 후속(상대순위는 유지 예상).
+- **한계**: 공개 gold(MACCROBAT relation)는 multi-site 중복·노이즈·불완전으로 raw pair-F1 부적합 → conditioned accuracy + gold-free grounding으로 보고. 진짜 검증은 extrinsic(진단 gain).
+
+## 13.4 다음
+- 모델패널·전략비교를 전체 corpus로 재확인(상대순위 검증).
+- severity 정규화 강제(raw→{mild/moderate/severe} 매핑) 프롬프트 개선 → vocab-conf 0.54 회복 시도.
+- onset 과다배정 점검(grounded 0.52).
+- SemEval Task14(깨끗한 2번째 gold) 교차검증(DUA).
+- 확정(gemma-4-E4B+V4)으로 대규모 IE → 속성 KG → extrinsic leave-one-out.
