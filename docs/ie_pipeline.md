@@ -30,9 +30,10 @@
 ## 2. S3 — 정규화 + gold-free 검증
 
 **개념형 (finding / location / character)**
-- scispaCy `en_core_sci_lg` + UMLS EntityLinker(threshold 0.85) → **CUI + semantic type(TUI)**.
-- **CUI → SNOMED CT** (MRCONSO, `pilot/cache/umls_maps/cui_snomed.tsv` 452K).
-- finding 이름은 **severity/onset 형용사 strip 후 링크**(mislink 방지: "severe tachypnea"→"Severe" 오링크 제거).
+- scispaCy UMLS **CandidateGenerator로 텍스트를 직접 CUI에 매핑** (NER 미사용 — NER 게이팅이 'cough'·'shortness of breath' 같은 짧은 단독 증상을 놓쳐 커버리지 15% 실패했던 근본버그 수정). similarity floor 0.70.
+- **분해 fallback cascade**: 직접링크 실패 시 → 선행 수식어 strip("amount of cough"→"cough") → head noun-phrase("medical shock"→"shock"). LLM에 코드 생성 안 시킴(환각), 추출텍스트를 의미적으로 CUI에 매핑.
+- **CUI → SNOMED CT** (MRCONSO, `pilot/cache/umls_maps/cui_snomed.tsv` 452K) + semantic type(TUI, MRSTY).
+- finding 이름은 **severity/onset 형용사 strip 후 링크**("severe tachypnea"→Tachypnea, "Severe" 오링크 제거).
 - **clin-type 필터**: finding은 disease/symptom/finding 타입만 인정(anatomy 오링크 배제) = CLAUDE.md §12 노이즈 필터.
 
 **범주형 (severity / onset)** — `attr_normalize.py`, 결정론적
@@ -51,9 +52,11 @@
 
 | field | n | CUI | SNOMED | clin-type | grounding | halluc |
 |-------|---|-----|--------|-----------|-----------|--------|
-| finding | 240 | 0.85 | 0.79 | 0.59 | **1.00** | **0.00** |
-| location | 64 | 0.94 | 0.91 | 0.88 | **1.00** | **0.00** |
-| character | 33 | 0.45 | 0.39 | 0.18 | 1.00 | 0.00 |
+| finding | 240 | **1.00** | 0.93 | 0.80 | **1.00** | **0.00** |
+| location | 64 | **1.00** | 0.95 | 0.88 | **1.00** | **0.00** |
+| character | 33 | 0.94 | 0.79 | 0.52 | 1.00 | 0.00 |
+
+(CandidateGenerator 전환 전 NER-기반: finding CUI 0.85/SNOMED 0.79/clin-type 0.59 — 흔한 증상 미링크 15%. 전환 후 **미링크 0건**.)
 
 severity/onset: 실제 grade는 ~100% 통제어휘 매핑, 비-grade는 정확히 거부. IE density 16.0 findings/disease.
 
