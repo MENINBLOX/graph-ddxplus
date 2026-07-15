@@ -68,13 +68,46 @@ def build_linker():
                          "threshold": THRESH, "max_entities_per_mention": 1})
     return nlp
 
-def link_top(nlp, term):
-    """top (cui, score) for a term, or (None, 0)."""
+_CG = None
+COV_THRESH = 0.70  # similarity floor for accepting a direct candidate-generation link
+# leading quantifier/qualifier phrases stripped in the decomposition fallback
+_STRIP_LEAD = re.compile(r'^(amount of|presence of|episodes? of|degree of|loss of|lack of|sense of|'
+                         r'increased|decreased|abnormal|frequent|recurrent|excessive|reduced|worsened)\s+', re.I)
+
+def _cg(nlp):
+    global _CG
+    if _CG is None:
+        _CG = nlp.get_pipe("scispacy_linker").candidate_generator
+    return _CG
+
+def _best(cg, term):
     best = (None, 0.0)
-    for ent in nlp(term).ents:
-        for cui, score in ent._.kb_ents:
-            if score > best[1]: best = (cui, score)
+    if not term.strip(): return best
+    for c in cg([term], 10)[0]:
+        sc = max(c.similarities) if c.similarities else 0.0
+        if sc > best[1]: best = (c.concept_id, sc)
     return best
+
+def link_top(nlp, term, threshold=COV_THRESH):
+    """Direct candidate-generation link (NOT NER-gated, so short terms like 'cough' link) +
+    morphological decomposition fallback. Returns (cui, score) or (None, best_seen)."""
+    cg = _cg(nlp)
+    best = _best(cg, term)
+    if best[1] >= threshold: return best
+    # fallback 1: strip leading quantifier/qualifier ("amount of cough" -> "cough")
+    t2 = _STRIP_LEAD.sub('', term).strip()
+    if t2 and t2.lower() != term.lower():
+        b = _best(cg, t2)
+        if b[1] >= threshold: return b
+        if b[1] > best[1]: best = b
+    # fallback 2: head noun-phrase (trailing 2 words, then last word) — "medical shock" -> "shock"
+    words = re.findall(r"[a-z]+", term.lower())
+    tails = ([" ".join(words[-2:])] if len(words) > 2 else []) + ([words[-1]] if words else [])
+    for tail in tails:
+        b = _best(cg, tail)
+        if b[1] >= threshold: return b
+        if b[1] > best[1]: best = b
+    return best if best[1] >= threshold else (None, best[1])
 
 def doc_cuis(nlp, text):
     cuis = set()
