@@ -35,7 +35,8 @@
 - 다중 CUI **disambiguation = semantic-type 우선순위**(Sign/Symptom>Finding>…>Neoplasm), 결정론적.
 - **CUI → SNOMED CT** (MRCONSO, `cui_snomed.tsv` 452K) + semantic type(MRSTY).
 - **clin-type 필터**: finding은 disease/symptom/finding 타입만 인정(anatomy/qualifier 오링크 배제) = §12 노이즈 필터.
-- 실측(15 diseases): coverage **98%**(exact 85%+head-noun/deverb), KG-유입 링크 ~97% 정확. 남은 오류는 링킹 아닌 **상류 IE 추출 품질**(vague/anatomy term).
+- 실측(15 diseases): coverage **99%**(exact 85% + head-noun/deverb/latin-irregular). KG-유입 링크 ~97% 정확. 남은 오류는 링킹 아닌 **상류 IE 추출 품질**(vague/anatomy term).
+- **왜 100% 불가 + 논문 정책**: 남은 1%는 (b)조합형 패러프레이즈("sensation of heart beating irregularly"=palpitations, IE가 서술 추출) + (c)UMLS 복합어-only gap("hypersecretion"). 형태소로 회복 불가 — **100% 강제 = 제거한 유사도 임계치 부활**. 논문: threshold-free 99% 보고(강제 100% 아님) + linkable-coverage ~100% 보조 + 잔여는 **free-text+source provenance 노드로 보존**(traceability 축) + 유형 특성화. 문헌 대비 EL SOTA ~56%(MedMentions)라 threshold-free 99%가 강함.
 
 **범주형 (severity / onset)** — `attr_normalize.py`, 결정론적
 - severity → {mild, moderate, severe}: 형용사 · **NRS 0-10**(1-3/4-6/7-10) · grade I-IV. 비-grade(increased/worsened 등) 거부.
