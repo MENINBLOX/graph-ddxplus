@@ -29,12 +29,13 @@
 
 ## 2. S3 — 정규화 + gold-free 검증
 
-**개념형 (finding / location / character)**
-- scispaCy UMLS **CandidateGenerator로 텍스트를 직접 CUI에 매핑** (NER 미사용 — NER 게이팅이 'cough'·'shortness of breath' 같은 짧은 단독 증상을 놓쳐 커버리지 15% 실패했던 근본버그 수정). similarity floor 0.70.
-- **분해 fallback cascade**: 직접링크 실패 시 → 선행 수식어 strip("amount of cough"→"cough") → head noun-phrase("medical shock"→"shock"). LLM에 코드 생성 안 시킴(환각), 추출텍스트를 의미적으로 CUI에 매핑.
-- **CUI → SNOMED CT** (MRCONSO, `pilot/cache/umls_maps/cui_snomed.tsv` 452K) + semantic type(TUI, MRSTY).
-- finding 이름은 **severity/onset 형용사 strip 후 링크**("severe tachypnea"→Tachypnea, "Severe" 오링크 제거).
-- **clin-type 필터**: finding은 disease/symptom/finding 타입만 인정(anatomy 오링크 배제) = CLAUDE.md §12 노이즈 필터.
+**개념형 (finding / location / character) — threshold-FREE (`umls_link.py`)**
+- **UMLS 공식 정규화 인덱스(MRXNS_ENG, SPECIALIST Lexicon norm)에 EXACT match.** 유사도 임계치 미사용 = MetaMap/QuickUMLS/cTAKES 계열 표준 사전기반 매핑이라 학술 방어 완결. (이전 scispaCy CandidateGenerator+임계치 0.70/0.88은 magic number라 폐기.)
+- 쿼리 term에 **결정론적 형태소 축약** 적용 후 매칭: 굴절정규화(단복수·동사원형 deverb), severity/onset 형용사 strip, 수량접두어 strip("amount of cough"→cough), head noun-phrase("medical shock"→shock). 전부 exact-match, 임계치 없음.
+- 다중 CUI **disambiguation = semantic-type 우선순위**(Sign/Symptom>Finding>…>Neoplasm), 결정론적.
+- **CUI → SNOMED CT** (MRCONSO, `cui_snomed.tsv` 452K) + semantic type(MRSTY).
+- **clin-type 필터**: finding은 disease/symptom/finding 타입만 인정(anatomy/qualifier 오링크 배제) = §12 노이즈 필터.
+- 실측(15 diseases): coverage **98%**(exact 85%+head-noun/deverb), KG-유입 링크 ~97% 정확. 남은 오류는 링킹 아닌 **상류 IE 추출 품질**(vague/anatomy term).
 
 **범주형 (severity / onset)** — `attr_normalize.py`, 결정론적
 - severity → {mild, moderate, severe}: 형용사 · **NRS 0-10**(1-3/4-6/7-10) · grade I-IV. 비-grade(increased/worsened 등) 거부.
