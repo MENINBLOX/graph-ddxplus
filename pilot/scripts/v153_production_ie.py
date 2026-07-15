@@ -63,7 +63,7 @@ def main():
     ap.add_argument("--n", type=int, default=15)
     ap.add_argument("--bs", type=int, default=8)
     ap.add_argument("--max-new", type=int, default=2048)
-    ap.add_argument("--out", default="pilot/cache/maccrobat/v153_prod_pred.json")
+    ap.add_argument("--out", default="pilot/cache/prod/ie_pred.json")
     a = ap.parse_args()
     names = load_names()
     srcs = sorted(glob.glob(f"{SRC_DIR}/*.txt"))[:a.n]
