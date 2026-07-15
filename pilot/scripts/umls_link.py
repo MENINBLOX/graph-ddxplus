@@ -32,15 +32,23 @@ def _singular(w):
     if w.endswith('s'): return w[:-1]
     return w
 
+_IRREG = {"teeth": "tooth", "feet": "foot", "men": "man", "women": "woman", "children": "child",
+          "people": "person", "mice": "mouse", "geese": "goose", "lice": "louse"}
+
 def _deverb(w):
-    """candidate base forms for an -ing/-ed inflected word (exact-match tries each)."""
-    outs = [w]
+    """candidate base forms for an inflected word (exact-match validates each, so we can be generous:
+    -ing/-ed deverbing, Latin/Greek plurals (rhonchi->rhonchus, vertebrae->vertebra), irregulars)."""
+    outs = {w}
+    if w in _IRREG: outs.add(_IRREG[w])
+    if len(w) > 3 and w.endswith('i'): outs.add(w[:-1] + 'us')      # rhonchi->rhonchus, alveoli->alveolus
+    if len(w) > 3 and w.endswith('ae'): outs.add(w[:-1])            # vertebrae->vertebra
+    if len(w) > 4 and w.endswith('a'): outs.add(w[:-1] + 'um')      # crateria? (rare) safe via exact-match
     for suf in ('ing', 'ed'):
         if w.endswith(suf) and len(w) > len(suf) + 2:
             b = w[:-len(suf)]
-            outs += [b, b + 'e']                      # grunt / bulge
-            if len(b) > 1 and b[-1] == b[-2]: outs.append(b[:-1])  # running->run
-    return outs
+            outs |= {b, b + 'e'}                                    # grunt / bulge
+            if len(b) > 1 and b[-1] == b[-2]: outs.add(b[:-1])      # running->run
+    return sorted(outs)
 
 def norm(s, strip_sev=False, deverb=False):
     s = QUANT.sub('', s)
