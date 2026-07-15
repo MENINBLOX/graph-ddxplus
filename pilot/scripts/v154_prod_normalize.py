@@ -31,8 +31,8 @@ def clean_name_for_link(name):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--pred", default="pilot/cache/maccrobat/v153_prod_pred.json")
-    ap.add_argument("--out", default="pilot/cache/maccrobat/v154_prod_normalized.json")
+    ap.add_argument("--pred", default="pilot/cache/prod/ie_pred.json")
+    ap.add_argument("--out", default="pilot/cache/prod/kg_records.json")
     a = ap.parse_args()
     preds = json.load(open(a.pred, encoding="utf-8"))
     snomed, sty = load_maps()
