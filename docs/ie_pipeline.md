@@ -1,0 +1,88 @@
+# IE 파이프라인 (production) — consolidated reference
+
+**최종 정리 2026-07-15.** disease → phenotype + 임상 표준 속성 추출 → UMLS CUI/SNOMED 정규화
+→ 속성-KG의 disease→phenotype edge(qualified statement). **벤치마크 gold 미사용, gold-free 검증.**
+
+---
+
+## 0. 한눈에 — end-to-end stages
+
+| # | Stage | Script | Input → Output | Env |
+|---|-------|--------|----------------|-----|
+| S0 | Disease seed | `data/medkg/seeds/combined_seed.jsonl` | — → 38,906 diseases (CUI+name, rare-inclusive: OMIM/ORPHANET/HPO/RareBench) | — |
+| S1 | Source | `scaleup_sources`(840, 증상-풍부) · retrieval TODO(38k) | disease → 증상-풍부 임상텍스트 | — |
+| S2 | **IE** | `v153_production_ie.py` | disease + source → atomic findings + 6 raw attrs | `.venv` (GPU) |
+| S3 | **Normalize + Validate** | `v154_prod_normalize.py` (+`v152`, `attr_normalize`) | IE + source → KG-ready records | `.venv-sci` |
+| S4 | KG build | (next) | KG records → 속성-KG | — |
+
+산출물: `pilot/cache/prod/ie_pred.json`(S2), `pilot/cache/prod/kg_records.json`(S3).
+
+---
+
+## 1. S2 — IE (추출)
+
+- **모델 = gemma-4-E4B** (오픈 패널 선정: gemma-4-12B·Qwen2.5-7B/14B·medgemma-4b 전부 열세; 차이는 recall).
+- **프롬프트 = 단일 V4** (1 call/doc, 6속성 동시, 내부 STEP1 원자화(site 분해)→STEP2 배정). **benchmark-blind, few-shot 금지, temp=0.**
+- **6 후보 속성**: onset · severity · location · character · timing · aggravating · relieving.
+- severity/onset은 **원문 표현 그대로(raw) 추출**(faithful) — 정규화는 S3에서 결정론적으로.
+- disease-oriented framing("이 질환 환자가 겪는 증상"), 질환명·원인·치료·역학·정상소견 제외.
+
+## 2. S3 — 정규화 + gold-free 검증
+
+**개념형 (finding / location / character)**
+- scispaCy `en_core_sci_lg` + UMLS EntityLinker(threshold 0.85) → **CUI + semantic type(TUI)**.
+- **CUI → SNOMED CT** (MRCONSO, `pilot/cache/umls_maps/cui_snomed.tsv` 452K).
+- finding 이름은 **severity/onset 형용사 strip 후 링크**(mislink 방지: "severe tachypnea"→"Severe" 오링크 제거).
+- **clin-type 필터**: finding은 disease/symptom/finding 타입만 인정(anatomy 오링크 배제) = CLAUDE.md §12 노이즈 필터.
+
+**범주형 (severity / onset)** — `attr_normalize.py`, 결정론적
+- severity → {mild, moderate, severe}: 형용사 · **NRS 0-10**(1-3/4-6/7-10) · grade I-IV. 비-grade(increased/worsened 등) 거부.
+- onset → {sudden, gradual}: acute/rapid→sudden, insidious/chronic→gradual.
+- **LLM에 정규화 안 시킴** — raw는 faithful 추출, 매핑은 결정론적(0-10 대응 가능, garbage 거부).
+
+**검증 (gold-free, 벤치마크 0)**
+- **faithfulness** = grounding(IE의 CUI ∈ 원문 CUI 집합, 개념수준 · string 무관) + hallucination(원문에 없는 개념). **결정론적, NLI/LLM-judge 아님.**
+- **normalizability** = CUI-link · SNOMED · clin-type.
+- 원문 grounding으로 검증 → gold label 불필요.
+
+---
+
+## 3. 실측 (소규모 15 diseases, 증상-풍부 소스)
+
+| field | n | CUI | SNOMED | clin-type | grounding | halluc |
+|-------|---|-----|--------|-----------|-----------|--------|
+| finding | 240 | 0.85 | 0.79 | 0.59 | **1.00** | **0.00** |
+| location | 64 | 0.94 | 0.91 | 0.88 | **1.00** | **0.00** |
+| character | 33 | 0.45 | 0.39 | 0.18 | 1.00 | 0.00 |
+
+severity/onset: 실제 grade는 ~100% 통제어휘 매핑, 비-grade는 정확히 거부. IE density 16.0 findings/disease.
+
+**적용 최적화**: ① name-cleaning(CUI 정확성) ② 증상-풍부 소스(location 0.80→0.88) ③ self-contained grounding.
+
+---
+
+## 4. 핵심 설계 결정 (rationale)
+
+- **벤치마크 gold 폐기** (사용자 확정): MACCROBAT 등은 소규모·구조결함(multi-site 중복·노이즈·불완전)·IE 비최적화. raw pair-F1·conditioned accuracy·coverage 등 gold-대조 지표 전부 미사용.
+- **gold-free CUI-grounding 채택**: 선행연구의 "LLM-free reference-free fact-checking" 계열(개념수준 변형). LLM-as-judge 회피 = same-family 편향 문헌이 지지.
+- **UMLS/SNOMED는 벤치마크 아님** = KG 정규화 용어체계(interlingua). 이 검증 = KG 정규화 단계 그 자체.
+- **severity 결정론적 정규화**: 스키마 통제어휘 강제 + 0-10 NRS 대응(교수님/CLAUDE.md 매핑).
+
+## 5. 한계 (정직)
+
+- gold-free는 **faithfulness·normalization coverage는 재나 right-CUI(맞는 CUI인가)는 못 잼** (scispaCy linking SOTA도 MedMentions ~56%). → 내부 sanity로만 확인, 논문엔 한계로 명시(수동감사 "검토 데이터"로 표기 금지).
+- 모델 accuracy 최종선정은 gold-free 변별력 약함 → **extrinsic(진단 gain)의 몫.**
+- character는 free-text(clin-type 0.18) — 정규화 부적합, 한계 명시.
+
+## 6. 남은 것 = 대규모 스케일
+
+- **🔴 Source coverage**: 증상-풍부 소스 840개(SymCat+DDXPlus) → 38,906(rare-inclusive) 확장 (Wikipedia 증상섹션 + MedlinePlus + GeneReviews/Orphanet). CLAUDE.md §1(coverage 100% 필수).
+- **🔴 Inference 속도**: 840 ≈ 5h(가능), 38,906 ≈ 200h+(transformers 불가) → vLLM(flashinfer 막힘) 또는 스코프 조정.
+- → 이후 **S4 KG build → extrinsic leave-one-out ablation**(논문 하중).
+
+## 7. 참조
+
+- 상세 실험 로그·검증 방법론: `docs/ie_strategy_maccrobat_results.md`(§13 전체-corpus, §14 gold-free 확정).
+- 선행연구 대조: memory `ie-validation-priorwork-2026-07`.
+- 스크립트: S2 `v153_production_ie.py` · S3 `v154_prod_normalize.py`(+`v152_normalize_pipeline.py`, `attr_normalize.py`) · 검증데모 `v151_cui_grounding.py`.
+- 환경: `.venv`(transformers/GPU) · `.venv-sci`(scispaCy/UMLS) — memory `server-env-2026-07`.
