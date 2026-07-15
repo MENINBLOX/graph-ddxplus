@@ -45,8 +45,7 @@ def main():
     out = {}
 
     for di, (cui, obj) in enumerate(preds.items()):
-        sp = f"{SRC_DIR}/{cui}.txt"
-        src_l = open(sp, encoding="utf-8").read().lower() if os.path.exists(sp) else ""
+        src_l = obj.get("source", "").lower()  # source embedded by v153 (self-contained)
         scuis = doc_cuis(nlp, src_l) if src_l else set()
         recs = []
         for f in obj.get("findings", []):

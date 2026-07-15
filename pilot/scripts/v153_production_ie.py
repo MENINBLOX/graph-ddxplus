@@ -17,7 +17,8 @@ from v146_decomp import LOC_DECOMP, build_backend
 from v147_single6 import TIMING, AGGR, RELV
 from v145_strategy_scope import parse_json, clean
 
-SRC_DIR = "pilot/cache/v105_sources"
+SRC_V105 = "pilot/cache/v105_sources"          # Wikipedia intros (symptom-poor)
+SRC_SCALEUP = "pilot/cache/scaleup_sources"    # symptom-rich "Signs and symptoms" sections
 SEED = "data/medkg/seeds/combined_seed.jsonl"
 MODEL = "google/gemma-4-E4B-it"
 ONSET_RULE = ONSET["O2"]
@@ -63,14 +64,20 @@ def main():
     ap.add_argument("--n", type=int, default=15)
     ap.add_argument("--bs", type=int, default=8)
     ap.add_argument("--max-new", type=int, default=2048)
+    ap.add_argument("--source", choices=["v105", "scaleup"], default="scaleup")
     ap.add_argument("--out", default="pilot/cache/prod/ie_pred.json")
     a = ap.parse_args()
-    names = load_names()
-    srcs = sorted(glob.glob(f"{SRC_DIR}/*.txt"))[:a.n]
-    docs = []
-    for p in srcs:
-        cui = os.path.basename(p)[:-4]
-        docs.append((cui, names.get(cui, cui), open(p, encoding="utf-8").read()))
+    docs = []  # (key, disease_name, source_text)
+    if a.source == "v105":
+        names = load_names()
+        for p in sorted(glob.glob(f"{SRC_V105}/*.txt"))[:a.n]:
+            cui = os.path.basename(p)[:-4]
+            docs.append((cui, names.get(cui, cui), open(p, encoding="utf-8").read()))
+    else:  # scaleup: symptom-rich sections, keyed by index; {disease,title,text}
+        for p in sorted(glob.glob(f"{SRC_SCALEUP}/*.json"))[:a.n]:
+            d = json.load(open(p, encoding="utf-8"))
+            key = os.path.basename(p)[:-5]
+            docs.append((key, d.get("disease", key), d.get("text", "")))
 
     prompt = (HEAD_PROD.replace("{step1}", STEP1_PROD).replace("{onset}", ONSET_RULE)
               .replace("{severity}", SEV_R2).replace("{location}", LOC_DECOMP).replace("{character}", CHAR)
@@ -80,7 +87,7 @@ def main():
     texts = chat([prompt.replace("{disease}", nm).replace("{src}", s) for _, nm, s in docs])
     preds = {}
     for (cui, nm, s), t in zip(docs, texts):
-        preds[cui] = {"disease": nm, "findings": clean(parse_json(t), s.lower())}
+        preds[cui] = {"disease": nm, "source": s, "findings": clean(parse_json(t), s.lower())}
     json.dump(preds, open(a.out, "w"))
     # quick stats
     nf = sum(len(v["findings"]) for v in preds.values())
