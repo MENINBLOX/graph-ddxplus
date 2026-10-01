@@ -18,7 +18,9 @@ P=pilot/cache/prod
 STAGE="${1:-all}"
 
 # ---- frozen evaluation configuration (identical for every benchmark, §C5) -------------------
+# re-selected on the final KG by config_reselect.py (one criterion: mean Top-1 over 6 benchmarks)
 export KG_ATTR_COMBINE=mean
+export KG_ATTR_SEL=0
 # near-ties depend on set iteration order, which follows the string hash seed; pin it
 export PYTHONHASHSEED=0
 KG="${KG:-$P/kg_merged29.json}"
@@ -26,8 +28,8 @@ CFG="--parents $P/phenotype_parents_rich.json --hier 1 --sapbert 0 --tau 0.78 \
  --hpo_bridge $P/hpo_bridge.json --hpo_anc 0 --hpo_w 0.5 \
  --bio_bridge $P/biochem_bridge.json \
  --syn_bridge $P/synonym_bridge.json --syn_w 1.0 \
- --cov_mu 0.5 --normexp 0.28 --local_idf 1.0 --neg_w 15 \
- --lsa 1 --lsa_w 2.0 --fuse minrank \
+ --cov_mu 0.5 --normexp 0.35 --verb_w 0.5 --local_idf 1.0 --neg_w 15 \
+ --lsa 1 --lsa_w 2.0 --fuse mult \
  --attr 1 --attr_w 10 --attr_mu 0.0 \
  --attr_use location,character,severity,onset,timing,aggravating,relieving"
 
