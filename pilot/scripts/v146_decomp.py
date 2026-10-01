@@ -80,8 +80,19 @@ JSON: {{"findings":[{{"name":"","onset":"","severity":"","location":"","characte
 
 def build_backend(backend, bs, max_new):
     if backend == "vllm":
+        # WSL2 + CUDA-13 environment needs three flags for vLLM 0.25 to init (see
+        # memory server-env-2026-07). Set BEFORE importing vllm:
+        #  - VLLM_WSL2_ENABLE_PIN_MEMORY=1 : pinned memory is supported on our kernel
+        #    (6.x >> 4.19.121) but off by default under WSL -> without it, UVA buffers fail.
+        #  - VLLM_USE_FLASHINFER_SAMPLER=0 : flashinfer isn't installed; greedy (temp=0) never
+        #    needs its top-p/top-k sampler -> disabling skips the hard import.
+        #  - VLLM_ATTENTION_BACKEND=TORCH_SDPA : PyTorch-native attention, no flashinfer JIT.
+        os.environ.setdefault("VLLM_WSL2_ENABLE_PIN_MEMORY", "1")
+        os.environ.setdefault("VLLM_USE_FLASHINFER_SAMPLER", "0")
+        os.environ.setdefault("VLLM_ATTENTION_BACKEND", "TORCH_SDPA")
         from vllm import LLM, SamplingParams
-        llm = LLM(model=MODEL, dtype="bfloat16", max_model_len=8192, gpu_memory_utilization=0.85,
+        util = float(os.environ.get("VLLM_GPU_UTIL", "0.85"))  # lower to share GPU with other procs
+        llm = LLM(model=MODEL, dtype="bfloat16", max_model_len=8192, gpu_memory_utilization=util,
                   enforce_eager=True, limit_mm_per_prompt={"image": 0, "audio": 0})
         SP = SamplingParams(temperature=0.0, max_tokens=max_new)
         def chat(prompts):
@@ -89,6 +100,14 @@ def build_backend(backend, bs, max_new):
             return [o.outputs[0].text for o in outs]
         return chat
     import torch
+    # Reproducibility (#9): decoding is greedy (do_sample=False) so there is NO sampling seed;
+    # the residual non-determinism is GPU-kernel + batch/padding. Pin what is pinnable:
+    # deterministic CUDA kernels (warn_only so an op without a deterministic impl degrades, not
+    # crashes) + a fixed seed for any incidental RNG. Batch size is fixed by the caller (--bs);
+    # library/dtype/model-revision are pinned in the environment. See docs/source_coverage_audit.md §5.
+    os.environ.setdefault("CUBLAS_WORKSPACE_CONFIG", ":4096:8")
+    torch.manual_seed(0)
+    torch.use_deterministic_algorithms(True, warn_only=True)
     from transformers import AutoProcessor
     try:
         from transformers import AutoModelForImageTextToText as _AutoModel

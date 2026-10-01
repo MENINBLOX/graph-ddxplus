@@ -38,10 +38,11 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--datasets", default="HMS,LIRICAL,MME,RAMEDIS")
     ap.add_argument("--hop2_decay", type=float, default=0.5)
+    ap.add_argument("--graph", default=str(GRAPH), help="path to onlykg DiGraph pickle")
     args = ap.parse_args()
 
-    print("Loading v2 graph + RareBench mappings...")
-    with GRAPH.open("rb") as f:
+    print(f"Loading graph {args.graph} + RareBench mappings...")
+    with open(args.graph, "rb") as f:
         G = pickle.load(f)
     hpo_map = json.load(open("data/rarebench/hpo_umls_mapping.json"))["mapping"]
     dis_map = json.load(open("data/rarebench/disease_umls_mapping.json"))["mapping"]
