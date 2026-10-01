@@ -45,12 +45,13 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--patients_per_disease", type=int, default=50)
     ap.add_argument("--hop2_decay", type=float, default=0.5)
+    ap.add_argument("--graph", default=None, help="path to onlykg DiGraph pickle")
     ap.add_argument("--filter_categories", default="ALL",
                     help="ALL or comma-list of categories to keep (SYMPTOM,ANATOMY,...)")
     args = ap.parse_args()
 
     print("Loading v2 graph + SymCat data...")
-    with GRAPH.open("rb") as f:
+    with open(getattr(args, "graph", None) or GRAPH, "rb") as f:
         G = pickle.load(f)
     sc = json.load(open("data/symcat/symcat_parsed.json"))
     sym_umls = json.load(open("data/symcat/symptom_umls_mapping.json"))["mapping"]

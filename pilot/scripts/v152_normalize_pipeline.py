@@ -69,44 +69,65 @@ def build_linker():
     return nlp
 
 _CG = None
+_KB = None
 COV_THRESH = 0.70  # similarity floor for accepting a direct candidate-generation link
-# leading quantifier/qualifier phrases stripped in the decomposition fallback
-_STRIP_LEAD = re.compile(r'^(amount of|presence of|episodes? of|degree of|loss of|lack of|sense of|'
-                         r'increased|decreased|abnormal|frequent|recurrent|excessive|reduced|worsened)\s+', re.I)
+# leading QUANTIFIER/meta phrases where the concept is the tail noun ("amount of cough" -> "cough").
+# NOT change-adjectives (increased/worsening) or "loss of" — those are often part of the concept.
+_STRIP_LEAD = re.compile(r'^(amount of|quantity of|colou?r of|appearance of|presence of|degree of|'
+                         r'sense of|episodes? of)\s+', re.I)
 
 def _cg(nlp):
-    global _CG
+    global _CG, _KB
     if _CG is None:
-        _CG = nlp.get_pipe("scispacy_linker").candidate_generator
+        linker = nlp.get_pipe("scispacy_linker")
+        _CG = linker.candidate_generator; _KB = linker.kb
     return _CG
 
-def _best(cg, term):
-    best = (None, 0.0)
-    if not term.strip(): return best
+HIGH_CONF = 0.88  # score above which a match is trusted even without token overlap (near-exact alias)
+_STOP_TOK = set("of the a an and or with in on to for finding disorder observable entity function".split())
+def _toks(s): return {w for w in re.findall(r'[a-z]+', s.lower()) if len(w) > 3 and w not in _STOP_TOK}
+
+def _cands(cg, term):
+    """(cui, score, tui, canonical) candidates for a term, best score first."""
+    out = []
+    if not term.strip(): return out
     for c in cg([term], 10)[0]:
         sc = max(c.similarities) if c.similarities else 0.0
-        if sc > best[1]: best = (c.concept_id, sc)
-    return best
+        ent = _KB.cui_to_entity.get(c.concept_id)
+        tui = ent.types[0] if ent and ent.types else ""
+        canon = ent.canonical_name if ent else ""
+        out.append((c.concept_id, sc, tui, canon))
+    return sorted(out, key=lambda x: -x[1])
 
-def link_top(nlp, term, threshold=COV_THRESH):
-    """Direct candidate-generation link (NOT NER-gated, so short terms like 'cough' link) +
-    morphological decomposition fallback. Returns (cui, score) or (None, best_seen)."""
+def _equiv(form, canon, score):
+    """semantic-equivalence guard: trust only if near-exact alias (high score) OR the concept name
+    shares a content token with the term (prevents 'fast breathing'->Apnea style approximate errors)."""
+    return score >= HIGH_CONF or bool(_toks(form) & _toks(canon))
+
+def link_top(nlp, term, threshold=COV_THRESH, valid_fn=None):
+    """Direct candidate-generation link (NOT NER-gated) with an equivalence guard. Pre-strips
+    quantifier phrases; with `valid_fn(tui)` prefers a semantically-VALID-typed, EQUIVALENT concept
+    across {stripped term, head noun-phrase, head word} — corrects "medical shock"->Shock, keeps
+    "shortness of breath"->Dyspnea (high score), rejects "fast breathing"->Apnea (no overlap, low
+    score). Returns (cui, score) or (None, best_seen)."""
     cg = _cg(nlp)
-    best = _best(cg, term)
-    if best[1] >= threshold: return best
-    # fallback 1: strip leading quantifier/qualifier ("amount of cough" -> "cough")
-    t2 = _STRIP_LEAD.sub('', term).strip()
-    if t2 and t2.lower() != term.lower():
-        b = _best(cg, t2)
-        if b[1] >= threshold: return b
-        if b[1] > best[1]: best = b
-    # fallback 2: head noun-phrase (trailing 2 words, then last word) — "medical shock" -> "shock"
-    words = re.findall(r"[a-z]+", term.lower())
-    tails = ([" ".join(words[-2:])] if len(words) > 2 else []) + ([words[-1]] if words else [])
-    for tail in tails:
-        b = _best(cg, tail)
-        if b[1] >= threshold: return b
-        if b[1] > best[1]: best = b
+    t = _STRIP_LEAD.sub('', term).strip() or term
+    words = re.findall(r"[a-z]+", t.lower())
+    forms = [t]
+    if len(words) > 2: forms.append(" ".join(words[-2:]))
+    if len(words) > 1: forms.append(words[-1])
+    best = (None, 0.0); valid_best = (None, 0.0)
+    for fi, form in enumerate(forms):
+        for cui, sc, tui, canon in _cands(cg, form):
+            if sc < threshold: break
+            if not _equiv(form, canon, sc): continue          # equivalence guard
+            if sc > best[1]: best = (cui, sc)
+            if valid_fn and valid_fn(tui) and sc > valid_best[1]:
+                valid_best = (cui, sc)
+        if valid_best[0] and fi == 0:
+            return valid_best  # top form already valid+equivalent -> keep (don't over-decompose)
+    if valid_fn and valid_best[0]:
+        return valid_best
     return best if best[1] >= threshold else (None, best[1])
 
 def doc_cuis(nlp, text):
