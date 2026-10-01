@@ -10,12 +10,16 @@
 | # | Stage | Script | Input → Output | Env |
 |---|-------|--------|----------------|-----|
 | S0 | Disease seed | `data/medkg/seeds/combined_seed.jsonl` | — → 38,906 diseases (CUI+name, rare-inclusive: OMIM/ORPHANET/HPO/RareBench) | — |
-| S1 | Source | `scaleup_sources`(840, 증상-풍부) · retrieval TODO(38k) | disease → 증상-풍부 임상텍스트 | — |
-| S2 | **IE** | `v153_production_ie.py` | disease + source → atomic findings + 6 raw attrs | `.venv` (GPU) |
-| S3 | **Normalize + Validate** | `v154_prod_normalize.py` (+`v152`, `attr_normalize`) | IE + source → KG-ready records | `.venv-sci` |
-| S4 | KG build | (next) | KG records → 속성-KG | — |
+| S1 | Source (scale) | `v156_build_sources.py` (pubmed∪sections) · crawl: `medkg_pubmed_crawl_fast.py`(+`_synonym_retry`) | disease → 증상-풍부 텍스트 blob `{cui}.json` | — |
+| S2 | **IE** | `v153_production_ie.py --backend vllm --source prod --resume` | disease + source → atomic findings + 6 raw attrs | `.venv` (GPU, vLLM) |
+| S3 | **Normalize + Validate** | `v155_normalize_umls.py` (threshold-free; +`attr_normalize`) | IE + source → KG-ready records | `.venv` (plain py3) |
+| S4 | **KG build** | `v157_build_kg.py` | KG records → bipartite 속성-KG + §12 topology | — |
 
-산출물: `pilot/cache/prod/ie_pred.json`(S2), `pilot/cache/prod/kg_records.json`(S3).
+산출물: `pilot/cache/prod/sources/{cui}.json`(S1) · `ie_pred_full.json`(S2) · `kg_records.json`(S3) · `kg.json`(S4).
+
+**Scale status (2026-07-16)**: source coverage 38%→**92.5%**(rare 95.4%) via pubmed 전건 재크롤+synonym-retry
+(`docs/source_coverage_audit.md`). vLLM 동작 확정(WSL2 3-flag, transformers 대비 ~10x) → 38k IE ≈ 10~20h
+1-run(checkpoint/resume). S3→S4 32-disease 검증 완료(name CUI 0.97, KG 402 edges, noise 9 제거).
 
 ---
 
@@ -79,11 +83,16 @@ severity/onset: 실제 grade는 ~100% 통제어휘 매핑, 비-grade는 정확�
 - 모델 accuracy 최종선정은 gold-free 변별력 약함 → **extrinsic(진단 gain)의 몫.**
 - character는 free-text(clin-type 0.18) — 정규화 부적합, 한계 명시.
 
-## 6. 남은 것 = 대규모 스케일
+## 6. 남은 것
 
-- **🔴 Source coverage**: 증상-풍부 소스 840개(SymCat+DDXPlus) → 38,906(rare-inclusive) 확장 (Wikipedia 증상섹션 + MedlinePlus + GeneReviews/Orphanet). CLAUDE.md §1(coverage 100% 필수).
-- **🔴 Inference 속도**: 840 ≈ 5h(가능), 38,906 ≈ 200h+(transformers 불가) → vLLM(flashinfer 막힘) 또는 스코프 조정.
-- → 이후 **S4 KG build → extrinsic leave-one-out ablation**(논문 하중).
+- **✅ Source coverage**(해결): 38%→**92.5%**(rare 95.4%). pubmed 전건 재크롤(26,875 회수)+synonym-retry
+  (3,775 회수)+hpoa. 잔여 7.5%=ICD 행정버킷(문헌無)→한계 명시. `docs/source_coverage_audit.md`.
+- **✅ Inference 속도**(해결): vLLM WSL2 3-flag 동작 → transformers 대비 ~10x. 38k ≈ 10~20h 1-run.
+  (과거 "flashinfer 막힘"의 진짜 원인 = `VLLM_USE_FLASHINFER_SAMPLER=0` 누락. memory `server-env-2026-07`.)
+- **🔴 다음 = extrinsic 진단 평가**(논문 하중): 완성 KG(`kg.json`) → 단일 algorithm 진단(GTPA@1) +
+  **속성 leave-one-out ablation**(#8 IDF/IC 가중, `docs/evidence_weighting_dedup.md`) + cross-benchmark
+  (DDXPlus/SymCat/RareBench…). 정규화 안 되는 속성(character)은 KG+LLM 변형에서 활용. 진단 harness 를
+  새 속성-KG 스키마에 연결하는 작업이 남음.
 
 ## 7. 참조
 
