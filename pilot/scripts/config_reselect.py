@@ -26,7 +26,7 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from ablation_suite import BENCHES, FROZEN  # noqa: E402
+from ablation_suite import BENCHES, FROZEN_DEV as FROZEN  # noqa: E402  (search starts from it)
 
 # one switch per step; "_env:" keys are environment variables of the scorer
 GRID: list[tuple[str, list[str]]] = [
@@ -64,8 +64,10 @@ def run_one(kg: str, cfg: dict, bench: str, out: Path) -> Path:
 
 def score(out: Path, cfg: dict) -> dict:
     top1, top3 = {}, {}
-    for f in out.glob(f"{key(cfg)}__*.*.json"):
-        name = f.name.split(".", 1)[1][:-5]
+    k = key(cfg)
+    for f in out.glob(f"{k}__*.*.json"):
+        # "<key>__<bench-arg>.<BenchName>.json"; the key itself may contain dots (verb_w=0.5)
+        name = f.name[len(k) + 2:].split(".", 1)[1][:-5]
         ranks = [int(r[0]) if isinstance(r, list) else int(r) for r in json.load(open(f))]
         top1[name] = 100 * sum(r <= 1 for r in ranks) / len(ranks)
         top3[name] = 100 * sum(r <= 3 for r in ranks) / len(ranks)

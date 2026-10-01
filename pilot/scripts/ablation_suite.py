@@ -30,8 +30,8 @@ from pathlib import Path
 
 P = "pilot/cache/prod"
 
-# The frozen configuration shared by every benchmark (§C5). Kept identical to reproduce.sh.
-FROZEN = {
+# The configuration frozen on the DEVELOPMENT KG. Kept because config_reselect.py starts from it.
+FROZEN_DEV = {
     "--parents": f"{P}/phenotype_parents_rich.json", "--hier": "1", "--sapbert": "0", "--tau": "0.78",
     "--hpo_bridge": f"{P}/hpo_bridge.json", "--hpo_anc": "0", "--hpo_w": "0.5",
     "--bio_bridge": f"{P}/biochem_bridge.json",
@@ -43,6 +43,12 @@ FROZEN = {
     "--unified": "1",
 }
 
+# The frozen configuration shared by every benchmark (§C5), re-selected on the final KG by
+# config_reselect.py with one pre-declared criterion (unweighted mean Top-1 over the six diagnostic
+# benchmarks). Kept identical to reproduce.sh. Scorer environment switches live in FROZEN_ENV.
+FROZEN = {**FROZEN_DEV, "--normexp": "0.35", "--verb_w": "0.5", "--fuse": "mult"}
+FROZEN_ENV = {"KG_ATTR_COMBINE": "mean", "KG_ATTR_SEL": "0"}
+
 # One switch each. A value of None removes the flag entirely (the component then falls back to the
 # evaluator's own "off" default), which is how the bridges are disabled.
 VARIANTS: dict[str, dict[str, str | None]] = {
@@ -51,25 +57,23 @@ VARIANTS: dict[str, dict[str, str | None]] = {
     "-local_idf": {"--local_idf": "0"},
     "-absence_evidence": {"--neg_w": "0"},
     "-length_retune": {"--normexp": "0.5"},
+    "-two_stage_length": {"--verb_w": "0"},
     "-coverage_smoothing": {"--cov_mu": "0"},
     "-attributes": {"--attr": "0"},
     "-latent_prior": {"--lsa": "0"},
     # Weighted-sum fusion reads --lsa_w as a convex weight, (1-w)*evidence + w*prior. The frozen
-    # 2.0 is a MULTIPLIER for the min-rank/multiplicative forms; fed to the sum it puts weight -1 on
-    # the evidence channel and inverts the ranking (DDXPlus @1 fell 36.7 points -- an artefact, not
-    # the contribution of rank fusion). The coherent "no rank fusion" system is the sum with the
-    # weight it was actually used at.
-    "-rank_fusion": {"--fuse": "sum", "--lsa_w": "0.4"},
+    # 2.0 is a MULTIPLIER for the multiplicative/min-rank forms; fed to the sum it puts weight -1 on
+    # the evidence channel and inverts the ranking (an artefact, not a property of fusion). The
+    # coherent weighted-sum system is the one with the weight it was actually used at.
+    "alt:weighted_sum_fusion": {"--fuse": "sum", "--lsa_w": "0.4"},
     "-synonym_bridge": {"--syn_bridge": None},
     "-biochem_bridge": {"--bio_bridge": None},
     "-hpo_bridge": {"--hpo_bridge": None},
     "-hierarchy": {"--hier": "0"},
     # alternatives rather than removals, requested by the paper's method section
-    "alt:multiplicative_fusion": {"--fuse": "mult"},
+    "alt:minrank_fusion": {"--fuse": "minrank"},
     "alt:sum_attribute_combine": {"_env:KG_ATTR_COMBINE": "sum"},
-    # the method section describes both; each is compared here on the final KG
-    "alt:two_stage_length": {"--verb_w": "0.5"},        # Robertson verbosity/scope prenormalization
-    "alt:no_attr_selectivity": {"_env:KG_ATTR_SEL": "0"},  # every attribute agreement weighs the same
+    "alt:attr_selectivity": {"_env:KG_ATTR_SEL": "1"},   # value-IDF weighting of attribute agreements
 }
 
 BENCHES = ("ddxplus", "rarebench", "symcat")
@@ -98,7 +102,7 @@ def run(a: argparse.Namespace) -> None:
     # PYTHONHASHSEED is pinned because some scorer paths sum over sets of concept strings, and the
     # iteration order (hence float summation order, hence near-ties) follows the hash seed: without
     # it DDXPlus Top-1 moved by one patient between runs of an identical configuration.
-    env = dict(os.environ, KG_ATTR_COMBINE="mean", PYTHONHASHSEED="0")
+    env = dict(os.environ, **FROZEN_ENV, PYTHONHASHSEED="0")
     jobs = []
     for v in VARIANTS:
         for b in BENCHES:
