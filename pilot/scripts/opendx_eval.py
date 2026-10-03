@@ -24,6 +24,7 @@ from pathlib import Path
 DATA = Path("data")
 UM = Path("pilot/cache/umls_maps")
 KS = (1, 3, 10)
+RAW_GOLD = False   # set by graph-based evaluation to also return original gold identifiers
 
 
 # ----------------------------------------------------------------------------- benchmarks
@@ -36,6 +37,8 @@ def _rb_maps():
         out = set(om["omim"].get(i, [])) | set(om["orpha"].get(i, []))
         if dis.get(i, {}).get("umls_cui"):
             out.add(dis[i]["umls_cui"])
+        if RAW_GOLD:
+            out.add(i)          # keep the original OMIM/ORPHA id for MONDO-keyed graphs
         return out
 
     def hp(h: str) -> str | None:
