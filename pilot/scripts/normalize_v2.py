@@ -77,15 +77,24 @@ def main() -> None:
     a = ap.parse_args()
     table = json.load(open(a.table)) if os.path.exists(a.table) else {}
     phrases = set()
-    for line in open(a.ie):
+    for line in (ln for path in a.ie.split(",") for ln in open(path)):
         try:
             r = json.loads(line)
         except Exception:
             continue
         phrases.update(i["t"].lower().strip() for i in r.get("items", []))
+    # re-link phrases rejected only because their concept had no type in the old map
+    for p in [p for p, v in table.items() if v.get("why") == "type" and not v.get("tui")]:
+        del table[p]
     todo = sorted(p for p in phrases if p not in table)
     print(f"phrases {len(phrases)}, already linked {len(phrases) - len(todo)}, to link {len(todo)}", flush=True)
-    _snomed, sty = load_maps()
+    # semantic types straight from MRSTY: the v152 STY map lacks some concepts (e.g. Pallor), and a
+    # missing type looked exactly like an invalid one -- 206k mentions were rejected that way.
+    sty_all: dict[str, set[str]] = {}
+    with open("data/umls_extracted/MRSTY.RRF", encoding="utf-8") as fh:
+        for line in fh:
+            x = line.split("|")
+            sty_all.setdefault(x[0], set()).add(x[1])
     nlp = build_linker()
 
     def save():
@@ -101,8 +110,9 @@ def main() -> None:
             table[p] = {"cui": None, "tui": "", "why": "negated"}
             continue
         cid, _sc = link_top(nlp, clean_name_for_link(p), valid_fn=lambda tui: tui in VALID_TUI)
-        tui = sty.get(cid, ("", ""))[0] if cid else ""
-        if cid and tui not in VALID_TUI:
+        tuis = sty_all.get(cid, set()) if cid else set()
+        tui = sorted(tuis & VALID_TUI)[0] if tuis & VALID_TUI else (sorted(tuis)[0] if tuis else "")
+        if cid and not tuis & VALID_TUI:
             table[p] = {"cui": None, "tui": tui, "why": "type"}
         elif cid and not grounded(p, cid):
             table[p] = {"cui": None, "tui": tui, "why": "not_grounded"}

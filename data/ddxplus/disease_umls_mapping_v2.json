@@ -1,0 +1,299 @@
+{
+ "description": "DDXPlus condition -> UMLS: exact English-name match (cond-name-eng, condition_name, key; abbreviations <=5 uppercase chars excluded; disease semantic types; SNOMED>MeSH>MedlinePlus>NCI); else ICD-10 route",
+ "mapping": {
+  "Spontaneous pneumothorax": {
+   "umls_cui": "C0149781",
+   "umls_name": "Spontaneous pneumothorax",
+   "method": "exact-name",
+   "icd10_cui": "C0032326"
+  },
+  "Cluster headache": {
+   "umls_cui": "C0009088",
+   "umls_name": "Cluster Headache",
+   "method": "exact-name",
+   "icd10_cui": "C0009088"
+  },
+  "Boerhaave": {
+   "umls_cui": "C0014860",
+   "umls_name": "Esophageal Perforation",
+   "method": "icd10",
+   "icd10_cui": "C0014860"
+  },
+  "Spontaneous rib fracture": {
+   "umls_cui": "C0478237",
+   "umls_name": "rib fracture",
+   "method": "icd10",
+   "icd10_cui": "C0478237"
+  },
+  "GERD": {
+   "umls_cui": "C0017168",
+   "umls_name": "Gastroesophageal reflux disease",
+   "method": "icd10",
+   "icd10_cui": "C0017168"
+  },
+  "HIV (initial infection)": {
+   "umls_cui": "C0001175",
+   "umls_name": "acute HIV infection",
+   "method": "icd10",
+   "icd10_cui": "C0001175"
+  },
+  "Anemia": {
+   "umls_cui": "C0002871",
+   "umls_name": "Anemia",
+   "method": "exact-name",
+   "icd10_cui": "C0002871"
+  },
+  "Viral pharyngitis": {
+   "umls_cui": "C0001344",
+   "umls_name": "Acute pharyngitis",
+   "method": "icd10",
+   "icd10_cui": "C0001344"
+  },
+  "Inguinal hernia": {
+   "umls_cui": "C0019294",
+   "umls_name": "Inguinal hernia",
+   "method": "exact-name",
+   "icd10_cui": "C0019294"
+  },
+  "Myasthenia gravis": {
+   "umls_cui": "C0026896",
+   "umls_name": "Myasthenia Gravis",
+   "method": "exact-name",
+   "icd10_cui": "C0026896"
+  },
+  "Whooping cough": {
+   "umls_cui": "C0043167",
+   "umls_name": "Pertussis",
+   "method": "exact-name",
+   "icd10_cui": "C0043168"
+  },
+  "Anaphylaxis": {
+   "umls_cui": "C0002792",
+   "umls_name": "anaphylaxis",
+   "method": "exact-name",
+   "icd10_cui": "C0685898"
+  },
+  "Epiglottitis": {
+   "umls_cui": "C0014541",
+   "umls_name": "Epiglottitis",
+   "method": "exact-name",
+   "icd10_cui": "C0155814"
+  },
+  "Guillain-Barr\u00e9 syndrome": {
+   "umls_cui": "C0018378",
+   "umls_name": "Guillain-Barre Syndrome",
+   "method": "exact-name",
+   "icd10_cui": "C0018378"
+  },
+  "Acute laryngitis": {
+   "umls_cui": "C0001327",
+   "umls_name": "Acute laryngitis",
+   "method": "exact-name",
+   "icd10_cui": "C0001327"
+  },
+  "Croup": {
+   "umls_cui": "C0010380",
+   "umls_name": "Croup",
+   "method": "exact-name",
+   "icd10_cui": "C0010380"
+  },
+  "PSVT": {
+   "umls_cui": "C0039240",
+   "umls_name": "Supraventricular tachycardia",
+   "method": "icd10",
+   "icd10_cui": "C0039240"
+  },
+  "Atrial fibrillation": {
+   "umls_cui": "C0004238",
+   "umls_name": "Atrial Fibrillation",
+   "method": "exact-name",
+   "icd10_cui": "C3264374"
+  },
+  "Bronchiectasis": {
+   "umls_cui": "C0006267",
+   "umls_name": "Bronchiectasis",
+   "method": "exact-name",
+   "icd10_cui": "C0006267"
+  },
+  "Allergic sinusitis": {
+   "umls_cui": "C0018621",
+   "umls_name": "Hay fever",
+   "method": "icd10",
+   "icd10_cui": "C0018621"
+  },
+  "Chagas": {
+   "umls_cui": "C0041234",
+   "umls_name": "Chagas Disease",
+   "method": "icd10",
+   "icd10_cui": "C0041234"
+  },
+  "Scombroid food poisoning": {
+   "umls_cui": "C0275143",
+   "umls_name": "Scombroid fish poisoning",
+   "method": "icd10",
+   "icd10_cui": "C0275143"
+  },
+  "Myocarditis": {
+   "umls_cui": "C0027059",
+   "umls_name": "Myocarditis",
+   "method": "exact-name",
+   "icd10_cui": "C0027059"
+  },
+  "Larygospasm": {
+   "umls_cui": "C0023066",
+   "umls_name": "Laryngospasm",
+   "method": "icd10",
+   "icd10_cui": "C0023066"
+  },
+  "Acute dystonic reactions": {
+   "umls_cui": "C0236832",
+   "umls_name": "Neuroleptic-induced acute dystonia",
+   "method": "icd10",
+   "icd10_cui": "C0236832"
+  },
+  "Localized edema": {
+   "umls_cui": "C0013609",
+   "umls_name": "Localized Edema",
+   "method": "exact-name",
+   "icd10_cui": "C0013609"
+  },
+  "SLE": {
+   "umls_cui": "C0024141",
+   "umls_name": "Lupus Erythematosus, Systemic",
+   "method": "icd10",
+   "icd10_cui": "C0024141"
+  },
+  "Tuberculosis": {
+   "umls_cui": "C0041296",
+   "umls_name": "Tuberculosis",
+   "method": "exact-name",
+   "icd10_cui": "C0041327"
+  },
+  "Unstable angina": {
+   "umls_cui": "C0002965",
+   "umls_name": "Angina, Unstable",
+   "method": "exact-name",
+   "icd10_cui": "C0002965"
+  },
+  "Stable angina": {
+   "umls_cui": "C0340288",
+   "umls_name": "Stable angina",
+   "method": "exact-name",
+   "icd10_cui": "C0002962"
+  },
+  "Ebola": {
+   "umls_cui": "C0282687",
+   "umls_name": "Hemorrhagic Fever, Ebola",
+   "method": "exact-name",
+   "icd10_cui": "C0282687"
+  },
+  "Acute otitis media": {
+   "umls_cui": "C0271429",
+   "umls_name": "Acute otitis media",
+   "method": "exact-name",
+   "icd10_cui": "C0029882"
+  },
+  "Panic attack": {
+   "umls_cui": "C0086769",
+   "umls_name": "Panic Attacks",
+   "method": "exact-name",
+   "icd10_cui": "C0349232"
+  },
+  "Bronchospasm / acute asthma exacerbation": {
+   "umls_cui": "C0004096",
+   "umls_name": "Asthma",
+   "method": "icd10",
+   "icd10_cui": "C0004096"
+  },
+  "Bronchitis": {
+   "umls_cui": "C0006277",
+   "umls_name": "Bronchitis",
+   "method": "exact-name",
+   "icd10_cui": "C0006277"
+  },
+  "Acute COPD exacerbation / infection": {
+   "umls_cui": "C0340044",
+   "umls_name": "Acute exacerbation of chronic obstructive pulmonary disease",
+   "method": "icd10",
+   "icd10_cui": "C0340044"
+  },
+  "Pulmonary embolism": {
+   "umls_cui": "C0034065",
+   "umls_name": "Pulmonary Embolism",
+   "method": "exact-name",
+   "icd10_cui": "C0034065"
+  },
+  "URTI": {
+   "umls_cui": "C0041912",
+   "umls_name": "Upper Respiratory Infections",
+   "method": "icd10",
+   "icd10_cui": "C0041912"
+  },
+  "Influenza": {
+   "umls_cui": "C0021400",
+   "umls_name": "Influenza",
+   "method": "exact-name",
+   "icd10_cui": "C0021400"
+  },
+  "Pneumonia": {
+   "umls_cui": "C0032285",
+   "umls_name": "Pneumonia",
+   "method": "exact-name",
+   "icd10_cui": "C0694504"
+  },
+  "Acute rhinosinusitis": {
+   "umls_cui": "C0149512",
+   "umls_name": "Acute sinusitis",
+   "method": "icd10",
+   "icd10_cui": "C0149512"
+  },
+  "Chronic rhinosinusitis": {
+   "umls_cui": "C0149516",
+   "umls_name": "Chronic sinusitis",
+   "method": "exact-name",
+   "icd10_cui": "C0037199"
+  },
+  "Bronchiolitis": {
+   "umls_cui": "C0006271",
+   "umls_name": "Bronchiolitis",
+   "method": "exact-name",
+   "icd10_cui": "C0001311"
+  },
+  "Pulmonary neoplasm": {
+   "umls_cui": "C0348343",
+   "umls_name": "Malignant neoplasm of bronchus or lung, unspecified",
+   "method": "icd10",
+   "icd10_cui": "C0348343"
+  },
+  "Possible NSTEMI / STEMI": {
+   "umls_cui": "C0010072",
+   "umls_name": "Coronary Thrombosis",
+   "method": "icd10",
+   "icd10_cui": "C0010072"
+  },
+  "Sarcoidosis": {
+   "umls_cui": "C0036202",
+   "umls_name": "Sarcoidosis",
+   "method": "exact-name",
+   "icd10_cui": "C0036202"
+  },
+  "Pancreatic neoplasm": {
+   "umls_cui": "C0030297",
+   "umls_name": "Pancreatic Neoplasm",
+   "method": "exact-name",
+   "icd10_cui": "C0346647"
+  },
+  "Acute pulmonary edema": {
+   "umls_cui": "C0155919",
+   "umls_name": "Acute pulmonary edema",
+   "method": "exact-name",
+   "icd10_cui": "C0155919"
+  },
+  "Pericarditis": {
+   "umls_cui": "C0031046",
+   "umls_name": "Pericarditis",
+   "method": "exact-name",
+   "icd10_cui": "C0155679"
+  }
+ }
+}

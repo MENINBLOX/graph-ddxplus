@@ -41,25 +41,18 @@ HOLDERS = "MATCH (d:Disease)-[:HAS_FINDING]->(:Concept {cui: $cui}) RETURN colle
 
 def ddxplus_cases(split: str, n: int, seed: int = 0):
     cond = json.load(open("data/ddxplus/release_conditions_en.json"))
-    dmap = json.load(open("data/ddxplus/disease_umls_mapping.json"))["mapping"]
-    umap = json.load(open("data/ddxplus/umls_mapping.json"))["mapping"]
+    dmap = json.load(open("data/ddxplus/disease_umls_mapping_v2.json"))["mapping"]
     fr2en = {i.get("cond-name-fr") or i.get("condition_name"): en for en, i in cond.items()}
-
-    def cui(e):
-        for c in (e, e.split("_@_")[0], e.split("_")[0]):
-            if c in umap:
-                return umap[c]["cui"]
-        return None
-    vocab = {v["cui"] for v in umap.values() if v.get("cui")}
+    convert, vocab = O.ddx_crosswalk()
     rows = list(csv.DictReader(open(f"data/ddxplus/release_{split}_patients.csv")))
     rows = random.Random(seed).sample(rows, min(n, len(rows)))
     out = []
     for r in rows:
         gold = dmap.get(fr2en.get(r["PATHOLOGY"]), {}).get("umls_cui")
-        ev = {c for c in (cui(e) for e in ast.literal_eval(r["EVIDENCES"])) if c}
-        init = cui(r["INITIAL_EVIDENCE"])
+        ev = convert(ast.literal_eval(r["EVIDENCES"]))
+        init = convert([r["INITIAL_EVIDENCE"]])
         if gold and ev and init:
-            out.append({"gold": {gold}, "init": {init}, "pos": ev, "neg": vocab - ev})
+            out.append({"gold": {gold}, "init": init, "pos": ev, "neg": vocab - ev})
     return out
 
 
