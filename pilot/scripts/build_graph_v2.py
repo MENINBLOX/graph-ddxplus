@@ -48,19 +48,29 @@ def main() -> None:
     ap.add_argument("--uri", default="bolt://localhost:7687")
     ap.add_argument("--auth", default=os.environ.get("NEO4J_AUTH", "neo4j/thesis-dev-only"))
     ap.add_argument("--wipe", action="store_true")
+    ap.add_argument("--max-doc-diseases", type=int, default=20)
     ap.add_argument("--summary", default="pilot/cache/v2/graph_summary.json")
     a = ap.parse_args()
 
     uni = v2_ids.universe()
     table = json.load(open(a.table))
+    # Source specificity: an article retrieved for many different diseases (a methods paper or a
+    # broad review caught by full-text fallback queries) is not evidence about any one of them.
+    # Threshold fixed a priori from the corpus alone (no benchmark involved).
+    use = defaultdict(int)
+    for f in glob.glob(f"{a.sources}/*.json"):
+        for x in json.load(open(f))["docs"]:
+            use[x["doc_id"]] += 1
+    generic = {d for d, n in use.items() if n >= a.max_doc_diseases}
+    print(f"generic documents dropped (used by >= {a.max_doc_diseases} diseases): {len(generic)}", flush=True)
     mentions, docs_used = [], set()
     edge = defaultdict(lambda: [0, set()])            # (disease, cui) -> [n_mentions, docs]
-    for line in open(a.ie):
+    for line in (ln for path in a.ie.split(",") for ln in open(path)):
         r = json.loads(line)
         d = r["id"]
         for it in r.get("items", []):
             t = table.get(it["t"].lower().strip(), {})
-            if not t.get("cui"):
+            if not t.get("cui") or it["doc"] in generic:
                 continue
             c = t["cui"]
             mentions.append({"d": d, "c": c, "doc": it["doc"], "phrase": it["t"], "sent": it["sent"]})

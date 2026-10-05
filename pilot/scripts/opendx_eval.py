@@ -18,6 +18,7 @@ import csv
 import json
 import math
 import random
+import re
 import zipfile
 from pathlib import Path
 
@@ -47,25 +48,68 @@ def _rb_maps():
     return dz, hp
 
 
-def load_ddxplus(split: str, n: int, seed: int = 0):
-    import ast
-    cond = json.load(open(DATA / "ddxplus/release_conditions_en.json"))
-    dmap = json.load(open(DATA / "ddxplus/disease_umls_mapping.json"))["mapping"]
-    umap = json.load(open(DATA / "ddxplus/umls_mapping.json"))["mapping"]
-    fr2en = {info.get("cond-name-fr") or info.get("condition_name"): en for en, info in cond.items()}
+# DDXPlus region cues (English value meanings) -> region-specific symptom concept. DDXPlus encodes
+# "chest pain" as pain + location value; the literature names the specific symptom.
+_REGION_SYMPTOM = [
+    ({"chest", "thorax", "thoracic", "breast", "sternum", "sternal", "pectoral"}, "C0008031"),  # chest pain
+    ({"abdomen", "abdominal", "epigastric", "epigastrium", "hypochondrium", "flank", "iliac",
+      "umbilicus", "umbilical", "hypogastrium", "belly", "pelvis"}, "C0000737"),             # abdominal pain
+    ({"back", "lumbar", "loin", "scapula"}, "C0004604"),                                      # back pain
+    ({"head", "temple", "forehead", "occiput", "skull"}, "C0018681"),                          # headache
+    ({"throat", "pharynx", "tonsil"}, "C0242429"),                                            # sore throat
+]
 
-    def ev_cui(e):
-        for c in (e, e.split("_@_")[0], e.split("_")[0]):
+
+def ddx_crosswalk():
+    """DDXPlus evidence tokens -> UMLS concepts, value-aware (design §3: vocabulary mapping only).
+
+    A token "question_@_value" whose value is the question's DEFAULT answer ("N", "nowhere", "NA",
+    0) is not evidence: v1 mapped every token by its question code alone, so "trav1_@_N" (did NOT
+    travel) became "Travel History" in 93% of patients. Pain locations are composed into the
+    region-specific symptom the literature uses (pain + chest -> chest pain)."""
+    meta = json.load(open(DATA / "ddxplus/release_evidences.json"))
+    umap = json.load(open(DATA / "ddxplus/umls_mapping.json"))["mapping"]
+
+    def base_cui(code):
+        for c in (code, code.split("_")[0]):
             if c in umap:
                 return umap[c]["cui"]
         return None
+
+    def convert(tokens):
+        out = set()
+        for t in tokens:
+            code, _, val = t.partition("_@_")
+            m = meta.get(code, {})
+            if val and str(val) == str(m.get("default_value")):
+                continue
+            c = base_cui(code)
+            if c:
+                out.add(c)
+            if val and code.endswith("_endroitducorps") and code.startswith("douleur"):
+                en = str((m.get("value_meaning", {}).get(val) or {}).get("en", val)).lower()
+                words = set(re.findall(r"[a-z]+", en))
+                for cues, cui in _REGION_SYMPTOM:
+                    if words & cues:
+                        out.add(cui)
+        return out
+    vocab = {base_cui(k) for k in meta} | {c for _, c in _REGION_SYMPTOM}
+    return convert, {c for c in vocab if c}
+
+
+def load_ddxplus(split: str, n: int, seed: int = 0):
+    import ast
+    cond = json.load(open(DATA / "ddxplus/release_conditions_en.json"))
+    dmap = json.load(open(DATA / "ddxplus/disease_umls_mapping_v2.json"))["mapping"]
+    fr2en = {info.get("cond-name-fr") or info.get("condition_name"): en for en, info in cond.items()}
+    convert, _ = ddx_crosswalk()
     rows = list(csv.DictReader(open(DATA / f"ddxplus/release_{split}_patients.csv")))
     rows = random.Random(seed).sample(rows, min(n, len(rows)))
     pats = []
     for r in rows:
         en = fr2en.get(r["PATHOLOGY"])
         gold = dmap.get(en, {}).get("umls_cui")
-        ev = {c for c in (ev_cui(e) for e in ast.literal_eval(r["EVIDENCES"])) if c}
+        ev = convert(ast.literal_eval(r["EVIDENCES"]))
         if gold and ev:
             pats.append(({gold}, ev))
     return {f"DDXPlus-{split}": pats}

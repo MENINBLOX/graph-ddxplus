@@ -23,13 +23,34 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from deep_fetch import DROP_SEC, KEEP_SEC, name_variants  # noqa: E402
 from statpearls_fetch import eutil  # noqa: E402
 
+class FetchError(RuntimeError):
+    """A request failed (empty body, rate-limit JSON, unparsable XML). Distinguished from a valid
+    empty result: v2's first full run treated failures as "no literature", which silently left
+    ~20% of zero-document diseases (e.g. Croup) without sources."""
+
+
+def _retry(fn, tries: int = 6):
+    import time
+    for k in range(tries):
+        try:
+            return fn()
+        except FetchError:
+            time.sleep(2 * (k + 1))
+    raise FetchError("gave up after retries")
+
+
 def _ids(term: str, retmax: int) -> list[str]:
-    r = eutil("esearch.fcgi", {"db": "pmc", "term": term, "retmax": retmax, "retmode": "json",
-                               "sort": "relevance"})
-    try:
-        return json.loads(r)["esearchresult"].get("idlist", [])
-    except Exception:
-        return []
+    def once():
+        r = eutil("esearch.fcgi", {"db": "pmc", "term": term, "retmax": retmax, "retmode": "json",
+                                   "sort": "relevance"})
+        try:
+            j = json.loads(r)
+        except Exception:
+            raise FetchError("esearch: unparsable or empty response")
+        if "esearchresult" not in j or "ERROR" in j.get("esearchresult", {}) or j.get("error"):
+            raise FetchError(f"esearch error: {str(j)[:120]}")
+        return j["esearchresult"].get("idlist", [])
+    return _retry(once)
 
 
 def pmc_ids(names: list[str], retmax: int, ptype: str) -> list[str]:
@@ -44,11 +65,13 @@ def pmc_ids(names: list[str], retmax: int, ptype: str) -> list[str]:
 def pmc_articles(ids: list[str], kind: str, exclude: set[str], per_cap: int) -> list[dict]:
     if not ids:
         return []
-    xml = eutil("efetch.fcgi", {"db": "pmc", "id": ",".join(ids), "retmode": "xml"})
-    try:
-        root = ET.fromstring(xml)
-    except ET.ParseError:
-        return []
+    def once():
+        xml = eutil("efetch.fcgi", {"db": "pmc", "id": ",".join(ids), "retmode": "xml"})
+        try:
+            return ET.fromstring(xml)
+        except ET.ParseError:
+            raise FetchError("efetch: unparsable or empty XML")
+    root = _retry(once)
     out = []
     for art in root.iter("article"):
         aid = {e.get("pub-id-type"): (e.text or "").strip() for e in art.iter("article-id")}
@@ -107,6 +130,9 @@ def main() -> None:
     ap.add_argument("--per-article", type=int, default=12000, help="chars kept per article")
     ap.add_argument("--workers", type=int, default=6)
     ap.add_argument("--limit", type=int, default=0)
+    ap.add_argument("--extend-delta", default="",
+                    help="extend mode: re-query with the (larger) caps, add only articles not yet stored "
+                         "to the existing source files, and write the new articles to this directory")
     ap.add_argument("--book-index", default="pilot/cache/v2/book_index.json")
     ap.add_argument("--seed-order", type=int, default=0, help="shuffle seed for a representative pilot")
     a = ap.parse_args()
@@ -119,15 +145,29 @@ def main() -> None:
     if a.seed_order:
         import random
         random.Random(a.seed_order).shuffle(keys)
-    todo = [k for k in keys if not os.path.exists(f"{a.out_dir}/{k.replace(':', '_')}.json")]
+    if a.extend_delta:
+        os.makedirs(a.extend_delta, exist_ok=True)
+        todo = [k for k in keys if not os.path.exists(f"{a.extend_delta}/{k.replace(':', '_')}.json")]
+    else:
+        todo = [k for k in keys if not os.path.exists(f"{a.out_dir}/{k.replace(':', '_')}.json")]
     if a.limit:
         todo = todo[:a.limit]
     print(f"fetch v2: {len(todo)} diseases, caps reviews={a.reviews} cases={a.cases} "
           f"per-article={a.per_article}", flush=True)
 
     def one(k: str):
+        try:
+            return _one(k)
+        except FetchError as e:          # not written: the next run retries this disease
+            return k, -1, 0, 0
+
+    def _one(k: str):
         info = uni[k]
-        names = name_variants(info["name"]) + [s for s in info.get("syn", []) if s]
+        # name_variants() drops forms shorter than 6 characters, so "Croup", "Gout" or "Mumps" were
+        # never queried at all; the disease's own name is always tried first.
+        base = [info["name"]] if len(info["name"].strip()) >= 3 else []
+        names = list(dict.fromkeys(base + name_variants(info["name"]) +
+                                   [s for s in info.get("syn", []) if s]))
         docs = []
         docs += pmc_articles(pmc_ids(names, a.reviews, "review[Publication Type]"), "review", exclude, a.per_article)
         docs += pmc_articles(pmc_ids(names, a.cases, '"case reports"[Publication Type]'), "case_report", exclude, a.per_article)
@@ -145,15 +185,31 @@ def main() -> None:
         rec = {"id": k, "name": info["name"], "source_vocab": info["src"],
                "docs": [d for d in docs if not d.get("excluded")],
                "excluded_pmids": [d["pmid"] for d in docs if d.get("excluded")]}
-        json.dump(rec, open(f"{a.out_dir}/{k.replace(':', '_')}.json", "w"))
+        path = f"{a.out_dir}/{k.replace(':', '_')}.json"
+        if a.extend_delta:
+            old = json.load(open(path)) if os.path.exists(path) else {**rec, "docs": [], "excluded_pmids": []}
+            have = {d["doc_id"] for d in old["docs"]}
+            new = [d for d in rec["docs"] if d["doc_id"] not in have and d["kind"] in ("review", "case_report")]
+            old["docs"] += new
+            old["excluded_pmids"] = sorted(set(old.get("excluded_pmids", [])) | set(rec["excluded_pmids"]))
+            tmp = path + ".tmp"
+            json.dump(old, open(tmp, "w"))
+            os.replace(tmp, path)
+            json.dump({**rec, "docs": new}, open(f"{a.extend_delta}/{k.replace(':', '_')}.json", "w"))
+            rec = {**rec, "docs": new}
+        else:
+            json.dump(rec, open(path, "w"))
         return k, len(rec["docs"]), sum(len(d["text"]) for d in rec["docs"]), len(rec["excluded_pmids"])
 
-    n = 0
+    n = errors = 0
     with ThreadPoolExecutor(max_workers=a.workers) as ex:
         for k, nd, nc, nx in ex.map(one, todo):
             n += 1
+            errors += nd < 0
             if n % 50 == 0 or n == len(todo):
-                print(f"  {n}/{len(todo)} last {k} docs={nd} chars={nc} excluded={nx}", flush=True)
+                print(f"  {n}/{len(todo)} last {k} docs={nd} chars={nc} excluded={nx} errors={errors}", flush=True)
+    if errors:
+        raise SystemExit(f"{errors} diseases failed; re-run to retry them")
 
 
 if __name__ == "__main__":
