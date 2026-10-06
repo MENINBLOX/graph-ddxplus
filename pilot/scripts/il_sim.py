@@ -34,8 +34,13 @@ from graph_dx import GraphDx  # noqa: E402
 NEIGH = """
 MATCH (d:Disease)-[:HAS_FINDING]->(c:Concept)
 WHERE d.id IN $cands AND NOT c.cui IN $asked AND c.idf IS NOT NULL
+  AND ($space IS NULL OR c.cui IN $space)
+  AND ($tuis IS NULL OR c.tui IN $tuis)
 RETURN c.cui AS cui, collect(d.id) AS ds
 """
+# Open action space (design D18): only things a patient or an examiner can be asked about -- signs,
+# symptoms, findings and conditions -- not tests, procedures or drugs.
+ASKABLE_TUI = ["T184", "T033", "T047", "T046", "T048", "T191", "T019", "T020", "T037", "T190"]
 HOLDERS = "MATCH (d:Disease)-[:HAS_FINDING]->(:Concept {cui: $cui}) RETURN collect(d.id) AS ds"
 
 
@@ -53,13 +58,19 @@ def ddxplus_cases(split: str, n: int, seed: int = 0):
         init = convert([r["INITIAL_EVIDENCE"]])
         if gold and ev and init:
             out.append({"gold": {gold}, "init": init, "pos": ev, "neg": vocab - ev})
-    return out
+    return out, sorted(vocab)
 
 
 def phenopacket_cases(n: int, seed: int = 0):
     _, hp = O._rb_maps()
     z = zipfile.ZipFile("data/external_benchmarks/phenopacket_store/all_phenopackets.zip")
     names = sorted(x for x in z.namelist() if x.endswith(".json"))
+    space = set()
+    for nm in names:                      # benchmark action space: every HPO concept it records
+        for f in json.loads(z.read(nm)).get("phenotypicFeatures", []):
+            c = hp(f["type"]["id"])
+            if c:
+                space.add(c)
     names = random.Random(seed).sample(names, min(n, len(names)))
     out = []
     for nm in names:
@@ -70,10 +81,11 @@ def phenopacket_cases(n: int, seed: int = 0):
         pos = [c for c in pos if c]
         if gold and pos:
             out.append({"gold": gold, "init": {pos[0]}, "pos": set(pos), "neg": {c for c in neg if c}})
-    return out
+    return out, sorted(space)
 
 
-def run_case(dx: GraphDx, case: dict, budget: int, top: int, neg_w: float, holders_cache: dict):
+def run_case(dx: GraphDx, case: dict, budget: int, top: int, neg_w: float, holders_cache: dict,
+             space=None, tuis=None):
     known_pos, known_neg, asked = set(case["init"]), set(), set(case["init"])
 
     def ranking():
@@ -99,7 +111,7 @@ def run_case(dx: GraphDx, case: dict, budget: int, top: int, neg_w: float, holde
         wt = {d: 1.0 / (i + 1) for i, d in enumerate(cands)}      # rank-based belief
         tot = sum(wt.values())
         with dx.drv.session() as s:
-            rows = list(s.run(NEIGH, cands=cands, asked=sorted(asked)))
+            rows = list(s.run(NEIGH, cands=cands, asked=sorted(asked), space=space, tuis=tuis))
         if not rows:
             break
         # most balanced split of the current belief mass (max binary entropy)
@@ -129,12 +141,17 @@ def main() -> None:
     ap.add_argument("--decay", type=float, default=0.5)
     ap.add_argument("--unified_w", type=float, default=1.0)
     ap.add_argument("--auth", default=os.environ.get("NEO4J_AUTH", "neo4j/thesis-dev-only"))
+    ap.add_argument("--space", choices=["open", "benchmark"], default="open",
+                    help="open: any askable concept (sign/symptom/finding/condition); benchmark: only "
+                         "concepts the benchmark records (its questionnaire / phenotype vocabulary)")
     ap.add_argument("--out", default="")
     a = ap.parse_args()
     O.RAW_GOLD = True
     dx = GraphDx("bolt://localhost:7687", a.auth, a.alpha, a.mu, a.decay, a.unified_w)
-    cases = (ddxplus_cases(a.bench.split("-", 1)[1], a.n) if a.bench.startswith("ddxplus-")
-             else phenopacket_cases(a.n))
+    cases, vocab = (ddxplus_cases(a.bench.split("-", 1)[1], a.n) if a.bench.startswith("ddxplus-")
+                    else phenopacket_cases(a.n))
+    space = vocab if a.space == "benchmark" else None
+    tuis = None if a.space == "benchmark" else ASKABLE_TUI
     hits = {k: 0 for k in O.KS}
     il, m, cache = [], 0, {}
     for case in cases:
@@ -142,13 +159,13 @@ def main() -> None:
         if not gold:
             continue
         m += 1
-        ranked, n_q = run_case(dx, case, a.budget, a.top, a.neg_w, cache)
+        ranked, n_q = run_case(dx, case, a.budget, a.top, a.neg_w, cache, space, tuis)
         lin = dx.lineage(gold)
         pos = next((i + 1 for i, d in enumerate(ranked) if d in lin), None)
         for k in O.KS:
             hits[k] += pos is not None and pos <= k
         il.append(n_q)
-    res = {"bench": a.bench, "n": m, "budget": a.budget, "mean_IL": sum(il) / max(1, len(il)),
+    res = {"bench": a.bench, "space": a.space, "n": m, "budget": a.budget, "mean_IL": sum(il) / max(1, len(il)),
            **{f"lineage@{k}": round(100 * hits[k] / max(1, m), 2) for k in O.KS}}
     print(json.dumps(res))
     if a.out:

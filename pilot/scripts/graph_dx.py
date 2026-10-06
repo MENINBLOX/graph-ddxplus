@@ -75,9 +75,11 @@ class GraphDx:
             return set(s.run(LINEAGE, gold=sorted(gold)).single()["ids"]) | gold
 
 
-def evaluate(dx: GraphDx, name: str, pats) -> dict:
+def evaluate(dx: GraphDx, name: str, pats, boot: int = 0) -> dict:
+    import random
     hits = {r: {k: 0 for k in O.KS} for r in ("strict", "lineage")}
     m = 0
+    ranks = {"strict": [], "lineage": []}           # per patient: 1-based position or None
     t0 = time.time()
     for gold_raw, ev in pats:
         gold = v2_ids.gold_keys(gold_raw)
@@ -88,12 +90,18 @@ def evaluate(dx: GraphDx, name: str, pats) -> dict:
         lin = dx.lineage(gold)
         for rule, ok in (("strict", gold), ("lineage", lin)):
             pos = next((i + 1 for i, d in enumerate(ranked) if d in ok), None)
+            ranks[rule].append(pos)
             for k in O.KS:
                 hits[rule][k] += pos is not None and pos <= k
     res = {"bench": name, "patients": len(pats), "evaluated": m, "sec": round(time.time() - t0)}
     for rule in hits:
         for k in O.KS:
             res[f"{rule}@{k}"] = round(100 * hits[rule][k] / max(1, m), 2)
+            if boot and m:
+                rng = random.Random(0)
+                xs = [p is not None and p <= k for p in ranks[rule]]
+                dist = sorted(100 * sum(xs[rng.randrange(m)] for _ in range(m)) / m for _ in range(boot))
+                res[f"{rule}@{k}_ci"] = [round(dist[int(0.025 * boot)], 1), round(dist[int(0.975 * boot) - 1], 1)]
     print(f"{name:20} n={m:6} | lineage " + " ".join(f"@{k} {res[f'lineage@{k}']:5.1f}" for k in O.KS)
           + " | strict " + " ".join(f"@{k} {res[f'strict@{k}']:5.1f}" for k in O.KS)
           + f" | {res['sec']}s", flush=True)
@@ -111,6 +119,7 @@ def main() -> None:
     ap.add_argument("--unified_w", type=float, default=1.0)
     ap.add_argument("--uri", default="bolt://localhost:7687")
     ap.add_argument("--auth", default=os.environ.get("NEO4J_AUTH", "neo4j/thesis-dev-only"))
+    ap.add_argument("--boot", type=int, default=0, help="patient-bootstrap resamples for 95% CI")
     ap.add_argument("--out", default="")
     a = ap.parse_args()
     O.RAW_GOLD = True
@@ -129,7 +138,7 @@ def main() -> None:
             sets.update(O.load_phenopacket())
         elif b == "symcat":
             sets.update(O.load_symcat(a.symcat_ppd))
-    res = [evaluate(dx, k, v) for k, v in sets.items()]
+    res = [evaluate(dx, k, v, a.boot) for k, v in sets.items()]
     if a.out:
         json.dump({"args": vars(a), "results": res}, open(a.out, "w"), indent=1)
 
