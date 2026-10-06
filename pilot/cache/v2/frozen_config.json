@@ -1,4 +1,15 @@
-{"alpha": 0.5, "mu": 2.0, "decay": 0.3, "unified_w": 2.0,
+{
+ "alpha": 0.5,
+ "mu": 2.0,
+ "decay": 0.3,
+ "unified_w": 2.0,
  "selected_on": "DDXPlus validate (3,000 patients, seed 0), lineage Top-1 then Top-3",
  "graph": "Qwen3-4B-Instruct-2507 IE, corpus v2 + depth extension (reviews 15, cases 10)",
- "frozen": "2026-10-07"}
+ "frozen": "2026-10-07",
+ "il": {
+  "neg_w": 1.0,
+  "top": 40,
+  "criterion": "DDXPlus validate, benchmark action space, budget 20, lineage Top-1 then Top-3",
+  "note": "Top-10 favoured neg_w=0 (13.6 vs 11.2); within noise at n=500, criterion kept"
+ }
+}

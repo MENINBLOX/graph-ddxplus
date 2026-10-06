@@ -1,0 +1,341 @@
+{
+ "args": {
+  "bench": "ddxplus-test,rarebench,pumch,phenopacket,symcat",
+  "ddx_n": 3000,
+  "symcat_ppd": 10,
+  "alpha": 0.5,
+  "mu": 2.0,
+  "decay": 0.3,
+  "unified_w": 2.0,
+  "uri": "bolt://localhost:7687",
+  "auth": "neo4j/thesis-dev-only",
+  "boot": 1000,
+  "out": "pilot/cache/v2/test_results_qwen3.json"
+ },
+ "results": [
+  {
+   "bench": "DDXPlus-test",
+   "patients": 3000,
+   "evaluated": 3000,
+   "sec": 55,
+   "strict@1": 5.4,
+   "strict@1_ci": [
+    4.6,
+    6.2
+   ],
+   "strict@3": 10.2,
+   "strict@3_ci": [
+    9.1,
+    11.2
+   ],
+   "strict@10": 21.2,
+   "strict@10_ci": [
+    19.7,
+    22.7
+   ],
+   "lineage@1": 13.27,
+   "lineage@1_ci": [
+    12.0,
+    14.5
+   ],
+   "lineage@3": 17.57,
+   "lineage@3_ci": [
+    16.2,
+    18.9
+   ],
+   "lineage@10": 25.13,
+   "lineage@10_ci": [
+    23.6,
+    26.7
+   ]
+  },
+  {
+   "bench": "RareBench-RAMEDIS",
+   "patients": 624,
+   "evaluated": 624,
+   "sec": 7,
+   "strict@1": 2.88,
+   "strict@1_ci": [
+    1.8,
+    4.2
+   ],
+   "strict@3": 20.67,
+   "strict@3_ci": [
+    17.5,
+    23.7
+   ],
+   "strict@10": 34.29,
+   "strict@10_ci": [
+    30.3,
+    38.0
+   ],
+   "lineage@1": 2.88,
+   "lineage@1_ci": [
+    1.8,
+    4.2
+   ],
+   "lineage@3": 20.83,
+   "lineage@3_ci": [
+    17.6,
+    23.7
+   ],
+   "lineage@10": 34.94,
+   "lineage@10_ci": [
+    31.1,
+    38.8
+   ]
+  },
+  {
+   "bench": "RareBench-LIRICAL",
+   "patients": 370,
+   "evaluated": 370,
+   "sec": 4,
+   "strict@1": 4.32,
+   "strict@1_ci": [
+    2.4,
+    6.5
+   ],
+   "strict@3": 7.3,
+   "strict@3_ci": [
+    4.9,
+    10.0
+   ],
+   "strict@10": 11.62,
+   "strict@10_ci": [
+    8.4,
+    15.1
+   ],
+   "lineage@1": 4.86,
+   "lineage@1_ci": [
+    3.0,
+    7.3
+   ],
+   "lineage@3": 7.84,
+   "lineage@3_ci": [
+    5.1,
+    10.8
+   ],
+   "lineage@10": 12.16,
+   "lineage@10_ci": [
+    8.9,
+    15.7
+   ]
+  },
+  {
+   "bench": "RareBench-HMS",
+   "patients": 88,
+   "evaluated": 88,
+   "sec": 0,
+   "strict@1": 4.55,
+   "strict@1_ci": [
+    1.1,
+    10.2
+   ],
+   "strict@3": 10.23,
+   "strict@3_ci": [
+    4.5,
+    18.2
+   ],
+   "strict@10": 14.77,
+   "strict@10_ci": [
+    8.0,
+    22.7
+   ],
+   "lineage@1": 4.55,
+   "lineage@1_ci": [
+    1.1,
+    10.2
+   ],
+   "lineage@3": 10.23,
+   "lineage@3_ci": [
+    4.5,
+    18.2
+   ],
+   "lineage@10": 14.77,
+   "lineage@10_ci": [
+    8.0,
+    22.7
+   ]
+  },
+  {
+   "bench": "RareBench-MME",
+   "patients": 40,
+   "evaluated": 40,
+   "sec": 0,
+   "strict@1": 2.5,
+   "strict@1_ci": [
+    0.0,
+    7.5
+   ],
+   "strict@3": 12.5,
+   "strict@3_ci": [
+    2.5,
+    25.0
+   ],
+   "strict@10": 20.0,
+   "strict@10_ci": [
+    7.5,
+    32.5
+   ],
+   "lineage@1": 2.5,
+   "lineage@1_ci": [
+    0.0,
+    7.5
+   ],
+   "lineage@3": 12.5,
+   "lineage@3_ci": [
+    2.5,
+    25.0
+   ],
+   "lineage@10": 20.0,
+   "lineage@10_ci": [
+    7.5,
+    32.5
+   ]
+  },
+  {
+   "bench": "PUMCH_L",
+   "patients": 988,
+   "evaluated": 988,
+   "sec": 27,
+   "strict@1": 6.98,
+   "strict@1_ci": [
+    5.6,
+    8.6
+   ],
+   "strict@3": 19.03,
+   "strict@3_ci": [
+    16.5,
+    21.5
+   ],
+   "strict@10": 36.64,
+   "strict@10_ci": [
+    33.6,
+    39.7
+   ],
+   "lineage@1": 7.89,
+   "lineage@1_ci": [
+    6.3,
+    9.7
+   ],
+   "lineage@3": 21.05,
+   "lineage@3_ci": [
+    18.6,
+    23.7
+   ],
+   "lineage@10": 41.09,
+   "lineage@10_ci": [
+    38.0,
+    44.2
+   ]
+  },
+  {
+   "bench": "PUMCH-ADM",
+   "patients": 75,
+   "evaluated": 75,
+   "sec": 1,
+   "strict@1": 9.33,
+   "strict@1_ci": [
+    2.7,
+    16.0
+   ],
+   "strict@3": 16.0,
+   "strict@3_ci": [
+    8.0,
+    24.0
+   ],
+   "strict@10": 22.67,
+   "strict@10_ci": [
+    13.3,
+    32.0
+   ],
+   "lineage@1": 10.67,
+   "lineage@1_ci": [
+    4.0,
+    18.7
+   ],
+   "lineage@3": 22.67,
+   "lineage@3_ci": [
+    13.3,
+    33.3
+   ],
+   "lineage@10": 28.0,
+   "lineage@10_ci": [
+    18.7,
+    38.7
+   ]
+  },
+  {
+   "bench": "Phenopacket-store",
+   "patients": 10377,
+   "evaluated": 10310,
+   "sec": 92,
+   "strict@1": 1.45,
+   "strict@1_ci": [
+    1.2,
+    1.7
+   ],
+   "strict@3": 3.81,
+   "strict@3_ci": [
+    3.4,
+    4.2
+   ],
+   "strict@10": 8.59,
+   "strict@10_ci": [
+    8.1,
+    9.1
+   ],
+   "lineage@1": 2.42,
+   "lineage@1_ci": [
+    2.1,
+    2.7
+   ],
+   "lineage@3": 5.68,
+   "lineage@3_ci": [
+    5.2,
+    6.1
+   ],
+   "lineage@10": 11.33,
+   "lineage@10_ci": [
+    10.8,
+    12.0
+   ]
+  },
+  {
+   "bench": "SymCat",
+   "patients": 7481,
+   "evaluated": 7481,
+   "sec": 68,
+   "strict@1": 1.51,
+   "strict@1_ci": [
+    1.2,
+    1.8
+   ],
+   "strict@3": 3.01,
+   "strict@3_ci": [
+    2.6,
+    3.4
+   ],
+   "strict@10": 4.79,
+   "strict@10_ci": [
+    4.3,
+    5.3
+   ],
+   "lineage@1": 3.1,
+   "lineage@1_ci": [
+    2.7,
+    3.5
+   ],
+   "lineage@3": 5.2,
+   "lineage@3_ci": [
+    4.7,
+    5.7
+   ],
+   "lineage@10": 9.25,
+   "lineage@10_ci": [
+    8.6,
+    9.9
+   ]
+  }
+ ]
+}
