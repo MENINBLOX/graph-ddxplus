@@ -140,6 +140,7 @@ def main() -> None:
     ap.add_argument("--mu", type=float, default=2.0)
     ap.add_argument("--decay", type=float, default=0.5)
     ap.add_argument("--unified_w", type=float, default=1.0)
+    ap.add_argument("--support_beta", type=float, default=0.0)
     ap.add_argument("--auth", default=os.environ.get("NEO4J_AUTH", "neo4j/thesis-dev-only"))
     ap.add_argument("--space", choices=["open", "benchmark"], default="open",
                     help="open: any askable concept (sign/symptom/finding/condition); benchmark: only "
@@ -147,7 +148,7 @@ def main() -> None:
     ap.add_argument("--out", default="")
     a = ap.parse_args()
     O.RAW_GOLD = True
-    dx = GraphDx("bolt://localhost:7687", a.auth, a.alpha, a.mu, a.decay, a.unified_w)
+    dx = GraphDx("bolt://localhost:7687", a.auth, a.alpha, a.mu, a.decay, a.unified_w, a.support_beta)
     cases, vocab = (ddxplus_cases(a.bench.split("-", 1)[1], a.n) if a.bench.startswith("ddxplus-")
                     else phenopacket_cases(a.n))
     space = vocab if a.space == "benchmark" else None
