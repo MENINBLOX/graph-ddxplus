@@ -1,0 +1,97 @@
+{
+ "bench": "RareBench-RAMEDIS",
+ "cfg": {
+  "alpha": 0.5,
+  "mu": 4.0,
+  "decay": 0.3,
+  "unified_w": 2.0,
+  "support_beta": 0.5,
+  "offtopic_w": 0.0
+ },
+ "patients": 624,
+ "top1_hits": 94,
+ "by_gold": [
+  [
+   "C0031485",
+   "Phenylketonurias",
+   148,
+   86
+  ],
+  [
+   "C0010691",
+   "Cystinuria",
+   5,
+   4
+  ],
+  [
+   "C0018425",
+   "Gyrate Atrophy",
+   2,
+   2
+  ],
+  [
+   "C0268151",
+   "Classical galactosemia",
+   15,
+   1
+  ],
+  [
+   "C3495427",
+   "Fanconi-Bickel Syndrome",
+   2,
+   1
+  ]
+ ],
+ "most_frequent_top1": [
+  [
+   "C0031485",
+   "Phenylketonurias",
+   89
+  ],
+  [
+   "C1337040",
+   "Central Nervous System Yolk Sac Tumor",
+   27
+  ],
+  [
+   "C0220981",
+   "Metabolic acidosis",
+   25
+  ],
+  [
+   "C0006009",
+   "Borderline intellectual disability",
+   24
+  ],
+  [
+   "C0007758",
+   "Cerebellar Ataxia",
+   21
+  ],
+  [
+   "C0028754",
+   "Obesity",
+   19
+  ],
+  [
+   "C0013537",
+   "Eclampsia",
+   17
+  ],
+  [
+   "C1535950",
+   "Gastrointestinal inflammation",
+   16
+  ],
+  [
+   "C0014547",
+   "Epilepsies, Partial",
+   16
+  ],
+  [
+   "C0268583",
+   "Methylmalonic acidemia",
+   15
+  ]
+ ]
+}
