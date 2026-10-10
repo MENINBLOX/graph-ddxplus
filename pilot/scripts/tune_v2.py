@@ -17,10 +17,10 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import opendx_eval as O  # noqa: E402
 from graph_dx import GraphDx, evaluate  # noqa: E402
 
-DEFAULT = {"alpha": 0.35, "mu": 2.0, "decay": 0.5, "unified_w": 1.0, "support_beta": 0.0}
+DEFAULT = {"alpha": 0.35, "mu": 2.0, "decay": 0.5, "unified_w": 1.0, "support_beta": 0.0, "offtopic_w": 1.0}
 GRID = [("alpha", [0.2, 0.25, 0.35, 0.5]), ("mu", [0.0, 1.0, 2.0, 4.0]),
         ("decay", [0.0, 0.3, 0.5, 0.7]), ("unified_w", [0.0, 0.5, 1.0, 2.0]),
-        ("support_beta", [0.0, 0.5, 1.0, 2.0])]
+        ("support_beta", [0.0, 0.5, 1.0, 2.0]), ("offtopic_w", [1.0, 0.5, 0.25, 0.0])]
 
 
 def main() -> None:

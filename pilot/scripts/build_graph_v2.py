@@ -4,8 +4,9 @@ Graph model
   (:Disease {id, name, vocab, n_findings, src_chars})          universe key: UMLS CUI or MONDO ID
   (:Concept {cui, tui, idf})                                     finding / evidence concept
   (:Doc {id, pmid, pmcid, kind, title, year, license})           article or book chapter
-  (:Mention {phrase, sentence})                                  one extracted, sentence-located item
-  (Disease)-[:HAS_FINDING {n_mentions, n_docs}]->(Concept)      aggregated edge used for scoring
+  (:Mention {phrase, sentence, topic})                           one extracted, sentence-located item;
+                                                                 topic = the article title names the disease
+  (Disease)-[:HAS_FINDING {n_mentions, n_docs, n_topic_docs}]->(Concept)   aggregated edge used for scoring
   (Mention)-[:OF]->(Disease), (Mention)-[:MENTIONS]->(Concept), (Mention)-[:FROM]->(Doc)
   (Concept)-[:IS_A]->(Concept)                                   UMLS concept hierarchy
   (Disease)-[:IS_A]->(Disease)                                   MONDO + UMLS disease hierarchy
@@ -23,6 +24,7 @@ import glob
 import json
 import math
 import os
+import re
 import sys
 from collections import defaultdict
 
@@ -30,8 +32,31 @@ from neo4j import GraphDatabase
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import v2_ids  # noqa: E402
+from deep_fetch import name_variants  # noqa: E402
 
 BATCH = 5000
+SENT_CAP = 600          # ie_v2 stores at most this many characters of the located sentence
+
+
+def _norm(s: str) -> str:
+    return " " + re.sub(r"[^a-z0-9]+", " ", s.lower()).strip() + " "
+
+
+def name_forms(info: dict) -> set[str]:
+    """The disease-name forms the corpus was queried with (fetch_v2), normalized for matching."""
+    return {f for n in [info["name"], *name_variants(info["name"]), *info.get("syn", [])]
+            if n and len(f := _norm(n)) >= 5}
+
+
+def recenter(text: str, phrase: str, sent: str) -> str:
+    """A sentence cut at SENT_CAP may lose the phrase (long table rows); re-cut around the phrase."""
+    if len(sent) < SENT_CAP or phrase.lower() in sent.lower():
+        return sent
+    i = text.lower().find(phrase.lower())
+    if i < 0:
+        return sent
+    lo = max(0, i - SENT_CAP // 2)
+    return text[lo:lo + SENT_CAP].strip()
 
 
 def run_batches(session, query: str, rows: list[dict], label: str) -> None:
@@ -68,13 +93,17 @@ def main() -> None:
     # broad review caught by full-text fallback queries) is not evidence about any one of them.
     # Threshold fixed a priori from the corpus alone (no benchmark involved).
     use = defaultdict(int)
+    title = {}
     for f in glob.glob(f"{a.sources}/*.json"):
         for x in json.load(open(f))["docs"]:
             use[x["doc_id"]] += 1
+            title[x["doc_id"]] = _norm(x.get("title") or "")
     generic = {d for d, n in use.items() if n >= a.max_doc_diseases}
     print(f"generic documents dropped (used by >= {a.max_doc_diseases} diseases): {len(generic)}", flush=True)
     mentions, docs_used = [], set()
-    edge = defaultdict(lambda: [0, set()])            # (disease, cui) -> [n_mentions, docs]
+    edge = defaultdict(lambda: [0, set(), set()])     # (disease, cui) -> [n_mentions, docs, topic docs]
+    forms: dict[str, set[str]] = {}
+    by_dz = defaultdict(list)                          # disease -> indices of mentions to re-center
     for line in (ln for path in a.ie.split(",") for ln in open(path)):
         r = json.loads(line)
         d = r["id"]
@@ -83,18 +112,33 @@ def main() -> None:
             if not t.get("cui") or it["doc"] in generic or d not in uni or t.get("tui") in excluded_tui:
                 continue
             c = t["cui"]
-            mentions.append({"d": d, "c": c, "doc": it["doc"], "phrase": it["t"], "sent": it["sent"]})
+            if d not in forms:
+                forms[d] = name_forms(uni[d])
+            topic = any(f in title.get(it["doc"], "") for f in forms[d])
+            if len(it["sent"]) >= SENT_CAP and it["t"].lower() not in it["sent"].lower():
+                by_dz[d].append(len(mentions))
+            mentions.append({"d": d, "c": c, "doc": it["doc"], "phrase": it["t"], "sent": it["sent"],
+                             "topic": topic})
             e = edge[(d, c)]
             e[0] += 1
             e[1].add(it["doc"])
+            if topic:
+                e[2].add(it["doc"])
             docs_used.add(it["doc"])
-    print(f"mentions {len(mentions)}, edges {len(edge)}, docs {len(docs_used)}", flush=True)
+    print(f"mentions {len(mentions)}, edges {len(edge)}, docs {len(docs_used)}, "
+          f"topic mentions {sum(m['topic'] for m in mentions)}, to re-center {sum(map(len, by_dz.values()))}",
+          flush=True)
 
     # document metadata and per-disease collected text size (coverage signal for scoring)
     docs, src_chars = {}, {}
     for f in glob.glob(f"{a.sources}/*.json"):
         rec = json.load(open(f))
         src_chars[rec["id"]] = sum(len(x["text"]) for x in rec["docs"])
+        if rec["id"] in by_dz:
+            text = {x["doc_id"]: x["text"] for x in rec["docs"]}
+            for i in by_dz[rec["id"]]:
+                m = mentions[i]
+                m["sent"] = recenter(text.get(m["doc"], ""), m["phrase"], m["sent"])
         for x in rec["docs"]:
             if x["doc_id"] in docs_used and x["doc_id"] not in docs:
                 docs[x["doc_id"]] = {k: x.get(k, "") for k in ("pmid", "pmcid", "kind", "title", "year", "license")}
@@ -144,11 +188,12 @@ def main() -> None:
         run_batches(s, "UNWIND $rows AS r MERGE (x:Doc {id: r.id}) SET x += r.meta",
                     [{"id": k, "meta": v} for k, v in docs.items()], "Doc")
         run_batches(s, "UNWIND $rows AS r MATCH (d:Disease {id: r.d}), (c:Concept {cui: r.c}) "
-                       "MERGE (d)-[e:HAS_FINDING]->(c) SET e.n_mentions = r.n, e.n_docs = r.nd",
-                    [{"d": d, "c": c, "n": v[0], "nd": len(v[1])} for (d, c), v in edge.items()],
+                       "MERGE (d)-[e:HAS_FINDING]->(c) SET e.n_mentions = r.n, e.n_docs = r.nd, "
+                       "e.n_topic_docs = r.nt",
+                    [{"d": d, "c": c, "n": v[0], "nd": len(v[1]), "nt": len(v[2])} for (d, c), v in edge.items()],
                     "HAS_FINDING")
         run_batches(s, "UNWIND $rows AS r MATCH (d:Disease {id: r.d}), (c:Concept {cui: r.c}), "
-                       "(x:Doc {id: r.doc}) CREATE (m:Mention {phrase: r.phrase, sentence: r.sent}) "
+                       "(x:Doc {id: r.doc}) CREATE (m:Mention {phrase: r.phrase, sentence: r.sent, topic: r.topic}) "
                        "CREATE (m)-[:OF]->(d), (m)-[:MENTIONS]->(c), (m)-[:FROM]->(x)",
                     mentions, "Mention")
         run_batches(s, "UNWIND $rows AS r MATCH (c:Concept {cui: r.c}), (p:Concept {cui: r.p}) "
