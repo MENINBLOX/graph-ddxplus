@@ -1,8 +1,9 @@
 """Open-set differential diagnosis on the Neo4j graph (research design D3, D8, D15).
 
 The ranking is one Cypher query per patient: patient concepts are expanded up the concept hierarchy,
-joined to diseases through HAS_FINDING, weighted by IDF, and length-normalized with coverage
-smoothing; a patient concept that IS a disease additionally supports that disease and its
+joined to diseases through HAS_FINDING, weighted by IDF and by literature support (n_docs ^ beta;
+edges backed by more documents agree more often with independent curation, research design §9.16),
+and length-normalized with coverage smoothing; a patient concept that IS a disease additionally supports that disease and its
 descendants (unified evidence). Configuration is chosen on DDXPlus validate only (D12).
 
     python graph_dx.py --bench ddxplus-validate [--alpha 0.35 --mu 2.0 --decay 0.5]
@@ -28,8 +29,8 @@ MATCH (c0:Concept {cui: cui})
 MATCH p = (c0)-[:IS_A*0..1]->(c:Concept)
 WITH c, max(CASE length(p) WHEN 0 THEN 1.0 ELSE $decay END) AS w
 WHERE c.idf IS NOT NULL
-MATCH (c)<-[:HAS_FINDING]-(d:Disease)
-WITH d, sum(w * c.idf) AS s
+MATCH (c)<-[e:HAS_FINDING]-(d:Disease)
+WITH d, sum(w * c.idf * e.n_docs ^ $beta) AS s
 WITH d, s / ((d.n_findings + $mu * (1.0 - toFloat(d.src_chars) / (d.src_chars + $smed)) * $lbar) ^ $alpha) AS score
 RETURN d.id AS id, score
 ORDER BY score DESC, id
@@ -51,9 +52,11 @@ RETURN collect(DISTINCT d.id) AS ids
 
 
 class GraphDx:
-    def __init__(self, uri: str, auth: str, alpha: float, mu: float, decay: float, unified_w: float):
+    def __init__(self, uri: str, auth: str, alpha: float, mu: float, decay: float, unified_w: float,
+                 support_beta: float = 0.0):
         self.drv = GraphDatabase.driver(uri, auth=tuple(auth.split("/", 1)))
         self.alpha, self.mu, self.decay, self.unified_w = alpha, mu, decay, unified_w
+        self.beta = support_beta
         with self.drv.session() as s:
             r = s.run("MATCH (d:Disease) WHERE d.n_findings > 0 "
                       "RETURN avg(d.n_findings) AS lbar, percentileDisc(d.src_chars, 0.5) AS smed, "
@@ -64,7 +67,7 @@ class GraphDx:
         with self.drv.session() as s:
             sc = {r["id"]: r["score"] for r in s.run(
                 RANK, ev=sorted(ev), decay=self.decay, mu=self.mu, smed=self.smed, lbar=self.lbar,
-                alpha=self.alpha, k=k * 4)}
+                alpha=self.alpha, beta=self.beta, k=k * 4)}
             if self.unified_w:
                 for r in s.run(UNIFIED, ev=sorted(ev)):
                     sc[r["id"]] = sc.get(r["id"], 0.0) + self.unified_w * r["n"]
@@ -117,13 +120,14 @@ def main() -> None:
     ap.add_argument("--mu", type=float, default=2.0)
     ap.add_argument("--decay", type=float, default=0.5)
     ap.add_argument("--unified_w", type=float, default=1.0)
+    ap.add_argument("--support_beta", type=float, default=0.0)
     ap.add_argument("--uri", default="bolt://localhost:7687")
     ap.add_argument("--auth", default=os.environ.get("NEO4J_AUTH", "neo4j/thesis-dev-only"))
     ap.add_argument("--boot", type=int, default=0, help="patient-bootstrap resamples for 95% CI")
     ap.add_argument("--out", default="")
     a = ap.parse_args()
     O.RAW_GOLD = True
-    dx = GraphDx(a.uri, a.auth, a.alpha, a.mu, a.decay, a.unified_w)
+    dx = GraphDx(a.uri, a.auth, a.alpha, a.mu, a.decay, a.unified_w, a.support_beta)
     print(f"graph: {dx.n} diseases with findings, mean profile {dx.lbar:.1f}, median source chars {dx.smed}",
           flush=True)
     sets = {}

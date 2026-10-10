@@ -117,8 +117,19 @@ def main() -> None:
     with drv.session() as s:
         if a.wipe:
             print("wiping graph", flush=True)
-            s.run("CALL apoc.periodic.iterate('MATCH (n) RETURN n', 'DETACH DELETE n', "
-                  "{batchSize: 20000})").consume()
+            # Relationships first, then nodes, in small batches: a failed apoc batch is only a
+            # server-side warning, so the result is checked and the build stops on any failure
+            # (v2.1 incident: a memory-pool failure left 2,682 stale nodes and 62,497 stale edges).
+            for match, act in (("MATCH ()-[r]->() RETURN r", "DELETE r"),
+                               ("MATCH (n) RETURN n", "DETACH DELETE n")):
+                res = s.run("CALL apoc.periodic.iterate($m, $a, {batchSize: 2000}) "
+                            "YIELD failedBatches, errorMessages RETURN failedBatches, errorMessages",
+                            m=match, a=act).single()
+                if res["failedBatches"]:
+                    sys.exit(f"wipe failed: {res['errorMessages']}")
+            left = s.run("MATCH (n) RETURN count(n) AS n").single()["n"]
+            if left:
+                sys.exit(f"wipe incomplete: {left} nodes remain")
         for q in ("CREATE CONSTRAINT dz IF NOT EXISTS FOR (d:Disease) REQUIRE d.id IS UNIQUE",
                   "CREATE CONSTRAINT cp IF NOT EXISTS FOR (c:Concept) REQUIRE c.cui IS UNIQUE",
                   "CREATE CONSTRAINT dc IF NOT EXISTS FOR (x:Doc) REQUIRE x.id IS UNIQUE"):
@@ -148,6 +159,14 @@ def main() -> None:
         run_batches(s, "UNWIND $rows AS r MATCH (c:Concept {cui: r.id}), (d:Disease {id: r.id}) "
                        "MERGE (c)-[:IS_DISEASE]->(d)",
                     [{"id": c} for c in cuis if c in uni], "IS_DISEASE")
+        # Provenance invariant (module docstring): every scoring edge is backed by a Mention.
+        orphan = s.run("MATCH (d:Disease)-[e:HAS_FINDING]->(c) WHERE NOT EXISTS { "
+                       "MATCH (m:Mention)-[:OF]->(d) WHERE (m)-[:MENTIONS]->(c) } "
+                       "RETURN count(e) AS n").single()["n"]
+        n_dz = s.run("MATCH (d:Disease) RETURN count(d) AS n").single()["n"]
+        if orphan or n_dz != len(uni):
+            sys.exit(f"graph check failed: {orphan} edges without Mention, {n_dz} Disease nodes vs {len(uni)}")
+        print("graph check: every HAS_FINDING edge has a Mention; Disease nodes = universe", flush=True)
     drv.close()
     json.dump({"diseases": len(uni), "diseases_with_findings": len(prof), "concepts": len(cuis),
                "edges": len(edge), "mentions": len(mentions), "docs": len(docs)},
