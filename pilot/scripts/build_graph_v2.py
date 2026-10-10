@@ -49,10 +49,20 @@ def main() -> None:
     ap.add_argument("--auth", default=os.environ.get("NEO4J_AUTH", "neo4j/thesis-dev-only"))
     ap.add_argument("--wipe", action="store_true")
     ap.add_argument("--max-doc-diseases", type=int, default=20)
+    ap.add_argument("--exclude-diseases", default="pilot/cache/v2/exclude_nonhuman_diseases.json")
+    ap.add_argument("--exclude-tuis", default="T058,T059,T060,T061",
+                    help="semantic types that are tests/procedures/health-care activities, not findings")
     ap.add_argument("--summary", default="pilot/cache/v2/graph_summary.json")
     a = ap.parse_args()
 
-    uni = v2_ids.universe()
+    uni = dict(v2_ids.universe())
+    # v2.1 (provenance audit): diseases under MONDO "non-human animal disease" are not human
+    # diagnoses, and a name query retrieves human literature for them (33 of 39 audited edges on
+    # such nodes were unsupported). Tests, procedures and health-care activities are not findings.
+    excluded_dz = set(json.load(open(a.exclude_diseases))) if a.exclude_diseases else set()
+    for k in excluded_dz:
+        uni.pop(k, None)
+    excluded_tui = set(a.exclude_tuis.split(",")) if a.exclude_tuis else set()
     table = json.load(open(a.table))
     # Source specificity: an article retrieved for many different diseases (a methods paper or a
     # broad review caught by full-text fallback queries) is not evidence about any one of them.
@@ -70,7 +80,7 @@ def main() -> None:
         d = r["id"]
         for it in r.get("items", []):
             t = table.get(it["t"].lower().strip(), {})
-            if not t.get("cui") or it["doc"] in generic:
+            if not t.get("cui") or it["doc"] in generic or d not in uni or t.get("tui") in excluded_tui:
                 continue
             c = t["cui"]
             mentions.append({"d": d, "c": c, "doc": it["doc"], "phrase": it["t"], "sent": it["sent"]})
@@ -134,7 +144,7 @@ def main() -> None:
                        "MERGE (c)-[:IS_A]->(p)", isa_c, "Concept IS_A")
         run_batches(s, "UNWIND $rows AS r MATCH (c:Disease {id: r.c}), (p:Disease {id: r.p}) "
                        "MERGE (c)-[:IS_A]->(p)",
-                    [{"c": c, "p": p} for c, p in v2_ids.disease_isa()], "Disease IS_A")
+                    [{"c": c, "p": p} for c, p in v2_ids.disease_isa() if c in uni and p in uni], "Disease IS_A")
         run_batches(s, "UNWIND $rows AS r MATCH (c:Concept {cui: r.id}), (d:Disease {id: r.id}) "
                        "MERGE (c)-[:IS_DISEASE]->(d)",
                     [{"id": c} for c in cuis if c in uni], "IS_DISEASE")
