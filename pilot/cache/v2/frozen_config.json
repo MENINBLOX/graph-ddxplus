@@ -11,5 +11,15 @@
   "top": 40,
   "criterion": "DDXPlus validate, benchmark action space, budget 20, lineage Top-1 then Top-3",
   "note": "Top-10 favoured neg_w=0 (13.6 vs 11.2); within noise at n=500, criterion kept"
+ },
+ "v2.1": {
+  "alpha": 0.5,
+  "mu": 2.0,
+  "decay": 0.0,
+  "unified_w": 2.0,
+  "selected_on": "DDXPlus validate (3,000, seed 0), lineage Top-1 then Top-3",
+  "graph": "v2.1: non-human animal diseases (MONDO:0005583 descendants, 8,319) removed; T058-T061 excluded from findings",
+  "validate": "15.5/19.6 (Top-1/3)",
+  "frozen": "2026-10-10"
  }
 }
