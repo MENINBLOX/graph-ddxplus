@@ -87,6 +87,7 @@ def phenopacket_cases(n: int, seed: int = 0):
 def run_case(dx: GraphDx, case: dict, budget: int, top: int, neg_w: float, holders_cache: dict,
              space=None, tuis=None):
     known_pos, known_neg, asked = set(case["init"]), set(), set(case["init"])
+    n_unknown = 0
 
     def ranking():
         r = dx.rank(known_pos, 200)
@@ -125,8 +126,10 @@ def run_case(dx: GraphDx, case: dict, budget: int, top: int, neg_w: float, holde
             known_pos.add(q)
         elif q in case["neg"]:
             known_neg.add(q)
+        else:
+            n_unknown += 1
         ranked = ranking()
-    return ranked, len(asked) - len(case["init"])
+    return ranked, len(asked) - len(case["init"]), n_unknown
 
 
 def main() -> None:
@@ -155,19 +158,21 @@ def main() -> None:
     space = vocab if a.space == "benchmark" else None
     tuis = None if a.space == "benchmark" else ASKABLE_TUI
     hits = {k: 0 for k in O.KS}
-    il, m, cache = [], 0, {}
+    il, m, cache, unk = [], 0, {}, 0
     for case in cases:
         gold = v2_ids.gold_keys(case["gold"])
         if not gold:
             continue
         m += 1
-        ranked, n_q = run_case(dx, case, a.budget, a.top, a.neg_w, cache, space, tuis)
+        ranked, n_q, n_unk = run_case(dx, case, a.budget, a.top, a.neg_w, cache, space, tuis)
         lin = dx.lineage(gold)
         pos = next((i + 1 for i, d in enumerate(ranked) if d in lin), None)
         for k in O.KS:
             hits[k] += pos is not None and pos <= k
         il.append(n_q)
+        unk += n_unk
     res = {"bench": a.bench, "space": a.space, "n": m, "budget": a.budget, "mean_IL": sum(il) / max(1, len(il)),
+           "unknown_share": round(100 * unk / max(1, sum(il)), 1),
            **{f"lineage@{k}": round(100 * hits[k] / max(1, m), 2) for k in O.KS}}
     print(json.dumps(res))
     if a.out:

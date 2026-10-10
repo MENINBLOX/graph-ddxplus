@@ -1,4 +1,5 @@
 """Assemble the redesigned (v2) Korean draft from the paragraph workflow output.
+# NOTE (2026-10-10): paper_ko.md is now hand-revised from v2.1c results; rerunning this script overwrites it with the older workflow output.
 
     python draft/paper_ko_v2/assemble.py WORKFLOW_OUTPUT.json
 """
