@@ -1,0 +1,33 @@
+{
+ "diseases_annotated": 12296,
+ "diseases_with_comparable_edges": 8132,
+ "comparable_edges": 168587,
+ "agree_exact": 18.21967292851762,
+ "agree_exact_or_parent": 22.100161934194215,
+ "null_exact_mean": 2.7588722736628566,
+ "null_exact_or_parent_mean": 3.701679251662346,
+ "by_n_docs": {
+  "1 doc": {
+   "edges": 145751,
+   "agree_exact": 14.9535852241151,
+   "agree_exact_or_parent": 18.4876947671028
+  },
+  "2 docs": {
+   "edges": 16060,
+   "agree_exact": 34.00996264009962,
+   "agree_exact_or_parent": 39.9813200498132
+  },
+  "3-4 docs": {
+   "edges": 5668,
+   "agree_exact": 48.74735356386733,
+   "agree_exact_or_parent": 54.922371206774876
+  },
+  ">=5 docs": {
+   "edges": 1108,
+   "agree_exact": 62.81588447653429,
+   "agree_exact_or_parent": 70.21660649819495
+  }
+ },
+ "curated_pairs_on_these_diseases": 281825,
+ "curated_recall_exact": 10.898962121884148
+}
