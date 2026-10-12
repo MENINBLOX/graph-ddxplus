@@ -151,6 +151,8 @@ def main() -> None:
             sets.update(O.load_phenopacket())
         elif b == "symcat":
             sets.update(O.load_symcat(a.symcat_ppd))
+        elif b == "confirm":
+            sets.update(O.load_confirm())
     res = []
     for k, v in sets.items():
         if a.closed:

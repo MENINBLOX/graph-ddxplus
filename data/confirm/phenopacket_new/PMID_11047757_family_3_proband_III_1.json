@@ -1,0 +1,199 @@
+{
+  "id": "PMID_11047757_family_3_proband_III_1",
+  "subject": {
+    "id": "family 3 proband III-1",
+    "timeAtLastEncounter": {
+      "age": {
+        "iso8601duration": "P1Y8M"
+      }
+    },
+    "sex": "MALE"
+  },
+  "phenotypicFeatures": [
+    {
+      "type": {
+        "id": "HP:0000698",
+        "label": "Conical tooth"
+      }
+    },
+    {
+      "type": {
+        "id": "HP:0000668",
+        "label": "Hypodontia"
+      }
+    },
+    {
+      "type": {
+        "id": "HP:0002209",
+        "label": "Sparse scalp hair"
+      }
+    },
+    {
+      "type": {
+        "id": "HP:5210216",
+        "label": "Viral meningitis"
+      }
+    },
+    {
+      "type": {
+        "id": "HP:5210217",
+        "label": "Bacterial meningitis"
+      }
+    },
+    {
+      "type": {
+        "id": "HP:0008348",
+        "label": "Decreased circulating IgG2 concentration"
+      }
+    },
+    {
+      "type": {
+        "id": "HP:0003261",
+        "label": "Increased circulating IgA concentration"
+      }
+    },
+    {
+      "type": {
+        "id": "HP:0003496",
+        "label": "Increased circulating IgM concentration"
+      }
+    },
+    {
+      "type": {
+        "id": "HP:0000970",
+        "label": "Anhidrosis"
+      }
+    },
+    {
+      "type": {
+        "id": "HP:0002110",
+        "label": "Bronchiectasis"
+      }
+    },
+    {
+      "type": {
+        "id": "HP:0002783",
+        "label": "Recurrent lower respiratory tract infections"
+      }
+    },
+    {
+      "type": {
+        "id": "HP:0410300",
+        "label": "Complete or near-complete absence of specific antibody response to unconjugated pneumococcus vaccine"
+      }
+    }
+  ],
+  "interpretations": [
+    {
+      "id": "FuVo3pzVZ8DcHgltRUwPUcuU",
+      "progressStatus": "SOLVED",
+      "diagnosis": {
+        "disease": {
+          "id": "OMIM:300291",
+          "label": "Ectodermal dysplasia and immunodeficiency 1"
+        },
+        "genomicInterpretations": [
+          {
+            "subjectOrBiosampleId": "family 3 proband III-1",
+            "interpretationStatus": "CAUSATIVE",
+            "variantInterpretation": {
+              "acmgPathogenicityClassification": "PATHOGENIC",
+              "therapeuticActionability": "UNKNOWN_ACTIONABILITY",
+              "variationDescriptor": {
+                "id": "c1250GtoT_IKBKG_NM_001099857v5",
+                "geneContext": {
+                  "valueId": "HGNC:5961",
+                  "symbol": "IKBKG"
+                },
+                "expressions": [
+                  {
+                    "syntax": "hgvs.c",
+                    "value": "NM_001099857.5:c.1250G>T"
+                  },
+                  {
+                    "syntax": "hgvs.g",
+                    "value": "NC_000023.11:g.154564451G>T"
+                  },
+                  {
+                    "syntax": "hgvs.p",
+                    "value": "NP_001093327.1:p.(Cys417Phe)"
+                  }
+                ],
+                "vcfRecord": {
+                  "genomeAssembly": "hg38",
+                  "chrom": "chrX",
+                  "pos": 154564451,
+                  "ref": "G",
+                  "alt": "T"
+                },
+                "moleculeContext": "genomic",
+                "allelicState": {
+                  "id": "GENO:0000134",
+                  "label": "hemizygous"
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "diseases": [
+    {
+      "term": {
+        "id": "OMIM:300291",
+        "label": "Ectodermal dysplasia and immunodeficiency 1"
+      },
+      "onset": {
+        "age": {
+          "iso8601duration": "P8M"
+        }
+      }
+    }
+  ],
+  "metaData": {
+    "created": "2026-06-23T06:40:32.562268Z",
+    "createdBy": "0000-0002-0736-9199",
+    "resources": [
+      {
+        "id": "hp",
+        "name": "human phenotype ontology",
+        "url": "http://purl.obolibrary.org/obo/hp.owl",
+        "version": "2026-06-06",
+        "namespacePrefix": "HP",
+        "iriPrefix": "http://purl.obolibrary.org/obo/HP_"
+      },
+      {
+        "id": "geno",
+        "name": "Genotype Ontology",
+        "url": "http://purl.obolibrary.org/obo/geno.owl",
+        "version": "2025-07-25",
+        "namespacePrefix": "GENO",
+        "iriPrefix": "http://purl.obolibrary.org/obo/GENO_"
+      },
+      {
+        "id": "omim",
+        "name": "An Online Catalog of Human Genes and Genetic Disorders",
+        "url": "https://www.omim.org",
+        "version": "06/01/25",
+        "namespacePrefix": "OMIM",
+        "iriPrefix": "https://www.omim.org/entry/"
+      },
+      {
+        "id": "hgnc",
+        "name": "HUGO Gene Nomenclature Committee",
+        "url": "https://www.genenames.org",
+        "version": "06/01/25",
+        "namespacePrefix": "HGNC",
+        "iriPrefix": "https://www.genenames.org/data/gene-symbol-report/#!/hgnc_id/"
+      }
+    ],
+    "phenopacketSchemaVersion": "2",
+    "externalReferences": [
+      {
+        "id": "PMID:11047757",
+        "description": "A novel X-linked disorder of immune deficiency and hypohidrotic ectodermal dysplasia is allelic to incontinentia pigmenti and due to mutations in IKK-gamma (NEMO)."
+      }
+    ]
+  }
+}
