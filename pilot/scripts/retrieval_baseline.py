@@ -251,6 +251,8 @@ def benches(names: list[str], ddx_n: int) -> dict:
             sets.update(O.load_phenopacket())
         elif b == "symcat":
             sets.update(O.load_symcat(10))
+        elif b == "confirm":
+            sets.update(O.load_confirm())
     return sets
 
 

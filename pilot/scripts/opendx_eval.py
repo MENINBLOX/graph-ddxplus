@@ -303,3 +303,48 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# ----------------------------------------------------------------------------- confirmation sets
+CONFIRM_FLAG = "CONFIRM_UNSEAL"
+
+
+def load_confirm():
+    """Sealed confirmation sets (data/confirm/MANIFEST.json, research design D).
+
+    Evaluated once, after the design and the system are frozen. Refuses to load unless the
+    environment variable CONFIRM_UNSEAL=1 is set, so development runs cannot touch them.
+    """
+    import os
+    if os.environ.get(CONFIRM_FLAG) != "1":
+        raise RuntimeError("confirmation sets are sealed; set CONFIRM_UNSEAL=1 only for the final run")
+    man = json.load(open(DATA / "confirm/MANIFEST.json"))
+    out = {}
+    import ast
+    cond = json.load(open(DATA / "ddxplus/release_conditions_en.json"))
+    dmap = json.load(open(DATA / "ddxplus/disease_umls_mapping_v2.json"))["mapping"]
+    fr2en = {info.get("cond-name-fr") or info.get("condition_name"): en for en, info in cond.items()}
+    convert, _ = ddx_crosswalk()
+    rows = list(csv.DictReader(open(DATA / "ddxplus/release_test_patients.csv")))
+    pats = []
+    for i in man["ddxplus"]["confirm_row_indices"]:
+        r = rows[i]
+        gold = dmap.get(fr2en.get(r["PATHOLOGY"]), {}).get("umls_cui")
+        ev = convert(ast.literal_eval(r["EVIDENCES"]))
+        if gold and ev:
+            pats.append(({gold}, ev))
+    out["Confirm-DDXPlus"] = pats
+    dz, hp = _rb_maps()
+    skip = set(man["phenopacket_new"]["excluded_source_pmid_in_corpus"])
+    pats = []
+    for name in sorted(man["phenopacket_new"]["sha256"]):
+        if name in skip:
+            continue
+        p = json.load(open(DATA / "confirm/phenopacket_new" / name))
+        gold = set().union(*(dz(d["term"]["id"]) for d in p.get("diseases", []))) if p.get("diseases") else set()
+        ev = {c for c in (hp(f["type"]["id"]) for f in p.get("phenotypicFeatures", [])
+                          if not f.get("excluded")) if c}
+        pats.append((gold, ev))
+    out["Confirm-Phenopacket-new"] = pats
+    out["Confirm-SymCat"] = load_symcat(man["symcat"]["patients_per_disease"], seed=man["symcat"]["seed"])["SymCat"]
+    return out
