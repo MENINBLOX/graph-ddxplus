@@ -175,6 +175,7 @@ def main() -> None:
     ap.add_argument("--bench", default="dev")
     ap.add_argument("--boot", type=int, default=1000)
     ap.add_argument("--out", required=True)
+    ap.add_argument("--only", default="", help="comma-separated GRID keys to search (default: all)")
     a = ap.parse_args()
     if a.step == "export":
         export(a.uri, a.auth, a.out)
@@ -199,6 +200,8 @@ def main() -> None:
         for _ in range(2):
             changed = False
             for key, vals in GRID:
+                if a.only and key not in a.only.split(","):
+                    continue
                 for v in vals:
                     if v == best[key]:
                         continue
