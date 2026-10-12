@@ -365,14 +365,14 @@ RAMEDIS 624명 중 148명이 페닐케톤뇨증(PKU, C0031485). gemma 그래프�
 부모 질환은 프로파일이 짧고(25 vs 46 소견) 길이 정규화로 유리해진다. 즉 차이는 단일 질환의 입도(granularity) 효과이며
 IE 모델 일반의 우열로 읽으면 안 된다. 정답 규칙(상위 개념 불인정)은 사전에 고정된 것이므로 바꾸지 않는다.
 
-### 9.25 출처 감사 v2.1 사람 판정 (2026-10-12, 연구자 판정, `docs/audit/provenance_audit_v21_user.csv`)
-같은 200행을 연구자가 LLM 판정을 보지 않고 독립 판정.
-- 연구자: supports 59(29.5%, Wilson 95% CI 23.6–36.2), not_supported 99, wrong_concept 42. LLM: supports 75(37.5%).
+### 9.25 출처 감사 v2.1 의료진 판정 (2026-10-12, 연구팀·협력 병원 의료진 판정, `docs/audit/provenance_audit_v21_user.csv`)
+같은 200행을 LLM 판정을 보지 않고 독립 판정. 한계 서술: 감사자는 의료진 전체를 대표하지 않음(대표성).
+- 감사자: supports 59(29.5%, Wilson 95% CI 23.6–36.2), not_supported 99, wrong_concept 42. LLM: supports 75(37.5%).
 - 일치도: supports 여부(이진) 일치 89%, Cohen's κ 0.75 / 3분류 일치 70%, κ 0.48. 3분류 불일치의 대부분(38/60)은
-  연구자 wrong_concept ↔ LLM not_supported(약물·치료·검사·방법·결과·인구통계 개념). LLM은 16행을 더 관대하게 supports로 판정(역방향 3행).
-- 연구자 기준 출처 신호: 주제 문헌 간선 supports 38.3%(51/133) vs 주제 밖 11.9%(8/67); 지지 문헌 2편 이상 52.9%(9/17) vs 1편 27.3%(50/183).
+  감사자 wrong_concept ↔ LLM not_supported(약물·치료·검사·방법·결과·인구통계 개념). LLM은 16행을 더 관대하게 supports로 판정(역방향 3행).
+- 감사자 기준 출처 신호: 주제 문헌 간선 supports 38.3%(51/133) vs 주제 밖 11.9%(8/67); 지지 문헌 2편 이상 52.9%(9/17) vs 1편 27.3%(50/183).
   → γ=0(주제 밖 간선을 점수에서 제외)이 쓰는 간선 집합의 지지율은 전체보다 높다. 큐레이션 대조(§9.16)와 같은 방향.
-- 연구자 wrong_concept 42행의 유형(검토 메모): 약물·치료(항생제, 산소 등), 검사·방법·경과·결과 표현(laboratory findings, composite score,
+- 감사자 wrong_concept 42행의 유형(검토 메모): 약물·치료(항생제, 산소 등), 검사·방법·경과·결과 표현(laboratory findings, composite score,
   longitudinal follow-up, favorable clinical outcomes 등), 인구통계·기타(employment status, ITALIAN 등), 질환 자체·다른 질환명,
   구절 절단(sit 등). 의미유형 하나로 갈리지 않는다(T033 Finding이 supports·not_supported·wrong_concept 모두에 다수).
 - 이 200행은 이제 **보류(held-out) 평가 세트**다. 정밀도 개선 규칙은 별도 표본으로 개발하고 이 세트로만 최종 측정한다.
