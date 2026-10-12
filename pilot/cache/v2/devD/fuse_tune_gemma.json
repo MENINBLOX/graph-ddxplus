@@ -1,0 +1,51 @@
+{
+ "selected": {
+  "w": 0.25,
+  "graph": {
+   "alpha": 0.35,
+   "mu": 2.0,
+   "decay": 0.3,
+   "unified_w": 2.0,
+   "support_beta": 0.5,
+   "offtopic_w": 0.0
+  },
+  "retriever": {
+   "method": "bm25",
+   "mode": "per_concept",
+   "k": 1000,
+   "agg": "max"
+  },
+  "graph_uri": "bolt://localhost:7688"
+ },
+ "selected_score": [
+  32.324,
+  12.719
+ ],
+ "trail": [
+  {
+   "w": 0.0,
+   "macro_top10": 30.22,
+   "macro_top1": 12.371
+  },
+  {
+   "w": 0.25,
+   "macro_top10": 32.324,
+   "macro_top1": 12.719
+  },
+  {
+   "w": 0.5,
+   "macro_top10": 31.584,
+   "macro_top1": 12.212
+  },
+  {
+   "w": 0.75,
+   "macro_top10": 27.672,
+   "macro_top1": 12.4
+  },
+  {
+   "w": 1.0,
+   "macro_top10": 24.464,
+   "macro_top1": 8.749
+  }
+ ]
+}
