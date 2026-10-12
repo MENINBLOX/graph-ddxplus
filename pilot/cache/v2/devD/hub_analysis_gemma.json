@@ -1,0 +1,29 @@
+{
+ "gold_degree_tertile_cuts": [
+  19,
+  62
+ ],
+ "top10_by_gold_degree_tertile": {
+  "onehop": [
+   3.75,
+   15.39,
+   38.33
+  ],
+  "ppr": [
+   3.98,
+   13.32,
+   29.7
+  ]
+ },
+ "patients_per_tertile": [
+  7786,
+  7584,
+  7606
+ ],
+ "top1_prediction_degree_median": {
+  "onehop": 85.0,
+  "ppr": 75
+ },
+ "disease_degree_median_all_with_findings": 21,
+ "gold_degree_median": 40.0
+}
