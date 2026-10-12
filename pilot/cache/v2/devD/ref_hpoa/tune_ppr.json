@@ -1,0 +1,222 @@
+{
+ "criterion": "dev macro lineage Top-10 (ties Top-1)",
+ "selected": {
+  "restart": 0.5,
+  "beta": 0.0,
+  "gamma": 1.0,
+  "h": 1.0,
+  "eta": 0.0,
+  "seed_w": "idf",
+  "skip_seed": 1
+ },
+ "selected_score": [
+  35.79,
+  15.643
+ ],
+ "trail": [
+  {
+   "cfg": {
+    "restart": 0.5,
+    "beta": 0.0,
+    "gamma": 1.0,
+    "h": 1.0,
+    "eta": 0.0,
+    "seed_w": "idf",
+    "skip_seed": 1
+   },
+   "macro_top10": 35.79,
+   "macro_top1": 15.643,
+   "per_bench": {
+    "DDXPlus-test": [
+     3.07,
+     10.03
+    ],
+    "RareBench-RAMEDIS": [
+     32.69,
+     54.33
+    ],
+    "RareBench-LIRICAL": [
+     22.7,
+     53.78
+    ],
+    "RareBench-HMS": [
+     3.41,
+     23.86
+    ],
+    "RareBench-MME": [
+     30.0,
+     57.5
+    ],
+    "PUMCH_L": [
+     1.52,
+     17.41
+    ],
+    "PUMCH-ADM": [
+     17.33,
+     36.0
+    ],
+    "Phenopacket-store": [
+     27.81,
+     62.49
+    ],
+    "SymCat": [
+     2.26,
+     6.71
+    ]
+   }
+  },
+  {
+   "cfg": {
+    "restart": 0.15,
+    "beta": 0.0,
+    "gamma": 1.0,
+    "h": 1.0,
+    "eta": 0.0,
+    "seed_w": "idf",
+    "skip_seed": 1
+   },
+   "macro_top10": 34.137,
+   "macro_top1": 13.437,
+   "per_bench": {
+    "DDXPlus-test": [
+     2.83,
+     9.2
+    ],
+    "RareBench-RAMEDIS": [
+     30.13,
+     54.81
+    ],
+    "RareBench-LIRICAL": [
+     18.92,
+     49.46
+    ],
+    "RareBench-HMS": [
+     1.14,
+     22.73
+    ],
+    "RareBench-MME": [
+     27.5,
+     57.5
+    ],
+    "PUMCH_L": [
+     2.02,
+     16.9
+    ],
+    "PUMCH-ADM": [
+     16.0,
+     34.67
+    ],
+    "Phenopacket-store": [
+     20.43,
+     55.5
+    ],
+    "SymCat": [
+     1.96,
+     6.46
+    ]
+   }
+  },
+  {
+   "cfg": {
+    "restart": 0.3,
+    "beta": 0.0,
+    "gamma": 1.0,
+    "h": 1.0,
+    "eta": 0.0,
+    "seed_w": "idf",
+    "skip_seed": 1
+   },
+   "macro_top10": 35.681,
+   "macro_top1": 14.54,
+   "per_bench": {
+    "DDXPlus-test": [
+     3.23,
+     9.77
+    ],
+    "RareBench-RAMEDIS": [
+     30.61,
+     54.97
+    ],
+    "RareBench-LIRICAL": [
+     20.81,
+     53.24
+    ],
+    "RareBench-HMS": [
+     2.27,
+     25.0
+    ],
+    "RareBench-MME": [
+     27.5,
+     60.0
+    ],
+    "PUMCH_L": [
+     2.13,
+     16.8
+    ],
+    "PUMCH-ADM": [
+     17.33,
+     34.67
+    ],
+    "Phenopacket-store": [
+     24.75,
+     59.93
+    ],
+    "SymCat": [
+     2.23,
+     6.75
+    ]
+   }
+  },
+  {
+   "cfg": {
+    "restart": 0.7,
+    "beta": 0.0,
+    "gamma": 1.0,
+    "h": 1.0,
+    "eta": 0.0,
+    "seed_w": "idf",
+    "skip_seed": 1
+   },
+   "macro_top10": 35.757,
+   "macro_top1": 16.553,
+   "per_bench": {
+    "DDXPlus-test": [
+     3.0,
+     8.67
+    ],
+    "RareBench-RAMEDIS": [
+     33.65,
+     53.21
+    ],
+    "RareBench-LIRICAL": [
+     24.86,
+     54.59
+    ],
+    "RareBench-HMS": [
+     5.68,
+     22.73
+    ],
+    "RareBench-MME": [
+     32.5,
+     57.5
+    ],
+    "PUMCH_L": [
+     1.62,
+     17.21
+    ],
+    "PUMCH-ADM": [
+     16.0,
+     37.33
+    ],
+    "Phenopacket-store": [
+     29.54,
+     64.01
+    ],
+    "SymCat": [
+     2.13,
+     6.56
+    ]
+   }
+  }
+ ]
+}
