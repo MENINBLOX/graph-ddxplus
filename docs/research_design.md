@@ -376,3 +376,58 @@ IE 모델 일반의 우열로 읽으면 안 된다. 정답 규칙(상위 개념 
   longitudinal follow-up, favorable clinical outcomes 등), 인구통계·기타(employment status, ITALIAN 등), 질환 자체·다른 질환명,
   구절 절단(sit 등). 의미유형 하나로 갈리지 않는다(T033 Finding이 supports·not_supported·wrong_concept 모두에 다수).
 - 이 200행은 이제 **보류(held-out) 평가 세트**다. 정밀도 개선 규칙은 별도 표본으로 개발하고 이 세트로만 최종 측정한다.
+
+### 9.21 검색 계층 baseline (2026-10-12, `retrieval_baseline.py`, 산출 `pilot/cache/v2/retrieval/`)
+같은 코퍼스(일반 문헌 제외, 비인간 질환 제외)의 문헌 122,661편(그래프 88,266편보다 많음 → baseline에 유리) → 1,000자 청크 655,965개.
+환자 개념은 UMLS 선호명으로 질의. 청크 점수를 그 문헌이 연결된 질환에 집계. 설정은 DDXPlus validate만.
+- BM25 선택: 개념별 질의, k=1000, max 집계 (validate 10.7/18.1). MedCPT 선택: 개념별, k=1000, RRF (8.0/11.4).
+
+시험 lineage @1/@10 (그래프 Qwen3 동결 | BM25 | MedCPT):
+| Dataset | Graph | BM25 | MedCPT |
+|---|---|---|---|
+| DDXPlus | 14.4/29.1 | 10.3/26.5 | 7.7/19.3 |
+| RAMEDIS | 3.5/36.2 | 2.6/12.8 | 1.1/16.7 |
+| LIRICAL | 4.9/13.5 | 8.1/17.8 | 1.4/8.9 |
+| HMS | 3.4/12.5 | 8.0/22.7 | 2.3/8.0 |
+| MME | 5.0/17.5 | 2.5/22.5 | 0.0/2.5 |
+| PUMCH_L | 7.0/39.0 | 26.3/49.2 | 1.0/15.3 |
+| PUMCH-ADM | 12.0/32.0 | 14.7/42.7 | 0.0/16.0 |
+| Phenopacket | 3.6/11.1 | 4.2/15.6 | 0.7/6.6 |
+| SymCat | 3.4/10.7 | 2.2/10.4 | 2.5/10.7 |
+해석: BM25가 HPO 기반 희귀질환 6개에서 그래프(동결)보다 높다. 그래프는 DDXPlus·RAMEDIS에서 높고 SymCat은 비슷. MedCPT는 둘보다 낮다.
+BM25 선택 설정(개념별 max 합)은 길이 정규화가 없는 점수 형태 — 그래프에서 길이 정규화를 끈 ablation(PUMCH_L 51.0, Phenopacket 16.2)과
+gemma 그래프(PUMCH_L 51.6)는 BM25와 비슷하거나 높다. 즉 그래프 지식 자체보다 DDXPlus에서 고른 점수 형태의 비전이가 큰 몫.
+
+### 9.22 같은 랭커 + 기존 지식원 (2026-10-12, `build_reference_graph.py`, neo4j-ref)
+HPO 주석(393,498간선, 12,251질환), validate 선택 a.5 mu2 d.5 u2 → 시험 @1/@10: DDXPlus 5.0/16.1, RAMEDIS 30.9/53.0, LIRICAL 37.3/63.2,
+HMS 10.2/31.8, MME 45.0/77.5, PUMCH_L 20.2/53.6, PUMCH-ADM 21.3/53.3, Phenopacket 36.5/60.5, SymCat 2.4/6.5.
+해석: 같은 Cypher 랭커가 큐레이션 지식으로는 희귀질환에서 높은 정확도(Phenopacket @1 36.5 ≈ 보고된 Exomiser 35.5)를 낸다 → 희귀질환의 병목은
+랭커가 아니라 지식. 단 Phenopacket·RareBench 증례와 HPO 주석은 같은 출판 증례에서 큐레이션된 경우가 많아 순환성이 있다.
+흔한 질환(DDXPlus·SymCat)은 문헌 그래프가 큐레이션보다 높다(29.1 vs 16.1, 10.7 vs 6.5) → 큐레이션이 덮지 않는 범위를 문헌 그래프가 덮는다.
+(§9.22 추가) PrimeKG(disease_phenotype_positive) 시험 @1/@10: DDXPlus 8.4/15.5, RAMEDIS 24.0/40.5, LIRICAL 11.3/21.6, HMS 4.5/14.8,
+MME 2.5/7.5, PUMCH_L 3.7/15.6, PUMCH-ADM 6.7/24.0, Phenopacket 3.7/13.3, SymCat 2.6/5.8.
+MEDLINE MeSH 공출현(2024, LLM 없음) 시험 @1/@10: DDXPlus 10.3/24.6, RAMEDIS 0.5/2.2, LIRICAL 1.1/3.5, HMS 1.1/4.5, MME 0.0/2.5,
+PUMCH_L 1.7/13.1, PUMCH-ADM 5.3/10.7, Phenopacket 1.0/3.4, SymCat 3.2/8.1.
+→ **LLM 추출 문헌 그래프는 같은 랭커의 문헌 공출현 그래프보다 9개 전부에서 @10이 높다**(LLM IE의 부가가치). PrimeKG와는 혼재(희귀 4개 PrimeKG 우세).
+
+### 9.23 그래프 + BM25 결합 (사후 분석, 2026-10-12)
+RRF 결합 score = (1−w)/(60+rank_graph) + w/(60+rank_BM25), w ∈ {0,.25,.5,.75,1}을 DDXPlus validate에서 선택 → w=0.25 (validate 17.7/25.5,
+그래프 단독 15.1/20.4·BM25 단독 10.7/18.1보다 높음). 시험 @1/@10: DDXPlus 15.7/36.3, RAMEDIS 5.6/38.1, LIRICAL 7.6/19.7, HMS 3.4/17.1,
+MME 5.0/15.0, PUMCH_L 15.1/44.0, PUMCH-ADM 14.7/40.0, Phenopacket 5.9/16.1, SymCat 3.9/11.8.
+대응 검정(`paired_stats.py`, 산출 `pilot/cache/v2/paired/`, McNemar exact + Holm):
+- 결합 vs 그래프: @10 9개 중 8개 상승(부호검정 p=0.039; Holm 유의: DDXPlus +7.2, LIRICAL +6.2, PUMCH_L +5.1, Phenopacket +5.0, SymCat +1.1),
+  @1 7개 상승·0개 하락(p=0.016).
+- 결합 vs BM25: @10 5:4(p=1). DDXPlus +9.8, RAMEDIS +25.3, SymCat +1.4 유의 상승, PUMCH_L −5.2 유의 하락.
+- 그래프 vs BM25: @10 BM25 6:3(p=0.51). Holm 유의: 그래프 우세 RAMEDIS(+23.4), BM25 우세 PUMCH_L(+10.2)·Phenopacket(+4.4). DDXPlus 그래프 +2.6(Holm 0.056).
+해석: 그래프와 텍스트 검색은 상보적이다. 결합은 어느 단독보다 일관되게 낫지는 않지만 그래프 단독을 거의 전 벤치마크에서 개선한다.
+
+### 9.24 유의성·닫힌 집합·누수 (2026-10-12)
+**Ablation 대응 검정**(동결 대비, 부호검정): 주제 가중 제거 시 @10 하락 7/9(p=0.18), @1 하락 8/9(p=0.039). Holm 유의 하락은 @10 DDXPlus·
+Phenopacket·SymCat뿐 → "7/9 전이"는 방향 일관성으로만 서술하고 개별 유의는 3개로 한정. 커버리지 스무딩 제거 @10 하락 7/9(p=0.070), @1 8/9(p=0.039).
+길이 정규화·통합 근거: 부호검정 비유의(방향이 벤치마크별로 갈림, 개별로는 양방향 모두 유의 사례 있음).
+**닫힌 집합(보조, 벤치마크 정답 라벨 공간)** @1/@10: DDXPlus(48) 30.8/81.3, RAMEDIS(121) 43.3/58.0, LIRICAL(341) 21.9/41.4, HMS(101) 18.2/56.8,
+MME(25) 35.0/72.5, PUMCH_L(400) 54.4/86.7, PUMCH-ADM(107) 64.0/88.0, Phenopacket(884) 14.4/27.9, SymCat(760) 5.2/17.7.
+라벨 공간 크기가 문헌 보고(예: PhenoBrain 9,260질환)와 달라 직접 비교 불가 — 참조 표에 조건과 함께만 둔다.
+**누수 점검**(`leakage_check.py`, 사전 고정 기준: 한 문헌이 환자 개념의 ≥50%·≥5개를 정답 질환 근거로 포함): RAMEDIS·HMS·MME 0명,
+LIRICAL 8/370(이들의 @10 100%; 나머지 11.6 vs 전체 13.5), Phenopacket 113/10,310(1.1%; 이들 @10 84.1%; 나머지 10.3 vs 전체 11.1).
+→ 원출처 PMID 제외 후에도 소수의 증례가 다른 문헌(같은 증례의 재보고·리뷰 표 등)을 통해 남는다. 논문에 민감도 분석으로 '누수 의심 제외' 수치를 함께 보고.

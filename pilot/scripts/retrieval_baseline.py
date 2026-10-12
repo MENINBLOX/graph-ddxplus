@@ -212,6 +212,32 @@ class Retriever:
         return self.lin.lineage(gold)
 
 
+class Fusion:
+    """Hybrid layer (post-hoc analysis): reciprocal-rank fusion of the graph ranking and a retriever.
+
+    score(d) = (1 - w) / (60 + rank_graph(d)) + w / (60 + rank_retriever(d)); w chosen on validate.
+    Provenance still comes from the graph for every disease the graph ranks.
+    """
+
+    def __init__(self, graph: GraphDx, retr: Retriever, w: float, depth: int = 200):
+        self.g, self.r, self.w, self.depth = graph, retr, w, depth
+        self.memo: dict = {}
+
+    def rank(self, ev: set[str], k: int = 50) -> list[str]:
+        key = tuple(sorted(ev))
+        if key not in self.memo:
+            self.memo[key] = (self.g.rank(ev, self.depth), self.r.rank(ev, self.depth))
+        gr, rr = self.memo[key]
+        sc: dict[str, float] = defaultdict(float)
+        for lst, wt in ((gr, 1 - self.w), (rr, self.w)):
+            for i, d in enumerate(lst):
+                sc[d] += wt / (60 + i + 1)
+        return sorted(sc, key=lambda d: (-sc[d], d))[:k]
+
+    def lineage(self, gold):
+        return self.g.lineage(gold)
+
+
 def benches(names: list[str], ddx_n: int) -> dict:
     sets = {}
     for b in names:
@@ -230,7 +256,8 @@ def benches(names: list[str], ddx_n: int) -> dict:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("step", choices=["build", "bm25", "medcpt", "tune", "test"])
+    ap.add_argument("step", choices=["build", "bm25", "medcpt", "tune", "test", "fuse_tune", "fuse_test"])
+    ap.add_argument("--graph_cfg", default="pilot/cache/v2/eval_qwen3_v21/tune.json")
     ap.add_argument("--method", choices=["bm25", "medcpt"], default="bm25")
     ap.add_argument("--cfg", default="")
     ap.add_argument("--bench", default="ddxplus-test,rarebench,pumch,phenopacket,symcat")
@@ -250,13 +277,35 @@ def main() -> None:
         return
     O.RAW_GOLD = True
     lin = GraphDx("bolt://localhost:7687", a.auth, 0.5, 2.0, 0.0, 0.0)
-    if a.step == "tune":
+    if a.step in ("tune", "fuse_tune"):
         sets = benches(["ddxplus-validate"], a.ddx_n)
     else:
         sets = benches(a.bench.split(","), a.ddx_n)
     cuis = {c for pats in sets.values() for _, ev in pats for c in ev}
     names = cui_names(cuis)
     print(f"concepts {len(cuis)}, named {len(names)}", flush=True)
+    if a.step.startswith("fuse"):
+        gcfg = json.load(open(a.graph_cfg))["selected"]
+        g = GraphDx("bolt://localhost:7687", a.auth, **gcfg)
+        rcfg = json.load(open(a.cfg))["selected"]
+        rt = Retriever(rcfg["method"], rcfg["k"], rcfg["agg"], rcfg["mode"], names, lin)
+        if a.step == "fuse_tune":
+            pats, trail, best, best_s = sets["DDXPlus-validate"], [], None, (-1, -1)
+            fu = Fusion(g, rt, 0.0)
+            for w in (0.0, 0.25, 0.5, 0.75, 1.0):
+                fu.w = w
+                r = evaluate(fu, f"validate fusion w={w}", pats)
+                trail.append({"w": w, **{k: v for k, v in r.items() if k != "ranks_lineage"}})
+                if (r["lineage@1"], r["lineage@3"]) > best_s:
+                    best, best_s = {"w": w, "graph": gcfg, "retriever": rcfg}, (r["lineage@1"], r["lineage@3"])
+            json.dump({"selected": best, "selected_score": best_s, "trail": trail}, open(a.out, "w"), indent=1)
+            print("SELECTED", best["w"], best_s, flush=True)
+        else:
+            sel = json.load(open(a.out.replace("test", "tune")))["selected"]
+            fu = Fusion(g, rt, sel["w"])
+            res = [evaluate(fu, k, v, a.boot) for k, v in sets.items()]
+            json.dump({"cfg": sel, "results": res}, open(a.out, "w"), indent=1)
+        return
     if a.step == "tune":
         pats = sets["DDXPlus-validate"]
         trail, best, best_s = [], None, (-1, -1)
