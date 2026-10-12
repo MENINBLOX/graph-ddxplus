@@ -260,6 +260,7 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("step", choices=["build", "bm25", "medcpt", "tune", "test", "fuse_tune", "fuse_test"])
     ap.add_argument("--graph_cfg", default="pilot/cache/v2/eval_qwen3_v21/tune.json")
+    ap.add_argument("--dev", action="store_true", help="design D: select on dev macro Top-10")
     ap.add_argument("--method", choices=["bm25", "medcpt"], default="bm25")
     ap.add_argument("--cfg", default="")
     ap.add_argument("--bench", default="ddxplus-test,rarebench,pumch,phenopacket,symcat")
@@ -279,7 +280,10 @@ def main() -> None:
         return
     O.RAW_GOLD = True
     lin = GraphDx("bolt://localhost:7687", a.auth, 0.5, 2.0, 0.0, 0.0)
-    if a.step in ("tune", "fuse_tune"):
+    if a.step in ("tune", "fuse_tune") and a.dev:
+        from tune_dev import dev_sets
+        sets = dev_sets(a.ddx_n)
+    elif a.step in ("tune", "fuse_tune"):
         sets = benches(["ddxplus-validate"], a.ddx_n)
     else:
         sets = benches(a.bench.split(","), a.ddx_n)
@@ -307,6 +311,24 @@ def main() -> None:
             fu = Fusion(g, rt, sel["w"])
             res = [evaluate(fu, k, v, a.boot) for k, v in sets.items()]
             json.dump({"cfg": sel, "results": res}, open(a.out, "w"), indent=1)
+        return
+    if a.step == "tune" and a.dev:
+        from tune_dev import macro
+        trail, best, best_s = [], None, (-1, -1)
+        for mode in ("joint", "per_concept"):
+            for k in (100, 1000):
+                for agg in ("max", "sum", "rrf"):
+                    cfg = {"method": a.method, "mode": mode, "k": k, "agg": agg}
+                    rt = Retriever(a.method, k, agg, mode, names, lin)
+                    res = [evaluate(rt, b, v) for b, v in sets.items()]
+                    m = macro(res)
+                    trail.append({"cfg": cfg, "macro_top10": m[0], "macro_top1": m[1]})
+                    print("dev", cfg, m, flush=True)
+                    if m > best_s:
+                        best, best_s = cfg, m
+        json.dump({"criterion": "dev macro lineage Top-10 (ties Top-1)", "selected": best,
+                   "selected_score": best_s, "trail": trail}, open(a.out, "w"), indent=1)
+        print("SELECTED", best, best_s, flush=True)
         return
     if a.step == "tune":
         pats = sets["DDXPlus-validate"]
