@@ -31,6 +31,7 @@ MATCH p = (c0)-[:IS_A*0..1]->(c:Concept)
 WITH c, max(CASE length(p) WHEN 0 THEN 1.0 ELSE $decay END) AS w
 WHERE c.idf IS NOT NULL
 MATCH (c)<-[e:HAS_FINDING]-(d:Disease)
+WHERE $cands IS NULL OR d.id IN $cands
 WITH d, sum(w * c.idf * e.n_docs ^ $beta * CASE WHEN e.n_topic_docs > 0 THEN 1.0 ELSE $gamma END) AS s
 WITH d, s / ((d.n_findings + $mu * (1.0 - toFloat(d.src_chars) / (d.src_chars + $smed)) * $lbar) ^ $alpha) AS score
 RETURN d.id AS id, score
@@ -58,6 +59,7 @@ class GraphDx:
         self.drv = GraphDatabase.driver(uri, auth=tuple(auth.split("/", 1)))
         self.alpha, self.mu, self.decay, self.unified_w = alpha, mu, decay, unified_w
         self.beta, self.gamma = support_beta, offtopic_w
+        self.cands: list[str] | None = None   # closed-set auxiliary evaluation: benchmark label space
         with self.drv.session() as s:
             r = s.run("MATCH (d:Disease) WHERE d.n_findings > 0 "
                       "RETURN avg(d.n_findings) AS lbar, percentileDisc(d.src_chars, 0.5) AS smed, "
@@ -68,10 +70,11 @@ class GraphDx:
         with self.drv.session() as s:
             sc = {r["id"]: r["score"] for r in s.run(
                 RANK, ev=sorted(ev), decay=self.decay, mu=self.mu, smed=self.smed, lbar=self.lbar,
-                alpha=self.alpha, beta=self.beta, gamma=self.gamma, k=k * 4)}
+                alpha=self.alpha, beta=self.beta, gamma=self.gamma, cands=self.cands, k=k * 4)}
             if self.unified_w:
                 for r in s.run(UNIFIED, ev=sorted(ev)):
-                    sc[r["id"]] = sc.get(r["id"], 0.0) + self.unified_w * r["n"]
+                    if self.cands is None or r["id"] in self._cset:
+                        sc[r["id"]] = sc.get(r["id"], 0.0) + self.unified_w * r["n"]
         return sorted(sc, key=lambda d: (-sc[d], d))[:k]
 
     def lineage(self, gold: set[str]) -> set[str]:
@@ -106,6 +109,8 @@ def evaluate(dx: GraphDx, name: str, pats, boot: int = 0) -> dict:
                 xs = [p is not None and p <= k for p in ranks[rule]]
                 dist = sorted(100 * sum(xs[rng.randrange(m)] for _ in range(m)) / m for _ in range(boot))
                 res[f"{rule}@{k}_ci"] = [round(dist[int(0.025 * boot)], 1), round(dist[int(0.975 * boot) - 1], 1)]
+    # per-patient positions (1-based, None = not in top max(KS)) for paired comparisons
+    res["ranks_lineage"] = ranks["lineage"]
     print(f"{name:20} n={m:6} | lineage " + " ".join(f"@{k} {res[f'lineage@{k}']:5.1f}" for k in O.KS)
           + " | strict " + " ".join(f"@{k} {res[f'strict@{k}']:5.1f}" for k in O.KS)
           + f" | {res['sec']}s", flush=True)
@@ -127,6 +132,8 @@ def main() -> None:
     ap.add_argument("--auth", default=os.environ.get("NEO4J_AUTH", "neo4j/thesis-dev-only"))
     ap.add_argument("--boot", type=int, default=0, help="patient-bootstrap resamples for 95% CI")
     ap.add_argument("--out", default="")
+    ap.add_argument("--closed", action="store_true",
+                    help="auxiliary: rank only within each benchmark's own gold label space")
     a = ap.parse_args()
     O.RAW_GOLD = True
     dx = GraphDx(a.uri, a.auth, a.alpha, a.mu, a.decay, a.unified_w, a.support_beta, a.offtopic_w)
@@ -144,7 +151,13 @@ def main() -> None:
             sets.update(O.load_phenopacket())
         elif b == "symcat":
             sets.update(O.load_symcat(a.symcat_ppd))
-    res = [evaluate(dx, k, v, a.boot) for k, v in sets.items()]
+    res = []
+    for k, v in sets.items():
+        if a.closed:
+            dx.cands = sorted(set().union(*(v2_ids.gold_keys(g) for g, _ in v)))
+            dx._cset = set(dx.cands)
+            print(f"{k}: closed label space {len(dx.cands)} diseases", flush=True)
+        res.append(evaluate(dx, k, v, a.boot))
     if a.out:
         json.dump({"args": vars(a), "results": res}, open(a.out, "w"), indent=1)
 

@@ -28,13 +28,14 @@ def main() -> None:
     ap.add_argument("--out", required=True)
     ap.add_argument("--ddx_n", type=int, default=3000)
     ap.add_argument("--auth", default=os.environ.get("NEO4J_AUTH", "neo4j/thesis-dev-only"))
+    ap.add_argument("--uri", default="bolt://localhost:7687")
     a = ap.parse_args()
     O.RAW_GOLD = True
     pats = O.load_ddxplus("validate", a.ddx_n)["DDXPlus-validate"]
     trail = []
 
     def score(cfg):
-        dx = GraphDx("bolt://localhost:7687", a.auth, **cfg)
+        dx = GraphDx(a.uri, a.auth, **cfg)
         r = evaluate(dx, f"validate {cfg}", pats)
         dx.drv.close()
         trail.append({"cfg": dict(cfg), **r})
