@@ -260,6 +260,7 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("step", choices=["build", "bm25", "medcpt", "tune", "test", "fuse_tune", "fuse_test"])
     ap.add_argument("--graph_cfg", default="pilot/cache/v2/eval_qwen3_v21/tune.json")
+    ap.add_argument("--graph_uri", default="bolt://localhost:7687")
     ap.add_argument("--dev", action="store_true", help="design D: select on dev macro Top-10")
     ap.add_argument("--method", choices=["bm25", "medcpt"], default="bm25")
     ap.add_argument("--cfg", default="")
@@ -292,18 +293,25 @@ def main() -> None:
     print(f"concepts {len(cuis)}, named {len(names)}", flush=True)
     if a.step.startswith("fuse"):
         gcfg = json.load(open(a.graph_cfg))["selected"]
-        g = GraphDx("bolt://localhost:7687", a.auth, **gcfg)
+        g = GraphDx(a.graph_uri, a.auth, **gcfg)
         rcfg = json.load(open(a.cfg))["selected"]
         rt = Retriever(rcfg["method"], rcfg["k"], rcfg["agg"], rcfg["mode"], names, lin)
         if a.step == "fuse_tune":
-            pats, trail, best, best_s = sets["DDXPlus-validate"], [], None, (-1, -1)
+            trail, best, best_s = [], None, (-1, -1)
             fu = Fusion(g, rt, 0.0)
             for w in (0.0, 0.25, 0.5, 0.75, 1.0):
                 fu.w = w
-                r = evaluate(fu, f"validate fusion w={w}", pats)
-                trail.append({"w": w, **{k: v for k, v in r.items() if k != "ranks_lineage"}})
-                if (r["lineage@1"], r["lineage@3"]) > best_s:
-                    best, best_s = {"w": w, "graph": gcfg, "retriever": rcfg}, (r["lineage@1"], r["lineage@3"])
+                if a.dev:
+                    from tune_dev import macro
+                    res = [evaluate(fu, f"{b} w={w}", v) for b, v in sets.items()]
+                    s_ = macro(res)
+                    trail.append({"w": w, "macro_top10": s_[0], "macro_top1": s_[1]})
+                else:
+                    r = evaluate(fu, f"validate fusion w={w}", sets["DDXPlus-validate"])
+                    trail.append({"w": w, **{k: v for k, v in r.items() if k != "ranks_lineage"}})
+                    s_ = (r["lineage@1"], r["lineage@3"])
+                if s_ > best_s:
+                    best, best_s = {"w": w, "graph": gcfg, "retriever": rcfg, "graph_uri": a.graph_uri}, s_
             json.dump({"selected": best, "selected_score": best_s, "trail": trail}, open(a.out, "w"), indent=1)
             print("SELECTED", best["w"], best_s, flush=True)
         else:
