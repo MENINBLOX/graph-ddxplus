@@ -1,0 +1,141 @@
+{
+ "frozen": "2026-10-13",
+ "design": "research_design.md D0-D10",
+ "selection_rule": "dev macro lineage Top-10 (ties Top-1) over 9 development test sets",
+ "gemma_1hop": {
+  "alpha": 0.35,
+  "mu": 2.0,
+  "decay": 0.3,
+  "unified_w": 2.0,
+  "support_beta": 0.5,
+  "offtopic_w": 0.0
+ },
+ "gemma_graph": {
+  "neo4j": "bolt://localhost:7687",
+  "ie": "pilot/cache/v2/ie_gemma_full.jsonl",
+  "table": "pilot/cache/v2/phrase2cui_gemma.json",
+  "summary": {
+   "diseases": 43575,
+   "diseases_with_findings": 27309,
+   "concepts": 46130,
+   "edges": 832671,
+   "mentions": 1201064,
+   "docs": 86276
+  },
+  "export_npz_sha256": "cff482faf575c2c45571cdc91b2d70636da331837c0987fdf791c94f0cd990a4"
+ },
+ "bm25": {
+  "method": "bm25",
+  "mode": "per_concept",
+  "k": 1000,
+  "agg": "max"
+ },
+ "fusion": {
+  "w": 0.25,
+  "graph": {
+   "alpha": 0.35,
+   "mu": 2.0,
+   "decay": 0.3,
+   "unified_w": 2.0,
+   "support_beta": 0.5,
+   "offtopic_w": 0.0
+  },
+  "retriever": {
+   "method": "bm25",
+   "mode": "per_concept",
+   "k": 1000,
+   "agg": "max"
+  },
+  "graph_uri": "bolt://localhost:7688"
+ },
+ "ppr_gemma": {
+  "restart": 0.3,
+  "beta": 1.0,
+  "gamma": 0.0,
+  "h": 0.5,
+  "eta": 0.0,
+  "seed_w": "uniform",
+  "skip_seed": 1
+ },
+ "qwen3_1hop": {
+  "alpha": 0.5,
+  "mu": 1.0,
+  "decay": 0.5,
+  "unified_w": 0.0,
+  "support_beta": 0.5,
+  "offtopic_w": 0.0
+ },
+ "comparators": {
+  "hpoa": {
+   "onehop": {
+    "alpha": 0.2,
+    "mu": 2.0,
+    "decay": 0.5,
+    "unified_w": 2.0,
+    "support_beta": 0.0,
+    "offtopic_w": 1.0
+   },
+   "ppr": {
+    "restart": 0.5,
+    "beta": 0.0,
+    "gamma": 1.0,
+    "h": 1.0,
+    "eta": 0.0,
+    "seed_w": "idf",
+    "skip_seed": 1
+   }
+  },
+  "primekg": {
+   "onehop": {
+    "alpha": 0.5,
+    "mu": 2.0,
+    "decay": 0.3,
+    "unified_w": 1.0,
+    "support_beta": 0.0,
+    "offtopic_w": 1.0
+   },
+   "ppr": {
+    "restart": 0.7,
+    "beta": 0.0,
+    "gamma": 1.0,
+    "h": 1.0,
+    "eta": 0.0,
+    "seed_w": "idf",
+    "skip_seed": 1
+   }
+  },
+  "cooc": {
+   "onehop": {
+    "alpha": 0.35,
+    "mu": 0.0,
+    "decay": 0.3,
+    "unified_w": 1.0,
+    "support_beta": 0.0,
+    "offtopic_w": 1.0
+   }
+  }
+ },
+ "confirmation_sets": "data/confirm/MANIFEST.json (commit 31122e2)",
+ "dev_macro": {
+  "gemma_1hop": [
+   30.561,
+   12.639
+  ],
+  "bm25": [
+   24.464,
+   8.749
+  ],
+  "fusion": [
+   32.324,
+   12.719
+  ],
+  "ppr_gemma": [
+   23.567,
+   6.33
+  ],
+  "qwen3_1hop": [
+   29.588,
+   11.023
+  ]
+ }
+}
