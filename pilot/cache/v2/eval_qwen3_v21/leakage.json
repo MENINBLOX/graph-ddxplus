@@ -1,0 +1,56 @@
+{
+ "cover": 0.5,
+ "min_concepts": 5,
+ "results": {
+  "RareBench-RAMEDIS": {
+   "patients": 624,
+   "flagged": 0,
+   "all@1": 3.53,
+   "all@10": 36.22,
+   "clean@1": 3.53,
+   "clean@10": 36.22,
+   "flagged@1": 0.0,
+   "flagged@10": 0.0
+  },
+  "RareBench-LIRICAL": {
+   "patients": 370,
+   "flagged": 8,
+   "all@1": 4.86,
+   "all@10": 13.51,
+   "clean@1": 3.59,
+   "clean@10": 11.6,
+   "flagged@1": 62.5,
+   "flagged@10": 100.0
+  },
+  "RareBench-HMS": {
+   "patients": 88,
+   "flagged": 0,
+   "all@1": 3.41,
+   "all@10": 12.5,
+   "clean@1": 3.41,
+   "clean@10": 12.5,
+   "flagged@1": 0.0,
+   "flagged@10": 0.0
+  },
+  "RareBench-MME": {
+   "patients": 40,
+   "flagged": 0,
+   "all@1": 5.0,
+   "all@10": 17.5,
+   "clean@1": 5.0,
+   "clean@10": 17.5,
+   "flagged@1": 0.0,
+   "flagged@10": 0.0
+  },
+  "Phenopacket-store": {
+   "patients": 10310,
+   "flagged": 113,
+   "all@1": 3.61,
+   "all@10": 11.13,
+   "clean@1": 3.19,
+   "clean@10": 10.32,
+   "flagged@1": 41.59,
+   "flagged@10": 84.07
+  }
+ }
+}

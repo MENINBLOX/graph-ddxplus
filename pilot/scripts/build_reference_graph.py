@@ -47,12 +47,12 @@ def pairs_primekg(uni) -> dict:
     h2c, _ = CA.hpo_to_cui()
     mondo2key = v2_ids._maps()[0]
     out = {}
-    for line in open("data/external_kg/primekg.csv"):
-        if not line.startswith("disease_phenotype_positive,"):
+    import csv
+    for f in csv.reader(open("data/external_kg/primekg.csv")):
+        if f[0] != "disease_phenotype_positive":
             continue
-        f = line.rstrip("\n").split(",")
-        # x = disease (MONDO or MONDO_grouped "id_id_..."), y = HPO; names may contain commas
-        x_id, x_src, y_id, y_src = f[3], f[6], f[-4], f[-1]
+        # x = disease (MONDO or MONDO_grouped "id_id_..."), y = HPO phenotype
+        x_id, x_src, y_id, y_src = f[3], f[6], f[8], f[11]
         if y_src != "HPO" or not x_src.startswith("MONDO"):
             continue
         cuis = h2c.get(f"HP:{int(y_id):07d}", set())
