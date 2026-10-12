@@ -20,3 +20,23 @@ services:
       - ./data/neo4j/import:/import
       - ./data/neo4j/logs:/logs
     restart: unless-stopped
+
+  # Comparator graphs (existing knowledge sources run through the same ranker, research design §9.22).
+  #   docker compose up -d neo4j-ref      Bolt: bolt://localhost:7688
+  neo4j-ref:
+    image: neo4j:5.26-community
+    container_name: thesis-neo4j-ref
+    ports:
+      - "7475:7474"
+      - "7688:7687"
+    environment:
+      NEO4J_AUTH: ${NEO4J_AUTH:-neo4j/thesis-dev-only}
+      NEO4J_PLUGINS: '["apoc"]'
+      NEO4J_server_memory_heap_initial__size: 1G
+      NEO4J_server_memory_heap_max__size: 2G
+      NEO4J_server_memory_pagecache_size: 2G
+      NEO4J_dbms_security_procedures_unrestricted: apoc.*
+    volumes:
+      - ./data/neo4j_ref/data:/data
+      - ./data/neo4j_ref/logs:/logs
+    restart: unless-stopped
