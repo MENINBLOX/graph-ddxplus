@@ -1,0 +1,11 @@
+generic documents dropped (used by >= 20 diseases): 1119
+mentions 361217, edges 269431, docs 26857, topic mentions 240952, to re-center 7962
+wiping graph
+  Disease: 43575
+  Concept: 30110
+  HAS_FINDING: 269431
+  Concept IS_A: 23333
+  Disease IS_A: 45118
+  IS_DISEASE: 9087
+graph check: every HAS_FINDING edge has a Mention; Disease nodes = universe
+done

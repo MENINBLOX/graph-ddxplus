@@ -1,0 +1,94 @@
+INFO 10-14 00:40:02 [api_utils.py:273] non-default args: {'max_model_len': 4096, 'enable_prefix_caching': True, 'gpu_memory_utilization': 0.88, 'disable_log_stats': True, 'model': 'aaditya/Llama3-OpenBioLLM-8B'}
+WARNING 10-14 00:40:02 [envs.py:2041] Unknown vLLM environment variable detected: VLLM_ATTENTION_BACKEND
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+INFO 10-14 00:40:09 [model.py:619] Resolved architecture: LlamaForCausalLM
+INFO 10-14 00:40:09 [model.py:1776] Using max model len 4096
+INFO 10-14 00:40:09 [scheduler.py:252] Chunked prefill is enabled with max_num_batched_tokens=8192.
+INFO 10-14 00:40:09 [vllm.py:1042] Asynchronous scheduling is enabled.
+INFO 10-14 00:40:09 [kernel.py:292] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+WARNING 10-14 00:40:14 [system_utils.py:157] We must use the `spawn` multiprocessing start method. Overriding VLLM_WORKER_MULTIPROC_METHOD to 'spawn'. See https://docs.vllm.ai/en/latest/usage/troubleshooting.html#python-multiprocessing for more information. Reasons: WSL is detected and NVML is not compatible with fork
+(EngineCore pid=3850825) INFO 10-14 00:40:19 [core.py:114] Initializing a V1 LLM engine (v0.25.0) with config: model='aaditya/Llama3-OpenBioLLM-8B', speculative_config=None, tokenizer='aaditya/Llama3-OpenBioLLM-8B', skip_tokenizer_init=False, tokenizer_mode=auto, revision=None, tokenizer_revision=None, trust_remote_code=False, dtype=torch.bfloat16, max_seq_len=4096, download_dir=None, load_format=auto, tensor_parallel_size=1, pipeline_parallel_size=1, data_parallel_size=1, decode_context_parallel_size=1, dcp_comm_backend=ag_rs, disable_custom_all_reduce=False, quantization=None, quantization_config=None, enforce_eager=False, enable_return_routed_experts=False, kv_cache_dtype=auto, device_config=cuda, structured_outputs_config=StructuredOutputsConfig(backend='auto', disable_any_whitespace=False, disable_additional_properties=False, reasoning_parser='', reasoning_parser_plugin='', enable_in_reasoning=False), observability_config=ObservabilityConfig(show_hidden_metrics_for_version=None, otlp_traces_endpoint=None, collect_detailed_traces=None, kv_cache_metrics=False, kv_cache_metrics_sample=0.01, cudagraph_metrics=False, enable_layerwise_nvtx_tracing=False, enable_mfu_metrics=False, enable_mm_processor_stats=False, enable_logging_iteration_details=False, jit_monitor_mode='warn', jit_monitor_verbose=False), seed=0, served_model_name=aaditya/Llama3-OpenBioLLM-8B, enable_prefix_caching=True, enable_chunked_prefill=True, pooler_config=None, compilation_config={'mode': <CompilationMode.VLLM_COMPILE: 3>, 'debug_dump_path': None, 'cache_dir': '', 'compile_cache_save_format': 'binary', 'backend': 'inductor', 'custom_ops': ['none'], 'ir_enable_torch_wrap': True, 'splitting_ops': ['vllm::unified_attention_with_output', 'vllm::unified_mla_attention_with_output', 'vllm::mamba_mixer2', 'vllm::mamba_mixer', 'vllm::short_conv', 'vllm::linear_attention', 'vllm::plamo2_mamba_mixer', 'vllm::qwen_gdn_attention_core', 'vllm::gdn_attention_core_xpu', 'vllm::olmo_hybrid_gdn_full_forward', 'vllm::kda_attention', 'vllm::sparse_attn_indexer', 'vllm::rocm_aiter_sparse_attn_indexer', 'vllm::deepseek_v4_attention', 'vllm::hpc_rope_norm_forward', 'vllm::unified_kv_cache_update', 'vllm::unified_mla_kv_cache_update'], 'compile_mm_encoder': False, 'cudagraph_mm_encoder': False, 'encoder_cudagraph_token_budgets': [], 'encoder_cudagraph_max_vision_items_per_batch': 0, 'encoder_cudagraph_max_frames_per_batch': None, 'compile_sizes': [], 'compile_ranges_endpoints': [8192], 'inductor_compile_config': {'enable_auto_functionalized_v2': False, 'size_asserts': False, 'alignment_asserts': False, 'scalar_asserts': False, 'combo_kernels': True, 'benchmark_combo_kernel': True}, 'inductor_passes': {}, 'cudagraph_mode': <CUDAGraphMode.FULL_AND_PIECEWISE: (2, 1)>, 'cudagraph_num_of_warmups': 1, 'cudagraph_capture_sizes': [1, 2, 4, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120, 128, 136, 144, 152, 160, 168, 176, 184, 192, 200, 208, 216, 224, 232, 240, 248, 256, 272, 288, 304, 320, 336, 352, 368, 384, 400, 416, 432, 448, 464, 480, 496, 512], 'cudagraph_copy_inputs': False, 'cudagraph_specialize_lora': True, 'use_inductor_graph_partition': False, 'pass_config': {'fuse_norm_quant': False, 'fuse_act_quant': False, 'fuse_attn_quant': False, 'enable_sp': False, 'fuse_gemm_comms': False, 'fuse_allreduce_rms': False, 'fuse_rope_kvcache_cat_mla': False, 'fuse_act_padding': False}, 'max_cudagraph_capture_size': 512, 'dynamic_shapes_config': {'type': <DynamicShapesType.BACKED: 'backed'>, 'evaluate_guards': False, 'assume_32_bit_indexing': False}, 'local_cache_dir': None, 'fast_moe_cold_start': False, 'static_all_moe_layers': []}, kernel_config=KernelConfig(ir_op_priority=IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native']), enable_flashinfer_autotune=True, enable_cutedsl_warmup=True, moe_backend='auto', linear_backend='auto')
+(EngineCore pid=3850825) INFO 10-14 00:40:19 [parallel_state.py:1607] world_size=1 rank=0 local_rank=0 distributed_init_method=tcp://172.23.209.17:46129 backend=nccl
+(EngineCore pid=3850825) INFO 10-14 00:40:19 [parallel_state.py:1942] rank 0 in world size 1 is assigned as DP rank 0, PP rank 0, PCP rank 0, TP rank 0, EP rank N/A, EPLB rank N/A
+(EngineCore pid=3850825) INFO 10-14 00:40:19 [gpu_worker.py:360] Using V2 Model Runner
+(EngineCore pid=3850825) INFO 10-14 00:40:20 [model_runner.py:281] Loading model from scratch...
+(EngineCore pid=3850825) INFO 10-14 00:40:20 [cuda.py:476] Using FLASH_ATTN attention backend out of potential backends: ['FLASH_ATTN', 'TRITON_ATTN', 'FLEX_ATTENTION'].
+(EngineCore pid=3850825) INFO 10-14 00:40:20 [flash_attn.py:718] Using FlashAttention version 2
+(EngineCore pid=3850825) INFO 10-14 00:42:25 [weight_utils.py:530] Time spent downloading weights for aaditya/Llama3-OpenBioLLM-8B: 127.621133 seconds
+(EngineCore pid=3850825) Loading pt checkpoint shards:   0% Completed | 0/4 [00:00<?, ?it/s]
+(EngineCore pid=3850825) Loading pt checkpoint shards:  25% Completed | 1/4 [00:11<00:34, 11.34s/it]
+(EngineCore pid=3850825) Loading pt checkpoint shards:  50% Completed | 2/4 [00:24<00:24, 12.22s/it]
+(EngineCore pid=3850825) Loading pt checkpoint shards:  75% Completed | 3/4 [00:30<00:09,  9.69s/it]
+(EngineCore pid=3850825) Loading pt checkpoint shards: 100% Completed | 4/4 [00:31<00:00,  6.22s/it]
+(EngineCore pid=3850825) Loading pt checkpoint shards: 100% Completed | 4/4 [00:31<00:00,  7.94s/it]
+(EngineCore pid=3850825) 
+(EngineCore pid=3850825) INFO 10-14 00:42:57 [default_loader.py:430] Loading weights took 32.75 seconds
+(EngineCore pid=3850825) INFO 10-14 00:42:58 [model_runner.py:302] Model loading took 14.96 GiB and 162.456215 seconds
+(EngineCore pid=3850825) INFO 10-14 00:42:58 [topk_topp_sampler.py:39] FlashInfer top-p/top-k sampling disabled via VLLM_USE_FLASHINFER_SAMPLER=0.
+(EngineCore pid=3850825) INFO 10-14 00:43:02 [backends.py:1089] Using cache directory: /home/max/.cache/vllm/torch_compile_cache/38e2a2fea2/rank_0_0/backbone for vLLM's torch.compile
+(EngineCore pid=3850825) INFO 10-14 00:43:02 [backends.py:1148] Dynamo bytecode transform time: 4.18 s
+(EngineCore pid=3850825) INFO 10-14 00:43:04 [backends.py:378] Cache the graph of compile range (1, 8192) for later use
+(EngineCore pid=3850825) INFO 10-14 00:43:07 [backends.py:393] Compiling a graph for compile range (1, 8192) takes 5.29 s
+(EngineCore pid=3850825) INFO 10-14 00:43:09 [decorators.py:708] saved AOT compiled function to /home/max/.cache/vllm/torch_compile_cache/torch_aot_compile/32b8153c8b7c126190777a4461698358ab790ed08da27e6355ecf62304fb14fd/rank_0_0/model
+(EngineCore pid=3850825) INFO 10-14 00:43:09 [monitor.py:53] torch.compile took 11.51 s in total
+(EngineCore pid=3850825) INFO 10-14 00:43:10 [monitor.py:81] Initial profiling/warmup run took 1.41 s
+(EngineCore pid=3850825) INFO 10-14 00:43:11 [gpu_worker.py:538] Available KV cache memory: 4.96 GiB
+(EngineCore pid=3850825) INFO 10-14 00:43:11 [kv_cache_utils.py:2146] GPU KV cache size: 40,608 tokens
+(EngineCore pid=3850825) INFO 10-14 00:43:11 [kv_cache_utils.py:2147] Maximum concurrency for 4,096 tokens per request: 9.91x
+(EngineCore pid=3850825) INFO 10-14 00:43:11 [cutedsl_warmup.py:97] Skipping CuTeDSL warmup because no compile units were requested.
+(EngineCore pid=3850825) Capturing CUDA graphs (PIECEWISE):   0%|          | 0/51 [00:00<?, ?it/s]Capturing CUDA graphs (PIECEWISE):   4%|▍         | 2/51 [00:00<00:03, 13.42it/s]Capturing CUDA graphs (PIECEWISE):   8%|▊         | 4/51 [00:00<00:03, 14.45it/s]Capturing CUDA graphs (PIECEWISE):  12%|█▏        | 6/51 [00:00<00:03, 14.75it/s]Capturing CUDA graphs (PIECEWISE):  16%|█▌        | 8/51 [00:00<00:02, 15.16it/s]Capturing CUDA graphs (PIECEWISE):  20%|█▉        | 10/51 [00:00<00:02, 16.04it/s]Capturing CUDA graphs (PIECEWISE):  24%|██▎       | 12/51 [00:00<00:02, 16.67it/s]Capturing CUDA graphs (PIECEWISE):  27%|██▋       | 14/51 [00:00<00:02, 17.24it/s]Capturing CUDA graphs (PIECEWISE):  31%|███▏      | 16/51 [00:00<00:01, 17.59it/s]Capturing CUDA graphs (PIECEWISE):  37%|███▋      | 19/51 [00:01<00:01, 19.48it/s]Capturing CUDA graphs (PIECEWISE):  43%|████▎     | 22/51 [00:01<00:01, 20.47it/s]Capturing CUDA graphs (PIECEWISE):  49%|████▉     | 25/51 [00:01<00:01, 21.14it/s]Capturing CUDA graphs (PIECEWISE):  55%|█████▍    | 28/51 [00:01<00:01, 21.92it/s]Capturing CUDA graphs (PIECEWISE):  61%|██████    | 31/51 [00:01<00:00, 22.78it/s]Capturing CUDA graphs (PIECEWISE):  67%|██████▋   | 34/51 [00:01<00:00, 22.93it/s]Capturing CUDA graphs (PIECEWISE):  73%|███████▎  | 37/51 [00:01<00:00, 23.64it/s]Capturing CUDA graphs (PIECEWISE):  78%|███████▊  | 40/51 [00:01<00:00, 24.05it/s]Capturing CUDA graphs (PIECEWISE):  84%|████████▍ | 43/51 [00:02<00:00, 24.72it/s]Capturing CUDA graphs (PIECEWISE):  90%|█████████ | 46/51 [00:02<00:00, 25.28it/s]Capturing CUDA graphs (PIECEWISE):  96%|█████████▌| 49/51 [00:02<00:00, 25.87it/s]Capturing CUDA graphs (PIECEWISE): 100%|██████████| 51/51 [00:02<00:00, 21.22it/s]
+(EngineCore pid=3850825) Capturing CUDA graphs (FULL):   0%|          | 0/35 [00:00<?, ?it/s]Capturing CUDA graphs (FULL):   9%|▊         | 3/35 [00:00<00:01, 21.98it/s]Capturing CUDA graphs (FULL):  17%|█▋        | 6/35 [00:00<00:01, 23.07it/s]Capturing CUDA graphs (FULL):  26%|██▌       | 9/35 [00:00<00:01, 24.02it/s]Capturing CUDA graphs (FULL):  34%|███▍      | 12/35 [00:00<00:00, 24.97it/s]Capturing CUDA graphs (FULL):  43%|████▎     | 15/35 [00:00<00:00, 25.86it/s]Capturing CUDA graphs (FULL):  51%|█████▏    | 18/35 [00:00<00:00, 26.49it/s]Capturing CUDA graphs (FULL):  60%|██████    | 21/35 [00:00<00:00, 26.88it/s]Capturing CUDA graphs (FULL):  69%|██████▊   | 24/35 [00:00<00:00, 27.68it/s]Capturing CUDA graphs (FULL):  80%|████████  | 28/35 [00:01<00:00, 28.72it/s]Capturing CUDA graphs (FULL):  91%|█████████▏| 32/35 [00:01<00:00, 30.11it/s]Capturing CUDA graphs (FULL): 100%|██████████| 35/35 [00:01<00:00, 27.85it/s]
+(EngineCore pid=3850825) INFO 10-14 00:43:15 [model_runner.py:722] Graph capturing finished in 4 secs, took 0.55 GiB
+(EngineCore pid=3850825) INFO 10-14 00:43:24 [jit_monitor.py:73] Kernel JIT monitor activated; monitored JIT compilations during inference will use mode=warn.
+(EngineCore pid=3850825) INFO 10-14 00:43:25 [core.py:337] init engine (profile, create kv cache, warmup model) took 26.62 s (compilation: 11.51 s)
+(EngineCore pid=3850825) Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+(EngineCore pid=3850825) INFO 10-14 00:43:27 [vllm.py:1042] Asynchronous scheduling is enabled.
+(EngineCore pid=3850825) INFO 10-14 00:43:27 [kernel.py:292] Final IR op priority after setting platform defaults: IrOpPriorityConfig(rms_norm=['native'], fused_add_rms_norm=['native'])
+Rendering conversations:   0%|          | 0/10603 [00:00<?, ?it/s]INFO 10-14 00:43:31 [hf.py:548] Detected the chat template content format to be 'string'. You can set `--chat-template-content-format` to override this.
+Traceback (most recent call last):
+  File "/home/max/thesis/pilot/scripts/llm_temporal.py", line 139, in <module>
+    main()
+  File "/home/max/thesis/pilot/scripts/llm_temporal.py", line 135, in main
+    (generate if a.step == "generate" else score)(a)
+  File "/home/max/thesis/pilot/scripts/llm_temporal.py", line 61, in generate
+    outs = llm.chat(prompts, SamplingParams(temperature=0.0, max_tokens=a.max_tokens),
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/max/thesis/.venv/lib/python3.12/site-packages/vllm/entrypoints/llm.py", line 694, in chat
+    return self._run_chat(
+           ^^^^^^^^^^^^^^^
+  File "/home/max/thesis/.venv/lib/python3.12/site-packages/vllm/entrypoints/offline_utils.py", line 371, in _run_chat
+    self._add_chat_requests(
+  File "/home/max/thesis/.venv/lib/python3.12/site-packages/vllm/entrypoints/offline_utils.py", line 423, in _add_chat_requests
+    return self._render_and_add_requests(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/max/thesis/.venv/lib/python3.12/site-packages/vllm/entrypoints/offline_utils.py", line 548, in _render_and_add_requests
+    raise e
+  File "/home/max/thesis/.venv/lib/python3.12/site-packages/vllm/entrypoints/offline_utils.py", line 534, in _render_and_add_requests
+    for i, prompt in enumerate(prompts):
+  File "/home/max/thesis/.venv/lib/python3.12/site-packages/vllm/entrypoints/offline_utils.py", line 425, in <genexpr>
+    self._preprocess_chat_one(
+  File "/home/max/thesis/.venv/lib/python3.12/site-packages/vllm/entrypoints/offline_utils.py", line 228, in _preprocess_chat_one
+    (engine_input,) = self._preprocess_chat(
+                      ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/max/thesis/.venv/lib/python3.12/site-packages/vllm/entrypoints/offline_utils.py", line 207, in _preprocess_chat
+    _, engine_inputs = renderer.render_chat(
+                       ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/max/thesis/.venv/lib/python3.12/site-packages/vllm/renderers/base.py", line 1049, in render_chat
+    self.render_messages(conversation, chat_params)
+  File "/home/max/thesis/.venv/lib/python3.12/site-packages/vllm/renderers/hf.py", line 994, in render_messages
+    prompt_raw = safe_apply_chat_template(
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/max/thesis/.venv/lib/python3.12/site-packages/vllm/renderers/hf.py", line 725, in safe_apply_chat_template
+    raise ChatTemplateResolutionError(
+vllm.entrypoints.chat_utils.ChatTemplateResolutionError: As of transformers v4.44, default chat template is no longer allowed, so you must provide a chat template if the tokenizer does not define one.
+(EngineCore pid=3850825) INFO 10-14 00:43:31 [core.py:1214] [shutdown] EngineCore: trigger received signal=SIGTERM
+(EngineCore pid=3850825) INFO 10-14 00:43:31 [core.py:1333] [shutdown] EngineCore: start mode=abort timeout=0s
+(EngineCore pid=3850825) INFO 10-14 00:43:31 [core.py:1364] [shutdown] EngineCore: request processing complete; starting resource teardown
+(EngineCore pid=3850825) INFO 10-14 00:43:31 [core.py:1227] [shutdown] EngineCore: exiting busy loop
+WARNING 10-14 00:43:33 [core_client.py:702] [shutdown] MPClient: engine core exited unexpectedly; starting cleanup
+INFO 10-14 00:43:33 [core_client.py:655] [shutdown] MPClient: start timeout=default
+INFO 10-14 00:43:33 [core_client.py:657] [shutdown] MPClient: stopping engine manager
+INFO 10-14 00:43:33 [core_client.py:659] [shutdown] MPClient: engine manager stopped
+INFO 10-14 00:43:33 [core_client.py:660] [shutdown] MPClient: cleaning up background resources
+INFO 10-14 00:43:33 [core_client.py:662] [shutdown] MPClient: complete
+Rendering conversations:   0%|          | 0/10603 [00:06<?, ?it/s]

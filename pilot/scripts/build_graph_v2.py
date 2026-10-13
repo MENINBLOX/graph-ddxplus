@@ -78,6 +78,11 @@ def main() -> None:
     ap.add_argument("--exclude-tuis", default="T058,T059,T060,T061",
                     help="semantic types that are tests/procedures/health-care activities, not findings")
     ap.add_argument("--summary", default="pilot/cache/v2/graph_summary.json")
+    ap.add_argument("--max-year", type=int, default=0,
+                    help="keep only evidence from documents published in or before this year (0: all); "
+                         "documents without a year are dropped when set")
+    ap.add_argument("--no-mentions", action="store_true",
+                    help="skip Mention/Doc nodes (scoring-only graph; the provenance check is skipped)")
     a = ap.parse_args()
 
     uni = dict(v2_ids.universe())
@@ -94,10 +99,13 @@ def main() -> None:
     # Threshold fixed a priori from the corpus alone (no benchmark involved).
     use = defaultdict(int)
     title = {}
+    late = set()
     for f in glob.glob(f"{a.sources}/*.json"):
         for x in json.load(open(f))["docs"]:
             use[x["doc_id"]] += 1
             title[x["doc_id"]] = _norm(x.get("title") or "")
+            if a.max_year and not (str(x.get("year") or "").isdigit() and int(x["year"]) <= a.max_year):
+                late.add(x["doc_id"])
     generic = {d for d, n in use.items() if n >= a.max_doc_diseases}
     print(f"generic documents dropped (used by >= {a.max_doc_diseases} diseases): {len(generic)}", flush=True)
     mentions, docs_used = [], set()
@@ -109,7 +117,8 @@ def main() -> None:
         d = r["id"]
         for it in r.get("items", []):
             t = table.get(it["t"].lower().strip(), {})
-            if not t.get("cui") or it["doc"] in generic or d not in uni or t.get("tui") in excluded_tui:
+            if (not t.get("cui") or it["doc"] in generic or it["doc"] in late or d not in uni
+                    or t.get("tui") in excluded_tui):
                 continue
             c = t["cui"]
             if d not in forms:
@@ -133,7 +142,7 @@ def main() -> None:
     docs, src_chars = {}, {}
     for f in glob.glob(f"{a.sources}/*.json"):
         rec = json.load(open(f))
-        src_chars[rec["id"]] = sum(len(x["text"]) for x in rec["docs"])
+        src_chars[rec["id"]] = sum(len(x["text"]) for x in rec["docs"] if x["doc_id"] not in late)
         if rec["id"] in by_dz:
             text = {x["doc_id"]: x["text"] for x in rec["docs"]}
             for i in by_dz[rec["id"]]:
@@ -185,17 +194,19 @@ def main() -> None:
         run_batches(s, "UNWIND $rows AS r MERGE (c:Concept {cui: r.cui}) SET c.tui = r.tui, c.idf = r.idf",
                     [{"cui": c, "tui": tui.get(c, ""),
                       "idf": math.log(n_dz / df[c]) if df.get(c) else None} for c in cuis], "Concept")
-        run_batches(s, "UNWIND $rows AS r MERGE (x:Doc {id: r.id}) SET x += r.meta",
-                    [{"id": k, "meta": v} for k, v in docs.items()], "Doc")
+        if not a.no_mentions:
+            run_batches(s, "UNWIND $rows AS r MERGE (x:Doc {id: r.id}) SET x += r.meta",
+                        [{"id": k, "meta": v} for k, v in docs.items()], "Doc")
         run_batches(s, "UNWIND $rows AS r MATCH (d:Disease {id: r.d}), (c:Concept {cui: r.c}) "
                        "MERGE (d)-[e:HAS_FINDING]->(c) SET e.n_mentions = r.n, e.n_docs = r.nd, "
                        "e.n_topic_docs = r.nt",
                     [{"d": d, "c": c, "n": v[0], "nd": len(v[1]), "nt": len(v[2])} for (d, c), v in edge.items()],
                     "HAS_FINDING")
-        run_batches(s, "UNWIND $rows AS r MATCH (d:Disease {id: r.d}), (c:Concept {cui: r.c}), "
-                       "(x:Doc {id: r.doc}) CREATE (m:Mention {phrase: r.phrase, sentence: r.sent, topic: r.topic}) "
-                       "CREATE (m)-[:OF]->(d), (m)-[:MENTIONS]->(c), (m)-[:FROM]->(x)",
-                    mentions, "Mention")
+        if not a.no_mentions:
+            run_batches(s, "UNWIND $rows AS r MATCH (d:Disease {id: r.d}), (c:Concept {cui: r.c}), "
+                           "(x:Doc {id: r.doc}) CREATE (m:Mention {phrase: r.phrase, sentence: r.sent, topic: r.topic}) "
+                           "CREATE (m)-[:OF]->(d), (m)-[:MENTIONS]->(c), (m)-[:FROM]->(x)",
+                        mentions, "Mention")
         run_batches(s, "UNWIND $rows AS r MATCH (c:Concept {cui: r.c}), (p:Concept {cui: r.p}) "
                        "MERGE (c)-[:IS_A]->(p)", isa_c, "Concept IS_A")
         run_batches(s, "UNWIND $rows AS r MATCH (c:Disease {id: r.c}), (p:Disease {id: r.p}) "
@@ -205,9 +216,9 @@ def main() -> None:
                        "MERGE (c)-[:IS_DISEASE]->(d)",
                     [{"id": c} for c in cuis if c in uni], "IS_DISEASE")
         # Provenance invariant (module docstring): every scoring edge is backed by a Mention.
-        orphan = s.run("MATCH (d:Disease)-[e:HAS_FINDING]->(c) WHERE NOT EXISTS { "
-                       "MATCH (m:Mention)-[:OF]->(d) WHERE (m)-[:MENTIONS]->(c) } "
-                       "RETURN count(e) AS n").single()["n"]
+        orphan = 0 if a.no_mentions else s.run(
+            "MATCH (d:Disease)-[e:HAS_FINDING]->(c) WHERE NOT EXISTS { "
+            "MATCH (m:Mention)-[:OF]->(d) WHERE (m)-[:MENTIONS]->(c) } RETURN count(e) AS n").single()["n"]
         n_dz = s.run("MATCH (d:Disease) RETURN count(d) AS n").single()["n"]
         if orphan or n_dz != len(uni):
             sys.exit(f"graph check failed: {orphan} edges without Mention, {n_dz} Disease nodes vs {len(uni)}")
