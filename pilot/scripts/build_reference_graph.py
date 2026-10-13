@@ -86,7 +86,10 @@ def main() -> None:
     ap.add_argument("--source", choices=["hpoa", "primekg", "cooc"], required=True)
     ap.add_argument("--uri", default="bolt://localhost:7688")
     ap.add_argument("--auth", default=os.environ.get("NEO4J_AUTH", "neo4j/thesis-dev-only"))
+    ap.add_argument("--hpoa", default=CA.HPOA, help="phenotype.hpoa file (e.g. a historical release)")
+    ap.add_argument("--summary", default="")
     a = ap.parse_args()
+    CA.HPOA = a.hpoa
     uni = dict(v2_ids.universe())
     for k in json.load(open(f"{V2}/exclude_nonhuman_diseases.json")):
         uni.pop(k, None)
@@ -135,7 +138,7 @@ def main() -> None:
             sys.exit(f"graph check failed: {n} Disease nodes vs {len(uni)}")
     drv.close()
     json.dump({"source": a.source, "edges": len(edge), "diseases_with_findings": len(prof),
-               "concepts": len(df)}, open(f"{V2}/refgraph_{a.source}_summary.json", "w"), indent=1)
+               "concepts": len(df)}, open(a.summary or f"{V2}/refgraph_{a.source}_summary.json", "w"), indent=1)
     print("done", flush=True)
 
 

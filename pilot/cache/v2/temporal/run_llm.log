@@ -1,0 +1,9 @@
+Qwen/Qwen2.5-7B-Instruct: n=10603 @1 5.7 @10 9.4 name map rate 0.84
+Qwen/Qwen3-4B-Instruct-2507: n=10603 @1 6.5 @10 10.2 name map rate 0.72
+microsoft/Phi-3.5-mini-instruct: n=10603 @1 4.9 @10 8.2 name map rate 0.85
+openbiollm8b generate failed
+m42-health/Llama3-Med42-8B: n=10603 @1 8.5 @10 13.9 name map rate 0.84
+google/medgemma-4b-it: n=10603 @1 5.2 @10 7.6 name map rate 0.65
+google/gemma-4-E4B-it: n=10603 @1 6.1 @10 8.3 name map rate 0.78
+gemma4_12b generate failed
+Qwen/Qwen2.5-14B-Instruct: n=10603 @1 6.2 @10 11.6 name map rate 0.91
