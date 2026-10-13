@@ -1,0 +1,56 @@
+{
+ "label": "T4 graph vs fusion",
+ "k": 10,
+ "A": "pilot/cache/v2/confirmD/gemma_1hop.json",
+ "B": "pilot/cache/v2/confirmD/fuse_test.json",
+ "rows": [
+  {
+   "bench": "Confirm-DDXPlus",
+   "n": 3000,
+   "A@10": 35.17,
+   "B@10": 37.83,
+   "diff": 2.67,
+   "ci": [
+    1.47,
+    3.77
+   ],
+   "only_A": 115,
+   "only_B": 195,
+   "p": 6.466435927750907e-06,
+   "p_holm": 1.2932871855501813e-05
+  },
+  {
+   "bench": "Confirm-Phenopacket-new",
+   "n": 261,
+   "A@10": 9.2,
+   "B@10": 12.26,
+   "diff": 3.07,
+   "ci": [
+    0.77,
+    5.75
+   ],
+   "only_A": 1,
+   "only_B": 9,
+   "p": 0.021484375,
+   "p_holm": 0.021484375
+  },
+  {
+   "bench": "Confirm-SymCat",
+   "n": 7482,
+   "A@10": 11.09,
+   "B@10": 13.37,
+   "diff": 2.27,
+   "ci": [
+    1.82,
+    2.73
+   ],
+   "only_A": 61,
+   "only_B": 231,
+   "p": 1.9162856950591606e-24,
+   "p_holm": 5.748857085177481e-24
+  }
+ ],
+ "B_better": 3,
+ "A_better": 0,
+ "sign_test_p": 0.25
+}

@@ -1,0 +1,3 @@
+Confirm-DDXPlus      n=  3000 | lineage @1   4.1 @3   6.8 @10  11.2 | strict @1   0.0 @3   0.5 @10   1.2 | 2s
+Confirm-Phenopacket-new n=   261 | lineage @1  10.7 @3  16.5 @10  23.8 | strict @1  10.3 @3  16.1 @10  23.8 | 0s
+Confirm-SymCat       n=  7482 | lineage @1   2.2 @3   3.6 @10   6.6 | strict @1   0.4 @3   0.6 @10   1.2 | 4s
