@@ -1,0 +1,56 @@
+{
+ "label": "T1 BM25 vs graph",
+ "k": 10,
+ "A": "pilot/cache/v2/confirmD/bm25.json",
+ "B": "pilot/cache/v2/confirmD/gemma_1hop.json",
+ "rows": [
+  {
+   "bench": "Confirm-DDXPlus",
+   "n": 3000,
+   "A@10": 28.03,
+   "B@10": 35.17,
+   "diff": 7.13,
+   "ci": [
+    5.03,
+    9.13
+   ],
+   "only_A": 346,
+   "only_B": 560,
+   "p": 1.1684532273939542e-12,
+   "p_holm": 3.5053596821818625e-12
+  },
+  {
+   "bench": "Confirm-Phenopacket-new",
+   "n": 261,
+   "A@10": 9.2,
+   "B@10": 9.2,
+   "diff": 0.0,
+   "ci": [
+    -4.21,
+    3.83
+   ],
+   "only_A": 14,
+   "only_B": 14,
+   "p": 1.0,
+   "p_holm": 1.0
+  },
+  {
+   "bench": "Confirm-SymCat",
+   "n": 7482,
+   "A@10": 10.92,
+   "B@10": 11.09,
+   "diff": 0.17,
+   "ci": [
+    -0.56,
+    0.96
+   ],
+   "only_A": 433,
+   "only_B": 446,
+   "p": 0.6856849529007049,
+   "p_holm": 1.0
+  }
+ ],
+ "B_better": 2,
+ "A_better": 0,
+ "sign_test_p": 0.5
+}

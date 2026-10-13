@@ -1,0 +1,4 @@
+concepts 1346, named 1340
+Confirm-DDXPlus      n=  3000 | lineage @1  14.9 @3  21.0 @10  37.8 | strict @1   5.5 @3  10.8 @10  25.0 | 98s
+Confirm-Phenopacket-new n=   261 | lineage @1   1.9 @3   5.4 @10  12.3 | strict @1   1.9 @3   5.4 @10  12.3 | 16s
+Confirm-SymCat       n=  7482 | lineage @1   3.7 @3   7.3 @10  13.4 | strict @1   1.7 @3   3.7 @10   6.9 | 127s

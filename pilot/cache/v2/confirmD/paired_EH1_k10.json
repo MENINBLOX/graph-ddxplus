@@ -1,0 +1,56 @@
+{
+ "label": "E-H1 1-hop vs PPR",
+ "k": 10,
+ "A": "pilot/cache/v2/confirmD/gemma_1hop.json",
+ "B": "pilot/cache/v2/confirmD/ppr_gemma.json",
+ "rows": [
+  {
+   "bench": "Confirm-DDXPlus",
+   "n": 3000,
+   "A@10": 35.17,
+   "B@10": 19.37,
+   "diff": -15.8,
+   "ci": [
+    -17.3,
+    -14.33
+   ],
+   "only_A": 530,
+   "only_B": 56,
+   "p": 8.259845286584839e-98,
+   "p_holm": 2.4779535859754515e-97
+  },
+  {
+   "bench": "Confirm-Phenopacket-new",
+   "n": 261,
+   "A@10": 9.2,
+   "B@10": 7.66,
+   "diff": -1.53,
+   "ci": [
+    -4.6,
+    1.53
+   ],
+   "only_A": 11,
+   "only_B": 7,
+   "p": 0.480682373046875,
+   "p_holm": 0.480682373046875
+  },
+  {
+   "bench": "Confirm-SymCat",
+   "n": 7482,
+   "A@10": 11.09,
+   "B@10": 9.49,
+   "diff": -1.6,
+   "ci": [
+    -2.22,
+    -0.96
+   ],
+   "only_A": 349,
+   "only_B": 229,
+   "p": 6.807364431731687e-07,
+   "p_holm": 1.3614728863463375e-06
+  }
+ ],
+ "B_better": 0,
+ "A_better": 3,
+ "sign_test_p": 0.25
+}
