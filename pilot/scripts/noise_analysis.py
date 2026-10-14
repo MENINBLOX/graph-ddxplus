@@ -26,7 +26,7 @@ def main() -> None:
     a = ap.parse_args()
     cite = hpoa_citations(TAG)
     runs = {"r0": json.load(open(BASE))["rows"]}
-    for f in sorted(glob.glob("pilot/cache/v2/noise/r*_s*.json")):
+    for f in sorted(glob.glob("pilot/cache/v2/noise/[rk]*_s*.json")):
         if not f.endswith("_summary.json"):
             runs[f.rsplit("/", 1)[1][:-5]] = json.load(open(f))["rows"]
     res = {}

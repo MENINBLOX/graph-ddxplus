@@ -15,6 +15,8 @@ identical Cypher query. There are no Mention nodes: these sources carry no sente
 --noise R adds R wrong edges per true edge with the error mix the provenance audit found in the
 literature graph (§9.25): 70% findings of a related disease (sibling under a shared parent, else a
 random disease), 30% concepts from the IE vocabulary that are not findings of the disease.
+--keep P first keeps each true edge with probability P (recall); noise is then added relative to
+the kept edges, so --keep and --noise together simulate a graph of given recall and precision.
 """
 from __future__ import annotations
 
@@ -120,6 +122,7 @@ def main() -> None:
     ap.add_argument("--hpoa", default=CA.HPOA, help="phenotype.hpoa file (e.g. a historical release)")
     ap.add_argument("--summary", default="")
     ap.add_argument("--noise", type=float, default=0.0, help="wrong edges added per true edge")
+    ap.add_argument("--keep", type=float, default=1.0, help="share of true edges kept")
     ap.add_argument("--seed", type=int, default=0)
     a = ap.parse_args()
     CA.HPOA = a.hpoa
@@ -127,6 +130,9 @@ def main() -> None:
     for k in json.load(open(f"{V2}/exclude_nonhuman_diseases.json")):
         uni.pop(k, None)
     edge = {"hpoa": pairs_hpoa, "primekg": pairs_primekg, "cooc": pairs_cooc}[a.source](uni)
+    if a.keep < 1:
+        rng = random.Random(a.seed)
+        edge = {e: n for e, n in sorted(edge.items()) if rng.random() < a.keep}
     if a.noise:
         edge = add_noise(edge, a.noise, a.seed)
     prof = defaultdict(set)
