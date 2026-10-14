@@ -16,10 +16,8 @@ universe, same generic-document filter, configuration chosen on DDXPlus validate
 from __future__ import annotations
 
 import argparse
-import glob
 import json
 import os
-import re
 import sys
 from collections import defaultdict
 
@@ -50,31 +48,37 @@ def chunks_of(text: str) -> list[str]:
     return [c for c in out if len(c) > 50]
 
 
-def build_corpus() -> None:
+def build_corpus(sources: str) -> None:
+    """Two passes over the sources, so only the chunk-to-document map stays in memory: the first
+    links documents to diseases, the second streams each kept document's chunks to disk."""
+    from build_graph_v2 import iter_sources
     uni = set(v2_ids.universe()) - set(json.load(open(EXCLUDED)))
-    use, links, text, title = defaultdict(int), defaultdict(set), {}, {}
-    for f in glob.glob(f"{V2}/sources/*.json"):
-        rec = json.load(open(f))
-        for x in rec["docs"]:
+    use, links, title = defaultdict(int), defaultdict(set), {}
+    for dz, dz_docs in iter_sources(sources):
+        for x in dz_docs:
             use[x["doc_id"]] += 1
-            if rec["id"] in uni:
-                links[x["doc_id"]].add(rec["id"])
-                text.setdefault(x["doc_id"], x["text"])
+            if dz in uni:
+                links[x["doc_id"]].add(dz)
                 title.setdefault(x["doc_id"], x.get("title") or "")
     docs = sorted(d for d in links if use[d] < MAX_DOC_DISEASES)
-    chunk_doc, chunk_text = [], []
-    for i, d in enumerate(docs):
-        for c in chunks_of(text[d]):
-            chunk_doc.append(i)
-            chunk_text.append(c)
+    idx = {d: i for i, d in enumerate(docs)}
     os.makedirs(OUT, exist_ok=True)
+    chunk_doc, written = [], set()
+    with open(f"{OUT}/chunks.jsonl", "w") as fo:
+        for dz, dz_docs in iter_sources(sources):
+            if dz not in uni:
+                continue
+            for x in dz_docs:
+                d = x["doc_id"]
+                if d in idx and d not in written:
+                    written.add(d)
+                    for c in chunks_of(x["text"]):
+                        chunk_doc.append(idx[d])
+                        fo.write(json.dumps(c) + "\n")
     json.dump({"docs": docs, "titles": [title[d] for d in docs],
                "doc_diseases": [sorted(links[d]) for d in docs]}, open(f"{OUT}/docs.json", "w"))
     np.save(f"{OUT}/chunk_doc.npy", np.array(chunk_doc, dtype=np.int32))
-    with open(f"{OUT}/chunks.jsonl", "w") as fo:
-        for c in chunk_text:
-            fo.write(json.dumps(c) + "\n")
-    print(f"docs {len(docs)}, chunks {len(chunk_text)}", flush=True)
+    print(f"docs {len(docs)}, chunks {len(chunk_doc)}", flush=True)
 
 
 def load_chunks() -> list[str]:
@@ -257,6 +261,7 @@ def benches(names: list[str], ddx_n: int) -> dict:
 
 
 def main() -> None:
+    global OUT
     ap = argparse.ArgumentParser()
     ap.add_argument("step", choices=["build", "bm25", "medcpt", "tune", "test", "fuse_tune", "fuse_test"])
     ap.add_argument("--graph_cfg", default="pilot/cache/v2/eval_qwen3_v21/tune.json")
@@ -269,9 +274,12 @@ def main() -> None:
     ap.add_argument("--boot", type=int, default=1000)
     ap.add_argument("--out", default="")
     ap.add_argument("--auth", default=os.environ.get("NEO4J_AUTH", "neo4j/thesis-dev-only"))
+    ap.add_argument("--sources", default=f"{V2}/sources", help="as build_graph_v2.py --sources")
+    ap.add_argument("--index", default=OUT, help="directory of the chunk corpus and indexes")
     a = ap.parse_args()
+    OUT = a.index
     if a.step == "build":
-        build_corpus()
+        build_corpus(a.sources)
         return
     if a.step == "bm25":
         build_bm25()

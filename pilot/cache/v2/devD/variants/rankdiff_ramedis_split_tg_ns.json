@@ -1,0 +1,5159 @@
+{
+ "bench": "RareBench-RAMEDIS",
+ "k": 1,
+ "lost": 78,
+ "won": 19,
+ "new_top_diseases": [
+  [
+   "C4538664",
+   "Acute liver failure, transient",
+   47
+  ],
+  [
+   "C1879362",
+   "Hypertyrosinemia",
+   11
+  ],
+  [
+   "C0268483",
+   "Tyrosinemias",
+   4
+  ],
+  [
+   "C2711053",
+   "Non-celiac gluten sensitivity",
+   3
+  ],
+  [
+   "C1846058",
+   "Lubs X-linked mental retardation syndrome",
+   2
+  ],
+  [
+   "MONDO:0019052",
+   "inborn errors of metabolism",
+   2
+  ],
+  [
+   "C0220994",
+   "Hyperammonemia (disorder)",
+   1
+  ],
+  [
+   "C0149841",
+   "Benign recurrent intrahepatic cholestasis",
+   1
+  ],
+  [
+   "C0019572",
+   "Hirsutism",
+   1
+  ],
+  [
+   "MONDO:0010730",
+   "combined immunodeficiency, X-linked",
+   1
+  ],
+  [
+   "C5979921",
+   "Joubert syndrome",
+   1
+  ],
+  [
+   "MONDO:0100371",
+   "acute hepatitis C virus infection",
+   1
+  ],
+  [
+   "C0265286",
+   "Dyggve-Melchior-Clausen syndrome",
+   1
+  ],
+  [
+   "C0016436",
+   "Folliculitis",
+   1
+  ],
+  [
+   "C0036391",
+   "Schwartz-Jampel Syndrome",
+   1
+  ]
+ ],
+ "cases": [
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C4538664",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C4538664",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4023368",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C4538664",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C4538664",
+   "ev": [
+    "C0549159",
+    "C0751435",
+    "C1837066",
+    "C1843392",
+    "C1879362"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 8,
+   "new_top": "C0268483",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1854301",
+    "C1858120",
+    "C1879362",
+    "C4025797",
+    "C4551649"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C0268483",
+    "name": "Tyrosinemias",
+    "n_findings": 125,
+    "src_chars": 121609,
+    "sum": 0,
+    "denom": 5.62,
+    "score": 0.0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C0268483",
+    "name": "Tyrosinemias",
+    "n_findings": 172,
+    "src_chars": 121609,
+    "sum": 17.19,
+    "denom": 6.28,
+    "score": 2.737,
+    "concepts": {
+     "C1879362": 11.35,
+     "C1854301": 3.57,
+     "C0002514": 2.27
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 8,
+   "new_top": "C4538664",
+   "ev": [
+    "C0025362",
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1879362",
+    "C4023368",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0175694",
+   "pos_a": 1,
+   "pos_b": 2,
+   "new_top": "C1846058",
+   "ev": [
+    "C0005745",
+    "C0009806",
+    "C0010417",
+    "C0013144",
+    "C0013421",
+    "C0013595",
+    "C0020490",
+    "C0023380",
+    "C0025362",
+    "C0037317",
+    "C0038379",
+    "C0039075",
+    "C0042963",
+    "C0151718",
+    "C0232466",
+    "C0239234",
+    "C0242184",
+    "C0410916",
+    "C0549159",
+    "C0848558",
+    "C1837066",
+    "C1840013",
+    "C1843392",
+    "C1849185",
+    "C1854301",
+    "C1858120",
+    "C3874334",
+    "C4551563",
+    "C5779628"
+   ],
+   "gold_a": {
+    "id": "C0175694",
+    "name": "Smith-Lemli-Opitz Syndrome",
+    "n_findings": 108,
+    "src_chars": 76923,
+    "sum": 39.22,
+    "denom": 5.45,
+    "score": 7.194,
+    "concepts": {
+     "C1849185": 10.21,
+     "C0848558": 6.33,
+     "C0005745": 6.27,
+     "C0010417": 3.8,
+     "C0239234": 3.44,
+     "C0232466": 3.05,
+     "C0009806": 2.91,
+     "C0042963": 2.22,
+     "C0000768": 0.98
+    }
+   },
+   "gold_b": {
+    "id": "C0175694",
+    "name": "Smith-Lemli-Opitz Syndrome",
+    "n_findings": 131,
+    "src_chars": 76923,
+    "sum": 46.11,
+    "denom": 5.87,
+    "score": 7.855,
+    "concepts": {
+     "C1849185": 10.22,
+     "C4551563": 6.38,
+     "C0848558": 6.1,
+     "C0005745": 5.65,
+     "C0010417": 3.52,
+     "C0239234": 3.35,
+     "C0232466": 2.92,
+     "C0009806": 2.76,
+     "C0025362": 2.47,
+     "C0042963": 1.86,
+     "C0000768": 0.88
+    }
+   },
+   "top_a": {
+    "id": "C1846058",
+    "name": "Lubs X-linked mental retardation syndrome",
+    "n_findings": 143,
+    "src_chars": 75802,
+    "sum": 30.79,
+    "denom": 5.94,
+    "score": 5.185,
+    "concepts": {
+     "C0239234": 5.96,
+     "C0009806": 5.83,
+     "C0010417": 5.37,
+     "C0020490": 4.73,
+     "C0038379": 4.58,
+     "C0232466": 4.31,
+     "C0025362": 0.0,
+     "C0848558": 0.0
+    }
+   },
+   "top_b": {
+    "id": "C1846058",
+    "name": "Lubs X-linked mental retardation syndrome",
+    "n_findings": 208,
+    "src_chars": 75802,
+    "sum": 56.67,
+    "denom": 6.75,
+    "score": 8.393,
+    "concepts": {
+     "C0549159": 6.37,
+     "C0239234": 5.81,
+     "C4551563": 5.71,
+     "C0009806": 5.52,
+     "C0010417": 4.98,
+     "C0025362": 4.93,
+     "C0020490": 4.4,
+     "C0038379": 4.38,
+     "C0848558": 4.31,
+     "C0232466": 4.13,
+     "C0013421": 3.39,
+     "C0042963": 1.86,
+     "C0000768": 0.88
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C1879362",
+   "ev": [
+    "C0751435",
+    "C1879362",
+    "C4022012"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "src_chars": 50771,
+    "sum": 0,
+    "denom": 5.39,
+    "score": 0.0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 126,
+    "src_chars": 50771,
+    "sum": 2.27,
+    "denom": 5.91,
+    "score": 0.385,
+    "concepts": {
+     "C0002514": 2.27
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 6,
+   "new_top": "C4538664",
+   "ev": [
+    "C0015967",
+    "C0241012",
+    "C0549159",
+    "C0751435",
+    "C1837066",
+    "C1843392",
+    "C1879362",
+    "C4022413",
+    "C4023368",
+    "C4023814"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 10.14,
+    "denom": 5.75,
+    "score": 1.762,
+    "concepts": {
+     "C0549159": 7.22,
+     "C0015967": 2.92
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 16.95,
+    "denom": 6.5,
+    "score": 2.608,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37,
+     "C0015967": 2.55
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C4538664",
+   "ev": [
+    "C0549159",
+    "C0751435",
+    "C1837066",
+    "C1843392",
+    "C1879362",
+    "C4022413"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C1855995",
+   "pos_a": 1,
+   "pos_b": 4,
+   "new_top": "C0220994",
+   "ev": [
+    "C0025362",
+    "C0151889",
+    "C1843392",
+    "C1857704",
+    "C1858120",
+    "C3888081",
+    "C4021762",
+    "C5574662"
+   ],
+   "gold_a": {
+    "id": "C1855995",
+    "name": "L-2-HYDROXYGLUTARIC ACIDURIA",
+    "n_findings": 104,
+    "src_chars": 92202,
+    "sum": 15.37,
+    "denom": 5.36,
+    "score": 2.871,
+    "concepts": {
+     "C0025362": 5.27,
+     "C1858120": 4.39,
+     "C0151889": 4.1,
+     "C0027765": 1.61
+    }
+   },
+   "gold_b": {
+    "id": "C1855995",
+    "name": "L-2-HYDROXYGLUTARIC ACIDURIA",
+    "n_findings": 143,
+    "src_chars": 92202,
+    "sum": 15.66,
+    "denom": 5.98,
+    "score": 2.617,
+    "concepts": {
+     "C0025362": 6.04,
+     "C1858120": 4.31,
+     "C0151889": 3.8,
+     "C0027765": 1.5
+    }
+   },
+   "top_a": {
+    "id": "C0220994",
+    "name": "Hyperammonemia (disorder)",
+    "n_findings": 70,
+    "src_chars": 55573,
+    "sum": 4.1,
+    "denom": 4.9,
+    "score": 0.836,
+    "concepts": {
+     "C0151889": 4.1
+    }
+   },
+   "top_b": {
+    "id": "C0220994",
+    "name": "Hyperammonemia (disorder)",
+    "n_findings": 90,
+    "src_chars": 55573,
+    "sum": 14.95,
+    "denom": 5.38,
+    "score": 2.781,
+    "concepts": {
+     "C5574662": 8.68,
+     "C0151889": 3.8,
+     "C0025362": 2.47
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C4538664",
+   "ev": [
+    "C0023012",
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4022012",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 4,
+   "new_top": "C4538664",
+   "ev": [
+    "C0023012",
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1858120",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C4538664",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C4538664",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1879362",
+    "C4022012",
+    "C4022413",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C4538664",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C4538664",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1879362",
+    "C4023368",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C4538664",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C4538664",
+   "ev": [
+    "C0549159",
+    "C0751435",
+    "C1837066",
+    "C1843392",
+    "C1879362",
+    "C4023368"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C4538664",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 4,
+   "new_top": "C4538664",
+   "ev": [
+    "C0019270",
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C4538664",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C4538664",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C4538664",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C4538664",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C1879362",
+   "ev": [
+    "C0751435",
+    "C1843392",
+    "C1879362"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "src_chars": 50771,
+    "sum": 0,
+    "denom": 5.39,
+    "score": 0.0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 126,
+    "src_chars": 50771,
+    "sum": 2.27,
+    "denom": 5.91,
+    "score": 0.385,
+    "concepts": {
+     "C0002514": 2.27
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C1879362",
+   "ev": [
+    "C0751435",
+    "C1879362",
+    "C4022012"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "src_chars": 50771,
+    "sum": 0,
+    "denom": 5.39,
+    "score": 0.0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 126,
+    "src_chars": 50771,
+    "sum": 2.27,
+    "denom": 5.91,
+    "score": 0.385,
+    "concepts": {
+     "C0002514": 2.27
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C4538664",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C4538664",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4022413",
+    "C4023368",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0031485",
+   "pos_a": 1,
+   "pos_b": 9,
+   "new_top": "C2711053",
+   "ev": [
+    "C0013595",
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4022413",
+    "C4025797",
+    "C5779628"
+   ],
+   "gold_a": {
+    "id": "C0031485",
+    "name": "Phenylketonurias",
+    "n_findings": 44,
+    "src_chars": 47944,
+    "sum": 6.57,
+    "denom": 4.42,
+    "score": 1.487,
+    "concepts": {
+     "C0013595": 4.58,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0031485",
+    "name": "Phenylketonurias",
+    "n_findings": 77,
+    "src_chars": 47944,
+    "sum": 4.27,
+    "denom": 5.22,
+    "score": 0.819,
+    "concepts": {
+     "C0013595": 4.27
+    }
+   },
+   "top_a": {
+    "id": "C2711053",
+    "name": "Non-celiac gluten sensitivity",
+    "n_findings": 79,
+    "src_chars": 133041,
+    "sum": 0,
+    "denom": 4.86,
+    "score": 0.0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C2711053",
+    "name": "Non-celiac gluten sensitivity",
+    "n_findings": 113,
+    "src_chars": 133041,
+    "sum": 14.63,
+    "denom": 5.5,
+    "score": 2.661,
+    "concepts": {
+     "C5779628": 8.59,
+     "C0013595": 6.04
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 2,
+   "new_top": "C0149841",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0741494",
+    "C0751435",
+    "C1843392",
+    "C4022413",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C0149841",
+    "name": "Benign recurrent intrahepatic cholestasis",
+    "n_findings": 28,
+    "src_chars": 72758,
+    "sum": 8.73,
+    "denom": 3.87,
+    "score": 2.254,
+    "concepts": {
+     "C0741494": 8.73
+    }
+   },
+   "top_b": {
+    "id": "C0149841",
+    "name": "Benign recurrent intrahepatic cholestasis",
+    "n_findings": 35,
+    "src_chars": 72758,
+    "sum": 8.55,
+    "denom": 4.24,
+    "score": 2.017,
+    "concepts": {
+     "C0741494": 8.55
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C4538664",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1879362",
+    "C4022413",
+    "C4023368",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C4538664",
+   "ev": [
+    "C0241012",
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0268631",
+   "pos_a": 1,
+   "pos_b": 2,
+   "new_top": "C1846058",
+   "ev": [
+    "C0014544",
+    "C0023012",
+    "C0239067",
+    "C0311394",
+    "C0424295",
+    "C0549159",
+    "C0560346",
+    "C1843392",
+    "C1858120",
+    "C4022413"
+   ],
+   "gold_a": {
+    "id": "C0268631",
+    "name": "succinic semialdehyde dehydrogenase deficiency",
+    "n_findings": 86,
+    "src_chars": 105899,
+    "sum": 17.52,
+    "denom": 5.03,
+    "score": 3.48,
+    "concepts": {
+     "C0424295": 5.94,
+     "C0014544": 5.81,
+     "C1858120": 4.39,
+     "C0013384": 1.38
+    }
+   },
+   "gold_b": {
+    "id": "C0268631",
+    "name": "succinic semialdehyde dehydrogenase deficiency",
+    "n_findings": 115,
+    "src_chars": 105899,
+    "sum": 20.06,
+    "denom": 5.58,
+    "score": 3.597,
+    "concepts": {
+     "C0424295": 5.29,
+     "C0014544": 5.26,
+     "C1858120": 4.31,
+     "C0023012": 3.37,
+     "C0013384": 1.83
+    }
+   },
+   "top_a": {
+    "id": "C1846058",
+    "name": "Lubs X-linked mental retardation syndrome",
+    "n_findings": 143,
+    "src_chars": 75802,
+    "sum": 14.42,
+    "denom": 5.94,
+    "score": 2.428,
+    "concepts": {
+     "C0239067": 5.94,
+     "C0424295": 4.2,
+     "C0014544": 2.9,
+     "C0013384": 1.38
+    }
+   },
+   "top_b": {
+    "id": "C1846058",
+    "name": "Lubs X-linked mental retardation syndrome",
+    "n_findings": 208,
+    "src_chars": 75802,
+    "sum": 27.63,
+    "denom": 6.75,
+    "score": 4.092,
+    "concepts": {
+     "C0549159": 6.37,
+     "C0239067": 5.93,
+     "C0424295": 5.29,
+     "C0023012": 4.77,
+     "C0014544": 3.98,
+     "C0013384": 1.29
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C4538664",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1879362",
+    "C4022012",
+    "C4022413",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C1879362",
+   "ev": [
+    "C0751435",
+    "C1843392",
+    "C1879362"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "src_chars": 50771,
+    "sum": 0,
+    "denom": 5.39,
+    "score": 0.0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 126,
+    "src_chars": 50771,
+    "sum": 2.27,
+    "denom": 5.91,
+    "score": 0.385,
+    "concepts": {
+     "C0002514": 2.27
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C4538664",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": null,
+   "new_top": "C0268483",
+   "ev": [
+    "C0023012",
+    "C0025362",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1854301",
+    "C1879362",
+    "C4023368",
+    "C4023814"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C0268483",
+    "name": "Tyrosinemias",
+    "n_findings": 125,
+    "src_chars": 121609,
+    "sum": 0,
+    "denom": 5.62,
+    "score": 0.0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C0268483",
+    "name": "Tyrosinemias",
+    "n_findings": 172,
+    "src_chars": 121609,
+    "sum": 17.19,
+    "denom": 6.28,
+    "score": 2.737,
+    "concepts": {
+     "C1879362": 11.35,
+     "C1854301": 3.57,
+     "C0002514": 2.27
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C4538664",
+   "ev": [
+    "C0023012",
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C4538664",
+   "ev": [
+    "C0241012",
+    "C0549159",
+    "C0751435",
+    "C1837066",
+    "C1843392",
+    "C1879362",
+    "C4022413",
+    "C4023368",
+    "C4023814"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0268151",
+   "pos_a": 1,
+   "pos_b": null,
+   "new_top": "MONDO:0019052",
+   "ev": [
+    "C0016952",
+    "C0023012",
+    "C0026838",
+    "C0232466",
+    "C0240671",
+    "C0410916",
+    "C0549159",
+    "C1843392",
+    "C4023654",
+    "C4025351",
+    "C4025797",
+    "C5139044",
+    "C5574662"
+   ],
+   "gold_a": {
+    "id": "C0268151",
+    "name": "Classical galactosemia",
+    "n_findings": 37,
+    "src_chars": 46174,
+    "sum": 10.56,
+    "denom": 4.27,
+    "score": 2.472,
+    "concepts": {
+     "C0023012": 4.64,
+     "C0232466": 4.31,
+     "C0027765": 1.61
+    }
+   },
+   "gold_b": {
+    "id": "C0268151",
+    "name": "Classical galactosemia",
+    "n_findings": 51,
+    "src_chars": 46174,
+    "sum": 9.01,
+    "denom": 4.77,
+    "score": 1.888,
+    "concepts": {
+     "C0232466": 4.13,
+     "C0023012": 3.37,
+     "C0027765": 1.5
+    }
+   },
+   "top_a": {
+    "id": "MONDO:0019052",
+    "name": "inborn errors of metabolism",
+    "n_findings": 105,
+    "src_chars": 79970,
+    "sum": 17.23,
+    "denom": 5.4,
+    "score": 3.192,
+    "concepts": {
+     "C0016952": 7.82,
+     "C0410916": 6.36,
+     "C0232466": 3.05
+    }
+   },
+   "top_b": {
+    "id": "MONDO:0019052",
+    "name": "inborn errors of metabolism",
+    "n_findings": 141,
+    "src_chars": 79970,
+    "sum": 27.21,
+    "denom": 5.99,
+    "score": 4.543,
+    "concepts": {
+     "C0016952": 7.58,
+     "C5574662": 7.09,
+     "C0410916": 6.21,
+     "C0026838": 3.4,
+     "C0232466": 2.92
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": null,
+   "new_top": "C0019572",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0702166",
+    "C0751435",
+    "C1879362",
+    "C4023368",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C0019572",
+    "name": "Hirsutism",
+    "n_findings": 87,
+    "src_chars": 59534,
+    "sum": 0,
+    "denom": 5.18,
+    "score": 0.0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C0019572",
+    "name": "Hirsutism",
+    "n_findings": 103,
+    "src_chars": 59534,
+    "sum": 13.7,
+    "denom": 5.55,
+    "score": 2.468,
+    "concepts": {
+     "C0702166": 13.7
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C4538664",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C4538664",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 6,
+   "new_top": "C0268483",
+   "ev": [
+    "C0025362",
+    "C0751435",
+    "C1879362",
+    "C4022012"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C0268483",
+    "name": "Tyrosinemias",
+    "n_findings": 125,
+    "src_chars": 121609,
+    "sum": 0,
+    "denom": 5.62,
+    "score": 0.0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C0268483",
+    "name": "Tyrosinemias",
+    "n_findings": 172,
+    "src_chars": 121609,
+    "sum": 13.62,
+    "denom": 6.28,
+    "score": 2.169,
+    "concepts": {
+     "C1879362": 11.35,
+     "C0002514": 2.27
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 4,
+   "new_top": "MONDO:0010730",
+   "ev": [
+    "C0231246",
+    "C0549159",
+    "C0751435"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "MONDO:0010730",
+    "name": "combined immunodeficiency, X-linked",
+    "n_findings": 33,
+    "src_chars": 33540,
+    "sum": 7.22,
+    "denom": 4.29,
+    "score": 1.682,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "MONDO:0010730",
+    "name": "combined immunodeficiency, X-linked",
+    "n_findings": 58,
+    "src_chars": 33540,
+    "sum": 10.38,
+    "denom": 5.02,
+    "score": 2.067,
+    "concepts": {
+     "C0549159": 6.37,
+     "C0231246": 4.01
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C4538664",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C1879362",
+   "ev": [
+    "C0751435",
+    "C1879362",
+    "C4022012"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "src_chars": 50771,
+    "sum": 0,
+    "denom": 5.39,
+    "score": 0.0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 126,
+    "src_chars": 50771,
+    "sum": 2.27,
+    "denom": 5.91,
+    "score": 0.385,
+    "concepts": {
+     "C0002514": 2.27
+    }
+   }
+  },
+  {
+   "gold": "C0031485",
+   "pos_a": 1,
+   "pos_b": null,
+   "new_top": "C5979921",
+   "ev": [
+    "C0003578",
+    "C0007758",
+    "C0028754",
+    "C0030554",
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1879362",
+    "C4022012",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0031485",
+    "name": "Phenylketonurias",
+    "n_findings": 44,
+    "src_chars": 47944,
+    "sum": 8.99,
+    "denom": 4.42,
+    "score": 2.034,
+    "concepts": {
+     "C0007758": 4.09,
+     "C0028754": 2.91,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0031485",
+    "name": "Phenylketonurias",
+    "n_findings": 77,
+    "src_chars": 47944,
+    "sum": 5.29,
+    "denom": 5.22,
+    "score": 1.014,
+    "concepts": {
+     "C0028754": 2.69,
+     "C0007758": 2.6
+    }
+   },
+   "top_a": {
+    "id": "C5979921",
+    "name": "Joubert syndrome",
+    "n_findings": 145,
+    "src_chars": 81922,
+    "sum": 8.78,
+    "denom": 5.95,
+    "score": 1.475,
+    "concepts": {
+     "C4018871": 3.25,
+     "C0028754": 2.91,
+     "C0004134": 1.99,
+     "C0013404": 0.63
+    }
+   },
+   "top_b": {
+    "id": "C5979921",
+    "name": "Joubert syndrome",
+    "n_findings": 206,
+    "src_chars": 81922,
+    "sum": 20.61,
+    "denom": 6.72,
+    "score": 3.068,
+    "concepts": {
+     "C0007758": 6.38,
+     "C0003578": 5.64,
+     "C4018871": 3.19,
+     "C0028754": 2.69,
+     "C0004134": 2.13,
+     "C0013404": 0.59
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C4538664",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0010691",
+   "pos_a": 1,
+   "pos_b": 5,
+   "new_top": "C2711053",
+   "ev": [
+    "C0010691",
+    "C0013595",
+    "C0549159",
+    "C4021733",
+    "C4025602",
+    "C4025635",
+    "C5779628"
+   ],
+   "gold_a": {
+    "id": "C0010691",
+    "name": "Cystinuria",
+    "n_findings": 34,
+    "src_chars": 57547,
+    "sum": 7.65,
+    "denom": 4.12,
+    "score": 1.857,
+    "concepts": {
+     "C0010691": 7.65
+    }
+   },
+   "gold_b": {
+    "id": "C0010691",
+    "name": "Cystinuria",
+    "n_findings": 50,
+    "src_chars": 57547,
+    "sum": 0,
+    "denom": 4.67,
+    "score": 0.0,
+    "concepts": {}
+   },
+   "top_a": {
+    "id": "C2711053",
+    "name": "Non-celiac gluten sensitivity",
+    "n_findings": 79,
+    "src_chars": 133041,
+    "sum": 0,
+    "denom": 4.86,
+    "score": 0.0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C2711053",
+    "name": "Non-celiac gluten sensitivity",
+    "n_findings": 113,
+    "src_chars": 133041,
+    "sum": 14.63,
+    "denom": 5.5,
+    "score": 2.661,
+    "concepts": {
+     "C5779628": 8.59,
+     "C0013595": 6.04
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C4538664",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 4,
+   "new_top": "C0268483",
+   "ev": [
+    "C0007863",
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C0268483",
+    "name": "Tyrosinemias",
+    "n_findings": 125,
+    "src_chars": 121609,
+    "sum": 1.56,
+    "denom": 5.62,
+    "score": 0.277,
+    "concepts": {
+     "C0027796": 1.56
+    }
+   },
+   "top_b": {
+    "id": "C0268483",
+    "name": "Tyrosinemias",
+    "n_findings": 172,
+    "src_chars": 121609,
+    "sum": 15.13,
+    "denom": 6.28,
+    "score": 2.408,
+    "concepts": {
+     "C1879362": 11.35,
+     "C0002514": 2.27,
+     "C0027796": 1.51
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C1879362",
+   "ev": [
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4023368"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "src_chars": 50771,
+    "sum": 0,
+    "denom": 5.39,
+    "score": 0.0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 126,
+    "src_chars": 50771,
+    "sum": 2.27,
+    "denom": 5.91,
+    "score": 0.385,
+    "concepts": {
+     "C0002514": 2.27
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C4538664",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C4538664",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C4538664",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4022413",
+    "C4023368"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": null,
+   "new_top": "C2711053",
+   "ev": [
+    "C0013595",
+    "C0015967",
+    "C0023012",
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1837066",
+    "C1843392",
+    "C1879362",
+    "C4025797",
+    "C5779628"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C2711053",
+    "name": "Non-celiac gluten sensitivity",
+    "n_findings": 79,
+    "src_chars": 133041,
+    "sum": 0,
+    "denom": 4.86,
+    "score": 0.0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C2711053",
+    "name": "Non-celiac gluten sensitivity",
+    "n_findings": 113,
+    "src_chars": 133041,
+    "sum": 15.33,
+    "denom": 5.5,
+    "score": 2.789,
+    "concepts": {
+     "C5779628": 8.59,
+     "C0013595": 6.04,
+     "C1457887": 0.7
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C4538664",
+   "ev": [
+    "C0549159",
+    "C0751435",
+    "C1879362"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": null,
+   "new_top": "MONDO:0100371",
+   "ev": [
+    "C0019189",
+    "C0025362",
+    "C0030554",
+    "C0267797",
+    "C0751435",
+    "C4022012"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "MONDO:0100371",
+    "name": "acute hepatitis C virus infection",
+    "n_findings": 34,
+    "src_chars": 50399,
+    "sum": 0,
+    "denom": 4.17,
+    "score": 0.0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "MONDO:0100371",
+    "name": "acute hepatitis C virus infection",
+    "n_findings": 49,
+    "src_chars": 50399,
+    "sum": 15.2,
+    "denom": 4.7,
+    "score": 3.235,
+    "concepts": {
+     "C0019189": 6.67,
+     "C0267797": 6.64,
+     "C0019158": 1.9
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C1879362",
+   "ev": [
+    "C0751435",
+    "C1843392",
+    "C1879362"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "src_chars": 50771,
+    "sum": 0,
+    "denom": 5.39,
+    "score": 0.0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 126,
+    "src_chars": 50771,
+    "sum": 2.27,
+    "denom": 5.91,
+    "score": 0.385,
+    "concepts": {
+     "C0002514": 2.27
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 8,
+   "new_top": "C0265286",
+   "ev": [
+    "C0013336",
+    "C0023012",
+    "C0751435",
+    "C1843392"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C0265286",
+    "name": "Dyggve-Melchior-Clausen syndrome",
+    "n_findings": 58,
+    "src_chars": 47981,
+    "sum": 6.3,
+    "denom": 4.71,
+    "score": 1.337,
+    "concepts": {
+     "C0013336": 6.3
+    }
+   },
+   "top_b": {
+    "id": "C0265286",
+    "name": "Dyggve-Melchior-Clausen syndrome",
+    "n_findings": 89,
+    "src_chars": 47981,
+    "sum": 11.47,
+    "denom": 5.41,
+    "score": 2.122,
+    "concepts": {
+     "C0013336": 6.7,
+     "C0023012": 4.77
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 10,
+   "new_top": "C4538664",
+   "ev": [
+    "C0013336",
+    "C0015967",
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 10.14,
+    "denom": 5.75,
+    "score": 1.762,
+    "concepts": {
+     "C0549159": 7.22,
+     "C0015967": 2.92
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 16.95,
+    "denom": 6.5,
+    "score": 2.608,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37,
+     "C0015967": 2.55
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 8,
+   "new_top": "C4538664",
+   "ev": [
+    "C0025362",
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4022413",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 8,
+   "new_top": "C4538664",
+   "ev": [
+    "C0013336",
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1837066",
+    "C1843392",
+    "C1879362",
+    "C4022012",
+    "C4023368",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C4538664",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 8,
+   "new_top": "C0016436",
+   "ev": [
+    "C0241157",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C0016436",
+    "name": "Folliculitis",
+    "n_findings": 33,
+    "src_chars": 32961,
+    "sum": 10.0,
+    "denom": 4.3,
+    "score": 2.326,
+    "concepts": {
+     "C0241157": 10.0
+    }
+   },
+   "top_b": {
+    "id": "C0016436",
+    "name": "Folliculitis",
+    "n_findings": 51,
+    "src_chars": 32961,
+    "sum": 12.18,
+    "denom": 4.9,
+    "score": 2.485,
+    "concepts": {
+     "C0241157": 10.69,
+     "C5779628": 1.49
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C4538664",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1879362",
+    "C4022012",
+    "C4022413",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C1879362",
+   "ev": [
+    "C0751435",
+    "C1879362",
+    "C4022012"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "src_chars": 50771,
+    "sum": 0,
+    "denom": 5.39,
+    "score": 0.0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 126,
+    "src_chars": 50771,
+    "sum": 2.27,
+    "denom": 5.91,
+    "score": 0.385,
+    "concepts": {
+     "C0002514": 2.27
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C4538664",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4023368",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C4538664",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C4538664",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4022413",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 6,
+   "new_top": "MONDO:0019052",
+   "ev": [
+    "C0025362",
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C4023368",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "MONDO:0019052",
+    "name": "inborn errors of metabolism",
+    "n_findings": 105,
+    "src_chars": 79970,
+    "sum": 9.77,
+    "denom": 5.4,
+    "score": 1.809,
+    "concepts": {
+     "C0410916": 6.36,
+     "C0002514": 3.4
+    }
+   },
+   "top_b": {
+    "id": "MONDO:0019052",
+    "name": "inborn errors of metabolism",
+    "n_findings": 141,
+    "src_chars": 79970,
+    "sum": 12.92,
+    "denom": 5.99,
+    "score": 2.157,
+    "concepts": {
+     "C0410916": 6.21,
+     "C0025362": 3.49,
+     "C0002514": 3.22
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C1879362",
+   "ev": [
+    "C0751435",
+    "C1879362",
+    "C4022012"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "src_chars": 50771,
+    "sum": 0,
+    "denom": 5.39,
+    "score": 0.0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 126,
+    "src_chars": 50771,
+    "sum": 2.27,
+    "denom": 5.91,
+    "score": 0.385,
+    "concepts": {
+     "C0002514": 2.27
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C1879362",
+   "ev": [
+    "C0751435",
+    "C1843392",
+    "C1879362"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "src_chars": 50771,
+    "sum": 0,
+    "denom": 5.39,
+    "score": 0.0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 126,
+    "src_chars": 50771,
+    "sum": 2.27,
+    "denom": 5.91,
+    "score": 0.385,
+    "concepts": {
+     "C0002514": 2.27
+    }
+   }
+  },
+  {
+   "gold": "C0175694",
+   "pos_a": 1,
+   "pos_b": 2,
+   "new_top": "C0036391",
+   "ev": [
+    "C0005745",
+    "C0016506",
+    "C0023012",
+    "C0025362",
+    "C0039075",
+    "C0549159",
+    "C1837404",
+    "C1840013",
+    "C1843392",
+    "C1849185",
+    "C1854301",
+    "C1858120",
+    "C4023368"
+   ],
+   "gold_a": {
+    "id": "C0175694",
+    "name": "Smith-Lemli-Opitz Syndrome",
+    "n_findings": 108,
+    "src_chars": 76923,
+    "sum": 22.19,
+    "denom": 5.45,
+    "score": 4.071,
+    "concepts": {
+     "C1849185": 10.21,
+     "C0005745": 6.27,
+     "C0023012": 4.64,
+     "C0240635": 1.07
+    }
+   },
+   "gold_b": {
+    "id": "C0175694",
+    "name": "Smith-Lemli-Opitz Syndrome",
+    "n_findings": 131,
+    "src_chars": 76923,
+    "sum": 22.76,
+    "denom": 5.87,
+    "score": 3.878,
+    "concepts": {
+     "C1849185": 10.22,
+     "C0005745": 5.65,
+     "C0023012": 3.37,
+     "C0025362": 2.47,
+     "C0240635": 1.06
+    }
+   },
+   "top_a": {
+    "id": "C0036391",
+    "name": "Schwartz-Jampel Syndrome",
+    "n_findings": 62,
+    "src_chars": 37520,
+    "sum": 17.03,
+    "denom": 4.86,
+    "score": 3.506,
+    "concepts": {
+     "C1837404": 6.75,
+     "C1854301": 4.02,
+     "C0005745": 3.62,
+     "C3831024": 2.65
+    }
+   },
+   "top_b": {
+    "id": "C0036391",
+    "name": "Schwartz-Jampel Syndrome",
+    "n_findings": 76,
+    "src_chars": 37520,
+    "sum": 21.15,
+    "denom": 5.28,
+    "score": 4.005,
+    "concepts": {
+     "C1837404": 6.53,
+     "C0016506": 5.15,
+     "C1854301": 3.57,
+     "C0005745": 3.26,
+     "C3831024": 2.65
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C4538664",
+   "ev": [
+    "C0023012",
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 127,
+    "src_chars": 65520,
+    "sum": 7.22,
+    "denom": 5.75,
+    "score": 1.255,
+    "concepts": {
+     "C0549159": 7.22
+    }
+   },
+   "top_b": {
+    "id": "C4538664",
+    "name": "Acute liver failure, transient",
+    "n_findings": 181,
+    "src_chars": 65520,
+    "sum": 14.39,
+    "denom": 6.5,
+    "score": 2.215,
+    "concepts": {
+     "C1879362": 8.02,
+     "C0549159": 6.37
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_a": 1,
+   "pos_b": 3,
+   "new_top": "C1879362",
+   "ev": [
+    "C0751435",
+    "C1879362",
+    "C4022012"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "src_chars": 3220,
+    "sum": 10.82,
+    "denom": 4.14,
+    "score": 2.614,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 1,
+    "src_chars": 3220,
+    "sum": 8.61,
+    "denom": 4.58,
+    "score": 1.88,
+    "concepts": {
+     "C0751435": 8.61
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "src_chars": 50771,
+    "sum": 0,
+    "denom": 5.39,
+    "score": 0.0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 126,
+    "src_chars": 50771,
+    "sum": 2.27,
+    "denom": 5.91,
+    "score": 0.385,
+    "concepts": {
+     "C0002514": 2.27
+    }
+   }
+  }
+ ]
+}

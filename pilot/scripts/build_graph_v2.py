@@ -21,12 +21,13 @@ from __future__ import annotations
 
 import argparse
 import glob
+import hashlib
 import json
 import math
 import os
 import re
 import sys
-from collections import defaultdict
+from collections import Counter, defaultdict
 
 from neo4j import GraphDatabase
 
@@ -64,6 +65,55 @@ DEGREE = re.compile(r"^(severe|mild|moderate|profound|progressive|congenital|bil
                     r"recurrent|chronic|early[- ]onset)\s+")
 
 
+# HPOA aspects M (clinical modifier), I (inheritance) and the frequency terms qualify an annotation
+# rather than being one. Clinical course sits under clinical modifier but is aspect C: an annotated
+# feature ("Death in infancy", "Nocturnal"), so it stays, as does a term also placed under
+# phenotypic abnormality.
+QUALIFIER_ROOTS = ("HP:0012823", "HP:0000005", "HP:0040279")
+CLINICAL_COURSE = "HP:0031797"
+PHENOTYPIC_ABNORMALITY = "HP:0000118"
+
+
+def hpo_qualifiers() -> tuple[set[str], set[str]]:
+    """(names, phenotype CUIs): normalized labels and exact synonyms of HPO qualifier terms ("right",
+    "severe", "autosomal dominant inheritance") that name no other term, and the CUIs of all other HPO
+    terms. A qualifier name whose linked concept is one of those CUIs is still a finding ("neuropathic
+    pain" sits under pain characteristic but links to Neuralgia)."""
+    def hid(uri: str) -> str:
+        return uri.rsplit("/", 1)[-1].replace("_", ":")
+
+    g = json.load(open("data/medkg/hp.json"))["graphs"][0]
+    parents = defaultdict(set)
+    for e in g["edges"]:
+        if e["pred"] == "is_a":
+            parents[hid(e["sub"])].add(hid(e["obj"]))
+    memo: dict[str, set[str]] = {}
+
+    def ancestors(h: str) -> set[str]:
+        if h not in memo:
+            memo[h] = set()
+            memo[h] = set(parents[h]).union(*(ancestors(p) for p in parents[h]))
+        return memo[h]
+
+    def qualifier(h: str) -> bool:
+        up = ancestors(h) | {h}
+        return bool(up & set(QUALIFIER_ROOTS)) and not up & {CLINICAL_COURSE, PHENOTYPIC_ABNORMALITY}
+
+    hm = json.load(open("data/rarebench/hpo_umls_mapping.json"))["mapping"]
+    names: dict[str, set[bool]] = defaultdict(set)
+    pheno = set()
+    for n in g["nodes"]:
+        if not n.get("lbl"):
+            continue
+        h = hid(n["id"])
+        q = qualifier(h)
+        if not q and (cui := (hm.get(h) or {}).get("umls_cui")):
+            pheno.add(cui)
+        for nm in [n["lbl"]] + [x["val"] for x in n.get("meta", {}).get("synonyms", []) if x.get("pred") == "hasExactSynonym"]:
+            names[_norm(nm).strip()].add(q)
+    return {k for k, v in names.items() if v == {True}}, pheno
+
+
 def hpo_name_index() -> dict[str, str]:
     """Normalized HPO label or exact synonym -> the UMLS CUI the patient side uses for that term.
 
@@ -84,27 +134,32 @@ def hpo_name_index() -> dict[str, str]:
     return out
 
 
-def linked_forms(phrase: str, table: dict, split: bool, hpo: dict | None = None) -> list[tuple[str, dict]]:
+def linked_forms(phrase: str, table: dict, split: bool, hpo: dict | None = None,
+                 qualifiers: tuple[set[str], set[str]] | None = None) -> list[tuple[str, dict]]:
     """The item's linked concept, plus with `split` the concepts of its coordinated parts, plus with
-    `hpo` the HPO term whose name the item or a part spells exactly.
+    `hpo` the HPO term whose name the item or a part spells exactly. With `qualifiers`
+    (hpo_qualifiers()), a form spelling a qualifier name is linked only to a phenotype CUI.
 
     The IE often returns "arachnodactyly, kyphosis or scoliosis" as one item; the linker cannot
     ground the whole, but each part is a phrase the table already linked elsewhere. Parts are
     substrings of the item, so the sentence still supports them."""
+    def allowed(q: str, cui: str) -> bool:
+        return not qualifiers or cui in qualifiers[1] or _norm(q).strip() not in qualifiers[0]
+
     key = phrase.lower().strip()
     t = table.get(key, {})
-    out = [(phrase, t)] if t.get("cui") else []
+    out = [(phrase, t)] if t.get("cui") and allowed(key, t["cui"]) else []
     seen = {t.get("cui")}
     forms = [key]
     if split:
         forms += [q.strip() for part in COORD.split(key) for q in (part, DEGREE.sub("", part))]
     for q in dict.fromkeys(forms):
         u = table.get(q, {}) if q != key else {}
-        if u.get("cui") and u["cui"] not in seen:
+        if u.get("cui") and u["cui"] not in seen and allowed(q, u["cui"]):
             seen.add(u["cui"])
             out.append((q, u))
         c = hpo.get(_norm(q).strip()) if hpo else None
-        if c and c not in seen:
+        if c and c not in seen and allowed(q, c):
             seen.add(c)
             out.append((q, {"cui": c, "tui": ""}))
     return out
@@ -124,6 +179,55 @@ def causal_gene_forms() -> dict[str, set[str]]:
     return out
 
 
+def iter_sources(dirs: str):
+    """(disease id, documents) per disease, the union over the directories' files of that disease.
+
+    A document listed by several directories is taken from the first; it counts as gene-found ("via")
+    only if every directory found it that way. An article listed twice in one file (found as review
+    and as case report) keeps its largest per-file multiplicity, so a single-directory build is
+    unchanged and the directory order does not change the counts."""
+    by_name = defaultdict(list)
+    for d in dirs.split(","):
+        for f in glob.glob(f"{d}/*.json"):
+            by_name[os.path.basename(f)].append(f)
+    for paths in by_name.values():
+        recs = [json.load(open(f)) for f in paths]
+        first: dict[str, dict] = {}
+        mult: Counter = Counter()
+        for r in recs:
+            for k, n in Counter(x["doc_id"] for x in r["docs"]).items():
+                mult[k] = max(mult[k], n)
+            for x in r["docs"]:
+                k = x["doc_id"]
+                if k not in first:
+                    first[k] = x
+                elif first[k].get("via") and not x.get("via"):
+                    first[k] = {**first[k], "via": ""}
+        yield recs[0]["id"], [x for k, x in first.items() for _ in range(mult[k])]
+
+
+def article(doc_id: str) -> str:
+    """An article's table document (TBL<PMCID>) is that article for the generic-document rule."""
+    return doc_id.removeprefix("TBL")
+
+
+def curated_by(hpoa: str) -> set[str]:
+    """Universe keys of the OMIM diseases an HPOA release annotates."""
+    omim = {ln.split("\t", 1)[0] for ln in open(hpoa) if ln.startswith("OMIM:")}
+    return v2_ids.gold_keys(omim)
+
+
+def fingerprint(*parts) -> str:
+    """Digest of the rows the ranker reads (each part an iterable in a fixed order), so a rebuild that
+    changes scores without changing the summary counts is still told apart."""
+    h = hashlib.sha1()
+    for rows in parts:
+        for r in rows:
+            h.update(repr(r).encode())
+        h.update(b"|")
+    return h.hexdigest()
+
+
 def run_batches(session, query: str, rows: list[dict], label: str) -> None:
     for i in range(0, len(rows), BATCH):
         session.run(query, rows=rows[i:i + BATCH]).consume()
@@ -134,7 +238,8 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--ie", required=True)
     ap.add_argument("--table", required=True)
-    ap.add_argument("--sources", required=True)
+    ap.add_argument("--sources", required=True,
+                    help="source directory, or comma-separated directories whose per-disease files are merged")
     ap.add_argument("--uri", default="bolt://localhost:7687")
     ap.add_argument("--auth", default=os.environ.get("NEO4J_AUTH", "neo4j/thesis-dev-only"))
     ap.add_argument("--wipe", action="store_true")
@@ -152,6 +257,15 @@ def main() -> None:
                     help="also link items (and parts) that spell an HPO label or exact synonym to its CUI")
     ap.add_argument("--topic-genes", action="store_true",
                     help="a title naming the disease's causal gene also counts as on-topic")
+    ap.add_argument("--gene-cut", default="",
+                    help="HPOA release file: gene-found documents and causal-gene titles count only for the "
+                         "diseases it annotates (time-split builds must not use later gene-disease links)")
+    ap.add_argument("--no-self", action="store_true",
+                    help="drop edges from a disease to its own concept or a parent disease's concept "
+                         "(unified evidence already credits a patient concept that is that disease)")
+    ap.add_argument("--no-qualifiers", action="store_true",
+                    help="link an item or part that spells an HPO qualifier term (clinical modifier other than "
+                         "clinical course, mode of inheritance, frequency) only to a phenotype concept")
     ap.add_argument("--no-mentions", action="store_true",
                     help="skip Mention/Doc nodes (scoring-only graph; the provenance check is skipped)")
     a = ap.parse_args()
@@ -166,22 +280,43 @@ def main() -> None:
     excluded_tui = set(a.exclude_tuis.split(",")) if a.exclude_tuis else set()
     table = json.load(open(a.table))
     hpo = hpo_name_index() if a.hpo_names else None
+    qualifiers = hpo_qualifiers() if a.no_qualifiers else None
     gene_forms = causal_gene_forms() if a.topic_genes else {}
+    gene_ok = curated_by(a.gene_cut) if a.gene_cut else None
+    self_cuis = defaultdict(set)                       # disease -> concepts that name it or a parent
+    if a.no_self:
+        for c, p in v2_ids.disease_isa():
+            self_cuis[c].add(p)
+        for k in uni:
+            self_cuis[k].add(k)
+    if gene_ok is not None:
+        gene_forms = {k: v for k, v in gene_forms.items() if k in gene_ok}
+
+    def usable(dz: str, dz_docs: list[dict]) -> list[dict]:
+        if gene_ok is None or dz in gene_ok:
+            return dz_docs
+        return [x for x in dz_docs if x.get("via") != "gene"]
+
     # Source specificity: an article retrieved for many different diseases (a methods paper or a
     # broad review caught by full-text fallback queries) is not evidence about any one of them.
     # Threshold fixed a priori from the corpus alone (no benchmark involved).
     use = defaultdict(int)
     title = {}
     late = set()
-    for f in glob.glob(f"{a.sources}/*.json"):
-        for x in json.load(open(f))["docs"]:
-            use[x["doc_id"]] += 1
+    held = {}                                          # disease -> its document ids (items must cite one)
+    for dz, dz_docs in iter_sources(a.sources):
+        dz_docs = usable(dz, dz_docs)
+        held[dz] = {sys.intern(x["doc_id"]) for x in dz_docs}
+        for x in dz_docs:
+            if not (x["doc_id"].startswith("TBL") and article(x["doc_id"]) in held[dz]):
+                use[article(x["doc_id"])] += 1
             title[x["doc_id"]] = _norm(x.get("title") or "")
             if a.max_year and not (str(x.get("year") or "").isdigit() and int(x["year"]) <= a.max_year):
                 late.add(x["doc_id"])
     generic = {d for d, n in use.items() if n >= a.max_doc_diseases}
     print(f"generic documents dropped (used by >= {a.max_doc_diseases} diseases): {len(generic)}", flush=True)
     mentions, docs_used = [], set()
+    n_mentions = n_topic = 0
     edge = defaultdict(lambda: [0, set(), set()])     # (disease, cui) -> [n_mentions, docs, topic docs]
     forms: dict[str, set[str]] = {}
     by_dz = defaultdict(list)                          # disease -> indices of mentions to re-center
@@ -189,40 +324,51 @@ def main() -> None:
         r = json.loads(line)
         d = r["id"]
         for it in r.get("items", []):
-            if it["doc"] in generic or it["doc"] in late or d not in uni:
+            if article(it["doc"]) in generic or it["doc"] in late or d not in uni or it["doc"] not in held.get(d, ()):
                 continue
-            for phrase, t in linked_forms(it["t"], table, a.split_coord, hpo):
-                if t.get("tui") in excluded_tui:
+            if it.get("cui"):                                   # dict_ie.py --vocab umls
+                links = [(it["t"], {"cui": it["cui"], "tui": it["tui"]})]
+                hc = hpo.get(_norm(it["t"]).strip()) if hpo else None
+                if hc and hc != it["cui"]:
+                    links.append((it["t"], {"cui": hc, "tui": ""}))
+                if qualifiers and _norm(it["t"]).strip() in qualifiers[0]:
+                    links = [x for x in links if x[1]["cui"] in qualifiers[1]]
+            else:
+                links = linked_forms(it["t"], table, a.split_coord, hpo, qualifiers)
+            for phrase, t in links:
+                if t.get("tui") in excluded_tui or t["cui"] in self_cuis.get(d, ()):
                     continue
                 c = t["cui"]
                 if d not in forms:
                     forms[d] = name_forms(uni[d]) | gene_forms.get(d, set())
                 topic = any(f in title.get(it["doc"], "") for f in forms[d])
-                if len(it["sent"]) >= SENT_CAP and phrase.lower() not in it["sent"].lower():
-                    by_dz[d].append(len(mentions))
-                mentions.append({"d": d, "c": c, "doc": it["doc"], "phrase": phrase, "sent": it["sent"],
-                                 "topic": topic})
+                n_mentions += 1
+                n_topic += topic
+                if not a.no_mentions:
+                    if len(it["sent"]) >= SENT_CAP and phrase.lower() not in it["sent"].lower():
+                        by_dz[d].append(len(mentions))
+                    mentions.append({"d": d, "c": c, "doc": it["doc"], "phrase": phrase, "sent": it["sent"],
+                                     "topic": topic})
                 e = edge[(d, c)]
                 e[0] += 1
                 e[1].add(it["doc"])
                 if topic:
                     e[2].add(it["doc"])
                 docs_used.add(it["doc"])
-    print(f"mentions {len(mentions)}, edges {len(edge)}, docs {len(docs_used)}, "
-          f"topic mentions {sum(m['topic'] for m in mentions)}, to re-center {sum(map(len, by_dz.values()))}",
-          flush=True)
+    print(f"mentions {n_mentions}, edges {len(edge)}, docs {len(docs_used)}, "
+          f"topic mentions {n_topic}, to re-center {sum(map(len, by_dz.values()))}", flush=True)
 
     # document metadata and per-disease collected text size (coverage signal for scoring)
     docs, src_chars = {}, {}
-    for f in glob.glob(f"{a.sources}/*.json"):
-        rec = json.load(open(f))
-        src_chars[rec["id"]] = sum(len(x["text"]) for x in rec["docs"] if x["doc_id"] not in late)
-        if rec["id"] in by_dz:
-            text = {x["doc_id"]: x["text"] for x in rec["docs"]}
-            for i in by_dz[rec["id"]]:
+    for dz, dz_docs in iter_sources(a.sources):
+        dz_docs = usable(dz, dz_docs)
+        src_chars[dz] = sum(len(x["text"]) for x in dz_docs if x["doc_id"] not in late)
+        if dz in by_dz:
+            text = {x["doc_id"]: x["text"] for x in dz_docs}
+            for i in by_dz[dz]:
                 m = mentions[i]
                 m["sent"] = recenter(text.get(m["doc"], ""), m["phrase"], m["sent"])
-        for x in rec["docs"]:
+        for x in dz_docs:
             if x["doc_id"] in docs_used and x["doc_id"] not in docs:
                 docs[x["doc_id"]] = {k: x.get(k, "") for k in ("pmid", "pmcid", "kind", "title", "year", "license")}
 
@@ -298,8 +444,13 @@ def main() -> None:
             sys.exit(f"graph check failed: {orphan} edges without Mention, {n_dz} Disease nodes vs {len(uni)}")
         print("graph check: every HAS_FINDING edge has a Mention; Disease nodes = universe", flush=True)
     drv.close()
+    dz_isa = sorted((c, p) for c, p in v2_ids.disease_isa() if c in uni and p in uni)
+    fp = fingerprint(((k, len(prof.get(k, ())), src_chars.get(k, 0)) for k in sorted(uni)),
+                     ((c, round(math.log(n_dz / df[c]), 9) if df.get(c) else None) for c in sorted(cuis)),
+                     ((k, len(edge[k][1]), len(edge[k][2])) for k in sorted(edge)),
+                     sorted((r["c"], r["p"]) for r in isa_c), dz_isa, sorted(c for c in cuis if c in uni))
     json.dump({"diseases": len(uni), "diseases_with_findings": len(prof), "concepts": len(cuis),
-               "edges": len(edge), "mentions": len(mentions), "docs": len(docs)},
+               "edges": len(edge), "mentions": n_mentions, "docs": len(docs), "fingerprint": fp},
               open(a.summary, "w"), indent=1)
     print("done", flush=True)
 

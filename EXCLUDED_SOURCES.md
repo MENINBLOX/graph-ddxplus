@@ -37,6 +37,10 @@
 |------|------|
 | **OMIM Clinical Synopsis** | 자유 텍스트 필드만 IE 입력으로. 구조화된 phenotype 코드 자체 흡수는 ✗ |
 | **HPO 자체 description text** | term의 description 텍스트만 IE 입력으로. annotation 매핑은 ✗ |
+| **HPO genes_to_disease.txt** (질환–원인 유전자, mim2gene_medgen·Orphanet) | 간선이 아니라 수집 질의(원인 유전자 기호로 문헌 검색)와 주제 판정(제목의 원인 유전자 기호, `--topic-genes`)에만. 시간 분할 그래프는 그 시점 HPOA가 주석한 질환에만 적용(`--gene-cut`) |
+| **HPO phenotype.hpoa 전 릴리스** | 입력이 아니라 비교 대상(시간 분할 기준선)과 `--gene-cut`의 날짜 판정에만 |
+
+내려받기: `bash pilot/scripts/fetch_reference_data.sh`.
 
 ## 일관성 원칙
 

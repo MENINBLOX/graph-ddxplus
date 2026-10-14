@@ -1,0 +1,3925 @@
+{
+ "bench": "RareBench-RAMEDIS",
+ "lost_top1": 74,
+ "won_top1": 15,
+ "new_top_diseases": [
+  [
+   "C1879362",
+   "Hypertyrosinemia",
+   64
+  ],
+  [
+   "C1846058",
+   "Lubs X-linked mental retardation syndrome",
+   2
+  ],
+  [
+   "C0220994",
+   "Hyperammonemia (disorder)",
+   1
+  ],
+  [
+   "C0268483",
+   "Tyrosinemias",
+   1
+  ],
+  [
+   "MONDO:0019052",
+   "inborn errors of metabolism",
+   1
+  ],
+  [
+   "C5979921",
+   "Joubert syndrome",
+   1
+  ],
+  [
+   "C0267797",
+   "Acute hepatitis",
+   1
+  ],
+  [
+   "C0001080",
+   "Achondroplasia",
+   1
+  ],
+  [
+   "C5779964",
+   "Developmental and epileptic encephalopathy",
+   1
+  ],
+  [
+   "C0036391",
+   "Schwartz-Jampel Syndrome",
+   1
+  ]
+ ],
+ "cases": [
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4023368",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0549159",
+    "C0751435",
+    "C1837066",
+    "C1843392",
+    "C1879362"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 4,
+   "new_top": "C1879362",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1854301",
+    "C1858120",
+    "C1879362",
+    "C4025797",
+    "C4551649"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0025362",
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1879362",
+    "C4023368",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0175694",
+   "pos_b": 2,
+   "new_top": "C1846058",
+   "ev": [
+    "C0005745",
+    "C0009806",
+    "C0010417",
+    "C0013144",
+    "C0013421",
+    "C0013595",
+    "C0020490",
+    "C0023380",
+    "C0025362",
+    "C0037317",
+    "C0038379",
+    "C0039075",
+    "C0042963",
+    "C0151718",
+    "C0232466",
+    "C0239234",
+    "C0242184",
+    "C0410916",
+    "C0549159",
+    "C0848558",
+    "C1837066",
+    "C1840013",
+    "C1843392",
+    "C1849185",
+    "C1854301",
+    "C1858120",
+    "C3874334",
+    "C4551563",
+    "C5779628"
+   ],
+   "gold_a": {
+    "id": "C0175694",
+    "name": "Smith-Lemli-Opitz Syndrome",
+    "n_findings": 108,
+    "sum": 39.22,
+    "concepts": {
+     "C1849185": 10.21,
+     "C0848558": 6.33,
+     "C0005745": 6.27,
+     "C0010417": 3.8,
+     "C0239234": 3.44,
+     "C0232466": 3.05,
+     "C0009806": 2.91,
+     "C0042963": 2.22,
+     "C0000768": 0.98
+    }
+   },
+   "gold_b": {
+    "id": "C0175694",
+    "name": "Smith-Lemli-Opitz Syndrome",
+    "n_findings": 132,
+    "sum": 46.19,
+    "concepts": {
+     "C1849185": 10.23,
+     "C4551563": 6.4,
+     "C0848558": 6.1,
+     "C0005745": 5.65,
+     "C0010417": 3.53,
+     "C0239234": 3.36,
+     "C0232466": 2.93,
+     "C0009806": 2.77,
+     "C0025362": 2.47,
+     "C0042963": 1.87,
+     "C0000768": 0.89
+    }
+   },
+   "top_a": {
+    "id": "C1846058",
+    "name": "Lubs X-linked mental retardation syndrome",
+    "n_findings": 143,
+    "sum": 30.79,
+    "concepts": {
+     "C0239234": 5.96,
+     "C0009806": 5.83,
+     "C0010417": 5.37,
+     "C0020490": 4.73,
+     "C0038379": 4.58,
+     "C0232466": 4.31,
+     "C0025362": 0.0,
+     "C0848558": 0.0
+    }
+   },
+   "top_b": {
+    "id": "C1846058",
+    "name": "Lubs X-linked mental retardation syndrome",
+    "n_findings": 208,
+    "sum": 56.78,
+    "concepts": {
+     "C0549159": 6.38,
+     "C0239234": 5.82,
+     "C4551563": 5.72,
+     "C0009806": 5.54,
+     "C0010417": 4.99,
+     "C0025362": 4.95,
+     "C0020490": 4.41,
+     "C0038379": 4.38,
+     "C0848558": 4.31,
+     "C0232466": 4.14,
+     "C0013421": 3.39,
+     "C0042963": 1.87,
+     "C0000768": 0.89
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0751435",
+    "C1879362",
+    "C4022012"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 4,
+   "new_top": "C1879362",
+   "ev": [
+    "C0015967",
+    "C0241012",
+    "C0549159",
+    "C0751435",
+    "C1837066",
+    "C1843392",
+    "C1879362",
+    "C4022413",
+    "C4023368",
+    "C4023814"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 2.06,
+    "concepts": {
+     "C0015967": 2.06
+    }
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 12.02,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28,
+     "C0015967": 1.81
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0549159",
+    "C0751435",
+    "C1837066",
+    "C1843392",
+    "C1879362",
+    "C4022413"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C1855995",
+   "pos_b": 4,
+   "new_top": "C0220994",
+   "ev": [
+    "C0025362",
+    "C0151889",
+    "C1843392",
+    "C1857704",
+    "C1858120",
+    "C3888081",
+    "C4021762",
+    "C5574662"
+   ],
+   "gold_a": {
+    "id": "C1855995",
+    "name": "L-2-HYDROXYGLUTARIC ACIDURIA",
+    "n_findings": 104,
+    "sum": 15.37,
+    "concepts": {
+     "C0025362": 5.27,
+     "C1858120": 4.39,
+     "C0151889": 4.1,
+     "C0027765": 1.61
+    }
+   },
+   "gold_b": {
+    "id": "C1855995",
+    "name": "L-2-HYDROXYGLUTARIC ACIDURIA",
+    "n_findings": 143,
+    "sum": 15.69,
+    "concepts": {
+     "C0025362": 6.06,
+     "C1858120": 4.32,
+     "C0151889": 3.81,
+     "C0027765": 1.5
+    }
+   },
+   "top_a": {
+    "id": "C0220994",
+    "name": "Hyperammonemia (disorder)",
+    "n_findings": 70,
+    "sum": 4.1,
+    "concepts": {
+     "C0151889": 4.1
+    }
+   },
+   "top_b": {
+    "id": "C0220994",
+    "name": "Hyperammonemia (disorder)",
+    "n_findings": 91,
+    "sum": 14.98,
+    "concepts": {
+     "C5574662": 8.69,
+     "C0151889": 3.81,
+     "C0025362": 2.47
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0023012",
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4022012",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0023012",
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1858120",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1879362",
+    "C4022012",
+    "C4022413",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1879362",
+    "C4023368",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0549159",
+    "C0751435",
+    "C1837066",
+    "C1843392",
+    "C1879362",
+    "C4023368"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0019270",
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0751435",
+    "C1843392",
+    "C1879362"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0751435",
+    "C1879362",
+    "C4022012"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4022413",
+    "C4023368",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0031485",
+   "pos_b": 6,
+   "new_top": "C1879362",
+   "ev": [
+    "C0013595",
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4022413",
+    "C4025797",
+    "C5779628"
+   ],
+   "gold_a": {
+    "id": "C0031485",
+    "name": "Phenylketonurias",
+    "n_findings": 44,
+    "sum": 6.57,
+    "concepts": {
+     "C0013595": 4.58,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0031485",
+    "name": "Phenylketonurias",
+    "n_findings": 78,
+    "sum": 7.05,
+    "concepts": {
+     "C0013595": 4.28,
+     "C0031485": 2.77
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1879362",
+    "C4022413",
+    "C4023368",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0241012",
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0268631",
+   "pos_b": 2,
+   "new_top": "C1846058",
+   "ev": [
+    "C0014544",
+    "C0023012",
+    "C0239067",
+    "C0311394",
+    "C0424295",
+    "C0549159",
+    "C0560346",
+    "C1843392",
+    "C1858120",
+    "C4022413"
+   ],
+   "gold_a": {
+    "id": "C0268631",
+    "name": "succinic semialdehyde dehydrogenase deficiency",
+    "n_findings": 86,
+    "sum": 17.52,
+    "concepts": {
+     "C0424295": 5.94,
+     "C0014544": 5.81,
+     "C1858120": 4.39,
+     "C0013384": 1.38
+    }
+   },
+   "gold_b": {
+    "id": "C0268631",
+    "name": "succinic semialdehyde dehydrogenase deficiency",
+    "n_findings": 115,
+    "sum": 20.1,
+    "concepts": {
+     "C0424295": 5.3,
+     "C0014544": 5.27,
+     "C1858120": 4.32,
+     "C0023012": 3.38,
+     "C0013384": 1.83
+    }
+   },
+   "top_a": {
+    "id": "C1846058",
+    "name": "Lubs X-linked mental retardation syndrome",
+    "n_findings": 143,
+    "sum": 14.42,
+    "concepts": {
+     "C0239067": 5.94,
+     "C0424295": 4.2,
+     "C0014544": 2.9,
+     "C0013384": 1.38
+    }
+   },
+   "top_b": {
+    "id": "C1846058",
+    "name": "Lubs X-linked mental retardation syndrome",
+    "n_findings": 208,
+    "sum": 27.67,
+    "concepts": {
+     "C0549159": 6.38,
+     "C0239067": 5.94,
+     "C0424295": 5.3,
+     "C0023012": 4.78,
+     "C0014544": 3.99,
+     "C0013384": 1.29
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1879362",
+    "C4022012",
+    "C4022413",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0751435",
+    "C1843392",
+    "C1879362"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": null,
+   "new_top": "C0268483",
+   "ev": [
+    "C0023012",
+    "C0025362",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1854301",
+    "C1879362",
+    "C4023368",
+    "C4023814"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C0268483",
+    "name": "Tyrosinemias",
+    "n_findings": 125,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C0268483",
+    "name": "Tyrosinemias",
+    "n_findings": 172,
+    "sum": 17.06,
+    "concepts": {
+     "C1879362": 11.21,
+     "C1854301": 3.57,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0023012",
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0241012",
+    "C0549159",
+    "C0751435",
+    "C1837066",
+    "C1843392",
+    "C1879362",
+    "C4022413",
+    "C4023368",
+    "C4023814"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0268151",
+   "pos_b": null,
+   "new_top": "MONDO:0019052",
+   "ev": [
+    "C0016952",
+    "C0023012",
+    "C0026838",
+    "C0232466",
+    "C0240671",
+    "C0410916",
+    "C0549159",
+    "C1843392",
+    "C4023654",
+    "C4025351",
+    "C4025797",
+    "C5139044",
+    "C5574662"
+   ],
+   "gold_a": {
+    "id": "C0268151",
+    "name": "Classical galactosemia",
+    "n_findings": 37,
+    "sum": 10.56,
+    "concepts": {
+     "C0023012": 4.64,
+     "C0232466": 4.31,
+     "C0027765": 1.61
+    }
+   },
+   "gold_b": {
+    "id": "C0268151",
+    "name": "Classical galactosemia",
+    "n_findings": 51,
+    "sum": 9.02,
+    "concepts": {
+     "C0232466": 4.14,
+     "C0023012": 3.38,
+     "C0027765": 1.5
+    }
+   },
+   "top_a": {
+    "id": "MONDO:0019052",
+    "name": "inborn errors of metabolism",
+    "n_findings": 105,
+    "sum": 17.23,
+    "concepts": {
+     "C0016952": 7.82,
+     "C0410916": 6.36,
+     "C0232466": 3.05
+    }
+   },
+   "top_b": {
+    "id": "MONDO:0019052",
+    "name": "inborn errors of metabolism",
+    "n_findings": 141,
+    "sum": 27.25,
+    "concepts": {
+     "C0016952": 7.59,
+     "C5574662": 7.1,
+     "C0410916": 6.22,
+     "C0026838": 3.41,
+     "C0232466": 2.93
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 7,
+   "new_top": "C1879362",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0702166",
+    "C0751435",
+    "C1879362",
+    "C4023368",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0025362",
+    "C0751435",
+    "C1879362",
+    "C4022012"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0751435",
+    "C1879362",
+    "C4022012"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0031485",
+   "pos_b": null,
+   "new_top": "C5979921",
+   "ev": [
+    "C0003578",
+    "C0007758",
+    "C0028754",
+    "C0030554",
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1879362",
+    "C4022012",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0031485",
+    "name": "Phenylketonurias",
+    "n_findings": 44,
+    "sum": 8.99,
+    "concepts": {
+     "C0007758": 4.09,
+     "C0028754": 2.91,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0031485",
+    "name": "Phenylketonurias",
+    "n_findings": 78,
+    "sum": 8.08,
+    "concepts": {
+     "C0031485": 2.77,
+     "C0028754": 2.69,
+     "C0007758": 2.61
+    }
+   },
+   "top_a": {
+    "id": "C5979921",
+    "name": "Joubert syndrome",
+    "n_findings": 145,
+    "sum": 8.78,
+    "concepts": {
+     "C4018871": 3.25,
+     "C0028754": 2.91,
+     "C0004134": 1.99,
+     "C0013404": 0.63
+    }
+   },
+   "top_b": {
+    "id": "C5979921",
+    "name": "Joubert syndrome",
+    "n_findings": 206,
+    "sum": 20.66,
+    "concepts": {
+     "C0007758": 6.4,
+     "C0003578": 5.65,
+     "C4018871": 3.19,
+     "C0028754": 2.69,
+     "C0004134": 2.14,
+     "C0013404": 0.59
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 3,
+   "new_top": "C1879362",
+   "ev": [
+    "C0007863",
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 1.56,
+    "concepts": {
+     "C0027796": 1.56
+    }
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 11.71,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28,
+     "C0027796": 1.51
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4023368"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4022413",
+    "C4023368"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": null,
+   "new_top": "C1879362",
+   "ev": [
+    "C0013595",
+    "C0015967",
+    "C0023012",
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1837066",
+    "C1843392",
+    "C1879362",
+    "C4025797",
+    "C5779628"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 2.06,
+    "concepts": {
+     "C0015967": 2.06
+    }
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 12.02,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28,
+     "C0015967": 1.81
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0549159",
+    "C0751435",
+    "C1879362"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 6,
+   "new_top": "C0267797",
+   "ev": [
+    "C0019189",
+    "C0025362",
+    "C0030554",
+    "C0267797",
+    "C0751435",
+    "C4022012"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C0267797",
+    "name": "Acute hepatitis",
+    "n_findings": 80,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C0267797",
+    "name": "Acute hepatitis",
+    "n_findings": 99,
+    "sum": 11.67,
+    "concepts": {
+     "C0267797": 9.36,
+     "C0019158": 2.31
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0751435",
+    "C1843392",
+    "C1879362"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 5,
+   "new_top": "C1879362",
+   "ev": [
+    "C0013336",
+    "C0015967",
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 2.06,
+    "concepts": {
+     "C0015967": 2.06
+    }
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 12.02,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28,
+     "C0015967": 1.81
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0025362",
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4022413",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 3,
+   "new_top": "C0001080",
+   "ev": [
+    "C0013336",
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1837066",
+    "C1843392",
+    "C1879362",
+    "C4022012",
+    "C4023368",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C0001080",
+    "name": "Achondroplasia",
+    "n_findings": 137,
+    "sum": 2.82,
+    "concepts": {
+     "C0013336": 2.82
+    }
+   },
+   "top_b": {
+    "id": "C0001080",
+    "name": "Achondroplasia",
+    "n_findings": 173,
+    "sum": 11.13,
+    "concepts": {
+     "C0549159": 6.38,
+     "C0013336": 4.75
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0268631",
+   "pos_b": 2,
+   "new_top": "C5779964",
+   "ev": [
+    "C0014544",
+    "C0023012",
+    "C0025362",
+    "C0424295",
+    "C1843392",
+    "C1858120",
+    "C4015009",
+    "C4022413",
+    "C5706139"
+   ],
+   "gold_a": {
+    "id": "C0268631",
+    "name": "succinic semialdehyde dehydrogenase deficiency",
+    "n_findings": 86,
+    "sum": 18.79,
+    "concepts": {
+     "C0424295": 5.94,
+     "C0014544": 5.81,
+     "C1858120": 4.39,
+     "C0013384": 1.38,
+     "C0004936": 1.28
+    }
+   },
+   "gold_b": {
+    "id": "C0268631",
+    "name": "succinic semialdehyde dehydrogenase deficiency",
+    "n_findings": 115,
+    "sum": 25.62,
+    "concepts": {
+     "C0424295": 5.3,
+     "C0014544": 5.27,
+     "C1858120": 4.32,
+     "C0025362": 4.28,
+     "C0023012": 3.38,
+     "C0013384": 1.83,
+     "C0004936": 1.23
+    }
+   },
+   "top_a": {
+    "id": "C5779964",
+    "name": "Developmental and epileptic encephalopathy",
+    "n_findings": 91,
+    "sum": 5.67,
+    "concepts": {
+     "C1858120": 4.39,
+     "C0004936": 1.28
+    }
+   },
+   "top_b": {
+    "id": "C5779964",
+    "name": "Developmental and epileptic encephalopathy",
+    "n_findings": 136,
+    "sum": 18.28,
+    "concepts": {
+     "C0025362": 5.53,
+     "C1858120": 4.32,
+     "C0424295": 3.75,
+     "C0014544": 3.45,
+     "C0004936": 1.23
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 3,
+   "new_top": "C1879362",
+   "ev": [
+    "C0241157",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1879362",
+    "C4022012",
+    "C4022413",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0751435",
+    "C1879362",
+    "C4022012"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4023368",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4022413",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0751435",
+    "C1879362",
+    "C4022012"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0751435",
+    "C1843392",
+    "C1879362"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0175694",
+   "pos_b": 2,
+   "new_top": "C0036391",
+   "ev": [
+    "C0005745",
+    "C0016506",
+    "C0023012",
+    "C0025362",
+    "C0039075",
+    "C0549159",
+    "C1837404",
+    "C1840013",
+    "C1843392",
+    "C1849185",
+    "C1854301",
+    "C1858120",
+    "C4023368"
+   ],
+   "gold_a": {
+    "id": "C0175694",
+    "name": "Smith-Lemli-Opitz Syndrome",
+    "n_findings": 108,
+    "sum": 22.19,
+    "concepts": {
+     "C1849185": 10.21,
+     "C0005745": 6.27,
+     "C0023012": 4.64,
+     "C0240635": 1.07
+    }
+   },
+   "gold_b": {
+    "id": "C0175694",
+    "name": "Smith-Lemli-Opitz Syndrome",
+    "n_findings": 132,
+    "sum": 22.8,
+    "concepts": {
+     "C1849185": 10.23,
+     "C0005745": 5.65,
+     "C0023012": 3.38,
+     "C0025362": 2.47,
+     "C0240635": 1.06
+    }
+   },
+   "top_a": {
+    "id": "C0036391",
+    "name": "Schwartz-Jampel Syndrome",
+    "n_findings": 62,
+    "sum": 17.03,
+    "concepts": {
+     "C1837404": 6.75,
+     "C1854301": 4.02,
+     "C0005745": 3.62,
+     "C3831024": 2.65
+    }
+   },
+   "top_b": {
+    "id": "C0036391",
+    "name": "Schwartz-Jampel Syndrome",
+    "n_findings": 77,
+    "sum": 21.19,
+    "concepts": {
+     "C1837404": 6.54,
+     "C0016506": 5.15,
+     "C1854301": 3.57,
+     "C0005745": 3.26,
+     "C3831024": 2.65
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0023012",
+    "C0410916",
+    "C0549159",
+    "C0751435",
+    "C1843392",
+    "C1879362",
+    "C4025797"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  },
+  {
+   "gold": "C0751434",
+   "pos_b": 2,
+   "new_top": "C1879362",
+   "ev": [
+    "C0751435",
+    "C1879362",
+    "C4022012"
+   ],
+   "gold_a": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.82,
+    "concepts": {
+     "C0751435": 8.83,
+     "C0031485": 1.99
+    }
+   },
+   "gold_b": {
+    "id": "C0751434",
+    "name": "Classical phenylketonuria",
+    "n_findings": 2,
+    "sum": 10.58,
+    "concepts": {
+     "C0751435": 8.62,
+     "C0031485": 1.96
+    }
+   },
+   "top_a": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 98,
+    "sum": 0,
+    "concepts": {}
+   },
+   "top_b": {
+    "id": "C1879362",
+    "name": "Hypertyrosinemia",
+    "n_findings": 127,
+    "sum": 10.2,
+    "concepts": {
+     "C1879362": 7.93,
+     "C0002514": 2.28
+    }
+   }
+  }
+ ]
+}

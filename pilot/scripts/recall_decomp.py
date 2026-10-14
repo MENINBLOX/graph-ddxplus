@@ -16,11 +16,11 @@ String matching is a lower bound on presence (paraphrases are missed), so not_in
 bound on collection loss and not_extracted a lower bound on extraction loss.
 
     python recall_decomp.py --out pilot/cache/v2/recall/decomp.json
+    python recall_decomp.py --sources DIR1,DIR2 --ie A.jsonl,B.jsonl --link full --out ...   # merged corpus
 """
 from __future__ import annotations
 
 import argparse
-import glob
 import json
 import os
 import re
@@ -30,7 +30,7 @@ from collections import Counter, defaultdict
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import curated_agreement as CA  # noqa: E402
 import v2_ids  # noqa: E402
-from build_graph_v2 import _norm, name_forms  # noqa: E402
+from build_graph_v2 import _norm, hpo_name_index, iter_sources, linked_forms, name_forms  # noqa: E402
 from temporal_eval import load_cases  # noqa: E402
 
 V2 = "pilot/cache/v2"
@@ -56,8 +56,11 @@ def hpo_terms():
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--ie", default=f"{V2}/ie_gemma_full.jsonl")
+    ap.add_argument("--ie", default=f"{V2}/ie_gemma_full.jsonl", help="comma-separated extraction files")
     ap.add_argument("--table", default=f"{V2}/phrase2cui_gemma.json")
+    ap.add_argument("--sources", default=f"{V2}/sources", help="as build_graph_v2.py --sources")
+    ap.add_argument("--link", choices=["table", "full"], default="table",
+                    help="full: link like build_graph_v2.py --split-coord --hpo-names")
     ap.add_argument("--out", required=True)
     a = ap.parse_args()
     h2c, par = CA.hpo_to_cui()
@@ -96,24 +99,34 @@ def main() -> None:
     print(f"cases {len(cases)}, (case, gold, curated feature) triples {len(tasks)}, diseases {len(need)}", flush=True)
 
     use = defaultdict(int)
-    for f in glob.glob(f"{V2}/sources/*.json"):
-        for x in json.load(open(f))["docs"]:
+    need_docs = {}
+    for dz, dz_docs in iter_sources(a.sources):
+        for x in dz_docs:
             use[x["doc_id"]] += 1
+        if dz in need:
+            need_docs[dz] = dz_docs
     generic = {d for d, n in use.items() if n >= 20}
     text, title = {}, {}
     for k in need:
-        p = f"{V2}/sources/{k.replace(':', '_')}.json"
-        docs = [x for x in json.load(open(p))["docs"] if x["doc_id"] not in generic] if os.path.exists(p) else []
+        docs = [x for x in need_docs.get(k, []) if x["doc_id"] not in generic]
         text[k] = " " + norm(" ".join(x["text"] for x in docs)) + " "
         title[k] = {x["doc_id"]: _norm(x.get("title") or "") for x in docs}
     table = json.load(open(a.table))
+    hpo = hpo_name_index() if a.link == "full" else None
     items = defaultdict(list)                      # disease -> (normalized phrase, cui, doc, tui)
-    for line in open(a.ie):
+    for line in (ln for path in a.ie.split(",") for ln in open(path)):
         r = json.loads(line)
         if r["id"] in need:
             for it in r["items"]:
-                t = table.get(it["t"].lower().strip(), {})
-                items[r["id"]].append((" " + norm(it["t"]) + " ", t.get("cui"), it["doc"], t.get("tui")))
+                ph = " " + norm(it["t"]) + " "
+                if it.get("cui"):
+                    items[r["id"]].append((ph, it["cui"], it["doc"], it.get("tui")))
+                elif hpo is not None:
+                    links = linked_forms(it["t"], table, True, hpo) or [(it["t"], {})]
+                    items[r["id"]] += [(ph, t.get("cui"), it["doc"], t.get("tui")) for _, t in links]
+                else:
+                    t = table.get(it["t"].lower().strip(), {})
+                    items[r["id"]].append((ph, t.get("cui"), it["doc"], t.get("tui")))
     excluded_tui = {"T058", "T059", "T060", "T061"}
 
     verdict = {}
