@@ -79,14 +79,14 @@ def locate(text: str, phrase: str) -> tuple[int, int] | None:
     return s, min(len(text), e + 1)
 
 
-def build_chat(model: str, max_new: int, util: float):
+def build_chat(model: str, max_new: int, util: float, eager: bool = True):
     os.environ.setdefault("VLLM_WSL2_ENABLE_PIN_MEMORY", "1")
     os.environ.setdefault("VLLM_USE_FLASHINFER_SAMPLER", "0")
     os.environ.setdefault("VLLM_ATTENTION_BACKEND", "TORCH_SDPA")
     from vllm import LLM, SamplingParams
     kw = {"limit_mm_per_prompt": {"image": 0, "audio": 0}} if "gemma" in model.lower() else {}
     llm = LLM(model=model, dtype="bfloat16", max_model_len=8192, gpu_memory_utilization=util,
-              enforce_eager=True, **kw)
+              enforce_eager=eager, **kw)
     sp = SamplingParams(temperature=0.0, max_tokens=max_new)
 
     def chat(prompts):
@@ -107,6 +107,7 @@ def main() -> None:
     ap.add_argument("--util", type=float, default=float(os.environ.get("VLLM_GPU_UTIL", "0.85")))
     ap.add_argument("--limit-diseases", type=int, default=0)
     ap.add_argument("--files", default="", help="optional JSON list of source files (pilot)")
+    ap.add_argument("--no-eager", action="store_true", help="allow CUDA graphs (faster decoding)")
     a = ap.parse_args()
 
     files = json.load(open(a.files)) if a.files else sorted(glob.glob(f"{a.sources}/*.json"))
@@ -126,7 +127,7 @@ def main() -> None:
         if a.limit_diseases and len(todo) >= a.limit_diseases:
             break
     print(f"ie_v2: model={a.model} diseases={len(todo)} (done {len(done)})", flush=True)
-    chat = build_chat(a.model, a.max_new, a.util)
+    chat = build_chat(a.model, a.max_new, a.util, eager=not a.no_eager)
 
     # flatten to windows, process in batches, write per disease once all its windows finished
     jobs = []
