@@ -1,0 +1,8 @@
+{
+ "diseases": 43575,
+ "diseases_with_findings": 27473,
+ "concepts": 46529,
+ "edges": 1144472,
+ "mentions": 1739223,
+ "docs": 88717
+}

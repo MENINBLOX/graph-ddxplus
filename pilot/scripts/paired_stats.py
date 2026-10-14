@@ -35,7 +35,23 @@ def holm(ps: list[float]) -> list[float]:
     return adj
 
 
-def compare(a: dict, b: dict, k: int, boot: int = 2000) -> list[dict]:
+def cluster_ci(ha: list[bool], hb: list[bool], keys: list, boot: int, rng: random.Random) -> tuple[list[float], int]:
+    groups: dict = {}
+    for i, key in enumerate(keys):
+        groups.setdefault(key, []).append(i)
+    gl = list(groups.values())
+    dist = []
+    for _ in range(boot):
+        idx = [i for _ in gl for i in gl[rng.randrange(len(gl))]]
+        dist.append(100 * sum(hb[i] - ha[i] for i in idx) / len(idx))
+    dist.sort()
+    return [round(dist[int(0.025 * boot)], 2), round(dist[int(0.975 * boot) - 1], 2)], len(gl)
+
+
+def compare(a: dict, b: dict, k: int, boot: int = 2000,
+            clusters: dict[str, list] | None = None) -> list[dict]:
+    """clusters: per benchmark, one key per patient (e.g. the gold disease). When given, a second CI
+    resamples whole clusters, since patients of one disease are not independent draws."""
     ra = {r["bench"]: r["ranks_lineage"] for r in a["results"]}
     rb = {r["bench"]: r["ranks_lineage"] for r in b["results"]}
     rows = []
@@ -58,6 +74,8 @@ def compare(a: dict, b: dict, k: int, boot: int = 2000) -> list[dict]:
                      f"B@{k}": round(100 * sum(hb) / n, 2), "diff": round(d, 2),
                      "ci": [round(dist[int(0.025 * boot)], 2), round(dist[int(0.975 * boot) - 1], 2)],
                      "only_A": only_a, "only_B": only_b, "p": mcnemar_exact(only_a, only_b)})
+        if clusters and len(clusters.get(bench, ())) == n:
+            rows[-1]["ci_cluster"], rows[-1]["clusters"] = cluster_ci(ha, hb, clusters[bench], boot, rng)
     for r, p in zip(rows, holm([r["p"] for r in rows])):
         r["p_holm"] = p
     return rows
