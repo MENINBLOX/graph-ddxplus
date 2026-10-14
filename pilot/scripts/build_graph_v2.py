@@ -59,6 +59,71 @@ def recenter(text: str, phrase: str, sent: str) -> str:
     return text[lo:lo + SENT_CAP].strip()
 
 
+COORD = re.compile(r"\s*(?:,|;|/|\band\b|\bor\b|\bwith\b)\s*")
+DEGREE = re.compile(r"^(severe|mild|moderate|profound|progressive|congenital|bilateral|marked|significant|"
+                    r"recurrent|chronic|early[- ]onset)\s+")
+
+
+def hpo_name_index() -> dict[str, str]:
+    """Normalized HPO label or exact synonym -> the UMLS CUI the patient side uses for that term.
+
+    The UMLS linker can pick a different CUI for the same name ("failure to thrive" C0015544
+    vs HPO's C0231246), and then the edge never meets a patient feature."""
+    hm = json.load(open("data/rarebench/hpo_umls_mapping.json"))["mapping"]
+    g = json.load(open("data/medkg/hp.json"))["graphs"][0]
+    out = {}
+    for n in g["nodes"]:
+        h = n["id"].rsplit("/", 1)[-1].replace("_", ":")
+        cui = (hm.get(h) or {}).get("umls_cui")
+        if not cui or not n.get("lbl"):
+            continue
+        for nm in [n["lbl"]] + [x["val"] for x in n.get("meta", {}).get("synonyms", []) if x.get("pred") == "hasExactSynonym"]:
+            k = _norm(nm).strip()
+            if len(k) >= 4:
+                out.setdefault(k, cui)
+    return out
+
+
+def linked_forms(phrase: str, table: dict, split: bool, hpo: dict | None = None) -> list[tuple[str, dict]]:
+    """The item's linked concept, plus with `split` the concepts of its coordinated parts, plus with
+    `hpo` the HPO term whose name the item or a part spells exactly.
+
+    The IE often returns "arachnodactyly, kyphosis or scoliosis" as one item; the linker cannot
+    ground the whole, but each part is a phrase the table already linked elsewhere. Parts are
+    substrings of the item, so the sentence still supports them."""
+    key = phrase.lower().strip()
+    t = table.get(key, {})
+    out = [(phrase, t)] if t.get("cui") else []
+    seen = {t.get("cui")}
+    forms = [key]
+    if split:
+        forms += [q.strip() for part in COORD.split(key) for q in (part, DEGREE.sub("", part))]
+    for q in dict.fromkeys(forms):
+        u = table.get(q, {}) if q != key else {}
+        if u.get("cui") and u["cui"] not in seen:
+            seen.add(u["cui"])
+            out.append((q, u))
+        c = hpo.get(_norm(q).strip()) if hpo else None
+        if c and c not in seen:
+            seen.add(c)
+            out.append((q, {"cui": c, "tui": ""}))
+    return out
+
+
+def causal_gene_forms() -> dict[str, set[str]]:
+    """Universe key -> normalized symbols of its Mendelian causal genes (HPO genes_to_disease).
+
+    Monogenic subtypes are reported under the gene ("Biallelic PIGN variants cause ..."), so a
+    title naming the causal gene is about the disease even when it never spells the subtype name."""
+    out: dict[str, set[str]] = defaultdict(set)
+    for line in open("data/external_kg/genes_to_disease.txt"):
+        f = line.rstrip("\n").split("\t")
+        if len(f) > 3 and f[2] == "MENDELIAN" and len(f[1]) >= 3:
+            for k in v2_ids.gold_keys({f[3]}):
+                out[k].add(_norm(f[1]))
+    return out
+
+
 def run_batches(session, query: str, rows: list[dict], label: str) -> None:
     for i in range(0, len(rows), BATCH):
         session.run(query, rows=rows[i:i + BATCH]).consume()
@@ -81,6 +146,12 @@ def main() -> None:
     ap.add_argument("--max-year", type=int, default=0,
                     help="keep only evidence from documents published in or before this year (0: all); "
                          "documents without a year are dropped when set")
+    ap.add_argument("--split-coord", action="store_true",
+                    help="also link the coordinated parts of an item through the phrase table")
+    ap.add_argument("--hpo-names", action="store_true",
+                    help="also link items (and parts) that spell an HPO label or exact synonym to its CUI")
+    ap.add_argument("--topic-genes", action="store_true",
+                    help="a title naming the disease's causal gene also counts as on-topic")
     ap.add_argument("--no-mentions", action="store_true",
                     help="skip Mention/Doc nodes (scoring-only graph; the provenance check is skipped)")
     a = ap.parse_args()
@@ -94,6 +165,8 @@ def main() -> None:
         uni.pop(k, None)
     excluded_tui = set(a.exclude_tuis.split(",")) if a.exclude_tuis else set()
     table = json.load(open(a.table))
+    hpo = hpo_name_index() if a.hpo_names else None
+    gene_forms = causal_gene_forms() if a.topic_genes else {}
     # Source specificity: an article retrieved for many different diseases (a methods paper or a
     # broad review caught by full-text fallback queries) is not evidence about any one of them.
     # Threshold fixed a priori from the corpus alone (no benchmark involved).
@@ -116,24 +189,25 @@ def main() -> None:
         r = json.loads(line)
         d = r["id"]
         for it in r.get("items", []):
-            t = table.get(it["t"].lower().strip(), {})
-            if (not t.get("cui") or it["doc"] in generic or it["doc"] in late or d not in uni
-                    or t.get("tui") in excluded_tui):
+            if it["doc"] in generic or it["doc"] in late or d not in uni:
                 continue
-            c = t["cui"]
-            if d not in forms:
-                forms[d] = name_forms(uni[d])
-            topic = any(f in title.get(it["doc"], "") for f in forms[d])
-            if len(it["sent"]) >= SENT_CAP and it["t"].lower() not in it["sent"].lower():
-                by_dz[d].append(len(mentions))
-            mentions.append({"d": d, "c": c, "doc": it["doc"], "phrase": it["t"], "sent": it["sent"],
-                             "topic": topic})
-            e = edge[(d, c)]
-            e[0] += 1
-            e[1].add(it["doc"])
-            if topic:
-                e[2].add(it["doc"])
-            docs_used.add(it["doc"])
+            for phrase, t in linked_forms(it["t"], table, a.split_coord, hpo):
+                if t.get("tui") in excluded_tui:
+                    continue
+                c = t["cui"]
+                if d not in forms:
+                    forms[d] = name_forms(uni[d]) | gene_forms.get(d, set())
+                topic = any(f in title.get(it["doc"], "") for f in forms[d])
+                if len(it["sent"]) >= SENT_CAP and phrase.lower() not in it["sent"].lower():
+                    by_dz[d].append(len(mentions))
+                mentions.append({"d": d, "c": c, "doc": it["doc"], "phrase": phrase, "sent": it["sent"],
+                                 "topic": topic})
+                e = edge[(d, c)]
+                e[0] += 1
+                e[1].add(it["doc"])
+                if topic:
+                    e[2].add(it["doc"])
+                docs_used.add(it["doc"])
     print(f"mentions {len(mentions)}, edges {len(edge)}, docs {len(docs_used)}, "
           f"topic mentions {sum(m['topic'] for m in mentions)}, to re-center {sum(map(len, by_dz.values()))}",
           flush=True)

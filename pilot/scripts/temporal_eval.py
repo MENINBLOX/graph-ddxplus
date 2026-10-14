@@ -59,11 +59,13 @@ def main() -> None:
     ap.add_argument("--auth", default=os.environ.get("NEO4J_AUTH", "neo4j/thesis-dev-only"))
     ap.add_argument("--snapshot", required=True, help="knowledge snapshot date, YYYY-MM-DD")
     ap.add_argument("--cfg", required=True, help="gemma_1hop or hpoa / primekg (frozen design D configs)")
+    ap.add_argument("--override", default="{}", help="JSON of config keys to replace (sensitivity runs only)")
     ap.add_argument("--tag", required=True)
     ap.add_argument("--out", required=True)
     a = ap.parse_args()
     fz = json.load(open(FROZEN))
     cfg = fz[a.cfg] if a.cfg in fz else fz["comparators"][a.cfg]["onehop"]
+    cfg = {**cfg, **json.loads(a.override)}
     snap = date.fromisoformat(a.snapshot)
     cases = load_cases()
     dx = GraphDx(a.uri, a.auth, **cfg)
