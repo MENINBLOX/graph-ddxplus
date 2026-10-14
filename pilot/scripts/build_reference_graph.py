@@ -11,6 +11,10 @@ identical Cypher query. There are no Mention nodes: these sources carry no sente
            number of co-indexed citations
 
     python build_reference_graph.py --source hpoa
+
+--noise R adds R wrong edges per true edge with the error mix the provenance audit found in the
+literature graph (§9.25): 70% findings of a related disease (sibling under a shared parent, else a
+random disease), 30% concepts from the IE vocabulary that are not findings of the disease.
 """
 from __future__ import annotations
 
@@ -19,6 +23,7 @@ import gzip
 import json
 import math
 import os
+import random
 import sys
 from collections import defaultdict
 
@@ -81,6 +86,32 @@ def pairs_cooc(uni) -> dict:
     return dict(out)
 
 
+def add_noise(edge: dict, ratio: float, seed: int) -> dict:
+    rng = random.Random(seed)
+    prof = defaultdict(list)
+    for d, c in edge:
+        prof[d].append(c)
+    dz = sorted(prof)
+    up, down = defaultdict(list), defaultdict(list)
+    for c, p in v2_ids.disease_isa():
+        up[c].append(p)
+        down[p].append(c)
+    sib = {d: sorted({s for p in up[d] for s in down[p] if s != d and s in prof}) for d in dz}
+    tab = json.load(open(f"{V2}/phrase2cui_gemma.json"))
+    vocab = [v["cui"] for v in tab.values() if v.get("cui") and v.get("tui") in VALID_TUI]
+    out = dict(edge)
+    for d in dz:
+        k = int(ratio * len(prof[d])) + (rng.random() < ratio * len(prof[d]) % 1)
+        for _ in range(k):
+            if rng.random() < 0.7:
+                src = rng.choice(sib[d]) if sib[d] else rng.choice(dz)
+                c = rng.choice(prof[src])
+            else:
+                c = rng.choice(vocab)
+            out.setdefault((d, c), 1)
+    return out
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--source", choices=["hpoa", "primekg", "cooc"], required=True)
@@ -88,12 +119,16 @@ def main() -> None:
     ap.add_argument("--auth", default=os.environ.get("NEO4J_AUTH", "neo4j/thesis-dev-only"))
     ap.add_argument("--hpoa", default=CA.HPOA, help="phenotype.hpoa file (e.g. a historical release)")
     ap.add_argument("--summary", default="")
+    ap.add_argument("--noise", type=float, default=0.0, help="wrong edges added per true edge")
+    ap.add_argument("--seed", type=int, default=0)
     a = ap.parse_args()
     CA.HPOA = a.hpoa
     uni = dict(v2_ids.universe())
     for k in json.load(open(f"{V2}/exclude_nonhuman_diseases.json")):
         uni.pop(k, None)
     edge = {"hpoa": pairs_hpoa, "primekg": pairs_primekg, "cooc": pairs_cooc}[a.source](uni)
+    if a.noise:
+        edge = add_noise(edge, a.noise, a.seed)
     prof = defaultdict(set)
     for d, c in edge:
         prof[d].add(c)
