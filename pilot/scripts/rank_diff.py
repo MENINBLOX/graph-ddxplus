@@ -7,7 +7,7 @@ both graphs, the per-concept score contributions of that disease and of the gold
 the length-normalization denominator of the RANK query and the unified-evidence term
 (total = sum / denom + unified_w * n_unified, as GraphDx.rank scores).
 
-    python rank_diff.py --bench RareBench-RAMEDIS --a bolt://localhost:7687 --b bolt://localhost:7688 --out X.json [--k 10]
+    python rank_diff.py --bench RareBench-RAMEDIS --a bolt://localhost:7687 --b bolt://localhost:7688 --out X.json [--k 10] [--offtopic_a W] [--offtopic_b W]
 """
 from __future__ import annotations
 
@@ -61,13 +61,14 @@ def main() -> None:
     ap.add_argument("--a", required=True)
     ap.add_argument("--b", required=True)
     ap.add_argument("--k", type=int, default=1)
+    ap.add_argument("--offtopic_a", type=float, default=None)
     ap.add_argument("--offtopic_b", type=float, default=None)
     ap.add_argument("--auth", default=os.environ.get("NEO4J_AUTH", "neo4j/thesis-dev-only"))
     ap.add_argument("--out", required=True)
     a = ap.parse_args()
     cfg = json.load(open(FROZEN))["gemma_1hop"]
-    A = GraphDx(a.a, a.auth, **cfg)
-    B = GraphDx(a.b, a.auth, **{**cfg, **({"offtopic_w": a.offtopic_b} if a.offtopic_b is not None else {})})
+    A, B = (GraphDx(uri, a.auth, **{**cfg, **({"offtopic_w": ot} if ot is not None else {})})
+            for uri, ot in ((a.a, a.offtopic_a), (a.b, a.offtopic_b)))
     O.RAW_GOLD = True
     pats = dev_sets()[a.bench]
     depth = max(10, a.k)

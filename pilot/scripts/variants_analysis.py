@@ -3,7 +3,8 @@
 Development sets: per variant, offtopic_w selected by the design D3 rule (macro lineage Top-10 over the
 nine sets, ties Top-1), then per-benchmark paired differences against the frozen graph (base_nm at
 offtopic_w 0) with Holm correction and a sign test; the CI is given over patients and over gold
-diseases (several benchmarks repeat a disease across many patients). Dated phenopacket cases: the
+diseases (several benchmarks repeat a disease across many patients); the same comparison between variants
+that differ in one change (PAIRS). Dated phenopacket cases: the
 2022-cut variants on cases published from 2023 on, split by whether HPOA had annotated the gold
 disease by the end of 2022, against HPOA v2022-12-15 and the 2022-cut frozen graph. Cases whose
 source paper is in the v2 corpus are dropped from every temporal comparison (v3 excluded all case
@@ -30,6 +31,13 @@ HPOA_2022 = "pilot/cache/v2/temporal/hpoa_v2022-12-15.json"
 CORPUS_PMIDS = f"{O}/v2_corpus_pmids.json"
 REF = ("base_nm", "0.0")
 GRID = ("0.0", "0.25", "0.5", "1.0")    # an exact tie goes to the lower offtopic_w
+# (B, A): one change at a time, each at its own selected offtopic_w
+PAIRS = [(f"{g}_nq", g) for g in ("base_split_tg", "v2dict", "v2union", "v2unionu")] + \
+        [(f"{g}_ns", g) for g in ("base_nm", "base_split_tg", "v2dict", "v2umls", "v2union", "v2unionu", "v2union_nq")] + \
+        [("v2dict", "base_split_tg"), ("v2umls", "base_split_tg"), ("v2umls", "v2dict"), ("v2union", "base_split_tg"),
+         ("v2union", "v2dict"), ("v2unionu", "v2umls"), ("v2dict_ns", "base_split_tg_ns"), ("v2umls_ns", "base_split_tg_ns"), ("v2umls_ns", "v2dict_ns"),
+         ("v2union_ns", "base_split_tg_ns"), ("v2union_ns", "v2dict_ns"), ("v2unionu_ns", "v2umls_ns"),
+         ("v2union_nq_ns", "v2union_ns")]
 
 
 def corpus_pmids() -> set[str]:
@@ -55,7 +63,16 @@ def gold_clusters() -> dict[str, list]:
             for b, pats in dev_sets().items()}
 
 
-def dev_part() -> dict:
+def versus(a: dict, b: dict, clusters: dict) -> dict:
+    out = {}
+    for k in (1, 10):
+        rows = compare(a, b, k, clusters=clusters)
+        pos, neg = sum(r["diff"] > 0 for r in rows), sum(r["diff"] < 0 for r in rows)
+        out[f"@{k}"] = {"rows": rows, "B_better": pos, "A_better": neg, "sign_p": sign_test(pos, neg)}
+    return out
+
+
+def dev_part() -> tuple[dict, dict]:
     clusters = gold_clusters()
     runs = defaultdict(dict)
     for f in glob.glob(f"{O}/dev_*_ot*.json"):
@@ -74,12 +91,12 @@ def dev_part() -> dict:
         row = {"grid": grid, "selected_offtopic_w": sel, "macro@10": grid[sel][0], "macro@1": grid[sel][1],
                "per_bench": {r["bench"]: [r["lineage@1"], r["lineage@10"]] for r in d["results"]}}
         if ref is not None and (g, sel) != REF:
-            for k in (1, 10):
-                rows = compare(ref, d, k, clusters=clusters)
-                pos, neg = sum(r["diff"] > 0 for r in rows), sum(r["diff"] < 0 for r in rows)
-                row[f"vs_frozen@{k}"] = {"rows": rows, "B_better": pos, "A_better": neg, "sign_p": sign_test(pos, neg)}
+            for k, v in versus(ref, d, clusters).items():
+                row[f"vs_frozen{k}"] = v
         out[g] = row
-    return out
+    pairs = {f"{b} vs {a}": versus(runs[a][out[a]["selected_offtopic_w"]], runs[b][out[b]["selected_offtopic_w"]], clusters)
+             for b, a in PAIRS if a in out and b in out}
+    return out, pairs
 
 
 def temporal_part() -> dict:
@@ -129,7 +146,8 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", required=True)
     a = ap.parse_args()
-    res = {"dev": dev_part(), "temporal": temporal_part()}
+    dev, pairs = dev_part()
+    res = {"dev": dev, "pairs": pairs, "temporal": temporal_part()}
     json.dump(res, open(a.out, "w"), indent=1)
     print("incomplete (not selected):", res["dev"].pop("_incomplete", {}))
     for g, r in res["dev"].items():
@@ -140,6 +158,10 @@ def main() -> None:
             print("     vs frozen @10:", [(x["bench"], x["diff"], x["ci"], x.get("ci_cluster"), round(x["p_holm"], 3))
                                        for x in v["rows"]],
                   f"better {v['B_better']} worse {v['A_better']} sign p {v['sign_p']:.3g}")
+    for name, v in res["pairs"].items():
+        for k, x in v.items():
+            print(f"pair {name:34s} {k:3s} better {x['B_better']} worse {x['A_better']} sign p {x['sign_p']:.3g}",
+                  [(r["bench"], r["diff"], r["ci"], r.get("ci_cluster"), round(r["p_holm"], 3)) for r in x["rows"]])
     for t, r in res["temporal"].items():
         if isinstance(r, dict) and "future/new" in r:
             for grp, c in r.items():
