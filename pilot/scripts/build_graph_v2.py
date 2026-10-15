@@ -34,6 +34,7 @@ from neo4j import GraphDatabase
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import v2_ids  # noqa: E402
 from deep_fetch import name_variants  # noqa: E402
+from jsonl_io import open_text  # noqa: E402
 
 BATCH = 5000
 SENT_CAP = 600          # ie_v2 stores at most this many characters of the located sentence
@@ -320,7 +321,7 @@ def main() -> None:
     edge = defaultdict(lambda: [0, set(), set()])     # (disease, cui) -> [n_mentions, docs, topic docs]
     forms: dict[str, set[str]] = {}
     by_dz = defaultdict(list)                          # disease -> indices of mentions to re-center
-    for line in (ln for path in a.ie.split(",") for ln in open(path)):
+    for line in (ln for path in a.ie.split(",") for ln in open_text(path)):
         r = json.loads(line)
         d = r["id"]
         for it in r.get("items", []):

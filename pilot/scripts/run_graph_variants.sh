@@ -28,8 +28,8 @@ read -r A M D U B < <($PY -c "import json;s=json.load(open('$V/devD/frozen_confi
 ALL="--split-coord --hpo-names --topic-genes"
 LLM=$V/ie_gemma_full.jsonl
 LLM3="$LLM,$V3/ie_v3.jsonl"
-DICT3="$V/dict_v2.jsonl,$V3/dict_v3.jsonl"
-UMLS3="$V/dict_umls_v2.jsonl,$V3/dict_umls_v3.jsonl"
+DICT3="$V/dict_v2.jsonl.gz,$V3/dict_v3.jsonl.gz"
+UMLS3="$V/dict_umls_v2.jsonl.gz,$V3/dict_umls_v3.jsonl.gz"
 SRC3="$V/sources,$V3/sources_new"
 SRC3F="$V3/sources_full,$V/sources"
 for G in "$@"; do
@@ -47,14 +47,14 @@ for G in "$@"; do
     base_nm)       IE=$LLM; FLAGS="" ;;
     base_split)    IE=$LLM; FLAGS="--split-coord --hpo-names" ;;
     base_split_tg) IE=$LLM ;;
-    v2dict)        IE=$V/dict_v2.jsonl ;;
-    v2union)       IE=$LLM,$V/dict_v2.jsonl ;;
-    v2umls)        IE=$V/dict_umls_v2.jsonl ;;
-    v2unionu)      IE=$LLM,$V/dict_umls_v2.jsonl ;;
+    v2dict)        IE=$V/dict_v2.jsonl.gz ;;
+    v2union)       IE=$LLM,$V/dict_v2.jsonl.gz ;;
+    v2umls)        IE=$V/dict_umls_v2.jsonl.gz ;;
+    v2unionu)      IE=$LLM,$V/dict_umls_v2.jsonl.gz ;;
     v3dict)        IE=$DICT3; SRC=$SRC3 ;;
-    v3dictfull)    IE=$V/dict_v2.jsonl,$V3/dict_v3full.jsonl; SRC=$SRC3F ;;
+    v3dictfull)    IE=$V/dict_v2.jsonl.gz,$V3/dict_v3full.jsonl.gz; SRC=$SRC3F ;;
     v3umls)        IE=$UMLS3; SRC=$SRC3 ;;
-    v3umlsfull)    IE=$V/dict_umls_v2.jsonl,$V3/dict_umls_v3full.jsonl; SRC=$SRC3F ;;
+    v3umlsfull)    IE=$V/dict_umls_v2.jsonl.gz,$V3/dict_umls_v3full.jsonl.gz; SRC=$SRC3F ;;
     v3llm)         IE=$LLM3; SRC=$SRC3; TABLE=$V3/phrase2cui_v3.json ;;
     v3union)       IE=$LLM3,$DICT3; SRC=$SRC3; TABLE=$V3/phrase2cui_v3.json ;;
     v3unionu)      IE=$LLM3,$UMLS3; SRC=$SRC3; TABLE=$V3/phrase2cui_v3.json ;;

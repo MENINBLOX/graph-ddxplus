@@ -9,7 +9,7 @@ Longest match first; a match preceded by a negation cue within the five tokens b
 Output is the ie_v2.py JSONL format, so comparing graphs built from the same articles isolates what
 the LLM extraction adds over dictionary matching.
 
-    python dict_ie.py --sources DIR --out OUT.jsonl [--vocab hpo|umls] [--workers 8] [--resume]
+    python dict_ie.py --sources DIR --out OUT.jsonl.gz [--vocab hpo|umls] [--workers 8] [--resume]
 """
 from __future__ import annotations
 
@@ -23,6 +23,7 @@ from multiprocessing import Pool
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from build_graph_v2 import _norm, hpo_name_index  # noqa: E402
+from jsonl_io import complete_lines, open_text, repair  # noqa: E402
 from v152_normalize_pipeline import FINDING_TUI  # noqa: E402
 
 SENT = re.compile(r"(?<=[.!?])\s+(?=[A-Z0-9(\[])|\n+")
@@ -88,21 +89,6 @@ def extract(path: str) -> str:
     return json.dumps({"id": rec["id"], "name": rec["name"], "items": items}) + "\n"
 
 
-def drop_partial_line(path: str) -> None:
-    """An interrupted run can leave a partial last line; cut the file after its last newline."""
-    with open(path, "rb+") as fb:
-        pos = fb.seek(0, 2)
-        while pos > 0:
-            step = min(1 << 16, pos)
-            pos -= step
-            fb.seek(pos)
-            i = fb.read(step).rfind(b"\n")
-            if i >= 0:
-                fb.truncate(pos + i + 1)
-                return
-        fb.truncate(0)
-
-
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--sources", required=True)
@@ -114,10 +100,10 @@ def main() -> None:
     NAMES.update(umls_index() if a.vocab == "umls" else dict.fromkeys(hpo_name_index()))
     done = set()
     if a.resume and os.path.exists(a.out):
-        drop_partial_line(a.out)
-        done = {m.group(1).replace(":", "_") for ln in open(a.out) if (m := ID.match(ln))}
+        repair(a.out)
+        done = {m.group(1).replace(":", "_") for ln in complete_lines(a.out) if (m := ID.match(ln))}
     files = [f for f in sorted(glob.glob(f"{a.sources}/*.json")) if os.path.basename(f)[:-5] not in done]
-    with open(a.out, "a" if a.resume else "w") as fo, Pool(a.workers) as pool:
+    with open_text(a.out, "a" if a.resume else "w") as fo, Pool(a.workers) as pool:
         fo.writelines(pool.imap(extract, files, chunksize=8))
     print(f"done {len(files)}")
 
