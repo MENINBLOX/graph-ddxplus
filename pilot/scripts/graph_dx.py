@@ -55,9 +55,12 @@ RETURN collect(DISTINCT d.id) AS ids
 
 class GraphDx:
     def __init__(self, uri: str, auth: str, alpha: float, mu: float, decay: float, unified_w: float,
-                 support_beta: float = 0.0, offtopic_w: float = 1.0):
+                 support_beta: float = 0.0, offtopic_w: float = 1.0, full_unified: bool = False):
         self.drv = GraphDatabase.driver(uri, auth=tuple(auth.split("/", 1)))
         self.alpha, self.mu, self.decay, self.unified_w = alpha, mu, decay, unified_w
+        # The finding score is read for the top k*4 diseases only, so a disease credited by unified evidence
+        # below that window keeps just the unified term; full_unified also scores its findings.
+        self.full_unified = full_unified
         self.beta, self.gamma = support_beta, offtopic_w
         self.cands: list[str] | None = None   # closed-set auxiliary evaluation: benchmark label space
         with self.drv.session() as s:
@@ -67,14 +70,21 @@ class GraphDx:
             self.lbar, self.smed, self.n = r["lbar"], max(1, r["smed"]), r["n"]
 
     def rank(self, ev: set[str], k: int = 50) -> list[str]:
-        with self.drv.session() as s:
-            sc = {r["id"]: r["score"] for r in s.run(
+        def finding_scores(s, cands, limit):
+            return {r["id"]: r["score"] for r in s.run(
                 RANK, ev=sorted(ev), decay=self.decay, mu=self.mu, smed=self.smed, lbar=self.lbar,
-                alpha=self.alpha, beta=self.beta, gamma=self.gamma, cands=self.cands, k=k * 4)}
+                alpha=self.alpha, beta=self.beta, gamma=self.gamma, cands=cands, k=limit)}
+
+        with self.drv.session() as s:
+            sc = finding_scores(s, self.cands, k * 4)
             if self.unified_w:
-                for r in s.run(UNIFIED, ev=sorted(ev)):
-                    if self.cands is None or r["id"] in self._cset:
-                        sc[r["id"]] = sc.get(r["id"], 0.0) + self.unified_w * r["n"]
+                uni = {r["id"]: r["n"] for r in s.run(UNIFIED, ev=sorted(ev))
+                       if self.cands is None or r["id"] in self._cset}
+                outside = [d for d in uni if d not in sc]
+                if self.full_unified and outside:
+                    sc.update(finding_scores(s, outside, len(outside)))
+                for d, n in uni.items():
+                    sc[d] = sc.get(d, 0.0) + self.unified_w * n
         return sorted(sc, key=lambda d: (-sc[d], d))[:k]
 
     def lineage(self, gold: set[str]) -> set[str]:
@@ -128,6 +138,8 @@ def main() -> None:
     ap.add_argument("--unified_w", type=float, default=1.0)
     ap.add_argument("--support_beta", type=float, default=0.0)
     ap.add_argument("--offtopic_w", type=float, default=1.0)
+    ap.add_argument("--full_unified", action="store_true",
+                    help="also score the findings of unified-evidence diseases outside the top k*4 window")
     ap.add_argument("--uri", default="bolt://localhost:7687")
     ap.add_argument("--auth", default=os.environ.get("NEO4J_AUTH", "neo4j/thesis-dev-only"))
     ap.add_argument("--boot", type=int, default=0, help="patient-bootstrap resamples for 95% CI")
@@ -136,7 +148,7 @@ def main() -> None:
                     help="auxiliary: rank only within each benchmark's own gold label space")
     a = ap.parse_args()
     O.RAW_GOLD = True
-    dx = GraphDx(a.uri, a.auth, a.alpha, a.mu, a.decay, a.unified_w, a.support_beta, a.offtopic_w)
+    dx = GraphDx(a.uri, a.auth, a.alpha, a.mu, a.decay, a.unified_w, a.support_beta, a.offtopic_w, a.full_unified)
     print(f"graph: {dx.n} diseases with findings, mean profile {dx.lbar:.1f}, median source chars {dx.smed}",
           flush=True)
     sets = {}
