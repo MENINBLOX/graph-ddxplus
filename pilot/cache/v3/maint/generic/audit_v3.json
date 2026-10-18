@@ -3,14 +3,14 @@
  "max_doc_diseases": 20,
  "articles": 882014,
  "generic_articles": 4122,
- "diseases_with_documents": 41771,
- "diseases_emptied": 1422,
- "diseases_emptied_with_on_topic_generic": 711,
- "diseases_losing_on_topic_articles": 5558,
- "on_topic_generic_articles": 3481,
- "diseases_emptied_with_exact_topic_generic": 13,
- "diseases_losing_exact_topic_articles": 1041,
- "exact_topic_generic_articles": 2630,
+ "diseases_with_documents": 35308,
+ "diseases_emptied": 938,
+ "diseases_emptied_with_on_topic_generic": 282,
+ "diseases_losing_on_topic_articles": 4472,
+ "on_topic_generic_articles": 3476,
+ "diseases_emptied_with_exact_topic_generic": 12,
+ "diseases_losing_exact_topic_articles": 1039,
+ "exact_topic_generic_articles": 2628,
  "exact_topic_generic_max_diseases_per_article": 6,
  "exact_topic_generic_articles_kept_by_20plus": 0,
  "dev_patients_with_documented_gold": 22858,
@@ -43,14 +43,6 @@
    {
     "name": "Intellectual disability, cardiac anomalies, short stature, joint laxity syndrome",
     "src": "UMLS",
-    "syn": []
-   }
-  ],
-  [
-   "MONDO:1010819",
-   {
-    "name": "polydactyly, cattle",
-    "src": "MONDO",
     "syn": []
    }
   ],
@@ -92,26 +84,10 @@
    }
   ],
   [
-   "MONDO:1010532",
-   {
-    "name": "cleft palate, rabbit",
-    "src": "MONDO",
-    "syn": []
-   }
-  ],
-  [
    "C3665404",
    {
     "name": "Malignant neoplasm of diaphragm, NOS",
     "src": "UMLS",
-    "syn": []
-   }
-  ],
-  [
-   "MONDO:1012791",
-   {
-    "name": "osteogenesis imperfecta, COL1A2-related, dog",
-    "src": "MONDO",
     "syn": []
    }
   ],
@@ -133,16 +109,6 @@
      "Nephrotic Syndromes",
      "NS - Nephrotic syndrome",
      "Nephrotic syndrome (disorder)"
-    ]
-   }
-  ],
-  [
-   "MONDO:1012794",
-   {
-    "name": "oculocutaneous albinism, HPS5-related, domestic cat",
-    "src": "MONDO",
-    "syn": [
-     "coat colour, albinism, oculocutaneous, HPS5-related in Felis catus (domestic cat)"
     ]
    }
   ],
@@ -205,14 +171,6 @@
    }
   ],
   [
-   "MONDO:1011882",
-   {
-    "name": "segmental axonopathy, non-human animal",
-    "src": "MONDO",
-    "syn": []
-   }
-  ],
-  [
    "C0477072",
    {
     "name": "Bus occupant injured in collision with two- or three-wheeled motor vehicle, passenger, traffic accident",
@@ -234,16 +192,6 @@
    }
   ],
   [
-   "MONDO:1012594",
-   {
-    "name": "oculocutaneous albinism, TYR-related, domestic ferret",
-    "src": "MONDO",
-    "syn": [
-     "coat/skin colour, oculocutaneous albinism type I (OCA1), TYR-related in Mustela putorius furo (domestic ferret)"
-    ]
-   }
-  ],
-  [
    "C0263037",
    {
     "name": "Carbuncle of hand (disorder)",
@@ -254,36 +202,10 @@
    }
   ],
   [
-   "MONDO:1012797",
-   {
-    "name": "osteogenesis imperfecta, type III, COL1A1-related, dog",
-    "src": "MONDO",
-    "syn": []
-   }
-  ],
-  [
    "C0348185",
    {
     "name": "Other forms of herpesviral infection",
     "src": "UMLS",
-    "syn": []
-   }
-  ],
-  [
-   "MONDO:1010748",
-   {
-    "name": "Ehlers-Danlos syndrome, dermatosparaxis type, ADAMTS2-related, cattle",
-    "src": "MONDO",
-    "syn": [
-     "dEDS"
-    ]
-   }
-  ],
-  [
-   "MONDO:1010412",
-   {
-    "name": "epilepsy, domestic cat",
-    "src": "MONDO",
     "syn": []
    }
   ],
@@ -305,22 +227,6 @@
     "syn": [
      "TFAP2B-related PDA and Char syndrome spectrum disorder"
     ]
-   }
-  ],
-  [
-   "MONDO:7770357",
-   {
-    "name": "spinal muscular atrophy, pig",
-    "src": "MONDO",
-    "syn": []
-   }
-  ],
-  [
-   "MONDO:1011054",
-   {
-    "name": "polycystic kidney disease, PKD1-related, domestic cat",
-    "src": "MONDO",
-    "syn": []
    }
   ],
   [
@@ -393,6 +299,120 @@
      "DFNA31"
     ]
    }
+  ],
+  [
+   "C1844936",
+   {
+    "name": "SPINOCEREBELLAR ATAXIA, X-LINKED 3",
+    "src": "UMLS",
+    "syn": [
+     "SCAX3",
+     "Schmidley syndrome",
+     "Ataxia-deafness syndrome X-linked",
+     "X-linked ataxia deafness syndrome",
+     "X-linked ataxia-deafness syndrome"
+    ]
+   }
+  ],
+  [
+   "C0476771",
+   {
+    "name": "Pedal cyclist injured in collision with two- or three-wheeled motor vehicle, passenger, traffic accident",
+    "src": "UMLS",
+    "syn": []
+   }
+  ],
+  [
+   "C5924853",
+   {
+    "name": "Autosomal recessive hyper-IgE syndrome due to ZNF341 deficiency",
+    "src": "UMLS",
+    "syn": [
+     "AR-HIES due to ZNF341 deficiency",
+     "Autosomal recessive HIES due to ZNF341 deficiency"
+    ]
+   }
+  ],
+  [
+   "C0346660",
+   {
+    "name": "Malignant neoplasm of orbital bone",
+    "src": "UMLS",
+    "syn": [
+     "Malignant neoplasm of orbital bone (disorder)"
+    ]
+   }
+  ],
+  [
+   "C0476781",
+   {
+    "name": "Pedal cyclist injured in collision with heavy transport vehicle or bus",
+    "src": "UMLS",
+    "syn": []
+   }
+  ],
+  [
+   "C0451685",
+   {
+    "name": "Acute lymphadenitis of trunk",
+    "src": "UMLS",
+    "syn": [
+     "Acute lymphadenitis of trunk (disorder)"
+    ]
+   }
+  ],
+  [
+   "C0473768",
+   {
+    "name": "Ischemic infarction of muscle",
+    "src": "UMLS",
+    "syn": [
+     "Ischaemic infarction of muscle",
+     "Ischemic infarction of muscle (disorder)"
+    ]
+   }
+  ],
+  [
+   "C0496360",
+   {
+    "name": "Occupant of pick-up truck or van injured in collision with car, pick-up truck or van, passenger, traffic accident",
+    "src": "UMLS",
+    "syn": []
+   }
+  ],
+  [
+   "C0349298",
+   {
+    "name": "Mild mental retardation with the statement of no, or minimal, impairment of behaviour",
+    "src": "UMLS",
+    "syn": []
+   }
+  ],
+  [
+   "C0271937",
+   {
+    "name": "Folate deficiency anemia due to dietary causes",
+    "src": "UMLS",
+    "syn": [
+     "Dietary Folate Deficiency Anemia",
+     "Dietary folate deficiency anaemia",
+     "Megaloblastic anemia due to poor nutrition",
+     "Megaloblastic anaemia due to poor nutrition"
+    ]
+   }
+  ],
+  [
+   "MONDO:0013032",
+   {
+    "name": "epilepsy, idiopathic generalized, susceptibility to, 8",
+    "src": "MONDO",
+    "syn": [
+     "CASR generalised epilepsy",
+     "CASR generalized epilepsy",
+     "epilepsy idiopathic generalized, susceptibility to, 8",
+     "epilepsy, idiopathic generalized, susceptibility to, type 8"
+    ]
+   }
   ]
  ],
  "most_shared_generic": [
@@ -429,15 +449,15 @@
    215
   ],
   [
-   "PMC7358665",
-   213
-  ],
-  [
    "PMC8138955",
    213
   ],
   [
    "PMC6291880",
+   213
+  ],
+  [
+   "PMC7358665",
    213
   ],
   [
@@ -453,6 +473,10 @@
    210
   ],
   [
+   "PMC7598720",
+   209
+  ],
+  [
    "PMC7057560",
    209
   ],
@@ -461,27 +485,11 @@
    209
   ],
   [
-   "PMC7598720",
-   209
-  ],
-  [
    "PMC12395682",
    208
   ],
   [
-   "PMC12994271",
-   207
-  ],
-  [
-   "PMC9198885",
-   207
-  ],
-  [
    "PMC6928269",
-   207
-  ],
-  [
-   "PMC13047121",
    207
   ],
   [
@@ -489,15 +497,23 @@
    207
   ],
   [
+   "PMC13047121",
+   207
+  ],
+  [
    "PMC8035957",
    207
   ],
   [
-   "PMID42751346",
-   206
+   "PMC9198885",
+   207
   ],
   [
-   "PMC3914172",
+   "PMC12994271",
+   207
+  ],
+  [
+   "PMID42751346",
    206
   ],
   [
@@ -509,11 +525,15 @@
    206
   ],
   [
-   "PMC8966868",
+   "PMC3914172",
+   206
+  ],
+  [
+   "PMID39696717",
    205
   ],
   [
-   "PMC11114245",
+   "PMC4687988",
    205
   ]
  ]
