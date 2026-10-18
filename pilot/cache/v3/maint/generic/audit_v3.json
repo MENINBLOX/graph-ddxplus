@@ -1,0 +1,520 @@
+{
+ "sources": "pilot/cache/v2/sources,pilot/cache/v3/sources_new",
+ "max_doc_diseases": 20,
+ "articles": 882014,
+ "generic_articles": 4122,
+ "diseases_with_documents": 41771,
+ "diseases_emptied": 1422,
+ "diseases_emptied_with_on_topic_generic": 711,
+ "diseases_losing_on_topic_articles": 5558,
+ "on_topic_generic_articles": 3481,
+ "diseases_emptied_with_exact_topic_generic": 13,
+ "diseases_losing_exact_topic_articles": 1041,
+ "exact_topic_generic_articles": 2630,
+ "exact_topic_generic_max_diseases_per_article": 6,
+ "exact_topic_generic_articles_kept_by_20plus": 0,
+ "dev_patients_with_documented_gold": 22858,
+ "dev_patients_gold_emptied": 35,
+ "dev_patients_gold_losing_on_topic": 4287,
+ "dev_patients_gold_losing_exact_topic": 1886,
+ "examples_emptied": [
+  [
+   "C1861865",
+   {
+    "name": "Mental retardation, mild to moderate",
+    "src": "UMLS",
+    "syn": [
+     "Mild-moderate mental retardation",
+     "Mild to moderate mental retardation",
+     "Mental retardation (mild to moderate)"
+    ]
+   }
+  ],
+  [
+   "C0476913",
+   {
+    "name": "Motorcycle rider [any] injured in unspecified traffic accident",
+    "src": "UMLS",
+    "syn": []
+   }
+  ],
+  [
+   "C5568572",
+   {
+    "name": "Intellectual disability, cardiac anomalies, short stature, joint laxity syndrome",
+    "src": "UMLS",
+    "syn": []
+   }
+  ],
+  [
+   "MONDO:1010819",
+   {
+    "name": "polydactyly, cattle",
+    "src": "MONDO",
+    "syn": []
+   }
+  ],
+  [
+   "C1864968",
+   {
+    "name": "DEAFNESS, AUTOSOMAL RECESSIVE 51",
+    "src": "UMLS",
+    "syn": [
+     "DFNB51"
+    ]
+   }
+  ],
+  [
+   "C0496363",
+   {
+    "name": "Occupant of pick-up truck or van injured in collision with heavy transport vehicle or bus, driver, nontraffic accident",
+    "src": "UMLS",
+    "syn": []
+   }
+  ],
+  [
+   "C1852280",
+   {
+    "name": "Deafness, Sensorineural, with Peripheral Neuropathy and Arterial Disease",
+    "src": "UMLS",
+    "syn": []
+   }
+  ],
+  [
+   "C0263158",
+   {
+    "name": "Cellulitis of buttock",
+    "src": "UMLS",
+    "syn": [
+     "Cellulitis of gluteal region",
+     "Cellulitis of buttock (disorder)"
+    ]
+   }
+  ],
+  [
+   "MONDO:1010532",
+   {
+    "name": "cleft palate, rabbit",
+    "src": "MONDO",
+    "syn": []
+   }
+  ],
+  [
+   "C3665404",
+   {
+    "name": "Malignant neoplasm of diaphragm, NOS",
+    "src": "UMLS",
+    "syn": []
+   }
+  ],
+  [
+   "MONDO:1012791",
+   {
+    "name": "osteogenesis imperfecta, COL1A2-related, dog",
+    "src": "MONDO",
+    "syn": []
+   }
+  ],
+  [
+   "C4694018",
+   {
+    "name": "NEURODEVELOPMENTAL DISORDER WITH SPASTIC QUADRIPLEGIA, BRAIN ABNORMALITIES, AND SEIZURES",
+    "src": "UMLS",
+    "syn": []
+   }
+  ],
+  [
+   "C0027726",
+   {
+    "name": "Nephrotic Syndrome",
+    "src": "UMLS",
+    "syn": [
+     "Nephrosis",
+     "Nephrotic Syndromes",
+     "NS - Nephrotic syndrome",
+     "Nephrotic syndrome (disorder)"
+    ]
+   }
+  ],
+  [
+   "MONDO:1012794",
+   {
+    "name": "oculocutaneous albinism, HPS5-related, domestic cat",
+    "src": "MONDO",
+    "syn": [
+     "coat colour, albinism, oculocutaneous, HPS5-related in Felis catus (domestic cat)"
+    ]
+   }
+  ],
+  [
+   "C0349017",
+   {
+    "name": "Malignant neoplasm of cauda equina",
+    "src": "UMLS",
+    "syn": [
+     "Malignant neoplasm of cauda equina (disorder)"
+    ]
+   }
+  ],
+  [
+   "C0263061",
+   {
+    "name": "Furuncle of trunk",
+    "src": "UMLS",
+    "syn": [
+     "Furuncle of trunk (disorder)"
+    ]
+   }
+  ],
+  [
+   "C0451686",
+   {
+    "name": "Acute lymphadenitis of upper limb",
+    "src": "UMLS",
+    "syn": [
+     "Acute lymphadenitis of upper limb (disorder)"
+    ]
+   }
+  ],
+  [
+   "C0496337",
+   {
+    "name": "Occupant of pick-up truck or van injured in collision with pedal cycle, passenger, nontraffic accident",
+    "src": "UMLS",
+    "syn": []
+   }
+  ],
+  [
+   "C0475561",
+   {
+    "name": "Obstructed labor due to unusually large fetus",
+    "src": "UMLS",
+    "syn": [
+     "Obstructed labour due to unusually large fetus",
+     "Obstructed labour due to unusually large foetus",
+     "Obstructed labor due to unusually large fetus (disorder)"
+    ]
+   }
+  ],
+  [
+   "C0349306",
+   {
+    "name": "Severe mental retardation with the statement of no, or minimal, impairment of behaviour",
+    "src": "UMLS",
+    "syn": []
+   }
+  ],
+  [
+   "MONDO:1011882",
+   {
+    "name": "segmental axonopathy, non-human animal",
+    "src": "MONDO",
+    "syn": []
+   }
+  ],
+  [
+   "C0477072",
+   {
+    "name": "Bus occupant injured in collision with two- or three-wheeled motor vehicle, passenger, traffic accident",
+    "src": "UMLS",
+    "syn": []
+   }
+  ],
+  [
+   "C0158719",
+   {
+    "name": "Congenital bowing of femur",
+    "src": "UMLS",
+    "syn": [
+     "Congenital bent femur",
+     "Congenital bowed femur",
+     "Congenital angulated femur",
+     "Congenital bowing of femur (disorder)"
+    ]
+   }
+  ],
+  [
+   "MONDO:1012594",
+   {
+    "name": "oculocutaneous albinism, TYR-related, domestic ferret",
+    "src": "MONDO",
+    "syn": [
+     "coat/skin colour, oculocutaneous albinism type I (OCA1), TYR-related in Mustela putorius furo (domestic ferret)"
+    ]
+   }
+  ],
+  [
+   "C0263037",
+   {
+    "name": "Carbuncle of hand (disorder)",
+    "src": "UMLS",
+    "syn": [
+     "Carbuncle of hand"
+    ]
+   }
+  ],
+  [
+   "MONDO:1012797",
+   {
+    "name": "osteogenesis imperfecta, type III, COL1A1-related, dog",
+    "src": "MONDO",
+    "syn": []
+   }
+  ],
+  [
+   "C0348185",
+   {
+    "name": "Other forms of herpesviral infection",
+    "src": "UMLS",
+    "syn": []
+   }
+  ],
+  [
+   "MONDO:1010748",
+   {
+    "name": "Ehlers-Danlos syndrome, dermatosparaxis type, ADAMTS2-related, cattle",
+    "src": "MONDO",
+    "syn": [
+     "dEDS"
+    ]
+   }
+  ],
+  [
+   "MONDO:1010412",
+   {
+    "name": "epilepsy, domestic cat",
+    "src": "MONDO",
+    "syn": []
+   }
+  ],
+  [
+   "C0153612",
+   {
+    "name": "Malignant neoplasm of posterior wall of urinary bladder",
+    "src": "UMLS",
+    "syn": [
+     "Malignant Neoplasm of Posterior Wall of Bladder"
+    ]
+   }
+  ],
+  [
+   "MONDO:1010098",
+   {
+    "name": "TFAP2B-related congenital heart disease spectrum disorder",
+    "src": "MONDO",
+    "syn": [
+     "TFAP2B-related PDA and Char syndrome spectrum disorder"
+    ]
+   }
+  ],
+  [
+   "MONDO:7770357",
+   {
+    "name": "spinal muscular atrophy, pig",
+    "src": "MONDO",
+    "syn": []
+   }
+  ],
+  [
+   "MONDO:1011054",
+   {
+    "name": "polycystic kidney disease, PKD1-related, domestic cat",
+    "src": "MONDO",
+    "syn": []
+   }
+  ],
+  [
+   "MONDO:0100009",
+   {
+    "name": "GATA4-related congenital heart disease with or without pancreatic hypoplasia or diabetes",
+    "src": "MONDO",
+    "syn": [
+     "structural congenital heart disease, multiple types - GATA4"
+    ]
+   }
+  ],
+  [
+   "MONDO:1030001",
+   {
+    "name": "epilepsy, juvenile absence, susceptibility to",
+    "src": "MONDO",
+    "syn": []
+   }
+  ],
+  [
+   "C2875832",
+   {
+    "name": "Bilateral orbital granuloma",
+    "src": "UMLS",
+    "syn": [
+     "Granuloma of both orbits",
+     "Granuloma of bilateral orbits",
+     "Granuloma of bilateral orbits (disorder)"
+    ]
+   }
+  ],
+  [
+   "C1854646",
+   {
+    "name": "Muscular Dystrophy, Adult-Onset, with Leukoencephalopathy",
+    "src": "UMLS",
+    "syn": []
+   }
+  ],
+  [
+   "C3275444",
+   {
+    "name": "INTELLECTUAL DEVELOPMENTAL DISORDER, X-LINKED 88",
+    "src": "UMLS",
+    "syn": [
+     "MRX88",
+     "XLID88"
+    ]
+   }
+  ],
+  [
+   "MONDO:0100397",
+   {
+    "name": "acute myeloid leukemia, t(9;22)(q34.1;q11.2)",
+    "src": "MONDO",
+    "syn": [
+     "AML, t(9;22)(q34.1;q11.2)",
+     "AML, t(9;22)(q34;q11)",
+     "AML, t(9;22)(q34;q11.2)"
+    ]
+   }
+  ],
+  [
+   "C1837617",
+   {
+    "name": "Deafness, Autosomal Dominant 31",
+    "src": "UMLS",
+    "syn": [
+     "DFNA31"
+    ]
+   }
+  ]
+ ],
+ "most_shared_generic": [
+  [
+   "PMC13299287",
+   406
+  ],
+  [
+   "PMC13528662",
+   401
+  ],
+  [
+   "PMC10037590",
+   352
+  ],
+  [
+   "PMC10404597",
+   238
+  ],
+  [
+   "PMC13526227",
+   228
+  ],
+  [
+   "PMC10106626",
+   225
+  ],
+  [
+   "PMC8191509",
+   217
+  ],
+  [
+   "PMC11499342",
+   215
+  ],
+  [
+   "PMC7358665",
+   213
+  ],
+  [
+   "PMC8138955",
+   213
+  ],
+  [
+   "PMC6291880",
+   213
+  ],
+  [
+   "PMC5378843",
+   211
+  ],
+  [
+   "PMC9849293",
+   210
+  ],
+  [
+   "PMC12140680",
+   210
+  ],
+  [
+   "PMC7057560",
+   209
+  ],
+  [
+   "PMC12790681",
+   209
+  ],
+  [
+   "PMC7598720",
+   209
+  ],
+  [
+   "PMC12395682",
+   208
+  ],
+  [
+   "PMC12994271",
+   207
+  ],
+  [
+   "PMC9198885",
+   207
+  ],
+  [
+   "PMC6928269",
+   207
+  ],
+  [
+   "PMC13047121",
+   207
+  ],
+  [
+   "PMC10801602",
+   207
+  ],
+  [
+   "PMC8035957",
+   207
+  ],
+  [
+   "PMID42751346",
+   206
+  ],
+  [
+   "PMC3914172",
+   206
+  ],
+  [
+   "PMID41407309",
+   206
+  ],
+  [
+   "PMC7927263",
+   206
+  ],
+  [
+   "PMC8966868",
+   205
+  ],
+  [
+   "PMC11114245",
+   205
+  ]
+ ]
+}

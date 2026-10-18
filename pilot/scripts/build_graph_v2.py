@@ -50,6 +50,11 @@ def name_forms(info: dict) -> set[str]:
             if n and len(f := _norm(n)) >= 5}
 
 
+def full_name_forms(info: dict) -> set[str]:
+    """The disease's own name and synonyms, normalized; unlike name_forms, no family stem ("..., 2" -> "...")."""
+    return {f for n in [info["name"], *info.get("syn", [])] if n and len(f := _norm(n)) >= 5}
+
+
 def recenter(text: str, phrase: str, sent: str) -> str:
     """A sentence cut at SENT_CAP may lose the phrase (long table rows); re-cut around the phrase."""
     if len(sent) < SENT_CAP or phrase.lower() in sent.lower():
@@ -267,6 +272,9 @@ def main() -> None:
     ap.add_argument("--no-qualifiers", action="store_true",
                     help="link an item or part that spells an HPO qualifier term (clinical modifier other than "
                          "clinical course, mode of inheritance, frequency) only to a phenotype concept")
+    ap.add_argument("--keep-named-generic", action="store_true",
+                    help="keep a generic document for a disease whose full name or synonym its title contains "
+                         "(a family stem shared by numbered subtypes does not count)")
     ap.add_argument("--no-mentions", action="store_true",
                     help="skip Mention/Doc nodes (scoring-only graph; the provenance check is skipped)")
     a = ap.parse_args()
@@ -320,13 +328,21 @@ def main() -> None:
     n_mentions = n_topic = 0
     edge = defaultdict(lambda: [0, set(), set()])     # (disease, cui) -> [n_mentions, docs, topic docs]
     forms: dict[str, set[str]] = {}
+    named: dict[str, set[str]] = {}                    # disease -> full_name_forms, for --keep-named-generic
     by_dz = defaultdict(list)                          # disease -> indices of mentions to re-center
     for line in (ln for path in a.ie.split(",") for ln in open_text(path)):
         r = json.loads(line)
         d = r["id"]
         for it in r.get("items", []):
-            if article(it["doc"]) in generic or it["doc"] in late or d not in uni or it["doc"] not in held.get(d, ()):
+            if d not in uni or it["doc"] in late or it["doc"] not in held.get(d, ()):
                 continue
+            if article(it["doc"]) in generic:
+                if not a.keep_named_generic:
+                    continue
+                if d not in named:
+                    named[d] = full_name_forms(uni[d])
+                if not any(f in title.get(it["doc"], "") for f in named[d]):
+                    continue
             if it.get("cui"):                                   # dict_ie.py --vocab umls
                 links = [(it["t"], {"cui": it["cui"], "tui": it["tui"]})]
                 hc = hpo.get(_norm(it["t"]).strip()) if hpo else None

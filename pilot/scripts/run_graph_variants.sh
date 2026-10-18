@@ -5,7 +5,7 @@
 # (temporal_eval.py) at offtopic_w 0 and 1. Variants ending in _y2022 keep only documents published by
 # 2022, use gene-disease links only for diseases HPOA annotated by then, and are read on the cases
 # published from 2023 on (time-split leakage check). Suffixes before _y2022: _ns adds --no-self, _nq
-# --no-qualifiers.
+# --no-qualifiers, _kn --keep-named-generic.
 # Results are kept while the rebuilt graph's fingerprint (build_graph_v2.py summary) and the scoring
 # configuration are unchanged. One runner at a time per instance (lock file per port).
 # v3 variants extract the v2 and the v3 documents the same way: dict (HPO names), umls (UMLS finding
@@ -39,6 +39,7 @@ for G in "$@"; do
     case $name in
       *_ns) OPT="$OPT --no-self"; name=${name%_ns} ;;
       *_nq) OPT="$OPT --no-qualifiers"; name=${name%_nq} ;;
+      *_kn) OPT="$OPT --keep-named-generic"; name=${name%_kn} ;;
       *) break ;;
     esac
   done
