@@ -1,4 +1,5 @@
-"""What the generic-document rule of build_graph_v2.py removes (an article used by >= N diseases is dropped for all).
+"""What the generic-document rule of build_graph_v2.py removes (an article listed >= N times across disease files,
+twice when one file lists it twice, is dropped for all).
 
 Per corpus: generic articles, diseases left with no usable document, diseases that lose an on-topic document (title names
 the disease), and the development-set gold diseases among them. On-topic is the builder's title test (name_forms in
@@ -25,24 +26,28 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--sources", required=True)
     ap.add_argument("--max-doc-diseases", type=int, default=20)
+    ap.add_argument("--exclude-diseases", default="pilot/cache/v2/exclude_nonhuman_diseases.json",
+                    help="same default as build_graph_v2.py: these diseases are not graph diseases")
     ap.add_argument("--out", required=True)
     a = ap.parse_args()
     uni = dict(v2_ids.universe())
+    for k in json.load(open(a.exclude_diseases)) if a.exclude_diseases else ():
+        uni.pop(k, None)
     use: Counter = Counter()
     docs: dict[str, set[str]] = {}
     topic: dict[str, set[str]] = defaultdict(set)      # disease -> its on-topic articles
     exact: dict[str, set[str]] = defaultdict(set)      # same, by the full name or a synonym only (no family stem)
     for dz, dz_docs in iter_sources(a.sources):
+        held = {x["doc_id"] for x in dz_docs}
+        for x in dz_docs:                              # counted as build_graph_v2.py does, excluded diseases included
+            if not (x["doc_id"].startswith("TBL") and article(x["doc_id"]) in held):
+                use[article(x["doc_id"])] += 1
         if dz not in uni:
             continue
-        held = {x["doc_id"] for x in dz_docs}
         arts = {sys.intern(article(x["doc_id"])) for x in dz_docs}
         forms = name_forms(uni[dz])
         full = {f for n in [uni[dz]["name"], *uni[dz].get("syn", [])] if n and len(f := _norm(n)) >= 5}
         docs[dz] = arts
-        for x in dz_docs:                              # counted exactly as build_graph_v2.py counts use
-            if not (x["doc_id"].startswith("TBL") and article(x["doc_id"]) in held):
-                use[article(x["doc_id"])] += 1
         for x in dz_docs:
             t = _norm(x.get("title") or "")
             if any(f in t for f in forms):

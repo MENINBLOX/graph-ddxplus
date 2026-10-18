@@ -3,14 +3,14 @@
  "max_doc_diseases": 20,
  "articles": 136373,
  "generic_articles": 1119,
- "diseases_with_documents": 39008,
- "diseases_emptied": 3121,
- "diseases_emptied_with_on_topic_generic": 2292,
- "diseases_losing_on_topic_articles": 4360,
- "on_topic_generic_articles": 1001,
+ "diseases_with_documents": 32545,
+ "diseases_emptied": 2663,
+ "diseases_emptied_with_on_topic_generic": 1886,
+ "diseases_losing_on_topic_articles": 3397,
+ "on_topic_generic_articles": 993,
  "diseases_emptied_with_exact_topic_generic": 75,
- "diseases_losing_exact_topic_articles": 483,
- "exact_topic_generic_articles": 818,
+ "diseases_losing_exact_topic_articles": 482,
+ "exact_topic_generic_articles": 817,
  "exact_topic_generic_max_diseases_per_article": 6,
  "exact_topic_generic_articles_kept_by_20plus": 0,
  "dev_patients_with_documented_gold": 21396,
@@ -77,14 +77,6 @@
    {
     "name": "Intellectual disability, cardiac anomalies, short stature, joint laxity syndrome",
     "src": "UMLS",
-    "syn": []
-   }
-  ],
-  [
-   "MONDO:1010819",
-   {
-    "name": "polydactyly, cattle",
-    "src": "MONDO",
     "syn": []
    }
   ],
@@ -236,14 +228,6 @@
    }
   ],
   [
-   "MONDO:1010532",
-   {
-    "name": "cleft palate, rabbit",
-    "src": "MONDO",
-    "syn": []
-   }
-  ],
-  [
    "C5436875",
    {
     "name": "OSTEOGENESIS IMPERFECTA, TYPE XXI",
@@ -306,14 +290,6 @@
    }
   ],
   [
-   "MONDO:1012791",
-   {
-    "name": "osteogenesis imperfecta, COL1A2-related, dog",
-    "src": "MONDO",
-    "syn": []
-   }
-  ],
-  [
    "C4694018",
    {
     "name": "NEURODEVELOPMENTAL DISORDER WITH SPASTIC QUADRIPLEGIA, BRAIN ABNORMALITIES, AND SEIZURES",
@@ -331,16 +307,6 @@
      "Nephrotic Syndromes",
      "NS - Nephrotic syndrome",
      "Nephrotic syndrome (disorder)"
-    ]
-   }
-  ],
-  [
-   "MONDO:1012794",
-   {
-    "name": "oculocutaneous albinism, HPS5-related, domestic cat",
-    "src": "MONDO",
-    "syn": [
-     "coat colour, albinism, oculocutaneous, HPS5-related in Felis catus (domestic cat)"
     ]
    }
   ],
@@ -419,6 +385,46 @@
      "Obstructed labor due to unusually large fetus (disorder)"
     ]
    }
+  ],
+  [
+   "C0349306",
+   {
+    "name": "Severe mental retardation with the statement of no, or minimal, impairment of behaviour",
+    "src": "UMLS",
+    "syn": []
+   }
+  ],
+  [
+   "C5975422",
+   {
+    "name": "CHOLESTASIS, PROGRESSIVE FAMILIAL INTRAHEPATIC, 13",
+    "src": "UMLS",
+    "syn": [
+     "PFIC13",
+     "MADDIREVULA-SHAGRANI-JI SYNDROME"
+    ]
+   }
+  ],
+  [
+   "C2751607",
+   {
+    "name": "Atrial Fibrillation, Familial, 8",
+    "src": "UMLS",
+    "syn": [
+     "ATFB8"
+    ]
+   }
+  ],
+  [
+   "C1846038",
+   {
+    "name": "INTELLECTUAL DEVELOPMENTAL DISORDER, X-LINKED 72",
+    "src": "UMLS",
+    "syn": [
+     "MRX72",
+     "XLID72"
+    ]
+   }
   ]
  ],
  "most_shared_generic": [
@@ -443,11 +449,11 @@
    215
   ],
   [
-   "PMC8138955",
+   "PMC6291880",
    213
   ],
   [
-   "PMC6291880",
+   "PMC8138955",
    213
   ],
   [
@@ -459,11 +465,11 @@
    210
   ],
   [
-   "PMC7598720",
+   "PMC7057560",
    209
   ],
   [
-   "PMC7057560",
+   "PMC7598720",
    209
   ],
   [
@@ -487,11 +493,7 @@
    200
   ],
   [
-   "PMC10377093",
-   199
-  ],
-  [
-   "PMC13269170",
+   "PMC11893779",
    199
   ],
   [
@@ -499,15 +501,19 @@
    199
   ],
   [
-   "PMC10858311",
-   199
-  ],
-  [
-   "PMC11893779",
+   "PMC13269170",
    199
   ],
   [
    "PMC4502947",
+   199
+  ],
+  [
+   "PMC10858311",
+   199
+  ],
+  [
+   "PMC10377093",
    199
   ],
   [
