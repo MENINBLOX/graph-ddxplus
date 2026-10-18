@@ -11,7 +11,8 @@
 # v3 variants extract the v2 and the v3 documents the same way: dict (HPO names), umls (UMLS finding
 # strings), llm (gemma IE, phrases linked by phrase2cui_v3.json, which run_normalize_v3.sh must have
 # extended over the whole ie_v3.jsonl), union (llm + dict), unionu (llm + umls), llmd (llm items the phrase table
-# leaves unlinked, re-linked by the umls dictionary inside the phrase: llm_dict_relink.py). *full read the PMC
+# leaves unlinked, re-linked by the umls dictionary inside the phrase: llm_dict_relink.py; llmda keeps the
+# unlinked item as well). *full read the PMC
 # bodies uncut (sources_full) instead of the 12k clinical sections.
 #
 #   [URI=bolt://localhost:7689] bash pilot/scripts/run_graph_variants.sh base_nm base_split_tg v2dict v2union
@@ -61,6 +62,7 @@ for G in "$@"; do
     v3union)       IE=$LLM3,$DICT3; SRC=$SRC3; TABLE=$V3/phrase2cui_v3.json ;;
     v3unionu)      IE=$LLM3,$UMLS3; SRC=$SRC3; TABLE=$V3/phrase2cui_v3.json ;;
     v3llmd)        IE=$V3/llmd_v2.jsonl.gz,$V3/llmd_v3.jsonl.gz; SRC=$SRC3; TABLE=$V3/phrase2cui_v3.json ;;
+    v3llmda)       IE=$V3/llmda_v2.jsonl.gz,$V3/llmda_v3.jsonl.gz; SRC=$SRC3; TABLE=$V3/phrase2cui_v3.json ;;
     *) echo "unknown variant $G"; exit 1 ;;
   esac
   [ -s "$TABLE" ] || { echo "missing phrase table $TABLE"; exit 1; }

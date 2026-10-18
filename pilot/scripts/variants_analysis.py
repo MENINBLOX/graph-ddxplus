@@ -44,7 +44,8 @@ PAIRS = [(f"{g}_nq", g) for g in ("base_split_tg", "v2dict", "v2union", "v2union
          ("v3llm_ns", "base_split_tg_ns"), ("v3union_ns", "v2union_ns"), ("v3unionu_ns", "v2unionu_ns"),
          ("v3llm_ns", "v3umls_ns"), ("v3llm_ns", "v3dict_ns"), ("v3unionu_ns", "v3umls_ns"), ("v3union_ns", "v3dict_ns"),
          ("v3unionu_ns", "v3union_ns"), ("v3llm_ns_kn", "v3llm_ns"), ("v3umls_ns_kn", "v3umls_ns"),
-         ("v3llm_ns", "v3llm"), ("v3llm", "v3umls"), ("v3llmd_ns", "v3llm_ns"), ("v3llmd_ns", "v3umls_ns")]
+         ("v3llm_ns", "v3llm"), ("v3llm", "v3umls"), ("v3llmd_ns", "v3llm_ns"), ("v3llmd_ns", "v3umls_ns"),
+         ("v3llmd_ns", "v3unionu_ns"), ("v3llmda_ns", "v3llmd_ns"), ("v3llmda_ns", "v3llm_ns")]
 
 
 def corpus_pmids() -> set[str]:
