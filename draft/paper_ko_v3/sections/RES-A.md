@@ -14,7 +14,7 @@ Table 2. Corpus statistics, v2 vs v3. Human diseases = 43,575 candidates (8,319 
 
 | Item | v2 | v3 (new documents) | v2 + v3 |
 |---|---|---|---|
-| Collection caps per disease | PMC OA reviews 15, case reports 10 (12,000 characters per article); StatPearls and GeneReviews by title match | PMC OA reviews 30 + case reports 30 (clinical sections, 12k characters, plus tables); PubMed abstracts 50; causal genes (≤ 2): abstracts 50 + PMC 20 | — |
+| Collection caps per disease | PMC OA reviews 15, case reports 10 (12,000 characters per article); StatPearls and GeneReviews by title match | PMC OA reviews 30 + case reports 30 (clinical sections, 12k characters, plus tables); PubMed abstracts 50; per causal gene (≤ 2 genes per disease): abstracts 50 + PMC 20 | — |
 | Diseases queried | 51,894 (including 8,319 non-human) | 43,575 | — |
 | Human diseases with ≥ 1 document | 32,545 (74.7%) | 35,006 (with new documents) | 35,308 (81.0%) |
 | Human diseases without any document | 11,030 (25.3%) | — | 8,267 (19.0%) |
@@ -47,13 +47,13 @@ Table 5b. Literature graphs compared in this paper (build detail for the graph s
 | S-mix | v3llmd_ns | v2 + v3 | LLM spans; spans the phrase table cannot link (except negated, over-8-word and table-absent spans) are named by UMLS strings inside the span | same as S-llm | 0.5 | 33,537 | 85,761 | 5,221,285 | 11,582,169 | 711,350 | 46.11 / 19.66 |
 
 ^a^ Re-selected per graph on the nine development sets (design D rule D3) from {0, 0.25, 0.5, 1}.
-^b^ Aggregated evidence-mention count. Development builds have no Mention nodes; the frozen S-D graph does.
+^b^ Aggregated evidence-mention count. Development builds have no Mention nodes; the frozen S-D graph and the S-mix rebuild with Mentions (Section 4.1) do.
 ^c^ Distinct document IDs supporting at least one edge; a PMC table document is counted separately from its article.
 ^d^ Development values (nine sets). S-mix was the highest of the 32 graphs evaluated on these sets (base_nm included; 18 on v2 literature, 14 on v2 + v3 literature, two of which read the full PMC text instead of the 12k clinical sections), so its value includes selection optimism (Section 4.4).
 
 구축과 분석 중 발견한 무증상 실패와 그 수정을 정리한다. 수집에서는 질환명 변형 함수가 6자 미만 이름을 버려 Gout, Croup, Mumps 등 25개 질환의 질의가 한 번도 나가지 않았다. 원래 이름을 항상 질의하도록 고친 뒤 이 질환들을 재수집했다. 벤치마크 전처리에서는 DDXPlus 근거 사상이 응답 값을 무시해, 여행하지 않았다는 응답(trav1_@_N)이 환자 93%에서 'Travel History'로 사상되었다. 기본값 응답은 근거에서 빼도록 고쳤다. DDXPlus 정답 사상은 ICD-10 경로 때문에 Pneumonia가 'Pneumonia in diseases classified elsewhere'로 연결되는 식으로 어긋나 있었다. 영문 질환명의 UMLS 정확 일치를 우선하도록 고쳤다. 정규화에서는 의미유형 표 누락으로 언급 20.6만 개가 잘못 탈락했다. 의미유형을 UMLS MRSTY 원본에서 읽도록 고쳤다.
 
-그래프 적재에서는 기존 그래프를 지우는 일괄 삭제가 일부 배치에서 실패했으나, 실패가 서버 경고로만 남고 빌드는 정상 종료했다. 그 결과 제외 대상 비인간 질환 노드 2,682개와 근거 문장이 없는 이전 빌드 간선 62,497개가 그래프에 남았다. 이 실패는 Disease 노드 수(46,257)가 후보 질환 수(43,575)와 다르다는 불변식 위반으로 드러났다. 이 그래프로 낸 설계 D 이전 탐색 단계의 v2.0 수치와 첫 v2.1 수치는 무효 처리했다. 이후 빌드는 삭제 실패나 Disease 수 불일치가 있으면 중단한다. Mention을 넣은 빌드는 언급 없는 간선이 있어도 중단한다. 표 5b의 v3 그래프(S-llm, S-dict, S-union, S-mix)는 Mention 없이 빌드했으므로 언급 검사를 거치지 않았다. S-mix의 출처 불변식 검사는 Mention을 넣어 다시 빌드한 그래프로 동결 전에 수행한다(3.6절 절차의 (3)단계). [E 동결 대기: Mention을 넣어 빌드한 S-mix의 출처 불변식 검사 결과(언급 없는 간선 수, Disease 수)와 Mention 없는 빌드와의 순위 일치 여부]
+그래프 적재에서는 기존 그래프를 지우는 일괄 삭제가 일부 배치에서 실패했으나, 실패가 서버 경고로만 남고 빌드는 정상 종료했다. 그 결과 제외 대상 비인간 질환 노드 2,682개와 근거 문장이 없는 이전 빌드 간선 62,497개가 그래프에 남았다. 이 실패는 Disease 노드 수(46,257)가 후보 질환 수(43,575)와 다르다는 불변식 위반으로 드러났다. 이 그래프로 낸 설계 D 이전 탐색 단계의 v2.0 수치와 첫 v2.1 수치는 무효 처리했다. 이후 빌드는 삭제 실패나 Disease 수 불일치가 있으면 중단한다. Mention을 넣은 빌드는 언급 없는 간선이 있어도 중단한다. 표 5b의 v3 그래프(S-llm, S-dict, S-union, S-mix)의 개발값은 Mention 없는 빌드에서 나왔다. 이 빌드들은 언급 검사를 거치지 않았다. S-mix는 동결 전에 Mention을 넣어 다시 빌드했고(3.6절 절차의 (3)단계), 이 빌드는 출처 불변식 검사를 통과했다. 언급 없는 HAS_FINDING 간선은 0개, Disease 노드는 43,575개, Mention 노드는 11,582,169개였다. 순위화가 읽는 행의 지문은 Mention 없는 빌드와 같았다(15ba677…). 개발 DDXPlus 3,000명의 순위도 3,000명 모두 Mention 없는 빌드와 같았다.
 
 설계 D 확증 이후의 분석 도구에는 에이전트 기반 코드 리뷰를 두 차례 했고, 확인된 결함 8건과 11건을 모두 수정했다. 2026년 유전자–질환 매핑으로 찾은 문서가 2022년 절단 그래프에 남아 있었다. 같은 논문의 초록과 PMC 본문이 중복 적재되었다. 표 문서가 원 논문과 별개로 일반 문헌 규칙을 통과했다. 분석 스크립트가 평가와 다른 정답 집합을 읽었다(Phenopacket 정답 집합을 평가는 10,310명, 분석 스크립트는 8,823명으로 읽음). 결과 재사용 판정이 요약 수치 6개만 비교해, 순위화에 쓰이는 행이 바뀌어도 이전 결과가 남을 수 있었다. 마지막 결함은 빌드가 순위화에 쓰이는 모든 행의 지문(fingerprint)과 채점 설정을 기록해 비교하도록 고쳤다.
 
@@ -175,7 +175,7 @@ Table 9B. Collection pretest: share of curated (disease, HPO) pairs whose findin
 | + PMC OA reviews and case reports 30 + 30 (clinical sections, 12k cut) | 28.5 | 6.1 | 22.4 |
 | Same articles, full text, no cut | 47.8 | 15.2 | 32.6 |
 | + PubMed abstracts 50 | 49.4 | 15.4 | 34.0 |
-| + causal-gene symbol search (abstracts 50 + PMC 20) | 58.1 | 17.8 | 40.3 |
+| + causal-gene symbol search (per gene, ≤ 2 genes per disease: abstracts 50 + PMC 20) | 58.1 | 17.8 | 40.3 |
 | v2 corpus + tables | 23.5 | 4.4 | 19.1 |
 | PMC 30 + 30 clinical sections + tables | 40.9 | 10.8 | 30.1 |
 | Full text + tables | 51.1 | 16.5 | 34.6 |
