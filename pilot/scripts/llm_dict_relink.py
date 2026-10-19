@@ -5,7 +5,8 @@ linked concept's names cover under half of the phrase). Here such an item is rep
 dict_ie.py --vocab umls finds inside the phrase itself (longest match, negation cue dropped), so the LLM still decides
 which text is a finding of the disease and the dictionary only names it. Items the table links stay as they are.
 --keep-original also keeps the unlinked item itself, so what the builder links in it (coordinated parts, HPO names)
-is not lost. Output keeps the ie_v2.py format.
+is not lost. Output keeps the ie_v2.py format; a re-linked item also carries the LLM phrase it was found in as
+"src_t", which build_graph_v2.py stores on the Mention as its span.
 
     python llm_dict_relink.py --ie IN.jsonl --table phrase2cui_v3.json --out OUT.jsonl.gz [--keep-original] [--limit N]
 """
@@ -50,7 +51,7 @@ def main() -> None:
                 if a.keep_original:
                     items.append(it)
                 for m in found:
-                    new = {**it, "t": m, "k": "llm_dict"}
+                    new = {**it, "t": m, "k": "llm_dict", "src_t": it["t"]}
                     if names[m]:
                         new["cui"], new["tui"] = names[m]
                     items.append(new)
