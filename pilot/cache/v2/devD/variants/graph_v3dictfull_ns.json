@@ -1,0 +1,10 @@
+{
+ "diseases": 43575,
+ "diseases_with_findings": 34531,
+ "concepts": 15235,
+ "edges": 8819047,
+ "mentions": 79771010,
+ "docs": 1032816,
+ "fingerprint": "838a925ff32a3592af86d39b1bc70d1bfe69b78d",
+ "scoring": "0.35 2.0 0.3 2.0 0.5"
+}

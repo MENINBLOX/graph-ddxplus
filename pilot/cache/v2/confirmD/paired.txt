@@ -1,0 +1,40 @@
+== T1 BM25 vs graph (Top-10, B - A)
+Confirm-DDXPlus      n=  3000  A  28.0  B  35.2  diff  +7.1 [ +5.0,  +9.1]  p=1.17e-12 holm=3.51e-12
+Confirm-Phenopacket-new n=   261  A   9.2  B   9.2  diff  +0.0 [ -4.2,  +3.8]  p=1 holm=1
+Confirm-SymCat       n=  7482  A  10.9  B  11.1  diff  +0.2 [ -0.6,  +1.0]  p=0.686 holm=1
+B better on 2, A better on 0; sign test p=0.5
+== T4 graph vs fusion (Top-10, B - A)
+Confirm-DDXPlus      n=  3000  A  35.2  B  37.8  diff  +2.7 [ +1.5,  +3.8]  p=6.47e-06 holm=1.29e-05
+Confirm-Phenopacket-new n=   261  A   9.2  B  12.3  diff  +3.1 [ +0.8,  +5.8]  p=0.0215 holm=0.0215
+Confirm-SymCat       n=  7482  A  11.1  B  13.4  diff  +2.3 [ +1.8,  +2.7]  p=1.92e-24 holm=5.75e-24
+B better on 3, A better on 0; sign test p=0.25
+== T4 BM25 vs fusion (Top-10, B - A)
+Confirm-DDXPlus      n=  3000  A  28.0  B  37.8  diff  +9.8 [ +7.9, +11.6]  p=3.8e-26 holm=1.14e-25
+Confirm-Phenopacket-new n=   261  A   9.2  B  12.3  diff  +3.1 [ -1.1,  +7.3]  p=0.2 holm=0.2
+Confirm-SymCat       n=  7482  A  10.9  B  13.4  diff  +2.5 [ +1.7,  +3.2]  p=3.79e-10 holm=7.58e-10
+B better on 3, A better on 0; sign test p=0.25
+== E-H1 1-hop vs PPR (Top-10, B - A)
+Confirm-DDXPlus      n=  3000  A  35.2  B  19.4  diff -15.8 [-17.3, -14.3]  p=8.26e-98 holm=2.48e-97
+Confirm-Phenopacket-new n=   261  A   9.2  B   7.7  diff  -1.5 [ -4.6,  +1.5]  p=0.481 holm=0.481
+Confirm-SymCat       n=  7482  A  11.1  B   9.5  diff  -1.6 [ -2.2,  -1.0]  p=6.81e-07 holm=1.36e-06
+B better on 0, A better on 3; sign test p=0.25
+== T1 BM25 vs graph (Top-1, B - A)
+Confirm-DDXPlus      n=  3000  A  12.0  B  12.4  diff  +0.5 [ -0.8,  +1.7]  p=0.516 holm=1
+Confirm-Phenopacket-new n=   261  A   1.1  B   1.9  diff  +0.8 [ -1.5,  +3.1]  p=0.727 holm=1
+Confirm-SymCat       n=  7482  A   2.0  B   3.3  diff  +1.3 [ +0.9,  +1.7]  p=1.61e-08 holm=4.84e-08
+B better on 3, A better on 0; sign test p=0.25
+== T4 graph vs fusion (Top-1, B - A)
+Confirm-DDXPlus      n=  3000  A  12.4  B  14.9  diff  +2.5 [ +1.5,  +3.4]  p=4.69e-07 holm=1.41e-06
+Confirm-Phenopacket-new n=   261  A   1.9  B   1.9  diff  +0.0 [ -1.5,  +1.5]  p=1 holm=1
+Confirm-SymCat       n=  7482  A   3.3  B   3.7  diff  +0.4 [ +0.0,  +0.8]  p=0.0443 holm=0.0886
+B better on 2, A better on 0; sign test p=0.5
+== T4 BM25 vs fusion (Top-1, B - A)
+Confirm-DDXPlus      n=  3000  A  12.0  B  14.9  diff  +2.9 [ +1.7,  +4.1]  p=6.23e-06 holm=1.25e-05
+Confirm-Phenopacket-new n=   261  A   1.1  B   1.9  diff  +0.8 [ -1.1,  +2.7]  p=0.688 holm=0.688
+Confirm-SymCat       n=  7482  A   2.0  B   3.7  diff  +1.7 [ +1.3,  +2.1]  p=1.36e-13 holm=4.08e-13
+B better on 3, A better on 0; sign test p=0.25
+== E-H1 1-hop vs PPR (Top-1, B - A)
+Confirm-DDXPlus      n=  3000  A  12.4  B   4.5  diff  -8.0 [ -9.1,  -6.9]  p=1.24e-49 holm=3.73e-49
+Confirm-Phenopacket-new n=   261  A   1.9  B   3.1  diff  +1.1 [ -1.5,  +3.8]  p=0.549 holm=0.549
+Confirm-SymCat       n=  7482  A   3.3  B   2.6  diff  -0.7 [ -1.1,  -0.2]  p=0.00406 holm=0.00812
+B better on 1, A better on 2; sign test p=1

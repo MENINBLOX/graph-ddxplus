@@ -1,0 +1,8 @@
+cooc: edges 3798931, diseases with findings 3302, concepts 12197
+  Disease: 43575
+  Concept: 15239
+  HAS_FINDING: 3798931
+  Concept IS_A: 9081
+  Disease IS_A: 45118
+  IS_DISEASE: 4451
+done

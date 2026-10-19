@@ -1,0 +1,115 @@
+{
+ "bench": "RareBench-RAMEDIS",
+ "cfg": {
+  "alpha": 0.5,
+  "mu": 2.0,
+  "decay": 0.0,
+  "unified_w": 2.0,
+  "support_beta": 0.0,
+  "offtopic_w": 0.0
+ },
+ "patients": 624,
+ "top1_hits": 22,
+ "by_gold": [
+  [
+   "C1855995",
+   "L-2-HYDROXYGLUTARIC ACIDURIA",
+   11,
+   8
+  ],
+  [
+   "C0010691",
+   "Cystinuria",
+   5,
+   4
+  ],
+  [
+   "C0024776",
+   "Maple Syrup Urine Disease",
+   20,
+   3
+  ],
+  [
+   "C0175683",
+   "Citrullinemia",
+   15,
+   2
+  ],
+  [
+   "C0175694",
+   "Smith-Lemli-Opitz Syndrome",
+   14,
+   2
+  ],
+  [
+   "C0268151",
+   "Classical galactosemia",
+   15,
+   1
+  ],
+  [
+   "C0018425",
+   "Gyrate Atrophy",
+   2,
+   1
+  ],
+  [
+   "C3495427",
+   "Fanconi-Bickel Syndrome",
+   2,
+   1
+  ]
+ ],
+ "most_frequent_top1": [
+  [
+   "C0751435",
+   "Hyperphenylalaninaemia",
+   154
+  ],
+  [
+   "C0001125",
+   "Acidosis, Lactic",
+   34
+  ],
+  [
+   "C5231427",
+   "LOWER URINARY TRACT OBSTRUCTION, CONGENITAL",
+   32
+  ],
+  [
+   "C0013537",
+   "Eclampsia",
+   26
+  ],
+  [
+   "C0007758",
+   "Cerebellar Ataxia",
+   25
+  ],
+  [
+   "C0006009",
+   "Borderline intellectual disability",
+   16
+  ],
+  [
+   "C0010346",
+   "Crohn Disease",
+   12
+  ],
+  [
+   "C4022808",
+   "Cerebellar agenesis",
+   11
+  ],
+  [
+   "C0268559",
+   "Hyperglycinemia",
+   11
+  ],
+  [
+   "C0002871",
+   "Anemia",
+   10
+  ]
+ ]
+}

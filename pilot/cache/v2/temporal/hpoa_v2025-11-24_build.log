@@ -1,0 +1,8 @@
+hpoa: edges 385449, diseases with findings 12115, concepts 9796
+  Disease: 43575
+  Concept: 12710
+  HAS_FINDING: 385449
+  Concept IS_A: 11180
+  Disease IS_A: 45118
+  IS_DISEASE: 4691
+done

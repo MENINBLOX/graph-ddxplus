@@ -1,0 +1,19 @@
+{
+ "diseases": 300,
+ "recall": {
+  "base": 18.4,
+  "base+tables": 23.5,
+  "pmc_more": 28.5,
+  "pmc_more+tables": 40.9,
+  "pmc_full": 47.8,
+  "pmc_full+tables": 51.1
+ },
+ "control_recall": {
+  "base": 2.9,
+  "base+tables": 4.4,
+  "pmc_more": 6.1,
+  "pmc_more+tables": 10.8,
+  "pmc_full": 15.2,
+  "pmc_full+tables": 16.5
+ }
+}

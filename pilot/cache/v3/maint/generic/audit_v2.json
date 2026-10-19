@@ -1,0 +1,552 @@
+{
+ "sources": "pilot/cache/v2/sources",
+ "max_doc_diseases": 20,
+ "articles": 136373,
+ "generic_articles": 1119,
+ "diseases_with_documents": 32545,
+ "diseases_emptied": 2663,
+ "diseases_emptied_with_on_topic_generic": 1886,
+ "diseases_losing_on_topic_articles": 3397,
+ "on_topic_generic_articles": 993,
+ "diseases_emptied_with_exact_topic_generic": 75,
+ "diseases_losing_exact_topic_articles": 482,
+ "exact_topic_generic_articles": 817,
+ "exact_topic_generic_max_diseases_per_article": 6,
+ "exact_topic_generic_articles_kept_by_20plus": 0,
+ "dev_patients_with_documented_gold": 21396,
+ "dev_patients_gold_emptied": 1571,
+ "dev_patients_gold_losing_on_topic": 3215,
+ "dev_patients_gold_losing_exact_topic": 909,
+ "examples_emptied": [
+  [
+   "C1861865",
+   {
+    "name": "Mental retardation, mild to moderate",
+    "src": "UMLS",
+    "syn": [
+     "Mild-moderate mental retardation",
+     "Mild to moderate mental retardation",
+     "Mental retardation (mild to moderate)"
+    ]
+   }
+  ],
+  [
+   "C1838121",
+   {
+    "name": "Cleft Palate, Cardiac Defect, Genital Anomalies, and Ectrodactyly",
+    "src": "UMLS",
+    "syn": [
+     "ACFS",
+     "CCGE",
+     "CCGE syndrome",
+     "ACROCARDIOFACIAL SYNDROME"
+    ]
+   }
+  ],
+  [
+   "C3540845",
+   {
+    "name": "MICROPHTHALMIA, ISOLATED, WITH COLOBOMA 8",
+    "src": "UMLS",
+    "syn": [
+     "MCOPCB8",
+     "MICROPHTHALMIA/COLOBOMA 8"
+    ]
+   }
+  ],
+  [
+   "C5193042",
+   {
+    "name": "MICROCEPHALY, GROWTH DEFICIENCY, SEIZURES, AND BRAIN MALFORMATIONS",
+    "src": "UMLS",
+    "syn": [
+     "MIGSB"
+    ]
+   }
+  ],
+  [
+   "C3279463",
+   {
+    "name": "Deafness, sensorineural, mild",
+    "src": "UMLS",
+    "syn": []
+   }
+  ],
+  [
+   "C5568572",
+   {
+    "name": "Intellectual disability, cardiac anomalies, short stature, joint laxity syndrome",
+    "src": "UMLS",
+    "syn": []
+   }
+  ],
+  [
+   "C1853223",
+   {
+    "name": "Deafness, Autosomal Recessive 67",
+    "src": "UMLS",
+    "syn": [
+     "DFNB67"
+    ]
+   }
+  ],
+  [
+   "C1837468",
+   {
+    "name": "Epilepsy, idiopathic generalized, susceptibility to, 3",
+    "src": "UMLS",
+    "syn": [
+     "EIG3"
+    ]
+   }
+  ],
+  [
+   "C5830518",
+   {
+    "name": "MUSCULAR DYSTROPHY, LIMB-GIRDLE, AUTOSOMAL RECESSIVE 28",
+    "src": "UMLS",
+    "syn": [
+     "MYPLG",
+     "LGMDR28"
+    ]
+   }
+  ],
+  [
+   "C0153903",
+   {
+    "name": "Other monocytic leukemia",
+    "src": "UMLS",
+    "syn": []
+   }
+  ],
+  [
+   "C4751073",
+   {
+    "name": "Intellectual disability, hypotonia, brachycephaly, pyloric stenosis, cryptorchidism syndrome",
+    "src": "UMLS",
+    "syn": []
+   }
+  ],
+  [
+   "C1864968",
+   {
+    "name": "DEAFNESS, AUTOSOMAL RECESSIVE 51",
+    "src": "UMLS",
+    "syn": [
+     "DFNB51"
+    ]
+   }
+  ],
+  [
+   "MONDO:0013948",
+   {
+    "name": "peroxisome biogenesis disorder 10A (Zellweger)",
+    "src": "MONDO",
+    "syn": []
+   }
+  ],
+  [
+   "C5436821",
+   {
+    "name": "NEURODEVELOPMENTAL DISORDER WITH DYSMORPHIC FACIES, SLEEP DISTURBANCE, AND BRAIN ABNORMALITIES",
+    "src": "UMLS",
+    "syn": [
+     "NEDFASB"
+    ]
+   }
+  ],
+  [
+   "C5681177",
+   {
+    "name": "Short stature, advanced bone age, early-onset osteoarthritis syndrome",
+    "src": "UMLS",
+    "syn": []
+   }
+  ],
+  [
+   "C4283893",
+   {
+    "name": "DEAFNESS, AUTOSOMAL DOMINANT 66",
+    "src": "UMLS",
+    "syn": [
+     "DFNA66"
+    ]
+   }
+  ],
+  [
+   "C0496363",
+   {
+    "name": "Occupant of pick-up truck or van injured in collision with heavy transport vehicle or bus, driver, nontraffic accident",
+    "src": "UMLS",
+    "syn": []
+   }
+  ],
+  [
+   "MONDO:0011897",
+   {
+    "name": "leukodystrophy, hypomyelinating, 7, with or without oligodontia and/or hypogonadotropic hypogonadism",
+    "src": "MONDO",
+    "syn": [
+     "4H syndrome",
+     "HLD7",
+     "hypomyelinating leukodystrophy 7 with or without oligodontia and-or hypogonadotropic hypogonadism",
+     "leukodystrophy, hypomyelinating, with hypodontia and hypogonadotropic hypogonadism"
+    ]
+   }
+  ],
+  [
+   "C1852280",
+   {
+    "name": "Deafness, Sensorineural, with Peripheral Neuropathy and Arterial Disease",
+    "src": "UMLS",
+    "syn": []
+   }
+  ],
+  [
+   "C0263158",
+   {
+    "name": "Cellulitis of buttock",
+    "src": "UMLS",
+    "syn": [
+     "Cellulitis of gluteal region",
+     "Cellulitis of buttock (disorder)"
+    ]
+   }
+  ],
+  [
+   "MONDO:0007526",
+   {
+    "name": "Ehlers-Danlos syndrome, spondylodysplastic type",
+    "src": "MONDO",
+    "syn": [
+     "B4GALT7-CDG",
+     "EDS, progeroid type",
+     "PDS",
+     "defective biosynthesis of proteodermatan sulfate",
+     "defective biosynthesis of proteodermatan sulphate"
+    ]
+   }
+  ],
+  [
+   "C5436875",
+   {
+    "name": "OSTEOGENESIS IMPERFECTA, TYPE XXI",
+    "src": "UMLS",
+    "syn": [
+     "OI21"
+    ]
+   }
+  ],
+  [
+   "C1970250",
+   {
+    "name": "Prostate Cancer, Hereditary, 9",
+    "src": "UMLS",
+    "syn": [
+     "HPC9"
+    ]
+   }
+  ],
+  [
+   "C5436813",
+   {
+    "name": "INTELLECTUAL DEVELOPMENTAL DISORDER WITH SPEECH DELAY AND AXONAL PERIPHERAL NEUROPATHY",
+    "src": "UMLS",
+    "syn": [
+     "IDDSAPN"
+    ]
+   }
+  ],
+  [
+   "C1842342",
+   {
+    "name": "Deafness, Autosomal Recessive 39",
+    "src": "UMLS",
+    "syn": [
+     "DFNB39"
+    ]
+   }
+  ],
+  [
+   "C3665404",
+   {
+    "name": "Malignant neoplasm of diaphragm, NOS",
+    "src": "UMLS",
+    "syn": []
+   }
+  ],
+  [
+   "C0268345",
+   {
+    "name": "EHLERS-DANLOS SYNDROME, ARTHROCHALASIA TYPE",
+    "src": "UMLS",
+    "syn": [
+     "aEDS",
+     "EDS VII",
+     "Arthrochalasia EDS",
+     "Ehlers-Danlos syndrome type 7",
+     "Arthrochalasia multiplex congenita"
+    ]
+   }
+  ],
+  [
+   "C4694018",
+   {
+    "name": "NEURODEVELOPMENTAL DISORDER WITH SPASTIC QUADRIPLEGIA, BRAIN ABNORMALITIES, AND SEIZURES",
+    "src": "UMLS",
+    "syn": []
+   }
+  ],
+  [
+   "C0027726",
+   {
+    "name": "Nephrotic Syndrome",
+    "src": "UMLS",
+    "syn": [
+     "Nephrosis",
+     "Nephrotic Syndromes",
+     "NS - Nephrotic syndrome",
+     "Nephrotic syndrome (disorder)"
+    ]
+   }
+  ],
+  [
+   "C2750785",
+   {
+    "name": "Muscular Dystrophy, Congenital, Lmna-Related",
+    "src": "UMLS",
+    "syn": [
+     "MDCL",
+     "L-CMD",
+     "LMNA-related CMD",
+     "LMNA-related congenital muscular dystrophy"
+    ]
+   }
+  ],
+  [
+   "C0349017",
+   {
+    "name": "Malignant neoplasm of cauda equina",
+    "src": "UMLS",
+    "syn": [
+     "Malignant neoplasm of cauda equina (disorder)"
+    ]
+   }
+  ],
+  [
+   "C0268389",
+   {
+    "name": "Amyloidosis, familial visceral",
+    "src": "UMLS",
+    "syn": [
+     "AMYLD2",
+     "Amyloidosis 8",
+     "AMYLOIDOSIS VIII",
+     "GERMAN TYPE AMYLOIDOSIS"
+    ]
+   }
+  ],
+  [
+   "C0263061",
+   {
+    "name": "Furuncle of trunk",
+    "src": "UMLS",
+    "syn": [
+     "Furuncle of trunk (disorder)"
+    ]
+   }
+  ],
+  [
+   "C0451686",
+   {
+    "name": "Acute lymphadenitis of upper limb",
+    "src": "UMLS",
+    "syn": [
+     "Acute lymphadenitis of upper limb (disorder)"
+    ]
+   }
+  ],
+  [
+   "C0496337",
+   {
+    "name": "Occupant of pick-up truck or van injured in collision with pedal cycle, passenger, nontraffic accident",
+    "src": "UMLS",
+    "syn": []
+   }
+  ],
+  [
+   "C0475561",
+   {
+    "name": "Obstructed labor due to unusually large fetus",
+    "src": "UMLS",
+    "syn": [
+     "Obstructed labour due to unusually large fetus",
+     "Obstructed labour due to unusually large foetus",
+     "Obstructed labor due to unusually large fetus (disorder)"
+    ]
+   }
+  ],
+  [
+   "C0349306",
+   {
+    "name": "Severe mental retardation with the statement of no, or minimal, impairment of behaviour",
+    "src": "UMLS",
+    "syn": []
+   }
+  ],
+  [
+   "C5975422",
+   {
+    "name": "CHOLESTASIS, PROGRESSIVE FAMILIAL INTRAHEPATIC, 13",
+    "src": "UMLS",
+    "syn": [
+     "PFIC13",
+     "MADDIREVULA-SHAGRANI-JI SYNDROME"
+    ]
+   }
+  ],
+  [
+   "C2751607",
+   {
+    "name": "Atrial Fibrillation, Familial, 8",
+    "src": "UMLS",
+    "syn": [
+     "ATFB8"
+    ]
+   }
+  ],
+  [
+   "C1846038",
+   {
+    "name": "INTELLECTUAL DEVELOPMENTAL DISORDER, X-LINKED 72",
+    "src": "UMLS",
+    "syn": [
+     "MRX72",
+     "XLID72"
+    ]
+   }
+  ]
+ ],
+ "most_shared_generic": [
+  [
+   "PMC13299287",
+   406
+  ],
+  [
+   "PMC13528662",
+   401
+  ],
+  [
+   "PMC10037590",
+   352
+  ],
+  [
+   "PMC8191509",
+   215
+  ],
+  [
+   "PMC11499342",
+   215
+  ],
+  [
+   "PMC6291880",
+   213
+  ],
+  [
+   "PMC8138955",
+   213
+  ],
+  [
+   "PMC12140680",
+   210
+  ],
+  [
+   "PMC9849293",
+   210
+  ],
+  [
+   "PMC7057560",
+   209
+  ],
+  [
+   "PMC7598720",
+   209
+  ],
+  [
+   "PMC13270267",
+   204
+  ],
+  [
+   "PMC10724506",
+   203
+  ],
+  [
+   "PMC13239312",
+   202
+  ],
+  [
+   "PMC12460123",
+   200
+  ],
+  [
+   "PMC10926201",
+   200
+  ],
+  [
+   "PMC11893779",
+   199
+  ],
+  [
+   "PMC9868813",
+   199
+  ],
+  [
+   "PMC13269170",
+   199
+  ],
+  [
+   "PMC4502947",
+   199
+  ],
+  [
+   "PMC10858311",
+   199
+  ],
+  [
+   "PMC10377093",
+   199
+  ],
+  [
+   "PMC7810815",
+   173
+  ],
+  [
+   "PMC13560302",
+   163
+  ],
+  [
+   "PMC13428255",
+   162
+  ],
+  [
+   "PMC11103636",
+   162
+  ],
+  [
+   "PMC9322329",
+   148
+  ],
+  [
+   "PMC11171568",
+   134
+  ],
+  [
+   "PMC8238333",
+   121
+  ],
+  [
+   "PMC5614735",
+   119
+  ]
+ ]
+}

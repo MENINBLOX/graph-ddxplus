@@ -1,0 +1,135 @@
+{
+ "criterion": "dev macro lineage Top-10 (ties Top-1)",
+ "selected": {
+  "method": "bm25",
+  "mode": "per_concept",
+  "k": 1000,
+  "agg": "max"
+ },
+ "selected_score": [
+  24.464,
+  8.749
+ ],
+ "trail": [
+  {
+   "cfg": {
+    "method": "bm25",
+    "mode": "joint",
+    "k": 100,
+    "agg": "max"
+   },
+   "macro_top10": 17.671,
+   "macro_top1": 5.819
+  },
+  {
+   "cfg": {
+    "method": "bm25",
+    "mode": "joint",
+    "k": 100,
+    "agg": "sum"
+   },
+   "macro_top10": 20.872,
+   "macro_top1": 8.011
+  },
+  {
+   "cfg": {
+    "method": "bm25",
+    "mode": "joint",
+    "k": 100,
+    "agg": "rrf"
+   },
+   "macro_top10": 20.5,
+   "macro_top1": 7.791
+  },
+  {
+   "cfg": {
+    "method": "bm25",
+    "mode": "joint",
+    "k": 1000,
+    "agg": "max"
+   },
+   "macro_top10": 17.671,
+   "macro_top1": 5.819
+  },
+  {
+   "cfg": {
+    "method": "bm25",
+    "mode": "joint",
+    "k": 1000,
+    "agg": "sum"
+   },
+   "macro_top10": 21.753,
+   "macro_top1": 6.543
+  },
+  {
+   "cfg": {
+    "method": "bm25",
+    "mode": "joint",
+    "k": 1000,
+    "agg": "rrf"
+   },
+   "macro_top10": 22.078,
+   "macro_top1": 7.537
+  },
+  {
+   "cfg": {
+    "method": "bm25",
+    "mode": "per_concept",
+    "k": 100,
+    "agg": "max"
+   },
+   "macro_top10": 20.462,
+   "macro_top1": 5.87
+  },
+  {
+   "cfg": {
+    "method": "bm25",
+    "mode": "per_concept",
+    "k": 100,
+    "agg": "sum"
+   },
+   "macro_top10": 16.114,
+   "macro_top1": 4.172
+  },
+  {
+   "cfg": {
+    "method": "bm25",
+    "mode": "per_concept",
+    "k": 100,
+    "agg": "rrf"
+   },
+   "macro_top10": 14.22,
+   "macro_top1": 3.859
+  },
+  {
+   "cfg": {
+    "method": "bm25",
+    "mode": "per_concept",
+    "k": 1000,
+    "agg": "max"
+   },
+   "macro_top10": 24.464,
+   "macro_top1": 8.749
+  },
+  {
+   "cfg": {
+    "method": "bm25",
+    "mode": "per_concept",
+    "k": 1000,
+    "agg": "sum"
+   },
+   "macro_top10": 17.81,
+   "macro_top1": 5.063
+  },
+  {
+   "cfg": {
+    "method": "bm25",
+    "mode": "per_concept",
+    "k": 1000,
+    "agg": "rrf"
+   },
+   "macro_top10": 16.568,
+   "macro_top1": 3.852
+  }
+ ]
+}

@@ -1,0 +1,4 @@
+graph: 27309 diseases with findings, mean profile 30.5, median source chars 35162
+Confirm-DDXPlus      n=  3000 | lineage @1  12.4 @3  20.8 @10  35.2 | strict @1   5.2 @3  13.7 @10  22.4 | 63s
+Confirm-Phenopacket-new n=   261 | lineage @1   1.9 @3   5.4 @10   9.2 | strict @1   1.9 @3   5.4 @10   9.2 | 3s
+Confirm-SymCat       n=  7482 | lineage @1   3.3 @3   6.0 @10  11.1 | strict @1   1.6 @3   2.9 @10   5.2 | 68s
