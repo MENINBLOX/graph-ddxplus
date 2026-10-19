@@ -13,10 +13,13 @@ more specific diagnosis than the gold label implies the gold). Both are reported
 from __future__ import annotations
 
 import argparse
+import ast
 import collections
 import csv
+import hashlib
 import json
 import math
+import os
 import random
 import re
 import zipfile
@@ -26,6 +29,11 @@ DATA = Path("data")
 UM = Path("pilot/cache/umls_maps")
 KS = (1, 3, 10)
 RAW_GOLD = False   # set by graph-based evaluation to also return original gold identifiers
+# Confirmation set E (research design E2). The development loaders below refuse its DDXPlus rows and
+# its SymCat seed; load_confirm_e at the end of the file is the only reader.
+CONFIRM_E_FLAG = "CONFIRM_E_UNSEAL"
+CONFIRM_E_MANIFEST = DATA / "confirm_e/MANIFEST.json"
+CONFIRM_E_SYMCAT_SEED = 202
 
 
 # ----------------------------------------------------------------------------- benchmarks
@@ -97,14 +105,19 @@ def ddx_crosswalk():
     return convert, {c for c in vocab if c}
 
 
-def load_ddxplus(split: str, n: int, seed: int = 0):
-    import ast
+def ddx_sample_indices(n_rows: int, n: int, seed: int) -> list[int]:
+    """Row indices of the DDXPlus sample drawn by load_ddxplus, in draw order.
+
+    random.sample chooses by position only, so sampling range(n_rows) draws exactly the rows that
+    sampling the row list itself draws."""
+    return random.Random(seed).sample(range(n_rows), min(n, n_rows))
+
+
+def _ddx_patients(rows) -> list:
     cond = json.load(open(DATA / "ddxplus/release_conditions_en.json"))
     dmap = json.load(open(DATA / "ddxplus/disease_umls_mapping_v2.json"))["mapping"]
     fr2en = {info.get("cond-name-fr") or info.get("condition_name"): en for en, info in cond.items()}
     convert, _ = ddx_crosswalk()
-    rows = list(csv.DictReader(open(DATA / f"ddxplus/release_{split}_patients.csv")))
-    rows = random.Random(seed).sample(rows, min(n, len(rows)))
     pats = []
     for r in rows:
         en = fr2en.get(r["PATHOLOGY"])
@@ -112,7 +125,19 @@ def load_ddxplus(split: str, n: int, seed: int = 0):
         ev = convert(ast.literal_eval(r["EVIDENCES"]))
         if gold and ev:
             pats.append(({gold}, ev))
-    return {f"DDXPlus-{split}": pats}
+    return pats
+
+
+def load_ddxplus(split: str, n: int, seed: int = 0):
+    rows = list(csv.DictReader(open(DATA / f"ddxplus/release_{split}_patients.csv")))
+    idx = ddx_sample_indices(len(rows), n, seed)
+    # A missing manifest is an error, not a pass: deleting it must not open the sealed rows.
+    if split == "test":
+        sealed = set(json.load(open(CONFIRM_E_MANIFEST))["ddxplus"]["row_indices"])
+        if not sealed.isdisjoint(idx):
+            raise RuntimeError(f"DDXPlus test sample (n={n}, seed={seed}) contains rows of the sealed "
+                               f"confirmation set E ({CONFIRM_E_MANIFEST})")
+    return {f"DDXPlus-{split}": _ddx_patients(rows[i] for i in idx)}
 
 
 def load_rarebench():
@@ -157,6 +182,8 @@ def load_phenopacket():
 def load_symcat(ppd: int, seed: int = 0):
     """SymCat's own protocol: a synthetic patient reports each symptom with the disease's listed
     probability. All 801 diseases, seeded."""
+    if seed == CONFIRM_E_SYMCAT_SEED and os.environ.get(CONFIRM_E_FLAG) != "1":
+        raise RuntimeError(f"SymCat seed {seed} is the sealed confirmation set E; use load_confirm_e")
     full = json.load(open(DATA / "symcat/symcat_parsed_full.json"))
     sym = json.load(open(DATA / "symcat/symptom_umls_mapping.json"))["mapping"]
     dmap = {v.get("symcat_slug"): v for v in json.load(open(DATA / "symcat/disease_umls_mapping.json"))["mapping"].values()}
@@ -348,3 +375,37 @@ def load_confirm():
     out["Confirm-Phenopacket-new"] = pats
     out["Confirm-SymCat"] = load_symcat(man["symcat"]["patients_per_disease"], seed=man["symcat"]["seed"])["SymCat"]
     return out
+
+
+def _check_sha256(path: Path, want: str) -> None:
+    h = hashlib.sha256()
+    with open(path, "rb") as f:
+        for block in iter(lambda: f.read(1 << 20), b""):
+            h.update(block)
+    if h.hexdigest() != want:
+        raise RuntimeError(f"{path} differs from the file sealed in {CONFIRM_E_MANIFEST}")
+
+
+def load_confirm_e():
+    """Sealed confirmation set E (data/confirm_e/MANIFEST.json, research design E2).
+
+    New patients of the development diseases: DDXPlus test rows outside the seed-0 development
+    sample and the D confirmation rows, and SymCat seed 202. Patients are built by the development
+    loaders' code. Evaluated once, after the systems are frozen; refuses to load unless the
+    environment variable CONFIRM_E_UNSEAL=1 is set.
+    """
+    if os.environ.get(CONFIRM_E_FLAG) != "1":
+        raise RuntimeError("confirmation set E is sealed; set CONFIRM_E_UNSEAL=1 only for the final run")
+    man = json.load(open(CONFIRM_E_MANIFEST))
+    ddx, sym = man["ddxplus"], man["symcat"]
+    csv_path = DATA / "ddxplus/release_test_patients.csv"
+    _check_sha256(csv_path, ddx["csv_sha256"])
+    for rel, want in sym["sha256"].items():
+        _check_sha256(DATA / rel, want)
+    if sym["seed"] != CONFIRM_E_SYMCAT_SEED:
+        raise RuntimeError(f"manifest SymCat seed {sym['seed']} != {CONFIRM_E_SYMCAT_SEED}")
+    rows = list(csv.DictReader(open(csv_path)))
+    if len(rows) != ddx["n_rows"]:
+        raise RuntimeError(f"{csv_path}: {len(rows)} rows, manifest says {ddx['n_rows']}")
+    return {"ConfirmE-DDXPlus": _ddx_patients(rows[i] for i in ddx["row_indices"]),
+            "ConfirmE-SymCat": load_symcat(sym["patients_per_disease"], seed=sym["seed"])["SymCat"]}

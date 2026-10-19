@@ -4,8 +4,10 @@ Graph model
   (:Disease {id, name, vocab, n_findings, src_chars})          universe key: UMLS CUI or MONDO ID
   (:Concept {cui, tui, idf})                                     finding / evidence concept
   (:Doc {id, pmid, pmcid, kind, title, year, license})           article or book chapter
-  (:Mention {phrase, sentence, topic})                           one extracted, sentence-located item;
-                                                                 topic = the article title names the disease
+  (:Mention {phrase, sentence, topic, span})                     one extracted, sentence-located item;
+                                                                 topic = the article title names the disease;
+                                                                 span = the LLM phrase in which the dictionary
+                                                                 found phrase (llm_dict_relink.py items only)
   (Disease)-[:HAS_FINDING {n_mentions, n_docs, n_topic_docs}]->(Concept)   aggregated edge used for scoring
   (Mention)-[:OF]->(Disease), (Mention)-[:MENTIONS]->(Concept), (Mention)-[:FROM]->(Doc)
   (Concept)-[:IS_A]->(Concept)                                   UMLS concept hierarchy
@@ -362,10 +364,12 @@ def main() -> None:
                 n_mentions += 1
                 n_topic += topic
                 if not a.no_mentions:
-                    if len(it["sent"]) >= SENT_CAP and phrase.lower() not in it["sent"].lower():
+                    if len(it["sent"]) >= SENT_CAP and it.get("src_t", phrase).lower() not in it["sent"].lower():
                         by_dz[d].append(len(mentions))
-                    mentions.append({"d": d, "c": c, "doc": it["doc"], "phrase": phrase, "sent": it["sent"],
-                                     "topic": topic})
+                    row = {"d": d, "c": c, "doc": it["doc"], "phrase": phrase, "sent": it["sent"], "topic": topic}
+                    if "src_t" in it:
+                        row["span"] = it["src_t"]
+                    mentions.append(row)
                 e = edge[(d, c)]
                 e[0] += 1
                 e[1].add(it["doc"])
@@ -384,7 +388,10 @@ def main() -> None:
             text = {x["doc_id"]: x["text"] for x in dz_docs}
             for i in by_dz[dz]:
                 m = mentions[i]
-                m["sent"] = recenter(text.get(m["doc"], ""), m["phrase"], m["sent"])
+                t = text.get(m["doc"], "")
+                # a re-linked mention is cut around the LLM span it came from, not the shorter dictionary string
+                anchor = m["span"] if "span" in m and m["span"].lower() in t.lower() else m["phrase"]
+                m["sent"] = recenter(t, anchor, m["sent"])
         for x in dz_docs:
             if x["doc_id"] in docs_used and x["doc_id"] not in docs:
                 docs[x["doc_id"]] = {k: x.get(k, "") for k in ("pmid", "pmcid", "kind", "title", "year", "license")}
@@ -442,6 +449,7 @@ def main() -> None:
         if not a.no_mentions:
             run_batches(s, "UNWIND $rows AS r MATCH (d:Disease {id: r.d}), (c:Concept {cui: r.c}), "
                            "(x:Doc {id: r.doc}) CREATE (m:Mention {phrase: r.phrase, sentence: r.sent, topic: r.topic}) "
+                           "SET m.span = r.span "
                            "CREATE (m)-[:OF]->(d), (m)-[:MENTIONS]->(c), (m)-[:FROM]->(x)",
                         mentions, "Mention")
         run_batches(s, "UNWIND $rows AS r MATCH (c:Concept {cui: r.c}), (p:Concept {cui: r.p}) "
