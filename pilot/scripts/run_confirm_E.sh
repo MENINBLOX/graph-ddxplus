@@ -20,21 +20,30 @@ export CONFIRM_E_UNSEAL=1
 get() { $PY -c "import json;f=json.load(open('$F'));print($1)"; }
 read -r A M D U B < <(get "' '.join(str(f['scoring'][k]) for k in ('alpha','mu','decay','unified_w','support_beta'))")
 
-# 1. graph systems; S-mix last so the fusion step finds it loaded
+loaded_edges() {
+  $PY -c "
+from neo4j import GraphDatabase
+d=GraphDatabase.driver('$URI',auth=('neo4j','thesis-dev-only'))
+with d.session() as s: print(s.run('MATCH ()-[e:HAS_FINDING]->() RETURN count(e) AS n').single()['n'])"
+}
+load() {  # rebuild system $1 on $URI and stop unless it is the frozen graph
+  local V want got t0=$O/.t_$1
+  V=$(get "f['graph_systems']['$1']['variant']")
+  touch $t0
+  BUILD_ONLY=1 URI=$URI bash pilot/scripts/run_graph_variants.sh "$V" >> $O/build.log 2>&1
+  [ pilot/cache/v2/devD/variants/graph_$V.json -nt $t0 ] || { echo "$1: build summary not rewritten" | tee -a $O/attempts.log; exit 1; }
+  want=$(get "f['graph_systems']['$1']['fingerprint']")
+  got=$($PY -c "import json;print(json.load(open('pilot/cache/v2/devD/variants/graph_$V.json'))['fingerprint'])")
+  [ "$want" = "$got" ] || { echo "$1: fingerprint $got != frozen $want" | tee -a $O/attempts.log; exit 1; }
+  [ "$(loaded_edges)" = "$(get "f['graph_systems']['$1']['edges']")" ] || { echo "$1: loaded edges differ" | tee -a $O/attempts.log; exit 1; }
+}
+
+# 1. graph systems; S-mix last so the fusion step usually finds it loaded
 for S in S-D S-llm S-dict S-union S-mix; do
   out=$O/$S.json
   [ -s "$out" ] && { echo "$S: result exists, skipped"; continue; }
-  V=$(get "f['graph_systems']['$S']['variant']")
   OT=$(get "f['graph_systems']['$S']['offtopic_w']")
-  BUILD_ONLY=1 URI=$URI bash pilot/scripts/run_graph_variants.sh "$V" >> $O/build.log 2>&1
-  want=$(get "f['graph_systems']['$S']['fingerprint']")
-  got=$($PY -c "import json;print(json.load(open('pilot/cache/v2/devD/variants/graph_$V.json'))['fingerprint'])")
-  [ "$want" = "$got" ] || { echo "$S: fingerprint $got != frozen $want" | tee -a $O/attempts.log; exit 1; }
-  edges=$($PY -c "
-from neo4j import GraphDatabase
-d=GraphDatabase.driver('$URI',auth=('neo4j','thesis-dev-only'))
-with d.session() as s: print(s.run('MATCH ()-[e:HAS_FINDING]->() RETURN count(e) AS n').single()['n'])")
-  [ "$edges" = "$(get "f['graph_systems']['$S']['edges']")" ] || { echo "$S: loaded edges $edges differ" | tee -a $O/attempts.log; exit 1; }
+  load $S
   $PY pilot/scripts/graph_dx.py --uri $URI --bench confirm_e --alpha $A --mu $M --decay $D --unified_w $U \
     --support_beta $B --offtopic_w $OT --boot 1000 --out $out.part > $O/$S.log 2>&1
   mv $out.part $out
@@ -47,7 +56,8 @@ import hashlib, json, sys
 from pathlib import Path
 f, r = json.load(open(sys.argv[1])), Path(sys.argv[2])
 for name, want in f["S-bm25"]["index_sha256"].items():
-    h = hashlib.sha256(open(r / name, "rb").read()).hexdigest()
+    with open(r / name, "rb") as fh:
+        h = hashlib.file_digest(fh, "sha256").hexdigest()
     if h != want:
         sys.exit(f"S-bm25 index file {name} differs from the freeze")
 EOF
@@ -57,11 +67,12 @@ if [ ! -s $O/S-bm25.json ]; then
   mv $O/S-bm25.json.part $O/S-bm25.json
 fi
 
-# 3. S-comb: S-mix (still loaded on 7688) fused with S-bm25 at the frozen weight
+# 3. S-comb: S-mix fused with S-bm25 at the frozen weight
 OTM=$(get "f['graph_systems']['S-mix']['offtopic_w']")
 get "json.dumps({'selected': {**f['scoring'], 'offtopic_w': $OTM}})" > $O/smix_cfg.json
 get "json.dumps({'selected': {'w': f['S-comb']['w']}})" > $O/fuse_tune.json
 if [ ! -s $O/fuse_test.json ]; then
+  [ "$(loaded_edges)" = "$(get "f['graph_systems']['S-mix']['edges']")" ] || load S-mix
   $PY pilot/scripts/retrieval_baseline.py fuse_test --bench confirm_e --graph_uri $URI --graph_cfg $O/smix_cfg.json \
     --cfg $O/bm25_cfg.json --index $R --out $O/fuse_test.json > $O/S-comb.log 2>&1
 fi
