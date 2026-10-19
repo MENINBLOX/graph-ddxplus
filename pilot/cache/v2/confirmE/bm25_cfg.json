@@ -1,0 +1,1 @@
+{"selected": {"method": "bm25", "mode": "joint", "k": 1000, "agg": "rrf"}}

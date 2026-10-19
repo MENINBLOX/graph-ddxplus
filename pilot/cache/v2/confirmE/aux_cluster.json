@@ -1,0 +1,478 @@
+[
+ {
+  "A": "S-D",
+  "B": "S-mix",
+  "k": 10,
+  "bench": "ConfirmE-DDXPlus",
+  "n": 3000,
+  "diff": 6.53,
+  "ci": [
+   4.63,
+   8.47
+  ],
+  "ci_cluster": [
+   -6.07,
+   19.33
+  ],
+  "clusters": 49
+ },
+ {
+  "A": "S-D",
+  "B": "S-mix",
+  "k": 10,
+  "bench": "ConfirmE-SymCat",
+  "n": 7463,
+  "diff": 2.43,
+  "ci": [
+   1.73,
+   3.12
+  ],
+  "ci_cluster": [
+   1.04,
+   3.87
+  ],
+  "clusters": 760
+ },
+ {
+  "A": "S-D",
+  "B": "S-mix",
+  "k": 1,
+  "bench": "ConfirmE-DDXPlus",
+  "n": 3000,
+  "diff": 0.7,
+  "ci": [
+   -0.57,
+   2.0
+  ],
+  "ci_cluster": [
+   -6.13,
+   8.29
+  ],
+  "clusters": 49
+ },
+ {
+  "A": "S-D",
+  "B": "S-mix",
+  "k": 1,
+  "bench": "ConfirmE-SymCat",
+  "n": 7463,
+  "diff": -0.78,
+  "ci": [
+   -1.22,
+   -0.36
+  ],
+  "ci_cluster": [
+   -1.7,
+   0.05
+  ],
+  "clusters": 760
+ },
+ {
+  "A": "S-llm",
+  "B": "S-mix",
+  "k": 10,
+  "bench": "ConfirmE-DDXPlus",
+  "n": 3000,
+  "diff": 1.6,
+  "ci": [
+   0.83,
+   2.4
+  ],
+  "ci_cluster": [
+   -1.29,
+   4.31
+  ],
+  "clusters": 49
+ },
+ {
+  "A": "S-llm",
+  "B": "S-mix",
+  "k": 10,
+  "bench": "ConfirmE-SymCat",
+  "n": 7463,
+  "diff": 1.67,
+  "ci": [
+   1.17,
+   2.21
+  ],
+  "ci_cluster": [
+   0.78,
+   2.6
+  ],
+  "clusters": 760
+ },
+ {
+  "A": "S-llm",
+  "B": "S-mix",
+  "k": 1,
+  "bench": "ConfirmE-DDXPlus",
+  "n": 3000,
+  "diff": 0.53,
+  "ci": [
+   -0.27,
+   1.33
+  ],
+  "ci_cluster": [
+   -2.85,
+   3.32
+  ],
+  "clusters": 49
+ },
+ {
+  "A": "S-llm",
+  "B": "S-mix",
+  "k": 1,
+  "bench": "ConfirmE-SymCat",
+  "n": 7463,
+  "diff": 0.24,
+  "ci": [
+   -0.03,
+   0.52
+  ],
+  "ci_cluster": [
+   -0.12,
+   0.61
+  ],
+  "clusters": 760
+ },
+ {
+  "A": "S-dict",
+  "B": "S-mix",
+  "k": 10,
+  "bench": "ConfirmE-DDXPlus",
+  "n": 3000,
+  "diff": -2.43,
+  "ci": [
+   -3.7,
+   -1.17
+  ],
+  "ci_cluster": [
+   -8.77,
+   3.53
+  ],
+  "clusters": 49
+ },
+ {
+  "A": "S-dict",
+  "B": "S-mix",
+  "k": 10,
+  "bench": "ConfirmE-SymCat",
+  "n": 7463,
+  "diff": -1.17,
+  "ci": [
+   -1.72,
+   -0.59
+  ],
+  "ci_cluster": [
+   -2.1,
+   -0.22
+  ],
+  "clusters": 760
+ },
+ {
+  "A": "S-dict",
+  "B": "S-mix",
+  "k": 1,
+  "bench": "ConfirmE-DDXPlus",
+  "n": 3000,
+  "diff": -5.2,
+  "ci": [
+   -6.2,
+   -4.13
+  ],
+  "ci_cluster": [
+   -9.83,
+   -1.39
+  ],
+  "clusters": 49
+ },
+ {
+  "A": "S-dict",
+  "B": "S-mix",
+  "k": 1,
+  "bench": "ConfirmE-SymCat",
+  "n": 7463,
+  "diff": -0.67,
+  "ci": [
+   -1.0,
+   -0.32
+  ],
+  "ci_cluster": [
+   -1.28,
+   -0.08
+  ],
+  "clusters": 760
+ },
+ {
+  "A": "S-union",
+  "B": "S-mix",
+  "k": 10,
+  "bench": "ConfirmE-DDXPlus",
+  "n": 3000,
+  "diff": -4.0,
+  "ci": [
+   -5.1,
+   -2.87
+  ],
+  "ci_cluster": [
+   -10.25,
+   1.26
+  ],
+  "clusters": 49
+ },
+ {
+  "A": "S-union",
+  "B": "S-mix",
+  "k": 10,
+  "bench": "ConfirmE-SymCat",
+  "n": 7463,
+  "diff": -1.33,
+  "ci": [
+   -1.82,
+   -0.76
+  ],
+  "ci_cluster": [
+   -2.23,
+   -0.46
+  ],
+  "clusters": 760
+ },
+ {
+  "A": "S-union",
+  "B": "S-mix",
+  "k": 1,
+  "bench": "ConfirmE-DDXPlus",
+  "n": 3000,
+  "diff": -5.5,
+  "ci": [
+   -6.5,
+   -4.53
+  ],
+  "ci_cluster": [
+   -10.41,
+   -1.35
+  ],
+  "clusters": 49
+ },
+ {
+  "A": "S-union",
+  "B": "S-mix",
+  "k": 1,
+  "bench": "ConfirmE-SymCat",
+  "n": 7463,
+  "diff": -0.8,
+  "ci": [
+   -1.14,
+   -0.48
+  ],
+  "ci_cluster": [
+   -1.35,
+   -0.3
+  ],
+  "clusters": 760
+ },
+ {
+  "A": "S-bm25",
+  "B": "S-mix",
+  "k": 10,
+  "bench": "ConfirmE-DDXPlus",
+  "n": 3000,
+  "diff": 19.3,
+  "ci": [
+   17.6,
+   21.03
+  ],
+  "ci_cluster": [
+   8.79,
+   30.74
+  ],
+  "clusters": 49
+ },
+ {
+  "A": "S-bm25",
+  "B": "S-mix",
+  "k": 10,
+  "bench": "ConfirmE-SymCat",
+  "n": 7463,
+  "diff": 2.99,
+  "ci": [
+   2.22,
+   3.77
+  ],
+  "ci_cluster": [
+   1.43,
+   4.52
+  ],
+  "clusters": 760
+ },
+ {
+  "A": "S-bm25",
+  "B": "S-mix",
+  "k": 1,
+  "bench": "ConfirmE-DDXPlus",
+  "n": 3000,
+  "diff": 3.87,
+  "ci": [
+   2.63,
+   5.13
+  ],
+  "ci_cluster": [
+   -2.36,
+   10.32
+  ],
+  "clusters": 49
+ },
+ {
+  "A": "S-bm25",
+  "B": "S-mix",
+  "k": 1,
+  "bench": "ConfirmE-SymCat",
+  "n": 7463,
+  "diff": 0.36,
+  "ci": [
+   -0.08,
+   0.78
+  ],
+  "ci_cluster": [
+   -0.46,
+   1.21
+  ],
+  "clusters": 760
+ },
+ {
+  "A": "S-mix",
+  "B": "S-comb",
+  "k": 10,
+  "bench": "ConfirmE-DDXPlus",
+  "n": 3000,
+  "diff": -0.77,
+  "ci": [
+   -1.63,
+   0.07
+  ],
+  "ci_cluster": [
+   -3.94,
+   1.74
+  ],
+  "clusters": 49
+ },
+ {
+  "A": "S-mix",
+  "B": "S-comb",
+  "k": 10,
+  "bench": "ConfirmE-SymCat",
+  "n": 7463,
+  "diff": 0.98,
+  "ci": [
+   0.48,
+   1.47
+  ],
+  "ci_cluster": [
+   0.21,
+   1.78
+  ],
+  "clusters": 760
+ },
+ {
+  "A": "S-mix",
+  "B": "S-comb",
+  "k": 1,
+  "bench": "ConfirmE-DDXPlus",
+  "n": 3000,
+  "diff": -0.33,
+  "ci": [
+   -1.23,
+   0.53
+  ],
+  "ci_cluster": [
+   -3.73,
+   3.08
+  ],
+  "clusters": 49
+ },
+ {
+  "A": "S-mix",
+  "B": "S-comb",
+  "k": 1,
+  "bench": "ConfirmE-SymCat",
+  "n": 7463,
+  "diff": 0.19,
+  "ci": [
+   -0.13,
+   0.52
+  ],
+  "ci_cluster": [
+   -0.28,
+   0.66
+  ],
+  "clusters": 760
+ },
+ {
+  "A": "S-bm25",
+  "B": "S-comb",
+  "k": 10,
+  "bench": "ConfirmE-DDXPlus",
+  "n": 3000,
+  "diff": 18.53,
+  "ci": [
+   16.93,
+   20.17
+  ],
+  "ci_cluster": [
+   8.04,
+   29.55
+  ],
+  "clusters": 49
+ },
+ {
+  "A": "S-bm25",
+  "B": "S-comb",
+  "k": 10,
+  "bench": "ConfirmE-SymCat",
+  "n": 7463,
+  "diff": 3.97,
+  "ci": [
+   3.23,
+   4.68
+  ],
+  "ci_cluster": [
+   2.59,
+   5.27
+  ],
+  "clusters": 760
+ },
+ {
+  "A": "S-bm25",
+  "B": "S-comb",
+  "k": 1,
+  "bench": "ConfirmE-DDXPlus",
+  "n": 3000,
+  "diff": 3.53,
+  "ci": [
+   2.53,
+   4.67
+  ],
+  "ci_cluster": [
+   -1.61,
+   9.0
+  ],
+  "clusters": 49
+ },
+ {
+  "A": "S-bm25",
+  "B": "S-comb",
+  "k": 1,
+  "bench": "ConfirmE-SymCat",
+  "n": 7463,
+  "diff": 0.55,
+  "ci": [
+   0.15,
+   0.95
+  ],
+  "ci_cluster": [
+   -0.19,
+   1.3
+  ],
+  "clusters": 760
+ }
+]
