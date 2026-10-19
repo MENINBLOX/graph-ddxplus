@@ -1,0 +1,70 @@
+{
+ "label": "E-T2 S-mix vs S-dict",
+ "k": 10,
+ "A": "pilot/cache/v2/confirmE/S-dict.json",
+ "B": "pilot/cache/v2/confirmE/S-mix.json",
+ "rows": [
+  {
+   "bench": "ConfirmE-DDXPlus",
+   "n": 3000,
+   "A@10": 43.5,
+   "B@10": 41.07,
+   "diff": -2.43,
+   "ci": [
+    -3.7,
+    -1.17
+   ],
+   "only_A": 209,
+   "only_B": 136,
+   "p": 0.00010037094820402358,
+   "p_holm": 0.00010037094820402358
+  },
+  {
+   "bench": "ConfirmE-SymCat",
+   "n": 7463,
+   "A@10": 14.08,
+   "B@10": 12.92,
+   "diff": -1.17,
+   "ci": [
+    -1.72,
+    -0.59
+   ],
+   "only_A": 269,
+   "only_B": 182,
+   "p": 4.8808911758541196e-05,
+   "p_holm": 9.761782351708239e-05
+  }
+ ],
+ "B_better": 0,
+ "A_better": 2,
+ "sign_test_p": 0.5,
+ "macro": {
+  "sets": [
+   "ConfirmE-DDXPlus",
+   "ConfirmE-SymCat"
+  ],
+  "k": 10,
+  "A": 28.79,
+  "B": 26.99,
+  "diff": -1.8,
+  "ci": [
+   -2.44,
+   -1.12
+  ],
+  "p": 0.0,
+  "per_set": {
+   "ConfirmE-DDXPlus": {
+    "n": 3000,
+    "A": 43.5,
+    "B": 41.07,
+    "diff": -2.43
+   },
+   "ConfirmE-SymCat": {
+    "n": 7463,
+    "A": 14.08,
+    "B": 12.92,
+    "diff": -1.17
+   }
+  }
+ }
+}

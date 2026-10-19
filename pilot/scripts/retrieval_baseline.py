@@ -51,16 +51,18 @@ def chunks_of(text: str) -> list[str]:
 def build_corpus(sources: str) -> None:
     """Two passes over the sources, so only the chunk-to-document map stays in memory: the first
     links documents to diseases, the second streams each kept document's chunks to disk."""
-    from build_graph_v2 import iter_sources
+    from build_graph_v2 import article, iter_sources
     uni = set(v2_ids.universe()) - set(json.load(open(EXCLUDED)))
     use, links, title = defaultdict(int), defaultdict(set), {}
     for dz, dz_docs in iter_sources(sources):
-        for x in dz_docs:
-            use[x["doc_id"]] += 1
+        held = {x["doc_id"] for x in dz_docs}
+        for x in dz_docs:                  # counted exactly as build_graph_v2.py counts use
+            if not (x["doc_id"].startswith("TBL") and article(x["doc_id"]) in held):
+                use[article(x["doc_id"])] += 1
             if dz in uni:
                 links[x["doc_id"]].add(dz)
                 title.setdefault(x["doc_id"], x.get("title") or "")
-    docs = sorted(d for d in links if use[d] < MAX_DOC_DISEASES)
+    docs = sorted(d for d in links if use[article(d)] < MAX_DOC_DISEASES)
     idx = {d: i for i, d in enumerate(docs)}
     os.makedirs(OUT, exist_ok=True)
     chunk_doc, written = [], set()
@@ -220,17 +222,18 @@ class Fusion:
     """Hybrid layer (post-hoc analysis): reciprocal-rank fusion of the graph ranking and a retriever.
 
     score(d) = (1 - w) / (60 + rank_graph(d)) + w / (60 + rank_retriever(d)); w chosen on validate.
-    Provenance still comes from the graph for every disease the graph ranks.
+    Provenance still comes from the graph for every disease the graph ranks. The graph list is scored with
+    the candidate window of a Top-10 evaluation (40), so its order is the graph system's own ranking.
     """
 
-    def __init__(self, graph: GraphDx, retr: Retriever, w: float, depth: int = 200):
-        self.g, self.r, self.w, self.depth = graph, retr, w, depth
+    def __init__(self, graph: GraphDx, retr: Retriever, w: float, depth: int = 200, window: int = 40):
+        self.g, self.r, self.w, self.depth, self.window = graph, retr, w, depth, window
         self.memo: dict = {}
 
     def rank(self, ev: set[str], k: int = 50) -> list[str]:
         key = tuple(sorted(ev))
         if key not in self.memo:
-            self.memo[key] = (self.g.rank(ev, self.depth), self.r.rank(ev, self.depth))
+            self.memo[key] = (self.g.rank(ev, self.depth, window=self.window), self.r.rank(ev, self.depth))
         gr, rr = self.memo[key]
         sc: dict[str, float] = defaultdict(float)
         for lst, wt in ((gr, 1 - self.w), (rr, self.w)):
@@ -257,6 +260,8 @@ def benches(names: list[str], ddx_n: int) -> dict:
             sets.update(O.load_symcat(10))
         elif b == "confirm":
             sets.update(O.load_confirm())
+        elif b == "confirm_e":
+            sets.update(O.load_confirm_e())
     return sets
 
 
@@ -276,6 +281,8 @@ def main() -> None:
     ap.add_argument("--auth", default=os.environ.get("NEO4J_AUTH", "neo4j/thesis-dev-only"))
     ap.add_argument("--sources", default=f"{V2}/sources", help="as build_graph_v2.py --sources")
     ap.add_argument("--index", default=OUT, help="directory of the chunk corpus and indexes")
+    ap.add_argument("--weights", type=lambda x: [float(v) for v in x.split(",")], default=[0.0, 0.25, 0.5, 0.75, 1.0],
+                    help="fusion weights to try (design E excludes 0 and 1: 0.25,0.5,0.75)")
     a = ap.parse_args()
     OUT = a.index
     if a.step == "build":
@@ -307,7 +314,7 @@ def main() -> None:
         if a.step == "fuse_tune":
             trail, best, best_s = [], None, (-1, -1)
             fu = Fusion(g, rt, 0.0)
-            for w in (0.0, 0.25, 0.5, 0.75, 1.0):
+            for w in a.weights:
                 fu.w = w
                 if a.dev:
                     from tune_dev import macro
