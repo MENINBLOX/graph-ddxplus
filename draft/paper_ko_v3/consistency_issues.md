@@ -1,43 +1,78 @@
 # 절 간 일관성 검토 (v3)
 
-## 1. [imprecise] RES-A
+## 1. [imprecise] ABS-CON
 
-- 인용: 설계 D의 동결 시스템을 2026-10-13에 봉인 확증 세트에서 한 번 평가했다(동결 커밋 2ecb064).
-- 문제: 같은 사실을 섹션마다 다르게 적었다. MET-B §3.6은 동결 설정(frozen_config_D.json)을 cd130e7에 넣었고 확증은 설정 변경 없이 비교군 실행 스크립트만 더한 커밋 2ecb064에서 돌렸다고 쓴다. RES-A §4.2 본문과 Table 6 캡션('freeze commit 2ecb064')은 2ecb064를 동결 커밋이라고 부른다.
-- 수정: '동결 커밋 cd130e7, 실행 커밋 2ecb064'로 쓰거나 RES-A/Table 6에서는 '실행 커밋 2ecb064'로 고친다. MET-B §3.6과 같은 표현을 쓴다.
-- 근거: git log --diff-filter=A -- pilot/cache/v2/devD/frozen_config_D.json의 결과는 cd130e7('freeze all design D/E systems')이다. git show --stat 2ecb064는 pilot/scripts/run_confirm_D_ref.sh 한 파일만 더한다('comparator confirmation runner (no config change)'). MET-B.md 69행에 'cd130e7에 넣었고 … 2ecb064에서 실행'이라고 적혀 있다.
+- 인용: 개발 세트의 Top-10에는 수집 깊이가 v2 문헌 위의 추출·연결 변경(동결 그래프 대비 최대 +4.1%p)보다 크게 작용했다.
+- 문제: '추출·연결 변경'이라는 말이 두 가지 뜻으로 쓰인다. 최대 +4.1%p를 낸 그래프는 v2unionu_ns(34.66 − 30.56)다. 이 그래프는 추출·연결뿐 아니라 빌더 규칙(등위 분해, HPO 이름 연결, 원인 유전자 제목 주제 인정, 자기 간선 제거)도 S-D와 다르다. MET-B 3.6은 빌더 규칙을 수집 깊이·추출·연결과 별개의 축으로 나눈다. 같은 표현이 INT 기여 4('추출·연결 방식만 바꾼 변형의 최대 효과(동결 대비 +4.1%p)'), RES-A 4.3, DIS에도 반복된다.
+- 수정: 'v2 문헌 위에서 추출·연결 방식이나 빌더 규칙을 바꾼 변형(동결 그래프 대비 최대 +4.1%p, v2unionu_ns)'처럼 빌더 규칙 변경까지 포함됨을 밝힌다.
+- 근거: pilot/cache/v2/devD/variants/analysis.json dev: v2unionu_ns 34.66 / base_nm 30.56; pilot/scripts/run_graph_variants.sh: base_nm FLAGS="", v2unionu는 ALL(--split-coord --hpo-names --topic-genes)에 _ns로 --no-self 추가; MET-B 3.6의 32개 구성 서술
 
-## 2. [overclaim] ABS-CON
+## 2. [imprecise] RES-B
 
-- 인용: v2+v3 문헌의 혼합 추출 그래프는 같은 순위화로 비교한 v2 문헌과 v2+v3 문헌의 그래프 변형 32개 가운데 개발 매크로 Top-10과 Top-1이 가장 높았다(46.1%, 19.7%).
-- 문제: Top-1 '최고'는 그래프마다 Top-10 기준으로 고른 offtopic_w에서만 맞다. 초록과 결론(6장 2문단 '개발 세트 매크로 Top-10·Top-1이 가장 높았다')에는 이 조건이 빠졌다. S-llm의 매크로 Top-1은 ot 0, .25, .5에서 19.76/19.83/19.78%로 S-mix 19.66%보다 높다. S-mix 자신의 ot .5에서도 S-llm이 높다. INT 기여 5와 RES-B §4.4.3에는 '(그래프마다 고른 ot 기준)' 조건이 있어 표현이 엇갈린다.
-- 수정: '그래프마다 개발 세트에서 고른 offtopic_w 기준으로 매크로 Top-10과 Top-1이 가장 높았다'처럼 조건을 넣는다. 아니면 '가장 높았다'를 Top-10에만 쓰고 Top-1은 값만 적는다.
-- 근거: pilot/cache/v2/devD/variants/analysis.json에서 dev.v3llm_ns.grid는 {0.0:[43.64,19.76], 0.25:[43.98,19.83], 0.5:[44.47,19.78], 1.0:[44.90,19.30]}이고 dev.v3llmd_ns.macro@1은 19.66이다. ABS-CON 작성 메모 3도 같은 사실을 적었다.
+- 인용: 표 10은 v2 문헌에서 추출·연결 방식만 바꾼 그래프 18개(기준 1개와 변형 17개)를 보여 준다.
+- 문제: 표 10의 18개 가운데 한정어 제외(_nq) 4개, 자기 간선 제거(_ns) 7개, base_split_tg(원인 유전자 제목 주제 인정)는 추출이나 연결이 아니라 빌더 규칙을 바꾼 변형이다. 이를 '추출·연결 방식만 바꾼'이라고 쓰면 MET-B 3.6의 정의(수집 깊이, 추출·연결 방식, 빌더 규칙 중 하나 이상을 바꾼 그래프)와 어긋난다.
+- 수정: 'v2 문헌에서 추출·연결 방식이나 빌더 규칙을 바꾼 그래프 18개'
+- 근거: 표 10의 '_nq', '_ns' 행; pilot/scripts/run_graph_variants.sh의 접미어 정의(_ns → --no-self, _nq → --no-qualifiers); MET-B 3.6
 
-## 3. [imprecise] RES-B
+## 3. [imprecise] ABS-CON
 
-- 인용: ot 0.25에서 S-llm의 Top-1(19.83%)은 S-mix(19.66%)보다 높다. 따라서 S-mix와 S-llm의 Top-1 차이(+0.4%p, 4.4.3)는 S-llm의 ot 선택에 따라 달라진다.
-- 문제: 실제보다 약하게 서술했다. S-llm의 매크로 Top-1은 선택된 1.0을 뺀 모든 ot(0, .25, .5)에서 S-mix의 19.66%보다 높다. 따라서 S-mix의 Top-1 우세(+0.4%p)는 S-llm이 ot 1.0을 고른 경우에만 성립하고, 같은 ot .5로 맞추면 부호가 뒤집힌다. 'ot 0.25에서'만 들면 예외적인 한 지점처럼 읽힌다.
-- 수정: 'S-llm의 Top-1은 ot 0, 0.25, 0.5에서 19.76/19.83/19.78%로 모두 S-mix(19.66%)보다 높다. S-mix의 Top-1 우세(+0.4%p)는 S-llm이 ot 1.0을 고른 데서만 나온다'로 쓴다.
-- 근거: analysis.json dev.v3llm_ns.grid(위와 같음)와 dev.v3llmd_ns 19.66을 보면 된다. 같은 문단 앞 문장이 네 값을 이미 나열한다.
+- 인용: 이 빌드의 개발 DDXPlus 3,000명 순위는 근거 언급 없이 적재한 빌드와 같았다.
+- 문제: 실제로 비교한 것은 전체 후보 순위가 아니다. graph_dx.evaluate가 기록하는 ranks_lineage만 비교했다. 이 값은 환자마다 lineage 정답이 Top-10 안 몇 번째에 있는지이고, Top-10 밖이면 None이다. Top-10 아래 순위와 정답이 아닌 질환의 순서는 비교하지 않았다. 같은 표현이 INT, MET-A 3.4, MET-B 3.6, RES-A 4.1, RES-B 4.7, DIS 5.1에도 있다. 지문이 같으므로 결론은 맞지만, 서술이 검사 범위보다 넓다.
+- 수정: '개발 DDXPlus 3,000명 모두에서 정답 질환의 Top-10 내 위치(lineage)가 근거 언급 없는 빌드와 같았다'
+- 근거: pilot/cache/v2/devD/e/dev_ddx_smix_mentions.json과 variants/dev_v3llmd_ns_ot0.5.json의 ranks_lineage 3,000/3,000 일치; pilot/scripts/graph_dx.py의 evaluate()는 ranked = dx.rank(ev, max(KS))에서 정답 위치만 저장한다
 
-## 4. [imprecise] MET-B
+## 4. [imprecise] MET-A
 
-- 인용: S-dict는 같은 문헌(v2는 논문당 12,000자, v3 PMC 논문은 임상 절 12,000자)에서 가장 높은 사전 그래프다.
-- 문제: v2 문헌 서술이 다른 섹션과 다르다. 괄호 안 대비는 v2가 임상 절로 한정되지 않은 것처럼 읽힌다. 하지만 MET-A §3.2는 v2에서도 '논문마다 임상 관련 절의 본문을 12,000자까지 저장했다'고 쓰고, INT도 '논문당 임상 절 12,000자'라고 쓴다. 게다가 v2 문헌에는 장당 24,000자인 StatPearls·GeneReviews 장도 들어 있다.
-- 수정: 'v2·v3 모두 PMC 논문은 임상 절 12,000자(도서 장은 24,000자)를 쓰는 문헌'처럼 쓴다. 비교 대상인 본문 전체 판(*full)과의 차이가 v3 PMC 본문 절단 여부임을 드러낸다.
-- 근거: MET-A.md §3.2('논문마다 임상 관련 절의 본문을 12,000자까지 저장했다', 'StatPearls와 GeneReviews … 장마다 24,000자')와 INT.md 3문단('질환당 PMC 오픈액세스 리뷰 15편과 증례보고 10편(논문당 임상 절 12,000자)')을 보면 된다.
+- 인용: 설계 E는 모든 그래프 시스템을 확증 실행 직전에 같은 비교 인스턴스에 다시 빌드하고, 지문과 적재된 HAS_FINDING·Disease 수가 동결 커밋의 빌드 요약과 같을 때만 평가하도록 정했다.
+- 문제: 코드의 동작과 다르고, MET-B 3.6의 서술과도 다르다. run_confirm_E.sh는 빌드 요약의 지문과 적재된 HAS_FINDING 수만 frozen_config_E.json과 대조한다. Disease 수는 동결 요약과 대조하지 않는다. 빌더가 후보 질환 수(universe)와 다르면 멈출 뿐이다. MET-B 3.6은 이를 정확히 적었다('…HAS_FINDING 수가 동결 기록과 같을 때만 평가한다. Disease 노드 수가 후보 질환 수(43,575)와 다르면 빌더가 멈춘다').
+- 수정: '지문과 적재된 HAS_FINDING 수가 동결 기록과 같을 때만 평가하고, Disease 노드 수가 후보 질환 수와 다르면 빌더가 멈춘다'
+- 근거: pilot/scripts/run_confirm_E.sh의 load()는 fingerprint와 loaded_edges(HAS_FINDING 개수)만 비교한다; build_graph_v2.py는 n_dz != len(uni)이면 sys.exit
 
-## 5. [imprecise] INT
+## 5. [imprecise] MET-B
 
-- 인용: UMLS 사전 매칭 그래프의 격차는 −15.6%p에서 −8.1%p로 줄었고, S-mix의 격차는 −7.1%p였다(4.5절).
-- 문제: 시간 분할 값은 모든 그래프를 ot 0으로 돌린 결과다. S-mix 그래프는 동결 설정인 ot .5에서 평가하지 않았다(RES-B §4.5, Table 14 캡션). 그런데 INT 기여 7은 이 값을 주 시스템 S-mix(γ .5로 정의)의 결과처럼 조건 없이 제시한다. RES-B와 DIS는 ot 0이라고 밝힌다.
-- 수정: 'S-mix 그래프(ot 0으로 평가)의 격차는 −7.1%p였다'처럼 ot 0 조건을 붙인다.
-- 근거: analysis.json temporal 키는 *_y2022_ot0.0과 *_ot1.0뿐이다(v3llmd_ns_y2022_ot0.0: future/curated vs_hpoa2022@10 −7.1). RES-B.md §4.5에 'S-mix 그래프는 시간 분할에서 ot 0과 1.0으로만 평가했다'고 적혀 있다.
+- 인용: - E-T2(주): S-mix − S-llm, S-mix − S-dict, S-mix − S-union 각각의 매크로 Top-10 차이에서 95% CI 하한 > −1%p(비열등). 세 비교는 따로 판정한다.
+- 문제: '주'라는 말이 두 가지 뜻으로 쓰인다. 목록에서는 E-T2의 세 비교 전체를 '(주)'로 표시한다. 그런데 바로 아래 문단('주 목표는 E-T1과 E-T2(S-llm 비교)이고, 나머지는 보고용 부 목표다')과 표 15b('E-T2 (primary)'는 S-llm 행에만 표시)는 S-llm 비교만 주 목표로 둔다. S-dict·S-union 비교가 주 목표인지 부 목표인지 독자가 판단하기 어렵다.
+- 수정: 'E-T2(S-llm 비교는 주, S-dict·S-union 비교는 부)'처럼 목록에서부터 구분한다.
+- 근거: MET-B 3.6 E-T2 항목과 E0 문단; RES-B 표 15b; docs/research_design.md E4(같은 이중 표기)
 
-## 6. [imprecise] RES-A
+## 6. [imprecise] DIS
 
-- 인용: 연결되지 않은 사유 중 가장 큰 것은 근거 부족(연결된 개념의 이름이 구절의 절반 미만을 덮음)으로, 전체 항목의 43.0%였다.
-- 문제: '근거 부족'을 두 가지로 정의했다. MET-A §3.3(규칙 5)과 코드는 두 조건을 쓴다. 연결된 개념의 이름·별칭이 구절 안에 연속으로 나타나지 않거나, 나타나도 구절 내용어의 절반 미만만 덮으면 근거 부족이다. RES-A §4.1과 DIS §5.1('근거 부족(연결된 개념 이름이 구절의 절반 미만을 덮음, 43.0%)')은 덮는 비율 조건만 남겨 범주를 좁게 적었다.
-- 수정: MET-A와 같게 '연결된 개념의 이름·별칭이 구절 안에 연속으로 나타나지 않거나 구절 내용어의 절반 미만만 덮는 경우'로 쓴다. 짧게 쓰려면 '(3.3절 규칙 5)'를 참조한다.
-- 근거: pilot/scripts/normalize_v2.py grounded()는 별칭이 연속 토큰열로 나타나고 그때 cover >= MIN_COVER(0.5)여야 연결을 받아들인다. 실패하면 why='not_grounded'로 남는다. MET-A.md §3.3 '(5) 개념의 이름이나 별칭이 구절 안에 연속으로 나타나고 구절 내용어의 50% 이상을 덮을 때만 채택'과 비교하면 된다.
+- 인용: 일반 문헌 규칙(20질환 이상에 나열된 문헌 제외)
+- 문제: MET-A 3.2의 정의와 다르다. MET-A는 '질환별 수집 목록에 모두 20회 이상 나타난 논문(한 질환 목록에 두 번 나오면 2회로 센다)'으로 정의하고, 표 문서는 원 논문과 함께 센다. RES-B 4.4.6과 4.5.1도 '질환 파일에 20회 이상 나열'로 쓴다. 코드는 나열 횟수를 세며, 비인간 질환 파일까지 포함한다. 따라서 '20질환 이상'은 이 규칙을 다르게 기술한 것이다.
+- 수정: '일반 문헌 규칙(질환 파일에 모두 20회 이상 나열된 논문 제외)'
+- 근거: pilot/scripts/build_graph_v2.py: use[article(doc_id)] += 1이 질환 파일마다 문서 다중도대로 더해지고 generic = n >= 20; MET-A 3.2; RES-A 표 2 각주 e
+
+## 7. [imprecise] RES-B
+
+- 인용: 큐레이션 대조에서는 HPO 주석(phenotype.hpoa, 2026-02-16)이 있는 질환 12,296개의 비교 가능한 간선 194,318개를 큐레이터 표현형과 대조했다
+- 문제: 같은 HPOA 2026-02-16판의 질환 수가 MET-B 3.7과 표 5에서는 '소견이 있는 질환 12,251개'로 나온다. 차이 45개가 어디서 오는지(개념 사상이 안 되는 질환인지, 다른 질환 집합인지) 원고 어디에도 설명이 없다. 독자에게는 한 수량이 두 값으로 보인다.
+- 수정: 두 수의 정의를 각각 밝힌다. 예: '주석이 있는 질환 12,296개(그중 개념으로 사상되는 소견이 있는 질환 12,251개)'. 아니면 한쪽 기준으로 통일한다.
+- 근거: docs/research_design.md §9.16(12,296), §9.22(12,251); MET-B 3.7과 표 5
+
+## 8. [imprecise] DIS
+
+- 인용: 확증에서 gemma 그래프의 PPR은 1-홉 집계보다 Top-10이 DDXPlus에서 15.8%p, SymCat에서 1.6%p 낮았다(Holm 유의).
+- 문제: DIS는 S-D를 'gemma 그래프'라고 부른다(PPR 문단 세 곳, 큐레이션 비교 문단의 'D 확증에서 gemma 그래프의 Top-10은 DDXPlus 35.2%'). 그런데 S-mix, S-llm, S-union도 gemma-4-E4B로 추출한 그래프다. 다른 절(RES-A 4.2, 표 6·7)은 같은 시스템을 S-D로 쓴다. 독자가 v2+v3 gemma 그래프의 결과로 오인할 수 있다.
+- 수정: 'S-D 그래프(v2 문헌 gemma 그래프)'로 고친다.
+- 근거: RES-A 4.2와 표 6('Literature graph S-D'); MET-B 3.6의 시스템 정의(S-mix·S-llm도 gemma 구절)
+
+## 9. [imprecise] DIS
+
+- 인용: 미래·기주석 증례에서 HPOA 2022-12 대비 Top-10 격차는 UMLS 사전이 −15.6%p에서 −8.1%p로, LLM이 −16.1%p에서 −7.3%p로 줄었고
+- 문제: UMLS 쌍(v2umls_ns → v3umls_ns)은 빌더 규칙이 같다. LLM 쌍은 v2 기준이 base_split_tg(자기 간선 유지, v2 구절 표)이고 v3가 v3llm_ns(자기 간선 제거, v3 구절 표)여서 빌더 규칙과 구절 표가 함께 바뀐다. RES-B 4.5는 이 차이를 밝혔지만, DIS는 두 쌍을 같은 종류의 수집 깊이 효과로 나란히 제시한다.
+- 수정: LLM 쌍에 '(v2 기준은 자기 간선을 두고 v2 구절 표를 쓴 그래프)'를 덧붙이거나, 깊이 효과의 근거로 UMLS 쌍만 쓴다.
+- 근거: analysis.json temporal: base_split_tg_y2022_ot0.0 −16.1, v3llm_ns_y2022_ot0.0 −7.3; base_split_tg_ns_y2022 빌드는 없음(variants 디렉터리); RES-B 4.5
+
+## 10. [imprecise] INT
+
+- 인용: 자기 간선은 질환에서 자기 개념이나 상위 질환 개념으로 가는 소견 간선이다.
+- 문제: 빌더(--no-self)는 질환 자신의 CUI와 질환 IS_A의 직접 상위 질환만 제거한다. MET-A 3.4는 '직접 상위 질환의 개념'으로 정확히 쓴다. 반면 INT와 RES-B 4.4.4('자기 개념과 상위 질환 개념으로 가는 간선')는 '직접'을 빠뜨려 모든 조상이 제거 대상으로 읽힌다.
+- 수정: '질환에서 자기 개념이나 직접 상위 질환의 개념으로 가는 소견 간선'
+- 근거: pilot/scripts/build_graph_v2.py: self_cuis[c].add(p) for c, p in v2_ids.disease_isa()(직접 부모 쌍)와 self_cuis[k].add(k); MET-A 3.4
+
+## 11. [style] RES-A
+
+- 인용: 사람 질환의 질환–문헌 연결은 246,203건, 고유 문헌은 123,772편이었다.
+- 문제: MET-A 3.2는 문서(출처 단위), 논문(원 논문), 문헌(수집 문서 전체)을 구분해 정의한다. 그런데 4.1의 v2 단락은 '문헌'을 셀 수 있는 단위로 쓴다('고유 문헌 136,373편', '일반 문헌 1,119편'). v3 단락은 같은 수량을 '문서 ID', '논문 단위'로 센다. 표 2도 'Unique documents'와 'Generic articles'로 단위를 나눈다. 같은 절 안에서 집계 단위가 섞인다.
+- 수정: v2 수치도 정의에 맞춰 '고유 문서 123,772개', '일반 문헌 규칙으로 제외된 논문 1,119편'처럼 단위를 맞춘다.
+- 근거: MET-A 3.2 첫 문단의 용어 정의; RES-A 표 2 행 이름('Unique documents', 'Generic articles excluded')
