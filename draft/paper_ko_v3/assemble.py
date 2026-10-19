@@ -37,7 +37,7 @@ def main() -> None:
     body = {"ABS-CON:abstract": abstract, "ABS-CON:conclusion": conclusion}
     out = [f"# {res['title']}", "",
            ("> 국문 초안 v3. 절별 작성 → 문장 단위 사실 확인 → 수정 워크플로 산출물을 조립했다. "
-            "`[E 확증 대기: …]`는 설계 E 확증 뒤 채울 자리, `[ref: …]`는 원문 대조 전 인용이다. "
+            "설계 E 확증 결과(2026-10-20)를 채웠다. `[ref: …]`는 원문 대조 전 인용이다. "
             "문장별 근거는 evidence_log.md, 아직 반영하지 않은 절 간 불일치는 consistency_issues.md에 있다."), ""]
     for key in ORDER:
         text = CONTINUED.sub("", body[key] if key in body else sec[key]["markdown"])
@@ -55,7 +55,7 @@ def main() -> None:
         iss += [f"## {i}. [{x['severity']}] {x.get('section', '')}".rstrip(), "", f"- 인용: {x['quote']}", f"- 문제: {x['problem']}",
                 f"- 수정: {x['correct']}", f"- 근거: {x['evidence']}", ""]
     (HERE / "consistency_issues.md").write_text("\n".join(iss), encoding="utf-8")
-    marks = {m: len(re.findall(re.escape(m), text)) for m in ("[E 확증 대기", "[ref:", "[E 동결 대기")}
+    marks = {m: len(re.findall(re.escape(m), text)) for m in ("[E 확증 대기", "[ref:", "[E 동결 대기", "[미측정]")}
     print(f"sections {len(sec)} chars {len(text)} markers {marks} issues {len(issues)}")
 
 
