@@ -173,9 +173,10 @@ def main() -> None:
                "B_better": pos, "A_better": neg, "sign_test_p": sign_test(pos, neg)}
     print(f"== {x.label} (Top-{x.k}, B - A)")
     for r in rows:
+        holm = f" holm={r['p_holm']:.3g}" if "p_holm" in r else ""
         print(f"{r['bench']:20} n={r['n']:6}  A {r[f'A@{x.k}']:5.1f}  B {r[f'B@{x.k}']:5.1f}  "
               f"diff {r['diff']:+5.1f} [{r['ci'][0]:+5.1f}, {r['ci'][1]:+5.1f}]  "
-              f"p={r['p']:.3g} holm={r['p_holm']:.3g}")
+              f"p={r['p']:.3g}{holm}")
     print(f"B better on {pos}, A better on {neg}; sign test p={summary['sign_test_p']:.3g}")
     if x.macro:
         m = macro_compare(a, b, x.k, x.macro)
