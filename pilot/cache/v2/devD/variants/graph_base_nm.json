@@ -4,5 +4,7 @@
  "concepts": 46130,
  "edges": 832671,
  "mentions": 1201064,
- "docs": 86276
+ "docs": 86276,
+ "fingerprint": "f73e554859ae3494357d0d5db840b33a85bccb00",
+ "scoring": "0.35 2.0 0.3 2.0 0.5"
 }
