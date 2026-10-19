@@ -1,0 +1,107 @@
+{
+ "design": "E",
+ "scoring": {
+  "alpha": 0.35,
+  "mu": 2.0,
+  "decay": 0.3,
+  "unified_w": 2.0,
+  "support_beta": 0.5,
+  "offtopic_w": 0.0
+ },
+ "graph_systems": {
+  "S-mix": {
+   "variant": "v3llmd_ns",
+   "offtopic_w": 0.5,
+   "fingerprint": "15ba677103f6938a1feea713618ec6f4448b11e9",
+   "edges": 5221285,
+   "diseases": 43575,
+   "dev_macro": [
+    46.11,
+    19.66
+   ]
+  },
+  "S-D": {
+   "variant": "base_nm",
+   "offtopic_w": 0.0,
+   "fingerprint": "f73e554859ae3494357d0d5db840b33a85bccb00",
+   "edges": 832671,
+   "diseases": 43575,
+   "dev_macro": [
+    30.56,
+    12.64
+   ]
+  },
+  "S-llm": {
+   "variant": "v3llm_ns",
+   "offtopic_w": 1.0,
+   "fingerprint": "88038a10d3b73890f30cdb9d02199e654bf28986",
+   "edges": 3672106,
+   "diseases": 43575,
+   "dev_macro": [
+    44.9,
+    19.3
+   ]
+  },
+  "S-dict": {
+   "variant": "v3umls_ns",
+   "offtopic_w": 0.5,
+   "fingerprint": "d817e925658e34b4a21045d3e74faf1ab54edee5",
+   "edges": 14506788,
+   "diseases": 43575,
+   "dev_macro": [
+    42.88,
+    18.11
+   ]
+  },
+  "S-union": {
+   "variant": "v3unionu_ns",
+   "offtopic_w": 0.5,
+   "fingerprint": "98e9e9595480ffa22db03dc84843a158a0144e02",
+   "edges": 15396388,
+   "diseases": 43575,
+   "dev_macro": [
+    43.77,
+    17.59
+   ]
+  }
+ },
+ "S-bm25": {
+  "selected": {
+   "method": "bm25",
+   "mode": "joint",
+   "k": 1000,
+   "agg": "rrf"
+  },
+  "dev_macro": [
+   27.352,
+   11.039
+  ],
+  "index_sha256": {
+   "bm25/data.csc.index.npy": "3bf319ccb5f5310e58b8cf639b11e42e9b988a6390db0a783f6eca27a32a4ed9",
+   "bm25/indices.csc.index.npy": "4608e8865b71e5977694931edb7deafded740c1527fe4fb72ed4a5e7f6c186df",
+   "bm25/indptr.csc.index.npy": "5b6b2352c6713dfb237ea22b7738217090e6ba0f9c07f18152861f922a17aafd",
+   "bm25/params.index.json": "9350944576e396da5967a586c5cbd538e625234fcc619bc3c31caa020fa7df3a",
+   "bm25/vocab.index.json": "077fb07f1718266e3eb5888e9f7bdbcecca80bb2978e13c59e93eac71c196bdf",
+   "chunk_doc.npy": "6603c243dc22f2de941052ff093b4148b4fa3e40b88d49030cca3f6f061e80f2",
+   "chunks.jsonl": "1541ae33969e104c5d16f6827db11b5347639425853a507e66b46ca81299226d",
+   "docs.json": "d462214e141e474201d60911ad4bd121071b106f1797fcc0e4d939062b94927f"
+  }
+ },
+ "S-comb": {
+  "w": 0.25,
+  "dev_macro": [
+   46.724,
+   19.461
+  ],
+  "weights_tried": [
+   0.25,
+   0.5,
+   0.75
+  ]
+ },
+ "inputs_sha256": {
+  "pilot/cache/v3/llmd_v2.jsonl.gz": "668977d6c17832aeca95677211dd523da31d4de1a604525a70e3cd12b1ebe0fd",
+  "pilot/cache/v3/llmd_v3.jsonl.gz": "1f38f246759cf93aa35d5419f325c9fac4d43e87f91196aa0b4ae6e5b66ddfeb",
+  "pilot/cache/v3/phrase2cui_v3.json": "23c264f1907fa16504eebab1d0bfc134a4a472b5b9d7bd26fad8e827aa0a76de"
+ }
+}
