@@ -29,9 +29,9 @@ def main() -> None:
     abstract, conclusion = split_abs_con(sec["ABS-CON"]["markdown"])
     body = {"ABS-CON:abstract": abstract, "ABS-CON:conclusion": conclusion}
     out = [f"# {res['title']}", "",
-           "> 국문 초안 v3. 절별 작성 → 문장 단위 사실 확인 → 수정 워크플로 산출물을 조립했다. "
-           "`[E 확증 대기: …]`는 설계 E 확증 뒤 채울 자리, `[ref: …]`는 원문 대조 전 인용이다. "
-           "문장별 근거는 evidence_log.md, 아직 반영하지 않은 절 간 불일치는 consistency_issues.md에 있다.", ""]
+           ("> 국문 초안 v3. 절별 작성 → 문장 단위 사실 확인 → 수정 워크플로 산출물을 조립했다. "
+            "`[E 확증 대기: …]`는 설계 E 확증 뒤 채울 자리, `[ref: …]`는 원문 대조 전 인용이다. "
+            "문장별 근거는 evidence_log.md, 아직 반영하지 않은 절 간 불일치는 consistency_issues.md에 있다."), ""]
     for key in ORDER:
         text = CONTINUED.sub("", body[key] if key in body else sec[key]["markdown"])
         out += [text.strip(), ""]
