@@ -1,0 +1,70 @@
+{
+ "label": "E-T5 S-comb vs S-mix",
+ "k": 1,
+ "A": "pilot/cache/v2/confirmE/S-mix.json",
+ "B": "pilot/cache/v2/confirmE/S-comb.json",
+ "rows": [
+  {
+   "bench": "ConfirmE-DDXPlus",
+   "n": 3000,
+   "A@1": 12.43,
+   "B@1": 12.1,
+   "diff": -0.33,
+   "ci": [
+    -1.23,
+    0.53
+   ],
+   "only_A": 96,
+   "only_B": 86,
+   "p": 0.5048025229491022,
+   "p_holm": 0.5958672890838381
+  },
+  {
+   "bench": "ConfirmE-SymCat",
+   "n": 7463,
+   "A@1": 2.45,
+   "B@1": 2.64,
+   "diff": 0.19,
+   "ci": [
+    -0.13,
+    0.52
+   ],
+   "only_A": 71,
+   "only_B": 85,
+   "p": 0.29793364454191906,
+   "p_holm": 0.5958672890838381
+  }
+ ],
+ "B_better": 1,
+ "A_better": 1,
+ "sign_test_p": 1.0,
+ "macro": {
+  "sets": [
+   "ConfirmE-DDXPlus",
+   "ConfirmE-SymCat"
+  ],
+  "k": 1,
+  "A": 7.44,
+  "B": 7.37,
+  "diff": -0.07,
+  "ci": [
+   -0.56,
+   0.39
+  ],
+  "p": 0.754,
+  "per_set": {
+   "ConfirmE-DDXPlus": {
+    "n": 3000,
+    "A": 12.43,
+    "B": 12.1,
+    "diff": -0.33
+   },
+   "ConfirmE-SymCat": {
+    "n": 7463,
+    "A": 2.45,
+    "B": 2.64,
+    "diff": 0.19
+   }
+  }
+ }
+}

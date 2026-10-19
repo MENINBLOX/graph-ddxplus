@@ -1,0 +1,41 @@
+{
+ "label": "E-T1 S-mix vs S-D",
+ "k": 10,
+ "A": "pilot/cache/v2/confirmE/S-D.json",
+ "B": "pilot/cache/v2/confirmE/S-mix.json",
+ "rows": [
+  {
+   "bench": "ConfirmE-DDXPlus",
+   "n": 3000,
+   "A@10": 34.53,
+   "B@10": 41.07,
+   "diff": 6.53,
+   "ci": [
+    4.63,
+    8.47
+   ],
+   "only_A": 317,
+   "only_B": 513,
+   "p": 1.0489083142017847e-11,
+   "p_holm": 2.0978166284035695e-11
+  },
+  {
+   "bench": "ConfirmE-SymCat",
+   "n": 7463,
+   "A@10": 10.49,
+   "B@10": 12.92,
+   "diff": 2.43,
+   "ci": [
+    1.73,
+    3.12
+   ],
+   "only_A": 282,
+   "only_B": 463,
+   "p": 3.432439281654237e-11,
+   "p_holm": 3.432439281654237e-11
+  }
+ ],
+ "B_better": 2,
+ "A_better": 0,
+ "sign_test_p": 0.5
+}
