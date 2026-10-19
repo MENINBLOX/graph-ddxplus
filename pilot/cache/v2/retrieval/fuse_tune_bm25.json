@@ -1,0 +1,90 @@
+{
+ "selected": {
+  "w": 0.25,
+  "graph": {
+   "alpha": 0.5,
+   "mu": 2.0,
+   "decay": 0.0,
+   "unified_w": 2.0,
+   "support_beta": 0.0,
+   "offtopic_w": 0.0
+  },
+  "retriever": {
+   "method": "bm25",
+   "mode": "per_concept",
+   "k": 1000,
+   "agg": "max"
+  }
+ },
+ "selected_score": [
+  17.7,
+  25.47
+ ],
+ "trail": [
+  {
+   "w": 0.0,
+   "bench": "validate fusion w=0.0",
+   "patients": 3000,
+   "evaluated": 3000,
+   "sec": 108,
+   "strict@1": 5.8,
+   "strict@3": 10.5,
+   "strict@10": 27.33,
+   "lineage@1": 15.13,
+   "lineage@3": 20.37,
+   "lineage@10": 32.43
+  },
+  {
+   "w": 0.25,
+   "bench": "validate fusion w=0.25",
+   "patients": 3000,
+   "evaluated": 3000,
+   "sec": 2,
+   "strict@1": 5.93,
+   "strict@3": 14.07,
+   "strict@10": 28.77,
+   "lineage@1": 17.7,
+   "lineage@3": 25.47,
+   "lineage@10": 37.17
+  },
+  {
+   "w": 0.5,
+   "bench": "validate fusion w=0.5",
+   "patients": 3000,
+   "evaluated": 3000,
+   "sec": 2,
+   "strict@1": 4.5,
+   "strict@3": 11.6,
+   "strict@10": 24.4,
+   "lineage@1": 15.43,
+   "lineage@3": 22.87,
+   "lineage@10": 42.63
+  },
+  {
+   "w": 0.75,
+   "bench": "validate fusion w=0.75",
+   "patients": 3000,
+   "evaluated": 3000,
+   "sec": 2,
+   "strict@1": 5.53,
+   "strict@3": 9.57,
+   "strict@10": 18.57,
+   "lineage@1": 13.93,
+   "lineage@3": 22.53,
+   "lineage@10": 35.43
+  },
+  {
+   "w": 1.0,
+   "bench": "validate fusion w=1.0",
+   "patients": 3000,
+   "evaluated": 3000,
+   "sec": 2,
+   "strict@1": 3.97,
+   "strict@3": 7.13,
+   "strict@10": 12.57,
+   "lineage@1": 10.67,
+   "lineage@3": 18.1,
+   "lineage@10": 27.1
+  }
+ ]
+}

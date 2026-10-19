@@ -1,0 +1,146 @@
+{
+ "label": "frozen vs no_topic",
+ "k": 1,
+ "A": "pilot/cache/v2/eval_qwen3_v21/ranks/frozen.json",
+ "B": "pilot/cache/v2/eval_qwen3_v21/ranks/no_topic.json",
+ "rows": [
+  {
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A@1": 14.37,
+   "B@1": 14.47,
+   "diff": 0.1,
+   "ci": [
+    -0.27,
+    0.47
+   ],
+   "only_A": 14,
+   "only_B": 17,
+   "p": 0.720100131817162,
+   "p_holm": 1.0
+  },
+  {
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A@1": 3.53,
+   "B@1": 3.04,
+   "diff": -0.48,
+   "ci": [
+    -1.12,
+    0.0
+   ],
+   "only_A": 3,
+   "only_B": 0,
+   "p": 0.25,
+   "p_holm": 1.0
+  },
+  {
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A@1": 4.86,
+   "B@1": 3.78,
+   "diff": -1.08,
+   "ci": [
+    -2.7,
+    0.27
+   ],
+   "only_A": 6,
+   "only_B": 2,
+   "p": 0.2890625,
+   "p_holm": 1.0
+  },
+  {
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A@1": 3.41,
+   "B@1": 2.27,
+   "diff": -1.14,
+   "ci": [
+    -3.41,
+    0.0
+   ],
+   "only_A": 1,
+   "only_B": 0,
+   "p": 1.0,
+   "p_holm": 1.0
+  },
+  {
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A@1": 5.0,
+   "B@1": 2.5,
+   "diff": -2.5,
+   "ci": [
+    -7.5,
+    0.0
+   ],
+   "only_A": 1,
+   "only_B": 0,
+   "p": 1.0,
+   "p_holm": 1.0
+  },
+  {
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A@1": 6.98,
+   "B@1": 6.58,
+   "diff": -0.4,
+   "ci": [
+    -1.52,
+    0.81
+   ],
+   "only_A": 19,
+   "only_B": 15,
+   "p": 0.6075913612730801,
+   "p_holm": 1.0
+  },
+  {
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A@1": 12.0,
+   "B@1": 10.67,
+   "diff": -1.33,
+   "ci": [
+    -4.0,
+    0.0
+   ],
+   "only_A": 1,
+   "only_B": 0,
+   "p": 1.0,
+   "p_holm": 1.0
+  },
+  {
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A@1": 3.61,
+   "B@1": 2.77,
+   "diff": -0.83,
+   "ci": [
+    -1.09,
+    -0.57
+   ],
+   "only_A": 138,
+   "only_B": 52,
+   "p": 3.50155988702328e-10,
+   "p_holm": 3.1514038983209517e-09
+  },
+  {
+   "bench": "SymCat",
+   "n": 7481,
+   "A@1": 3.38,
+   "B@1": 3.27,
+   "diff": -0.11,
+   "ci": [
+    -0.24,
+    0.03
+   ],
+   "only_A": 18,
+   "only_B": 10,
+   "p": 0.1849333420395851,
+   "p_holm": 1.0
+  }
+ ],
+ "B_better": 1,
+ "A_better": 8,
+ "sign_test_p": 0.0390625
+}

@@ -1,0 +1,8 @@
+primekg: edges 747705, diseases with findings 10898, concepts 9063
+  Disease: 43575
+  Concept: 11912
+  HAS_FINDING: 747705
+  Concept IS_A: 9858
+  Disease IS_A: 45118
+  IS_DISEASE: 4236
+done

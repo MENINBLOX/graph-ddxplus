@@ -1,0 +1,73 @@
+{
+ "triples": 82751,
+ "pairs": 22626,
+ "diseases": 878,
+ "by_triple": {
+  "no_docs": [
+   18502,
+   22.4
+  ],
+  "not_in_text": [
+   36963,
+   44.7
+  ],
+  "not_extracted": [
+   1906,
+   2.3
+  ],
+  "not_linked": [
+   5113,
+   6.2
+  ],
+  "filtered": [
+   2881,
+   3.5
+  ],
+  "offtopic_only": [
+   3569,
+   4.3
+  ],
+  "near": [
+   2132,
+   2.6
+  ],
+  "edge": [
+   11685,
+   14.1
+  ]
+ },
+ "by_pair": {
+  "no_docs": [
+   7228,
+   31.9
+  ],
+  "not_in_text": [
+   11213,
+   49.6
+  ],
+  "not_extracted": [
+   383,
+   1.7
+  ],
+  "not_linked": [
+   834,
+   3.7
+  ],
+  "filtered": [
+   672,
+   3.0
+  ],
+  "offtopic_only": [
+   577,
+   2.6
+  ],
+  "near": [
+   404,
+   1.8
+  ],
+  "edge": [
+   1315,
+   5.8
+  ]
+ }
+}

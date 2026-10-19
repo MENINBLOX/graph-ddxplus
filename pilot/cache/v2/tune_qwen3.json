@@ -1,0 +1,267 @@
+{
+ "criterion": "DDXPlus validate lineage Top-1 (ties Top-3)",
+ "selected": {
+  "alpha": 0.5,
+  "mu": 2.0,
+  "decay": 0.3,
+  "unified_w": 2.0
+ },
+ "selected_score": [
+  14.93,
+  18.7
+ ],
+ "trail": [
+  {
+   "cfg": {
+    "alpha": 0.35,
+    "mu": 2.0,
+    "decay": 0.5,
+    "unified_w": 1.0
+   },
+   "bench": "validate {'alpha': 0.35, 'mu': 2.0, 'decay': 0.5, 'unified_w': 1.0}",
+   "patients": 3000,
+   "evaluated": 3000,
+   "sec": 51,
+   "strict@1": 4.27,
+   "strict@3": 6.47,
+   "strict@10": 14.13,
+   "lineage@1": 11.83,
+   "lineage@3": 16.4,
+   "lineage@10": 25.13
+  },
+  {
+   "cfg": {
+    "alpha": 0.2,
+    "mu": 2.0,
+    "decay": 0.5,
+    "unified_w": 1.0
+   },
+   "bench": "validate {'alpha': 0.2, 'mu': 2.0, 'decay': 0.5, 'unified_w': 1.0}",
+   "patients": 3000,
+   "evaluated": 3000,
+   "sec": 49,
+   "strict@1": 3.4,
+   "strict@3": 6.13,
+   "strict@10": 12.47,
+   "lineage@1": 7.77,
+   "lineage@3": 13.13,
+   "lineage@10": 22.53
+  },
+  {
+   "cfg": {
+    "alpha": 0.25,
+    "mu": 2.0,
+    "decay": 0.5,
+    "unified_w": 1.0
+   },
+   "bench": "validate {'alpha': 0.25, 'mu': 2.0, 'decay': 0.5, 'unified_w': 1.0}",
+   "patients": 3000,
+   "evaluated": 3000,
+   "sec": 52,
+   "strict@1": 4.03,
+   "strict@3": 6.2,
+   "strict@10": 13.43,
+   "lineage@1": 9.23,
+   "lineage@3": 13.83,
+   "lineage@10": 23.87
+  },
+  {
+   "cfg": {
+    "alpha": 0.5,
+    "mu": 2.0,
+    "decay": 0.5,
+    "unified_w": 1.0
+   },
+   "bench": "validate {'alpha': 0.5, 'mu': 2.0, 'decay': 0.5, 'unified_w': 1.0}",
+   "patients": 3000,
+   "evaluated": 3000,
+   "sec": 49,
+   "strict@1": 4.5,
+   "strict@3": 7.03,
+   "strict@10": 13.37,
+   "lineage@1": 13.87,
+   "lineage@3": 17.9,
+   "lineage@10": 25.1
+  },
+  {
+   "cfg": {
+    "alpha": 0.5,
+    "mu": 0.0,
+    "decay": 0.5,
+    "unified_w": 1.0
+   },
+   "bench": "validate {'alpha': 0.5, 'mu': 0.0, 'decay': 0.5, 'unified_w': 1.0}",
+   "patients": 3000,
+   "evaluated": 3000,
+   "sec": 49,
+   "strict@1": 3.23,
+   "strict@3": 4.07,
+   "strict@10": 6.0,
+   "lineage@1": 7.57,
+   "lineage@3": 12.07,
+   "lineage@10": 15.73
+  },
+  {
+   "cfg": {
+    "alpha": 0.5,
+    "mu": 1.0,
+    "decay": 0.5,
+    "unified_w": 1.0
+   },
+   "bench": "validate {'alpha': 0.5, 'mu': 1.0, 'decay': 0.5, 'unified_w': 1.0}",
+   "patients": 3000,
+   "evaluated": 3000,
+   "sec": 51,
+   "strict@1": 4.1,
+   "strict@3": 7.33,
+   "strict@10": 13.17,
+   "lineage@1": 13.8,
+   "lineage@3": 18.77,
+   "lineage@10": 25.33
+  },
+  {
+   "cfg": {
+    "alpha": 0.5,
+    "mu": 4.0,
+    "decay": 0.5,
+    "unified_w": 1.0
+   },
+   "bench": "validate {'alpha': 0.5, 'mu': 4.0, 'decay': 0.5, 'unified_w': 1.0}",
+   "patients": 3000,
+   "evaluated": 3000,
+   "sec": 49,
+   "strict@1": 4.7,
+   "strict@3": 8.13,
+   "strict@10": 14.13,
+   "lineage@1": 12.83,
+   "lineage@3": 17.17,
+   "lineage@10": 24.53
+  },
+  {
+   "cfg": {
+    "alpha": 0.5,
+    "mu": 2.0,
+    "decay": 0.0,
+    "unified_w": 1.0
+   },
+   "bench": "validate {'alpha': 0.5, 'mu': 2.0, 'decay': 0.0, 'unified_w': 1.0}",
+   "patients": 3000,
+   "evaluated": 3000,
+   "sec": 49,
+   "strict@1": 4.53,
+   "strict@3": 7.43,
+   "strict@10": 12.7,
+   "lineage@1": 13.9,
+   "lineage@3": 17.33,
+   "lineage@10": 25.23
+  },
+  {
+   "cfg": {
+    "alpha": 0.5,
+    "mu": 2.0,
+    "decay": 0.3,
+    "unified_w": 1.0
+   },
+   "bench": "validate {'alpha': 0.5, 'mu': 2.0, 'decay': 0.3, 'unified_w': 1.0}",
+   "patients": 3000,
+   "evaluated": 3000,
+   "sec": 51,
+   "strict@1": 4.77,
+   "strict@3": 7.47,
+   "strict@10": 13.67,
+   "lineage@1": 14.2,
+   "lineage@3": 17.93,
+   "lineage@10": 25.83
+  },
+  {
+   "cfg": {
+    "alpha": 0.5,
+    "mu": 2.0,
+    "decay": 0.5,
+    "unified_w": 1.0
+   },
+   "bench": "validate {'alpha': 0.5, 'mu': 2.0, 'decay': 0.5, 'unified_w': 1.0}",
+   "patients": 3000,
+   "evaluated": 3000,
+   "sec": 49,
+   "strict@1": 4.5,
+   "strict@3": 7.03,
+   "strict@10": 13.37,
+   "lineage@1": 13.87,
+   "lineage@3": 17.9,
+   "lineage@10": 25.1
+  },
+  {
+   "cfg": {
+    "alpha": 0.5,
+    "mu": 2.0,
+    "decay": 0.7,
+    "unified_w": 1.0
+   },
+   "bench": "validate {'alpha': 0.5, 'mu': 2.0, 'decay': 0.7, 'unified_w': 1.0}",
+   "patients": 3000,
+   "evaluated": 3000,
+   "sec": 49,
+   "strict@1": 3.77,
+   "strict@3": 6.63,
+   "strict@10": 13.13,
+   "lineage@1": 12.7,
+   "lineage@3": 17.07,
+   "lineage@10": 24.37
+  },
+  {
+   "cfg": {
+    "alpha": 0.5,
+    "mu": 2.0,
+    "decay": 0.3,
+    "unified_w": 0.0
+   },
+   "bench": "validate {'alpha': 0.5, 'mu': 2.0, 'decay': 0.3, 'unified_w': 0.0}",
+   "patients": 3000,
+   "evaluated": 3000,
+   "sec": 48,
+   "strict@1": 3.33,
+   "strict@3": 4.57,
+   "strict@10": 9.33,
+   "lineage@1": 7.1,
+   "lineage@3": 11.17,
+   "lineage@10": 21.63
+  },
+  {
+   "cfg": {
+    "alpha": 0.5,
+    "mu": 2.0,
+    "decay": 0.3,
+    "unified_w": 0.5
+   },
+   "bench": "validate {'alpha': 0.5, 'mu': 2.0, 'decay': 0.3, 'unified_w': 0.5}",
+   "patients": 3000,
+   "evaluated": 3000,
+   "sec": 50,
+   "strict@1": 4.37,
+   "strict@3": 6.67,
+   "strict@10": 13.33,
+   "lineage@1": 13.57,
+   "lineage@3": 17.1,
+   "lineage@10": 25.5
+  },
+  {
+   "cfg": {
+    "alpha": 0.5,
+    "mu": 2.0,
+    "decay": 0.3,
+    "unified_w": 2.0
+   },
+   "bench": "validate {'alpha': 0.5, 'mu': 2.0, 'decay': 0.3, 'unified_w': 2.0}",
+   "patients": 3000,
+   "evaluated": 3000,
+   "sec": 51,
+   "strict@1": 6.13,
+   "strict@3": 10.97,
+   "strict@10": 22.43,
+   "lineage@1": 14.93,
+   "lineage@3": 18.7,
+   "lineage@10": 26.53
+  }
+ ]
+}
