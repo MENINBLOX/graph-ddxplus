@@ -1,9 +1,10 @@
 """Assemble the v3 Korean draft (mixed extraction, designs D/E) from the drafting workflow result.
 
-    python draft/paper_ko_v3/assemble.py draft/paper_ko_v3/workflow_result.json
+    python draft/paper_ko_v3/assemble.py draft/paper_ko_v3/workflow_result.json [ISSUES.json]
 
-Writes paper_ko.md (sections in reading order), evidence_log.md (per-sentence sources) and
-consistency_issues.md (cross-section issues still to apply).
+A revised section in sections/<ID>.md replaces the workflow's Markdown for that section. Writes paper_ko.md
+(sections in reading order), evidence_log.md (per-sentence sources of the first draft) and
+consistency_issues.md (the open cross-section issues: ISSUES.json's recheck when given).
 """
 from __future__ import annotations
 
@@ -26,6 +27,12 @@ def split_abs_con(md: str) -> tuple[str, str]:
 def main() -> None:
     res = json.loads(Path(sys.argv[1]).read_text(encoding="utf-8"))
     sec = {s["id"]: s for s in res["sections"]}
+    for s in sec.values():
+        revised = HERE / "sections" / f"{s['id']}.md"
+        if revised.exists():
+            s["markdown"] = revised.read_text(encoding="utf-8")
+    issues = (json.loads(Path(sys.argv[2]).read_text(encoding="utf-8"))["recheck"]["issues"]
+              if len(sys.argv) > 2 else res["consistency"]["issues"])
     abstract, conclusion = split_abs_con(sec["ABS-CON"]["markdown"])
     body = {"ABS-CON:abstract": abstract, "ABS-CON:conclusion": conclusion}
     out = [f"# {res['title']}", "",
@@ -44,12 +51,12 @@ def main() -> None:
         log.append("")
     (HERE / "evidence_log.md").write_text("\n".join(log), encoding="utf-8")
     iss = ["# 절 간 일관성 검토 (v3)", ""]
-    for i, x in enumerate(res["consistency"]["issues"], 1):
-        iss += [f"## {i}. [{x['severity']}]", "", f"- 인용: {x['quote']}", f"- 문제: {x['problem']}",
+    for i, x in enumerate(issues, 1):
+        iss += [f"## {i}. [{x['severity']}] {x.get('section', '')}".rstrip(), "", f"- 인용: {x['quote']}", f"- 문제: {x['problem']}",
                 f"- 수정: {x['correct']}", f"- 근거: {x['evidence']}", ""]
     (HERE / "consistency_issues.md").write_text("\n".join(iss), encoding="utf-8")
     marks = {m: len(re.findall(re.escape(m), text)) for m in ("[E 확증 대기", "[ref:", "[E 동결 대기")}
-    print(f"sections {len(sec)} chars {len(text)} markers {marks} issues {len(res['consistency']['issues'])}")
+    print(f"sections {len(sec)} chars {len(text)} markers {marks} issues {len(issues)}")
 
 
 if __name__ == "__main__":

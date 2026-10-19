@@ -1,0 +1,868 @@
+{
+ "revisions": [
+  {
+   "id": "INT",
+   "applied": [
+    {
+     "issue": "#1 E-T3·E-T5 예상이 아직 기록되지 않은 것처럼 쓰임 (UPDATED FACTS 반영, 이슈 파일의 −1.67/+10.39는 VOID라 사용하지 않음)",
+     "before": "부 목표 E-T3·E-T5의 예상은 동결 전에 기록한다.",
+     "after": "부 목표 E-T3·E-T5의 예상은 비교용 BM25 설정과 결합 가중치를 개발 세트에서 고른 뒤, 동결 전에 커밋했다. E-T3(S-mix가 같은 문헌의 BM25보다 높음)는 충족을 예상했다(개발 Top-10 차이 DDXPlus +20.9%p, SymCat +3.2%p, 둘 다 Holm 유의). E-T5(S-mix와 BM25의 결합이 두 단독보다 높음, 설계 D의 T4에 해당)는 미달을 예상했다. 개발 DDXPlus·SymCat의 평균 Top-10에서 결합과 BM25의 차이는 +12.04%p [+11.15, +12.94]였지만, 결합과 S-mix의 차이는 −0.02%p [−0.54, +0.49]였다.",
+     "source": "docs/research_design.md E4 표의 E-T3·E-T5 행과 '동결 전 개발 선택 결과(10-19)'; git 61e3118(예상 기록), 0cb1c59(E-T5 정정, 첫 S-comb 선택 폐기)"
+    },
+    {
+     "issue": "UPDATED FACTS: S-mix Mention 빌드 검사는 동결 시점에 아직 남은 일이라 대기 표시 종류를 바꿈",
+     "before": "[E 확증 대기: S-mix 근거 언급 포함 빌드의 검사 결과와, 개발 DDXPlus 3,000명에서 근거 언급 없는 빌드와 순위가 같은지]",
+     "after": "[E 동결 대기: S-mix 근거 언급 포함 빌드의 검사 결과와, 개발 DDXPlus 3,000명에서 근거 언급 없는 빌드와 순위가 같은지]",
+     "source": "docs/research_design.md E3 출처 불변식(동결 전 확인), E5 3단계; 작업 지시의 UPDATED FACTS"
+    },
+    {
+     "issue": "#6 시뮬레이션 출발점의 정밀도는 36%가 아니라 32.6%이고, '문헌 그래프와 비슷한 정밀도'는 근거 없음",
+     "before": "출발점은 문헌 그래프와 비슷한 지점(재현율 15%, 정밀도 36%)이다. 재현율을 15%에서 30%로 2배로 늘린 효과(Top-10 +10.9%p)는 정밀도를 36%에서 100%로 올린 효과(+1.8%p)의 약 6배였다(4.3절).",
+     "after": "출발점은 재현율 15%, 정밀도 32.6%(틀린 간선을 남긴 참 간선 1개당 2.33개 넣은 조건)다. 이 지점의 Top-10은 15.5%로, 같은 증례에서 S-D 그래프의 Top-10(16.7%)과 비슷하다. 틀린 간선의 구성과 비율은 이전 시스템 그래프(v2.1)의 출처 감사에서 가져온 가정이다. 재현율을 15%에서 30%로 2배로 늘린 효과(Top-10 +10.9%p)는 정밀도를 32.6%에서 100%로 올린 효과(+1.8%p)의 약 6배였다(4.3절).",
+     "source": "pilot/cache/v2/noise/k0.15_r2.33_s0_summary.json(간선 175,114)과 k0.15_r0_s0_summary.json(참 간선 57,017) → 57,017/175,114 = 32.6%; noise/analysis.json(15.5, 26.4, 17.3); research_design §9.26(같은 증례 S-D 16.7, 오류 구성은 감사에서 가져옴)"
+    },
+    {
+     "issue": "#5 수집 깊이 효과의 범위: 2쌍(8.4~13.0)이 아니라 같은 추출 7쌍(7.0~13.0)",
+     "before": "모든 질환에 같은 상한으로 더 깊게 모은 v3 문헌은 개발 세트 매크로 Top-10을 8.4~13.0%p 올렸다.",
+     "after": "모든 질환에 같은 상한으로 더 깊게 모은 v3 문헌은, 같은 추출 방식끼리 짝지은 7쌍에서 개발 세트 매크로 Top-10을 7.0~13.0%p 올렸다.",
+     "source": "pilot/cache/v2/devD/variants/analysis.json dev에서 다시 계산한 7쌍: +6.95, +7.56, +7.86, +8.38, +9.11, +10.64, +12.96"
+    },
+    {
+     "issue": "#27 LLM 쪽 v2→v3 비교에는 문헌 말고도 구절 표 확장과 offtopic_w 변화가 함께 들어 있음 (기여 4의 '같은 추출 조건' 한정)",
+     "before": "4. 같은 추출 조건에서 수집 깊이의 효과를 잰다(...). ... LLM 추출에서는 31.94%에서 44.90%로 올랐다(+13.0%p, 9개 상승·0개 하락, p = .004). 이 상승폭은 같은 v2 문헌 위에서 ...",
+     "after": "4. 같은 추출 방식에서 수집 깊이의 효과를 잰다(...). ... LLM 추출에서는 31.94%에서 44.90%로 올랐다(+13.0%p, 9개 상승·0개 하락, p = .004). LLM 쪽 차이에는 구절 표 확장과 주제 밖 문헌 가중치의 변화(0에서 1.0)가 함께 들어 있다. 7쌍의 상승폭은 같은 v2 문헌 위에서 ...",
+     "source": "research_design §9.30 'v3 문헌 — LLM 추출'(phrase2cui_v3.json = v2 구절 표 확장); analysis.json에서 선택된 offtopic_w: base_split_tg_ns 0.0, v3llm_ns 1.0; 최대 v2 변형 효과 v2unionu_ns − base_nm = +4.10"
+    },
+    {
+     "issue": "#8/#9 그래프 32개의 범위(기준 base_nm 포함, v2 18 + v3 14), Top-1 1위는 그래프마다 고른 가중치에서만 성립",
+     "before": "v2·v3 문헌의 그래프 변형 32개(v3 문헌 14개) 가운데 S-mix가 매크로 Top-10/Top-1 46.11/19.66%로 가장 높았다.",
+     "after": "설계 D 동결 그래프의 재현을 포함한 v2·v3 문헌 그래프 32개(v2 문헌 18개, v3 문헌 14개) 가운데 S-mix가 매크로 Top-10/Top-1 46.11/19.66%로 가장 높았다(그래프마다 고른 주제 밖 문헌 가중치 기준).",
+     "source": "analysis.json dev 키 32개(base_nm 포함, v3* 14개); v3llm_ns grid ot 0.25 = 43.98/19.83 (Top-1이 S-mix 19.66보다 높음)"
+    },
+    {
+     "issue": "#11 74.6%의 분모는 증례 단위; 원문을 확인했으므로 '[ref 확인 필요]' 표시 정리",
+     "before": "Phenopacket-store 0.1.27 증례 논문의 74.6%가 HPO 주석의 근거 논문이기도 하다는 보고가 있다 [ref 확인 필요: Jiang et al. 2026, arXiv 2609.02473 — 원문에서 수치와 분모(증례 수 또는 논문 수) 확인].",
+     "after": "Phenopacket-store 0.1.27에서 정답 질환이 HPO 주석에 있는 증례의 74.6%가, 그 증례를 만든 논문을 근거로 인용하는 정답 질환 주석을 하나 이상 가진다는 보고가 있다 [ref: Jiang et al. 2026, arXiv 2609.02473].",
+     "source": "draft/paper_ko_v3/evidence_log.md 112–113행(arXiv 2609.02473 HTML 6.1절, 분모 10,348 cases); REL 2.6 작성 메모 (1)"
+    },
+    {
+     "issue": "#12 서론의 154증례 수치가 결과 절의 어디에 나오는지 가리키기",
+     "before": "2026년 9월 판에서 84.4%였다. 그래서",
+     "after": "2026년 9월 판에서 84.4%였다(4.5.1절). 그래서",
+     "source": "research_design §9.28 참고 행(같은 154증례 HPOA 2024-12 @10 10.4, HPOA 2026-09 84.4); 원고 4.5.1절 제목"
+    },
+    {
+     "issue": "#23 T2 이름을 설계 D 표기 '흔한 질환 정확도 목표'로 통일 (두 곳)",
+     "before": "주 목표 T1(...)과 목표 T2(DDXPlus 정확도 기준)는 미달했다. / 주 목표 T1(그래프 > 같은 문헌 BM25)과 목표 T2(DDXPlus Top-10 ≥ 40%, Top-1 ≥ 18%)에 미달했다.",
+     "after": "주 목표 T1(...)과 T2(흔한 질환 정확도 목표)는 미달했다. / 주 목표 T1(그래프 > 같은 문헌 BM25)과 T2(흔한 질환 정확도 목표, DDXPlus Top-10 ≥ 40%, Top-1 ≥ 18%)에 미달했다.",
+     "source": "docs/research_design.md D4 표('T1(주)', 'T2 흔한 질환 정확도: 확증 DDXPlus Top-10 ≥ 40%, Top-1 ≥ 18%')"
+    }
+   ],
+   "rejected": [
+    {
+     "issue": "#22 감사한 그래프를 'Qwen3 v2.1c'로 통일 (RQ5, 기여 8)",
+     "why": "근거 자료로는 v2.1c가 확인되지 않는다. 감사 표본(docs/audit/provenance_audit_v21_blind.csv)과 큐레이션 일치 결과(curated_agreement_qwen3_v21.json, 13.3→63.2%)는 커밋 519fd4e(10-10 13:15)에서 깨끗한 v2.1 그래프로 만들었다. 주제 표시가 붙은 v2.1c 빌드는 그보다 늦은 d574c5e(13:48)다(research_design §9.16, §9.17). 간선·언급·문헌 수는 같다(1,184,344 / 1,648,509 / 88,266). 그래서 서론은 원래 쓰던 'v2.1'을 유지했다. 이미 수정된 ABS-CON.md(메모 7)와도 같은 이름이다. 새로 넣은 기여 3 문장에도 'v2.1'을 썼다."
+    },
+    {
+     "issue": "#4 67.0% 대 67.1%",
+     "why": "서론은 이미 수정안이 고른 건수 기준 값 67.0%(55,465/82,751, decomp.json)를 쓰고 있다. 반올림을 밝히는 문장은 4.3절과 Table 9A에 넣으라는 지시라서 서론은 바꿀 것이 없다."
+    },
+    {
+     "issue": "#21 적재 검사가 Doc 연결까지 본다는 과장",
+     "why": "서론은 이미 '모든 소견 간선에 근거 언급이 있는지 검사한다'로 범위를 좁혀 쓴다. 이는 build log의 'graph check: every HAS_FINDING edge has a Mention'과 맞는다. Doc 연결 문장은 검사 범위가 아니라 스키마를 설명한다. 바꿀 것이 없다."
+    },
+    {
+     "issue": "#10 35,590개 구성",
+     "why": "서론은 이미 'UMLS 개념 35,281개와 GeneReviews 장 309개'로 쓴다(disease_universe.json과 일치). 해당 오류는 3.2와 Table 3에만 있다."
+    },
+    {
+     "issue": "#2, #3, #7, #13–#20, #24–#26, #28",
+     "why": "이 이슈들이 가리키는 문장은 서론에 없다. 서론의 p값(.008, .004, .73)도 이미 앞자리 0 없이 결과 절 표(RES-A Table 9C)와 같은 형식이다. PPR 가설 이름은 서론에 나오지 않는다."
+    }
+   ],
+   "file_written": true
+  },
+  {
+   "id": "REL",
+   "applied": [
+    {
+     "issue": "#21 [imprecise] build check covers Mention only, not Doc (2.3)",
+     "before": "본 연구의 빌더는 적재 시 모든 소견 간선에 근거 언급과 원 문헌이 있는지 검사한다(3.4).",
+     "after": "본 연구의 빌더는 적재 시 모든 소견 간선에 근거 언급이 있는지 검사한다(3.4).",
+     "source": "pilot/scripts/build_graph_v2.py 463-470 (orphan query checks only (Mention)-[:OF]->(d) with (m)-[:MENTIONS]->(c), plus Disease count; no FROM/Doc check); draft 3.4 invariant (가); INT already says '모든 소견 간선에 근거 언급이 있는지 검사한다'"
+    },
+    {
+     "issue": "UPDATED FACTS: the S-mix Mention build check is a pre-freeze step still pending, so its marker is 'E 동결 대기', not 'E 확증 대기' (2.3)",
+     "before": "[E 확증 대기: 근거 언급을 넣어 빌드한 S-mix의 검사 통과 여부]",
+     "after": "[E 동결 대기: 근거 언급을 넣어 빌드한 S-mix의 검사 통과 여부]",
+     "source": "docs/research_design.md E3 출처 불변식 ('동결 전에, Mention을 넣어 빌드한 S-mix(7689)가 그래프 검사…를 통과'), E5 step 3; pilot/cache/v2/devD/chain_e_freeze_prep.sh (Mention build is the step before E_FREEZE_PREP_DONE); pilot/cache/v2/devD/e/build_smix_mentions.log has only its first line (build not finished)"
+    },
+    {
+     "issue": "#27 [imprecise] the collection-depth comparison did not change only the documents; the extraction comparison did not change only the extraction (2.3)",
+     "before": "수집 깊이 비교는 추출을 고정하고 문헌만 v2에서 v3로 바꾸었다. 추출 방식 비교는 v3 문헌을 고정하고 추출만 바꾸었다.",
+     "after": "수집 깊이 비교는 추출 방식을 고정하고 문헌을 v2에서 v3로 바꾸었다. LLM 추출 쪽 비교에는 구절 표의 v3 구절 확장과 주제 밖 간선 가중치의 변화(0에서 1.0)가 함께 들어 있다(4.3). 추출 방식 비교는 v3 문헌을 고정하고 추출 방식을 바꾸었다. 이 비교에서 S-dict는 v2 구절 표를, 나머지 세 시스템은 v3 구절 표를 쓴다(3.3).",
+     "source": "pilot/scripts/run_graph_variants.sh 48, 59-64 (v2 variants and v3umls use phrase2cui_gemma.json; v3llm, v3unionu and v3llmd use phrase2cui_v3.json); docs/research_design.md §9.30 tables (base_split_tg_ns ot 0 -> v3llm_ns ot 1.0; v2umls_ns and v3umls_ns both .5); draft 4.3 ('LLM 쪽 차이에는 구절 표 확장과 offtopic_w 변화가 함께 들어 있다') and 3.3 ('구절 표는 S-dict가 v2 구절 표를, 나머지 셋이 v3 구절 표를 쓴다')"
+    }
+   ],
+   "rejected": [
+    {
+     "issue": "#22 rename the audited graph to 'Qwen3 v2.1c' in 2.4",
+     "why": "The sources show the audit was not done on v2.1c. research_design §9.17 and §9.25 put the 200-row sample on the clean v2.1 graph, and v2.1c is the fix that came after the audit. The audit CSVs were committed in 519fd4e (2026-10-10 13:15), before the v2.1c commit d574c5e (13:48) that added the topic flags and re-centred sentences. §9.17 also lists 600-char truncation problems in the audited rows, which v2.1c fixed. Draft 4.7 also says '감사 표본은 v2.1 그래프에서 뽑았고'. So '…v2.1 그래프의 간선 200개' in 2.4 stays as it is."
+    },
+    {
+     "issue": "#11 change the 74.6% wording",
+     "why": "No change needed in REL. Section 2.6 already uses the case-level wording that the issue tells the other sections to adopt, and it matches the Jiang et al. 6.1 quote in the evidence log."
+    },
+    {
+     "issue": "#18 PPR hypothesis names, #8 variant count, #24 p-value format, #1 E-T3/E-T5 expectations, #19 '설계 E3', #28 Exomiser comparison",
+     "why": "REL contains none of the affected text. 2.5 refers to the PPR test only as '설계 D의 사전 지정 부가 가설' without H1/H4 names. REL gives no variant count, no p values and no E-T3/E-T5 expectation values. 2.2 only reports the Exomiser figure with its [ref: 서지 확인 필요] tag and does not compare it with our results. The other 'E 확증 대기' tags in REL (E-T2 confirmation results) correctly stay pending until confirmation."
+    }
+   ],
+   "file_written": true
+  },
+  {
+   "id": "MET-A",
+   "applied": [
+    {
+     "issue": "#14 Table 1 footnote c says the pilot graph is in no reported graph, but 4.5.1 reports its results",
+     "before": "^c^ The 50-disease collection pilot, which added literature to 22 gold diseases, is not used in any reported graph (Section 4.5).",
+     "after": "^c^ The 50-disease collection pilot, which added literature to 22 gold diseases, is not used in any main result; its results are reported only as a non-replicated pilot (Section 4.5.1).",
+     "source": "paper_ko.md 4.5.1 (pilot 90-case Top-10 15.6% reported); 3.1 body '어떤 주 결과에도 쓰지 않았고'"
+    },
+    {
+     "issue": "#10 The 35,590 'UMLS' diseases include 309 GeneReviews chapter keys (universe count; part 1: list definition)",
+     "before": "후보 질환 집합은 UMLS 질환 개념에, 그 집합에 대응하는 CUI가 없는 MONDO 질환을 더해 구성했다(두 체계의 합집합).",
+     "after": "후보 질환 집합은 UMLS 출처 질환에, 그 집합에 대응하는 CUI가 없는 MONDO 질환을 더해 구성했다(두 체계의 합집합).",
+     "source": "pilot/cache/v2/disease_universe.json recounted: src UMLS = 35,281 CUI keys + 309 'GR:NBK…' keys; MONDO 16,304"
+    },
+    {
+     "issue": "#10 (part 2: collection target count)",
+     "before": "수집 대상은 UMLS 질환 개념 35,590개와, 그 집합에 대응하는 CUI가 없는 MONDO 질환 16,304개, 모두 51,894개다.",
+     "after": "수집 대상은 UMLS 출처 질환 35,590개와, 그 집합에 대응하는 CUI가 없는 MONDO 질환 16,304개, 모두 51,894개다. UMLS 출처 질환은 UMLS 질환 개념 35,281개와, 이전 지식 그래프에서 넘어온 GeneReviews 장 309개로 이루어진다.",
+     "source": "disease_universe.json (35,281 + 309); pilot/scripts/genereviews_build_sources.py (chapters without an exact UMLS concept keyed 'GR:'+chapter ID); research_design §9.6 (universe keys carried over from the earlier KG dictionary); same wording as the introduction"
+    },
+    {
+     "issue": "#10 (part 3: candidate count breakdown)",
+     "before": "후보 질환은 43,575개(UMLS 키 35,590개, MONDO 키 7,985개)다.",
+     "after": "후보 질환은 43,575개(UMLS 출처 35,590개, MONDO 7,985개)다.",
+     "source": "exclude_nonhuman_diseases.json: all 8,319 excluded keys are MONDO, 0 GR keys, so all 309 GR keys stay among the candidates"
+    },
+    {
+     "issue": "#10 (part 4: node key rule omitted GeneReviews chapter IDs)",
+     "before": "노드 키는 UMLS 질환 개념의 CUI이고, 그 집합에 대응하는 CUI가 없는 질환에만 MONDO ID를 쓴다.",
+     "after": "노드 키는 UMLS 질환 개념의 CUI이고, GeneReviews 장 309개는 장 ID를, 그 집합에 대응하는 CUI가 없는 MONDO 질환은 MONDO ID를 쓴다.",
+     "source": "disease_universe.json keys (e.g. GR:NBK1375); pilot/scripts/v2_ids.py (node key = universe key)"
+    },
+    {
+     "issue": "#10 (part 5: Table 3 Disease id)",
+     "before": "| Disease | Node | id (UMLS CUI, else MONDO ID), name, vocab, n_findings, src_chars | Candidate disease (43,575) |",
+     "after": "| Disease | Node | id (UMLS CUI, GeneReviews chapter ID, or MONDO ID), name, vocab, n_findings, src_chars | Candidate disease (43,575) |",
+     "source": "disease_universe.json key forms"
+    },
+    {
+     "issue": "#4 The collection-stage loss was given as 67.1% here and 67.0% elsewhere",
+     "before": "재현율 손실 분해에서 Phenopacket 증례의 큐레이션 소견 중 67.1%가 수집 단계에서 빠졌다(4.3절).",
+     "after": "재현율 손실 분해에서 Phenopacket 증례의 큐레이션 소견 중 67.0%가 수집 단계에서 빠졌다(4.3절).",
+     "source": "pilot/cache/v2/recall/decomp.json by_triple: no_docs 18,502 + not_in_text 36,963 = 55,465 / 82,751 = 67.03%; 67.1 is the sum of the rounded 22.4 + 44.7"
+    },
+    {
+     "issue": "UPDATED FACTS: the S-mix src_t rebuild and the S-D fingerprint are done; only the Mention build check is pending (relabelled 확증 대기 → 동결 대기)",
+     "before": "필드를 넣은 뒤 다시 빌드한 S-mix의 지문 일치도 같은 절차에서 확인한다. [E 확증 대기: S-D 재빌드의 지문 기록, src_t 추가 후 S-mix 재빌드의 지문 일치 여부, Mention 포함 S-mix 빌드의 불변식 (가)·(나) 검사 결과, 개발 DDXPlus 3,000명 순위 일치 여부]",
+     "after": "동결 전에 필드를 넣어 다시 빌드한 S-mix의 지문은 이전 빌드와 같았고(15ba677…), 비교 인스턴스에 적재된 HAS_FINDING 간선은 빌드 요약과 같은 5,221,285개였다. 다시 빌드한 S-D의 요약 수치 6개는 이전 요약과 같았고, 이 빌드의 지문을 기록했다. [E 동결 대기: Mention 포함 S-mix 빌드의 불변식 (가)·(나) 검사 결과와 개발 DDXPlus 3,000명 순위 일치 여부]",
+     "source": "pilot/cache/v2/devD/variants_e.log 'E2_SPAN_FINGERPRINT_OK 15ba6771…' and 'E2_SMIX_LOADED 5221285' (chain_e_prep2.sh compares the loaded HAS_FINDING count with the summary); graph_v3llmd_ns.json edges 5,221,285; e/build_base_nm.log 'built base_nm stale=0' plus 'E_SD_FINGERPRINT_OK' (six counts equal to the old summary per run_graph_variants.sh); graph_base_nm.json now has fingerprint f73e5548… with unchanged counts; e/build_smix_mentions.log is still in progress (Mention check pending)"
+    }
+   ],
+   "rejected": [
+    {
+     "issue": "#21 Invariant overstated (Mention→Doc link not checked)",
+     "why": "MET-A's invariant (가) and the Table 3 caption already state only 'every HAS_FINDING edge has a Mention linked to its disease (OF) and concept (MENTIONS)'. This matches the query in build_graph_v2.py lines 464-466. The overstatement is in other sections (2.x, 3.6), so nothing changes here."
+    },
+    {
+     "issue": "#22 Audited graph name should be 'Qwen3 v2.1c'",
+     "why": "Not applied in MET-A. The non-human exclusion audit was on graph v2.0 (research_design §9.14), so 'v2.0' is correct. The title rule came from the v2.1 audit (§9.17, clean v2.1 graph), and v2.1c is the graph that this audit created. Naming v2.1c there would be anachronistic, and the sentence names no version."
+    },
+    {
+     "issue": "#20 Duplicate 'Table 5'",
+     "why": "The renumbering belongs to 3.7/4.1, outside this section, and no new number exists yet. MET-A's two 'Table 5' references (settings; graph sizes) hold for both current Table 5s, which both list settings and sizes. Left unchanged."
+    },
+    {
+     "issue": "#8 Variant count (31/32/about 30)",
+     "why": "MET-A states no variant count, so there is nothing to align here."
+    },
+    {
+     "issue": "#18 E-H1/E-H4 naming, #24 p-value format",
+     "why": "MET-A contains no PPR hypotheses and no p values."
+    },
+    {
+     "issue": "#1 E-T3/E-T5 expectations (and its −1.67 / +10.39 numbers); S-comb 45.40/18.31",
+     "why": "MET-A does not state E-T3/E-T5 expectations, S-bm25/S-comb selections or the fusion window. The issue's −1.67/+10.39 and 45.40/18.31 are void per research_design E4 (S-comb − S-mix −0.02 [−0.54, +0.49]; 46.72/19.46). They appear in INT/3.6/4.6/5.1 only."
+    },
+    {
+     "issue": "#2, #3, #5, #6, #7, #9, #11, #12, #13, #15, #16, #17, #19, #23, #25, #26, #27, #28",
+     "why": "Each quoted sentence is in another section (INT, REL 2.x, 3.5–3.7, 4.x, 5, ABS-CON). For #27, MET-A 3.3 already states the phrase-table difference (S-dict v2 table, others v3) that the issue relies on."
+    }
+   ],
+   "file_written": true
+  },
+  {
+   "id": "MET-B",
+   "applied": [
+    {
+     "issue": "#1 + UPDATED FACTS: E-T3/E-T5 expectations shown as pending in 3.6",
+     "before": "E-T3과 E-T5의 예상은 S-bm25와 S-comb를 개발 세트에서 고른 뒤 동결 전에 기록한다 [E 동결 대기: 동결 전에 커밋한 E-T3·E-T5 예상(...)].",
+     "after": "E-T3은 충족을 예상했다(개발 S-mix − S-bm25 Top-10: DDXPlus +20.9%p [+19.2, +22.7], SymCat +3.2%p [+2.5, +4.0], 둘 다 Holm 유의). E-T5는 미달을 예상했다. 개발 DDXPlus·SymCat의 매크로 Top-10 차이에서 S-comb − S-mix는 −0.02%p [−0.54, +0.49](DDXPlus −0.8%p, SymCat +0.8%p)로 CI 하한이 0보다 낮았다. S-comb − S-bm25는 +12.04%p [+11.15, +12.94]로 CI 하한이 0보다 높았다. E-T3과 E-T5의 예상은 S-bm25와 S-comb를 개발 세트에서 고른 뒤 동결 전에 커밋했다(E-T3 61e3118, E-T5 0cb1c59).",
+     "source": "docs/research_design.md E4 rows E-T3/E-T5; git show 61e3118 (E-T3 recorded) and 0cb1c59 (E-T5 replaced; the issue's −1.67/+10.39 are the void values)"
+    },
+    {
+     "issue": "#1 follow-on: commit attribution of expectations",
+     "before": "(1) 설계 E 커밋(5ce9c3d, 판정 기준과 예상 포함). / ...예상을 실행 전에 저장소에 커밋했다(5ce9c3d).",
+     "after": "(1) 설계 E 커밋(5ce9c3d, 판정 기준과 E-T1·E-T2·E-T4 예상 포함). / ...예상을 실행 전에 저장소에 커밋했다(5ce9c3d 등).",
+     "source": "git show 5ce9c3d:docs/research_design.md E4 (E-T3/E-T5 cells read 'S-bm25/S-comb 개발 선택 후 기록')"
+    },
+    {
+     "issue": "#2 + UPDATED FACTS: progress state and void S-comb value in 3.6 procedure",
+     "before": "이 원고를 쓰는 시점에는 (1)과 (2)를 마쳤고 (3)을 진행하고 있다. ... S-comb가 w = 0.25(45.40/18.31%)였으며, 아직 동결 전이다 [E 동결 대기: (3)의 나머지와 (4)의 커밋 해시와 날짜].",
+     "after": "이 원고를 쓰는 시점에는 (1)과 (2)를 마쳤고, (3)은 Mention 빌드 검사만 남았다. ... S-comb가 w = 0.25(46.72/19.46%)였다. 원 LLM 구절(src_t)을 남기도록 고쳐 다시 빌드한 S-mix는 빌드 지문(15ba677…)이 바뀌지 않았고, 적재된 HAS_FINDING 간선은 5,221,285개였다. [E 동결 대기: Mention 빌드 검사 결과와 (4)의 커밋 해시와 날짜]",
+     "source": "pilot/cache/v3/retrieval/fuse_tune_smix.json (w 0.25, 46.724/19.461); pilot/cache/v2/devD/variants_e.log (E2_SPAN_FINGERPRINT_OK 15ba677…, E2_SMIX_LOADED 5221285); pilot/cache/v2/devD/e/build_smix_mentions.log (Mention build still running)"
+    },
+    {
+     "issue": "UPDATED FACTS: S-bm25/S-comb selection in 3.7 '설계 E의 비교군' (void 45.40/18.31 removed, pending markers dropped)",
+     "before": "S-bm25는 ... 다시 고른다. 작성 시점의 빌드 기록은 문서 1,001,916편, 청크 3,074,271개이고, 개발 선택은 ...(27.35/11.04%)다 [E 동결 대기: ...]. S-comb의 w도 개발 세트에서 고른다. 작성 시점의 선택은 w = 0.25(개발 매크로 45.40/18.31%)다 [E 동결 대기: 동결 기록으로 확인].",
+     "after": "S-bm25는 ... 다시 골랐다. 색인은 문서 1,001,916편, 청크 3,074,271개다. 선택된 설정은 질의 전체·깊이 1,000·역순위 결합 집계다(개발 매크로 27.35/11.04%). S-comb의 w는 개발 세트에서 0.25를 골랐다(개발 매크로 46.72/19.46%). 첫 가중 선택은 비교 인스턴스에 S-mix가 아닌 그래프가 적재된 상태에서 실행되어 폐기했고, 이 값은 적재된 간선 수로 S-mix를 확인한 뒤 다시 고른 것이다.",
+     "source": "pilot/cache/v3/retrieval/build.log, tune_bm25.json (joint, k 1000, rrf; 27.352/11.039 of 12 configs), fuse_tune_smix.json; wronggraph_* files; research_design.md E4 bullet '동결 전 개발 선택 결과(10-19)'; commit 0cb1c59 message"
+    },
+    {
+     "issue": "UPDATED FACTS: Table 5 S-bm25 and S-comb rows",
+     "before": "S-bm25 | ... | [E 동결 대기] | — | — | — | [E 동결 대기] | [E 동결 대기]; S-comb | ... | w ∈ {0.25, 0.5, 0.75} [E 동결 대기] | ... | [E 동결 대기]",
+     "after": "S-bm25 | ... | Joint query, depth 1,000, RRF | — | — | — | 1,001,916 | 27.35 / 11.04; S-comb | ... | w 0.25 | ... | 46.72 / 19.46",
+     "source": "pilot/cache/v3/retrieval/build.log, tune_bm25.json, fuse_tune_smix.json"
+    },
+    {
+     "issue": "#8 (and #9 scope): variant count 31 vs 32",
+     "before": "3.6: 수집 깊이와 추출 방식을 바꾼 그래프 변형 31개를 동결 그래프의 재현(base_nm)과 비교했고(4.3–4.4절), 그중 S-mix를 주 시스템으로 골랐다. / Table 5 note: S-mix was the highest of 31 graph variants on the same sets",
+     "after": "3.6: 그래프 변형 32개를 비교했다(4.3–4.4절). 32개는 동결 그래프의 재현(base_nm)과, 수집 깊이와 추출 방식을 바꾼 그래프 31개다(v2 문헌 18개, v3 문헌 14개). 그중 S-mix를 주 시스템으로 골랐다. / Table 5 note: S-mix had the highest development macro Top-10 of the 32 graph variants compared on the same sets (the base_nm reproduction of S-D plus 31 graphs with other collection depth or extraction; 18 on v2 and 14 on v3 literature)",
+     "source": "pilot/cache/v2/devD/variants/analysis.json: 32 dev keys (18 v2 incl. base_nm, 14 v3); v3llmd_ns 46.11 is the top macro Top-10"
+    },
+    {
+     "issue": "#7: one name for the exploratory scoring ('창 없음' misnames it; the window still applies to diseases without unified evidence)",
+     "before": "...소견 점수까지 읽는 채점(창 없음)은 ... (창 없음에서 높아짐/낮아짐 ...) ... 동결 그래프에서 창 없음은 DDXPlus",
+     "after": "...소견 점수까지 읽는 채점(이하 확장 채점)은 ... (확장 채점에서 높아짐/낮아짐 ...) ... 동결 그래프에서 확장 채점은 DDXPlus",
+     "source": "pilot/scripts/graph_dx.py rank(): full_unified scores only unified-evidence diseases outside the window; pilot/cache/v2/devD/window/summary.json (all numbers in the paragraph re-checked)"
+    },
+    {
+     "issue": "#11: 74.6% stated per paper instead of per case",
+     "before": "희귀질환 증례와 HPO 주석은 같은 출판 증례에서 나온 경우가 많아(Phenopacket-store 0.1.27 증례 논문의 74.6%가 HPO 주석의 근거 논문 [ref: Jiang et al. 2026]) 희귀질환 비교는 HPO 주석 쪽에 유리하다.",
+     "after": "희귀질환 증례와 HPO 주석은 같은 출판 증례에서 나온 경우가 많다. Phenopacket-store 0.1.27에서 정답 질환이 HPO 주석에 있는 증례의 74.6%가, 그 증례를 만든 논문을 근거로 인용하는 주석을 가진다 [ref: Jiang et al. 2026]. 따라서 희귀질환 비교는 HPO 주석 쪽에 유리하다.",
+     "source": "REL section 2.6 wording (10,348 cases); evidence_log note on Jiang et al. HTML §6.1"
+    },
+    {
+     "issue": "#21: design D constraint overstated what the load check verifies",
+     "before": "- 제약(출처 불변식): 모든 간선이 근거 문장과 문헌에 연결됨(적재 시 검사).",
+     "after": "- 제약(출처 불변식): 모든 간선이 근거 문장과 문헌에 연결됨. 적재 시 검사는 모든 소견 간선에 근거 언급(Mention)이 있는지 본다.",
+     "source": "pilot/scripts/build_graph_v2.py lines 463-470 (check queries Mention OF/MENTIONS only); build_gemma_main.log 'graph check: every HAS_FINDING edge has a Mention'"
+    },
+    {
+     "issue": "#22: old-system graph name",
+     "before": "3.5: 구 시스템(Qwen3-4B 그래프 v2.1c)의 수치는 / 3.9: 점검은 구 시스템(Qwen3-4B-Instruct-2507 추출, v2 문헌, 그래프 v2.1c)에서만 했다.",
+     "after": "3.5: 구 시스템인 Qwen3 v2.1c 그래프의 수치는 / 3.9: 점검은 구 시스템인 Qwen3 v2.1c 그래프(Qwen3-4B-Instruct-2507 추출, v2 문헌)에서만 했다.",
+     "source": "pilot/cache/v2/eval_qwen3_v21/leakage.json (the v2.1c re-evaluation directory per research_design §9.18); §9.24 totals 13.5/11.1 match v2.1c test values"
+    },
+    {
+     "issue": "#23: T2 naming",
+     "before": "- T2: 확증 DDXPlus에서 Top-10 ≥ 40%, Top-1 ≥ 18%.",
+     "after": "- T2(흔한 질환 정확도 목표): 확증 DDXPlus에서 Top-10 ≥ 40%, Top-1 ≥ 18%.",
+     "source": "docs/research_design.md D4 table (T2 = 흔한 질환 정확도, no 주/부 mark)"
+    },
+    {
+     "issue": "#19: '설계 T' and 'H2' used in 4.5.1 but never introduced in Methods",
+     "before": "(no definition; 3.9 ended with '...검색 가능성을 과대평가할 수 있다.')",
+     "after": "New closing paragraph in 3.9: 4.5.1절은 위 분석보다 앞서 수행한 시간 분할 분석(설계 T)의 결과도 보고한다. 이 분석은 설계 D의 동결 설정으로 v2 문헌 gemma 그래프의 연말 절단판 7개(2019–2025년)와 HPO 주석 스냅샷 6개를 위의 10,603증례(원 논문이 v2 코퍼스에 있는 32건 포함)에서 비교했다. 설계 T의 가설 H2는 '미래 증례에서 문헌 그래프가 HPO 주석보다 높다'였다.",
+     "source": "docs/research_design_temporal.md T5 (H2) and T8; pilot/scripts/run_temporal.sh (ie_gemma_full, v2 sources, years 2019-2025, 6 HPOA tags, gemma_1hop); pilot/cache/v2/temporal/lit_2022.json rows = 10,603"
+    }
+   ],
+   "rejected": [
+    {
+     "issue": "#17 [unsupported]: 791/3,000 (26.4%) and 1,151/7,482 (15.4%) identical-input patients in 3.6",
+     "why": "I recomputed both counts with the development loaders against the opened D confirmation rows and SymCat seed 101. The sets of E were not loaded. The script is /tmp/claude-1000/-home-max-thesis/edda7dda-7b76-45bb-a79a-ce62d7e31a1b/scratchpad/overlap.py and it gave exactly 791 and 1,151. The sentence stays as written. Recording a script or output file in the repo, and the 5.1/discussion caveats, belong outside this section."
+    },
+    {
+     "issue": "#1/#2 parts outside MET-B (intro, 4.6, Table 15b, 5.1)",
+     "why": "Not text in this section. The MET-B parts were applied. The issue's E-T5 numbers −1.67 [−2.38, −1.01] and +10.39 [+9.55, +11.23] are void. They were replaced by −0.02 [−0.54, +0.49] and +12.04 [+11.15, +12.94] from commit 0cb1c59. Saying E-T5 was recorded in 61e3118 would also be wrong, so the section names both commits."
+    },
+    {
+     "issue": "#18: PPR hypotheses E-H1/E-H4",
+     "why": "MET-B already uses H1 and H4 without the E- prefix and calls them PPR hypotheses specified in advance in design D. No change needed."
+    },
+    {
+     "issue": "#24: leading-zero p values",
+     "why": "MET-B has no p value with a leading zero (.016, .039, .73, .69, .29, p = 1.0, p < .05). No change needed."
+    },
+    {
+     "issue": "#20: duplicate 'Table 5'",
+     "why": "The fix renumbers the 4.1 table or merges it into the 3.7 table. MET-B's Table 5 keeps its number, so the change belongs to RES-A."
+    },
+    {
+     "issue": "#26: DDXPlus-E evaluated n",
+     "why": "MET-B Table 4 already shows sampling (3,000 from 128,529 rows, seed 202) and leaves the evaluated n as '[E 확증 대기: 평가 환자 수]'. The fix concerns Table 15a in RES-B."
+    },
+    {
+     "issue": "#16: D fusion window confound in the T4 interpretation",
+     "why": "3.7 already states the confound: D's fusion graph list used window 800, w = 0 gave 30.22/12.37 vs 30.56/12.64 standalone, and E's S-comb uses window 40. The fix targets the discussion section."
+    }
+   ],
+   "file_written": true
+  },
+  {
+   "id": "RES-A",
+   "applied": [
+    {
+     "issue": "#20 Table 5 duplicate (3.7 'Systems and frozen configurations' is the Table 5 that methods cite; the 4.1 table is the duplicate)",
+     "before": "표 5는 이 논문에서 비교하는 … / Table 5. Literature graphs compared in this paper. … / 표 5의 v3 그래프(S-llm, S-dict, S-union, S-mix)는",
+     "after": "표 5b는 이 논문에서 비교하는 … / Table 5b. Literature graphs compared in this paper (build detail for the graph systems of Table 5). … / 표 5b의 v3 그래프(S-llm, S-dict, S-union, S-mix)는",
+     "source": "paper_ko.md: 3.3 '시스템별 설정은 표 5에 있다', 3.6 '동결 시스템은 7개다(Table 5)' both point to the 3.7 table; workflow_result.json tables[] lists Table 5 = Systems and frozen configurations. Merging was not possible here because the 3.7 table is outside RES-A, so only the 4.1 table was renumbered."
+    },
+    {
+     "issue": "#8 Variant count in the Table 5(b) footnote d ('about 30 variants')",
+     "before": "S-mix was the maximum among about 30 variants, so its value includes selection optimism (Section 4.4).",
+     "after": "S-mix was the highest of the 32 graphs evaluated on these sets (base_nm included; 18 on v2 literature, 14 on v2 + v3 literature), so its value includes selection optimism (Section 4.4).",
+     "source": "pilot/cache/v2/devD/variants/analysis.json: dev has 32 keys: 18 v2 (base_nm + 17) and 14 v3 (including 2 *full and 2 _kn). v3llmd_ns has the highest macro@10 (46.11; next is v3llmda_ns at 45.88) and the highest macro@1 (19.66). Table values for S-D, S-llm, S-dict, S-union and S-mix and their ot all match analysis.json and graph_*.json."
+    },
+    {
+     "issue": "#19 Undefined internal name '설계 E3'; and the UPDATED FACTS pending marker for the Mention build check",
+     "before": "…동결 전에 수행한다(설계 E3). [E 확증 대기: Mention을 넣어 빌드한 S-mix의 출처 불변식 검사 결과(…)와 Mention 없는 빌드와의 순위 일치 여부]",
+     "after": "…동결 전에 수행한다(3.6절 절차의 (3)단계). [E 동결 대기: Mention을 넣어 빌드한 S-mix의 출처 불변식 검사 결과(…)와 Mention 없는 빌드와의 순위 일치 여부]",
+     "source": "paper_ko.md 3.6 lists procedure step (3) with 'Mention 빌드 검사'. docs/research_design.md E3/E5 step 3 puts the check before freeze. UPDATED FACTS say the Mention build check is still pending at freeze time, so the marker is a freeze marker, not a confirmation marker."
+    },
+    {
+     "issue": "#18 PPR hypothesis names with the E- prefix (Table 7 and 4.2 text)",
+     "before": "| E-H1 (secondary) | … / | E-H4 (secondary) | … / (no footnote b) / 같은 그래프에서 PPR − 1-홉 Top-10 차이는 … / 적용하면(E-H4; 재시작 확률은",
+     "after": "| H1 (secondary)^b^ | … / | H4 (secondary)^b^ | … / ^b^ H1 and H4 are the secondary PPR hypotheses of design D, specified before the confirmation run (Section 3.6). / 같은 그래프에서 PPR − 1-홉 Top-10 차이(H1)는 … / 적용하면(H4; 재시작 확률은",
+     "source": "paper_ko.md 3.6 '사전에 지정한 PPR 부가 가설 H1(…)과 H4(…)'. research_design.md D10 (original names E-H1/E-H4) and D9 confirmation bullets. The task asks for H1/H4."
+    },
+    {
+     "issue": "#22 Audited graph version in 4.3 text and Table 8 caption",
+     "before": "구 Qwen3 v2.1c 그래프의 출처 감사(4.7절) / follows the provenance audit of the old Qwen3 v2.1c graph;",
+     "after": "구 Qwen3 v2.1 그래프의 출처 감사(4.7절) / follows the provenance audit of the old Qwen3 v2.1 graph;",
+     "source": "research_design.md §9.17 '출처 감사 v2.1 (… 깨끗한 v2.1 그래프, 시드 1, 200행)', §9.25 '같은 200행'. build_reference_graph.py docstring cites the §9.25 audit as the source of the 70/30 error mix. 4.7 (RES-B) says '감사 표본은 v2.1 그래프에서 뽑았고'. The sources confirm v2.1, not v2.1c, as the audited graph."
+    },
+    {
+     "issue": "#4 Same quantity reported as 67.1% and 67.0%",
+     "before": "따라서 67.1%가 수집 단계에서 빠졌다. 이는 전체 손실(85.9%)의 78%다. … 텍스트에 이름이 있는 소견(32.9%) 중 약 74%는 … / Table 9A caption ended '…in the v2 corpus.'",
+     "after": "따라서 55,465건(67.0%)이 수집 단계에서 빠졌다(반올림한 두 비율의 합은 67.1%). 이는 전체 손실(85.9%)의 78%다. … 텍스트에 이름이 있는 소견(33.0%) 중 약 74%는 … / Table 9A caption adds 'Percentages are rounded; the first two stages together are 55,465 triples (67.0%).'",
+     "source": "pilot/cache/v2/recall/decomp.json by_triple: no_docs 18,502 + not_in_text 36,963 = 55,465 of 82,751 = 67.03%. Total loss 82,751 − 11,685 = 71,066 (85.9%), and 55,465/71,066 = 78.0%, so 78% stays. In-text share is 27,286/82,751 = 32.97%, so 32.9% becomes 33.0% to match 67.0%. The ~74% (20,267/27,286) is unchanged."
+    },
+    {
+     "issue": "#5 Only 2 of the 7 same-extraction collection-depth pairs reported in 4.3 (the abstract and conclusion cite '7쌍 7.0–13.0%p')",
+     "before": "…두 상승 폭의 차이를 환자 수준에서 검정하지는 않았다. Top-10에서 수집 깊이의 효과는…",
+     "after": "…두 상승 폭의 차이를 환자 수준에서 검정하지는 않았다. 같은 추출 방식과 같은 빌더 규칙(자기 간선 유무 포함)으로 v2 그래프와 v2+v3 그래프를 짝지은 비교는 이 두 쌍을 포함해 7쌍이다. 7쌍 모두에서 매크로 Top-10이 올랐다(+6.95~+12.96%p). 자기 간선을 둔 쌍은 UMLS 사전 +6.95%p, HPO 사전 +7.56%p였다. 자기 간선을 뺀 쌍은 HPO 사전 +7.86%p, UMLS 사전 +8.38%p, LLM + UMLS 사전 +9.11%p, LLM + HPO 사전 +10.64%p, LLM +12.96%p였다. 합집합 두 쌍의 v3 그래프도 LLM 항목을 확장한 구절 표로 연결했다. HPO 사전 두 쌍에서는 Top-10이 오른 세트가 7개, 내린 세트가 2개였다(부호검정 p = .18). 나머지 다섯 쌍에서는 오른 세트가 8개 이상, 내린 세트가 1개 이하였다(p ≤ .039). Top-10에서 수집 깊이의 효과는…",
+     "source": "analysis.json pairs[] has exactly 7 v3-vs-v2 pairs. Macro@10 differences from dev: 6.95, 7.56, 7.86, 8.38, 9.11, 10.64, 12.96. Sign tests: v3dict/v2dict 7/2 p .18, v3dict_ns/v2dict_ns 7/2 p .18, v3umls 8/1 .039, v3umls_ns 8/0 .008, v3unionu_ns 8/1 .039, v3union_ns 9/0 .004, v3llm_ns 9/0 .004. pilot/scripts/run_graph_variants.sh shows all seven pairs share --split-coord --hpo-names --topic-genes, with --no-self matched within each pair. v3union/v3unionu use phrase2cui_v3.json, which is why the phrase-table clause was added. The minimum pair (+6.95) is still above the max v2 variant gain (+4.1), so the next sentence holds."
+    }
+   ],
+   "rejected": [
+    {
+     "issue": "Task naming rule 'Qwen3 v2.1c' for the audited graph (and #22's suggested 'Qwen3 v2.1(c)')",
+     "why": "The sources do not confirm v2.1c. The 200-row audit sample was drawn from the clean v2.1 graph (research_design §9.17, §9.25; build_reference_graph.py docstring), and 4.7 says the same. RES-A therefore uses 'Qwen3 v2.1'. Other sections should align to this or to 4.7's definition."
+    },
+    {
+     "issue": "#20 second half: merge the 4.1 table into the 3.7 Table 5 and delete the duplicate '## 4. 결과 (계속)' heading",
+     "why": "Both are outside RES-A. The 3.7 table belongs to MET-B and the duplicate heading is in RES-B. RES-A renumbered its table to 5b instead. For symmetry, the 3.7 table could be relabeled 5a by its owner."
+    },
+    {
+     "issue": "#6 precision 36% vs 32.6% at recall 15%",
+     "why": "The error is in the introduction and discussion. RES-A 4.3 already states 32.6% and Top-10 15.5% at 2.33 wrong edges per kept true edge, compares this with S-D 16.7%, and says the error mix comes from the Qwen3 audit and that S-D precision was not audited. No change needed here."
+    },
+    {
+     "issue": "#21 overclaimed builder check (Mention→Doc link)",
+     "why": "RES-A 4.1 only says builds with Mentions stop when an edge has no mention, and that Disease-count or delete failures stop the build. This matches the actual check, so there is nothing to soften in this section."
+    },
+    {
+     "issue": "#27 'collection depth compared with only the literature changed'",
+     "why": "The overclaim is in 2.3. RES-A 4.3 already discloses that the LLM pair also changes the phrase table and offtopic_w. The new 7-pair text extends that disclosure to the two union pairs."
+    },
+    {
+     "issue": "#4 '78% 몫도 같은 분모로 맞춘다'",
+     "why": "78% already equals 55,465/71,066 = 78.0% from decomp.json, so it was left unchanged."
+    },
+    {
+     "issue": "UPDATED FACTS on S-bm25/S-comb selection, VOID 45.40/18.31, E-T1–E-T5 expectations, S-mix src_t rebuild",
+     "why": "RES-A (4.1–4.3) states none of these values. 45.40/18.31 and −1.67/+10.39 do not occur in it. The S-mix sizes in Table 5b match the build summary whose fingerprint 15ba677 is unchanged, so nothing needed updating."
+    },
+    {
+     "issue": "Issues #1, #2, #3, #7, #9–#17, #23–#26, #28",
+     "why": "Their quoted text is in other sections (introduction, abstract, 2.x, 3.x, 4.4–4.7, discussion, 5.1, conclusion), not in RES-A. RES-A already uses the .0039 p-value format (#24) and does not label T2 '부 목표' (#23)."
+    }
+   ],
+   "file_written": true
+  },
+  {
+   "id": "RES-B",
+   "applied": [
+    {
+     "issue": "#20 duplicate chapter heading",
+     "before": "## 4. 결과 (계속)\n\n### 4.4 같은 문헌 위 추출 방식 비교",
+     "after": "### 4.4 같은 문헌 위 추출 방식 비교",
+     "source": "consistency_issues #20; RES-A already opens with '## 4. 결과' (assemble.py also strips '(계속)' headings, so the assembled paper is unchanged)"
+    },
+    {
+     "issue": "#8 variant count (30여 개 → verified 32) and #9 Top-1 'highest' holds only at selected ot",
+     "before": "v2·v3 문헌에서 평가한 변형 30여 개 가운데 가장 높았다(표 11).",
+     "after": "v2·v3 문헌에서 평가한 그래프 32개(기준 base_nm 포함; v2 문헌 18개, v3 문헌 14개) 가운데 두 지표 모두 가장 높았다(그래프마다 고른 ot 기준, 표 10·11).",
+     "source": "pilot/cache/v2/devD/variants/analysis.json dev: 32 keys (v2 18 incl. base_nm; v3 14 incl. 2 *full, 2 _kn); max macro@10 46.11 and @1 19.66 = v3llmd_ns"
+    },
+    {
+     "issue": "#8/#9 selection optimism in the selection paragraph",
+     "before": "S-mix는 같은 9개 개발 세트에서 변형 30여 개 가운데 매크로 Top-10이 가장 높은 것으로 골랐고, ot도 그래프마다 다시 골랐다.",
+     "after": "S-mix는 같은 9개 개발 세트에서 이 그래프 32개 가운데 매크로 Top-10이 가장 높은 것으로 골랐고, ot도 그래프마다 다시 골랐다. 따라서 S-mix의 개발값에는 선택 낙관이 들어 있다.",
+     "source": "analysis.json dev; docs/research_design.md E1 '선택 낙관이 크다'"
+    },
+    {
+     "issue": "#7 window-free scoring mis-defined and named 'full scoring'",
+     "before": "창 밖 질환의 소견 점수도 읽는 채점(이하 전체 채점, 탐색) … 전체 채점 … 창이 없으면 통합 근거를 받은 질환…; Table 13c 'full scoring (finding score read for all diseases, exploratory)', column 'Full scoring'",
+     "after": "창 밖 질환 가운데 통합 근거를 받은 질환의 소견 점수도 읽는 채점(이하 확장 채점, 탐색) … 확장 채점 … 확장 채점에서는 통합 근거를 받은 질환…; Table 13c 'extended scoring (finding score also read for diseases outside the window that receive unified evidence; exploratory)', column 'Extended scoring'",
+     "source": "pilot/scripts/graph_dx.py lines 60-61 comment and 84-86 (if self.full_unified and outside: score only unified-evidence diseases outside the window); devD/window/summary.json numbers unchanged"
+    },
+    {
+     "issue": "#13 eleven 2022-cut graphs, four not shown",
+     "before": "…미래 증례(2,381건, 263질환)에서 모든 문헌 그래프의 Top-10은 2.2% 이하였다.",
+     "after": "…미래 증례(2,381건, 263질환)에서 2022 절단 문헌 그래프 11개의 Top-10은 모두 2.2% 이하였다. 11개 가운데 표 14에 없는 v2 그래프 4개(v2dict, v2umls, v2union, v2unionu_ns)는 0.5~1.3%였다. (+ Table 14 caption: 'Four further 2022-cut v2 graphs not shown (v2dict, v2umls, v2union, v2unionu_ns) give future · new Top-10 of 0.5–1.3%.')",
+     "source": "analysis.json temporal *_y2022_ot0.0 (11 keys): future/new @10 v2dict 0.5, v2umls 0.5, v2union 0.7, v2unionu_ns 1.3; max over all 11 = 2.2"
+    },
+    {
+     "issue": "#12 154-case HPOA values cited in the introduction were missing from 4.5.1",
+     "before": "…추가 문헌 3,367편과 표 763문서를 넣은 그래프였다. 이 파일럿에서…",
+     "after": "…추가 문헌 3,367편과 표 763문서를 넣은 그래프였다. 정답이 파일럿 질환인 154증례(22질환)에서 같은 1-홉 랭커로 평가한 HPO 주석의 Top-10은 2024-12판 10.4%, 2026-09판 84.4%였다. 2026-09판은 Phenopacket-store 증례를 주석에 흡수한 뒤의 판이므로 이 값에는 출처 누설이 들어 있다. 이 파일럿에서…",
+     "source": "docs/research_design.md §9.28 '참고(같은 154증례): HPOA 2024-12 @10 10.4, HPOA 2026-09 84.4(phenopacket 증례를 흡수한 시점 — 누설)'"
+    },
+    {
+     "issue": "#19 undefined names '설계 T' and 'H2' (3.9 does not define them)",
+     "before": "#### 4.5.1 파일럿의 비재현과 설계 T 결과 / …시간 분할 설계 T(10,603증례)의 결과… / …앞선다\"는 가설 H2는 기각되었다.",
+     "after": "#### 4.5.1 파일럿의 비재현과 설계 D 동결 설정의 시간 분할 / …시간 분할 분석(10,603증례)의 결과… / …앞선다\"는 가설은 기각되었다.",
+     "source": "docs/research_design_temporal.md T5 (H2 text), T8 item 1; MET-B 3.9 has no '설계 T'/'H2'"
+    },
+    {
+     "issue": "#1 + UPDATED FACTS: E-T3/E-T5 expectations already recorded before freeze; S-bm25/S-comb dev selection done; void 45.40/18.31 run",
+     "before": "E-T3·E-T5의 예상은 S-bm25와 S-comb를 개발 세트에서 고른 뒤 동결 커밋에 기록한다 [E 동결 대기]. … [E 확증 대기: 동결 커밋 해시(frozen_config_E.json)와 확증 실행 일시]",
+     "after": "S-bm25는 개발 세트의 12개 조합 가운데 질의 전체·깊이 1,000·역순위 결합 집계를 골랐다(개발 9개 세트 매크로 Top-10/Top-1 27.35/11.04%). S-comb는 w = 0.25를 골랐다(개발 매크로 46.72/19.46%; w = 0.5는 43.77/18.66%, 0.75는 35.61/17.11%). 첫 S-comb 선택은 …S-mix가 아닌 그래프가 올라간 상태에서 실행되었으므로 폐기했다. 위 값은 적재 간선 수를 확인한 S-mix로 다시 고른 것이다. E-T3·E-T5의 예상은 이 선택 뒤, 동결 전에 기록했다(커밋 61e3118). E-T5의 예상은 다시 고른 S-comb의 값으로 커밋 0cb1c59에서 고쳤다. E-T3은 충족으로, E-T5는 S-comb − S-mix 비교의 미달로 예상했다(표 15b). 설계 D 확증에서는 결합 목표 T4가 충족되었다(4.2절). … [E 동결 대기: 동결 커밋 해시(frozen_config_E.json)] [E 확증 대기: 확증 실행 일시]",
+     "source": "research_design.md E4 table + '동결 전 개발 선택 결과(10-19)'; git show 61e3118 and 0cb1c59; pilot/cache/v3/retrieval/tune_bm25.json (12 configs, joint/1000/rrf 27.352/11.039) and fuse_tune_smix.json (w .25 46.724/19.461; .5 43.767/18.66; .75 35.607/17.106)"
+    },
+    {
+     "issue": "UPDATED FACTS: E-T3/E-T5 confirmation placeholders kept only for confirmation results",
+     "before": "[E 확증 대기: E-T3 — S-bm25의 개발 선택 설정과 개발 매크로, 확증 세트별 차이·CI·Holm p, 판정] / [E 확증 대기: E-T5 — S-comb의 개발 선택 가중치, S-comb − S-mix와 S-comb − S-bm25의 매크로 Top-10 차이·CI, 판정]",
+     "after": "[E 확증 대기: E-T3 — 확증 세트별 S-mix − S-bm25 Top-10 차이·CI·Holm p, 판정] / [E 확증 대기: E-T5 — S-comb − S-mix와 S-comb − S-bm25의 확증 매크로 Top-10 차이·CI, 판정]",
+     "source": "UPDATED FACTS; research_design.md E4"
+    },
+    {
+     "issue": "UPDATED FACTS: pre-freeze Mention check removed from the confirmation-time verification placeholder",
+     "before": "[E 확증 대기: 동결 검증 기록 — 재빌드 지문 일치, HAS_FINDING·Disease 수, S-bm25 색인 sha256 대조, Mention 포함 빌드의 순위 일치]",
+     "after": "[E 확증 대기: 동결 검증 기록 — 확증 직전 재빌드의 지문 일치, HAS_FINDING·Disease 수, S-bm25 색인 sha256 대조]",
+     "source": "research_design.md E3 (동결 검증 at confirmation; Mention rank identity is a pre-freeze constraint, kept in 4.7 under [E 동결 대기])"
+    },
+    {
+     "issue": "#26 evaluated n for DDXPlus-E not yet known",
+     "before": "| System | DDXPlus-E (n = 3,000) | SymCat-E |",
+     "after": "| System | DDXPlus-E (3,000 sampled; n evaluated [E 확증 대기]) | SymCat-E |",
+     "source": "consistency_issues #26; 3.5 exclusion rule for unmappable patients"
+    },
+    {
+     "issue": "#1 Table 15b caption and E-T3/E-T5 expectation cells",
+     "before": "caption: '…expectations for E-T3 and E-T5 are recorded in the freeze commit after S-bm25 and S-comb are selected…'; E-T3 cell '[E 동결 대기: S-bm25 개발 선택 후 기록]'; E-T5 cell '[E 동결 대기: S-comb 가중치 선택 후 기록]'",
+     "after": "caption: 'Every \"Dev expectation\" was committed before the run: E-T1, E-T2 and E-T4 in the design E commit (5ce9c3d); E-T3 and E-T5 after S-bm25 and S-comb were selected on the development sets, before the freeze (commit 61e3118; the E-T5 expectation was corrected in commit 0cb1c59 after the S-comb selection was rerun with the S-mix load verified)…'; E-T3 '+20.9 [19.2, 22.7]; +3.2 [2.5, 4.0], both Holm-significant (expected met)'; E-T5 'S-comb − S-mix, macro over DDXPlus and SymCat: −0.02 [−0.54, 0.49] (DDXPlus −0.8; SymCat +0.8; expected not met). S-comb − S-bm25, same macro: +12.04 [11.15, 12.94] (expected met)'",
+     "source": "research_design.md E4 rows E-T3, E-T5 (current, after 0cb1c59); the −1.67 / +10.39 values of 61e3118 are void and not used"
+    },
+    {
+     "issue": "UPDATED FACTS (and #2 as it bears on 4.7): span rebuild and fingerprint check done; only the Mention build check pending",
+     "before": "이 빌더로 S-mix를 다시 빌드한 그래프에서 근거 언급의 LLM 구절과 사전 이름을 따로 확인하는 일은 설계 E의 동결 절차에 들어 있다 [E 동결 대기]. 같은 절차에는 그 재빌드의 지문 불변 확인, … 순위 일치 확인도 들어 있다 [E 동결 대기].",
+     "after": "이 빌더로 S-mix를 비교용 인스턴스에 다시 빌드한 그래프의 지문은 바뀌지 않았다(15ba677…). 적재된 HAS_FINDING 간선은 5,221,285개로 빌드 요약과 같았다. 근거 언급을 넣은 S-mix 빌드의 검사는 동결 전에 할 일로 남아 있다. 이 검사는 근거 언급의 LLM 구절과 사전 이름을 따로 확인하고, 출처 불변식(모든 간선에 근거 언급 1개 이상, Disease 노드 = 43,575개)과 근거 언급 유무에 따른 순위 일치를 확인한다 [E 동결 대기: Mention 포함 S-mix 빌드의 검사 결과].",
+     "source": "pilot/cache/v2/devD/variants_e.log 'E2_SPAN_FINGERPRINT_OK 15ba677103f6…', 'E2_SMIX_LOADED 5221285'; graph_v3llmd_ns.json = graph_v3llmd_ns.before_span.json fingerprint; chain_e_prep2.sh (Mention build is the next, unfinished step)"
+    },
+    {
+     "issue": "#22 audited graph label in Table 16 aligned with the 4.7 definition",
+     "before": "…on the old Qwen3-4B-Instruct-2507 v2.1/v2.1c graph:",
+     "after": "…on the old Qwen3-4B-Instruct-2507 graph (audit sample drawn from v2.1; topic marks added in v2.1c):",
+     "source": "research_design.md §9.16 and §9.17 ('깨끗한 v2.1 그래프, 시드 1, 200행'; topic marks = 조치(그래프 v2.1c)), §9.25 '같은 200행'"
+    }
+   ],
+   "rejected": [
+    {
+     "issue": "#22 rename the audited graph to 'Qwen3 v2.1c'",
+     "why": "The sources do not confirm it. §9.16, §9.17 and §9.25 say the 200-row audit sample and the curated agreement came from the clean v2.1 graph. v2.1c only added topic marks (§9.17). So 4.7 keeps its own definition ('감사 표본은 v2.1 그래프에서 뽑았고, 주제 표시를 더한 v2.1c 그래프는…'), and only the Table 16 caption was aligned to it."
+    },
+    {
+     "issue": "#6 precision 36% wrong (should be 32.6%)",
+     "why": "Does not apply to RES-B. Here '36%에서 55%로' refers to the precision panel at full recall: 35.9% and 55.3% (§9.26; RES-A Table 8A). There Top-10 goes from 49.5 to 52.7, about 6.5% relative, which matches '상대 약 6%'. The 32.6% figure only holds in the recall-15% condition, which is in INT and DIS."
+    },
+    {
+     "issue": "#3 pilot non-replication range omits S-mix",
+     "why": "RES-B 4.5.1 already reports 4.4~6.7% with S-mix at 4.4%, equal to the 2022-cut current-literature graph. No change needed."
+    },
+    {
+     "issue": "#21 builder 'checks evidence mention and source document'",
+     "why": "RES-B already states the invariant as only 'every edge has ≥1 Mention, Disease = 43,575', with no claim of a Doc link. Unchanged."
+    },
+    {
+     "issue": "#25 gemma v2.1 described as a graph separate from S-D",
+     "why": "RES-B 4.7 and the Table 16 footnote already say the gemma v2.1 graph is the S-D graph."
+    },
+    {
+     "issue": "#24 leading-zero p values",
+     "why": "RES-B has none; every p is already written as .004, .016 and so on."
+    },
+    {
+     "issue": "#2 remaining-work statement / void S-comb 45.40/18.31",
+     "why": "The 5.1 sentence is outside RES-B, and 45.40/18.31 never appears in RES-B. The RES-B parts this issue touches were updated under the UPDATED FACTS (4.6 selections and 4.7 rebuild status)."
+    },
+    {
+     "issue": "#20 duplicate 'Table 5' numbering",
+     "why": "Both Table 5 captions are in MET-B and RES-A, not RES-B. Only the duplicate chapter heading part applied here."
+    },
+    {
+     "issue": "#4, #5, #10, #11, #14, #15, #16, #17, #18, #23, #27, #28",
+     "why": "None of the quoted text is in RES-B (it is in INT, ABS-CON, MET-A, MET-B, RES-A or DIS). RES-B has no 67.0/67.1, 7-pair range, 35,590, 74.6%, Table 1 footnote, window-loss claim, D T4 interpretation, 791/1,151, E-H1/E-H4, T2 label, '문헌만 바꾼 비교' or Exomiser."
+    },
+    {
+     "issue": "UPDATED FACT: design E fusion uses the same candidate window (40) as the standalone graph",
+     "why": "RES-B does not state the fusion window anywhere, so the fact was not added (it belongs to MET-B 3.7)."
+    }
+   ],
+   "file_written": true
+  },
+  {
+   "id": "DIS",
+   "applied": [
+    {
+     "issue": "#16 D fusion window confound (T4 interpretation)",
+     "before": "이 결과는 두 계층이 서로 다른 정답 후보를 회수한다는 해석과 맞는다.",
+     "after": "(same sentence) + 다만 D의 결합은 그래프 목록을 상위 200개로 내어 소견 점수 창이 800이었으므로, 결합 안의 그래프 순서는 그래프 단독 평가(창 40)와 달랐다. 개발에서 그래프 목록만 쓴 결합(w = 0)의 매크로 Top-10/Top-1은 30.22/12.37%로 그래프 단독(30.56/12.64%)보다 낮았다. 따라서 개발값으로 보면 이 창 차이가 결합의 우세를 부풀린 방향은 아니다.",
+     "source": "git show 2ecb064:pilot/scripts/retrieval_baseline.py Fusion.rank calls self.g.rank(ev, 200) -> window 800; pilot/cache/v2/devD/fuse_tune_gemma.json trail w 0.0 = 30.22/12.371; frozen_config_D.json gemma 30.56/12.64"
+    },
+    {
+     "issue": "#4 67.1% vs 67.0%",
+     "before": "증례 가중으로 67.1%가 수집 단계에서 빠졌고",
+     "after": "증례 가중으로 67.0%(55,465건)가 수집 단계에서 빠졌고",
+     "source": "pilot/cache/v2/recall/decomp.json by_triple: no_docs 18,502 + not_in_text 36,963 = 55,465 / 82,751 = 67.03%; 67.1 is the sum of rounded 22.4 + 44.7"
+    },
+    {
+     "issue": "#6 precision at recall 15% is 32.6%, not 36%",
+     "before": "정밀도를 36%에서 100%로 올리면 1.8%p 올랐다.",
+     "after": "같은 재현율 15%에서 정밀도를 32.6%에서 100%로 올리면 1.8%p 올랐다.",
+     "source": "pilot/cache/v2/noise/k0.15_r0_s0_summary.json edges 57,017 vs k0.15_r2.33_s0_summary.json 175,114 -> 32.6%; analysis.json @10 17.3 vs 15.5. (The later '36%에서 55%' sentence is at full recall, 35.9%, so it was left unchanged.)"
+    },
+    {
+     "issue": "#15 overclaim: whole DDXPlus loss blamed on the candidate window",
+     "before": "v2 UMLS 사전 그래프에서 이 손실은 순위화의 후보 창에서 생겼다. ... 그러나 자기 간선이 빠지면 정답의 소견 점수 순위가 상위 40개 후보 창 밖으로 밀려 소견 점수 전체를 잃는다.",
+     "after": "v2 UMLS 사전 그래프에서 이 손실의 적어도 일부는 순위화의 후보 창에서 생겼다. ... 그러나 자기 간선이 빠져 정답의 소견 점수 순위가 상위 40개 후보 창 밖으로 밀리면, 정답은 소견 점수 전체를 잃는다. 자기 간선 제거로 DDXPlus Top-10을 잃은 환자 중 정답이 통합 근거를 받은 117명에서, 이 경우로 확인된 환자는 적어도 44명이었다(나머지 73명은 판단할 수 없었다).",
+     "source": "Recomputed from pilot/cache/v2/devD/variants/rankdiff10_DDXPlus-test_umls_noself.json: lost 122, n_unified>0 117, gold_b.total > top_b.total 44"
+    },
+    {
+     "issue": "#7 definition and name of the no-window scoring",
+     "before": "창 밖 질환의 소견 점수도 읽으면 ... / 창 없는 채점으로 확인하지는 않았다. 창 없는 채점이 더 나은 것도 아니었다. / (5.1) 창 없는 채점에서는 +1.0%p",
+     "after": "통합 근거를 받은 창 밖 질환의 소견 점수도 읽는 채점(이하 확장 채점)에서는 ... / 확장 채점으로 확인하지는 않았다. 확장 채점이 더 나은 것도 아니었다. / (5.1) 확장 채점에서는 +1.0%p",
+     "source": "pilot/scripts/graph_dx.py GraphDx.rank: with full_unified, only `outside = [d for d in uni if d not in sc]` (diseases with unified evidence) get finding scores; name '확장 채점' taken from the issue's fix"
+    },
+    {
+     "issue": "#3 pilot 90-case range omitted S-mix",
+     "before": "전 질환 v3 재수집에서 5.6~6.7%로 줄었다. 파일럿이 더 맞힌 10건 중 6건은 / (5.1) 전 질환 규모에서 5.6~6.7%로 줄었고",
+     "after": "전 질환 v3 재수집에서 4.4~6.7%로 줄었다. S-mix는 4.4%로, 파일럿이 비교한 2022 절단 현행 문헌 그래프(4.4%)와 같았다. S-mix보다 파일럿이 더 맞힌 10건 중 6건은 / (5.1) 전 질환 규모에서 4.4~6.7%(S-mix 4.4%)로 줄었고",
+     "source": "Recomputed from pilot/cache/v2/devD/variants/temporal_*_y2022_ot0.0.json with pilot_omims.json, date >= 2023: 90 cases; v3llmd_ns 4.4, v3llm_ns 6.7, v3umls_ns 6.7, v3unionu_ns 5.6, base_nm 4.4; evidence_log RES-B (pilot-only hits vs S-mix: 10)"
+    },
+    {
+     "issue": "#8 '32개 변형' counts the frozen reproduction",
+     "before": "S-mix는 같은 개발 세트에서 32개 변형 가운데 고른 것이다. / (5.1) S-mix는 32개 변형 가운데 ... offtopic_w도 변형마다 다시 골랐다.",
+     "after": "S-mix는 같은 개발 세트에서 비교한 그래프 32개 가운데 고른 것이다. / (5.1) S-mix는 v2·v3 문헌의 그래프 32개(D 동결 그래프의 재현 포함) 가운데 ... offtopic_w도 그래프마다 다시 골랐다.",
+     "source": "pilot/cache/v2/devD/variants/analysis.json dev has 32 keys: base_nm + 17 v2 variants, 14 v3 graphs; v3llmd_ns 46.11 is the maximum"
+    },
+    {
+     "issue": "#17 input overlap between dev and confirmation patients",
+     "before": "따라서 DDXPlus·SymCat에서 개발값과 확증값의 차이는 표본 변동을 포함한 선택 낙관의 추정치가 된다. / (5.1) 따라서 E는 환자 표본 수준의 낙관만 검사하고, ...",
+     "after": "(same) + 다만 합성 환자의 입력을 개념으로 사상하면 개발 환자와 같아지는 경우가 있어, 이 추정치는 낙관을 작게 잡을 수 있다. 열람된 D 확증 세트로 재면 (정답, 소견 개념 집합)이 개발 환자 한 명과 정확히 같은 환자가 DDXPlus 3,000명 중 791명(26.4%), SymCat 7,482명 중 1,151명(15.4%)이었다. / (5.1) + 입력이 개발 환자와 같은 확증 환자도 섞여 있어(열람된 D 확증 세트 기준 DDXPlus 26.4%, SymCat 15.4%), 환자 표본 수준의 낙관도 작게 추정될 수 있다.",
+     "source": "Recomputed this session (E set not loaded): opendx_eval.load_ddxplus('test',3000) vs _ddx_patients(rows[data/confirm/MANIFEST.json confirm_row_indices]) -> 791/3000; load_symcat(10, seed 0) vs seed 101 -> 1151/7482"
+    },
+    {
+     "issue": "#1 + UPDATED FACTS: E-T3/E-T5 expectations missing",
+     "before": "E-T4는 Top-10 경계(개발 DDXPlus 40.6%), Top-1 미달(개발 11.8%)로 예상했다.",
+     "after": "(same) + E-T3은 충족으로 예상했다(개발 S-mix − S-bm25 Top-10 DDXPlus +20.9%p [+19.2, +22.7], SymCat +3.2%p [+2.5, +4.0], 둘 다 Holm 유의). E-T5는 미달로 예상했다. 개발에서 S-comb − S-mix의 두 세트 매크로 Top-10 차이는 −0.02%p [−0.54, +0.49](DDXPlus −0.8%p, SymCat +0.8%p)였고, S-comb − S-bm25만 +12.04%p [+11.15, +12.94]로 기준을 넘었다. 즉 D 확증의 T4에서 본 결합 우세는 S-mix 대비로는 나타나지 않을 것으로 미리 적었다. (The E-T3·E-T5 confirmation placeholder now also asks whether the outcome matched these expectations.)",
+     "source": "docs/research_design.md E4 table E-T3/E-T5 rows (61e3118, E-T5 corrected in 0cb1c59); UPDATED FACTS. The issue's −1.67/+10.39 are void and were not used."
+    },
+    {
+     "issue": "#2 + UPDATED FACTS: freeze status in 5.1",
+     "before": "확증 세트 E는 커밋 3b10c36에서 봉인했지만, S-bm25와 S-comb의 개발 선택, 재빌드 지문 확인, Mention 빌드 검사, 동결 커밋이 남아 있다. ... 실행 전에 커밋했다(5ce9c3d).",
+     "after": "확증 세트 E는 커밋 3b10c36에서 봉인했다. S-bm25와 S-comb의 개발 선택은 끝났고, LLM 원 구절(src_t)을 남겨 다시 빌드한 S-mix의 지문은 바뀌지 않았다. Mention 빌드 검사와 동결 커밋은 남아 있다 [E 동결 대기: Mention 빌드 검사 결과와 동결 커밋 해시]. ... 실행 전에 커밋했다(5ce9c3d; E-T3·E-T5 예상은 동결 전 61e3118과 0cb1c59).",
+     "source": "pilot/cache/v2/devD/variants_e.log (E2_SPAN_FINGERPRINT_OK 15ba677…, E2_SMIX_LOADED 5221285, E2_COMB_DONE SELECTED 0.25); graph_v3llmd_ns.json and .before_span.json have the same fingerprint; git log 3b10c36, 5ce9c3d, 61e3118, 0cb1c59"
+    },
+    {
+     "issue": "UPDATED FACTS: S-bm25 selection already done (5.1 방법)",
+     "before": "반면 E의 S-bm25는 질의 방식·깊이·집계 격자 전체를 다시 고르므로 조정 예산이 BM25 쪽에 더 많다.",
+     "after": "반면 E의 S-bm25는 질의 방식·깊이·집계 격자 12개 설정 전체에서 다시 골랐으므로 조정 예산이 BM25 쪽에 더 많다.",
+     "source": "docs/research_design.md E4 '동결 전 개발 선택 결과(10-19)': S-bm25 joint, k 1000, RRF, 12개 설정 중"
+    },
+    {
+     "issue": "#11 74.6% denominator",
+     "before": "Phenopacket-store 0.1.27 증례 논문의 74.6%가 HPOA의 근거 논문이라는 보고[ref: Jiang et al. 2026]가 있으므로, / (5.1 범위) (Phenopacket-store 0.1.27 증례 논문의 74.6%가 HPOA 근거 논문[ref])",
+     "after": "Phenopacket-store 0.1.27에서 정답 질환이 HPO 주석에 있는 증례의 74.6%가 그 증례를 만든 논문을 근거로 인용하는 주석을 가진다는 보고[ref: Jiang et al. 2026]가 있으므로, / (Phenopacket-store 0.1.27에서 정답 질환이 HPO 주석에 있는 증례의 74.6%가 그 증례 논문을 근거로 인용하는 주석을 가짐[ref])",
+     "source": "REL 2.6 wording (case-level, 10,348 cases), checked against the original per the REL author memo; docs/prior_work_temporal_2026-10.md"
+    },
+    {
+     "issue": "#28 Exomiser overclaim",
+     "before": "...데이터 크기가 달라 직접 비교하지 않는다. 참조할 때도 같은 k의 Top-k끼리만 둔다. 그런 참고값으로, 설계 D 이전 단계에서 ... Phenopacket-store Top-1이 36.5%였다. 이는 조건이 다른 Exomiser 보고값(35.5%)[ref]과 같은 범위이며, 희귀질환에서는 지식원이 정확도를 크게 좌우한다는 해석과 맞는다.",
+     "after": "...데이터 크기가 달라 직접 비교하지 않는다(부록 Table 18). 참조할 때도 같은 k의 Top-k끼리만 둔다.",
+     "source": "docs/research_design.md §9.22 (v1 validate-selected setting); REL 2.2 Exomiser citation still '[ref: 서지 확인 필요]'; Table 18 (reused v2 Table 11) holds the Exomiser 35.5/58.5 reference row"
+    },
+    {
+     "issue": "#25 gemma v2.1 graph is the S-D graph",
+     "before": "S-D와 같은 IE의 gemma v2.1 그래프에서도 일치율은 ... / (5.1 출처) 큐레이션 일치(Qwen3·gemma v2.1), ... 설계 D 이전 시스템의 값이어서",
+     "after": "S-D 그래프에서도 일치율은 ... / 큐레이션 일치(Qwen3 v2.1c·S-D 그래프), ... S-mix 이전 시스템의 값이어서",
+     "source": "pilot/cache/v2/graph_summary_gemma_v21.json = frozen_config_D.json gemma_graph summary (832,671 edges, 1,201,064 mentions, 86,276 docs); curated_agreement_gemma_v21.json 1 doc 14.95%, >=5 docs 62.82%. 'S-mix 이전' replaces '설계 D 이전' because S-D is now in the list."
+    },
+    {
+     "issue": "#22 audited graph name",
+     "before": "구 시스템(Qwen3-4B v2.1c 그래프) / 출처 감사는 구 Qwen3-4B v2.1c 그래프에서만 했다.",
+     "after": "구 시스템(Qwen3 v2.1c 그래프) / 출처 감사는 구 Qwen3 v2.1c 그래프에서만 했다.",
+     "source": "pilot/cache/v2/build_qwen3_v21b.log and build_qwen3_v21c.log: identical mentions/edges/docs (1,648,509/1,184,344/88,266); v2.1c only adds topic flags (used for the 38.3%/11.9% split, §9.25) and re-centred sentences. So the audited edge set is the v2.1c edge set, and the instructed name 'Qwen3 v2.1c' holds."
+    },
+    {
+     "issue": "#23 T2 is not a secondary target in design D",
+     "before": "설계 D 확증에서 주 목표 T1과 부 목표 T2는 미달했다.",
+     "after": "설계 D 확증에서 주 목표 T1과 T2(흔한 질환 정확도 목표)는 미달했다.",
+     "source": "docs/research_design.md D4 table: 'T1(주)', T2 unmarked"
+    },
+    {
+     "issue": "#24 p values without a leading zero",
+     "before": "p = 0.0039 (x2), 0.070, 0.039, 0.29 (x2), 0.73 (x3), 0.51, 0.06, 0.22",
+     "after": "p = .0039, .070, .039, .29, .73, .51, .06, .22 (12 occurrences)",
+     "source": "orchestrator naming rule; consistency issue 24"
+    },
+    {
+     "issue": "5.1 출처 freeze-pending marker made specific (UPDATED FACTS)",
+     "before": "E 동결 전에 확인할 예정이다 [E 동결 대기].",
+     "after": "E 동결 전에 확인할 예정이다 [E 동결 대기: Mention 빌드 그래프 검사와 순위 일치 결과].",
+     "source": "UPDATED FACTS: the Mention build check is still pending at freeze time; variants_e.log shows E_MENTION_BUILD_FAILED before the later rerun"
+    }
+   ],
+   "rejected": [
+    {
+     "issue": "#5 collection-depth effect 8.4~13.0 vs 7 pairs",
+     "why": "DIS reports only the two named pairs (UMLS dictionary +8.4, LLM +13.0), both accurate per analysis.json. The 7-pair range belongs in 4.3/intro/abstract/conclusion, so DIS needs no change."
+    },
+    {
+     "issue": "#9 '같은 v3 문헌에서 … 32개' scope and selection optimism",
+     "why": "DIS has no 'same v3 literature' claim. 5.1 already discloses that S-mix was the maximum on the same 9 dev sets. Only the count wording was changed, under #8."
+    },
+    {
+     "issue": "#13 eleven 2022-cut graphs",
+     "why": "DIS says 'all literature graphs ≤ 2.2%' without giving a count. Verified: all 11 *_y2022 graphs are ≤ 2.2 on future/new at ot 0. No change needed."
+    },
+    {
+     "issue": "#21 provenance invariant overstated (Doc link)",
+     "why": "DIS already limits the invariant to '모든 간선에 근거 언급' (Mention only), which matches the build check log. No change."
+    },
+    {
+     "issue": "#18 E-H1/E-H4 naming",
+     "why": "DIS does not use the E-H labels. The PPR paragraph names no hypothesis."
+    },
+    {
+     "issue": "#10, #12, #14, #19, #20, #26, #27",
+     "why": "These concern INT/MET/RES text or tables (node keys, Table 1/5/15a, the 154-case HPOA numbers, '설계 E3/T', the 2.3 comparison wording). None of that text is in DIS."
+    },
+    {
+     "issue": "#1 and #2 numbers 45.40/18.31, −1.67 [−2.38, −1.01], +10.39",
+     "why": "These are void per UPDATED FACTS and research_design E4 (the first S-comb run had the wrong graph loaded; corrected in 0cb1c59). The corrected values were used instead. DIS never contained 45.40/18.31."
+    },
+    {
+     "issue": "#17 claim that 791/1,151 are unsupported",
+     "why": "I recomputed both from the opened D confirmation manifest and the dev loaders: 791/3,000 and 1,151/7,482. The numbers hold, so the issue's caveat was applied rather than dropped."
+    }
+   ],
+   "file_written": true
+  },
+  {
+   "id": "ABS-CON",
+   "applied": [
+    {
+     "issue": "UPDATED FACTS: the Mention build check of S-mix is still pending at freeze time, so it is marked as waiting for the freeze, not for the confirmation (abstract placeholder)",
+     "before": "[E 확증 대기: 혼합 추출 그래프를 근거 언급(Mention)까지 적재한 빌드가 출처 불변식 검사를 통과했는지 한 문장으로]",
+     "after": "[E 동결 대기: 혼합 추출 그래프를 근거 언급(Mention)까지 적재한 빌드가 출처 불변식 검사를 통과했는지 한 문장으로]",
+     "source": "Task UPDATED FACTS (pending at freeze: Mention build check, freeze commit); docs/research_design.md E3 '출처 불변식(제약): 동결 전에 …', E5 step 3 (before step 4, the freeze commit)"
+    },
+    {
+     "issue": "UPDATED FACTS: same Mention-build placeholder in the conclusion",
+     "before": "[E 확증 대기: S-mix를 근거 언급(Mention)까지 적재한 빌드가 출처 불변식 검사(…)를 통과했는지, 그리고 근거 언급 유무 빌드의 개발 DDXPlus 순위가 일치했는지 한 문장으로]",
+     "after": "[E 동결 대기: S-mix를 근거 언급(Mention)까지 적재한 빌드가 출처 불변식 검사(…)를 통과했는지, 그리고 근거 언급 유무 빌드의 개발 DDXPlus 순위가 일치했는지 한 문장으로]",
+     "source": "Task UPDATED FACTS; docs/research_design.md E3, E5 step 3"
+    },
+    {
+     "issue": "Issue 23: T2 is named differently across sections; use the design D name (흔한 질환 정확도) in the abstract",
+     "before": "주 목표와 DDXPlus 정확도 목표(Top-10 40% 이상, Top-1 18% 이상)는 미달했다.",
+     "after": "주 목표와 흔한 질환 정확도 목표(DDXPlus Top-10 40% 이상, Top-1 18% 이상)는 미달했다.",
+     "source": "docs/research_design.md D4 table: 'T2 | 흔한 질환 정확도 | 확증 DDXPlus Top-10 ≥ 40%, Top-1 ≥ 18%'"
+    },
+    {
+     "issue": "Issue 23: same T2 renaming in the conclusion",
+     "before": "DDXPlus 정확도 목표(T2)도 충족하지 못했다.",
+     "after": "흔한 질환 정확도 목표(T2)도 충족하지 못했다.",
+     "source": "docs/research_design.md D4 table"
+    },
+    {
+     "issue": "Issues 9 and 8 (abstract): the 32 graphs are not all on v3 literature, and the selection optimism was not stated. Count verified: 32 dev keys, base_nm included, v2 18 + v3 14",
+     "before": "같은 v3 문헌에서 혼합 추출은 같은 순위화로 비교한 문헌 그래프 변형 32개 가운데 개발 매크로 Top-10과 Top-1이 가장 높았다(46.1%, 19.7%).",
+     "after": "v3 문헌의 혼합 추출 그래프는 같은 순위화로 비교한 v2·v3 문헌 그래프 변형 32개 가운데 개발 매크로 Top-10과 Top-1이 가장 높았다(46.1%, 19.7%). 다만 이 그래프는 같은 9개 개발 세트에서 최댓값으로 고른 것이므로 두 값에는 선택 낙관이 들어 있다.",
+     "source": "pilot/cache/v2/devD/variants/analysis.json dev (32 keys: 18 v2/base_*, 14 v3*; v3llmd_ns 46.11/19.66 highest); v3llm_ns grid ot 0.25 @1 19.83 > 19.66; docs/research_design.md E1 'S-mix는 같은 9개 개발 세트에서 변형 30여 개 가운데 고른 것이라 선택 낙관이 크다'"
+    },
+    {
+     "issue": "Issues 9 and 8 (conclusion): same scope fix and selection-optimism caveat. '같은 문헌의' moved onto the following UMLS-dictionary comparison so it keeps its scope",
+     "before": "같은 v3 문헌에서 혼합 추출은 문헌 그래프 변형 32개 가운데 개발 세트 매크로 Top-10·Top-1이 가장 높았다. 다만 UMLS 사전 단독보다 유의하게 높은 세트는",
+     "after": "v3 문헌의 혼합 추출 그래프는 v2·v3 문헌 그래프 변형 32개 가운데 개발 세트 매크로 Top-10·Top-1이 가장 높았다. 이 그래프는 같은 9개 개발 세트에서 최댓값으로 고른 것이므로 이 값에는 선택 낙관이 들어 있다. 다만 같은 문헌의 UMLS 사전 단독보다 유의하게 높은 세트는",
+     "source": "analysis.json dev keys and grids; docs/research_design.md E1, E3 (S-dict = v3umls_ns, same literature)"
+    },
+    {
+     "issue": "Writing notes (HTML comment, not body text) synced to the verified scope, the placeholder labels and the audit-graph naming decision",
+     "before": "3) … (설계 D 동결 base_nm 포함). / 6) … Mention 빌드의 불변식 검사(E3, E5 3단계)는 대기 중이다.",
+     "after": "3) … (설계 D 동결 base_nm 포함, v2 문헌 18개·v3 문헌 14개). Top-1 최고는 각 그래프에서 고른 offtopic_w 기준이다(S-llm은 ot 0.25에서 19.83). / 6) … '[E 동결 대기]'로 표시했다. 확증 결과만 '[E 확증 대기]'로 둔다. / 7) 사람이 감사한 그래프는 v2.1로 쓴다(표본 커밋 519fd4e가 v2.1c 커밋 d574c5e보다 앞섬; §9.17, §9.25).",
+     "source": "analysis.json; git log (519fd4e is an ancestor of d574c5e); docs/research_design.md §9.17, §9.25"
+    }
+   ],
+   "rejected": [
+    {
+     "issue": "Issue 22 and the task's naming rule 'Qwen3 v2.1c': the audited graph name in ABS-CON stays 'Qwen3 추출 그래프(v2.1)'",
+     "why": "The sources do not support v2.1c. §9.17 says the audit used the clean v2.1 graph (seed 1, 200 rows), and §9.25 judged those same 200 rows. The audit sample file docs/audit/provenance_audit_v21_blind.csv came in with commit 519fd4e (10-10 13:15). That commit is an ancestor of d574c5e (10-10 13:48), which made v2.1c by adding topic flags and re-cutting the 600-char sentences. So the audited Mention texts are from v2.1. Writing v2.1c here would misstate what was audited. Other sections should use v2.1 for the audit and v2.1c only for the re-evaluation in §9.18 and the topic analysis."
+    },
+    {
+     "issue": "Issue 1 (E-T3/E-T5 expectations) and Issue 2 (state of progress before the freeze)",
+     "why": "ABS-CON states neither E-T3/E-T5 nor the S-bm25/S-comb selection, and the void 45.40/18.31 figure does not appear in it. Adding them would be a new claim. The issue file's −1.67/+10.39 are void in any case (E4: S-comb − S-mix −0.02 [−0.54, +0.49], S-comb − S-bm25 +12.04). The only part of the progress update that touches this section is the placeholder relabeling, which was applied."
+    },
+    {
+     "issue": "Issue 4 (67.0% vs 67.1%) and Issue 5 (range of the 7 pairs)",
+     "why": "ABS-CON already uses the target values: 67.0% (55,465/82,751 from decomp.json) and 7 pairs at 7.0–13.0%p (analysis.json: +6.95 … +12.96). The fixes belong to the introduction, 3.2, 4.3 and the discussion."
+    },
+    {
+     "issue": "Issue 13 (the 11 graphs cut at end of 2022)",
+     "why": "Verified: analysis.json temporal has 11 *_y2022 graphs, and the S-mix 2022 cut is 1.7% on future/new (n 2,381, 263 diseases). The abstract and conclusion statements are correct. The missing rows belong in 4.5 and Table 14, not here."
+    },
+    {
+     "issue": "Issue 21 (provenance check limited to Mention existence)",
+     "why": "The ABS-CON placeholder already describes the real check (every finding edge has 1 or more Mentions, Disease = 43,575). The abstract's '스키마는 … 근거 문장과 원 문헌에 연결하도록 설계했다' describes the schema, not a load-time check, so it does not overclaim."
+    },
+    {
+     "issue": "Issue 27 (the v2→v3 comparison is not 'literature only')",
+     "why": "The quoted text is in 2.3. ABS-CON never says only the literature changed: it says '같은 추출 방식끼리 짝지은 7쌍'. Also the issue's own fix is imprecise. offtopic_w is re-selected per graph in every pair (e.g. v2dict 0.0 vs v3dict 0.25), not only on the LLM side. Only the span-table expansion is specific to the LLM pair. The abstract's conclusion holds even without that pair (lowest pair +7.0 > +4.1), so no change was made here."
+    },
+    {
+     "issue": "Issue 16 (window confound in interpreting T4)",
+     "why": "The quoted interpretation is in the discussion. ABS-CON reports only the confirmed T4 numbers (+2.7 [1.8, 3.6], +5.1 [3.6, 6.7], D9), which stay correct."
+    },
+    {
+     "issue": "Issues 3, 6, 7, 10, 11, 12, 14, 15, 17, 18, 19, 20, 24, 25, 26, 28",
+     "why": "None of them quotes or depends on text in ABS-CON. The abstract already writes p without a leading zero (p = .73), uses no H1/H4 or E-H names, and does not mention the 50-disease pilot, the precision simulation, 74.6%, the candidate-window definition, Exomiser or the number of DDXPlus-E patients evaluated."
+    }
+   ],
+   "file_written": true
+  }
+ ],
+ "recheck": {
+  "issues": [
+   {
+    "section": "MET-B §3.5 순위화 질의",
+    "quote": "한 환자의 진단 순위는 Cypher 질의 하나로 낸다.",
+    "problem": "방법 절이 순위화를 단일 Cypher 질의로 기술한다. 실제 코드는 환자마다 RANK 질의(소견 점수, 상위 k×4 창)와 UNIFIED 질의(통합 근거)를 따로 실행한 뒤 Python에서 합산·정렬한다. 같은 절의 뒤 문단(후보 창: 통합 근거는 창 밖에도 더함)과도 맞지 않고, ABS-CON 작성 메모 2('Cypher 질의 하나'는 쓰지 않는다)와도 어긋난다.",
+    "correct": "예: '한 환자의 진단 순위는 Cypher 질의 두 개(소견 점수 질의와 통합 근거 질의)의 결과를 합쳐 낸다.'",
+    "evidence": "pilot/scripts/graph_dx.py:27-47(RANK, UNIFIED), 72-90(rank(): finding_scores 호출 뒤 s.run(UNIFIED) 결과를 sc에 더한 다음 sorted). ABS-CON.md 작성 메모 2.",
+    "severity": "wrong"
+   },
+   {
+    "section": "INT ¶3 (추출 설명)",
+    "quote": "구절 표는 유사도 임계값이 없는 정확 일치 링커로 미리 만든다.",
+    "problem": "구절 표 연결기를 서론은 '유사도 임계값 없는 정확 일치'라고 쓰고, MET-A §3.3은 scispaCy 후보 생성기와 문자 n-gram 유사도 0.70 하한, 0.88 미만 후보의 내용어 공유 조건으로 기술한다. 같은 구성 요소를 두 방식으로 설명하고 있고, 코드는 MET-A의 설명과 일치한다(임계값을 쓴다).",
+    "correct": "MET-A §3.3에 맞춘다. 예: '구절 표는 scispaCy UMLS 후보 생성기(문자 n-gram 유사도 0.70 이상)와 근거 규칙(개념 이름이 구절 내용어의 절반 이상을 덮음)으로 미리 만든다.' 정확 일치·무임계값 표현은 UMLS 사전 추출에만 쓴다.",
+    "evidence": "pilot/scripts/v152_normalize_pipeline.py:73 COV_THRESH = 0.70, :86 HIGH_CONF = 0.88, link_top()의 `if sc < threshold: break`. normalize_v2.py가 이 link_top을 호출한다(docstring의 'threshold-free'는 실제 동작과 다르다). MET-A.md §3.3 '구절 표 연결' (3)항.",
+    "severity": "wrong"
+   },
+   {
+    "section": "DIS ¶6, §5.1 출처",
+    "quote": "출처 감사는 구 Qwen3 v2.1c 그래프에서만 했다.",
+    "problem": "감사 그래프의 이름이 섹션마다 다르다. DIS는 의료진 감사와 큐레이션 일치를 'Qwen3 v2.1c'로 쓴다(¶6 '구 시스템(Qwen3 v2.1c 그래프)에서 의료진이 판정한 200개 간선', §5.1 '출처 감사(Qwen3 v2.1c), 큐레이션 일치(Qwen3 v2.1c·S-D 그래프)'). ABS, INT RQ5·기여 8, REL 2.4, RES-B 4.7, 표 16은 감사 표본을 v2.1에서 뽑았고 v2.1c는 주제 표시만 더한 판이라고 쓴다.",
+    "correct": "DIS에서도 감사·큐레이션 일치 대상은 'v2.1'로 쓴다(주제 표시는 v2.1c). 'v2.1c'는 v2.1c에서 실제로 측정한 값(누수 점검, PMID 식별 비율)에만 남긴다.",
+    "evidence": "research_design.md §9.16(큐레이션 일치: 깨끗한 v2.1 그래프), §9.17(감사 v2.1, 시드 1), §9.25. ABS-CON.md 작성 메모 7(감사 표본은 v2.1c 커밋 d574c5e보다 먼저 v2.1에서 뽑음). RES-B.md 표 16 캡션 'audit sample drawn from v2.1; topic marks added in v2.1c'.",
+    "severity": "imprecise"
+   },
+   {
+    "section": "MET-B §3.6 설계 E 프로토콜 (+ INT 기여 5, 표 5·5b 각주, RES-B 4.4.3)",
+    "quote": "32개는 동결 그래프의 재현(base_nm)과, 수집 깊이와 추출 방식을 바꾼 그래프 31개다(v2 문헌 18개, v3 문헌 14개).",
+    "problem": "개수 32(=analysis.json dev 키 수)는 맞지만 구성 설명이 맞지 않는다. 'v3 문헌 14개'에는 본문 전체를 읽는 v3umlsfull_ns·v3dictfull_ns가 들어 있는데, MET-A §3.2, MET-B §3.6, 표 11은 이 두 그래프를 '문헌이 달라 비교군에서 뺐다'고 쓴다. 일반 문헌 규칙만 바꾼 _kn 변형 2개도 포함된다. v2 18개에는 한정어 변형(_nq)과 자기 간선 변형(_ns)이 들어 있어, 모두 '수집 깊이와 추출 방식을 바꾼 그래프'라고 할 수 없다. RES-B 4.4.3의 '(표 10·11)'은 28개만 보여 준다(v3dict, v3dictfull_ns, v3llm_ns_kn, v3umls_ns_kn은 본문과 표 13에만 있다).",
+    "correct": "예: '32개 = base_nm + 추출·연결·빌더 규칙(한정어, 자기 간선, 일반 문헌 되살림)이나 수집 깊이를 바꾼 31개(v2 문헌 18개, v2+v3 문헌 14개; 후자에는 본문 전체 판 2개 포함)'. 또는 full 판을 32개에서 빼고 개수를 30으로 고친다.",
+    "evidence": "pilot/cache/v2/devD/variants/analysis.json의 dev 키 32개: v3dictfull_ns, v3umlsfull_ns, v3llm_ns_kn, v3umls_ns_kn, *_nq, *_ns 포함. research_design.md E3('v3umlsfull_ns는 문헌이 달라 비교군에서 뺀다').",
+    "severity": "imprecise"
+   },
+   {
+    "section": "MET-A §3.3 LLM 추출",
+    "quote": "개발 9개 세트 매크로 lineage Top-10/Top-1이 gemma보다 낮아(30.56/12.64% 대 29.59/11.02%",
+    "problem": "문장의 주어는 Qwen3 그래프('gemma보다 낮아')인데 괄호 안에는 gemma 값(30.56/12.64)이 먼저 온다. 그래서 Qwen3가 30.56%인 것처럼 읽힌다.",
+    "correct": "'(Qwen3 29.59/11.02% 대 gemma 30.56/12.64%, …)'처럼 주어 순서와 맞추거나 시스템 이름을 붙인다.",
+    "evidence": "research_design.md D9: gemma 30.56/12.64, Qwen3 29.59/11.02.",
+    "severity": "style"
+   },
+   {
+    "section": "ABS (초록)",
+    "quote": "확증 세트는 DDXPlus 3,000명, Phenopacket-store 신규 증례 261건, SymCat 7,482명으로 구성했다.",
+    "problem": "초록은 D 확증 세트를 '신규 증례 261건으로 구성'했다고 쓴다. MET-B 표 4·§3.6과 RES-A 4.2는 세트가 369증례이고, 그중 정답 키와 소견이 사상되는 261명만 평가했다고 쓴다. 세트 크기와 평가 수가 섞여 있다.",
+    "correct": "'Phenopacket-store 신규 증례 369건(평가 가능 261건)'",
+    "evidence": "MET-B.md 표 4 'Phenopacket-new … 261 of 369', §3.6 (2). RES-A.md 4.2 'Phenopacket-new 369명(정답 키와 소견 개념이 있는 261명 평가)'. research_design.md D2.",
+    "severity": "imprecise"
+   },
+   {
+    "section": "RES-B §4.7 마지막 문단",
+    "quote": "이 검사는 근거 언급의 LLM 구절과 사전 이름을 따로 확인하고",
+    "problem": "아직 하지 않은 Mention 빌드 검사의 내용을 섹션마다 다르게 쓴다. MET-A §3.4, MET-B §3.6 (3)단계·동결 검증, research_design E3은 이 검사를 불변식 (가)·(나)와 개발 DDXPlus 3,000명 순위 일치로 정의한다. RES-B는 여기에 'LLM 구절과 사전 이름을 따로 확인'하는 감사를 더한다. 그런 확인 절차는 어디에도 정의되어 있지 않다. src_t는 그런 감사를 가능하게 할 뿐이다.",
+    "correct": "'이 검사는 출처 불변식(모든 간선에 근거 언급 1개 이상, Disease 노드 = 43,575개)과 근거 언급 유무에 따른 순위 일치를 확인한다. src_t는 LLM 구절과 사전 이름을 따로 감사할 수 있게 저장한다.'",
+    "evidence": "research_design.md E3 '출처 불변식(제약)' 항목, E5 3단계. MET-B.md §3.6 동결 검증 문단.",
+    "severity": "imprecise"
+   },
+   {
+    "section": "DIS ¶3, MET-A §3.2 v3 재수집",
+    "quote": "증례 가중으로 67.0%(55,465건)가 수집 단계에서 빠졌고",
+    "problem": "수집 단계 손실 67.0%를 확정값처럼 쓴다. ABS-CON은 '최대 67.0%'로 쓰고, INT 기여 3과 RES-A 4.3은 '텍스트에 없음'이 문자열 일치 기준의 상한이라고 밝힌다. MET-A §3.2('큐레이션 소견 중 67.0%가 수집 단계에서 빠졌다')와 DIS ¶3에는 이 한정이 없다. 수치(67.0, 55,465/82,751)는 맞다.",
+    "correct": "'최대 67.0%(55,465건, 문자열 일치 기준 상한)가 수집 단계에서 빠졌고'",
+    "evidence": "pilot/cache/v2/recall/decomp.json: no_docs 18,502 + not_in_text 36,963 = 55,465 / 82,751 = 67.03%. ABS-CON.md 작성 메모 1. RES-A.md 4.3 \"'텍스트에 없음'은 수집 손실의 상한\".",
+    "severity": "imprecise"
+   },
+   {
+    "section": "INT 기여 2",
+    "quote": "이후 개발 탐색에서 고른 S-mix를 새 봉인 세트로 평가한 결과도 보고한다(4.6절).",
+    "problem": "설계 E 확증은 아직 실행하지 않았다(동결 커밋 없음, 4.6절은 전부 [E 확증 대기], DIS ¶5 '설계 E의 확증은 이 원고 작성 시점에 실행되지 않았다'). 그런데 기여 목록은 '평가한 결과'를 보고한다고 완료형으로 쓴다. 바로 위 문장('한 번씩 확증 평가한다')의 현재형 서술과도 시제가 다르다.",
+    "correct": "'이후 개발 탐색에서 고른 S-mix는 새 봉인 세트로 한 번 평가하며, 그 결과를 4.6절에 보고한다.' 또는 확증 뒤에 문장을 확정한다.",
+    "evidence": "research_design.md E5 4단계(동결 커밋 → 확증 1회)는 미완료. pilot/cache/v2/devD/e/에 확증 결과 없음, variants_e.log에 E_MENTION_BUILD_FAILED. ABS-CON.md 작성 메모 5.",
+    "severity": "overclaim"
+   },
+   {
+    "section": "ABS (초록) 혼합 추출 정의",
+    "quote": "구절–개념 표가 개념을 붙이지 못한 구절(부정된 구절과 너무 긴 구절 제외)은",
+    "problem": "재연결 제외 사유를 초록은 두 가지(부정, 너무 긺)로 쓰고, INT ¶3과 MET-A §3.3은 세 가지(부정, 8단어 초과, 구절 표에 없음)로 쓴다. 표에 없는 구절은 비율은 작아도(0.1%) 재연결 대상이 아니다.",
+    "correct": "'(부정된 구절, 8단어를 넘는 구절, 구절 표에 없는 구절 제외)'",
+    "evidence": "MET-A.md §3.3 혼합 추출: '부정, 8단어 초과, 표에 없음 사유를 뺀 10,455,243개'. research_design.md §9.30 '부정·너무 긺·표에 없음을 뺀 미연결 항목 1,046만 개'.",
+    "severity": "imprecise"
+   },
+   {
+    "section": "RES-A §4.3 수집 깊이의 효과",
+    "quote": "같은 추출 방식과 같은 빌더 규칙(자기 간선 유무 포함)으로 v2 그래프와 v2+v3 그래프를 짝지은 비교는 이 두 쌍을 포함해 7쌍이다.",
+    "problem": "이 문장은 같은 규칙의 v2→v2+v3 쌍이 7개뿐이라는 뜻으로 읽힌다. 그러나 비교한 32개 안에는 8번째 쌍(LLM, 자기 간선 유지: base_split_tg → v3llm, 빌더 플래그 동일)이 있고, 이 쌍은 짝 비교에 넣지 않았다. ABS, INT 기여 4, CON의 '7쌍'도 같은 범위를 가리킨다. 매크로 차이 +11.50%p는 보고한 범위(6.95–12.96) 안이므로 결론은 바뀌지 않는다.",
+    "correct": "'…짝지어 검정한 비교는 7쌍이다(자기 간선을 둔 LLM 쌍 base_split_tg → v3llm, +11.50%p는 짝 검정을 하지 않았다)'처럼 범위를 밝힌다.",
+    "evidence": "analysis.json pairs에 v2→v3 쌍 7개만 있다(v3llm vs base_split_tg 없음). dev macro@10: base_split_tg 32.59, v3llm 44.09. run_graph_variants.sh에서 두 변형 모두 ALL 플래그(--split-coord --hpo-names --topic-genes)를 쓰고 --no-self는 없다.",
+    "severity": "imprecise"
+   },
+   {
+    "section": "ABS, INT 기여 4·5, RES-B 4.4.2 대 MET-A §3.2–3.3, 표 2",
+    "quote": "v3 문헌의 혼합 추출 그래프는 같은 순위화로 비교한 v2·v3 문헌 그래프 변형 32개 가운데",
+    "problem": "'v3 문헌'이 두 가지 뜻으로 쓰인다. MET-A §3.3('v3 문헌에서는 … v3 추출 대상만 처리했다')과 표 2('v3 (new documents)')에서는 새로 모은 문서만을 뜻한다. ABS·INT('v3 문헌 14개', 'v3 문헌의 혼합 추출 그래프')·RES-B 4.4.2('v3 문헌에서 … S-llm')에서는 v2+v3 합본을 뜻한다. MET-B와 표 5·5b는 같은 그래프를 'v2·v3 문헌', 'v2 + v3'로 쓴다.",
+    "correct": "그래프의 문헌은 'v2+v3 문헌'(또는 정의한 약칭)으로 통일하고, 'v3 문헌'은 새로 수집한 문서에만 쓴다.",
+    "evidence": "MET-A.md §3.2 정의 문단, §3.3; RES-A.md 표 2·표 5b; MET-B.md §3.6 시스템 목록('v2·v3 문헌').",
+    "severity": "style"
+   },
+   {
+    "section": "MET-B §3.5 (대 MET-A §3.2 용어 정의)",
+    "quote": "n_docs(d, c)는 간선을 지지하는 문헌 수다.",
+    "problem": "MET-A §3.2는 '문서'를 출처 단위(본문, 초록, 표 묶음, 장)로, '문헌'을 수집한 문서 전체로 정의하고 '주제 문서'라고 쓴다. MET-B §3.5, INT, 4장·5장은 같은 대상을 '지지 문헌 수', '주제 문헌'으로 쓴다. n_docs는 표 묶음을 원 논문과 따로 세는 문서 단위인데(표 5 각주 a), 정의상 '문헌'은 그 단위가 아니다.",
+    "correct": "n_docs와 주제 판정에는 '문서'(지지 문서 수, 주제 문서)를 쓰거나, MET-A의 정의를 문헌=문서로 고친다.",
+    "evidence": "MET-A.md §3.2 첫 문단·'문서 단위 규칙'; MET-B.md 표 5 각주 a('a table stored as its own document unit … counted apart from its article').",
+    "severity": "style"
+   }
+  ]
+ }
+}
