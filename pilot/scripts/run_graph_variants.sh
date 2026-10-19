@@ -90,6 +90,8 @@ else:
 EOF
 )
   rm -f "$prev"
+  # BUILD_ONLY=1 (confirmation runs): load the graph and report whether it matches the last summary; touch no result
+  if [ "${BUILD_ONLY:-0}" = 1 ]; then echo "built $G stale=$stale"; continue; fi
   if [ "$stale" = 1 ]; then
     rm -f "${O:?}"/dev_${G}_ot*.json "${O:?}"/temporal_${G}_ot*.json
   fi

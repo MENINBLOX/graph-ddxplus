@@ -222,17 +222,18 @@ class Fusion:
     """Hybrid layer (post-hoc analysis): reciprocal-rank fusion of the graph ranking and a retriever.
 
     score(d) = (1 - w) / (60 + rank_graph(d)) + w / (60 + rank_retriever(d)); w chosen on validate.
-    Provenance still comes from the graph for every disease the graph ranks.
+    Provenance still comes from the graph for every disease the graph ranks. The graph list is scored with
+    the candidate window of a Top-10 evaluation (40), so its order is the graph system's own ranking.
     """
 
-    def __init__(self, graph: GraphDx, retr: Retriever, w: float, depth: int = 200):
-        self.g, self.r, self.w, self.depth = graph, retr, w, depth
+    def __init__(self, graph: GraphDx, retr: Retriever, w: float, depth: int = 200, window: int = 40):
+        self.g, self.r, self.w, self.depth, self.window = graph, retr, w, depth, window
         self.memo: dict = {}
 
     def rank(self, ev: set[str], k: int = 50) -> list[str]:
         key = tuple(sorted(ev))
         if key not in self.memo:
-            self.memo[key] = (self.g.rank(ev, self.depth), self.r.rank(ev, self.depth))
+            self.memo[key] = (self.g.rank(ev, self.depth, window=self.window), self.r.rank(ev, self.depth))
         gr, rr = self.memo[key]
         sc: dict[str, float] = defaultdict(float)
         for lst, wt in ((gr, 1 - self.w), (rr, self.w)):
@@ -280,6 +281,8 @@ def main() -> None:
     ap.add_argument("--auth", default=os.environ.get("NEO4J_AUTH", "neo4j/thesis-dev-only"))
     ap.add_argument("--sources", default=f"{V2}/sources", help="as build_graph_v2.py --sources")
     ap.add_argument("--index", default=OUT, help="directory of the chunk corpus and indexes")
+    ap.add_argument("--weights", type=lambda x: [float(v) for v in x.split(",")], default=[0.0, 0.25, 0.5, 0.75, 1.0],
+                    help="fusion weights to try (design E excludes 0 and 1: 0.25,0.5,0.75)")
     a = ap.parse_args()
     OUT = a.index
     if a.step == "build":
@@ -311,7 +314,7 @@ def main() -> None:
         if a.step == "fuse_tune":
             trail, best, best_s = [], None, (-1, -1)
             fu = Fusion(g, rt, 0.0)
-            for w in (0.0, 0.25, 0.5, 0.75, 1.0):
+            for w in a.weights:
                 fu.w = w
                 if a.dev:
                     from tune_dev import macro
