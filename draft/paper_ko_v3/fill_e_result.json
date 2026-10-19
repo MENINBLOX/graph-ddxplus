@@ -1,0 +1,438 @@
+{
+ "rounds": [
+  {
+   "round": 1,
+   "revisions": [
+    {
+     "id": "ABS-CON",
+     "filled": 2,
+     "remaining_placeholders": [],
+     "changes": [
+      {
+       "before": "[Abstract] 두 번째 봉인 세트는 개발 세트와 같은 질환 집합에서 새로 뽑은 환자로 만들었다(DDXPlus 3,000명, SymCat 질환당 10명). 혼합 추출 그래프는 이 세트로 한 번 더 확증 평가를 받는다. [E 확증 대기: DDXPlus-E·SymCat-E에서 S-mix − S-D의 세트별 Top-10 차이 … E0 달성 여부를 각 한 문장으로 …]",
+       "after": "두 번째 봉인 세트는 개발 세트와 같은 질환 집합에서 새로 뽑은 합성 환자로 만들었다(DDXPlus 3,000명; SymCat은 질환당 10명, 평가 7,463명). 혼합 추출 그래프와 비교 시스템은 동결한 뒤 이 세트로 한 번 확증 평가했다(설계 E). 혼합 추출 그래프의 Top-10은 설계 D 동결 그래프보다 DDXPlus에서 6.5%p(95% CI 4.6–8.5), SymCat에서 2.4%p(95% CI 1.7–3.1) 높았다(두 세트 모두 Holm 보정 p < .001). 같은 문헌의 LLM 단독 추출 대비 두 세트 등가중 평균 Top-10 차이는 +1.6%p(95% CI 1.2–2.2)였고, CI 하한이 비열등 한계 −1%p보다 높았다. 설계 E의 주 목표는 이 두 비교였으며, 둘 다 충족했다. 같은 문헌의 사전 단독 그래프, 그리고 LLM 항목에 모든 문장의 사전 일치를 더한 합집합 그래프에 대한 비열등(부 목표)은 미달했다. 평균 Top-10 차이는 각각 −1.8%p와 −2.7%p였고, 95% CI 상한(−1.1%p, −2.1%p)도 비열등 한계보다 낮았다. 같은 v2+v3 문헌의 BM25보다는 두 세트 모두에서 Top-10이 높았다(DDXPlus +19.3%p, 95% CI 17.6–21.0; SymCat +3.0%p, 95% CI 2.2–3.8; Holm 보정 p < .001). 흔한 질환 정확도 목표는 DDXPlus Top-10이 41.1%로 기준을 넘었으나 Top-1이 12.4%로 18%에 못 미쳐 미달했다. 그래프와 BM25의 순위 결합은 BM25 단독보다는 높았으나, 설계 D 확증과 달리 혼합 추출 그래프 단독보다는 높지 않았다(평균 Top-10 차이 +0.1%p, 95% CI −0.4–0.6). 판정 7개는 모두 실행 전에 커밋한 예상과 같았다. 이 확증은 개발 질환의 새 합성 환자에 한정된다. 정답 질환을 단위로 다시 뽑은 보조 부트스트랩에서 DDXPlus(49질환)의 설계 D 대비 Top-10 차이(+6.5%p)는 95% CI가 −6.1–19.3으로 0을 포함했다. 희귀질환 확증 세트는 없었다.",
+       "source": "pilot/cache/v2/confirmE/paired.txt (E-T1 +6.5 [+4.6,+8.5] holm 2.1e-11, +2.4 [+1.7,+3.1] holm 3.43e-11; E-T3 +19.3 [+17.6,+21.0], +3.0 [+2.2,+3.8]); paired_S-llm/S-dict/S-union_vs_S-mix_k10.json and paired_S-mix_vs_S-comb_k10.json macro (+1.64 [1.17,2.18], −1.80 [−2.44,−1.12], −2.66 [−3.27,−2.07], +0.11 [−0.39,0.59]); S-mix.json lineage@10 41.07, @1 12.43; S-*.json patients/evaluated 3000 and 7463; aux_cluster.json ci_cluster [−6.07,19.33], 49 clusters; docs/research_design.md E4 (E0 definition, primary = E-T1 and E-T2 S-llm) and E7 (all 7 judgments matched expectations; no rare-disease set, E2)"
+      },
+      {
+       "before": "[Conclusion] … 11개 모두 Top-10이 2.2% 이하였다. [E 확증 대기: 두 번째 확증(설계 E)의 E-T1(S-mix 대 S-D) 판정과 E-T2(S-mix 대 S-llm·S-dict·S-union) 세 판정, E0 달성 여부를 한두 문장으로] 두 번째 확증이 다루는 범위는 같은 질환의 새 환자까지다. … 아직 큐레이션되지 않은 질환에 대한 결과도 개발 수준이다.",
+       "after": "Split into two new paragraphs. (1) E results: 두 번째 확증(설계 E)에서는 동결한 시스템 7개를 같은 질환의 새 합성 환자(DDXPlus 3,000명, SymCat 7,463명)로 한 번 평가했다. … DDXPlus에서 6.5%p, SymCat에서 2.4%p 높아 E-T1을 충족했다. … LLM 단독 추출에 대한 비열등(E-T2의 S-llm 비교)도 충족했다(두 세트 평균 +1.6%p, 95% CI 1.2–2.2). 두 주 목표를 충족했으므로 설계 E의 목표(E0)는 달성되었다. 사전 단독·합집합 그래프에 대한 비열등(E-T2의 부 비교)은 미달했다(−1.8%p, −2.7%p). 두 확증 세트에서 이 두 그래프의 Top-10은 혼합 추출 그래프보다 높았다. 혼합 추출이 구성 요소보다 못하지 않다는 확증은 LLM 단독과의 비교에 그친다. 사전 단독보다 유의하게 높은 결과는 희귀질환 개발 세트 3개에서만 나왔다. BM25보다는 두 세트 모두 유의하게 높았다(E-T3 충족; +19.3%p, +3.0%p). E-T4는 Top-10 41.1%로 기준을 넘었으나 Top-1 12.4%로 다시 미달. E-T5도 미달(+0.1%p, 95% CI −0.4–0.6). 판정 7개는 모두 예상과 같았다. (2) Scope: kept the existing four scope sentences unchanged, then added: 판정은 사전 등록한 환자 단위 CI와 검정으로 했다; 군집 부트스트랩 E-T1 DDXPlus 95% CI −6.1–19.3%p로 0 포함(49질환), SymCat(760질환) 1.0–3.9%p; 이 확증으로 질환 수준의 일반화는 주장할 수 없다; 보조 Top-1 개선 미확증(DDXPlus +0.7%p, 95% CI −0.6–2.0; SymCat 0.8%p 낮음, CI 상한 −0.4%p); DDXPlus Top-1 사전 단독 17.6%·합집합 17.9% vs 혼합 12.4%; 개발과 확증 Top-10 비슷(DDXPlus 40.6%와 41.1%, SymCat 13.3%와 12.9%); 이 비교가 검사하는 선택 낙관은 같은 질환 안의 환자 표본 수준까지다.",
+       "source": "paired.txt (Top-1 S-mix vs S-D +0.7 [−0.6,+2.0], −0.8 [−1.2,−0.4]); S-dict/S-union/S-mix.json lineage@1 17.63/17.93/12.43; aux_cluster.json (SymCat ci_cluster [1.04,3.87], 760 clusters); pilot/cache/v2/devD/variants/analysis.json dev v3llmd_ns per_bench DDXPlus 40.63, SymCat 13.34; research_design.md E7 'Top-1(보조)', '정답 질환 군집 CI', '개발 대비'; R-E2/R-E3/R-E4 in E6; dev Holm results (RAMEDIS, LIRICAL, Phenopacket-store) already stated in the section"
+      },
+      {
+       "before": "[Abstract] 이후의 결과는 개발 세트와 시간 분할 증례에서 한 탐색이다.",
+       "after": "이후의 결과는 설계 E 확증을 빼면 모두 개발 세트와 시간 분할 증례에서 한 탐색이다.",
+       "source": "Contradicted by the E confirmation results now placed after this sentence; research_design.md header (E is the confirmation of the post-D exploration)"
+      },
+      {
+       "before": "[Conclusion] 첫 확증 이후의 결과는 모두 개발 세트와 시간 분할 증례에서 한 탐색이다.",
+       "after": "첫 확증 이후의 결과는 두 번째 확증(설계 E)을 빼면 모두 개발 세트와 시간 분할 증례에서 한 탐색이다.",
+       "source": "Same contradiction as above; research_design.md E7"
+      },
+      {
+       "before": "[Conclusion] 이 확증 절차는 설계 D와 설계 E에 하나씩 있다.",
+       "after": "확증은 설계 D와 설계 E에서 한 번씩 실행했다.",
+       "source": "Present tense was kept only because E was pending (old note 5); attempts.log shows the one run 2026-10-19 23:13 – 10-20 01:34 at 49901bc"
+      },
+      {
+       "before": "[Abstract and Conclusion] 이 빌드의 개발 DDXPlus 3,000명 순위는 근거 언급 없이 적재한 빌드와 같았다.",
+       "after": "이 빌드에서 개발 DDXPlus 3,000명 모두의 정답 질환 Top-10 내 순위(Top-10 밖이면 없음)는 근거 언급 없이 적재한 빌드와 같았다.",
+       "source": "consistency_issues.md #3; verified that ranks_lineage in pilot/cache/v2/devD/e/dev_ddx_smix_mentions.json and variants/dev_v3llmd_ns_ot0.5.json match 3000/3000, and that pilot/scripts/graph_dx.py evaluate() stores only the gold position in the top max(KS)=10 (None otherwise)"
+      },
+      {
+       "before": "[Abstract] 수집 깊이가 v2 문헌 위의 추출·연결 변경(동결 그래프 대비 최대 +4.1%p)보다 크게 작용했다. / [Conclusion] 추출·연결 방식만 바꾼 v2 문헌 위의 변형은 동결 그래프보다 Top-10이 최대 +4.1%p 높았다.",
+       "after": "수집 깊이가 v2 문헌 위에서 추출·연결 방식이나 빌더 규칙을 바꾼 변형(동결 그래프 대비 최대 +4.1%p)보다 크게 작용했다. / v2 문헌 위에서 추출·연결 방식이나 빌더 규칙을 바꾼 변형은 동결 그래프보다 Top-10이 최대 +4.1%p 높았다.",
+       "source": "consistency_issues.md #1; verified in analysis.json dev: v2unionu_ns 34.66 (highest v2-literature variant) − base_nm 30.56 = 4.10, and v2unionu_ns also changes builder rules"
+      },
+      {
+       "before": "[Notes] 5) … 확증 실행은 이 커밋에서 2026-10-19에 시작했고 … 아직 끝나지 않았다. 결과는 열람·인용하지 않았다. 그래서 E 확증 관련 문장은 현재형 … / 6) … 확증 결과만 \"[E 확증 대기]\"로 둔다.",
+       "after": "Note 5 now records the single run (time, one attempt, the load() fingerprint and HAS_FINDING check passed for all five graphs), the source files for every E number and the rounding, the SymCat-E 7,463 definition (opendx_eval.load_symcat), why the all-negative CIs are given by their upper bound, and why S-comb − S-bm25 (+11.25, a rounding-boundary value) has no number in the abstract. Note 6 now ends with the ranks_lineage scope. New note 8 gives the source of the +4.1%p (v2unionu_ns − base_nm).",
+       "source": "attempts.log, pilot/scripts/run_confirm_E.sh load(), pilot/scripts/opendx_eval.py load_symcat, paired_S-bm25_vs_S-comb_k10.json, analysis.json"
+      },
+      {
+       "before": "Table 15 (design E table)",
+       "after": "Nothing to fill: ABS-CON has no table. Table 15 is in RES-B.",
+       "source": "draft/paper_ko_v3/sections/ABS-CON.md; RES-B.md §4.6"
+      }
+     ]
+    },
+    {
+     "id": "INT",
+     "filled": 1,
+     "remaining_placeholders": [],
+     "changes": [
+      {
+       "before": "기여 2: 이후 개발 탐색에서 고른 S-mix는 새 봉인 세트로 한 번 평가하며, 그 결과를 4.6절에 보고한다. [E 확증 대기: E-T1·E-T2(S-llm 비교) 판정 요약]",
+       "after": "이후 개발 탐색에서 고른 S-mix는 설계 E 확증(2026-10-19~20, 1회)에서 개발 질환의 새 합성 환자(DDXPlus-E 3,000명, SymCat-E 7,463명)로 평가했다. S-mix는 설계 E의 주 목표 두 가지를 충족했다. E-T1에서 S-mix − S-D의 Top-10 차이는 DDXPlus-E에서 +6.5%p [+4.6, +8.5], SymCat-E에서 +2.4%p [+1.7, +3.1]이었다(환자 대응 부트스트랩 95% CI, 둘 다 Holm 보정 p < .001). E-T2의 S-llm 비교에서 S-mix − S-llm의 두 세트 평균 Top-10 차이는 +1.64%p [+1.17, +2.18]로, CI 하한이 비열등 한계(−1%p)보다 높았다. 같은 문헌의 UMLS 사전 매칭(S-dict)과 합집합(S-union)에 대해서는 비열등이 성립하지 않았다. 두 세트 평균 Top-10 차이는 S-mix − S-dict가 −1.80%p [−2.44, −1.12], S-mix − S-union이 −2.66%p [−3.27, −2.07]이었다. 두 비교 모두 S-mix가 낮았고, CI 전체가 비열등 한계보다 아래에 있었다. 흔한 질환 정확도 목표 E-T4도 미달했다. DDXPlus-E에서 S-mix의 Top-10은 41.07%로 기준(40%) 이상이었지만, Top-1은 12.43%로 기준(18%)에 못 미쳤다. 부 목표 가운데 E-T3(S-mix > 같은 문헌 BM25)는 충족했고, E-T5(결합 > 두 단독)는 미달했다. S-D 대비 Top-1 개선은 확증되지 않았다(판정에 쓰지 않은 보조 지표). S-mix − S-D의 Top-1 차이는 DDXPlus-E +0.7%p [−0.6, +2.0], SymCat-E −0.8%p [−1.2, −0.4]였다. DDXPlus-E Top-1은 S-dict 17.63%, S-union 17.93%로 S-mix보다 높았다(4.6절).",
+       "source": "docs/research_design.md E7; pilot/cache/v2/confirmE/S-*.json (lineage@1/@10, patients/evaluated 3000/7463), paired.txt, paired_*_k10.json/_k1.json, aux_cluster.json"
+      },
+      {
+       "before": "3장 서두 평가 문단: 그 탐색에서 고른 혼합 추출 그래프(S-mix)는 설계 E에서 새 봉인 세트로 한 번 확증 평가한다. … 새로 뽑은 3,000명이다. 다른 하나는 SymCat에서 질환당 10명씩 새로 뽑은 환자다.",
+       "after": "…한 번 확증 평가했다. … 새로 뽑은 3,000명(DDXPlus-E)이다. 다른 하나는 SymCat에서 질환당 10명씩 새로 뽑은 환자(SymCat-E)이며, 평가한 환자는 7,463명이다. 확증은 동결 커밋(49901bc)에서 2026년 10월 19일부터 20일까지 한 번 실행했다. 모든 그래프의 지문과 적재 간선 수는 동결 기록과 같았다.",
+       "source": "pilot/cache/v2/confirmE/attempts.log (start 2026-10-19T23:13 at 49901bc9…, done 2026-10-20T01:34, one attempt); docs/research_design.md E7; S-*.json evaluated counts"
+      },
+      {
+       "before": "(E-T3·E-T5 예상 서술 직후, 결과 없음)",
+       "after": "확증에서 판정 7개(E-T2의 세 비교는 따로 센다)는 모두 실행 전에 커밋한 예상과 같았다. E-T3는 충족했다. S-mix와 BM25의 Top-10 차이는 DDXPlus-E에서 +19.3%p [+17.6, +21.0], SymCat-E에서 +3.0%p [+2.2, +3.8]이었고, 둘 다 Holm 유의했다. E-T5는 미달했다. 두 세트의 평균 Top-10에서 결합과 S-mix의 차이는 +0.11%p [−0.39, +0.59]로 CI가 0을 포함했다. 결합과 BM25의 차이는 +11.25%p [+10.36, +12.14]였다.",
+       "source": "paired_S-bm25_vs_S-mix_k10.json, paired_S-mix_vs_S-comb_k10.json, paired_S-bm25_vs_S-comb_k10.json (macro); docs/research_design.md E4 expectations and E7"
+      },
+      {
+       "before": "(범위 서술 '확증은 같은 질환의 다른 환자에서 결과가 재현되는지만 답한다.' 뒤, 군집 CI 없음)",
+       "after": "판정에 쓰지 않은 보조 지표로, 정답 질환 단위로 다시 뽑는 군집 부트스트랩 CI도 계산했다. E-T1의 DDXPlus-E 차이(+6.5%p)의 군집 CI는 [−6.1, +19.3]으로 0을 포함했다(49질환). SymCat-E 차이(+2.4%p)의 군집 CI는 [+1.0, +3.9]였다(760질환).",
+       "source": "pilot/cache/v2/confirmE/aux_cluster.json (S-D→S-mix k10: ci_cluster [−6.07, 19.33], 49 clusters; [1.04, 3.87], 760 clusters)"
+      },
+      {
+       "before": "자기 간선은 질환에서 자기 개념이나 상위 질환 개념으로 가는 소견 간선이다.",
+       "after": "자기 간선은 질환에서 자기 개념이나 직접 상위 질환의 개념으로 가는 소견 간선이다.",
+       "source": "consistency_issues.md #10; pilot/scripts/build_graph_v2.py (self_cuis from v2_ids.disease_isa() direct parent pairs + self); v2_ids.disease_isa() returns direct is_a/children pairs"
+      },
+      {
+       "before": "이 그래프에서 개발 DDXPlus 3,000명의 순위는 근거 언급 없이 적재한 그래프와 같았다.",
+       "after": "이 그래프에서 개발 DDXPlus 3,000명 모두의 정답 질환 순위(Top-10 안의 위치, 하위 질환 포함)는 근거 언급 없이 적재한 그래프와 같았다.",
+       "source": "consistency_issues.md #3; verified ranks_lineage 3000/3000 identical between pilot/cache/v2/devD/e/dev_ddx_smix_mentions.json and devD/variants/dev_v3llmd_ns_ot0.5.json"
+      },
+      {
+       "before": "기여 4: 7쌍의 상승폭은 같은 v2 문헌 위에서 추출·연결 방식만 바꾼 변형의 최대 효과(동결 대비 +4.1%p)보다 크다(4.3절).",
+       "after": "7쌍의 상승폭은 같은 v2 문헌 위에서 추출·연결 방식이나 빌더 규칙을 바꾼 변형의 최대 효과(동결 대비 +4.1%p)보다 크다(4.3절).",
+       "source": "consistency_issues.md #1; devD/variants/analysis.json dev: max v2 graph v2unionu_ns 34.66 vs base_nm 30.56; run_graph_variants.sh: v2unionu uses ALL builder flags, _ns adds --no-self"
+      }
+     ]
+    },
+    {
+     "id": "REL",
+     "filled": 2,
+     "remaining_placeholders": [],
+     "changes": [
+      {
+       "before": "(2.3, end of the 3rd paragraph) 각각이 진단 후보 회수에 주는 효과는 개발 세트에서 쟀다. [E 확증 대기: 추출 방식 비교(E-T2)의 확증 결과]",
+       "after": "각각이 진단 후보 회수에 주는 효과는 개발 세트에서 쟀다(4.3, 4.4). 추출 방식 비교 가운데 S-mix와 나머지 세 시스템의 비교는 설계 E의 E-T2로, 개발 세트와 같은 질환에서 새로 뽑은 환자에서 한 번 확증 평가했다(4.6). 확증에서 S-mix는 S-llm에 대한 비열등 기준을 충족했고, S-dict와 S-union에 대한 비열등 기준에는 미달했다(2.4). 수집 깊이만 바꾼 비교는 확증 평가하지 않았다. E-T1(S-mix > S-D)은 확증에서 충족되었지만, 두 시스템은 문헌뿐 아니라 추출 방식, 구절 표, 빌더 규칙, 주제 밖 간선 가중치도 다르다. 따라서 E-T1도 수집 깊이의 효과를 따로 보여 주지 않는다.",
+       "source": "docs/research_design.md E3 (S-D = base_nm, offtopic_w 0; S-mix = v3llmd_ns, offtopic_w .5), E7 judgment table (E-T1 met, E-T2 S-llm met, S-dict/S-union missed); pilot/scripts/run_graph_variants.sh (base_nm FLAGS=\"\" with phrase2cui_gemma.json; v3llmd with ALL flags, phrase2cui_v3.json, _ns adds --no-self); pilot/cache/v2/confirmE/paired.txt"
+      },
+      {
+       "before": "(2.4, end of the 3rd paragraph) 개발 세트 결과는 4.4에 보고한다. [E 확증 대기: E-T2 세 비교(S-mix 대 S-llm, S-dict, S-union)의 매크로 Top-10 차이와 비열등 판정]",
+       "after": "개발 세트 결과는 4.4에 보고한다. 혼합(S-mix)과 나머지 세 방식의 비교는 설계 E의 E-T2로 한 번 확증 평가했다(4.6, 표 15b). 판정에는 두 확증 세트(DDXPlus-E 3,000명, SymCat-E 7,463명)의 등가중 평균(매크로) Top-10 차이를 썼다. 비열등 기준은 환자 대응 부트스트랩 95% CI 하한 > −1%p였다. 주 목표인 LLM 단독(S-llm) 대비 차이는 +1.64%p [1.17, 2.18]로 기준을 충족했다. 이 CI의 하한은 0보다도 높았다. 부 목표인 UMLS 사전 매칭(S-dict) 대비 차이는 −1.80%p [−2.44, −1.12]로 기준에 미달했다. 합집합(S-union) 대비 차이도 −2.66%p [−3.27, −2.07]로 기준에 미달했다. 두 미달 비교에서는 CI 상한도 0보다 낮았다. 즉 두 확증 세트에서 S-dict와 S-union의 Top-10이 S-mix보다 높았다. 보조 지표인 DDXPlus-E Top-1도 S-dict 17.6%, S-union 17.9%로 S-mix 12.4%보다 높았다. 세 판정은 모두 실행 전에 커밋한 예상과 같았다. 확증 세트는 개발 세트와 같은 질환에서 새로 뽑은 합성 환자다. 따라서 S-llm에 대한 비열등 판정은 같은 질환의 새 환자에서 확증된 것이며, 질환 수준의 일반화는 확증하지 않았다. S-llm 대비 세트별 Top-10 차이는 DDXPlus-E +1.6%p, SymCat-E +1.7%p였다. 이 차이의 정답 질환 군집 95% CI(보조 지표)는 SymCat-E(760질환)에서 [0.8, 2.6]%p였고, DDXPlus-E(49질환)에서는 [−1.3, 4.3]%p로 0을 포함했다. 개발 세트에서 S-mix의 Top-10이 S-dict와 S-union보다 Holm 유의하게 높았던 세트는 희귀질환 세트 세 개(RAMEDIS, LIRICAL, Phenopacket)였다(4.4.3). 희귀질환 확증 세트는 없으므로, 사전 매칭과 합집합에 대한 혼합의 우세는 개발 결과로만 남는다.",
+       "source": "pilot/cache/v2/confirmE/paired.txt (E-T2 macro +1.64 [+1.17, +2.18], −1.80 [−2.44, −1.12], −2.66 [−3.27, −2.07]; per-set S-llm +1.6/+1.7; per-set S-dict/S-union all Holm p < .05); pilot/cache/v2/confirmE/S-*.json (n evaluated 3,000 / 7,463; DDXPlus-E lineage@1 S-dict 17.63, S-union 17.93, S-mix 12.43); pilot/cache/v2/confirmE/aux_cluster.json (S-llm vs S-mix k10 ci_cluster DDXPlus [−1.29, 4.31] 49 clusters, SymCat [0.78, 2.60] 760 clusters); docs/research_design.md E4 (primary = E-T1 and E-T2 S-llm; expectations), E7 (all judgments matched expectations), E2/R-E3 (no rare-disease confirmation set); pilot/cache/v2/devD/variants/analysis.log lines 190 and 192 (dev v3llmd_ns vs v3umls_ns / v3unionu_ns Holm-significant Top-10 gains only in RAMEDIS, LIRICAL, Phenopacket). Also applies consistency issue 5 (E-T2 S-llm primary, S-dict/S-union secondary stated explicitly). Issues 1, 3, 8, 9, 10, 11 checked: their phrases do not occur in REL; REL's collection-depth LLM pair description matches RES-A 4.3 / Table 9C (base_split_tg_ns → v3llm_ns), so no change. REL has no design E table; Table 15 is in RES-B and was not touched."
+      }
+     ]
+    },
+    {
+     "id": "MET-A",
+     "filled": 0,
+     "remaining_placeholders": [],
+     "changes": [
+      {
+       "before": "설계 E는 모든 그래프 시스템을 확증 실행 직전에 같은 비교 인스턴스에 다시 빌드하고, 지문과 적재된 HAS_FINDING·Disease 수가 동결 커밋의 빌드 요약과 같을 때만 평가하도록 정했다.",
+       "after": "설계 E는 모든 그래프 시스템을 확증 실행 직전에 같은 비교 인스턴스에 다시 빌드하고, 빌드 요약의 지문과 적재된 HAS_FINDING 수가 동결 커밋에 기록한 값과 같을 때만 평가하도록 정했다. Disease 노드 수가 후보 질환 수(43,575)와 다르면 빌더가 멈춘다(불변식 (나)).",
+       "source": "consistency_issues.md #4. Checked in pilot/scripts/run_confirm_E.sh: load() compares only the fingerprint and the loaded HAS_FINDING count with frozen_config_E.json. The Disease count is never compared. In pilot/scripts/build_graph_v2.py, lines 467-469 call sys.exit when n_dz != len(uni), and this check also runs on --no-mentions builds."
+      },
+      {
+       "before": "그리고 개발 DDXPlus 3,000명에서 Mention 없는 빌드와 같은 순위를 내는지 확인하도록 정했다.",
+       "after": "그리고 개발 DDXPlus 3,000명에서 정답 질환의 순위가 Mention 없는 빌드와 같은지 확인하도록 정했다.",
+       "source": "consistency_issues.md #3, which lists MET-A 3.4 among the places with this wording. The protocol sentence now names what was actually compared: the position of the correct disease, not the full ranking."
+      },
+      {
+       "before": "개발 DDXPlus 3,000명의 순위도 3,000명 모두 Mention 없는 빌드와 같았다.",
+       "after": "개발 DDXPlus 3,000명 모두에서 정답 질환의 Top-10 내 위치(lineage, Top-10 밖이면 없음)가 Mention 없는 빌드와 같았다.",
+       "source": "consistency_issues.md #3. Checked by recomputing: ranks_lineage in pilot/cache/v2/devD/e/dev_ddx_smix_mentions.json matches pilot/cache/v2/devD/variants/dev_v3llmd_ns_ot0.5.json for 3,000/3,000 patients. pilot/scripts/graph_dx.py evaluate() stores only the Top-10 position, or None when the correct disease is outside the Top-10."
+      },
+      {
+       "before": "(paragraph ended at) ...frozen_config_E.json에 기록해 커밋 49901bc(2026-10-19)로 동결했다.",
+       "after": "...frozen_config_E.json에 기록해 커밋 49901bc(2026-10-19)로 동결했다. 확증은 이 커밋에서 한 번 실행했다(2026-10-19 23:13 시작, 2026-10-20 01:34 종료, 시도 1회). 다시 빌드한 다섯 그래프 시스템은 모두 지문과 적재된 HAS_FINDING 수가 frozen_config_E.json의 값과 같았고, BM25 색인 파일의 sha256도 모두 같았다(4.6절).",
+       "source": "Records the outcome of the freeze-check protocol in 3.4. Checked against: pilot/cache/v2/confirmE/attempts.log (one start at 49901bc 2026-10-19T23:13:08+09:00, done 2026-10-20T01:34:28+09:00, no failure lines); docs/research_design.md E7; graph_*.json fingerprints and edge counts recomputed against frozen_config_E.json for S-mix, S-D, S-llm, S-dict and S-union (all equal); the 8 BM25 index files rehashed (all equal to f['S-bm25']['index_sha256']). The script exits on any mismatch, and DONE exists."
+      },
+      {
+       "before": "개발 결과는 모두 Mention 없는 빌드에서 나왔고, Mention을 넣은 S-mix 빌드의 검사는 3.4절에 적는다.",
+       "after": "개발 결과와 설계 E의 확증 결과는 모두 Mention 없는 빌드에서 나왔고, Mention을 넣은 S-mix 빌드의 검사는 3.4절에 적는다.",
+       "source": "Without this, the 3.3 sentence would leave it unclear which build the confirmation used. pilot/scripts/run_confirm_E.sh rebuilds through run_graph_variants.sh with BUILD_ONLY=1 on port 7688, and line 76 of that script always passes --no-mentions."
+      }
+     ]
+    },
+    {
+     "id": "MET-B",
+     "filled": 4,
+     "remaining_placeholders": [
+      "(Not an E-confirmation placeholder, left untouched) 3.9 데이터 기반 누수 점검: \"[미실행: S-mix의 Mention 빌드에서 같은 점검 실행]\""
+     ],
+     "changes": [
+      {
+       "before": "| DDXPlus-E (test) | Design E confirmation (sealed) | As above | Synthetic | [E 확증 대기: 평가 환자 수] | [E 확증 대기] | Seed 202 from 128,529 rows outside both earlier samples |",
+       "after": "| DDXPlus-E (test) | Design E confirmation^d^ | As above | Synthetic | 3,000 | 49 | Seed 202 from 128,529 rows outside both earlier samples |",
+       "source": "pilot/cache/v2/confirmE/S-mix.json (ConfirmE-DDXPlus patients 3000, evaluated 3000; same in all S-*.json); aux_cluster.json clusters 49"
+      },
+      {
+       "before": "| SymCat-E | Design E confirmation (sealed) | Symptom list | Synthetic | [E 확증 대기: 평가 환자 수] | [E 확증 대기] | 801 diseases × 10, seed 202 |",
+       "after": "| SymCat-E | Design E confirmation^d^ | Symptom list | Synthetic | 7,463^a^ | 760 | 801 diseases × 10, seed 202 |",
+       "source": "pilot/cache/v2/confirmE/S-*.json (ConfirmE-SymCat evaluated 7463); aux_cluster.json clusters 760; footnote a applies because opendx_eval.load_confirm_e() builds SymCat-E with the development load_symcat() code"
+      },
+      {
+       "before": "^b^ Sealed at commit 31122e2 and evaluated once on 2026-10-13. These sets have since been opened and are used only as development evidence in design E. Design E sets are sealed at commit 3b10c36.",
+       "after": "^b^ Sealed at commit 31122e2 and evaluated once on 2026-10-13. These sets have since been opened and are used only as development evidence in design E.\n...\n^d^ Sealed at commit 3b10c36 and evaluated once at freeze commit 49901bc (2026-10-19 23:13 to 2026-10-20 01:34, one attempt). New patients drawn from the development diseases.",
+       "source": "pilot/cache/v2/confirmE/attempts.log (start 49901bc9… 2026-10-19T23:13, done 2026-10-20T01:34, single start line); docs/research_design.md E2, E7"
+      },
+      {
+       "before": "D 확증에서 그대로 썼고 E 확증에서도 바꾸지 않는다.",
+       "after": "D 확증에서 그대로 썼고 E 확증에서도 바꾸지 않았다.",
+       "source": "Tense fix now that the E run is done; frozen window unchanged per run_confirm_E.sh (frozen scoring from frozen_config_E.json)"
+      },
+      {
+       "before": "E 세트는 봉인 상태라 이 비율을 재지 않았다.",
+       "after": "E 세트에서는 이 비율을 재지 않았다. 확증 전에는 세트가 봉인되어 있었고, 확증 뒤에도 따로 재지 않았다.",
+       "source": "draft/paper_ko_v3/evidence_log.md line 246-247 (E sets not loaded for this measure); no duplicate-input measurement in pilot/cache/v2/confirmE/"
+      },
+      {
+       "before": "- E-T2(주): S-mix − S-llm, S-mix − S-dict, S-mix − S-union 각각의 …",
+       "after": "- E-T2(S-llm 비교는 주, S-dict·S-union 비교는 부): S-mix − S-llm, S-mix − S-dict, S-mix − S-union 각각의 …",
+       "source": "consistency_issues.md #5, confirmed against docs/research_design.md E4 (E0 = E-T1 and E-T2 S-llm; '주 목표는 E-T1과 E-T2(S-llm)')"
+      },
+      {
+       "before": "(5) 확증 1회 실행. 이 원고를 쓰는 시점에 (1)–(4)는 마쳤다. (5) 확증 실행은 2026-10-19에 동결 커밋에서 시작했고, 아직 진행 중이다. … 실행이 중단되면 … 시스템은 바꾸지 않는다.",
+       "after": "(5) 확증 1회 실행. … 실행이 중단되면 … 시스템은 바꾸지 않기로 정했다. 확증은 동결 커밋에서 2026-10-19 23:13에 시작해 2026-10-20 01:34에 끝났다. 시도는 1회였고 중단은 없었다.",
+       "source": "pilot/cache/v2/confirmE/attempts.log, DONE; docs/research_design.md E7"
+      },
+      {
+       "before": "S-bm25는 색인 파일들의 sha256을 동결 기록과 대조한다. 출처 불변식 제약은",
+       "after": "S-bm25는 색인 파일들의 sha256을 동결 기록과 대조한다. 확증 실행에서 그래프 시스템 5개는 모두 지문과 HAS_FINDING 수가 동결 기록과 같았다. S-bm25 색인 파일의 sha256도 모두 동결 기록과 같았다. 출처 불변식 제약은",
+       "source": "pilot/scripts/run_confirm_E.sh (load() exits on fingerprint or edge-count mismatch; sha256 block exits on mismatch); all five graph systems and S-bm25 completed per attempts.log and S-*.json; build.log stale=0 for all five; research_design.md E7"
+      },
+      {
+       "before": "개발 DDXPlus 3,000명의 순위도 3,000명 모두 Mention 없는 빌드와 같았다.",
+       "after": "개발 DDXPlus 3,000명 모두에서 정답 질환의 Top-10 내 위치(lineage)도 Mention 없는 빌드와 같았다.",
+       "source": "consistency_issues.md #3, confirmed: graph_dx.evaluate() stores only ranks_lineage (1-based position in Top-10, else None); dev_ddx_smix_mentions.json vs variants/dev_v3llmd_ns_ot0.5.json match 3000/3000"
+      },
+      {
+       "before": "(none; new paragraph at end of the design E part of 3.6, before 3.7)",
+       "after": "확증 결과는 4.6절과 Table 15에 보고한다. 개발 세트와 같은 질환에서 새로 뽑은 환자에서 E-T1, E-T2의 S-llm 비교, E-T3이 충족되었다. 주 목표 두 개가 모두 충족되어 설계 E의 목표 달성(E0) 조건을 만족했다. E-T2의 S-dict·S-union 비교, E-T4, E-T5는 미달했다. E-T4에서 DDXPlus-E Top-10은 41.07%로 기준(40%) 이상이었으나 Top-1이 12.43%로 기준(18%)에 못 미쳤다. 7개 판정은 모두 실행 전에 커밋한 예상과 같았다. 판정에 쓰지 않은 보조 지표(3.8절)는 주장의 범위를 좁힌다. DDXPlus-E는 정답 질환이 49개뿐이어서, E-T1 Top-10 차이(+6.5%p, 환자 대응 CI [+4.6, +8.5])의 정답 질환 군집 CI는 [−6.1, +19.3]으로 0을 포함했다. 정답 질환이 760개인 SymCat-E에서는 군집 CI가 [+1.0, +3.9]였다. S-mix − S-D의 Top-1 차이는 DDXPlus-E +0.7%p [−0.6, +2.0], SymCat-E −0.8%p [−1.2, −0.4]였다. 따라서 E 확증으로는 질환 수준의 일반화와 Top-1 개선을 주장하지 않는다.",
+       "source": "pilot/cache/v2/confirmE/paired.txt (E-T1..E-T5 Top-10/Top-1 diffs, CIs, Holm p), S-mix.json (lineage@10 41.07, lineage@1 12.43), aux_cluster.json (S-D vs S-mix k10 ci_cluster [-6.07, 19.33] 49 clusters, [1.04, 3.87] 760 clusters); docs/research_design.md E4 expectations and E7 judgment table"
+      }
+     ]
+    },
+    {
+     "id": "RES-A",
+     "filled": 0,
+     "remaining_placeholders": [],
+     "changes": [
+      {
+       "before": "비인간 질환 8,319개를 포함한 이 51,894개 질환 기준으로 질환–문헌 연결은 304,428건, 고유 문헌은 136,373편이었다. … 사람 질환의 질환–문헌 연결은 246,203건, 고유 문헌은 123,772편이었다. 텍스트는 고유 문헌 기준 6.0억 자였다. 질환–문헌 연결마다 본문 길이를 더하면(같은 문헌이 여러 질환에 연결되면 여러 번 셈) 12.5억 자였다. 질환 파일(비인간 질환 포함)에 20회 이상 나열된 일반 문헌 1,119편을 빼면 2,663개 질환은 문헌이 하나도 남지 않았다.",
+       "after": "비인간 질환 8,319개를 포함한 이 51,894개 질환 기준으로 질환–문서 연결은 304,428건, 고유 문서는 136,373개였다. … 사람 질환의 질환–문서 연결은 246,203건, 고유 문서는 123,772개였다. 텍스트는 고유 문서 기준 6.0억 자였다. 질환–문서 연결마다 본문 길이를 더하면(같은 문서가 여러 질환에 연결되면 여러 번 셈) 12.5억 자였다. 질환 파일(비인간 질환 포함)에 모두 20회 이상 나열된 논문 1,119편을 일반 문헌 규칙으로 빼면 2,663개 질환은 문헌이 하나도 남지 않았다.",
+       "source": "consistency_issues.md #11 (RES-A 4.1 v2 단락 단위 혼용). MET-A 3.2 용어 정의(문서 = 출처 단위, 논문 = 원 논문, 문헌 = 수집 문서 전체)와 일반 문헌 규칙 정의(질환별 수집 목록에 모두 20회 이상 나타난 논문), 표 2 행 이름 'Unique documents'·'Generic articles excluded', pilot/cache/v3/maint/verify6/audit_v2_check.json (articles 136373, generic_articles 1119, max_doc_diseases 20)"
+      },
+      {
+       "before": "개발 DDXPlus 3,000명의 순위도 3,000명 모두 Mention 없는 빌드와 같았다.",
+       "after": "개발 DDXPlus 3,000명 모두에서 정답 질환의 Top-10 내 위치(lineage, Top-10 밖이면 없음)도 Mention 없는 빌드와 같았다.",
+       "source": "consistency_issues.md #3 (RES-A 4.1에도 나오는 표현). 확인: pilot/cache/v2/devD/e/dev_ddx_smix_mentions.json과 pilot/cache/v2/devD/variants/dev_v3llmd_ns_ot0.5.json의 DDXPlus-test ranks_lineage가 3,000/3,000 일치하고(값은 1–10 또는 None), lineage@10은 둘 다 40.63. pilot/scripts/graph_dx.py evaluate()는 dx.rank(ev, max(KS))에서 정답 위치만 저장한다. docs/research_design.md E5 (3)단계의 서술과 같음"
+      },
+      {
+       "before": "Top-10에서 수집 깊이의 효과는 같은 v2 문헌 위의 어떤 추출·연결 변경보다 컸다(동결 그래프 대비 최대 +4.1%p, 4.4절).",
+       "after": "Top-10에서 수집 깊이의 효과는 같은 v2 문헌 위에서 추출·연결 방식이나 빌더 규칙을 바꾼 어떤 변형보다 컸다(동결 그래프 대비 최대 +4.1%p, v2unionu_ns, 4.4절).",
+       "source": "consistency_issues.md #1 (RES-A 4.3에도 나오는 표현). 확인: pilot/cache/v2/devD/variants/analysis.json dev에서 v2 그래프 최대 macro@10은 v2unionu_ns 34.66, base_nm 30.56 (+4.10). pilot/scripts/run_graph_variants.sh에서 base_nm은 FLAGS=\"\", v2unionu는 ALL(--split-coord --hpo-names --topic-genes)에 _ns로 --no-self가 붙어 빌더 규칙도 다르다"
+      }
+     ]
+    },
+    {
+     "id": "RES-B",
+     "filled": 43,
+     "remaining_placeholders": [],
+     "changes": [
+      {
+       "before": "### 4.6 설계 E 확증 [E 확증 대기]",
+       "after": "### 4.6 설계 E 확증",
+       "source": "docs/research_design.md E7"
+      },
+      {
+       "before": "[E 확증 대기: 확증 실행 일시]",
+       "after": "확증은 동결 커밋에서 2026-10-19 23:13에 시작해 2026-10-20 01:34에 끝났다. 시도는 1회였고 중단은 없었다.",
+       "source": "pilot/cache/v2/confirmE/attempts.log (start 49901bc, 2026-10-19T23:13:08 ~ 2026-10-20T01:34:28, one start line); E7"
+      },
+      {
+       "before": "[E 확증 대기: 동결 검증 기록 — 재빌드 지문, HAS_FINDING·Disease 수, S-bm25 sha256]",
+       "after": "New paragraph placed before the results. All five rebuilt graphs matched the frozen fingerprint and loaded HAS_FINDING count. The builder stops if the Disease node count differs from 43,575, and no build stopped. Diseases with findings in the eval logs matched Table 11a (27,309 / 33,123 / 34,356 / 34,359 / 33,537). All 8 S-bm25 index sha256 matched. The text says plainly that the script checks only fingerprint and HAS_FINDING, as consistency issue 4 notes.",
+       "source": "pilot/scripts/run_confirm_E.sh load() and sha check; pilot/scripts/build_graph_v2.py l.467-469; confirmE/build.log, S-*.log, attempts.log; frozen_config_E.json"
+      },
+      {
+       "before": "[E 확증 대기: Table 15a …]",
+       "after": "Prose for Table 15a. DDXPlus-E: all 3,000 evaluated (49 diseases). SymCat-E: 7,463 evaluated (760 diseases), using the same exclusion rule as dev SymCat. S-mix Top-10/Top-1: 41.07/12.43 on DDXPlus-E and 12.92/2.45 on SymCat-E. By point estimate, S-union is highest on both sets and both metrics.",
+       "source": "confirmE/S-*.json lineage@k; aux_cluster.json clusters; opendx_eval.load_symcat"
+      },
+      {
+       "before": "[E 확증 대기: E-T1 …]",
+       "after": "E-T1 met: S-mix − S-D Top-10 is DDXPlus-E +6.5%p [+4.6, +8.5] (Holm p = 2.1×10⁻¹¹) and SymCat-E +2.4%p [+1.7, +3.1] (Holm p = 3.4×10⁻¹¹). Same direction as dev (+7.6, +2.7) but smaller.",
+       "source": "confirmE/paired.txt E-T1 k10"
+      },
+      {
+       "before": "[E 확증 대기: E-T2 …]",
+       "after": "Two paragraphs. (1) S-llm comparison met: macro +1.64 [+1.17, +2.18]; per set +1.6 [+0.8, +2.4] and +1.7 [+1.2, +2.2], both Holm-significant. (2) S-dict and S-union comparisons missed, said plainly: macro −1.80 [−2.44, −1.12] and −2.66 [−3.27, −2.07]. Both CIs lie entirely below 0. Per-set differences are −2.4/−1.2 and −4.0/−1.3, all Holm-significant. These misses were expected before the run.",
+       "source": "confirmE/paired.txt E-T2 blocks"
+      },
+      {
+       "before": "[E 확증 대기: E-T3 …]",
+       "after": "E-T3 met: S-mix − S-bm25 is +19.3 [+17.6, +21.0] and +3.0 [+2.2, +3.8], both with Holm p < 10⁻¹³.",
+       "source": "confirmE/paired.txt E-T3 k10"
+      },
+      {
+       "before": "[E 확증 대기: E-T4 …]",
+       "after": "E-T4 missed. Top-10 41.07% passes the 40% bar, but Top-1 12.43% falls short of 18% by 5.57%p. The whole Top-1 CI [11.3, 13.6] is below the bar, and the Top-10 CI lower bound (39.3%) is also below 40. Matches the expectation.",
+       "source": "confirmE/S-mix.json lineage@1/@10 and _ci"
+      },
+      {
+       "before": "[E 확증 대기: E-T5 …]",
+       "after": "E-T5 missed. S-comb − S-mix macro is +0.11 [−0.39, +0.59] (p = .71); per set −0.8 [−1.6, +0.1] (n.s.) and +1.0 [+0.5, +1.5] (Holm-significant). S-comb − S-bm25 is +11.25 [+10.36, +12.14]. Matches the expectation. The text contrasts this with D's T4: no fusion gain was confirmed in E.",
+       "source": "confirmE/paired.txt E-T5 blocks"
+      },
+      {
+       "before": "[E 확증 대기: E0 …]",
+       "after": "E0 achieved, and all seven judgments matched the committed expectations. Scope: re-occurrence on new synthetic patients of the development disease set only. The E-set rate of patients whose input matches a dev patient was not measured (§3.6). Disease-level generalization is outside the scope, there was no rare-disease confirmation set, and the §4.4–4.5 rare-disease and time-split results stay development results.",
+       "source": "research_design.md E0, E2, E7, R-E2/R-E3; MET-B 3.6"
+      },
+      {
+       "before": "[E 확증 대기: 보조 지표 …]",
+       "after": "Three paragraphs. (1) Top-1: S-mix − S-D is +0.7 [−0.6, +2.0] (Holm p = .30) and −0.8 [−1.2, −0.4] (Holm p = .001), same direction as dev Table 12b. Versus S-llm, Top-1 is +0.53 [−0.27, +1.33] and +0.24 [−0.03, +0.52], both n.s. On DDXPlus-E, S-dict/S-union Top-1 (17.63/17.93) is 5.2/5.5%p above S-mix; on SymCat-E the gap is 0.7/0.8%p, all Holm-significant. Top-3 values are given, with no paired test. (2) Disease-cluster CIs: E-T1 DDXPlus-E [−6.1, +19.3] over 49 diseases crosses 0; SymCat-E [+1.0, +3.9] over 760 diseases. S-llm: [−1.3, +4.3] and [+0.8, +2.6]. S-dict/S-union on DDXPlus-E: [−8.8, +3.5] and [−10.3, +1.3]. S-bm25: [+8.8, +30.7] and [+1.4, +4.5]. Hence no claim beyond the same 49 diseases. (3) Dev 9-set comparisons point to §4.4.3/Table 12. Comparisons on the opened D confirmation sets were not computed. Confirm minus dev Top-10 for the five graph systems is DDXPlus +0.5 to +1.5%p and SymCat −0.4 to −0.2%p.",
+       "source": "confirmE/paired.txt k1 blocks, aux_cluster.json, S-*.json; RES-B Table 11b/12; no S-mix results on seed-101 sets found in pilot/cache/v2/confirmD or devD"
+      },
+      {
+       "before": "Table 15 caption '[E 확증 대기]', 15a two columns with 14 placeholder cells and 'n evaluated [E 확증 대기]'",
+       "after": "Caption: one run at 49901bc, scope note. 15a is now six columns (Top-1/3/10 for each set), each cell a value with its patient-bootstrap CI (1,000 resamples); n 3,000 (49 diseases) and 7,463 (760 diseases).",
+       "source": "confirmE/S-*.json (args.boot 1000; retrieval_baseline --boot default 1000)"
+      },
+      {
+       "before": "Table 15b: 16 placeholder cells",
+       "after": "Filled Confirmation result and Met for all eight rows (Met, Met, Not met, Not met, Met, Not met (Top-1), Not met (S-comb − S-mix), Achieved). The caption now defines the confirmation values (2,000 paired resamples, set-stratified macro, Holm family = two sets) and states that all seven judgments matched.",
+       "source": "confirmE/paired.txt; research_design.md E7"
+      },
+      {
+       "before": "표 10은 v2 문헌에서 추출·연결 방식만 바꾼 그래프 18개",
+       "after": "표 10은 v2 문헌에서 추출·연결 방식이나 빌더 규칙을 바꾼 그래프 18개",
+       "source": "consistency_issues.md #2; confirmed against pilot/scripts/run_graph_variants.sh (_ns=--no-self, _nq=--no-qualifiers, base_split_tg=topic genes) and MET-B 3.6"
+      },
+      {
+       "before": "질환에서 자기 개념과 상위 질환 개념으로 가는 간선(자기 간선) / Table 13a 'disease→parent-disease-concept edges'",
+       "after": "질환에서 자기 개념과 직접 상위 질환의 개념으로 가는 간선(자기 간선) / 'disease→direct-parent-disease-concept edges'",
+       "source": "consistency_issues.md #10; confirmed in build_graph_v2.py self_cuis from v2_ids.disease_isa() (direct is_a pairs only)"
+      },
+      {
+       "before": "HPO 주석(phenotype.hpoa, 2026-02-16)이 있는 질환 12,296개의 비교 가능한 간선 194,318개를 …",
+       "after": "This release has 12,296 annotated diseases, of which 12,251 have at least one phenotype that maps to a UMLS concept (the HPO annotation graph in §3.7, Table 5). The comparable edges of these diseases, 194,318, were then checked.",
+       "source": "consistency_issues.md #7; recomputed with curated_agreement.curated_pairs: 12,296 keys and 12,251 with a non-empty CUI set, all in the candidate set"
+      },
+      {
+       "before": "개발 DDXPlus 3,000명의 순위는 근거 언급이 없는 빌드와 같았다.",
+       "after": "개발 DDXPlus 3,000명 모두에서 정답 질환의 Top-10 내 위치(lineage)가 근거 언급이 없는 빌드와 같았다.",
+       "source": "consistency_issues.md #3; verified that ranks_lineage matches 3,000/3,000 between devD/e/dev_ddx_smix_mentions.json and variants/dev_v3llmd_ns_ot0.5.json, and that graph_dx.evaluate stores only the gold position"
+      }
+     ]
+    },
+    {
+     "id": "DIS",
+     "filled": 6,
+     "remaining_placeholders": [],
+     "changes": [
+      {
+       "before": "S-mix가 LLM 단독보다 낮지 않다는 주장이 새 환자에서 성립하는지는 E-T2의 S-llm 비교(비열등 한계 −1%p)가 판정한다. [E 확증 대기: E-T2 S-mix − S-llm 매크로 Top-10 차이와 95% CI, 비열등 판정으로 이 문장을 완성]",
+       "after": "…주장은 E-T2의 S-llm 비교(비열등 한계 −1%p)로 새 환자에서 확증되었다. 매크로 Top-10 차이 +1.64%p [+1.17, +2.18], CI 하한이 0보다도 컸다. 확증은 DDXPlus·SymCat의 같은 질환 새 합성 환자만 다루고 희귀질환 세트는 없다. 군집 CI: DDXPlus-E [−1.3, +4.3](0 포함), SymCat-E [+0.8, +2.6]. Top-1 매크로 +0.39%p [−0.04, +0.78].",
+       "source": "pilot/cache/v2/confirmE/paired.txt (E-T2 S-llm k10/k1 macro); aux_cluster.json; docs/research_design.md E7"
+      },
+      {
+       "before": "설계 E의 확증은 이 원고 작성 시점에 실행 중이다 … 결과가 어떻든 E가 말하는 범위는 … 예상은 E-T1 충족…(예상 목록) + 플레이스홀더 5개 [E-T1/D-T2 관계, E-T2 세 비교, E-T4, E-T3·E-T5, 개발 대비 확증]",
+       "after": "여섯 문단으로 다시 씀. (1) 실행 기록: 49901bc에서 1회 실행(10-19 23:13 – 10-20 01:34, 시도 1회). 다섯 그래프 모두 지문과 HAS_FINDING 수가 동결 기록과 같았고 S-bm25 색인 sha256도 같았다. n은 3,000/7,463. 범위는 같은 질환의 새 환자까지. 일곱 판정 모두 예상과 같았고 E0 달성. (2) E-T1 충족: DDXPlus-E +6.5%p [+4.6, +8.5] Holm p 2.1×10⁻¹¹, SymCat-E +2.4%p [+1.7, +3.1] p 3.4×10⁻¹¹. Top-1(보조)은 +0.7 [−0.6, +2.0], −0.8 [−1.2, −0.4]. 군집 CI는 DDXPlus [−6.1, +19.3](49질환, 0 포함), SymCat [+1.0, +3.9](760질환). D-T2와의 관계: S-D는 35.2/12.4 대 34.5/11.7로 비슷했고, S-mix는 Top-10 기준 40%는 넘었지만 Top-1은 올리지 못했다. (3) E-T2: S-llm(주) 충족. S-dict(부) −1.80 [−2.44, −1.12], S-union(부) −2.66 [−3.27, −2.07]은 둘 다 미달로 예상과 같았다. 세트별로 사전 쪽이 모두 Holm 유의하게 높았다. DDXPlus Top-1은 S-dict·S-union 17.6/17.9 대 S-mix 12.4. 사전 대비 우세는 희귀질환 개발 결과뿐이고 확증되지 않았다. (4) E-T4 미달: Top-10 41.07 ≥ 40, Top-1 12.43 < 18. (5) E-T3 충족(+19.3, +3.0, 군집 CI도 0 초과). E-T5 미달(+0.11 [−0.39, +0.59]; S-comb − S-bm25 +11.25 [+10.36, +12.14]). D T4의 결합 우세는 S-bm25 대비로만 재현되었다. (6) 개발 대비: S-mix DDXPlus 40.6/11.8 → 41.1/12.4, SymCat 13.3/2.5 → 12.9/2.5. Top-10 차이는 +0.4/−0.4%p이고 개발값 네 개가 모두 확증 CI 안에 있다. 입력 중복 때문에 낙관이 작게 잡혔을 수 있고, 질환 수준과 희귀질환 낙관은 재지 못했다.",
+       "source": "pilot/cache/v2/confirmE/S-*.json (lineage@1/@10 + CI), paired.txt, aux_cluster.json, attempts.log, build.log; pilot/scripts/run_confirm_E.sh (fingerprint/HAS_FINDING/sha256 checks); pilot/cache/v2/devD/variants/analysis.json (dev per-bench); docs/research_design.md E4, E7, D9"
+      },
+      {
+       "before": "5.1 확증과 통계: '설계 E의 확증은 이 원고 작성 시점에 실행 중이다. 확증 세트 E는…', 'S-bm25와 S-comb의 개발 선택은 끝났고', '확증 실행은 같은 날 이 커밋에서 시작했다', '두 번째 확증을 한다는 점', 'D 확증 이후의 결과는 모두 … 탐색이다', 'E는 … 검사하고 … 확증하지 않는다', 군집 CI 예시는 개발값만",
+       "after": "E 결과 요약을 넣음: 주 목표 충족, 그리고 미달한 세 가지(E-T2 S-dict/S-union −1.80/−2.66, E-T4 Top-1 12.43 < 18, E-T5 +0.11 [−0.39, +0.59])를 그대로 씀. 실행을 과거형으로 바꾸고 날짜를 넣음(10-19 23:13 – 10-20 01:34, 시도 1회). '두 번째 확증을 했다'로 고침. 'D 확증 이후의 결과는 설계 E 확증을 빼면 모두…'로 고침. v3llmda_ns는 확증에 넣지 않았으므로 S-mix와의 순서가 가려지지 않았다는 문장을 더함. 낙관은 작게 쟀다(+0.4/−0.4%p). 군집 CI 예시에 확증 E-T1 값을 더함([+4.6, +8.5] 환자 CI, [−6.1, +19.3] 군집 CI, SymCat [+1.0, +3.9]).",
+       "source": "docs/research_design.md E3, E7; pilot/cache/v2/confirmE/attempts.log, aux_cluster.json; frozen system list E3"
+      },
+      {
+       "before": "5.1 방법: '그래서 E-T2의 S-dict·S-union 비교는 실행 전부터 미달이 예상되었다. 절대 정확도는 낮다. 개발에서 S-mix의 DDXPlus Top-1은 11.8%로 E-T4 기준(18%)보다 낮고, SymCat Top-10은 13.3%다.'",
+       "after": "'…미달이 예상되었고, 확증에서도 미달했다(매크로 Top-10 −1.80%p [−2.44, −1.12], −2.66%p [−3.27, −2.07]). 절대 정확도는 낮다. 확증에서 S-mix의 DDXPlus-E Top-1은 12.4%로 E-T4 기준(18%)에 미달했고(개발 11.8%), SymCat-E Top-10은 12.9%였다(개발 13.3%).'",
+       "source": "pilot/cache/v2/confirmE/paired.txt, S-mix.json"
+      },
+      {
+       "before": "확증에서 gemma 그래프의 PPR… / 개발에서 gemma 그래프의 PPR… / 확증의 HPO 주석 그래프에서는… / 개발의 gemma 그래프에서… / D 확증에서 gemma 그래프의 Top-10은 DDXPlus 35.2%",
+       "after": "D 확증에서 S-D 그래프(v2 문헌 gemma 그래프)의 PPR… / 개발에서 S-D 그래프의 PPR… / D 확증의 HPO 주석 그래프에서는… / 개발의 S-D 그래프에서… / D 확증에서 S-D 그래프의 Top-10은…",
+       "source": "consistency_issues.md #8 (verified: RES-A Table 6 'Literature graph S-D, PPR'; research_design D10). 'D 확증'을 붙인 것은 E 확증이 생겨 '확증'이 모호해졌기 때문"
+      },
+      {
+       "before": "v2 문헌 위에서 추출·연결 방식을 바꾼 변형의 최대 효과(동결 대비 +4.1%p)",
+       "after": "v2 문헌 위에서 추출·연결 방식이나 빌더 규칙을 바꾼 변형의 최대 효과(동결 그래프 대비 +4.1%p, v2unionu_ns)",
+       "source": "consistency_issues.md #1 (verified: analysis.json v2unionu_ns 34.66 − base_nm 30.56; run_graph_variants.sh ALL flags + _ns → --no-self)"
+      },
+      {
+       "before": "…LLM이 −16.1%p에서 −7.3%p로 줄었고, S-mix는 −7.1%p [−10.1, −3.9]였다.",
+       "after": "…LLM이 −16.1%p에서 −7.3%p로 줄었다. LLM 쪽 v2 기준(base_split_tg)은 자기 간선을 두고 v2 구절 표를 쓴 그래프여서, 이 쌍에서는 자기 간선 유무와 구절 표도 함께 바뀐다. S-mix는 −7.1%p [−10.1, −3.9]였다.",
+       "source": "consistency_issues.md #9 (verified: analysis.json temporal base_split_tg_y2022_ot0.0 future/curated −16.1, v3llm_ns_y2022_ot0.0 −7.3; no base_split_tg_ns_y2022 build; RES-B 4.5 wording)"
+      },
+      {
+       "before": "이 빌드에서 개발 DDXPlus 3,000명의 순위는 근거 언급 없는 빌드와 같았다. (5.1 확증과 통계) / …Mention 없는 빌드와 같았다. (5.1 출처)",
+       "after": "이 빌드에서는 개발 DDXPlus 3,000명 모두에서 정답 질환의 Top-10 내 위치(lineage)가 근거 언급 없는(Mention 없는) 빌드와 같았다.",
+       "source": "consistency_issues.md #3 (verified: devD/e/dev_ddx_smix_mentions.json vs variants/dev_v3llmd_ns_ot0.5.json ranks_lineage 3000/3000 equal; graph_dx.evaluate stores top-10 position or None)"
+      },
+      {
+       "before": "일반 문헌 규칙(20질환 이상에 나열된 문헌 제외)",
+       "after": "일반 문헌 규칙(질환 파일에 모두 20회 이상 나열된 논문 제외)",
+       "source": "consistency_issues.md #6 (verified: build_graph_v2.py use[article(doc_id)] += 1 per disease file, generic = n >= 20; MET-A 3.2)"
+      },
+      {
+       "before": "Table 15 / Table 15a (design E) [E 확증 대기]",
+       "after": "이 파일에서는 고치지 않음. DIS.md에는 표가 없다. Table 15는 RES-B.md에 있고 이 작업이 맡은 파일 밖이다. 수치는 E7과 S-*.json에서 바로 쓸 수 있다.",
+       "source": "grep of draft/paper_ko_v3/sections/*.md (Table 15 at RES-B.md:246)"
+      }
+     ]
+    }
+   ],
+   "recheck": {
+    "issues": [
+     {
+      "section": "RES-B",
+      "quote": "그래프 시스템 5개의 Top-10에서 확증값 − 개발값(표 11b)은 DDXPlus +0.5~+1.5%p, SymCat −0.4~−0.2%p였다.",
+      "problem": "This range runs from S-mix's confirmation − development gap, so its lower end gives S-mix's DDXPlus gap as +0.5. DIS (§5, ¶ on selection optimism, and §5.1) gives the same quantity as +0.4%p. The +0.5 comes from subtracting the rounded Table 11b value (41.07 − 40.6). The unrounded development value gives +0.44.",
+      "correct": "DDXPlus +0.4~+1.5%p (S-mix +0.44, S-llm +0.70, S-dict +1.23, S-union +1.47, S-D +1.50); SymCat −0.4~−0.2%p is correct",
+      "evidence": "pilot/cache/v2/devD/variants/analysis.json dev per_bench DDXPlus-test Top-10: base_nm 33.03, v3llm_ns 38.77, v3umls_ns 42.27, v3unionu_ns 43.60, v3llmd_ns 40.63; confirmE S-*.json lineage@10: 34.53, 39.47, 43.50, 45.07, 41.07. DIS.md line 29 and line 39 give 'DDXPlus +0.4%p'.",
+      "severity": "imprecise"
+     },
+     {
+      "section": "MET-B",
+      "quote": "대응 비교(E-T1·E-T2·E-T3·E-T5)의 Top-1·Top-3 차이, 정답 질환 군집 CI, 열람된 D 확증 세트와 개발 9개 세트에서의 같은 비교는 보조 지표로 보고하고 판정에 쓰지 않는다.",
+      "problem": "The methods section says Top-3 paired differences and the same comparisons on the opened D-confirmation sets are reported as auxiliary indicators. Neither was computed. RES-B §4.6 says 'Top-3는 표 15a에만 적고 대응 검정을 하지 않았다' and '열람된 D 확증 세트(DDXPlus·SymCat 시드 101)에서는 이 비교를 계산하지 않았다'. paired.txt and aux_cluster.json contain only k = 10 and k = 1. So the methods section states as done what the results section says was not done.",
+      "correct": "Planned auxiliaries (E4) were the Top-1/Top-3 differences, the disease-cluster CI and the same comparisons on the opened D sets and the nine development sets. The ones reported are the Top-1 paired differences, the disease-cluster CI and the development comparisons (Table 12). Top-3 is given only as single-system accuracy (Table 15a), and the opened D-confirmation-set comparisons were not computed.",
+      "evidence": "pilot/cache/v2/confirmE/paired.txt (Top-10 and Top-1 only); confirm_e_aux.py loops k in (10, 1); RES-B.md lines 244 and 248.",
+      "severity": "imprecise"
+     },
+     {
+      "section": "DIS",
+      "quote": "혼합 추출의 확증된 기여는 LLM 단독 대비 Top-10 개선이다.",
+      "problem": "The pre-registered E-T2 S-llm judgment is non-inferiority (CI lower bound > −1%p), not superiority. Calling an 'improvement' confirmed recasts the judged quantity as a different claim. ABS-CON describes the same result as '혼합 추출이 구성 요소보다 못하지 않다는 확증은 LLM 단독과의 비교에 그친다', and DIS itself earlier says '낮지 않다는 주장은 ... 확증되었다'. The DDXPlus-E disease-cluster CI of this difference also includes 0.",
+      "correct": "State the confirmed contribution as non-inferiority to S-llm on new patients of the development diseases. The macro difference +1.64 [+1.17, +2.18] also excludes 0 at the patient level, but superiority was not a pre-registered criterion, and the DDXPlus-E cluster CI is [−1.3, +4.3].",
+      "evidence": "docs/research_design.md E4 (E-T2 criterion: CI lower bound > −1%p, non-inferiority); paired.txt macro +1.64 [+1.17, +2.18]; aux_cluster.json S-llm vs S-mix k10 DDXPlus ci_cluster [−1.29, 4.31]; ABS-CON.md line 11.",
+      "severity": "imprecise"
+     }
+    ]
+   }
+  }
+ ],
+ "recheck": {
+  "issues": [
+   {
+    "section": "RES-B",
+    "quote": "그래프 시스템 5개의 Top-10에서 확증값 − 개발값(표 11b)은 DDXPlus +0.5~+1.5%p, SymCat −0.4~−0.2%p였다.",
+    "problem": "This range runs from S-mix's confirmation − development gap, so its lower end gives S-mix's DDXPlus gap as +0.5. DIS (§5, ¶ on selection optimism, and §5.1) gives the same quantity as +0.4%p. The +0.5 comes from subtracting the rounded Table 11b value (41.07 − 40.6). The unrounded development value gives +0.44.",
+    "correct": "DDXPlus +0.4~+1.5%p (S-mix +0.44, S-llm +0.70, S-dict +1.23, S-union +1.47, S-D +1.50); SymCat −0.4~−0.2%p is correct",
+    "evidence": "pilot/cache/v2/devD/variants/analysis.json dev per_bench DDXPlus-test Top-10: base_nm 33.03, v3llm_ns 38.77, v3umls_ns 42.27, v3unionu_ns 43.60, v3llmd_ns 40.63; confirmE S-*.json lineage@10: 34.53, 39.47, 43.50, 45.07, 41.07. DIS.md line 29 and line 39 give 'DDXPlus +0.4%p'.",
+    "severity": "imprecise"
+   },
+   {
+    "section": "MET-B",
+    "quote": "대응 비교(E-T1·E-T2·E-T3·E-T5)의 Top-1·Top-3 차이, 정답 질환 군집 CI, 열람된 D 확증 세트와 개발 9개 세트에서의 같은 비교는 보조 지표로 보고하고 판정에 쓰지 않는다.",
+    "problem": "The methods section says Top-3 paired differences and the same comparisons on the opened D-confirmation sets are reported as auxiliary indicators. Neither was computed. RES-B §4.6 says 'Top-3는 표 15a에만 적고 대응 검정을 하지 않았다' and '열람된 D 확증 세트(DDXPlus·SymCat 시드 101)에서는 이 비교를 계산하지 않았다'. paired.txt and aux_cluster.json contain only k = 10 and k = 1. So the methods section states as done what the results section says was not done.",
+    "correct": "Planned auxiliaries (E4) were the Top-1/Top-3 differences, the disease-cluster CI and the same comparisons on the opened D sets and the nine development sets. The ones reported are the Top-1 paired differences, the disease-cluster CI and the development comparisons (Table 12). Top-3 is given only as single-system accuracy (Table 15a), and the opened D-confirmation-set comparisons were not computed.",
+    "evidence": "pilot/cache/v2/confirmE/paired.txt (Top-10 and Top-1 only); confirm_e_aux.py loops k in (10, 1); RES-B.md lines 244 and 248.",
+    "severity": "imprecise"
+   },
+   {
+    "section": "DIS",
+    "quote": "혼합 추출의 확증된 기여는 LLM 단독 대비 Top-10 개선이다.",
+    "problem": "The pre-registered E-T2 S-llm judgment is non-inferiority (CI lower bound > −1%p), not superiority. Calling an 'improvement' confirmed recasts the judged quantity as a different claim. ABS-CON describes the same result as '혼합 추출이 구성 요소보다 못하지 않다는 확증은 LLM 단독과의 비교에 그친다', and DIS itself earlier says '낮지 않다는 주장은 ... 확증되었다'. The DDXPlus-E disease-cluster CI of this difference also includes 0.",
+    "correct": "State the confirmed contribution as non-inferiority to S-llm on new patients of the development diseases. The macro difference +1.64 [+1.17, +2.18] also excludes 0 at the patient level, but superiority was not a pre-registered criterion, and the DDXPlus-E cluster CI is [−1.3, +4.3].",
+    "evidence": "docs/research_design.md E4 (E-T2 criterion: CI lower bound > −1%p, non-inferiority); paired.txt macro +1.64 [+1.17, +2.18]; aux_cluster.json S-llm vs S-mix k10 DDXPlus ci_cluster [−1.29, 4.31]; ABS-CON.md line 11.",
+    "severity": "imprecise"
+   }
+  ]
+ }
+}

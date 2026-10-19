@@ -4,7 +4,7 @@
 
 #### 4.4.1 v2 문헌: LLM 추출과 UMLS 사전 매칭의 비교
 
-표 10은 v2 문헌에서 추출·연결 방식만 바꾼 그래프 18개(기준 1개와 변형 17개)를 보여 준다. 자기 간선을 둔 채로는 UMLS 사전 매칭(v2umls)의 매크로 Top-10이 34.60%로 LLM 추출(base_split_tg, 32.59%)보다 높았다. 같은 조건에서 매크로 Top-1은 LLM 추출이 12.16%로 UMLS 사전(10.21%)보다 높았다. 세트별 Top-1은 LLM 추출이 7개 세트에서 높았다(2/7, p = .18). Holm 유의한 차이는 RAMEDIS −3.7%p, PUMCH_L −3.6%p, Phenopacket −1.0%p, SymCat +0.6%p였다(UMLS 사전 − LLM). 자기 간선(4.4.4)을 빼면 매크로 Top-10/Top-1은 UMLS 사전(v2umls_ns) 34.50/14.24%, LLM 추출(base_split_tg_ns) 31.94/13.06%로 두 지표 모두 UMLS 사전이 높았다. 세트별 부호는 Top-1 7/2(p = .18), Top-10 7/1(p = .070)로 유의하지 않았다. Holm 보정 후 유의한 세트별 Top-1 차이는 DDXPlus +1.8%p, SymCat +1.2%p, Phenopacket −0.8%p였다. HPO 사전(v2dict_ns)의 Top-1은 9개 세트 모두에서 UMLS 사전보다 낮았다(9/0, p = .004).
+표 10은 v2 문헌에서 추출·연결 방식이나 빌더 규칙을 바꾼 그래프 18개(기준 1개와 변형 17개)를 보여 준다. 자기 간선을 둔 채로는 UMLS 사전 매칭(v2umls)의 매크로 Top-10이 34.60%로 LLM 추출(base_split_tg, 32.59%)보다 높았다. 같은 조건에서 매크로 Top-1은 LLM 추출이 12.16%로 UMLS 사전(10.21%)보다 높았다. 세트별 Top-1은 LLM 추출이 7개 세트에서 높았다(2/7, p = .18). Holm 유의한 차이는 RAMEDIS −3.7%p, PUMCH_L −3.6%p, Phenopacket −1.0%p, SymCat +0.6%p였다(UMLS 사전 − LLM). 자기 간선(4.4.4)을 빼면 매크로 Top-10/Top-1은 UMLS 사전(v2umls_ns) 34.50/14.24%, LLM 추출(base_split_tg_ns) 31.94/13.06%로 두 지표 모두 UMLS 사전이 높았다. 세트별 부호는 Top-1 7/2(p = .18), Top-10 7/1(p = .070)로 유의하지 않았다. Holm 보정 후 유의한 세트별 Top-1 차이는 DDXPlus +1.8%p, SymCat +1.2%p, Phenopacket −0.8%p였다. HPO 사전(v2dict_ns)의 Top-1은 9개 세트 모두에서 UMLS 사전보다 낮았다(9/0, p = .004).
 
 UMLS 사전에 LLM 항목을 더한 몫은 작았다. 합집합 v2unionu_ns의 매크로 34.66/14.77%는 v2 그래프 가운데 두 지표 모두 가장 높았다. 그러나 UMLS 사전 단독과의 차이는 Top-1 +0.53%p(세트 6/2, p = .29), Top-10 +0.16%p(5/3, p = .73)였다. 자기 간선을 둔 그래프에서 HPO 사전에 LLM 항목을 더하면 매크로 Top-1이 9.99%에서 11.93%로 올랐다(세트 8/0, p = .008). 자기 간선을 뺀 그래프에서는 12.28%에서 14.23%로 올랐다(7/0, p = .016). 자기 간선을 둔 그래프의 세트별 차이 가운데 DDXPlus +4.9%p는 Holm 유의였고, 정답 질환 군집 CI [1.5, 9.0]도 0을 포함하지 않았다.
 
@@ -125,7 +125,7 @@ Table 12. Paired development comparisons for the design-E contrasts (S-mix minus
 
 #### 4.4.4 자기 간선
 
-질환에서 자기 개념과 상위 질환 개념으로 가는 간선(자기 간선)을 빼면 매크로 Top-1이 올랐다(표 13a). v2 문헌에서 매크로 Top-1은 동결 그래프 12.64→12.87%, LLM(분해·재연결) 12.16→13.06%, HPO 사전 9.99→12.28%, UMLS 사전 10.21→14.24%, LLM + HPO 사전 11.93→14.23%, LLM + UMLS 사전 11.25→14.77%로 바뀌었다. 빠지는 간선은 그래프마다 8,047~21,839개로 전체 간선의 0.4~1%였다. 같은 제거로 DDXPlus Top-10은 2.6~5.5%p 낮아졌다(모두 Holm 유의). 제거의 매크로 Top-1 효과는 v2 LLM 그래프에서 +0.2~0.9%p, v2 사전 그래프에서 +2.3~4.0%p였다.
+질환에서 자기 개념과 직접 상위 질환의 개념으로 가는 간선(자기 간선)을 빼면 매크로 Top-1이 올랐다(표 13a). v2 문헌에서 매크로 Top-1은 동결 그래프 12.64→12.87%, LLM(분해·재연결) 12.16→13.06%, HPO 사전 9.99→12.28%, UMLS 사전 10.21→14.24%, LLM + HPO 사전 11.93→14.23%, LLM + UMLS 사전 11.25→14.77%로 바뀌었다. 빠지는 간선은 그래프마다 8,047~21,839개로 전체 간선의 0.4~1%였다. 같은 제거로 DDXPlus Top-10은 2.6~5.5%p 낮아졌다(모두 Holm 유의). 제거의 매크로 Top-1 효과는 v2 LLM 그래프에서 +0.2~0.9%p, v2 사전 그래프에서 +2.3~4.0%p였다.
 
 v2+v3 문헌의 UMLS 사전 그래프에서는 매크로 Top-1이 10.55%에서 18.11%로 올랐다(세트 8/1, p = .039; PUMCH_L +21.8%p, PUMCH-ADM +17.3%p). v3 LLM 그래프에서는 16.44%에서 19.30%로 올랐다(세트 7/2, p = .18; Holm 유의 PUMCH_L +9.8%p, Phenopacket +2.9%p). 같은 v3 LLM 그래프에서 자기 간선 제거는 DDXPlus의 Top-10을 6.1%p, Top-1을 4.4%p 낮췄다. SymCat은 Top-10 1.8%p, Top-1 1.3%p, RAMEDIS는 Top-10 2.2%p 낮아졌다(모두 Holm 유의). D3 규칙은 v3의 사전·LLM 그래프 모두에서 제거판을 골랐다.
 
@@ -141,7 +141,7 @@ v2+v3 문헌의 UMLS 사전 그래프에서는 매크로 Top-1이 10.55%에서 1
 
 Table 13. Self-edge removal and the candidate window (development).
 
-(a) Effect of removing disease→own-concept and disease→parent-disease-concept edges. Each graph keeps its own D3-selected ot. Top-1 sign = sets where the self-edge-free graph is higher/lower. DDXPlus Top-10 difference = removed − kept [patient CI]; all nine rows are Holm-significant.
+(a) Effect of removing disease→own-concept and disease→direct-parent-disease-concept edges. Each graph keeps its own D3-selected ot. Top-1 sign = sets where the self-edge-free graph is higher/lower. DDXPlus Top-10 difference = removed − kept [patient CI]; all nine rows are Holm-significant.
 
 | Graph | Edges removed | Macro Top-1 kept → removed | Top-1 sign (p) | Macro Top-10 kept → removed | DDXPlus Top-10 diff |
 |---|---|---|---|---|---|
@@ -215,60 +215,66 @@ Table 14. Time split: graphs built from literature published up to 2022 vs HPOA 
 
 설계 D의 동결 설정과 v2 문헌 그래프로 수행한 시간 분할 분석(10,603증례)의 결과는 다음과 같다. 미래 증례의 Top-10은 HPOA 16.5%, 문헌 그래프 10.8%로, "미래 증례에서 문헌이 큐레이션을 앞선다"는 가설은 기각되었다. 과거 증례–HPOA 스냅샷 쌍에서 HPOA가 그 증례 논문을 이미 인용한 경우 Top-10은 81.7%(22,426쌍), 인용하지 않은 경우 41.1%(30,036쌍)였다. HPOA 1-홉의 Top-10은 관행 평가(Phenopacket-store 0.1.27, HPOA 2026-09)에서 77.4%였고, 시간 분할의 미래 증례에서는 16.5%였다. 스냅샷 시점에 HPOA에 아직 등재되지 않은 질환의 미래 증례에서 Top-10은 HPOA 0.1%, 문헌 그래프 0.7%였다.
 
-### 4.6 설계 E 확증 [E 확증 대기]
+### 4.6 설계 E 확증
 
 설계 E의 확증 세트는 DDXPlus-E와 SymCat-E 두 개다. DDXPlus-E는 DDXPlus test 134,529행에서 개발 표본(시드 0)과 D 확증 표본(시드 101)을 뺀 128,529행 가운데 시드 202로 뽑은 3,000명이다. 매니페스트에는 각 행의 번호와 sha256이 기록되어 있고, 개발 표본·D 확증 표본과 겹치는 행은 0개다. SymCat-E는 질환당 10명을 시드 202로 생성한 환자다. Phenopacket-store main에는 2026-10-19 기준 D 확증 스냅샷(85ffd78) 이후 커밋이 없으므로 희귀질환 확증 세트는 없다. 두 세트는 개발 세트와 같은 질환 생성기·확률표(DDXPlus 49질환, SymCat 801질환)에서 새로 뽑은 환자다. DDXPlus-E의 질환 가운데 개발 표본에 없던 것은 세기관지염 1명뿐이다.
 
-매니페스트와 로더 거부 장치는 커밋 3b10c36(2026-10-19)으로 봉인했다. 판정 기준과 E-T1·E-T2·E-T4의 개발값 예상은 확증 실행 전에 설계 E 커밋(5ce9c3d)에 기록했다. S-bm25는 개발 세트의 12개 조합 가운데 질의 전체·깊이 1,000·역순위 결합 집계를 골랐다(개발 9개 세트 매크로 Top-10/Top-1 27.35/11.04%). S-comb는 w = 0.25를 골랐다(개발 매크로 46.72/19.46%; w = 0.5는 43.77/18.66%, 0.75는 35.61/17.11%). 첫 S-comb 선택은 비교용 인스턴스에 S-mix가 아닌 그래프가 올라간 상태에서 실행되었으므로 폐기했다. 위 값은 적재 간선 수를 확인한 S-mix로 다시 고른 것이다. E-T3·E-T5의 예상은 첫 S-comb 선택 뒤에 기록했다(커밋 61e3118). 이때의 E-T5 예상은 폐기한 첫 선택의 값이었다. 그래서 S-comb를 다시 고른 뒤 E-T5의 예상을 그 값으로 고쳤다(커밋 0cb1c59). 두 커밋 모두 동결 전이다. E-T3은 충족으로, E-T5는 S-comb − S-mix 비교의 미달로 예상했다(표 15b). 설계 D 확증에서는 결합 목표 T4가 충족되었다(4.2절). 시스템은 커밋 49901bc(2026-10-19)로 동결했다. 시스템별 지문, S-bm25 색인 sha256, 설정은 이 커밋의 frozen_config_E.json에 기록했다. 확증 세트 E는 시스템 동결 뒤 한 번만 쓰도록 사전에 정했다. [E 확증 대기: 확증 실행 일시]
+매니페스트와 로더 거부 장치는 커밋 3b10c36(2026-10-19)으로 봉인했다. 판정 기준과 E-T1·E-T2·E-T4의 개발값 예상은 확증 실행 전에 설계 E 커밋(5ce9c3d)에 기록했다. S-bm25는 개발 세트의 12개 조합 가운데 질의 전체·깊이 1,000·역순위 결합 집계를 골랐다(개발 9개 세트 매크로 Top-10/Top-1 27.35/11.04%). S-comb는 w = 0.25를 골랐다(개발 매크로 46.72/19.46%; w = 0.5는 43.77/18.66%, 0.75는 35.61/17.11%). 첫 S-comb 선택은 비교용 인스턴스에 S-mix가 아닌 그래프가 올라간 상태에서 실행되었으므로 폐기했다. 위 값은 적재 간선 수를 확인한 S-mix로 다시 고른 것이다. E-T3·E-T5의 예상은 첫 S-comb 선택 뒤에 기록했다(커밋 61e3118). 이때의 E-T5 예상은 폐기한 첫 선택의 값이었다. 그래서 S-comb를 다시 고른 뒤 E-T5의 예상을 그 값으로 고쳤다(커밋 0cb1c59). 두 커밋 모두 동결 전이다. E-T3은 충족으로, E-T5는 S-comb − S-mix 비교의 미달로 예상했다(표 15b). 설계 D 확증에서는 결합 목표 T4가 충족되었다(4.2절). 시스템은 커밋 49901bc(2026-10-19)로 동결했다. 시스템별 지문, S-bm25 색인 sha256, 설정은 이 커밋의 frozen_config_E.json에 기록했다. 확증 세트 E는 시스템 동결 뒤 한 번만 쓰도록 사전에 정했다. 확증은 동결 커밋에서 2026-10-19 23:13에 시작해 2026-10-20 01:34에 끝났다. 시도는 1회였고 중단은 없었다.
 
 통계 코드는 실행 전에 회귀 확인을 거쳤다. 매크로 비교 함수(macro_compare)는 D 확증의 T4 매크로 수치를 같은 값으로 재현했다: 결합 − 그래프 Top-10 +2.67%p [1.81, 3.58], 결합 − BM25 Top-10 +5.10%p [3.59, 6.67], 결합 − 그래프 Top-1 +0.96%p [0.36, 1.54].
 
-[E 확증 대기: Table 15a — S-mix, S-D, S-llm, S-dict, S-union, S-bm25, S-comb의 DDXPlus-E·SymCat-E Top-1/Top-3/Top-10과 환자 부트스트랩 95% CI]
+확증 직전에 그래프 시스템 5개를 비교용 인스턴스에 다시 빌드했다. 다섯 빌드 모두 빌드 요약의 지문과 적재된 HAS_FINDING 간선 수가 동결 기록(frozen_config_E.json)과 같았다. 빌더는 Disease 노드 수가 후보 질환 수(43,575개)와 다르면 멈추는데, 다섯 빌드 모두 멈추지 않았다. 평가 로그에 기록된 소견 있는 질환 수도 표 11a의 빌드 요약과 같았다(S-D 27,309개, S-llm 33,123개, S-dict 34,356개, S-union 34,359개, S-mix 33,537개). S-bm25 색인 파일 8개의 sha256도 모두 동결 기록과 같았다.
 
-[E 확증 대기: E-T1 — S-mix − S-D의 세트별 Top-10 차이, 대응 부트스트랩 CI, 정확 McNemar Holm p, 판정]
+표 15a는 일곱 시스템의 확증 정확도다. DDXPlus-E는 3,000명(49질환)을 모두 평가했다. SymCat-E는 개발 SymCat과 같은 규칙으로 소견이 뽑히지 않은 표본과 정답 사상이 안 되는 질환을 빼고 7,463명(760질환)을 평가했다. S-mix의 Top-10/Top-1은 DDXPlus-E 41.07/12.43%, SymCat-E 12.92/2.45%였다. 점추정으로 두 세트의 Top-10과 Top-1이 모두 가장 높은 시스템은 S-union이었다(DDXPlus-E 45.07/17.93%, SymCat-E 14.24/3.26%).
 
-[E 확증 대기: E-T2 — S-mix − S-llm, S-mix − S-dict, S-mix − S-union의 매크로 Top-10 차이와 CI, 각 비교의 비열등 판정(한계 −1%p)]
+주 목표 E-T1은 충족되었다. S-mix의 Top-10은 S-D보다 DDXPlus-E에서 +6.5%p [+4.6, +8.5](Holm 보정 p = 2.1 × 10⁻¹¹), SymCat-E에서 +2.4%p [+1.7, +3.1](Holm 보정 p = 3.4 × 10⁻¹¹) 높았다. 두 세트 모두 CI 하한이 0보다 크고 Holm 보정 p가 .05보다 작았다. 차이의 방향은 개발 결과(DDXPlus +7.6%p, SymCat +2.7%p)와 같았고, 크기는 개발보다 작았다.
 
-[E 확증 대기: E-T3 — 확증 세트별 S-mix − S-bm25 Top-10 차이·CI·Holm p, 판정]
+E-T2의 S-llm 비교(주 목표)도 충족되었다. 두 세트 매크로 Top-10에서 S-mix는 S-llm보다 +1.64%p [+1.17, +2.18] 높았다. CI 하한은 비열등 한계 −1%p뿐 아니라 0보다도 높았다. 세트별로도 S-mix가 DDXPlus-E에서 +1.6%p [+0.8, +2.4], SymCat-E에서 +1.7%p [+1.2, +2.2] 높았다(둘 다 Holm 유의).
 
-[E 확증 대기: E-T4 — S-mix의 DDXPlus-E Top-10/Top-1과 기준(40%/18%) 대비 판정]
+E-T2의 S-dict 비교와 S-union 비교는 미달이었다. 매크로 Top-10 차이(S-mix − 비교 시스템)는 S-dict 대비 −1.80%p [−2.44, −1.12], S-union 대비 −2.66%p [−3.27, −2.07]로, 두 CI의 하한이 모두 −1%p보다 낮았다. 두 CI는 상한도 0보다 낮았다. 곧 두 확증 세트에서 S-mix의 Top-10은 S-dict와 S-union보다 낮았다. 세트별 차이는 S-dict 대비 DDXPlus-E −2.4%p [−3.7, −1.2], SymCat-E −1.2%p [−1.7, −0.6], S-union 대비 DDXPlus-E −4.0%p [−5.1, −2.9], SymCat-E −1.3%p [−1.8, −0.8]로 네 경우 모두 Holm 유의했다. 이 두 미달은 실행 전에 예상한 결과다(개발 DDXPlus −1.6%p·−3.0%p, SymCat −1.1%p·−1.3%p).
 
-[E 확증 대기: E-T5 — S-comb − S-mix와 S-comb − S-bm25의 확증 매크로 Top-10 차이·CI, 판정]
+E-T3은 충족되었다. S-mix의 Top-10은 S-bm25보다 DDXPlus-E에서 +19.3%p [+17.6, +21.0], SymCat-E에서 +3.0%p [+2.2, +3.8] 높았다(두 세트 모두 Holm 보정 p < 10⁻¹³). 두 세트 모두 CI 하한이 −1%p보다 높고, 두 세트 모두 Holm 유의한 우세였다.
 
-[E 확증 대기: E0 달성 여부(E-T1 충족 그리고 E-T2 중 S-llm 비교 충족)]
+E-T4는 미달이었다. S-mix의 DDXPlus-E Top-10은 41.07%로 기준 40% 이상이었다. Top-1은 12.43%로 기준 18%보다 5.57%p 낮았다. Top-1의 CI [11.3, 13.6]은 전부 기준보다 낮았다. Top-10의 CI 하한(39.3%)도 기준보다 낮았다. 이 결과는 실행 전 예상(Top-10 경계, 개발 40.6%; Top-1 미달, 개발 11.8%)과 같았다.
 
-[E 확증 대기: 보조 지표 — 정답 질환 군집 CI, Top-1·Top-3, 열람된 D 확증 세트와 개발 9개 세트에서의 같은 비교]
+E-T5는 미달이었다. S-comb − S-mix의 매크로 Top-10 차이는 +0.11%p [−0.39, +0.59](p = .71)로, CI 하한이 0보다 낮았다. 세트별로는 DDXPlus-E −0.8%p [−1.6, +0.1](Holm 비유의), SymCat-E +1.0%p [+0.5, +1.5](Holm 유의)로 방향이 갈렸다. S-comb − S-bm25의 매크로 차이는 +11.25%p [+10.36, +12.14]로 기준을 넘었다. E-T5는 두 비교가 모두 기준을 넘어야 충족이므로 미달이다. 이 결과는 실행 전 예상(S-comb − S-mix 미달, S-comb − S-bm25 충족)과 같았다. 설계 D 확증에서는 결합이 두 단독 시스템보다 높았다(T4, 4.2절). 설계 E 확증에서는 S-mix에 S-bm25 순위를 결합한 Top-10 이득이 확인되지 않았다.
 
-[E 확증 대기: 동결 검증 기록 — 확증 직전 재빌드의 지문 일치, HAS_FINDING·Disease 수, S-bm25 색인 sha256 대조]
+따라서 E0은 달성되었다. 주 목표인 E-T1과 E-T2의 S-llm 비교가 모두 충족되었다. 일곱 판정은 모두 실행 전에 커밋한 예상과 같았다(표 15b). 이 확증이 보여 주는 것은 개발 세트와 같은 질환 집합에서 새로 생성한 합성 환자에서의 재현이다. E 세트에서 입력이 개발 환자와 똑같은 환자의 비율은 재지 않았다(3.6절). 새 질환으로의 일반화는 이 확증의 범위 밖이다. 희귀질환 확증 세트는 없었으므로, 4.4–4.5절의 희귀질환·시간 분할 결과는 개발 결과로 남는다.
+
+판정에 쓰지 않은 보조 지표는 다음과 같다. Top-1에서는 S-D 대비 개선이 확증되지 않았다. S-mix − S-D의 Top-1 차이는 DDXPlus-E +0.7%p [−0.6, +2.0](Holm 보정 p = .30), SymCat-E −0.8%p [−1.2, −0.4](Holm 보정 p = .001)로, SymCat-E에서는 S-mix가 낮았다. 두 방향은 개발 결과(DDXPlus +0.6%p, SymCat −0.7%p; 표 12b)와 같았다. S-mix − S-llm의 Top-1 차이는 DDXPlus-E +0.53%p [−0.27, +1.33], SymCat-E +0.24%p [−0.03, +0.52]로 둘 다 Holm 비유의였다. DDXPlus-E의 Top-1은 S-dict 17.63%, S-union 17.93%로 S-mix보다 5.2%p, 5.5%p 높았다. SymCat-E에서는 그 차이가 0.7%p, 0.8%p였다(네 차이 모두 Holm 유의). S-dict와 S-union도 E-T4의 Top-1 기준(18%)에는 미치지 못했다. Top-3는 표 15a에만 적고 대응 검정을 하지 않았다. S-mix의 Top-3는 S-D보다 DDXPlus-E에서 4.83%p 높고(24.30% 대 19.47%), SymCat-E에서 0.15%p 낮았다(5.61% 대 5.76%).
+
+정답 질환 군집 부트스트랩 CI(2,000회)는 같은 정답 질환의 환자를 통째로 다시 뽑는다. DDXPlus-E는 정답 질환이 49개뿐이어서 이 CI가 넓다. E-T1의 DDXPlus-E 차이(+6.5%p)의 군집 CI는 [−6.1, +19.3]으로 0을 포함했다. SymCat-E(760질환)의 군집 CI는 [+1.0, +3.9]로 0보다 컸다. S-mix − S-llm의 군집 CI는 DDXPlus-E [−1.3, +4.3], SymCat-E [+0.8, +2.6]이었다. S-mix − S-dict와 S-mix − S-union의 DDXPlus-E 군집 CI도 각각 [−8.8, +3.5], [−10.3, +1.3]으로 0을 포함했다. S-mix − S-bm25의 군집 CI는 두 세트 모두 0보다 컸다(DDXPlus-E [+8.8, +30.7], SymCat-E [+1.4, +4.5]). 따라서 DDXPlus-E에서 S-D·S-llm 대비 우세는 같은 49개 질환의 새 환자에서 확인된 것이다. 다른 질환 집합에서도 같은 차이가 나는지는 이 확증으로 말할 수 없다.
+
+개발 9개 세트에서의 같은 비교는 4.4.3절과 표 12에 있다. 열람된 D 확증 세트(DDXPlus·SymCat 시드 101)에서는 이 비교를 계산하지 않았다. S-mix의 Top-10/Top-1은 DDXPlus에서 개발 40.6/11.8%, 확증 41.1/12.4%였고, SymCat에서 개발 13.3/2.5%, 확증 12.9/2.5%였다. 그래프 시스템 5개의 Top-10에서 확증값 − 개발값(표 11b)은 DDXPlus +0.4~+1.5%p, SymCat −0.4~−0.2%p였다. 같은 질환의 새 환자 표본에서 개발값의 낙관은 이 범위 안에 있었다. 질환 수준의 낙관은 이 확증으로 검사되지 않는다.
 
 표 15b는 실행 전에 기록한 개발값을 확증값과 나란히 둔다. E-T1과 E-T3의 개발값은 확증 판정과 같은 세트별 Top-10 차이다. E-T5의 개발값도 확증 판정과 같은 두 세트 매크로 Top-10 차이다. E-T4의 개발값은 S-mix 단독의 개발 DDXPlus 정확도다. E-T2만 정의가 다르다. 개발값은 세트별 차이이고, 확증 판정은 두 세트 매크로 차이다.
 
-Table 15. Design E confirmation (lineage, open set of 43,575 diseases) [E 확증 대기].
+Table 15. Design E confirmation (lineage, open set of 43,575 diseases; one run at freeze commit 49901bc, 2026-10-19 to 10-20). New synthetic patients of the development diseases only; no rare-disease confirmation set.
 
-(a) Accuracy per system (Top-1 / Top-3 / Top-10, %, patient-bootstrap 95% CI)
+(a) Accuracy per system: lineage Top-1 / Top-3 / Top-10 (%) with patient-bootstrap 95% CI (1,000 resamples). DDXPlus-E: 3,000 sampled, 3,000 evaluated (49 diseases). SymCat-E: 7,463 evaluated (760 diseases).
 
-| System | DDXPlus-E (3,000 sampled; n evaluated [E 확증 대기]) | SymCat-E |
-|---|---|---|
-| S-mix | [E 확증 대기] | [E 확증 대기] |
-| S-D | [E 확증 대기] | [E 확증 대기] |
-| S-llm | [E 확증 대기] | [E 확증 대기] |
-| S-dict | [E 확증 대기] | [E 확증 대기] |
-| S-union | [E 확증 대기] | [E 확증 대기] |
-| S-bm25 | [E 확증 대기] | [E 확증 대기] |
-| S-comb | [E 확증 대기] | [E 확증 대기] |
+| System | DDXPlus-E Top-1 | DDXPlus-E Top-3 | DDXPlus-E Top-10 | SymCat-E Top-1 | SymCat-E Top-3 | SymCat-E Top-10 |
+|---|---|---|---|---|---|---|
+| **S-mix** | 12.43 [11.3, 13.6] | 24.30 [22.8, 26.0] | 41.07 [39.3, 43.0] | 2.45 [2.1, 2.8] | 5.61 [5.1, 6.2] | 12.92 [12.2, 13.6] |
+| S-D | 11.73 [10.6, 12.9] | 19.47 [18.1, 20.9] | 34.53 [32.8, 36.3] | 3.23 [2.8, 3.6] | 5.76 [5.2, 6.3] | 10.49 [9.8, 11.2] |
+| S-llm | 11.90 [10.8, 13.2] | 23.23 [21.7, 24.9] | 39.47 [37.7, 41.3] | 2.21 [1.9, 2.6] | 4.64 [4.2, 5.1] | 11.24 [10.5, 12.0] |
+| S-dict | 17.63 [16.2, 19.0] | 29.33 [27.7, 31.0] | 43.50 [41.7, 45.4] | 3.12 [2.7, 3.5] | 6.31 [5.7, 6.8] | 14.08 [13.3, 14.9] |
+| S-union | 17.93 [16.6, 19.3] | 28.50 [27.0, 30.2] | 45.07 [43.3, 47.0] | 3.26 [2.9, 3.6] | 6.15 [5.6, 6.7] | 14.24 [13.4, 15.0] |
+| S-bm25 | 8.57 [7.6, 9.5] | 13.57 [12.4, 14.8] | 21.77 [20.3, 23.2] | 2.09 [1.8, 2.4] | 4.68 [4.2, 5.2] | 9.93 [9.2, 10.6] |
+| S-comb | 12.10 [11.0, 13.3] | 24.80 [23.3, 26.4] | 40.30 [38.5, 42.1] | 2.64 [2.3, 3.0] | 6.24 [5.7, 6.8] | 13.90 [13.1, 14.6] |
 
-(b) Judgments. Every "Dev expectation" was committed before the run: E-T1, E-T2 and E-T4 in the design E commit (5ce9c3d); E-T3 and E-T5 after S-bm25 and the first S-comb were selected on the development sets (commit 61e3118). That first S-comb selection was discarded, and the E-T5 expectation was corrected in commit 0cb1c59 after S-comb was reselected with the S-mix load verified. Both commits precede the freeze (commit 49901bc). Values are development per-set Top-10 differences (DDXPlus; SymCat), with patient-paired bootstrap 95% CI where given, unless stated.
+(b) Judgments. Every "Dev expectation" was committed before the run: E-T1, E-T2 and E-T4 in the design E commit (5ce9c3d); E-T3 and E-T5 after S-bm25 and the first S-comb were selected on the development sets (commit 61e3118). That first S-comb selection was discarded, and the E-T5 expectation was corrected in commit 0cb1c59 after S-comb was reselected with the S-mix load verified. Both commits precede the freeze (commit 49901bc). Dev expectation values are development per-set Top-10 differences (DDXPlus; SymCat), with patient-paired bootstrap 95% CI where given, unless stated. Confirmation results are Top-10 differences in percentage points (DDXPlus-E; SymCat-E, or the equal-weight macro over the two sets) with patient-paired bootstrap 95% CI (2,000 resamples; set-stratified for the macro) and Holm-adjusted exact McNemar p (family = two sets). All seven judgments matched their committed expectations.
 
 | Target | Comparison | Criterion | Dev expectation | Confirmation result | Met |
 |---|---|---|---|---|---|
-| E-T1 (primary) | S-mix − S-D, Top-10, each set | patient CI lower bound > 0 and exact McNemar Holm p < .05 (family = two sets) | +7.6; +2.7 (expected met) | [E 확증 대기] | [E 확증 대기] |
-| E-T2 (primary) | S-mix − S-llm, macro Top-10 | CI lower bound > −1 pp | +1.9; +1.9 (expected met) | [E 확증 대기] | [E 확증 대기] |
-| E-T2 | S-mix − S-dict, macro Top-10 | CI lower bound > −1 pp | −1.6; −1.1 (expected not met) | [E 확증 대기] | [E 확증 대기] |
-| E-T2 | S-mix − S-union, macro Top-10 | CI lower bound > −1 pp | −3.0; −1.3 (expected not met) | [E 확증 대기] | [E 확증 대기] |
-| E-T3 | S-mix − S-bm25, Top-10, each set | CI lower bound > −1 pp in both and ≥ 1 Holm-significant gain | +20.9 [19.2, 22.7]; +3.2 [2.5, 4.0], both Holm-significant (expected met) | [E 확증 대기] | [E 확증 대기] |
-| E-T4 | S-mix alone on DDXPlus-E | Top-10 ≥ 40%, Top-1 ≥ 18% | Top-10 40.6 (borderline); Top-1 11.8 (expected not met) | [E 확증 대기] | [E 확증 대기] |
-| E-T5 | S-comb − S-mix and S-comb − S-bm25, macro Top-10 | both CI lower bounds > 0 | S-comb − S-mix, macro over DDXPlus and SymCat: −0.02 [−0.54, 0.49] (DDXPlus −0.8; SymCat +0.8; expected not met). S-comb − S-bm25, same macro: +12.04 [11.15, 12.94] (expected met) | [E 확증 대기] | [E 확증 대기] |
-| E0 | E-T1 and E-T2 (S-llm) | both met | – | [E 확증 대기] | [E 확증 대기] |
+| E-T1 (primary) | S-mix − S-D, Top-10, each set | patient CI lower bound > 0 and exact McNemar Holm p < .05 (family = two sets) | +7.6; +2.7 (expected met) | +6.5 [+4.6, +8.5], Holm p = 2.1 × 10⁻¹¹; +2.4 [+1.7, +3.1], Holm p = 3.4 × 10⁻¹¹ | Met |
+| E-T2 (primary) | S-mix − S-llm, macro Top-10 | CI lower bound > −1 pp | +1.9; +1.9 (expected met) | Macro +1.64 [+1.17, +2.18] (DDXPlus-E +1.6; SymCat-E +1.7) | Met |
+| E-T2 | S-mix − S-dict, macro Top-10 | CI lower bound > −1 pp | −1.6; −1.1 (expected not met) | Macro −1.80 [−2.44, −1.12] (DDXPlus-E −2.4; SymCat-E −1.2) | Not met |
+| E-T2 | S-mix − S-union, macro Top-10 | CI lower bound > −1 pp | −3.0; −1.3 (expected not met) | Macro −2.66 [−3.27, −2.07] (DDXPlus-E −4.0; SymCat-E −1.3) | Not met |
+| E-T3 | S-mix − S-bm25, Top-10, each set | CI lower bound > −1 pp in both and ≥ 1 Holm-significant gain | +20.9 [19.2, 22.7]; +3.2 [2.5, 4.0], both Holm-significant (expected met) | +19.3 [+17.6, +21.0]; +3.0 [+2.2, +3.8], both Holm-significant (Holm p < 10⁻¹³) | Met |
+| E-T4 | S-mix alone on DDXPlus-E | Top-10 ≥ 40%, Top-1 ≥ 18% | Top-10 40.6 (borderline); Top-1 11.8 (expected not met) | Top-10 41.07 [39.3, 43.0]; Top-1 12.43 [11.3, 13.6] | Not met (Top-1) |
+| E-T5 | S-comb − S-mix and S-comb − S-bm25, macro Top-10 | both CI lower bounds > 0 | S-comb − S-mix, macro over DDXPlus and SymCat: −0.02 [−0.54, 0.49] (DDXPlus −0.8; SymCat +0.8; expected not met). S-comb − S-bm25, same macro: +12.04 [11.15, 12.94] (expected met) | S-comb − S-mix macro +0.11 [−0.39, +0.59] (DDXPlus-E −0.8; SymCat-E +1.0). S-comb − S-bm25 macro +11.25 [+10.36, +12.14] | Not met (S-comb − S-mix) |
+| E0 | E-T1 and E-T2 (S-llm) | both met | – | E-T1 met; E-T2 (S-llm) met | Achieved |
 
 ### 4.7 출처 추적과 근거 품질
 
@@ -280,7 +286,7 @@ Table 15. Design E confirmation (lineage, open set of 43,575 diseases) [E 확증
 
 의료진 판정 기준으로 주제 문서가 1편 이상인 간선의 supports는 38.3%(51/133), 주제 밖 문서뿐인 간선은 11.9%(8/67)였다. 지지 문서가 2편 이상인 간선은 52.9%(9/17), 1편인 간선은 27.3%(50/183)였다. 의료진이 wrong_concept로 판정한 42행에는 약물·치료, 검사·방법·경과·결과 표현, 인구통계 개념, 질환 자체나 다른 질환명, 구절 절단이 포함되었다. 같은 200행의 LLM 판정에서 가장 많은 실패 유형은 근거 문서가 인접 아형이나 증후군 등 다른 질환을 다루는 경우(약 45행)였다. 이 200행은 이후 보류(held-out) 평가 세트로 지정했다.
 
-큐레이션 대조에서는 HPO 주석(phenotype.hpoa, 2026-02-16)이 있는 질환 12,296개의 비교 가능한 간선 194,318개를 큐레이터 표현형과 대조했다(표 16). 정확 일치율은 16.4%(HPO 부모 포함 19.9%)로, 질환을 무작위로 순열한 대응(20회 평균) 2.6%보다 높았다. 일치율은 지지 문서 1편 13.3%(168,512간선), 2편 31.7%(18,262간선), 3–4편 46.3%(6,269간선), 5편 이상 63.2%(1,275간선)로 지지 문서 수에 따라 단조 증가했다. 주제 문서가 1편 이상인 간선은 19.3%, 주제 밖 문서뿐인 간선은 11.5%였다. 큐레이션은 불완전하므로 큐레이션에 없는 간선도 맞을 수 있다. 따라서 일치율은 정밀도의 하한이다. 반대 방향으로, 큐레이터가 주석한 쌍 가운데 그래프가 재현한 비율은 11.3%였다. IE 모델만 gemma-4-E4B로 바꾼 v2.1 그래프, 곧 S-D 그래프(간선 832,671개, 근거 언급 1,201,064개, 문서 86,276건)에서는 일치율이 18.2%(무작위 2.8%)였고, 지지 문서 1편 15.0%에서 5편 이상 62.8%로 올랐다.
+큐레이션 대조에는 HPO 주석(phenotype.hpoa, 2026-02-16)을 썼다. 이 판에서 주석이 있는 질환은 12,296개이고, 그중 UMLS 개념으로 사상되는 표현형이 하나 이상인 질환은 12,251개다(3.7절 표 5의 HPO 주석 그래프). 이 질환들의 비교 가능한 간선 194,318개를 큐레이터 표현형과 대조했다(표 16). 정확 일치율은 16.4%(HPO 부모 포함 19.9%)로, 질환을 무작위로 순열한 대응(20회 평균) 2.6%보다 높았다. 일치율은 지지 문서 1편 13.3%(168,512간선), 2편 31.7%(18,262간선), 3–4편 46.3%(6,269간선), 5편 이상 63.2%(1,275간선)로 지지 문서 수에 따라 단조 증가했다. 주제 문서가 1편 이상인 간선은 19.3%, 주제 밖 문서뿐인 간선은 11.5%였다. 큐레이션은 불완전하므로 큐레이션에 없는 간선도 맞을 수 있다. 따라서 일치율은 정밀도의 하한이다. 반대 방향으로, 큐레이터가 주석한 쌍 가운데 그래프가 재현한 비율은 11.3%였다. IE 모델만 gemma-4-E4B로 바꾼 v2.1 그래프, 곧 S-D 그래프(간선 832,671개, 근거 언급 1,201,064개, 문서 86,276건)에서는 일치율이 18.2%(무작위 2.8%)였고, 지지 문서 1편 15.0%에서 5편 이상 62.8%로 올랐다.
 
 Table 16. Evidence quality by provenance signal on the old Qwen3-4B-Instruct-2507 graph (audit sample drawn from v2.1; topic marks added in v2.1c): clinical audit (n = 200) and agreement with HPO curated annotations (exact concept match; a lower bound on edge correctness). The new S-mix graph has not been audited or compared with HPO annotations.
 
@@ -295,4 +301,4 @@ Table 16. Evidence quality by provenance signal on the old Qwen3-4B-Instruct-250
 
 ^a^ 2 documents 31.7% (18,262 edges), 3–4 documents 46.3% (6,269), ≥5 documents 63.2% (1,275). The gemma-4-E4B v2.1 graph, which is the S-D graph, gives 18.2% overall agreement (random 2.8%), rising from 15.0% (1 document) to 62.8% (≥5 documents).
 
-S-mix 그래프의 출처 상태는 다음과 같다. S-mix 간선의 의료진·LLM 판정은 하지 않았다. S-mix 그래프와 HPO 주석의 대조(위와 같은 방식)도 계산하지 않았다 [미측정]. 빌더는 재연결 항목의 원 LLM 구절을 근거 언급의 span 속성으로 저장하고, 근거 문장을 그 구절을 중심으로 자르도록 바뀌었다(커밋 3b10c36). 이 빌더로 S-mix를 비교용 인스턴스에 다시 빌드한 그래프의 지문은 바뀌지 않았다(15ba677…). 적재된 HAS_FINDING 간선은 5,221,285개로 빌드 요약과 같았다. 근거 언급을 넣어 다시 빌드한 S-mix는 동결 전에 출처 불변식 검사를 통과했다. 근거 언급이 없는 HAS_FINDING 간선은 0개였고, Disease 노드는 43,575개였다. 근거 언급은 11,582,169개였고, 지문은 바뀌지 않았다(15ba677…). 개발 DDXPlus 3,000명의 순위는 근거 언급이 없는 빌드와 같았다. span 속성은 근거 언급의 LLM 구절과 사전 이름을 따로 감사할 수 있게 하지만, 그 감사는 하지 않았다. 4.3의 시뮬레이션에서 간선 정밀도를 36%에서 55%로 올렸을 때의 Top-10 기대 상승은 상대 약 6%였다. 근거 경로를 추적할 수 있다는 것이 간선이 정확하다는 뜻은 아니다.
+S-mix 그래프의 출처 상태는 다음과 같다. S-mix 간선의 의료진·LLM 판정은 하지 않았다. S-mix 그래프와 HPO 주석의 대조(위와 같은 방식)도 계산하지 않았다 [미측정]. 빌더는 재연결 항목의 원 LLM 구절을 근거 언급의 span 속성으로 저장하고, 근거 문장을 그 구절을 중심으로 자르도록 바뀌었다(커밋 3b10c36). 이 빌더로 S-mix를 비교용 인스턴스에 다시 빌드한 그래프의 지문은 바뀌지 않았다(15ba677…). 적재된 HAS_FINDING 간선은 5,221,285개로 빌드 요약과 같았다. 근거 언급을 넣어 다시 빌드한 S-mix는 동결 전에 출처 불변식 검사를 통과했다. 근거 언급이 없는 HAS_FINDING 간선은 0개였고, Disease 노드는 43,575개였다. 근거 언급은 11,582,169개였고, 지문은 바뀌지 않았다(15ba677…). 개발 DDXPlus 3,000명 모두에서 정답 질환의 Top-10 내 위치(lineage)가 근거 언급이 없는 빌드와 같았다. span 속성은 근거 언급의 LLM 구절과 사전 이름을 따로 감사할 수 있게 하지만, 그 감사는 하지 않았다. 4.3의 시뮬레이션에서 간선 정밀도를 36%에서 55%로 올렸을 때의 Top-10 기대 상승은 상대 약 6%였다. 근거 경로를 추적할 수 있다는 것이 간선이 정확하다는 뜻은 아니다.
