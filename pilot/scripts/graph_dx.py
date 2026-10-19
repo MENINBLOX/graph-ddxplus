@@ -69,14 +69,16 @@ class GraphDx:
                       "count(d) AS n").single()
             self.lbar, self.smed, self.n = r["lbar"], max(1, r["smed"]), r["n"]
 
-    def rank(self, ev: set[str], k: int = 50) -> list[str]:
+    def rank(self, ev: set[str], k: int = 50, window: int | None = None) -> list[str]:
+        """window: diseases whose finding score is read (default k*4); callers that need a longer list ranked
+        exactly as a Top-10 evaluation ranks it pass window=40."""
         def finding_scores(s, cands, limit):
             return {r["id"]: r["score"] for r in s.run(
                 RANK, ev=sorted(ev), decay=self.decay, mu=self.mu, smed=self.smed, lbar=self.lbar,
                 alpha=self.alpha, beta=self.beta, gamma=self.gamma, cands=cands, k=limit)}
 
         with self.drv.session() as s:
-            sc = finding_scores(s, self.cands, k * 4)
+            sc = finding_scores(s, self.cands, window or k * 4)
             if self.unified_w:
                 uni = {r["id"]: r["n"] for r in s.run(UNIFIED, ev=sorted(ev))
                        if self.cands is None or r["id"] in self._cset}
