@@ -51,16 +51,18 @@ def chunks_of(text: str) -> list[str]:
 def build_corpus(sources: str) -> None:
     """Two passes over the sources, so only the chunk-to-document map stays in memory: the first
     links documents to diseases, the second streams each kept document's chunks to disk."""
-    from build_graph_v2 import iter_sources
+    from build_graph_v2 import article, iter_sources
     uni = set(v2_ids.universe()) - set(json.load(open(EXCLUDED)))
     use, links, title = defaultdict(int), defaultdict(set), {}
     for dz, dz_docs in iter_sources(sources):
-        for x in dz_docs:
-            use[x["doc_id"]] += 1
+        held = {x["doc_id"] for x in dz_docs}
+        for x in dz_docs:                  # counted exactly as build_graph_v2.py counts use
+            if not (x["doc_id"].startswith("TBL") and article(x["doc_id"]) in held):
+                use[article(x["doc_id"])] += 1
             if dz in uni:
                 links[x["doc_id"]].add(dz)
                 title.setdefault(x["doc_id"], x.get("title") or "")
-    docs = sorted(d for d in links if use[d] < MAX_DOC_DISEASES)
+    docs = sorted(d for d in links if use[article(d)] < MAX_DOC_DISEASES)
     idx = {d: i for i, d in enumerate(docs)}
     os.makedirs(OUT, exist_ok=True)
     chunk_doc, written = [], set()
