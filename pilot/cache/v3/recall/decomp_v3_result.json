@@ -1,0 +1,99 @@
+{
+ "measure": {
+  "code_changes": [
+   "pilot/scripts/recall_decomp.py: extraction files are now read through jsonl_io.open_text, so .jsonl.gz works. A new records() helper skips lines for diseases not needed by matching the leading {\"id\": ...} before calling json.loads.",
+   "Generic-document rule now matches build_graph_v2.py: generic status is counted per article(doc_id), and a TBL<PMCID> table document adds nothing for a disease that also holds the article. Items are dropped when article(doc) is generic, and also, as in the builder, when the cited doc is not held for the disease. MAX_DOC_DISEASES = 20.",
+   "New flags that mirror the builder: --topic-genes (causal-gene symbols in the title count as on-topic) and --no-self (concepts naming the disease or a parent disease go to 'filtered'). With --link full, an item that already carries a cui (dictionary or re-linked items) also gets the HPO-name CUI when its text spells an HPO name, as in the builder. Defaults are unchanged: --link table, no topic genes, no no-self.",
+   "New --phrases FILES flag: item phrases from these files also count as extracted for not_extracted vs not_linked. S-mix needs this because llm_dict_relink.py drops LLM items in which the dictionary finds nothing. The src_t of a re-linked item is also added to the phrase set.",
+   "Memory: per-item tuple lists are replaced by per-disease aggregates streamed in one pass (a phrase set, the set of linked CUIs, the CUIs that reach an edge, the CUIs that reach a topic edge), and topic status is precomputed per document. The not_linked check runs on one '\\0'-joined phrase string per disease. The D regression shows the verdicts are unchanged. Peak RSS: 2.3 GB (D), 4.6 GB (S-mix/S-llm), 2.6 GB (S-dict). Each run takes 25-80 s.",
+   "Outputs: the summary JSON gains an 'args' key, and each row of _pairs.json gains 'n' (number of cases per disease-feature pair, so transitions can be weighted by triples). Existing keys are unchanged. Max RSS is printed per stage.",
+   "Housekeeping: the docstring explains the filtered and offtopic_only stages for the v3 graphs. Context managers replace bare open() calls. Unused noqa comments and the lambda are removed, and the inline zipfile import moved to the top. data/confirm/phenopacket_new now comes from temporal_eval.NEW. `uvx ruff check pilot/scripts/recall_decomp.py` (ruff 0.17.1) reports All checks passed. Nothing committed; draft/, docs/ and Neo4j untouched."
+  ],
+  "regression": "Exact match. The final code with default arguments reproduces pilot/cache/v2/recall/decomp.json: triples 82,751, pairs 22,626, diseases 878. All 8 by_triple counts match (18502/36963/1906/5113/2881/3569/2132/11685) and all 8 by_pair counts match (7228/11213/383/834/672/577/404/1315). All 22,626 per-pair verdicts are identical to pilot/cache/v2/recall/decomp_pairs.json. I ran this twice (after the first edit and with the final code). Output: /tmp/claude-1000/-home-max-thesis/edda7dda-7b76-45bb-a79a-ce62d7e31a1b/scratchpad/regress_D2/decomp.json. The rule changes have no effect on D: v2/sources has no TBL documents, so the per-article and per-doc_id counts are identical (1,119 generic, the same number the base_nm build log prints), and the new held-document check removes no D item. curated_agreement after the refactor: hpo_to_cui() (11,418 HPO->CUI entries, 19,835 parent entries) and curated_pairs() give outputs identical to the pre-refactor aad200f^ version, and HPOA/HP_JSON are unchanged. recall_decomp uses only hpo_to_cui, HP_JSON and HPOA.",
+  "results": [
+   {
+    "graph": "D (design D, base_nm: v2 sources, gemma IE, phrase2cui_gemma, --link table) - reference",
+    "output": "/home/max/thesis/pilot/cache/v2/recall/decomp.json",
+    "stages_pct": "by triple: no_docs 18502 (22.4) / not_in_text 36963 (44.7) / not_extracted 1906 (2.3) / not_linked 5113 (6.2) / filtered 2881 (3.5) / offtopic_only 3569 (4.3) / near 2132 (2.6) / edge 11685 (14.1). By pair (22,626): 31.9/49.6/1.7/3.7/3.0/2.6/1.8/5.8",
+    "triples": 82751,
+    "notes": "Groups: collection loss (no_docs+not_in_text) 55,465 (67.0%), extraction+linking 7,019 (8.5%), filtered+offtopic 6,450 (7.8%), near+edge 13,817 (16.7%). 611 of 878 diseases have usable documents."
+   },
+   {
+    "graph": "S-mix (v3llmd_ns)",
+    "output": "/home/max/thesis/pilot/cache/v3/recall/decomp_smix.json (log decomp_smix.log, pairs decomp_smix_pairs.json)",
+    "stages_pct": "by triple: no_docs 208 (0.3) / not_in_text 30656 (37.0) / not_extracted 2022 (2.4) / not_linked 2219 (2.7) / filtered 3113 (3.8) / offtopic_only 3627 (4.4) / near 6755 (8.2) / edge 34151 (41.3). By pair: 107 (0.5) / 12765 (56.4) / 668 (3.0) / 493 (2.2) / 1098 (4.9) / 920 (4.1) / 1495 (6.6) / 5080 (22.5)",
+    "triples": 82751,
+    "notes": "Inputs: --ie llmd_v2.jsonl.gz,llmd_v3.jsonl.gz --table phrase2cui_v3.json --sources v2/sources,v3/sources_new --link full --topic-genes --no-self --phrases ie_gemma_full.jsonl,ie_v3.jsonl. --phrases is needed because the llmd files drop LLM items with no dictionary match; it changes only 4 triples (not_extracted 2026->2022 without/with). I checked that the llmd files derive from those LLM files: on the first 3,000 records each, ids match and every kept item and every src_t is an LLM item. Generic articles: 4,122, the same number the v3llmd_ns build log prints. 874 of 878 diseases have usable documents. Groups: collection 30,864 (37.3%), extraction+linking 4,241 (5.1%), filtered+offtopic 6,740 (8.1%), near+edge 40,906 (49.4%)."
+   },
+   {
+    "graph": "S-llm (v3llm_ns)",
+    "output": "/home/max/thesis/pilot/cache/v3/recall/decomp_sllm.json (log, pairs alongside)",
+    "stages_pct": "by triple: no_docs 208 (0.3) / not_in_text 30958 (37.4) / not_extracted 2053 (2.5) / not_linked 2857 (3.5) / filtered 3160 (3.8) / offtopic_only 3775 (4.6) / near 6622 (8.0) / edge 33118 (40.0). By pair: 107 (0.5) / 12873 (56.9) / 679 (3.0) / 659 (2.9) / 1092 (4.8) / 905 (4.0) / 1462 (6.5) / 4849 (21.4)",
+    "triples": 82751,
+    "notes": "Inputs: --ie ie_gemma_full.jsonl,ie_v3.jsonl --table phrase2cui_v3.json, same sources, --link full --topic-genes --no-self. Groups: collection 31,166 (37.7%), extraction+linking 4,910 (5.9%), filtered+offtopic 6,935 (8.4%), near+edge 39,740 (48.0%). Compared with S-mix, the in-phrase dictionary re-link is the only difference: it moves 460 triples from not_linked to edge, 111 to offtopic_only and 98 to near, cutting not_linked 2,857 -> 2,219."
+   },
+   {
+    "graph": "S-dict (v3umls_ns)",
+    "output": "/home/max/thesis/pilot/cache/v3/recall/decomp_sdict.json (log, pairs alongside)",
+    "stages_pct": "by triple: no_docs 206 (0.2) / not_in_text 29901 (36.1) / not_extracted 277 (0.3) / not_linked 2439 (2.9) / filtered 3087 (3.7) / offtopic_only 4042 (4.9) / near 7104 (8.6) / edge 35695 (43.1). By pair: 106 (0.5) / 12462 (55.1) / 72 (0.3) / 574 (2.5) / 1170 (5.2) / 1114 (4.9) / 1638 (7.2) / 5490 (24.3)",
+    "triples": 82751,
+    "notes": "Inputs: --ie dict_umls_v2.jsonl.gz,dict_umls_v3.jsonl.gz --table v2/phrase2cui_gemma.json, same sources, --link full --topic-genes --no-self. Items carry the dictionary cui; the HPO-name CUI is added as in the builder, and ambiguous strings with no cui are linked through the table. 2.64M items for the 878 diseases. Groups: collection 30,107 (36.4%), extraction+linking 2,716 (3.3%), filtered+offtopic 7,129 (8.6%), near+edge 42,799 (51.7%). not_in_text is lower than in the LLM graphs (29,901 vs 30,656) because a dictionary hit counts as edge, near, offtopic or filtered before the HPO-string text check."
+   }
+  ],
+  "findings": [
+   "Most collection loss is gone, but what remains is still the largest stage. Collection loss (no_docs + not_in_text) falls from 55,465 triples (67.0%) in D to 30,864 (37.3%) in S-mix, 31,166 (37.7%) in S-llm and 30,107 (36.4%) in S-dict. no_docs almost disappears (22.4% -> 0.3%; 874 of 878 diseases now have usable documents, against 611). not_in_text falls from 44.7% to 36-37% of triples. Most of what remains is documents that exist but never spell an HPO label or synonym of the feature. That is an upper bound, because paraphrases are missed. By pair, not_in_text rises from 49.6% to 55-57%: most pairs that had no documents in D now land in not_in_text (11,513 triples move from no_docs to not_in_text in S-mix).",
+   "Loss did not move to extraction or linking. Extraction+linking falls in absolute numbers: 7,019 (8.5%) in D -> 4,241 (5.1%) S-mix / 4,910 (5.9%) S-llm / 2,716 (3.3%) S-dict. As a share of triples whose feature name is in the text, it falls from 25.7% (D) to 8.2% / 9.5% / 5.2%. Of D's 55,465 collection-loss triples, S-mix still loses 30,833 at collection and recovers 24,632. Of those, 18,019 (73%) become near or edge, 3,607 (15%) filtered/offtopic_only and 3,006 (12%) not_extracted/not_linked. S-llm and S-dict are similar (S-llm 3,344 to extraction/linking, S-dict 1,762). Topic edges jump from 14.1% to 40-43% of triples, and near+edge from 16.7% to 48-52%.",
+   "D against the v3 graphs mixes two changes: the new corpus and the builder flags (D is base_nm with table linking only; the v3 graphs use --split-coord --hpo-names --topic-genes --no-self). To separate them I ran a supplementary decomposition on the v2 corpus with the v3 flags (scratchpad v2_fullflags/decomp.json): not_linked 2,276 (2.8%), not_extracted 1,877 (2.3%), edge 14,514 (17.5%), collection 54,041 (65.3%). So the flags alone cut not_linked from 5,113 to 2,276; the v3 corpus is what removes collection loss. With the flags held fixed, the v3 corpus leaves extraction+linking roughly flat in absolute terms (4,153 -> 4,241 S-mix / 4,910 S-llm) while the in-text pool nearly doubles (28,710 -> about 51.6-52.6k).",
+   "S-dict has the smallest extraction loss (not_extracted 277, 0.3%) because the UMLS finding-string dictionary contains most HPO labels and synonyms. Its remaining loss comes from linking (not_linked 2,439, ambiguous or other-CUI strings) and from the filtered/offtopic stages (8.6%).",
+   "offtopic_only is a weight-0 loss only under design D's frozen offtopic_w = 0. The confirmation-set E freeze sets offtopic_w = 0.5 for S-mix and S-dict and 1.0 for S-llm, so for the v3 graphs this stage (4.4-4.9%) is down-weighted, not lost. The script's docstring now says so.",
+   "Some D edges are lost in v3. With more diseases per article in the merged corpus, the generic set grows from 1,119 to 4,122 articles, and --no-self removes self-concept edges. As a result 21 S-mix triples go from D near/edge to not_in_text, and 77 to filtered. S-dict also loses 57 D near/edge triples at extraction or linking. These are small next to the gains.",
+   "Builder fidelity checks: the generic-article counts reproduce the builder logs exactly (base_nm 1,119; v3llmd_ns, v3llm_ns and v3umls_ns 4,122). Mention-level counts cannot be cross-checked without querying Neo4j, which I did not touch.",
+   "Logs: pilot/cache/v3/recall/decomp_{smix,sllm,sdict}.log, each with /usr/bin/time stats. The chain script and the supplementary runs (regress_D2, v2_fullflags, smix_nophrases) are in /tmp/claude-1000/-home-max-thesis/edda7dda-7b76-45bb-a79a-ce62d7e31a1b/scratchpad/ (run_all.sh, compare.py). Nothing committed."
+  ]
+ },
+ "verify": {
+  "verdict": "결론: 코드, 입력, 집계는 검증을 통과했다. 다만 stage 정의 두 가지가 v3 해석에 편향을 준다. 하나는 feature CUI를 매핑하는 기준(ranker는 hpo_umls_mapping, decomposition은 hp.json xref)이고, 다른 하나는 offtopic_w와 near의 처리다. 이 때문에 not_linked/edge 값과 그룹 수치가 바뀐다. 결과를 무효로 만드는 문제는 찾지 못했다.\n\n직접 확인한 것:\n(1) Regression: 기본 인자로 다시 돌린 결과(/tmp/claude-1000/-home-max-thesis/edda7dda-7b76-45bb-a79a-ce62d7e31a1b/scratchpad/verify/D/decomp.json)가 pilot/cache/v2/recall/decomp.json과 by_triple, by_pair 모두 같다. 22,626개 pair verdict도 전부 일치한다. 다만 이 regression은 --link table, TBL 없는 단일 source, topic-genes/no-self 없는 경로만 거친다.\n(2) 새 코드 경로는 따로 검증했다. build_graph_v2.py의 edge loop를 그대로 옮긴 독립 mirror(verify/builder_mirror.py)를 만들었다. global title dict, held, TBL 규칙, cui item의 HPO-name 추가, no-self, topic-genes를 모두 포함한다. 이것으로 계산한 edge/near/offtopic_only verdict가 S-mix, S-llm, S-dict 세 graph 모두에서 _pairs.json과 0건 차이로 일치했다(verify/mirror_*.log). 같은 loop를 전 질병에 돌린 full mirror(verify/full_mirror.py)는 v3llmd_ns build log를 정확히 재현했다: mentions 11,582,169 / edges 5,221,285 / docs 711,350 / topic mentions 7,893,900 / generic 4,122. 디렉터리 간 title 충돌은 0건이다.\n(3) 실행 설정: 세 run의 args가 run_graph_variants.sh의 IE, table, sources, 플래그와 일치한다(v3llmd/v3llm은 phrase2cui_v3, v3umls는 phrase2cui_gemma, 모두 --split-coord --hpo-names --topic-genes --no-self). frozen_config_E의 offtopic_w도 보고 내용과 같다(S-mix 0.5, S-llm 1.0, S-dict 0.5, D 0.0). llmd 파일은 ie_gemma_full/ie_v3를 phrase2cui_v3로 다시 링크해 만든 것이다(chain_e_prep.sh).\n(4) 재계산: pairs의 n 합이 82,751이고 by_triple/by_pair와 일치한다. 그룹 수치(55,465/30,864/31,166/30,107 등)가 맞다. D collection 손실 55,465건의 S-mix 내 분포(30,833 / 18,019 / 3,607 / 3,006)가 맞다. no_docs→not_in_text 11,513건, S-llm→S-mix 이동 460/111/98, S-dict의 57건, v2_fullflags 수치, ruff 통과도 모두 확인했다.\n\n내 검증 산출물은 /tmp/claude-1000/-home-max-thesis/edda7dda-7b76-45bb-a79a-ce62d7e31a1b/scratchpad/verify/ 아래에 있다: pat/*.json(patient CUI 기준 재분해), near/*.json, rd_patient.py, rd_near.py.",
+  "problems": [
+   {
+    "what": "ranker가 실제로 조회하는 CUI와 decomposition이 feature 매칭에 쓰는 CUI가 다르다. decomposition은 CA.hpo_to_cui()(hp.json UMLS xref)를 쓴다. ranker의 환자 쪽은 opendx_eval._rb_maps().hp, 즉 data/rarebench/hpo_umls_mapping.json의 단일 CUI를 쓴다(temporal_eval.load_cases의 ev). 그런데 --hpo-names는 바로 이 hpo_umls_mapping CUI를 graph에 추가한다. 그래서 v3 graph에서는 not_linked가 부풀고 edge가 줄어든다. D(--hpo-names 없음)에서는 반대로 not_linked가 과소 집계된다. stage 정의를 모든 graph에 똑같이 적용했는데도 편향의 방향이 graph마다 다르다. 이 때문에 D 대 v3 비교에서 '추출+링킹 손실 감소', 'flags만으로 not_linked 5,113→2,276' 같은 주장이 측정 artifact를 포함한다.",
+    "evidence": "전체 triple 중 9,677건(11.7%)에서 환자 CUI가 xref에 없다. 그중 4,853건은 xref가 아예 없고, 4,824건은 xref가 다른 CUI다. xref가 없는 feature 5,246 triple은 정의상 edge/offtopic/filtered가 될 수 없다(S-mix not_linked 2,219 중 472건이 이 경우). h2c만 환자 CUI로 바꿔 다시 돌린 결과(verify/rd_patient.py, CUIMAP=patient), xref 기준 → 환자 CUI 기준: not_linked는 D 5,113→6,206, S-mix 2,219→887, S-llm 2,857→1,585, S-dict 2,439→978. edge는 D 11,685→10,824, S-mix 34,151→35,661, S-llm 33,118→34,551, S-dict 35,695→37,492. 추출+링킹 그룹은 D 7,019(8.5%)→8,128(9.8%), S-mix 4,241(5.1%)→2,942(3.6%), S-llm 4,910→3,677, S-dict 2,716→1,248. D의 published 정의에서 물려받은 문제지만, 이번 비교의 수치를 바꾼다.",
+    "severity": "changes_numbers"
+   },
+   {
+    "what": "offtopic_only를 손실로, near+edge를 graph 도달로 묶은 그룹 수치가 v3의 frozen offtopic_w를 반영하지 않는다. S-llm은 offtopic_w=1.0이다. graph_dx의 RANK 쿼리 CASE WHEN n_topic_docs>0 THEN 1 ELSE gamma에 따르면 off-topic edge는 topic edge와 똑같이 점수를 받는다. S-mix와 S-dict는 0.5다. 또 near는 topic edge만 본다. 그래서 off-topic edge로 부모·자식 CUI에 닿는 경우는 near에서 빠진다. exact off-topic edge가 있는 near pair도 offtopic_w>0에서는 near보다 강한 매칭인데 near로 분류된다. 보고서의 finding 5는 down-weighting을 언급하지만, '손실 filtered+offtopic 8.1~8.6%', 'near+edge 48~52%'라는 그룹 수치는 고쳐지지 않았다.",
+    "evidence": "S-llm offtopic_only는 3,775 triple(4.6%)이다. edge와 같은 가중치이므로 S-llm의 edge급은 36,893(44.6%)이 된다. rd_near.py 결과(xref 기준), off-topic 근접 edge가 있는데 하위 stage(filtered 이하)로 분류된 triple: S-mix 1,559, S-llm 1,520, S-dict 1,961, D 1,329(D는 offtopic_w=0이라 무관). near 중 exact off-topic edge가 있는 triple: S-mix 682, S-llm 595, S-dict 789.",
+    "severity": "changes_numbers"
+   },
+   {
+    "what": "near에는 자식 HPO term의 CUI만 topic edge인 경우가 들어간다. 그런데 ranker의 1-hop은 위쪽으로만 간다: 환자 concept -[:IS_A*0..1]-> 부모 concept, UMLS phenotype_parents 기준. 자식 쪽 edge는 점수를 받지 못한다. 이 child-only near가 v3에서 두 배 넘게 늘어서 near+edge의 증가폭이 부풀려진다.",
+    "evidence": "rd_near.py 기준 near_child_only triple: D 529 / S-mix 1,288 / S-llm 1,154 / S-dict 1,441. near 중 비율은 약 19%다. near+edge 증가폭을 약 1pp 과대 계상한다.",
+    "severity": "minor"
+   },
+   {
+    "what": "finding 6의 'D near/edge에서 filtered로 77건'은 실제로 filtered 71건과 offtopic_only 6건을 합친 수치다.",
+    "evidence": "S-mix의 D near/edge 이탈 triple: edge→filtered 69, near→filtered 2, edge→offtopic_only 6, near→not_in_text 21. 합계 98이다.",
+    "severity": "minor"
+   },
+   {
+    "what": "'S-mix와 S-llm의 유일한 차이는 in-phrase dictionary re-link'라는 서술은 정확하지 않다. llm_dict_relink는 table이 링크하지 못한 LLM item을 dictionary 문자열로 바꾸거나 아예 버린다. 그래서 S-llm에서 그 item에 붙던 split-coord/HPO-name 링크가 사라지는 역방향 이동이 있다. 460/111/98이라는 수치 자체는 맞다.",
+    "evidence": "S-llm→S-mix 역방향 이동: edge→not_linked 31, offtopic_only→not_linked 31, near→not_in_text 23, edge→near 22, edge→offtopic_only 7. not_in_text에서 링크된 stage로 간 이동도 338건이다(near 164 / filtered 84 / offtopic 50 / edge 40).",
+    "severity": "minor"
+   },
+   {
+    "what": "'feature 이름이 text에 있는 triple 중 비율'(25.7/8.2/9.5/5.2%)의 분모는 실제로 collection 손실을 뺀 나머지 전체다. edge/near/offtopic/filtered는 text 검사보다 먼저 판정되므로, 이 분모에는 HPO 이름이 text에 없는 triple도 들어간다. 라벨이 부정확하다. 비율 값은 다시 계산해도 맞다.",
+    "evidence": "82,751−30,864=51,887이고 4,241/51,887=8.2%다. 분류 순서는 recall_decomp.py 240-255행이다: edge > near > offtopic_only > filtered > no_docs > not_in_text.",
+    "severity": "minor"
+   },
+   {
+    "what": "string 존재 검사는 부정문 속 언급도 'text에 있음'으로 센다. 그래서 dictionary(부정 cue가 있으면 제외)나 LLM이 부정 언급을 제대로 뽑지 않은 경우가 not_extracted로 집계된다. 'not_extracted는 추출 손실의 하한'이라는 docstring 주장이 엄밀히는 성립하지 않는다.",
+    "evidence": "S-dict not_extracted 표본 C0795833/HP:0011968(n=31 triple)의 원문은 'there was no history of hypotonia feeding difficulties or seizures'다. 같은 표본의 C5193134/HP:0000718 'aggression'은 UMLS finding TUI에 없어서 dictionary가 놓친 정상적인 손실이다.",
+    "severity": "minor"
+   },
+   {
+    "what": "--no-self로 제거된 self/parent-disease CUI는 filtered로 집계된다. 그런데 ranker는 이런 feature를 unified evidence(IS_DISEASE, IS_A*0..1)로 점수에 반영한다. 따라서 filtered의 일부는 손실이 아니다. 규모는 작다.",
+    "evidence": "feature CUI가 질병 자신이나 부모 질병인 경우의 filtered triple: S-mix 149, S-llm 146, S-dict 79.",
+    "severity": "minor"
+   }
+  ]
+ }
+}

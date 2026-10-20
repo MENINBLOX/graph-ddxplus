@@ -1,0 +1,83 @@
+{
+ "args": {
+  "ie": "pilot/cache/v2/dict_umls_v2.jsonl.gz,pilot/cache/v3/dict_umls_v3.jsonl.gz",
+  "table": "pilot/cache/v2/phrase2cui_gemma.json",
+  "sources": "pilot/cache/v2/sources,pilot/cache/v3/sources_new",
+  "link": "full",
+  "topic_genes": true,
+  "no_self": true,
+  "phrases": "",
+  "out": "pilot/cache/v3/recall/decomp_sdict.json"
+ },
+ "triples": 82751,
+ "pairs": 22626,
+ "diseases": 878,
+ "by_triple": {
+  "no_docs": [
+   206,
+   0.2
+  ],
+  "not_in_text": [
+   29901,
+   36.1
+  ],
+  "not_extracted": [
+   277,
+   0.3
+  ],
+  "not_linked": [
+   2439,
+   2.9
+  ],
+  "filtered": [
+   3087,
+   3.7
+  ],
+  "offtopic_only": [
+   4042,
+   4.9
+  ],
+  "near": [
+   7104,
+   8.6
+  ],
+  "edge": [
+   35695,
+   43.1
+  ]
+ },
+ "by_pair": {
+  "no_docs": [
+   106,
+   0.5
+  ],
+  "not_in_text": [
+   12462,
+   55.1
+  ],
+  "not_extracted": [
+   72,
+   0.3
+  ],
+  "not_linked": [
+   574,
+   2.5
+  ],
+  "filtered": [
+   1170,
+   5.2
+  ],
+  "offtopic_only": [
+   1114,
+   4.9
+  ],
+  "near": [
+   1638,
+   7.2
+  ],
+  "edge": [
+   5490,
+   24.3
+  ]
+ }
+}

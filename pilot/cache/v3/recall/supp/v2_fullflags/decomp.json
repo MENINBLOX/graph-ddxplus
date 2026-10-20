@@ -1,0 +1,83 @@
+{
+ "args": {
+  "ie": "pilot/cache/v2/ie_gemma_full.jsonl",
+  "table": "pilot/cache/v2/phrase2cui_gemma.json",
+  "sources": "pilot/cache/v2/sources",
+  "link": "full",
+  "topic_genes": true,
+  "no_self": true,
+  "phrases": "",
+  "out": "/tmp/claude-1000/-home-max-thesis/edda7dda-7b76-45bb-a79a-ce62d7e31a1b/scratchpad/v2_fullflags/decomp.json"
+ },
+ "triples": 82751,
+ "pairs": 22626,
+ "diseases": 878,
+ "by_triple": {
+  "no_docs": [
+   18121,
+   21.9
+  ],
+  "not_in_text": [
+   35920,
+   43.4
+  ],
+  "not_extracted": [
+   1877,
+   2.3
+  ],
+  "not_linked": [
+   2276,
+   2.8
+  ],
+  "filtered": [
+   3824,
+   4.6
+  ],
+  "offtopic_only": [
+   3702,
+   4.5
+  ],
+  "near": [
+   2517,
+   3.0
+  ],
+  "edge": [
+   14514,
+   17.5
+  ]
+ },
+ "by_pair": {
+  "no_docs": [
+   7131,
+   31.5
+  ],
+  "not_in_text": [
+   11040,
+   48.8
+  ],
+  "not_extracted": [
+   375,
+   1.7
+  ],
+  "not_linked": [
+   402,
+   1.8
+  ],
+  "filtered": [
+   841,
+   3.7
+  ],
+  "offtopic_only": [
+   609,
+   2.7
+  ],
+  "near": [
+   481,
+   2.1
+  ],
+  "edge": [
+   1747,
+   7.7
+  ]
+ }
+}

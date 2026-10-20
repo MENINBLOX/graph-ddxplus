@@ -1,0 +1,83 @@
+{
+ "args": {
+  "ie": "pilot/cache/v2/ie_gemma_full.jsonl,pilot/cache/v3/ie_v3.jsonl",
+  "table": "pilot/cache/v3/phrase2cui_v3.json",
+  "sources": "pilot/cache/v2/sources,pilot/cache/v3/sources_new",
+  "link": "full",
+  "topic_genes": true,
+  "no_self": true,
+  "phrases": "",
+  "out": "pilot/cache/v3/recall/decomp_sllm.json"
+ },
+ "triples": 82751,
+ "pairs": 22626,
+ "diseases": 878,
+ "by_triple": {
+  "no_docs": [
+   208,
+   0.3
+  ],
+  "not_in_text": [
+   30958,
+   37.4
+  ],
+  "not_extracted": [
+   2053,
+   2.5
+  ],
+  "not_linked": [
+   2857,
+   3.5
+  ],
+  "filtered": [
+   3160,
+   3.8
+  ],
+  "offtopic_only": [
+   3775,
+   4.6
+  ],
+  "near": [
+   6622,
+   8.0
+  ],
+  "edge": [
+   33118,
+   40.0
+  ]
+ },
+ "by_pair": {
+  "no_docs": [
+   107,
+   0.5
+  ],
+  "not_in_text": [
+   12873,
+   56.9
+  ],
+  "not_extracted": [
+   679,
+   3.0
+  ],
+  "not_linked": [
+   659,
+   2.9
+  ],
+  "filtered": [
+   1092,
+   4.8
+  ],
+  "offtopic_only": [
+   905,
+   4.0
+  ],
+  "near": [
+   1462,
+   6.5
+  ],
+  "edge": [
+   4849,
+   21.4
+  ]
+ }
+}
