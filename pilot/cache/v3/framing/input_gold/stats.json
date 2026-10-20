@@ -1,0 +1,6709 @@
+{
+ "note": "POST HOC on confirmation set E. diff = B - A in percentage points of Top-k (rule = lineage or strict); ci = patient-paired bootstrap 95% (2,000, seed 0); ci_cluster = gold-disease cluster bootstrap 95% (whole diseases resampled; gold cluster = sorted gold-key tuple); macro: equal-weight over the two common sets, ci_patient_stratified = paired_stats.macro_compare, ci_cluster = diseases drawn within each set. Stored ranks only. The pure dictionary run has no strict ranks.",
+ "flag": "input names gold or parent: gold_keys(gold) & ev, or a direct parent of a gold key (v2_ids.disease_isa) in ev; RAW_GOLD = True; patients without gold keys or input are skipped as graph_dx.evaluate skips them",
+ "runs": {
+  "lineage": {
+   "S-mix": "pilot/cache/v2/confirmE/S-mix.json",
+   "S-dict": "pilot/cache/v2/confirmE/S-dict.json",
+   "S-union": "pilot/cache/v2/confirmE/S-union.json",
+   "pure dict": "pilot/cache/v3/p0/pure_dict/E_v3umlsnt_ns_ot0.5.json"
+  },
+  "strict": {
+   "S-mix": "pilot/cache/v3/p0/strict/S-mix.json",
+   "S-dict": "pilot/cache/v3/p0/strict/S-dict.json",
+   "S-union": "pilot/cache/v3/p0/strict/S-union.json"
+  },
+  "development": {
+   "S-mix": "pilot/cache/v2/devD/variants/dev_v3llmd_ns_ot0.5.json",
+   "S-dict": "pilot/cache/v2/devD/variants/dev_v3umls_ns_ot0.5.json",
+   "S-union": "pilot/cache/v2/devD/variants/dev_v3unionu_ns_ot0.5.json",
+   "pure dict": "pilot/cache/v3/p0/pure_dict/dev_v3umlsnt_ns_ot0.5.json"
+  }
+ },
+ "development": {
+  "flags": {
+   "DDXPlus-test": {
+    "n": 3000,
+    "direct": 458,
+    "parent_only": 223,
+    "input names gold or parent": 681,
+    "neither": 2319,
+    "diseases": 48,
+    "diseases_with_named": 15,
+    "diseases_with_neither": 45
+   },
+   "SymCat": {
+    "n": 7481,
+    "direct": 218,
+    "parent_only": 67,
+    "input names gold or parent": 285,
+    "neither": 7196,
+    "diseases": 760,
+    "diseases_with_named": 41,
+    "diseases_with_neither": 757
+   }
+  },
+  "rows": [
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "all",
+    "comparison": "S-mix - S-dict",
+    "A": "S-dict",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "DDXPlus-test",
+    "n": 3000,
+    "diseases": 48,
+    "A_pct": 42.27,
+    "B_pct": 40.63,
+    "diff": -1.63,
+    "ci": [
+     -2.9,
+     -0.4
+    ],
+    "ci_cluster": [
+     -8.27,
+     4.47
+    ],
+    "only_A": 208,
+    "only_B": 159,
+    "p": 0.012121067453449784,
+    "p_holm": 0.012121067453449784,
+    "patient_ci": "S-dict higher",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "all",
+    "comparison": "S-mix - S-dict",
+    "A": "S-dict",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "SymCat",
+    "n": 7481,
+    "diseases": 760,
+    "A_pct": 14.46,
+    "B_pct": 13.34,
+    "diff": -1.12,
+    "ci": [
+     -1.7,
+     -0.52
+    ],
+    "ci_cluster": [
+     -2.17,
+     -0.16
+    ],
+    "only_A": 291,
+    "only_B": 207,
+    "p": 0.0001934751729693986,
+    "p_holm": 0.0003869503459387972,
+    "patient_ci": "S-dict higher",
+    "cluster_ci": "S-dict higher"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "all",
+    "comparison": "S-mix - S-dict",
+    "A": "S-dict",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "DDXPlus-test",
+    "n": 3000,
+    "diseases": 48,
+    "A_pct": 16.63,
+    "B_pct": 11.77,
+    "diff": -4.87,
+    "ci": [
+     -5.83,
+     -3.87
+    ],
+    "ci_cluster": [
+     -9.44,
+     -1.09
+    ],
+    "only_A": 193,
+    "only_B": 47,
+    "p": 3.420560168675684e-22,
+    "p_holm": 6.841120337351368e-22,
+    "patient_ci": "S-dict higher",
+    "cluster_ci": "S-dict higher"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "all",
+    "comparison": "S-mix - S-dict",
+    "A": "S-dict",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "SymCat",
+    "n": 7481,
+    "diseases": 760,
+    "A_pct": 3.34,
+    "B_pct": 2.51,
+    "diff": -0.83,
+    "ci": [
+     -1.19,
+     -0.47
+    ],
+    "ci_cluster": [
+     -1.47,
+     -0.2
+    ],
+    "only_A": 127,
+    "only_B": 65,
+    "p": 9.047629392044938e-06,
+    "p_holm": 9.047629392044938e-06,
+    "patient_ci": "S-dict higher",
+    "cluster_ci": "S-dict higher"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - S-dict",
+    "A": "S-dict",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "DDXPlus-test",
+    "n": 681,
+    "diseases": 15,
+    "A_pct": 69.46,
+    "B_pct": 56.98,
+    "diff": -12.48,
+    "ci": [
+     -15.71,
+     -9.4
+    ],
+    "ci_cluster": [
+     -25.35,
+     2.16
+    ],
+    "only_A": 107,
+    "only_B": 22,
+    "p": 1.3271277571530201e-14,
+    "p_holm": 1.3271277571530201e-14,
+    "patient_ci": "S-dict higher",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - S-dict",
+    "A": "S-dict",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "SymCat",
+    "n": 285,
+    "diseases": 41,
+    "A_pct": 66.67,
+    "B_pct": 34.04,
+    "diff": -32.63,
+    "ci": [
+     -38.25,
+     -27.02
+    ],
+    "ci_cluster": [
+     -40.68,
+     -24.3
+    ],
+    "only_A": 98,
+    "only_B": 5,
+    "p": 1.8172343385355978e-23,
+    "p_holm": 3.6344686770711956e-23,
+    "patient_ci": "S-dict higher",
+    "cluster_ci": "S-dict higher"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - S-dict",
+    "A": "S-dict",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "DDXPlus-test",
+    "n": 681,
+    "diseases": 15,
+    "A_pct": 41.85,
+    "B_pct": 23.94,
+    "diff": -17.91,
+    "ci": [
+     -21.44,
+     -14.68
+    ],
+    "ci_cluster": [
+     -34.46,
+     -3.35
+    ],
+    "only_A": 141,
+    "only_B": 19,
+    "p": 3.2214134396357504e-24,
+    "p_holm": 6.442826879271501e-24,
+    "patient_ci": "S-dict higher",
+    "cluster_ci": "S-dict higher"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - S-dict",
+    "A": "S-dict",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "SymCat",
+    "n": 285,
+    "diseases": 41,
+    "A_pct": 24.91,
+    "B_pct": 8.42,
+    "diff": -16.49,
+    "ci": [
+     -21.4,
+     -11.93
+    ],
+    "ci_cluster": [
+     -26.51,
+     -8.65
+    ],
+    "only_A": 51,
+    "only_B": 4,
+    "p": 2.0474233419776056e-11,
+    "p_holm": 2.0474233419776056e-11,
+    "patient_ci": "S-dict higher",
+    "cluster_ci": "S-dict higher"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "neither",
+    "comparison": "S-mix - S-dict",
+    "A": "S-dict",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "DDXPlus-test",
+    "n": 2319,
+    "diseases": 45,
+    "A_pct": 34.28,
+    "B_pct": 35.83,
+    "diff": 1.55,
+    "ci": [
+     0.22,
+     2.85
+    ],
+    "ci_cluster": [
+     -5.22,
+     7.53
+    ],
+    "only_A": 101,
+    "only_B": 137,
+    "p": 0.02308467136949369,
+    "p_holm": 0.04616934273898738,
+    "patient_ci": "S-mix higher",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "neither",
+    "comparison": "S-mix - S-dict",
+    "A": "S-dict",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "SymCat",
+    "n": 7196,
+    "diseases": 757,
+    "A_pct": 12.4,
+    "B_pct": 12.52,
+    "diff": 0.13,
+    "ci": [
+     -0.43,
+     0.65
+    ],
+    "ci_cluster": [
+     -0.75,
+     0.99
+    ],
+    "only_A": 193,
+    "only_B": 202,
+    "p": 0.6873512520872095,
+    "p_holm": 0.6873512520872095,
+    "patient_ci": "includes 0",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "neither",
+    "comparison": "S-mix - S-dict",
+    "A": "S-dict",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "DDXPlus-test",
+    "n": 2319,
+    "diseases": 45,
+    "A_pct": 9.23,
+    "B_pct": 8.19,
+    "diff": -1.03,
+    "ci": [
+     -1.81,
+     -0.26
+    ],
+    "ci_cluster": [
+     -2.4,
+     0.46
+    ],
+    "only_A": 52,
+    "only_B": 28,
+    "p": 0.00968284992305757,
+    "p_holm": 0.01936569984611514,
+    "patient_ci": "S-dict higher",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "neither",
+    "comparison": "S-mix - S-dict",
+    "A": "S-dict",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "SymCat",
+    "n": 7196,
+    "diseases": 757,
+    "A_pct": 2.49,
+    "B_pct": 2.28,
+    "diff": -0.21,
+    "ci": [
+     -0.53,
+     0.1
+    ],
+    "ci_cluster": [
+     -0.76,
+     0.36
+    ],
+    "only_A": 76,
+    "only_B": 61,
+    "p": 0.23153716588439505,
+    "p_holm": 0.23153716588439505,
+    "patient_ci": "includes 0",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "all",
+    "comparison": "S-mix - S-union",
+    "A": "S-union",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "DDXPlus-test",
+    "n": 3000,
+    "diseases": 48,
+    "A_pct": 43.6,
+    "B_pct": 40.63,
+    "diff": -2.97,
+    "ci": [
+     -4.13,
+     -1.73
+    ],
+    "ci_cluster": [
+     -9.07,
+     2.58
+    ],
+    "only_A": 218,
+    "only_B": 129,
+    "p": 2.045737228624283e-06,
+    "p_holm": 4.091474457248566e-06,
+    "patient_ci": "S-union higher",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "all",
+    "comparison": "S-mix - S-union",
+    "A": "S-union",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "SymCat",
+    "n": 7481,
+    "diseases": 760,
+    "A_pct": 14.61,
+    "B_pct": 13.34,
+    "diff": -1.27,
+    "ci": [
+     -1.83,
+     -0.74
+    ],
+    "ci_cluster": [
+     -2.22,
+     -0.38
+    ],
+    "only_A": 273,
+    "only_B": 178,
+    "p": 8.923563811000326e-06,
+    "p_holm": 8.923563811000326e-06,
+    "patient_ci": "S-union higher",
+    "cluster_ci": "S-union higher"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "all",
+    "comparison": "S-mix - S-union",
+    "A": "S-union",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "DDXPlus-test",
+    "n": 3000,
+    "diseases": 48,
+    "A_pct": 16.4,
+    "B_pct": 11.77,
+    "diff": -4.63,
+    "ci": [
+     -5.63,
+     -3.6
+    ],
+    "ci_cluster": [
+     -9.81,
+     -0.22
+    ],
+    "only_A": 193,
+    "only_B": 54,
+    "p": 1.6170114022500173e-19,
+    "p_holm": 3.2340228045000346e-19,
+    "patient_ci": "S-union higher",
+    "cluster_ci": "S-union higher"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "all",
+    "comparison": "S-mix - S-union",
+    "A": "S-union",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "SymCat",
+    "n": 7481,
+    "diseases": 760,
+    "A_pct": 3.48,
+    "B_pct": 2.51,
+    "diff": -0.96,
+    "ci": [
+     -1.28,
+     -0.65
+    ],
+    "ci_cluster": [
+     -1.44,
+     -0.49
+    ],
+    "only_A": 112,
+    "only_B": 40,
+    "p": 4.372591882668503e-09,
+    "p_holm": 4.372591882668503e-09,
+    "patient_ci": "S-union higher",
+    "cluster_ci": "S-union higher"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - S-union",
+    "A": "S-union",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "DDXPlus-test",
+    "n": 681,
+    "diseases": 15,
+    "A_pct": 68.72,
+    "B_pct": 56.98,
+    "diff": -11.75,
+    "ci": [
+     -15.12,
+     -8.52
+    ],
+    "ci_cluster": [
+     -26.26,
+     3.44
+    ],
+    "only_A": 107,
+    "only_B": 27,
+    "p": 1.8183331048258304e-12,
+    "p_holm": 1.8183331048258304e-12,
+    "patient_ci": "S-union higher",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - S-union",
+    "A": "S-union",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "SymCat",
+    "n": 285,
+    "diseases": 41,
+    "A_pct": 66.67,
+    "B_pct": 34.04,
+    "diff": -32.63,
+    "ci": [
+     -38.6,
+     -27.02
+    ],
+    "ci_cluster": [
+     -40.85,
+     -24.81
+    ],
+    "only_A": 97,
+    "only_B": 4,
+    "p": 3.35638779268828e-24,
+    "p_holm": 6.71277558537656e-24,
+    "patient_ci": "S-union higher",
+    "cluster_ci": "S-union higher"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - S-union",
+    "A": "S-union",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "DDXPlus-test",
+    "n": 681,
+    "diseases": 15,
+    "A_pct": 42.44,
+    "B_pct": 23.94,
+    "diff": -18.5,
+    "ci": [
+     -21.73,
+     -15.27
+    ],
+    "ci_cluster": [
+     -33.49,
+     -3.94
+    ],
+    "only_A": 141,
+    "only_B": 15,
+    "p": 7.361303006079907e-27,
+    "p_holm": 1.4722606012159815e-26,
+    "patient_ci": "S-union higher",
+    "cluster_ci": "S-union higher"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - S-union",
+    "A": "S-union",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "SymCat",
+    "n": 285,
+    "diseases": 41,
+    "A_pct": 23.51,
+    "B_pct": 8.42,
+    "diff": -15.09,
+    "ci": [
+     -20.0,
+     -10.88
+    ],
+    "ci_cluster": [
+     -23.45,
+     -8.3
+    ],
+    "only_A": 48,
+    "only_B": 5,
+    "p": 7.077378683106872e-10,
+    "p_holm": 7.077378683106872e-10,
+    "patient_ci": "S-union higher",
+    "cluster_ci": "S-union higher"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "neither",
+    "comparison": "S-mix - S-union",
+    "A": "S-union",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "DDXPlus-test",
+    "n": 2319,
+    "diseases": 45,
+    "A_pct": 36.22,
+    "B_pct": 35.83,
+    "diff": -0.39,
+    "ci": [
+     -1.6,
+     0.86
+    ],
+    "ci_cluster": [
+     -5.84,
+     4.82
+    ],
+    "only_A": 111,
+    "only_B": 102,
+    "p": 0.5836922618268343,
+    "p_holm": 1.0,
+    "patient_ci": "includes 0",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "neither",
+    "comparison": "S-mix - S-union",
+    "A": "S-union",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "SymCat",
+    "n": 7196,
+    "diseases": 757,
+    "A_pct": 12.55,
+    "B_pct": 12.52,
+    "diff": -0.03,
+    "ci": [
+     -0.53,
+     0.49
+    ],
+    "ci_cluster": [
+     -0.83,
+     0.79
+    ],
+    "only_A": 176,
+    "only_B": 174,
+    "p": 0.9573817287309011,
+    "p_holm": 1.0,
+    "patient_ci": "includes 0",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "neither",
+    "comparison": "S-mix - S-union",
+    "A": "S-union",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "DDXPlus-test",
+    "n": 2319,
+    "diseases": 45,
+    "A_pct": 8.75,
+    "B_pct": 8.19,
+    "diff": -0.56,
+    "ci": [
+     -1.42,
+     0.22
+    ],
+    "ci_cluster": [
+     -3.54,
+     2.13
+    ],
+    "only_A": 52,
+    "only_B": 39,
+    "p": 0.20817442238117587,
+    "p_holm": 0.20817442238117587,
+    "patient_ci": "includes 0",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "neither",
+    "comparison": "S-mix - S-union",
+    "A": "S-union",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "SymCat",
+    "n": 7196,
+    "diseases": 757,
+    "A_pct": 2.68,
+    "B_pct": 2.28,
+    "diff": -0.4,
+    "ci": [
+     -0.68,
+     -0.13
+    ],
+    "ci_cluster": [
+     -0.8,
+     -0.04
+    ],
+    "only_A": 64,
+    "only_B": 35,
+    "p": 0.004640654088434307,
+    "p_holm": 0.009281308176868614,
+    "patient_ci": "S-union higher",
+    "cluster_ci": "S-union higher"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "all",
+    "comparison": "S-mix - pure dict",
+    "A": "pure dict",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "DDXPlus-test",
+    "n": 3000,
+    "diseases": 48,
+    "A_pct": 39.53,
+    "B_pct": 40.63,
+    "diff": 1.1,
+    "ci": [
+     -0.03,
+     2.23
+    ],
+    "ci_cluster": [
+     -3.47,
+     6.03
+    ],
+    "only_A": 140,
+    "only_B": 173,
+    "p": 0.07032007895830357,
+    "p_holm": 0.07032007895830357,
+    "patient_ci": "includes 0",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "all",
+    "comparison": "S-mix - pure dict",
+    "A": "pure dict",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "SymCat",
+    "n": 7481,
+    "diseases": 760,
+    "A_pct": 14.41,
+    "B_pct": 13.34,
+    "diff": -1.07,
+    "ci": [
+     -1.67,
+     -0.45
+    ],
+    "ci_cluster": [
+     -2.29,
+     0.07
+    ],
+    "only_A": 314,
+    "only_B": 234,
+    "p": 0.0007246362770891377,
+    "p_holm": 0.0014492725541782755,
+    "patient_ci": "pure dict higher",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "all",
+    "comparison": "S-mix - pure dict",
+    "A": "pure dict",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "DDXPlus-test",
+    "n": 3000,
+    "diseases": 48,
+    "A_pct": 14.83,
+    "B_pct": 11.77,
+    "diff": -3.07,
+    "ci": [
+     -4.0,
+     -2.1
+    ],
+    "ci_cluster": [
+     -7.97,
+     0.54
+    ],
+    "only_A": 154,
+    "only_B": 62,
+    "p": 3.231317588397207e-10,
+    "p_holm": 6.462635176794414e-10,
+    "patient_ci": "pure dict higher",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "all",
+    "comparison": "S-mix - pure dict",
+    "A": "pure dict",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "SymCat",
+    "n": 7481,
+    "diseases": 760,
+    "A_pct": 3.52,
+    "B_pct": 2.51,
+    "diff": -1.0,
+    "ci": [
+     -1.36,
+     -0.65
+    ],
+    "ci_cluster": [
+     -1.63,
+     -0.41
+    ],
+    "only_A": 136,
+    "only_B": 61,
+    "p": 9.537024226030174e-08,
+    "p_holm": 9.537024226030174e-08,
+    "patient_ci": "pure dict higher",
+    "cluster_ci": "pure dict higher"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - pure dict",
+    "A": "pure dict",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "DDXPlus-test",
+    "n": 681,
+    "diseases": 15,
+    "A_pct": 65.2,
+    "B_pct": 56.98,
+    "diff": -8.22,
+    "ci": [
+     -11.16,
+     -5.43
+    ],
+    "ci_cluster": [
+     -18.1,
+     3.0
+    ],
+    "only_A": 80,
+    "only_B": 24,
+    "p": 3.2215052465401456e-08,
+    "p_holm": 3.2215052465401456e-08,
+    "patient_ci": "pure dict higher",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - pure dict",
+    "A": "pure dict",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "SymCat",
+    "n": 285,
+    "diseases": 41,
+    "A_pct": 74.39,
+    "B_pct": 34.04,
+    "diff": -40.35,
+    "ci": [
+     -45.96,
+     -34.74
+    ],
+    "ci_cluster": [
+     -50.0,
+     -29.89
+    ],
+    "only_A": 119,
+    "only_B": 4,
+    "p": 1.765851687929545e-30,
+    "p_holm": 3.53170337585909e-30,
+    "patient_ci": "pure dict higher",
+    "cluster_ci": "pure dict higher"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - pure dict",
+    "A": "pure dict",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "DDXPlus-test",
+    "n": 681,
+    "diseases": 15,
+    "A_pct": 37.74,
+    "B_pct": 23.94,
+    "diff": -13.8,
+    "ci": [
+     -17.03,
+     -10.57
+    ],
+    "ci_cluster": [
+     -33.43,
+     0.0
+    ],
+    "only_A": 115,
+    "only_B": 21,
+    "p": 6.845806302313602e-17,
+    "p_holm": 1.3691612604627203e-16,
+    "patient_ci": "pure dict higher",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - pure dict",
+    "A": "pure dict",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "SymCat",
+    "n": 285,
+    "diseases": 41,
+    "A_pct": 27.02,
+    "B_pct": 8.42,
+    "diff": -18.6,
+    "ci": [
+     -23.86,
+     -13.68
+    ],
+    "ci_cluster": [
+     -29.03,
+     -10.29
+    ],
+    "only_A": 58,
+    "only_B": 5,
+    "p": 1.6623508125590547e-12,
+    "p_holm": 1.6623508125590547e-12,
+    "patient_ci": "pure dict higher",
+    "cluster_ci": "pure dict higher"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "neither",
+    "comparison": "S-mix - pure dict",
+    "A": "pure dict",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "DDXPlus-test",
+    "n": 2319,
+    "diseases": 45,
+    "A_pct": 32.0,
+    "B_pct": 35.83,
+    "diff": 3.84,
+    "ci": [
+     2.63,
+     5.0
+    ],
+    "ci_cluster": [
+     -0.76,
+     9.15
+    ],
+    "only_A": 60,
+    "only_B": 149,
+    "p": 6.379464580886852e-10,
+    "p_holm": 1.2758929161773703e-09,
+    "patient_ci": "S-mix higher",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "neither",
+    "comparison": "S-mix - pure dict",
+    "A": "pure dict",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "SymCat",
+    "n": 7196,
+    "diseases": 757,
+    "A_pct": 12.03,
+    "B_pct": 12.52,
+    "diff": 0.49,
+    "ci": [
+     -0.08,
+     1.07
+    ],
+    "ci_cluster": [
+     -0.47,
+     1.4
+    ],
+    "only_A": 195,
+    "only_B": 230,
+    "p": 0.0989840710089887,
+    "p_holm": 0.0989840710089887,
+    "patient_ci": "includes 0",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "neither",
+    "comparison": "S-mix - pure dict",
+    "A": "pure dict",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "DDXPlus-test",
+    "n": 2319,
+    "diseases": 45,
+    "A_pct": 8.11,
+    "B_pct": 8.19,
+    "diff": 0.09,
+    "ci": [
+     -0.69,
+     0.86
+    ],
+    "ci_cluster": [
+     -1.85,
+     1.95
+    ],
+    "only_A": 39,
+    "only_B": 41,
+    "p": 0.9110721212260928,
+    "p_holm": 0.9110721212260928,
+    "patient_ci": "includes 0",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "neither",
+    "comparison": "S-mix - pure dict",
+    "A": "pure dict",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "SymCat",
+    "n": 7196,
+    "diseases": 757,
+    "A_pct": 2.58,
+    "B_pct": 2.28,
+    "diff": -0.31,
+    "ci": [
+     -0.61,
+     0.01
+    ],
+    "ci_cluster": [
+     -0.85,
+     0.18
+    ],
+    "only_A": 78,
+    "only_B": 56,
+    "p": 0.06925958718203125,
+    "p_holm": 0.1385191743640625,
+    "patient_ci": "includes 0",
+    "cluster_ci": "includes 0"
+   }
+  ],
+  "macro": [
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "all",
+    "comparison": "S-mix - S-dict",
+    "k": 10,
+    "sets": [
+     "DDXPlus-test",
+     "SymCat"
+    ],
+    "n": {
+     "DDXPlus-test": 3000,
+     "SymCat": 7481
+    },
+    "A": 28.36,
+    "B": 26.99,
+    "diff": -1.38,
+    "ci_patient_stratified": [
+     -2.06,
+     -0.69
+    ],
+    "ci_cluster": [
+     -4.68,
+     1.67
+    ],
+    "p_bootstrap": 0.0,
+    "patient_ci": "S-dict higher",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "all",
+    "comparison": "S-mix - S-dict",
+    "k": 1,
+    "sets": [
+     "DDXPlus-test",
+     "SymCat"
+    ],
+    "n": {
+     "DDXPlus-test": 3000,
+     "SymCat": 7481
+    },
+    "A": 9.99,
+    "B": 7.14,
+    "diff": -2.85,
+    "ci_patient_stratified": [
+     -3.36,
+     -2.33
+    ],
+    "ci_cluster": [
+     -5.2,
+     -0.75
+    ],
+    "p_bootstrap": 0.0,
+    "patient_ci": "S-dict higher",
+    "cluster_ci": "S-dict higher"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - S-dict",
+    "k": 10,
+    "sets": [
+     "DDXPlus-test",
+     "SymCat"
+    ],
+    "n": {
+     "DDXPlus-test": 681,
+     "SymCat": 285
+    },
+    "A": 68.06,
+    "B": 45.51,
+    "diff": -22.56,
+    "ci_patient_stratified": [
+     -26.05,
+     -19.13
+    ],
+    "ci_cluster": [
+     -30.51,
+     -14.33
+    ],
+    "p_bootstrap": 0.0,
+    "patient_ci": "S-dict higher",
+    "cluster_ci": "S-dict higher"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - S-dict",
+    "k": 1,
+    "sets": [
+     "DDXPlus-test",
+     "SymCat"
+    ],
+    "n": {
+     "DDXPlus-test": 681,
+     "SymCat": 285
+    },
+    "A": 33.38,
+    "B": 16.18,
+    "diff": -17.2,
+    "ci_patient_stratified": [
+     -20.19,
+     -14.33
+    ],
+    "ci_cluster": [
+     -27.27,
+     -8.09
+    ],
+    "p_bootstrap": 0.0,
+    "patient_ci": "S-dict higher",
+    "cluster_ci": "S-dict higher"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "neither",
+    "comparison": "S-mix - S-dict",
+    "k": 10,
+    "sets": [
+     "DDXPlus-test",
+     "SymCat"
+    ],
+    "n": {
+     "DDXPlus-test": 2319,
+     "SymCat": 7196
+    },
+    "A": 23.34,
+    "B": 24.18,
+    "diff": 0.84,
+    "ci_patient_stratified": [
+     0.11,
+     1.56
+    ],
+    "ci_cluster": [
+     -2.78,
+     3.88
+    ],
+    "p_bootstrap": 0.023,
+    "patient_ci": "S-mix higher",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "neither",
+    "comparison": "S-mix - S-dict",
+    "k": 1,
+    "sets": [
+     "DDXPlus-test",
+     "SymCat"
+    ],
+    "n": {
+     "DDXPlus-test": 2319,
+     "SymCat": 7196
+    },
+    "A": 5.86,
+    "B": 5.24,
+    "diff": -0.62,
+    "ci_patient_stratified": [
+     -1.03,
+     -0.22
+    ],
+    "ci_cluster": [
+     -1.42,
+     0.1
+    ],
+    "p_bootstrap": 0.005,
+    "patient_ci": "S-dict higher",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "all",
+    "comparison": "S-mix - S-union",
+    "k": 10,
+    "sets": [
+     "DDXPlus-test",
+     "SymCat"
+    ],
+    "n": {
+     "DDXPlus-test": 3000,
+     "SymCat": 7481
+    },
+    "A": 29.11,
+    "B": 26.99,
+    "diff": -2.12,
+    "ci_patient_stratified": [
+     -2.79,
+     -1.43
+    ],
+    "ci_cluster": [
+     -5.11,
+     0.74
+    ],
+    "p_bootstrap": 0.0,
+    "patient_ci": "S-union higher",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "all",
+    "comparison": "S-mix - S-union",
+    "k": 1,
+    "sets": [
+     "DDXPlus-test",
+     "SymCat"
+    ],
+    "n": {
+     "DDXPlus-test": 3000,
+     "SymCat": 7481
+    },
+    "A": 9.94,
+    "B": 7.14,
+    "diff": -2.8,
+    "ci_patient_stratified": [
+     -3.32,
+     -2.31
+    ],
+    "ci_cluster": [
+     -5.24,
+     -0.58
+    ],
+    "p_bootstrap": 0.0,
+    "patient_ci": "S-union higher",
+    "cluster_ci": "S-union higher"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - S-union",
+    "k": 10,
+    "sets": [
+     "DDXPlus-test",
+     "SymCat"
+    ],
+    "n": {
+     "DDXPlus-test": 681,
+     "SymCat": 285
+    },
+    "A": 67.69,
+    "B": 45.51,
+    "diff": -22.19,
+    "ci_patient_stratified": [
+     -25.58,
+     -18.74
+    ],
+    "ci_cluster": [
+     -30.6,
+     -13.48
+    ],
+    "p_bootstrap": 0.0,
+    "patient_ci": "S-union higher",
+    "cluster_ci": "S-union higher"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - S-union",
+    "k": 1,
+    "sets": [
+     "DDXPlus-test",
+     "SymCat"
+    ],
+    "n": {
+     "DDXPlus-test": 681,
+     "SymCat": 285
+    },
+    "A": 32.97,
+    "B": 16.18,
+    "diff": -16.79,
+    "ci_patient_stratified": [
+     -19.68,
+     -13.93
+    ],
+    "ci_cluster": [
+     -26.07,
+     -8.38
+    ],
+    "p_bootstrap": 0.0,
+    "patient_ci": "S-union higher",
+    "cluster_ci": "S-union higher"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "neither",
+    "comparison": "S-mix - S-union",
+    "k": 10,
+    "sets": [
+     "DDXPlus-test",
+     "SymCat"
+    ],
+    "n": {
+     "DDXPlus-test": 2319,
+     "SymCat": 7196
+    },
+    "A": 24.39,
+    "B": 24.18,
+    "diff": -0.21,
+    "ci_patient_stratified": [
+     -0.85,
+     0.48
+    ],
+    "ci_cluster": [
+     -2.98,
+     2.56
+    ],
+    "p_bootstrap": 0.542,
+    "patient_ci": "includes 0",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "neither",
+    "comparison": "S-mix - S-union",
+    "k": 1,
+    "sets": [
+     "DDXPlus-test",
+     "SymCat"
+    ],
+    "n": {
+     "DDXPlus-test": 2319,
+     "SymCat": 7196
+    },
+    "A": 5.72,
+    "B": 5.24,
+    "diff": -0.48,
+    "ci_patient_stratified": [
+     -0.91,
+     -0.05
+    ],
+    "ci_cluster": [
+     -2.1,
+     0.85
+    ],
+    "p_bootstrap": 0.023,
+    "patient_ci": "S-union higher",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "all",
+    "comparison": "S-mix - pure dict",
+    "k": 10,
+    "sets": [
+     "DDXPlus-test",
+     "SymCat"
+    ],
+    "n": {
+     "DDXPlus-test": 3000,
+     "SymCat": 7481
+    },
+    "A": 26.97,
+    "B": 26.99,
+    "diff": 0.02,
+    "ci_patient_stratified": [
+     -0.64,
+     0.66
+    ],
+    "ci_cluster": [
+     -2.52,
+     2.61
+    ],
+    "p_bootstrap": 0.948,
+    "patient_ci": "includes 0",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "all",
+    "comparison": "S-mix - pure dict",
+    "k": 1,
+    "sets": [
+     "DDXPlus-test",
+     "SymCat"
+    ],
+    "n": {
+     "DDXPlus-test": 3000,
+     "SymCat": 7481
+    },
+    "A": 9.17,
+    "B": 7.14,
+    "diff": -2.03,
+    "ci_patient_stratified": [
+     -2.53,
+     -1.53
+    ],
+    "ci_cluster": [
+     -4.46,
+     -0.16
+    ],
+    "p_bootstrap": 0.0,
+    "patient_ci": "pure dict higher",
+    "cluster_ci": "pure dict higher"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - pure dict",
+    "k": 10,
+    "sets": [
+     "DDXPlus-test",
+     "SymCat"
+    ],
+    "n": {
+     "DDXPlus-test": 681,
+     "SymCat": 285
+    },
+    "A": 69.79,
+    "B": 45.51,
+    "diff": -24.29,
+    "ci_patient_stratified": [
+     -27.84,
+     -20.96
+    ],
+    "ci_cluster": [
+     -31.31,
+     -16.87
+    ],
+    "p_bootstrap": 0.0,
+    "patient_ci": "pure dict higher",
+    "cluster_ci": "pure dict higher"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - pure dict",
+    "k": 1,
+    "sets": [
+     "DDXPlus-test",
+     "SymCat"
+    ],
+    "n": {
+     "DDXPlus-test": 681,
+     "SymCat": 285
+    },
+    "A": 32.38,
+    "B": 16.18,
+    "diff": -16.2,
+    "ci_patient_stratified": [
+     -19.29,
+     -13.39
+    ],
+    "ci_cluster": [
+     -27.24,
+     -7.84
+    ],
+    "p_bootstrap": 0.0,
+    "patient_ci": "pure dict higher",
+    "cluster_ci": "pure dict higher"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "neither",
+    "comparison": "S-mix - pure dict",
+    "k": 10,
+    "sets": [
+     "DDXPlus-test",
+     "SymCat"
+    ],
+    "n": {
+     "DDXPlus-test": 2319,
+     "SymCat": 7196
+    },
+    "A": 22.02,
+    "B": 24.18,
+    "diff": 2.16,
+    "ci_patient_stratified": [
+     1.45,
+     2.83
+    ],
+    "ci_cluster": [
+     -0.22,
+     4.57
+    ],
+    "p_bootstrap": 0.0,
+    "patient_ci": "S-mix higher",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "stratum": "neither",
+    "comparison": "S-mix - pure dict",
+    "k": 1,
+    "sets": [
+     "DDXPlus-test",
+     "SymCat"
+    ],
+    "n": {
+     "DDXPlus-test": 2319,
+     "SymCat": 7196
+    },
+    "A": 5.35,
+    "B": 5.24,
+    "diff": -0.11,
+    "ci_patient_stratified": [
+     -0.5,
+     0.3
+    ],
+    "ci_cluster": [
+     -1.11,
+     0.87
+    ],
+    "p_bootstrap": 0.635,
+    "patient_ci": "includes 0",
+    "cluster_ci": "includes 0"
+   }
+  ],
+  "decomposition": [
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "comparison": "S-mix - S-dict",
+    "bench": "DDXPlus-test",
+    "k": 10,
+    "n": 3000,
+    "overall_diff": -1.63,
+    "strata": {
+     "input names gold or parent": {
+      "n": 681,
+      "diff": -12.48,
+      "contribution_pp": -2.83,
+      "share_of_overall_pct": 173.3
+     },
+     "neither": {
+      "n": 2319,
+      "diff": 1.55,
+      "contribution_pp": 1.2,
+      "share_of_overall_pct": -73.5
+     }
+    },
+    "interaction": {
+     "diff": -14.03,
+     "ci": [
+      -17.36,
+      -10.6
+     ],
+     "ci_cluster": [
+      -28.02,
+      2.0
+     ],
+     "replicates_without_both_strata": {
+      "patient": 0,
+      "cluster": 0
+     }
+    }
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "comparison": "S-mix - S-dict",
+    "bench": "DDXPlus-test",
+    "k": 1,
+    "n": 3000,
+    "overall_diff": -4.87,
+    "strata": {
+     "input names gold or parent": {
+      "n": 681,
+      "diff": -17.91,
+      "contribution_pp": -4.07,
+      "share_of_overall_pct": 83.6
+     },
+     "neither": {
+      "n": 2319,
+      "diff": -1.03,
+      "contribution_pp": -0.8,
+      "share_of_overall_pct": 16.4
+     }
+    },
+    "interaction": {
+     "diff": -16.88,
+     "ci": [
+      -20.23,
+      -13.36
+     ],
+     "ci_cluster": [
+      -34.34,
+      -1.57
+     ],
+     "replicates_without_both_strata": {
+      "patient": 0,
+      "cluster": 0
+     }
+    }
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "comparison": "S-mix - S-dict",
+    "bench": "SymCat",
+    "k": 10,
+    "n": 7481,
+    "overall_diff": -1.12,
+    "strata": {
+     "input names gold or parent": {
+      "n": 285,
+      "diff": -32.63,
+      "contribution_pp": -1.24,
+      "share_of_overall_pct": 110.4
+     },
+     "neither": {
+      "n": 7196,
+      "diff": 0.13,
+      "contribution_pp": 0.12,
+      "share_of_overall_pct": -10.7
+     }
+    },
+    "interaction": {
+     "diff": -32.76,
+     "ci": [
+      -39.03,
+      -26.99
+     ],
+     "ci_cluster": [
+      -41.25,
+      -25.01
+     ],
+     "replicates_without_both_strata": {
+      "patient": 0,
+      "cluster": 0
+     }
+    }
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "comparison": "S-mix - S-dict",
+    "bench": "SymCat",
+    "k": 1,
+    "n": 7481,
+    "overall_diff": -0.83,
+    "strata": {
+     "input names gold or parent": {
+      "n": 285,
+      "diff": -16.49,
+      "contribution_pp": -0.63,
+      "share_of_overall_pct": 76.0
+     },
+     "neither": {
+      "n": 7196,
+      "diff": -0.21,
+      "contribution_pp": -0.2,
+      "share_of_overall_pct": 24.1
+     }
+    },
+    "interaction": {
+     "diff": -16.28,
+     "ci": [
+      -21.06,
+      -11.57
+     ],
+     "ci_cluster": [
+      -26.23,
+      -8.47
+     ],
+     "replicates_without_both_strata": {
+      "patient": 0,
+      "cluster": 0
+     }
+    }
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "comparison": "S-mix - S-union",
+    "bench": "DDXPlus-test",
+    "k": 10,
+    "n": 3000,
+    "overall_diff": -2.97,
+    "strata": {
+     "input names gold or parent": {
+      "n": 681,
+      "diff": -11.75,
+      "contribution_pp": -2.67,
+      "share_of_overall_pct": 90.0
+     },
+     "neither": {
+      "n": 2319,
+      "diff": -0.39,
+      "contribution_pp": -0.3,
+      "share_of_overall_pct": 10.1
+     }
+    },
+    "interaction": {
+     "diff": -11.36,
+     "ci": [
+      -14.69,
+      -7.92
+     ],
+     "ci_cluster": [
+      -26.28,
+      4.87
+     ],
+     "replicates_without_both_strata": {
+      "patient": 0,
+      "cluster": 0
+     }
+    }
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "comparison": "S-mix - S-union",
+    "bench": "DDXPlus-test",
+    "k": 1,
+    "n": 3000,
+    "overall_diff": -4.63,
+    "strata": {
+     "input names gold or parent": {
+      "n": 681,
+      "diff": -18.5,
+      "contribution_pp": -4.2,
+      "share_of_overall_pct": 90.6
+     },
+     "neither": {
+      "n": 2319,
+      "diff": -0.56,
+      "contribution_pp": -0.43,
+      "share_of_overall_pct": 9.3
+     }
+    },
+    "interaction": {
+     "diff": -17.94,
+     "ci": [
+      -21.28,
+      -14.44
+     ],
+     "ci_cluster": [
+      -34.52,
+      -2.74
+     ],
+     "replicates_without_both_strata": {
+      "patient": 0,
+      "cluster": 0
+     }
+    }
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "comparison": "S-mix - S-union",
+    "bench": "SymCat",
+    "k": 10,
+    "n": 7481,
+    "overall_diff": -1.27,
+    "strata": {
+     "input names gold or parent": {
+      "n": 285,
+      "diff": -32.63,
+      "contribution_pp": -1.24,
+      "share_of_overall_pct": 97.6
+     },
+     "neither": {
+      "n": 7196,
+      "diff": -0.03,
+      "contribution_pp": -0.03,
+      "share_of_overall_pct": 2.4
+     }
+    },
+    "interaction": {
+     "diff": -32.6,
+     "ci": [
+      -38.79,
+      -26.63
+     ],
+     "ci_cluster": [
+      -41.05,
+      -24.5
+     ],
+     "replicates_without_both_strata": {
+      "patient": 0,
+      "cluster": 0
+     }
+    }
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "comparison": "S-mix - S-union",
+    "bench": "SymCat",
+    "k": 1,
+    "n": 7481,
+    "overall_diff": -0.96,
+    "strata": {
+     "input names gold or parent": {
+      "n": 285,
+      "diff": -15.09,
+      "contribution_pp": -0.57,
+      "share_of_overall_pct": 59.2
+     },
+     "neither": {
+      "n": 7196,
+      "diff": -0.4,
+      "contribution_pp": -0.39,
+      "share_of_overall_pct": 40.5
+     }
+    },
+    "interaction": {
+     "diff": -14.68,
+     "ci": [
+      -19.51,
+      -10.02
+     ],
+     "ci_cluster": [
+      -22.7,
+      -8.22
+     ],
+     "replicates_without_both_strata": {
+      "patient": 0,
+      "cluster": 0
+     }
+    }
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "comparison": "S-mix - pure dict",
+    "bench": "DDXPlus-test",
+    "k": 10,
+    "n": 3000,
+    "overall_diff": 1.1,
+    "strata": {
+     "input names gold or parent": {
+      "n": 681,
+      "diff": -8.22,
+      "contribution_pp": -1.87,
+      "share_of_overall_pct": -170.0
+     },
+     "neither": {
+      "n": 2319,
+      "diff": 3.84,
+      "contribution_pp": 2.97,
+      "share_of_overall_pct": 270.0
+     }
+    },
+    "interaction": {
+     "diff": -12.06,
+     "ci": [
+      -15.14,
+      -8.98
+     ],
+     "ci_cluster": [
+      -23.66,
+      0.12
+     ],
+     "replicates_without_both_strata": {
+      "patient": 0,
+      "cluster": 0
+     }
+    }
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "comparison": "S-mix - pure dict",
+    "bench": "DDXPlus-test",
+    "k": 1,
+    "n": 3000,
+    "overall_diff": -3.07,
+    "strata": {
+     "input names gold or parent": {
+      "n": 681,
+      "diff": -13.8,
+      "contribution_pp": -3.13,
+      "share_of_overall_pct": 102.1
+     },
+     "neither": {
+      "n": 2319,
+      "diff": 0.09,
+      "contribution_pp": 0.07,
+      "share_of_overall_pct": -2.3
+     }
+    },
+    "interaction": {
+     "diff": -13.89,
+     "ci": [
+      -17.11,
+      -10.71
+     ],
+     "ci_cluster": [
+      -34.05,
+      0.46
+     ],
+     "replicates_without_both_strata": {
+      "patient": 0,
+      "cluster": 0
+     }
+    }
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "comparison": "S-mix - pure dict",
+    "bench": "SymCat",
+    "k": 10,
+    "n": 7481,
+    "overall_diff": -1.07,
+    "strata": {
+     "input names gold or parent": {
+      "n": 285,
+      "diff": -40.35,
+      "contribution_pp": -1.54,
+      "share_of_overall_pct": 144.0
+     },
+     "neither": {
+      "n": 7196,
+      "diff": 0.49,
+      "contribution_pp": 0.47,
+      "share_of_overall_pct": -44.0
+     }
+    },
+    "interaction": {
+     "diff": -40.84,
+     "ci": [
+      -46.93,
+      -34.63
+     ],
+     "ci_cluster": [
+      -49.99,
+      -30.53
+     ],
+     "replicates_without_both_strata": {
+      "patient": 0,
+      "cluster": 0
+     }
+    }
+   },
+   {
+    "part": "development (reference)",
+    "rule": "lineage",
+    "comparison": "S-mix - pure dict",
+    "bench": "SymCat",
+    "k": 1,
+    "n": 7481,
+    "overall_diff": -1.0,
+    "strata": {
+     "input names gold or parent": {
+      "n": 285,
+      "diff": -18.6,
+      "contribution_pp": -0.71,
+      "share_of_overall_pct": 70.8
+     },
+     "neither": {
+      "n": 7196,
+      "diff": -0.31,
+      "contribution_pp": -0.29,
+      "share_of_overall_pct": 28.9
+     }
+    },
+    "interaction": {
+     "diff": -18.29,
+     "ci": [
+      -23.4,
+      -12.97
+     ],
+     "ci_cluster": [
+      -28.31,
+      -10.13
+     ],
+     "replicates_without_both_strata": {
+      "patient": 0,
+      "cluster": 0
+     }
+    }
+   }
+  ]
+ },
+ "confirmation": {
+  "flags": {
+   "ConfirmE-DDXPlus": {
+    "n": 3000,
+    "direct": 494,
+    "parent_only": 223,
+    "input names gold or parent": 717,
+    "neither": 2283,
+    "diseases": 49,
+    "diseases_with_named": 15,
+    "diseases_with_neither": 47
+   },
+   "ConfirmE-SymCat": {
+    "n": 7463,
+    "direct": 213,
+    "parent_only": 62,
+    "input names gold or parent": 275,
+    "neither": 7188,
+    "diseases": 760,
+    "diseases_with_named": 40,
+    "diseases_with_neither": 753
+   }
+  },
+  "rows": [
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "all",
+    "comparison": "S-mix - S-dict",
+    "A": "S-dict",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "ConfirmE-DDXPlus",
+    "n": 3000,
+    "diseases": 49,
+    "A_pct": 43.5,
+    "B_pct": 41.07,
+    "diff": -2.43,
+    "ci": [
+     -3.7,
+     -1.17
+    ],
+    "ci_cluster": [
+     -8.77,
+     3.53
+    ],
+    "only_A": 209,
+    "only_B": 136,
+    "p": 0.00010037094820402358,
+    "p_holm": 0.00010037094820402358,
+    "patient_ci": "S-dict higher",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "all",
+    "comparison": "S-mix - S-dict",
+    "A": "S-dict",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "ConfirmE-SymCat",
+    "n": 7463,
+    "diseases": 760,
+    "A_pct": 14.08,
+    "B_pct": 12.92,
+    "diff": -1.17,
+    "ci": [
+     -1.72,
+     -0.59
+    ],
+    "ci_cluster": [
+     -2.1,
+     -0.22
+    ],
+    "only_A": 269,
+    "only_B": 182,
+    "p": 4.8808911758541196e-05,
+    "p_holm": 9.761782351708239e-05,
+    "patient_ci": "S-dict higher",
+    "cluster_ci": "S-dict higher"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "all",
+    "comparison": "S-mix - S-dict",
+    "A": "S-dict",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "ConfirmE-DDXPlus",
+    "n": 3000,
+    "diseases": 49,
+    "A_pct": 17.63,
+    "B_pct": 12.43,
+    "diff": -5.2,
+    "ci": [
+     -6.2,
+     -4.13
+    ],
+    "ci_cluster": [
+     -9.83,
+     -1.39
+    ],
+    "only_A": 202,
+    "only_B": 46,
+    "p": 1.681366150810372e-24,
+    "p_holm": 3.362732301620744e-24,
+    "patient_ci": "S-dict higher",
+    "cluster_ci": "S-dict higher"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "all",
+    "comparison": "S-mix - S-dict",
+    "A": "S-dict",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "ConfirmE-SymCat",
+    "n": 7463,
+    "diseases": 760,
+    "A_pct": 3.12,
+    "B_pct": 2.45,
+    "diff": -0.67,
+    "ci": [
+     -1.0,
+     -0.32
+    ],
+    "ci_cluster": [
+     -1.28,
+     -0.08
+    ],
+    "only_A": 111,
+    "only_B": 61,
+    "p": 0.00016964950828826124,
+    "p_holm": 0.00016964950828826124,
+    "patient_ci": "S-dict higher",
+    "cluster_ci": "S-dict higher"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - S-dict",
+    "A": "S-dict",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "ConfirmE-DDXPlus",
+    "n": 717,
+    "diseases": 15,
+    "A_pct": 72.66,
+    "B_pct": 58.44,
+    "diff": -14.23,
+    "ci": [
+     -17.15,
+     -11.3
+    ],
+    "ci_cluster": [
+     -27.38,
+     0.62
+    ],
+    "only_A": 115,
+    "only_B": 13,
+    "p": 1.3995215560223337e-21,
+    "p_holm": 2.7990431120446674e-21,
+    "patient_ci": "S-dict higher",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - S-dict",
+    "A": "S-dict",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "ConfirmE-SymCat",
+    "n": 275,
+    "diseases": 40,
+    "A_pct": 67.27,
+    "B_pct": 39.27,
+    "diff": -28.0,
+    "ci": [
+     -33.45,
+     -21.82
+    ],
+    "ci_cluster": [
+     -37.35,
+     -18.71
+    ],
+    "only_A": 83,
+    "only_B": 6,
+    "p": 2.0200455794640623e-18,
+    "p_holm": 2.0200455794640623e-18,
+    "patient_ci": "S-dict higher",
+    "cluster_ci": "S-dict higher"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - S-dict",
+    "A": "S-dict",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "ConfirmE-DDXPlus",
+    "n": 717,
+    "diseases": 15,
+    "A_pct": 45.47,
+    "B_pct": 26.08,
+    "diff": -19.39,
+    "ci": [
+     -22.59,
+     -16.18
+    ],
+    "ci_cluster": [
+     -34.37,
+     -5.33
+    ],
+    "only_A": 152,
+    "only_B": 13,
+    "p": 3.1021113900808593e-31,
+    "p_holm": 6.204222780161719e-31,
+    "patient_ci": "S-dict higher",
+    "cluster_ci": "S-dict higher"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - S-dict",
+    "A": "S-dict",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "ConfirmE-SymCat",
+    "n": 275,
+    "diseases": 40,
+    "A_pct": 26.55,
+    "B_pct": 8.0,
+    "diff": -18.55,
+    "ci": [
+     -23.64,
+     -13.82
+    ],
+    "ci_cluster": [
+     -26.28,
+     -11.79
+    ],
+    "only_A": 53,
+    "only_B": 2,
+    "p": 8.554268404736831e-14,
+    "p_holm": 8.554268404736831e-14,
+    "patient_ci": "S-dict higher",
+    "cluster_ci": "S-dict higher"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "neither",
+    "comparison": "S-mix - S-dict",
+    "A": "S-dict",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "ConfirmE-DDXPlus",
+    "n": 2283,
+    "diseases": 47,
+    "A_pct": 34.34,
+    "B_pct": 35.61,
+    "diff": 1.27,
+    "ci": [
+     0.09,
+     2.54
+    ],
+    "ci_cluster": [
+     -4.29,
+     6.21
+    ],
+    "only_A": 94,
+    "only_B": 123,
+    "p": 0.05708241066398858,
+    "p_holm": 0.11416482132797716,
+    "patient_ci": "S-mix higher",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "neither",
+    "comparison": "S-mix - S-dict",
+    "A": "S-dict",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "ConfirmE-SymCat",
+    "n": 7188,
+    "diseases": 753,
+    "A_pct": 12.05,
+    "B_pct": 11.91,
+    "diff": -0.14,
+    "ci": [
+     -0.67,
+     0.4
+    ],
+    "ci_cluster": [
+     -1.0,
+     0.72
+    ],
+    "only_A": 186,
+    "only_B": 176,
+    "p": 0.6362527526287097,
+    "p_holm": 0.6362527526287097,
+    "patient_ci": "includes 0",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "neither",
+    "comparison": "S-mix - S-dict",
+    "A": "S-dict",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "ConfirmE-DDXPlus",
+    "n": 2283,
+    "diseases": 47,
+    "A_pct": 8.89,
+    "B_pct": 8.15,
+    "diff": -0.74,
+    "ci": [
+     -1.53,
+     0.0
+    ],
+    "ci_cluster": [
+     -2.57,
+     0.95
+    ],
+    "only_A": 50,
+    "only_B": 33,
+    "p": 0.07841962481580761,
+    "p_holm": 0.15683924963161522,
+    "patient_ci": "includes 0",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "neither",
+    "comparison": "S-mix - S-dict",
+    "A": "S-dict",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "ConfirmE-SymCat",
+    "n": 7188,
+    "diseases": 753,
+    "A_pct": 2.23,
+    "B_pct": 2.24,
+    "diff": 0.01,
+    "ci": [
+     -0.28,
+     0.32
+    ],
+    "ci_cluster": [
+     -0.46,
+     0.51
+    ],
+    "only_A": 58,
+    "only_B": 59,
+    "p": 1.0,
+    "p_holm": 1.0,
+    "patient_ci": "includes 0",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "all",
+    "comparison": "S-mix - S-union",
+    "A": "S-union",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "ConfirmE-DDXPlus",
+    "n": 3000,
+    "diseases": 49,
+    "A_pct": 45.07,
+    "B_pct": 41.07,
+    "diff": -4.0,
+    "ci": [
+     -5.1,
+     -2.87
+    ],
+    "ci_cluster": [
+     -10.25,
+     1.26
+    ],
+    "only_A": 210,
+    "only_B": 90,
+    "p": 3.305245854445861e-12,
+    "p_holm": 6.610491708891722e-12,
+    "patient_ci": "S-union higher",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "all",
+    "comparison": "S-mix - S-union",
+    "A": "S-union",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "ConfirmE-SymCat",
+    "n": 7463,
+    "diseases": 760,
+    "A_pct": 14.24,
+    "B_pct": 12.92,
+    "diff": -1.33,
+    "ci": [
+     -1.82,
+     -0.76
+    ],
+    "ci_cluster": [
+     -2.23,
+     -0.46
+    ],
+    "only_A": 252,
+    "only_B": 153,
+    "p": 9.935375723147132e-07,
+    "p_holm": 9.935375723147132e-07,
+    "patient_ci": "S-union higher",
+    "cluster_ci": "S-union higher"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "all",
+    "comparison": "S-mix - S-union",
+    "A": "S-union",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "ConfirmE-DDXPlus",
+    "n": 3000,
+    "diseases": 49,
+    "A_pct": 17.93,
+    "B_pct": 12.43,
+    "diff": -5.5,
+    "ci": [
+     -6.5,
+     -4.53
+    ],
+    "ci_cluster": [
+     -10.41,
+     -1.35
+    ],
+    "only_A": 211,
+    "only_B": 46,
+    "p": 1.9750718351680737e-26,
+    "p_holm": 3.9501436703361473e-26,
+    "patient_ci": "S-union higher",
+    "cluster_ci": "S-union higher"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "all",
+    "comparison": "S-mix - S-union",
+    "A": "S-union",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "ConfirmE-SymCat",
+    "n": 7463,
+    "diseases": 760,
+    "A_pct": 3.26,
+    "B_pct": 2.45,
+    "diff": -0.8,
+    "ci": [
+     -1.14,
+     -0.48
+    ],
+    "ci_cluster": [
+     -1.35,
+     -0.3
+    ],
+    "only_A": 106,
+    "only_B": 46,
+    "p": 1.2573094218827142e-06,
+    "p_holm": 1.2573094218827142e-06,
+    "patient_ci": "S-union higher",
+    "cluster_ci": "S-union higher"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - S-union",
+    "A": "S-union",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "ConfirmE-DDXPlus",
+    "n": 717,
+    "diseases": 15,
+    "A_pct": 71.27,
+    "B_pct": 58.44,
+    "diff": -12.83,
+    "ci": [
+     -15.76,
+     -9.9
+    ],
+    "ci_cluster": [
+     -27.32,
+     1.98
+    ],
+    "only_A": 108,
+    "only_B": 16,
+    "p": 5.977466094158537e-18,
+    "p_holm": 5.977466094158537e-18,
+    "patient_ci": "S-union higher",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - S-union",
+    "A": "S-union",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "ConfirmE-SymCat",
+    "n": 275,
+    "diseases": 40,
+    "A_pct": 70.18,
+    "B_pct": 39.27,
+    "diff": -30.91,
+    "ci": [
+     -36.36,
+     -25.09
+    ],
+    "ci_cluster": [
+     -40.24,
+     -21.72
+    ],
+    "only_A": 86,
+    "only_B": 1,
+    "p": 1.137373342260413e-24,
+    "p_holm": 2.274746684520826e-24,
+    "patient_ci": "S-union higher",
+    "cluster_ci": "S-union higher"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - S-union",
+    "A": "S-union",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "ConfirmE-DDXPlus",
+    "n": 717,
+    "diseases": 15,
+    "A_pct": 46.16,
+    "B_pct": 26.08,
+    "diff": -20.08,
+    "ci": [
+     -23.43,
+     -16.88
+    ],
+    "ci_cluster": [
+     -34.59,
+     -5.62
+    ],
+    "only_A": 156,
+    "only_B": 12,
+    "p": 4.08308761658268e-33,
+    "p_holm": 8.16617523316536e-33,
+    "patient_ci": "S-union higher",
+    "cluster_ci": "S-union higher"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - S-union",
+    "A": "S-union",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "ConfirmE-SymCat",
+    "n": 275,
+    "diseases": 40,
+    "A_pct": 26.55,
+    "B_pct": 8.0,
+    "diff": -18.55,
+    "ci": [
+     -23.27,
+     -14.18
+    ],
+    "ci_cluster": [
+     -26.3,
+     -11.42
+    ],
+    "only_A": 51,
+    "only_B": 0,
+    "p": 8.881784197001252e-16,
+    "p_holm": 8.881784197001252e-16,
+    "patient_ci": "S-union higher",
+    "cluster_ci": "S-union higher"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "neither",
+    "comparison": "S-mix - S-union",
+    "A": "S-union",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "ConfirmE-DDXPlus",
+    "n": 2283,
+    "diseases": 47,
+    "A_pct": 36.84,
+    "B_pct": 35.61,
+    "diff": -1.23,
+    "ci": [
+     -2.28,
+     -0.09
+    ],
+    "ci_cluster": [
+     -5.56,
+     2.98
+    ],
+    "only_A": 102,
+    "only_B": 74,
+    "p": 0.04152492763459916,
+    "p_holm": 0.08304985526919832,
+    "patient_ci": "S-union higher",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "neither",
+    "comparison": "S-mix - S-union",
+    "A": "S-union",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "ConfirmE-SymCat",
+    "n": 7188,
+    "diseases": 753,
+    "A_pct": 12.1,
+    "B_pct": 11.91,
+    "diff": -0.19,
+    "ci": [
+     -0.68,
+     0.31
+    ],
+    "ci_cluster": [
+     -1.0,
+     0.56
+    ],
+    "only_A": 166,
+    "only_B": 152,
+    "p": 0.4660546262071449,
+    "p_holm": 0.4660546262071449,
+    "patient_ci": "includes 0",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "neither",
+    "comparison": "S-mix - S-union",
+    "A": "S-union",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "ConfirmE-DDXPlus",
+    "n": 2283,
+    "diseases": 47,
+    "A_pct": 9.07,
+    "B_pct": 8.15,
+    "diff": -0.92,
+    "ci": [
+     -1.71,
+     -0.18
+    ],
+    "ci_cluster": [
+     -3.75,
+     1.29
+    ],
+    "only_A": 55,
+    "only_B": 34,
+    "p": 0.0334167216020976,
+    "p_holm": 0.0668334432041952,
+    "patient_ci": "S-union higher",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "neither",
+    "comparison": "S-mix - S-union",
+    "A": "S-union",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "ConfirmE-SymCat",
+    "n": 7188,
+    "diseases": 753,
+    "A_pct": 2.37,
+    "B_pct": 2.24,
+    "diff": -0.13,
+    "ci": [
+     -0.42,
+     0.15
+    ],
+    "ci_cluster": [
+     -0.51,
+     0.25
+    ],
+    "only_A": 55,
+    "only_B": 46,
+    "p": 0.4261600154669939,
+    "p_holm": 0.4261600154669939,
+    "patient_ci": "includes 0",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "all",
+    "comparison": "S-mix - pure dict",
+    "A": "pure dict",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "ConfirmE-DDXPlus",
+    "n": 3000,
+    "diseases": 49,
+    "A_pct": 40.4,
+    "B_pct": 41.07,
+    "diff": 0.67,
+    "ci": [
+     -0.47,
+     1.87
+    ],
+    "ci_cluster": [
+     -3.94,
+     5.16
+    ],
+    "only_A": 138,
+    "only_B": 158,
+    "p": 0.26941116133699927,
+    "p_holm": 0.26941116133699927,
+    "patient_ci": "includes 0",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "all",
+    "comparison": "S-mix - pure dict",
+    "A": "pure dict",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "ConfirmE-SymCat",
+    "n": 7463,
+    "diseases": 760,
+    "A_pct": 14.0,
+    "B_pct": 12.92,
+    "diff": -1.09,
+    "ci": [
+     -1.65,
+     -0.48
+    ],
+    "ci_cluster": [
+     -2.09,
+     -0.09
+    ],
+    "only_A": 282,
+    "only_B": 201,
+    "p": 0.00026439571812655015,
+    "p_holm": 0.0005287914362531003,
+    "patient_ci": "pure dict higher",
+    "cluster_ci": "pure dict higher"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "all",
+    "comparison": "S-mix - pure dict",
+    "A": "pure dict",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "ConfirmE-DDXPlus",
+    "n": 3000,
+    "diseases": 49,
+    "A_pct": 16.1,
+    "B_pct": 12.43,
+    "diff": -3.67,
+    "ci": [
+     -4.6,
+     -2.73
+    ],
+    "ci_cluster": [
+     -8.12,
+     -0.29
+    ],
+    "only_A": 162,
+    "only_B": 52,
+    "p": 2.4138905435843318e-14,
+    "p_holm": 4.8277810871686637e-14,
+    "patient_ci": "pure dict higher",
+    "cluster_ci": "pure dict higher"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "all",
+    "comparison": "S-mix - pure dict",
+    "A": "pure dict",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "ConfirmE-SymCat",
+    "n": 7463,
+    "diseases": 760,
+    "A_pct": 3.22,
+    "B_pct": 2.45,
+    "diff": -0.76,
+    "ci": [
+     -1.11,
+     -0.42
+    ],
+    "ci_cluster": [
+     -1.37,
+     -0.16
+    ],
+    "only_A": 117,
+    "only_B": 60,
+    "p": 2.19952869190665e-05,
+    "p_holm": 2.19952869190665e-05,
+    "patient_ci": "pure dict higher",
+    "cluster_ci": "pure dict higher"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - pure dict",
+    "A": "pure dict",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "ConfirmE-DDXPlus",
+    "n": 717,
+    "diseases": 15,
+    "A_pct": 66.95,
+    "B_pct": 58.44,
+    "diff": -8.51,
+    "ci": [
+     -11.16,
+     -5.86
+    ],
+    "ci_cluster": [
+     -17.6,
+     1.13
+    ],
+    "only_A": 79,
+    "only_B": 18,
+    "p": 2.7205432952211394e-10,
+    "p_holm": 2.7205432952211394e-10,
+    "patient_ci": "pure dict higher",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - pure dict",
+    "A": "pure dict",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "ConfirmE-SymCat",
+    "n": 275,
+    "diseases": 40,
+    "A_pct": 73.09,
+    "B_pct": 39.27,
+    "diff": -33.82,
+    "ci": [
+     -39.64,
+     -28.0
+    ],
+    "ci_cluster": [
+     -43.28,
+     -24.12
+    ],
+    "only_A": 96,
+    "only_B": 3,
+    "p": 5.105507778590388e-25,
+    "p_holm": 1.0211015557180777e-24,
+    "patient_ci": "pure dict higher",
+    "cluster_ci": "pure dict higher"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - pure dict",
+    "A": "pure dict",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "ConfirmE-DDXPlus",
+    "n": 717,
+    "diseases": 15,
+    "A_pct": 41.28,
+    "B_pct": 26.08,
+    "diff": -15.2,
+    "ci": [
+     -18.41,
+     -12.27
+    ],
+    "ci_cluster": [
+     -32.24,
+     -2.52
+    ],
+    "only_A": 124,
+    "only_B": 15,
+    "p": 1.5900505710811104e-22,
+    "p_holm": 3.180101142162221e-22,
+    "patient_ci": "pure dict higher",
+    "cluster_ci": "pure dict higher"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - pure dict",
+    "A": "pure dict",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "ConfirmE-SymCat",
+    "n": 275,
+    "diseases": 40,
+    "A_pct": 26.91,
+    "B_pct": 8.0,
+    "diff": -18.91,
+    "ci": [
+     -24.0,
+     -13.82
+    ],
+    "ci_cluster": [
+     -28.97,
+     -10.04
+    ],
+    "only_A": 56,
+    "only_B": 4,
+    "p": 9.084503982403902e-13,
+    "p_holm": 9.084503982403902e-13,
+    "patient_ci": "pure dict higher",
+    "cluster_ci": "pure dict higher"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "neither",
+    "comparison": "S-mix - pure dict",
+    "A": "pure dict",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "ConfirmE-DDXPlus",
+    "n": 2283,
+    "diseases": 47,
+    "A_pct": 32.06,
+    "B_pct": 35.61,
+    "diff": 3.55,
+    "ci": [
+     2.37,
+     4.69
+    ],
+    "ci_cluster": [
+     -0.1,
+     7.68
+    ],
+    "only_A": 59,
+    "only_B": 140,
+    "p": 8.936771879806282e-09,
+    "p_holm": 1.7873543759612564e-08,
+    "patient_ci": "S-mix higher",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "neither",
+    "comparison": "S-mix - pure dict",
+    "A": "pure dict",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "ConfirmE-SymCat",
+    "n": 7188,
+    "diseases": 753,
+    "A_pct": 11.74,
+    "B_pct": 11.91,
+    "diff": 0.17,
+    "ci": [
+     -0.38,
+     0.71
+    ],
+    "ci_cluster": [
+     -0.68,
+     1.02
+    ],
+    "only_A": 186,
+    "only_B": 198,
+    "p": 0.5746220082058779,
+    "p_holm": 0.5746220082058779,
+    "patient_ci": "includes 0",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "neither",
+    "comparison": "S-mix - pure dict",
+    "A": "pure dict",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "ConfirmE-DDXPlus",
+    "n": 2283,
+    "diseases": 47,
+    "A_pct": 8.19,
+    "B_pct": 8.15,
+    "diff": -0.04,
+    "ci": [
+     -0.74,
+     0.66
+    ],
+    "ci_cluster": [
+     -1.76,
+     1.67
+    ],
+    "only_A": 38,
+    "only_B": 37,
+    "p": 1.0,
+    "p_holm": 1.0,
+    "patient_ci": "includes 0",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "neither",
+    "comparison": "S-mix - pure dict",
+    "A": "pure dict",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "ConfirmE-SymCat",
+    "n": 7188,
+    "diseases": 753,
+    "A_pct": 2.31,
+    "B_pct": 2.24,
+    "diff": -0.07,
+    "ci": [
+     -0.36,
+     0.24
+    ],
+    "ci_cluster": [
+     -0.53,
+     0.43
+    ],
+    "only_A": 61,
+    "only_B": 56,
+    "p": 0.7117032769279404,
+    "p_holm": 1.0,
+    "patient_ci": "includes 0",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "stratum": "all",
+    "comparison": "S-mix - S-dict",
+    "A": "S-dict",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "ConfirmE-DDXPlus",
+    "n": 3000,
+    "diseases": 49,
+    "A_pct": 28.47,
+    "B_pct": 31.47,
+    "diff": 3.0,
+    "ci": [
+     1.8,
+     4.13
+    ],
+    "ci_cluster": [
+     -2.95,
+     8.81
+    ],
+    "only_A": 128,
+    "only_B": 218,
+    "p": 1.5053594648686532e-06,
+    "p_holm": 3.0107189297373064e-06,
+    "patient_ci": "S-mix higher",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "stratum": "all",
+    "comparison": "S-mix - S-dict",
+    "A": "S-dict",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "ConfirmE-SymCat",
+    "n": 7463,
+    "diseases": 760,
+    "A_pct": 8.99,
+    "B_pct": 8.08,
+    "diff": -0.91,
+    "ci": [
+     -1.38,
+     -0.43
+    ],
+    "ci_cluster": [
+     -1.77,
+     -0.04
+    ],
+    "only_A": 197,
+    "only_B": 129,
+    "p": 0.00019680077887750585,
+    "p_holm": 0.00019680077887750585,
+    "patient_ci": "S-dict higher",
+    "cluster_ci": "S-dict higher"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "stratum": "all",
+    "comparison": "S-mix - S-dict",
+    "A": "S-dict",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "ConfirmE-DDXPlus",
+    "n": 3000,
+    "diseases": 49,
+    "A_pct": 11.03,
+    "B_pct": 9.3,
+    "diff": -1.73,
+    "ci": [
+     -2.53,
+     -1.0
+    ],
+    "ci_cluster": [
+     -5.29,
+     0.92
+    ],
+    "only_A": 93,
+    "only_B": 41,
+    "p": 8.23337485724204e-06,
+    "p_holm": 1.646674971448408e-05,
+    "patient_ci": "S-dict higher",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "stratum": "all",
+    "comparison": "S-mix - S-dict",
+    "A": "S-dict",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "ConfirmE-SymCat",
+    "n": 7463,
+    "diseases": 760,
+    "A_pct": 1.51,
+    "B_pct": 0.96,
+    "diff": -0.55,
+    "ci": [
+     -0.8,
+     -0.31
+    ],
+    "ci_cluster": [
+     -0.98,
+     -0.13
+    ],
+    "only_A": 66,
+    "only_B": 25,
+    "p": 2.0283289208145566e-05,
+    "p_holm": 2.0283289208145566e-05,
+    "patient_ci": "S-dict higher",
+    "cluster_ci": "S-dict higher"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - S-dict",
+    "A": "S-dict",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "ConfirmE-DDXPlus",
+    "n": 717,
+    "diseases": 15,
+    "A_pct": 54.95,
+    "B_pct": 53.97,
+    "diff": -0.98,
+    "ci": [
+     -3.35,
+     1.26
+    ],
+    "ci_cluster": [
+     -11.59,
+     9.77
+    ],
+    "only_A": 43,
+    "only_B": 36,
+    "p": 0.49989687686032663,
+    "p_holm": 0.49989687686032663,
+    "patient_ci": "includes 0",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - S-dict",
+    "A": "S-dict",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "ConfirmE-SymCat",
+    "n": 275,
+    "diseases": 40,
+    "A_pct": 62.18,
+    "B_pct": 30.18,
+    "diff": -32.0,
+    "ci": [
+     -37.82,
+     -25.82
+    ],
+    "ci_cluster": [
+     -40.67,
+     -23.28
+    ],
+    "only_A": 92,
+    "only_B": 4,
+    "p": 8.758241741061071e-23,
+    "p_holm": 1.7516483482122143e-22,
+    "patient_ci": "S-dict higher",
+    "cluster_ci": "S-dict higher"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - S-dict",
+    "A": "S-dict",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "ConfirmE-DDXPlus",
+    "n": 717,
+    "diseases": 15,
+    "A_pct": 28.45,
+    "B_pct": 19.94,
+    "diff": -8.51,
+    "ci": [
+     -11.16,
+     -6.28
+    ],
+    "ci_cluster": [
+     -21.99,
+     0.91
+    ],
+    "only_A": 72,
+    "only_B": 11,
+    "p": 3.918121146030225e-12,
+    "p_holm": 7.83624229206045e-12,
+    "patient_ci": "S-dict higher",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - S-dict",
+    "A": "S-dict",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "ConfirmE-SymCat",
+    "n": 275,
+    "diseases": 40,
+    "A_pct": 14.91,
+    "B_pct": 2.55,
+    "diff": -12.36,
+    "ci": [
+     -16.73,
+     -8.36
+    ],
+    "ci_cluster": [
+     -19.34,
+     -5.96
+    ],
+    "only_A": 36,
+    "only_B": 2,
+    "p": 5.398760549724102e-09,
+    "p_holm": 5.398760549724102e-09,
+    "patient_ci": "S-dict higher",
+    "cluster_ci": "S-dict higher"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "stratum": "neither",
+    "comparison": "S-mix - S-dict",
+    "A": "S-dict",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "ConfirmE-DDXPlus",
+    "n": 2283,
+    "diseases": 47,
+    "A_pct": 20.15,
+    "B_pct": 24.4,
+    "diff": 4.25,
+    "ci": [
+     2.93,
+     5.65
+    ],
+    "ci_cluster": [
+     -2.83,
+     11.26
+    ],
+    "only_A": 85,
+    "only_B": 182,
+    "p": 2.8565326244680164e-09,
+    "p_holm": 5.713065248936033e-09,
+    "patient_ci": "S-mix higher",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "stratum": "neither",
+    "comparison": "S-mix - S-dict",
+    "A": "S-dict",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "ConfirmE-SymCat",
+    "n": 7188,
+    "diseases": 753,
+    "A_pct": 6.96,
+    "B_pct": 7.23,
+    "diff": 0.28,
+    "ci": [
+     -0.13,
+     0.68
+    ],
+    "ci_cluster": [
+     -0.4,
+     0.98
+    ],
+    "only_A": 105,
+    "only_B": 125,
+    "p": 0.2101767276222432,
+    "p_holm": 0.2101767276222432,
+    "patient_ci": "includes 0",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "stratum": "neither",
+    "comparison": "S-mix - S-dict",
+    "A": "S-dict",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "ConfirmE-DDXPlus",
+    "n": 2283,
+    "diseases": 47,
+    "A_pct": 5.56,
+    "B_pct": 5.96,
+    "diff": 0.39,
+    "ci": [
+     -0.22,
+     1.01
+    ],
+    "ci_cluster": [
+     -1.13,
+     2.11
+    ],
+    "only_A": 21,
+    "only_B": 30,
+    "p": 0.2624375357110438,
+    "p_holm": 0.5248750714220876,
+    "patient_ci": "includes 0",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "stratum": "neither",
+    "comparison": "S-mix - S-dict",
+    "A": "S-dict",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "ConfirmE-SymCat",
+    "n": 7188,
+    "diseases": 753,
+    "A_pct": 1.0,
+    "B_pct": 0.9,
+    "diff": -0.1,
+    "ci": [
+     -0.29,
+     0.11
+    ],
+    "ci_cluster": [
+     -0.4,
+     0.23
+    ],
+    "only_A": 30,
+    "only_B": 23,
+    "p": 0.4101027163746913,
+    "p_holm": 0.5248750714220876,
+    "patient_ci": "includes 0",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "stratum": "all",
+    "comparison": "S-mix - S-union",
+    "A": "S-union",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "ConfirmE-DDXPlus",
+    "n": 3000,
+    "diseases": 49,
+    "A_pct": 30.17,
+    "B_pct": 31.47,
+    "diff": 1.3,
+    "ci": [
+     0.2,
+     2.4
+    ],
+    "ci_cluster": [
+     -4.08,
+     7.02
+    ],
+    "only_A": 124,
+    "only_B": 163,
+    "p": 0.02472262224019127,
+    "p_holm": 0.02472262224019127,
+    "patient_ci": "S-mix higher",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "stratum": "all",
+    "comparison": "S-mix - S-union",
+    "A": "S-union",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "ConfirmE-SymCat",
+    "n": 7463,
+    "diseases": 760,
+    "A_pct": 9.08,
+    "B_pct": 8.08,
+    "diff": -1.0,
+    "ci": [
+     -1.45,
+     -0.55
+    ],
+    "ci_cluster": [
+     -1.77,
+     -0.24
+    ],
+    "only_A": 182,
+    "only_B": 107,
+    "p": 1.2086533311575099e-05,
+    "p_holm": 2.4173066623150197e-05,
+    "patient_ci": "S-union higher",
+    "cluster_ci": "S-union higher"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "stratum": "all",
+    "comparison": "S-mix - S-union",
+    "A": "S-union",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "ConfirmE-DDXPlus",
+    "n": 3000,
+    "diseases": 49,
+    "A_pct": 11.1,
+    "B_pct": 9.3,
+    "diff": -1.8,
+    "ci": [
+     -2.53,
+     -1.1
+    ],
+    "ci_cluster": [
+     -4.93,
+     0.68
+    ],
+    "only_A": 92,
+    "only_B": 38,
+    "p": 2.430816850424536e-06,
+    "p_holm": 4.861633700849072e-06,
+    "patient_ci": "S-union higher",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "stratum": "all",
+    "comparison": "S-mix - S-union",
+    "A": "S-union",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "ConfirmE-SymCat",
+    "n": 7463,
+    "diseases": 760,
+    "A_pct": 1.51,
+    "B_pct": 0.96,
+    "diff": -0.55,
+    "ci": [
+     -0.8,
+     -0.31
+    ],
+    "ci_cluster": [
+     -0.97,
+     -0.14
+    ],
+    "only_A": 66,
+    "only_B": 25,
+    "p": 2.0283289208145566e-05,
+    "p_holm": 2.0283289208145566e-05,
+    "patient_ci": "S-union higher",
+    "cluster_ci": "S-union higher"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - S-union",
+    "A": "S-union",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "ConfirmE-DDXPlus",
+    "n": 717,
+    "diseases": 15,
+    "A_pct": 52.02,
+    "B_pct": 53.97,
+    "diff": 1.95,
+    "ci": [
+     -0.56,
+     4.32
+    ],
+    "ci_cluster": [
+     -7.58,
+     13.45
+    ],
+    "only_A": 30,
+    "only_B": 44,
+    "p": 0.13017768031912763,
+    "p_holm": 0.13017768031912763,
+    "patient_ci": "includes 0",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - S-union",
+    "A": "S-union",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "ConfirmE-SymCat",
+    "n": 275,
+    "diseases": 40,
+    "A_pct": 60.0,
+    "B_pct": 30.18,
+    "diff": -29.82,
+    "ci": [
+     -35.27,
+     -24.0
+    ],
+    "ci_cluster": [
+     -38.1,
+     -22.01
+    ],
+    "only_A": 84,
+    "only_B": 2,
+    "p": 9.672843288041967e-23,
+    "p_holm": 1.9345686576083935e-22,
+    "patient_ci": "S-union higher",
+    "cluster_ci": "S-union higher"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - S-union",
+    "A": "S-union",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "ConfirmE-DDXPlus",
+    "n": 717,
+    "diseases": 15,
+    "A_pct": 28.31,
+    "B_pct": 19.94,
+    "diff": -8.37,
+    "ci": [
+     -10.88,
+     -6.0
+    ],
+    "ci_cluster": [
+     -21.26,
+     0.95
+    ],
+    "only_A": 72,
+    "only_B": 12,
+    "p": 1.3932285101509037e-11,
+    "p_holm": 1.3932285101509037e-11,
+    "patient_ci": "S-union higher",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - S-union",
+    "A": "S-union",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "ConfirmE-SymCat",
+    "n": 275,
+    "diseases": 40,
+    "A_pct": 16.73,
+    "B_pct": 2.55,
+    "diff": -14.18,
+    "ci": [
+     -18.55,
+     -10.18
+    ],
+    "ci_cluster": [
+     -20.83,
+     -7.87
+    ],
+    "only_A": 39,
+    "only_B": 0,
+    "p": 3.637978807091713e-12,
+    "p_holm": 7.275957614183426e-12,
+    "patient_ci": "S-union higher",
+    "cluster_ci": "S-union higher"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "stratum": "neither",
+    "comparison": "S-mix - S-union",
+    "A": "S-union",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "ConfirmE-DDXPlus",
+    "n": 2283,
+    "diseases": 47,
+    "A_pct": 23.3,
+    "B_pct": 24.4,
+    "diff": 1.1,
+    "ci": [
+     -0.09,
+     2.37
+    ],
+    "ci_cluster": [
+     -5.22,
+     7.92
+    ],
+    "only_A": 94,
+    "only_B": 119,
+    "p": 0.0998562254864899,
+    "p_holm": 0.1997124509729798,
+    "patient_ci": "includes 0",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "stratum": "neither",
+    "comparison": "S-mix - S-union",
+    "A": "S-union",
+    "B": "S-mix",
+    "k": 10,
+    "bench": "ConfirmE-SymCat",
+    "n": 7188,
+    "diseases": 753,
+    "A_pct": 7.14,
+    "B_pct": 7.23,
+    "diff": 0.1,
+    "ci": [
+     -0.29,
+     0.5
+    ],
+    "ci_cluster": [
+     -0.51,
+     0.72
+    ],
+    "only_A": 98,
+    "only_B": 105,
+    "p": 0.6737740741736233,
+    "p_holm": 0.6737740741736233,
+    "patient_ci": "includes 0",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "stratum": "neither",
+    "comparison": "S-mix - S-union",
+    "A": "S-union",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "ConfirmE-DDXPlus",
+    "n": 2283,
+    "diseases": 47,
+    "A_pct": 5.69,
+    "B_pct": 5.96,
+    "diff": 0.26,
+    "ci": [
+     -0.31,
+     0.79
+    ],
+    "ci_cluster": [
+     -0.81,
+     1.57
+    ],
+    "only_A": 20,
+    "only_B": 26,
+    "p": 0.4613911821367651,
+    "p_holm": 0.9227823642735302,
+    "patient_ci": "includes 0",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "stratum": "neither",
+    "comparison": "S-mix - S-union",
+    "A": "S-union",
+    "B": "S-mix",
+    "k": 1,
+    "bench": "ConfirmE-SymCat",
+    "n": 7188,
+    "diseases": 753,
+    "A_pct": 0.93,
+    "B_pct": 0.9,
+    "diff": -0.03,
+    "ci": [
+     -0.22,
+     0.18
+    ],
+    "ci_cluster": [
+     -0.33,
+     0.28
+    ],
+    "only_A": 27,
+    "only_B": 25,
+    "p": 0.8898839652765371,
+    "p_holm": 0.9227823642735302,
+    "patient_ci": "includes 0",
+    "cluster_ci": "includes 0"
+   }
+  ],
+  "macro": [
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "all",
+    "comparison": "S-mix - S-dict",
+    "k": 10,
+    "sets": [
+     "ConfirmE-DDXPlus",
+     "ConfirmE-SymCat"
+    ],
+    "n": {
+     "ConfirmE-DDXPlus": 3000,
+     "ConfirmE-SymCat": 7463
+    },
+    "A": 28.79,
+    "B": 26.99,
+    "diff": -1.8,
+    "ci_patient_stratified": [
+     -2.44,
+     -1.12
+    ],
+    "ci_cluster": [
+     -5.17,
+     1.28
+    ],
+    "p_bootstrap": 0.0,
+    "patient_ci": "S-dict higher",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "all",
+    "comparison": "S-mix - S-dict",
+    "k": 1,
+    "sets": [
+     "ConfirmE-DDXPlus",
+     "ConfirmE-SymCat"
+    ],
+    "n": {
+     "ConfirmE-DDXPlus": 3000,
+     "ConfirmE-SymCat": 7463
+    },
+    "A": 10.38,
+    "B": 7.44,
+    "diff": -2.93,
+    "ci_patient_stratified": [
+     -3.51,
+     -2.4
+    ],
+    "ci_cluster": [
+     -5.26,
+     -0.92
+    ],
+    "p_bootstrap": 0.0,
+    "patient_ci": "S-dict higher",
+    "cluster_ci": "S-dict higher"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - S-dict",
+    "k": 10,
+    "sets": [
+     "ConfirmE-DDXPlus",
+     "ConfirmE-SymCat"
+    ],
+    "n": {
+     "ConfirmE-DDXPlus": 717,
+     "ConfirmE-SymCat": 275
+    },
+    "A": 69.97,
+    "B": 48.86,
+    "diff": -21.11,
+    "ci_patient_stratified": [
+     -24.36,
+     -18.03
+    ],
+    "ci_cluster": [
+     -28.91,
+     -11.91
+    ],
+    "p_bootstrap": 0.0,
+    "patient_ci": "S-dict higher",
+    "cluster_ci": "S-dict higher"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - S-dict",
+    "k": 1,
+    "sets": [
+     "ConfirmE-DDXPlus",
+     "ConfirmE-SymCat"
+    ],
+    "n": {
+     "ConfirmE-DDXPlus": 717,
+     "ConfirmE-SymCat": 275
+    },
+    "A": 36.01,
+    "B": 17.04,
+    "diff": -18.97,
+    "ci_patient_stratified": [
+     -22.01,
+     -16.04
+    ],
+    "ci_cluster": [
+     -27.38,
+     -11.09
+    ],
+    "p_bootstrap": 0.0,
+    "patient_ci": "S-dict higher",
+    "cluster_ci": "S-dict higher"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "neither",
+    "comparison": "S-mix - S-dict",
+    "k": 10,
+    "sets": [
+     "ConfirmE-DDXPlus",
+     "ConfirmE-SymCat"
+    ],
+    "n": {
+     "ConfirmE-DDXPlus": 2283,
+     "ConfirmE-SymCat": 7188
+    },
+    "A": 23.19,
+    "B": 23.76,
+    "diff": 0.57,
+    "ci_patient_stratified": [
+     -0.09,
+     1.28
+    ],
+    "ci_cluster": [
+     -2.09,
+     3.06
+    ],
+    "p_bootstrap": 0.08,
+    "patient_ci": "includes 0",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "neither",
+    "comparison": "S-mix - S-dict",
+    "k": 1,
+    "sets": [
+     "ConfirmE-DDXPlus",
+     "ConfirmE-SymCat"
+    ],
+    "n": {
+     "ConfirmE-DDXPlus": 2283,
+     "ConfirmE-SymCat": 7188
+    },
+    "A": 5.56,
+    "B": 5.19,
+    "diff": -0.37,
+    "ci_patient_stratified": [
+     -0.8,
+     0.08
+    ],
+    "ci_cluster": [
+     -1.27,
+     0.56
+    ],
+    "p_bootstrap": 0.096,
+    "patient_ci": "includes 0",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "all",
+    "comparison": "S-mix - S-union",
+    "k": 10,
+    "sets": [
+     "ConfirmE-DDXPlus",
+     "ConfirmE-SymCat"
+    ],
+    "n": {
+     "ConfirmE-DDXPlus": 3000,
+     "ConfirmE-SymCat": 7463
+    },
+    "A": 29.66,
+    "B": 26.99,
+    "diff": -2.66,
+    "ci_patient_stratified": [
+     -3.27,
+     -2.07
+    ],
+    "ci_cluster": [
+     -5.83,
+     0.15
+    ],
+    "p_bootstrap": 0.0,
+    "patient_ci": "S-union higher",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "all",
+    "comparison": "S-mix - S-union",
+    "k": 1,
+    "sets": [
+     "ConfirmE-DDXPlus",
+     "ConfirmE-SymCat"
+    ],
+    "n": {
+     "ConfirmE-DDXPlus": 3000,
+     "ConfirmE-SymCat": 7463
+    },
+    "A": 10.59,
+    "B": 7.44,
+    "diff": -3.15,
+    "ci_patient_stratified": [
+     -3.72,
+     -2.66
+    ],
+    "ci_cluster": [
+     -5.7,
+     -1.02
+    ],
+    "p_bootstrap": 0.0,
+    "patient_ci": "S-union higher",
+    "cluster_ci": "S-union higher"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - S-union",
+    "k": 10,
+    "sets": [
+     "ConfirmE-DDXPlus",
+     "ConfirmE-SymCat"
+    ],
+    "n": {
+     "ConfirmE-DDXPlus": 717,
+     "ConfirmE-SymCat": 275
+    },
+    "A": 70.73,
+    "B": 48.86,
+    "diff": -21.87,
+    "ci_patient_stratified": [
+     -25.0,
+     -18.84
+    ],
+    "ci_cluster": [
+     -30.66,
+     -12.5
+    ],
+    "p_bootstrap": 0.0,
+    "patient_ci": "S-union higher",
+    "cluster_ci": "S-union higher"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - S-union",
+    "k": 1,
+    "sets": [
+     "ConfirmE-DDXPlus",
+     "ConfirmE-SymCat"
+    ],
+    "n": {
+     "ConfirmE-DDXPlus": 717,
+     "ConfirmE-SymCat": 275
+    },
+    "A": 36.36,
+    "B": 17.04,
+    "diff": -19.31,
+    "ci_patient_stratified": [
+     -22.13,
+     -16.52
+    ],
+    "ci_cluster": [
+     -27.34,
+     -11.21
+    ],
+    "p_bootstrap": 0.0,
+    "patient_ci": "S-union higher",
+    "cluster_ci": "S-union higher"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "neither",
+    "comparison": "S-mix - S-union",
+    "k": 10,
+    "sets": [
+     "ConfirmE-DDXPlus",
+     "ConfirmE-SymCat"
+    ],
+    "n": {
+     "ConfirmE-DDXPlus": 2283,
+     "ConfirmE-SymCat": 7188
+    },
+    "A": 24.47,
+    "B": 23.76,
+    "diff": -0.71,
+    "ci_patient_stratified": [
+     -1.3,
+     -0.08
+    ],
+    "ci_cluster": [
+     -2.95,
+     1.43
+    ],
+    "p_bootstrap": 0.024,
+    "patient_ci": "S-union higher",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "neither",
+    "comparison": "S-mix - S-union",
+    "k": 1,
+    "sets": [
+     "ConfirmE-DDXPlus",
+     "ConfirmE-SymCat"
+    ],
+    "n": {
+     "ConfirmE-DDXPlus": 2283,
+     "ConfirmE-SymCat": 7188
+    },
+    "A": 5.72,
+    "B": 5.19,
+    "diff": -0.52,
+    "ci_patient_stratified": [
+     -0.96,
+     -0.1
+    ],
+    "ci_cluster": [
+     -1.98,
+     0.67
+    ],
+    "p_bootstrap": 0.017,
+    "patient_ci": "S-union higher",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "all",
+    "comparison": "S-mix - pure dict",
+    "k": 10,
+    "sets": [
+     "ConfirmE-DDXPlus",
+     "ConfirmE-SymCat"
+    ],
+    "n": {
+     "ConfirmE-DDXPlus": 3000,
+     "ConfirmE-SymCat": 7463
+    },
+    "A": 27.2,
+    "B": 26.99,
+    "diff": -0.21,
+    "ci_patient_stratified": [
+     -0.84,
+     0.45
+    ],
+    "ci_cluster": [
+     -2.53,
+     2.14
+    ],
+    "p_bootstrap": 0.538,
+    "patient_ci": "includes 0",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "all",
+    "comparison": "S-mix - pure dict",
+    "k": 1,
+    "sets": [
+     "ConfirmE-DDXPlus",
+     "ConfirmE-SymCat"
+    ],
+    "n": {
+     "ConfirmE-DDXPlus": 3000,
+     "ConfirmE-SymCat": 7463
+    },
+    "A": 9.66,
+    "B": 7.44,
+    "diff": -2.22,
+    "ci_patient_stratified": [
+     -2.73,
+     -1.72
+    ],
+    "ci_cluster": [
+     -4.42,
+     -0.49
+    ],
+    "p_bootstrap": 0.0,
+    "patient_ci": "pure dict higher",
+    "cluster_ci": "pure dict higher"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - pure dict",
+    "k": 10,
+    "sets": [
+     "ConfirmE-DDXPlus",
+     "ConfirmE-SymCat"
+    ],
+    "n": {
+     "ConfirmE-DDXPlus": 717,
+     "ConfirmE-SymCat": 275
+    },
+    "A": 70.02,
+    "B": 48.86,
+    "diff": -21.16,
+    "ci_patient_stratified": [
+     -24.52,
+     -18.03
+    ],
+    "ci_cluster": [
+     -27.35,
+     -14.01
+    ],
+    "p_bootstrap": 0.0,
+    "patient_ci": "pure dict higher",
+    "cluster_ci": "pure dict higher"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - pure dict",
+    "k": 1,
+    "sets": [
+     "ConfirmE-DDXPlus",
+     "ConfirmE-SymCat"
+    ],
+    "n": {
+     "ConfirmE-DDXPlus": 717,
+     "ConfirmE-SymCat": 275
+    },
+    "A": 34.1,
+    "B": 17.04,
+    "diff": -17.06,
+    "ci_patient_stratified": [
+     -19.98,
+     -14.13
+    ],
+    "ci_cluster": [
+     -26.79,
+     -9.27
+    ],
+    "p_bootstrap": 0.0,
+    "patient_ci": "pure dict higher",
+    "cluster_ci": "pure dict higher"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "neither",
+    "comparison": "S-mix - pure dict",
+    "k": 10,
+    "sets": [
+     "ConfirmE-DDXPlus",
+     "ConfirmE-SymCat"
+    ],
+    "n": {
+     "ConfirmE-DDXPlus": 2283,
+     "ConfirmE-SymCat": 7188
+    },
+    "A": 21.9,
+    "B": 23.76,
+    "diff": 1.86,
+    "ci_patient_stratified": [
+     1.23,
+     2.51
+    ],
+    "ci_cluster": [
+     -0.04,
+     3.95
+    ],
+    "p_bootstrap": 0.0,
+    "patient_ci": "S-mix higher",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "stratum": "neither",
+    "comparison": "S-mix - pure dict",
+    "k": 1,
+    "sets": [
+     "ConfirmE-DDXPlus",
+     "ConfirmE-SymCat"
+    ],
+    "n": {
+     "ConfirmE-DDXPlus": 2283,
+     "ConfirmE-SymCat": 7188
+    },
+    "A": 5.25,
+    "B": 5.19,
+    "diff": -0.06,
+    "ci_patient_stratified": [
+     -0.45,
+     0.36
+    ],
+    "ci_cluster": [
+     -1.04,
+     0.81
+    ],
+    "p_bootstrap": 0.756,
+    "patient_ci": "includes 0",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "stratum": "all",
+    "comparison": "S-mix - S-dict",
+    "k": 10,
+    "sets": [
+     "ConfirmE-DDXPlus",
+     "ConfirmE-SymCat"
+    ],
+    "n": {
+     "ConfirmE-DDXPlus": 3000,
+     "ConfirmE-SymCat": 7463
+    },
+    "A": 18.73,
+    "B": 19.77,
+    "diff": 1.04,
+    "ci_patient_stratified": [
+     0.39,
+     1.72
+    ],
+    "ci_cluster": [
+     -2.1,
+     4.03
+    ],
+    "p_bootstrap": 0.001,
+    "patient_ci": "S-mix higher",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "stratum": "all",
+    "comparison": "S-mix - S-dict",
+    "k": 1,
+    "sets": [
+     "ConfirmE-DDXPlus",
+     "ConfirmE-SymCat"
+    ],
+    "n": {
+     "ConfirmE-DDXPlus": 3000,
+     "ConfirmE-SymCat": 7463
+    },
+    "A": 6.27,
+    "B": 5.13,
+    "diff": -1.14,
+    "ci_patient_stratified": [
+     -1.55,
+     -0.77
+    ],
+    "ci_cluster": [
+     -2.84,
+     0.2
+    ],
+    "p_bootstrap": 0.0,
+    "patient_ci": "S-dict higher",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - S-dict",
+    "k": 10,
+    "sets": [
+     "ConfirmE-DDXPlus",
+     "ConfirmE-SymCat"
+    ],
+    "n": {
+     "ConfirmE-DDXPlus": 717,
+     "ConfirmE-SymCat": 275
+    },
+    "A": 58.57,
+    "B": 42.08,
+    "diff": -16.49,
+    "ci_patient_stratified": [
+     -19.73,
+     -13.44
+    ],
+    "ci_cluster": [
+     -23.27,
+     -9.66
+    ],
+    "p_bootstrap": 0.0,
+    "patient_ci": "S-dict higher",
+    "cluster_ci": "S-dict higher"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - S-dict",
+    "k": 1,
+    "sets": [
+     "ConfirmE-DDXPlus",
+     "ConfirmE-SymCat"
+    ],
+    "n": {
+     "ConfirmE-DDXPlus": 717,
+     "ConfirmE-SymCat": 275
+    },
+    "A": 21.68,
+    "B": 11.24,
+    "diff": -10.44,
+    "ci_patient_stratified": [
+     -12.92,
+     -8.17
+    ],
+    "ci_cluster": [
+     -17.8,
+     -4.56
+    ],
+    "p_bootstrap": 0.0,
+    "patient_ci": "S-dict higher",
+    "cluster_ci": "S-dict higher"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "stratum": "neither",
+    "comparison": "S-mix - S-dict",
+    "k": 10,
+    "sets": [
+     "ConfirmE-DDXPlus",
+     "ConfirmE-SymCat"
+    ],
+    "n": {
+     "ConfirmE-DDXPlus": 2283,
+     "ConfirmE-SymCat": 7188
+    },
+    "A": 13.55,
+    "B": 15.82,
+    "diff": 2.26,
+    "ci_patient_stratified": [
+     1.59,
+     2.99
+    ],
+    "ci_cluster": [
+     -1.4,
+     5.87
+    ],
+    "p_bootstrap": 0.0,
+    "patient_ci": "S-mix higher",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "stratum": "neither",
+    "comparison": "S-mix - S-dict",
+    "k": 1,
+    "sets": [
+     "ConfirmE-DDXPlus",
+     "ConfirmE-SymCat"
+    ],
+    "n": {
+     "ConfirmE-DDXPlus": 2283,
+     "ConfirmE-SymCat": 7188
+    },
+    "A": 3.28,
+    "B": 3.43,
+    "diff": 0.15,
+    "ci_patient_stratified": [
+     -0.16,
+     0.48
+    ],
+    "ci_cluster": [
+     -0.63,
+     0.97
+    ],
+    "p_bootstrap": 0.367,
+    "patient_ci": "includes 0",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "stratum": "all",
+    "comparison": "S-mix - S-union",
+    "k": 10,
+    "sets": [
+     "ConfirmE-DDXPlus",
+     "ConfirmE-SymCat"
+    ],
+    "n": {
+     "ConfirmE-DDXPlus": 3000,
+     "ConfirmE-SymCat": 7463
+    },
+    "A": 19.63,
+    "B": 19.77,
+    "diff": 0.15,
+    "ci_patient_stratified": [
+     -0.46,
+     0.76
+    ],
+    "ci_cluster": [
+     -2.42,
+     3.26
+    ],
+    "p_bootstrap": 0.621,
+    "patient_ci": "includes 0",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "stratum": "all",
+    "comparison": "S-mix - S-union",
+    "k": 1,
+    "sets": [
+     "ConfirmE-DDXPlus",
+     "ConfirmE-SymCat"
+    ],
+    "n": {
+     "ConfirmE-DDXPlus": 3000,
+     "ConfirmE-SymCat": 7463
+    },
+    "A": 6.31,
+    "B": 5.13,
+    "diff": -1.17,
+    "ci_patient_stratified": [
+     -1.57,
+     -0.81
+    ],
+    "ci_cluster": [
+     -2.84,
+     0.06
+    ],
+    "p_bootstrap": 0.0,
+    "patient_ci": "S-union higher",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - S-union",
+    "k": 10,
+    "sets": [
+     "ConfirmE-DDXPlus",
+     "ConfirmE-SymCat"
+    ],
+    "n": {
+     "ConfirmE-DDXPlus": 717,
+     "ConfirmE-SymCat": 275
+    },
+    "A": 56.01,
+    "B": 42.08,
+    "diff": -13.93,
+    "ci_patient_stratified": [
+     -17.02,
+     -10.97
+    ],
+    "ci_cluster": [
+     -20.29,
+     -6.89
+    ],
+    "p_bootstrap": 0.0,
+    "patient_ci": "S-union higher",
+    "cluster_ci": "S-union higher"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "stratum": "input names gold or parent",
+    "comparison": "S-mix - S-union",
+    "k": 1,
+    "sets": [
+     "ConfirmE-DDXPlus",
+     "ConfirmE-SymCat"
+    ],
+    "n": {
+     "ConfirmE-DDXPlus": 717,
+     "ConfirmE-SymCat": 275
+    },
+    "A": 22.52,
+    "B": 11.24,
+    "diff": -11.28,
+    "ci_patient_stratified": [
+     -13.7,
+     -8.87
+    ],
+    "ci_cluster": [
+     -18.05,
+     -5.35
+    ],
+    "p_bootstrap": 0.0,
+    "patient_ci": "S-union higher",
+    "cluster_ci": "S-union higher"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "stratum": "neither",
+    "comparison": "S-mix - S-union",
+    "k": 10,
+    "sets": [
+     "ConfirmE-DDXPlus",
+     "ConfirmE-SymCat"
+    ],
+    "n": {
+     "ConfirmE-DDXPlus": 2283,
+     "ConfirmE-SymCat": 7188
+    },
+    "A": 15.22,
+    "B": 15.82,
+    "diff": 0.6,
+    "ci_patient_stratified": [
+     -0.04,
+     1.24
+    ],
+    "ci_cluster": [
+     -2.64,
+     4.26
+    ],
+    "p_bootstrap": 0.065,
+    "patient_ci": "includes 0",
+    "cluster_ci": "includes 0"
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "stratum": "neither",
+    "comparison": "S-mix - S-union",
+    "k": 1,
+    "sets": [
+     "ConfirmE-DDXPlus",
+     "ConfirmE-SymCat"
+    ],
+    "n": {
+     "ConfirmE-DDXPlus": 2283,
+     "ConfirmE-SymCat": 7188
+    },
+    "A": 3.31,
+    "B": 3.43,
+    "diff": 0.12,
+    "ci_patient_stratified": [
+     -0.18,
+     0.44
+    ],
+    "ci_cluster": [
+     -0.51,
+     0.77
+    ],
+    "p_bootstrap": 0.479,
+    "patient_ci": "includes 0",
+    "cluster_ci": "includes 0"
+   }
+  ],
+  "decomposition": [
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "comparison": "S-mix - S-dict",
+    "bench": "ConfirmE-DDXPlus",
+    "k": 10,
+    "n": 3000,
+    "overall_diff": -2.43,
+    "strata": {
+     "input names gold or parent": {
+      "n": 717,
+      "diff": -14.23,
+      "contribution_pp": -3.4,
+      "share_of_overall_pct": 139.7
+     },
+     "neither": {
+      "n": 2283,
+      "diff": 1.27,
+      "contribution_pp": 0.97,
+      "share_of_overall_pct": -39.9
+     }
+    },
+    "interaction": {
+     "diff": -15.5,
+     "ci": [
+      -18.58,
+      -12.19
+     ],
+     "ci_cluster": [
+      -29.65,
+      -0.55
+     ],
+     "replicates_without_both_strata": {
+      "patient": 0,
+      "cluster": 0
+     }
+    }
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "comparison": "S-mix - S-dict",
+    "bench": "ConfirmE-DDXPlus",
+    "k": 1,
+    "n": 3000,
+    "overall_diff": -5.2,
+    "strata": {
+     "input names gold or parent": {
+      "n": 717,
+      "diff": -19.39,
+      "contribution_pp": -4.63,
+      "share_of_overall_pct": 89.0
+     },
+     "neither": {
+      "n": 2283,
+      "diff": -0.74,
+      "contribution_pp": -0.57,
+      "share_of_overall_pct": 11.0
+     }
+    },
+    "interaction": {
+     "diff": -18.64,
+     "ci": [
+      -22.02,
+      -15.26
+     ],
+     "ci_cluster": [
+      -34.29,
+      -4.72
+     ],
+     "replicates_without_both_strata": {
+      "patient": 0,
+      "cluster": 0
+     }
+    }
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "comparison": "S-mix - S-dict",
+    "bench": "ConfirmE-SymCat",
+    "k": 10,
+    "n": 7463,
+    "overall_diff": -1.17,
+    "strata": {
+     "input names gold or parent": {
+      "n": 275,
+      "diff": -28.0,
+      "contribution_pp": -1.03,
+      "share_of_overall_pct": 88.4
+     },
+     "neither": {
+      "n": 7188,
+      "diff": -0.14,
+      "contribution_pp": -0.13,
+      "share_of_overall_pct": 11.2
+     }
+    },
+    "interaction": {
+     "diff": -27.86,
+     "ci": [
+      -33.63,
+      -22.02
+     ],
+     "ci_cluster": [
+      -37.34,
+      -18.58
+     ],
+     "replicates_without_both_strata": {
+      "patient": 0,
+      "cluster": 0
+     }
+    }
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "comparison": "S-mix - S-dict",
+    "bench": "ConfirmE-SymCat",
+    "k": 1,
+    "n": 7463,
+    "overall_diff": -0.67,
+    "strata": {
+     "input names gold or parent": {
+      "n": 275,
+      "diff": -18.55,
+      "contribution_pp": -0.68,
+      "share_of_overall_pct": 101.5
+     },
+     "neither": {
+      "n": 7188,
+      "diff": 0.01,
+      "contribution_pp": 0.01,
+      "share_of_overall_pct": -1.5
+     }
+    },
+    "interaction": {
+     "diff": -18.56,
+     "ci": [
+      -23.33,
+      -13.92
+     ],
+     "ci_cluster": [
+      -26.74,
+      -11.41
+     ],
+     "replicates_without_both_strata": {
+      "patient": 0,
+      "cluster": 0
+     }
+    }
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "comparison": "S-mix - S-union",
+    "bench": "ConfirmE-DDXPlus",
+    "k": 10,
+    "n": 3000,
+    "overall_diff": -4.0,
+    "strata": {
+     "input names gold or parent": {
+      "n": 717,
+      "diff": -12.83,
+      "contribution_pp": -3.07,
+      "share_of_overall_pct": 76.8
+     },
+     "neither": {
+      "n": 2283,
+      "diff": -1.23,
+      "contribution_pp": -0.93,
+      "share_of_overall_pct": 23.2
+     }
+    },
+    "interaction": {
+     "diff": -11.6,
+     "ci": [
+      -14.72,
+      -8.5
+     ],
+     "ci_cluster": [
+      -27.51,
+      3.9
+     ],
+     "replicates_without_both_strata": {
+      "patient": 0,
+      "cluster": 0
+     }
+    }
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "comparison": "S-mix - S-union",
+    "bench": "ConfirmE-DDXPlus",
+    "k": 1,
+    "n": 3000,
+    "overall_diff": -5.5,
+    "strata": {
+     "input names gold or parent": {
+      "n": 717,
+      "diff": -20.08,
+      "contribution_pp": -4.8,
+      "share_of_overall_pct": 87.3
+     },
+     "neither": {
+      "n": 2283,
+      "diff": -0.92,
+      "contribution_pp": -0.7,
+      "share_of_overall_pct": 12.7
+     }
+    },
+    "interaction": {
+     "diff": -19.16,
+     "ci": [
+      -22.46,
+      -15.89
+     ],
+     "ci_cluster": [
+      -34.66,
+      -4.47
+     ],
+     "replicates_without_both_strata": {
+      "patient": 0,
+      "cluster": 0
+     }
+    }
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "comparison": "S-mix - S-union",
+    "bench": "ConfirmE-SymCat",
+    "k": 10,
+    "n": 7463,
+    "overall_diff": -1.33,
+    "strata": {
+     "input names gold or parent": {
+      "n": 275,
+      "diff": -30.91,
+      "contribution_pp": -1.14,
+      "share_of_overall_pct": 85.9
+     },
+     "neither": {
+      "n": 7188,
+      "diff": -0.19,
+      "contribution_pp": -0.19,
+      "share_of_overall_pct": 14.3
+     }
+    },
+    "interaction": {
+     "diff": -30.71,
+     "ci": [
+      -36.53,
+      -25.24
+     ],
+     "ci_cluster": [
+      -40.18,
+      -21.46
+     ],
+     "replicates_without_both_strata": {
+      "patient": 0,
+      "cluster": 0
+     }
+    }
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "comparison": "S-mix - S-union",
+    "bench": "ConfirmE-SymCat",
+    "k": 1,
+    "n": 7463,
+    "overall_diff": -0.8,
+    "strata": {
+     "input names gold or parent": {
+      "n": 275,
+      "diff": -18.55,
+      "contribution_pp": -0.68,
+      "share_of_overall_pct": 84.6
+     },
+     "neither": {
+      "n": 7188,
+      "diff": -0.13,
+      "contribution_pp": -0.12,
+      "share_of_overall_pct": 14.9
+     }
+    },
+    "interaction": {
+     "diff": -18.42,
+     "ci": [
+      -23.12,
+      -14.06
+     ],
+     "ci_cluster": [
+      -26.7,
+      -11.33
+     ],
+     "replicates_without_both_strata": {
+      "patient": 0,
+      "cluster": 0
+     }
+    }
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "comparison": "S-mix - pure dict",
+    "bench": "ConfirmE-DDXPlus",
+    "k": 10,
+    "n": 3000,
+    "overall_diff": 0.67,
+    "strata": {
+     "input names gold or parent": {
+      "n": 717,
+      "diff": -8.51,
+      "contribution_pp": -2.03,
+      "share_of_overall_pct": -304.5
+     },
+     "neither": {
+      "n": 2283,
+      "diff": 3.55,
+      "contribution_pp": 2.7,
+      "share_of_overall_pct": 405.0
+     }
+    },
+    "interaction": {
+     "diff": -12.06,
+     "ci": [
+      -14.93,
+      -9.27
+     ],
+     "ci_cluster": [
+      -22.03,
+      -2.59
+     ],
+     "replicates_without_both_strata": {
+      "patient": 0,
+      "cluster": 0
+     }
+    }
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "comparison": "S-mix - pure dict",
+    "bench": "ConfirmE-DDXPlus",
+    "k": 1,
+    "n": 3000,
+    "overall_diff": -3.67,
+    "strata": {
+     "input names gold or parent": {
+      "n": 717,
+      "diff": -15.2,
+      "contribution_pp": -3.63,
+      "share_of_overall_pct": 99.0
+     },
+     "neither": {
+      "n": 2283,
+      "diff": -0.04,
+      "contribution_pp": -0.03,
+      "share_of_overall_pct": 0.8
+     }
+    },
+    "interaction": {
+     "diff": -15.16,
+     "ci": [
+      -18.33,
+      -12.02
+     ],
+     "ci_cluster": [
+      -32.42,
+      -2.0
+     ],
+     "replicates_without_both_strata": {
+      "patient": 0,
+      "cluster": 0
+     }
+    }
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "comparison": "S-mix - pure dict",
+    "bench": "ConfirmE-SymCat",
+    "k": 10,
+    "n": 7463,
+    "overall_diff": -1.09,
+    "strata": {
+     "input names gold or parent": {
+      "n": 275,
+      "diff": -33.82,
+      "contribution_pp": -1.25,
+      "share_of_overall_pct": 115.2
+     },
+     "neither": {
+      "n": 7188,
+      "diff": 0.17,
+      "contribution_pp": 0.16,
+      "share_of_overall_pct": -14.7
+     }
+    },
+    "interaction": {
+     "diff": -33.99,
+     "ci": [
+      -40.09,
+      -28.05
+     ],
+     "ci_cluster": [
+      -43.49,
+      -24.3
+     ],
+     "replicates_without_both_strata": {
+      "patient": 0,
+      "cluster": 0
+     }
+    }
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "lineage",
+    "comparison": "S-mix - pure dict",
+    "bench": "ConfirmE-SymCat",
+    "k": 1,
+    "n": 7463,
+    "overall_diff": -0.76,
+    "strata": {
+     "input names gold or parent": {
+      "n": 275,
+      "diff": -18.91,
+      "contribution_pp": -0.7,
+      "share_of_overall_pct": 91.7
+     },
+     "neither": {
+      "n": 7188,
+      "diff": -0.07,
+      "contribution_pp": -0.07,
+      "share_of_overall_pct": 9.2
+     }
+    },
+    "interaction": {
+     "diff": -18.84,
+     "ci": [
+      -24.13,
+      -13.64
+     ],
+     "ci_cluster": [
+      -28.71,
+      -9.57
+     ],
+     "replicates_without_both_strata": {
+      "patient": 0,
+      "cluster": 0
+     }
+    }
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "comparison": "S-mix - S-dict",
+    "bench": "ConfirmE-DDXPlus",
+    "k": 10,
+    "n": 3000,
+    "overall_diff": 3.0,
+    "strata": {
+     "input names gold or parent": {
+      "n": 717,
+      "diff": -0.98,
+      "contribution_pp": -0.23,
+      "share_of_overall_pct": -7.7
+     },
+     "neither": {
+      "n": 2283,
+      "diff": 4.25,
+      "contribution_pp": 3.23,
+      "share_of_overall_pct": 107.7
+     }
+    },
+    "interaction": {
+     "diff": -5.23,
+     "ci": [
+      -7.92,
+      -2.49
+     ],
+     "ci_cluster": [
+      -18.09,
+      7.54
+     ],
+     "replicates_without_both_strata": {
+      "patient": 0,
+      "cluster": 0
+     }
+    }
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "comparison": "S-mix - S-dict",
+    "bench": "ConfirmE-DDXPlus",
+    "k": 1,
+    "n": 3000,
+    "overall_diff": -1.73,
+    "strata": {
+     "input names gold or parent": {
+      "n": 717,
+      "diff": -8.51,
+      "contribution_pp": -2.03,
+      "share_of_overall_pct": 117.1
+     },
+     "neither": {
+      "n": 2283,
+      "diff": 0.39,
+      "contribution_pp": 0.3,
+      "share_of_overall_pct": -17.3
+     }
+    },
+    "interaction": {
+     "diff": -8.9,
+     "ci": [
+      -11.34,
+      -6.52
+     ],
+     "ci_cluster": [
+      -23.1,
+      1.08
+     ],
+     "replicates_without_both_strata": {
+      "patient": 0,
+      "cluster": 0
+     }
+    }
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "comparison": "S-mix - S-dict",
+    "bench": "ConfirmE-SymCat",
+    "k": 10,
+    "n": 7463,
+    "overall_diff": -0.91,
+    "strata": {
+     "input names gold or parent": {
+      "n": 275,
+      "diff": -32.0,
+      "contribution_pp": -1.18,
+      "share_of_overall_pct": 129.5
+     },
+     "neither": {
+      "n": 7188,
+      "diff": 0.28,
+      "contribution_pp": 0.27,
+      "share_of_overall_pct": -29.6
+     }
+    },
+    "interaction": {
+     "diff": -32.28,
+     "ci": [
+      -38.15,
+      -26.7
+     ],
+     "ci_cluster": [
+      -40.64,
+      -23.6
+     ],
+     "replicates_without_both_strata": {
+      "patient": 0,
+      "cluster": 0
+     }
+    }
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "comparison": "S-mix - S-dict",
+    "bench": "ConfirmE-SymCat",
+    "k": 1,
+    "n": 7463,
+    "overall_diff": -0.55,
+    "strata": {
+     "input names gold or parent": {
+      "n": 275,
+      "diff": -12.36,
+      "contribution_pp": -0.46,
+      "share_of_overall_pct": 83.7
+     },
+     "neither": {
+      "n": 7188,
+      "diff": -0.1,
+      "contribution_pp": -0.09,
+      "share_of_overall_pct": 16.4
+     }
+    },
+    "interaction": {
+     "diff": -12.27,
+     "ci": [
+      -16.5,
+      -8.28
+     ],
+     "ci_cluster": [
+      -19.97,
+      -5.83
+     ],
+     "replicates_without_both_strata": {
+      "patient": 0,
+      "cluster": 0
+     }
+    }
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "comparison": "S-mix - S-union",
+    "bench": "ConfirmE-DDXPlus",
+    "k": 10,
+    "n": 3000,
+    "overall_diff": 1.3,
+    "strata": {
+     "input names gold or parent": {
+      "n": 717,
+      "diff": 1.95,
+      "contribution_pp": 0.47,
+      "share_of_overall_pct": 36.2
+     },
+     "neither": {
+      "n": 2283,
+      "diff": 1.1,
+      "contribution_pp": 0.83,
+      "share_of_overall_pct": 63.8
+     }
+    },
+    "interaction": {
+     "diff": 0.86,
+     "ci": [
+      -1.68,
+      3.45
+     ],
+     "ci_cluster": [
+      -10.78,
+      12.63
+     ],
+     "replicates_without_both_strata": {
+      "patient": 0,
+      "cluster": 0
+     }
+    }
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "comparison": "S-mix - S-union",
+    "bench": "ConfirmE-DDXPlus",
+    "k": 1,
+    "n": 3000,
+    "overall_diff": -1.8,
+    "strata": {
+     "input names gold or parent": {
+      "n": 717,
+      "diff": -8.37,
+      "contribution_pp": -2.0,
+      "share_of_overall_pct": 111.1
+     },
+     "neither": {
+      "n": 2283,
+      "diff": 0.26,
+      "contribution_pp": 0.2,
+      "share_of_overall_pct": -11.1
+     }
+    },
+    "interaction": {
+     "diff": -8.63,
+     "ci": [
+      -11.12,
+      -6.2
+     ],
+     "ci_cluster": [
+      -21.16,
+      1.36
+     ],
+     "replicates_without_both_strata": {
+      "patient": 0,
+      "cluster": 0
+     }
+    }
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "comparison": "S-mix - S-union",
+    "bench": "ConfirmE-SymCat",
+    "k": 10,
+    "n": 7463,
+    "overall_diff": -1.0,
+    "strata": {
+     "input names gold or parent": {
+      "n": 275,
+      "diff": -29.82,
+      "contribution_pp": -1.1,
+      "share_of_overall_pct": 109.5
+     },
+     "neither": {
+      "n": 7188,
+      "diff": 0.1,
+      "contribution_pp": 0.09,
+      "share_of_overall_pct": -9.0
+     }
+    },
+    "interaction": {
+     "diff": -29.92,
+     "ci": [
+      -35.6,
+      -24.59
+     ],
+     "ci_cluster": [
+      -38.47,
+      -22.16
+     ],
+     "replicates_without_both_strata": {
+      "patient": 0,
+      "cluster": 0
+     }
+    }
+   },
+   {
+    "part": "confirmation E [post hoc]",
+    "rule": "strict",
+    "comparison": "S-mix - S-union",
+    "bench": "ConfirmE-SymCat",
+    "k": 1,
+    "n": 7463,
+    "overall_diff": -0.55,
+    "strata": {
+     "input names gold or parent": {
+      "n": 275,
+      "diff": -14.18,
+      "contribution_pp": -0.52,
+      "share_of_overall_pct": 94.7
+     },
+     "neither": {
+      "n": 7188,
+      "diff": -0.03,
+      "contribution_pp": -0.03,
+      "share_of_overall_pct": 5.5
+     }
+    },
+    "interaction": {
+     "diff": -14.15,
+     "ci": [
+      -18.38,
+      -10.28
+     ],
+     "ci_cluster": [
+      -21.45,
+      -7.93
+     ],
+     "replicates_without_both_strata": {
+      "patient": 0,
+      "cluster": 0
+     }
+    }
+   }
+  ],
+  "named_diseases": {
+   "ConfirmE-DDXPlus": [
+    {
+     "gold": [
+      "C0002871"
+     ],
+     "name": "Anemia",
+     "patients": 159,
+     "named": 153,
+     "direct": 153,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 32,
+       "S-dict": 100,
+       "S-union": 107,
+       "pure dict": 60
+      },
+      "strict": {
+       "S-mix": 0,
+       "S-dict": 0,
+       "S-union": 0
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0002792"
+     ],
+     "name": "anaphylaxis",
+     "patients": 86,
+     "named": 68,
+     "direct": 0,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 67,
+       "S-dict": 67,
+       "S-union": 67,
+       "pure dict": 67
+      },
+      "strict": {
+       "S-mix": 67,
+       "S-dict": 67,
+       "S-union": 67
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0031046"
+     ],
+     "name": "Pericarditis",
+     "patients": 74,
+     "named": 61,
+     "direct": 61,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 60,
+       "S-dict": 60,
+       "S-union": 58,
+       "pure dict": 60
+      },
+      "strict": {
+       "S-mix": 60,
+       "S-dict": 60,
+       "S-union": 58
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0086769"
+     ],
+     "name": "Panic Attacks",
+     "patients": 84,
+     "named": 53,
+     "direct": 0,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 40,
+       "S-dict": 39,
+       "S-union": 40,
+       "pure dict": 38
+      },
+      "strict": {
+       "S-mix": 40,
+       "S-dict": 39,
+       "S-union": 40
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0002965"
+     ],
+     "name": "Angina, Unstable",
+     "patients": 69,
+     "named": 52,
+     "direct": 52,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 22,
+       "S-dict": 45,
+       "S-union": 30,
+       "pure dict": 46
+      },
+      "strict": {
+       "S-mix": 22,
+       "S-dict": 45,
+       "S-union": 30
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0017168"
+     ],
+     "name": "Gastroesophageal reflux disease",
+     "patients": 70,
+     "named": 52,
+     "direct": 52,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 36,
+       "S-dict": 30,
+       "S-union": 30,
+       "pure dict": 30
+      },
+      "strict": {
+       "S-mix": 36,
+       "S-dict": 30,
+       "S-union": 30
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0275143"
+     ],
+     "name": "Scombroid fish poisoning",
+     "patients": 48,
+     "named": 48,
+     "direct": 48,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 14,
+       "S-dict": 11,
+       "S-union": 10,
+       "pure dict": 10
+      },
+      "strict": {
+       "S-mix": 14,
+       "S-dict": 11,
+       "S-union": 10
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0009088"
+     ],
+     "name": "Cluster Headache",
+     "patients": 54,
+     "named": 44,
+     "direct": 44,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 40,
+       "S-dict": 44,
+       "S-union": 43,
+       "pure dict": 44
+      },
+      "strict": {
+       "S-mix": 40,
+       "S-dict": 39,
+       "S-union": 39
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0155919"
+     ],
+     "name": "Acute pulmonary edema",
+     "patients": 49,
+     "named": 42,
+     "direct": 0,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 0,
+       "S-dict": 17,
+       "S-union": 19,
+       "pure dict": 17
+      },
+      "strict": {
+       "S-mix": 0,
+       "S-dict": 17,
+       "S-union": 19
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0004096"
+     ],
+     "name": "Asthma",
+     "patients": 40,
+     "named": 39,
+     "direct": 39,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 39,
+       "S-dict": 39,
+       "S-union": 39,
+       "pure dict": 39
+      },
+      "strict": {
+       "S-mix": 39,
+       "S-dict": 39,
+       "S-union": 39
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0026896"
+     ],
+     "name": "Myasthenia Gravis",
+     "patients": 52,
+     "named": 36,
+     "direct": 36,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 35,
+       "S-dict": 35,
+       "S-union": 35,
+       "pure dict": 35
+      },
+      "strict": {
+       "S-mix": 35,
+       "S-dict": 13,
+       "S-union": 8
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0348343"
+     ],
+     "name": "Malignant neoplasm of bronchus or lung, unspecified",
+     "patients": 48,
+     "named": 32,
+     "direct": 0,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 0,
+       "S-dict": 0,
+       "S-union": 0,
+       "pure dict": 0
+      },
+      "strict": {
+       "S-mix": 0,
+       "S-dict": 0,
+       "S-union": 0
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0149781"
+     ],
+     "name": "Spontaneous pneumothorax",
+     "patients": 29,
+     "named": 28,
+     "direct": 0,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 25,
+       "S-dict": 25,
+       "S-union": 25,
+       "pure dict": 25
+      },
+      "strict": {
+       "S-mix": 25,
+       "S-dict": 25,
+       "S-union": 25
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0010380"
+     ],
+     "name": "Croup",
+     "patients": 8,
+     "named": 7,
+     "direct": 7,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 7,
+       "S-dict": 7,
+       "S-union": 6,
+       "pure dict": 7
+      },
+      "strict": {
+       "S-mix": 7,
+       "S-dict": 7,
+       "S-union": 6
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0282687"
+     ],
+     "name": "Hemorrhagic Fever, Ebola",
+     "patients": 2,
+     "named": 2,
+     "direct": 2,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 2,
+       "S-dict": 2,
+       "S-union": 2,
+       "pure dict": 2
+      },
+      "strict": {
+       "S-mix": 2,
+       "S-dict": 2,
+       "S-union": 2
+      }
+     }
+    }
+   ],
+   "ConfirmE-SymCat": [
+    {
+     "gold": [
+      "C0013146"
+     ],
+     "name": "Drug abuse",
+     "patients": 49,
+     "named": 27,
+     "direct": 27,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 9,
+       "S-dict": 18,
+       "S-union": 19,
+       "pure dict": 21
+      },
+      "strict": {
+       "S-mix": 7,
+       "S-dict": 18,
+       "S-union": 13
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0001144"
+     ],
+     "name": "Acne Vulgaris",
+     "patients": 10,
+     "named": 10,
+     "direct": 10,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 0,
+       "S-dict": 10,
+       "S-union": 10,
+       "pure dict": 10
+      },
+      "strict": {
+       "S-mix": 0,
+       "S-dict": 10,
+       "S-union": 10
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0085762"
+     ],
+     "name": "Alcohol abuse",
+     "patients": 10,
+     "named": 10,
+     "direct": 10,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 2,
+       "S-dict": 6,
+       "S-union": 5,
+       "pure dict": 9
+      },
+      "strict": {
+       "S-mix": 2,
+       "S-dict": 6,
+       "S-union": 4
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0019572"
+     ],
+     "name": "Hirsutism",
+     "patients": 10,
+     "named": 10,
+     "direct": 10,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 5,
+       "S-dict": 4,
+       "S-union": 5,
+       "pure dict": 4
+      },
+      "strict": {
+       "S-mix": 5,
+       "S-dict": 4,
+       "S-union": 5
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0231749"
+     ],
+     "name": "Knee pain",
+     "patients": 10,
+     "named": 10,
+     "direct": 10,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 5,
+       "S-dict": 8,
+       "S-union": 9,
+       "pure dict": 8
+      },
+      "strict": {
+       "S-mix": 5,
+       "S-dict": 8,
+       "S-union": 9
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0011570"
+     ],
+     "name": "Mental Depression",
+     "patients": 10,
+     "named": 10,
+     "direct": 10,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 6,
+       "S-dict": 7,
+       "S-union": 7,
+       "pure dict": 9
+      },
+      "strict": {
+       "S-mix": 0,
+       "S-dict": 7,
+       "S-union": 2
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0033774"
+     ],
+     "name": "Pruritus",
+     "patients": 10,
+     "named": 10,
+     "direct": 10,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 1,
+       "S-dict": 8,
+       "S-union": 9,
+       "pure dict": 8
+      },
+      "strict": {
+       "S-mix": 1,
+       "S-dict": 8,
+       "S-union": 9
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0040264"
+     ],
+     "name": "Tinnitus",
+     "patients": 10,
+     "named": 10,
+     "direct": 10,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 1,
+       "S-dict": 4,
+       "S-union": 5,
+       "pure dict": 4
+      },
+      "strict": {
+       "S-mix": 1,
+       "S-dict": 4,
+       "S-union": 5
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0002170"
+     ],
+     "name": "Alopecia",
+     "patients": 10,
+     "named": 9,
+     "direct": 9,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 9,
+       "S-dict": 9,
+       "S-union": 9,
+       "pure dict": 9
+      },
+      "strict": {
+       "S-mix": 3,
+       "S-dict": 5,
+       "S-union": 5
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0038363"
+     ],
+     "name": "Aphthous Stomatitis",
+     "patients": 10,
+     "named": 9,
+     "direct": 0,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 3,
+       "S-dict": 5,
+       "S-union": 6,
+       "pure dict": 8
+      },
+      "strict": {
+       "S-mix": 3,
+       "S-dict": 5,
+       "S-union": 6
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0242350"
+     ],
+     "name": "Erectile dysfunction",
+     "patients": 10,
+     "named": 9,
+     "direct": 9,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 7,
+       "S-dict": 7,
+       "S-union": 7,
+       "pure dict": 7
+      },
+      "strict": {
+       "S-mix": 5,
+       "S-dict": 7,
+       "S-union": 7
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0003467"
+     ],
+     "name": "Anxiety",
+     "patients": 10,
+     "named": 8,
+     "direct": 8,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 5,
+       "S-dict": 6,
+       "S-union": 7,
+       "pure dict": 7
+      },
+      "strict": {
+       "S-mix": 3,
+       "S-dict": 4,
+       "S-union": 6
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0156404"
+     ],
+     "name": "Irregular Menstruation",
+     "patients": 10,
+     "named": 8,
+     "direct": 8,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 5,
+       "S-dict": 5,
+       "S-union": 5,
+       "pure dict": 5
+      },
+      "strict": {
+       "S-mix": 5,
+       "S-dict": 5,
+       "S-union": 5
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0042025"
+     ],
+     "name": "Urinary Stress Incontinence",
+     "patients": 10,
+     "named": 8,
+     "direct": 0,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 1,
+       "S-dict": 3,
+       "S-union": 3,
+       "pure dict": 3
+      },
+      "strict": {
+       "S-mix": 1,
+       "S-dict": 3,
+       "S-union": 3
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0002453"
+     ],
+     "name": "Amenorrhea",
+     "patients": 10,
+     "named": 7,
+     "direct": 7,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 4,
+       "S-dict": 7,
+       "S-union": 7,
+       "pure dict": 7
+      },
+      "strict": {
+       "S-mix": 3,
+       "S-dict": 6,
+       "S-union": 4
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0003811"
+     ],
+     "name": "Cardiac Arrhythmia",
+     "patients": 10,
+     "named": 7,
+     "direct": 7,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 3,
+       "S-dict": 7,
+       "S-union": 7,
+       "pure dict": 7
+      },
+      "strict": {
+       "S-mix": 1,
+       "S-dict": 3,
+       "S-union": 4
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0155218"
+     ],
+     "name": "Cyst of eyelid",
+     "patients": 10,
+     "named": 7,
+     "direct": 7,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 5,
+       "S-dict": 7,
+       "S-union": 7,
+       "pure dict": 7
+      },
+      "strict": {
+       "S-mix": 5,
+       "S-dict": 7,
+       "S-union": 7
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0011974"
+     ],
+     "name": "Diaper Rash",
+     "patients": 10,
+     "named": 7,
+     "direct": 7,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 1,
+       "S-dict": 4,
+       "S-union": 4,
+       "pure dict": 5
+      },
+      "strict": {
+       "S-mix": 1,
+       "S-dict": 4,
+       "S-union": 4
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0018621"
+     ],
+     "name": "Hay fever",
+     "patients": 10,
+     "named": 7,
+     "direct": 0,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 3,
+       "S-dict": 3,
+       "S-union": 3,
+       "pure dict": 3
+      },
+      "strict": {
+       "S-mix": 3,
+       "S-dict": 3,
+       "S-union": 3
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0018965"
+     ],
+     "name": "Hematuria",
+     "patients": 10,
+     "named": 7,
+     "direct": 7,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 0,
+       "S-dict": 1,
+       "S-union": 0,
+       "pure dict": 1
+      },
+      "strict": {
+       "S-mix": 0,
+       "S-dict": 1,
+       "S-union": 0
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0024031"
+     ],
+     "name": "Low Back Pain",
+     "patients": 10,
+     "named": 7,
+     "direct": 7,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 0,
+       "S-dict": 4,
+       "S-union": 5,
+       "pure dict": 4
+      },
+      "strict": {
+       "S-mix": 0,
+       "S-dict": 4,
+       "S-union": 5
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0007933"
+     ],
+     "name": "Meibomian Cyst",
+     "patients": 10,
+     "named": 7,
+     "direct": 0,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 4,
+       "S-dict": 6,
+       "S-union": 6,
+       "pure dict": 7
+      },
+      "strict": {
+       "S-mix": 4,
+       "S-dict": 6,
+       "S-union": 6
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0025874"
+     ],
+     "name": "Metrorrhagia",
+     "patients": 10,
+     "named": 7,
+     "direct": 7,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 0,
+       "S-dict": 3,
+       "S-union": 3,
+       "pure dict": 3
+      },
+      "strict": {
+       "S-mix": 0,
+       "S-dict": 3,
+       "S-union": 3
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0038379"
+     ],
+     "name": "Strabismus",
+     "patients": 10,
+     "named": 7,
+     "direct": 7,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 6,
+       "S-dict": 5,
+       "S-union": 6,
+       "pure dict": 6
+      },
+      "strict": {
+       "S-mix": 4,
+       "S-dict": 5,
+       "S-union": 5
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0013390"
+     ],
+     "name": "Dysmenorrhea",
+     "patients": 10,
+     "named": 6,
+     "direct": 6,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 3,
+       "S-dict": 6,
+       "S-union": 5,
+       "pure dict": 6
+      },
+      "strict": {
+       "S-mix": 3,
+       "S-dict": 5,
+       "S-union": 4
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0270736"
+     ],
+     "name": "Essential Tremor",
+     "patients": 10,
+     "named": 5,
+     "direct": 0,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 0,
+       "S-dict": 0,
+       "S-union": 0,
+       "pure dict": 0
+      },
+      "strict": {
+       "S-mix": 0,
+       "S-dict": 0,
+       "S-union": 0
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0028949"
+     ],
+     "name": "Oligomenorrhea",
+     "patients": 10,
+     "named": 5,
+     "direct": 5,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 0,
+       "S-dict": 3,
+       "S-union": 3,
+       "pure dict": 3
+      },
+      "strict": {
+       "S-mix": 0,
+       "S-dict": 3,
+       "S-union": 3
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0031157"
+     ],
+     "name": "Peritonsillar Abscess",
+     "patients": 10,
+     "named": 5,
+     "direct": 0,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 3,
+       "S-dict": 4,
+       "S-union": 4,
+       "pure dict": 4
+      },
+      "strict": {
+       "S-mix": 3,
+       "S-dict": 4,
+       "S-union": 4
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0032962"
+     ],
+     "name": "Pregnancy Complications",
+     "patients": 10,
+     "named": 5,
+     "direct": 5,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 0,
+       "S-dict": 4,
+       "S-union": 4,
+       "pure dict": 4
+      },
+      "strict": {
+       "S-mix": 0,
+       "S-dict": 3,
+       "S-union": 2
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0020179"
+     ],
+     "name": "Huntington Disease",
+     "patients": 10,
+     "named": 4,
+     "direct": 0,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 0,
+       "S-dict": 2,
+       "S-union": 2,
+       "pure dict": 2
+      },
+      "strict": {
+       "S-mix": 0,
+       "S-dict": 2,
+       "S-union": 2
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0000821"
+     ],
+     "name": "Threatened abortion",
+     "patients": 10,
+     "named": 4,
+     "direct": 0,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 2,
+       "S-dict": 3,
+       "S-union": 3,
+       "pure dict": 3
+      },
+      "strict": {
+       "S-mix": 2,
+       "S-dict": 3,
+       "S-union": 3
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0040425"
+     ],
+     "name": "Tonsillitis",
+     "patients": 10,
+     "named": 4,
+     "direct": 4,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 4,
+       "S-dict": 3,
+       "S-union": 3,
+       "pure dict": 3
+      },
+      "strict": {
+       "S-mix": 3,
+       "S-dict": 2,
+       "S-union": 2
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0017168"
+     ],
+     "name": "Gastroesophageal reflux disease",
+     "patients": 9,
+     "named": 3,
+     "direct": 3,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 2,
+       "S-dict": 2,
+       "S-union": 3,
+       "pure dict": 3
+      },
+      "strict": {
+       "S-mix": 2,
+       "S-dict": 2,
+       "S-union": 3
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0086769"
+     ],
+     "name": "Panic Attacks",
+     "patients": 10,
+     "named": 3,
+     "direct": 0,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 0,
+       "S-dict": 1,
+       "S-union": 1,
+       "pure dict": 1
+      },
+      "strict": {
+       "S-mix": 0,
+       "S-dict": 1,
+       "S-union": 1
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0376356"
+     ],
+     "name": "Premenstrual Tension",
+     "patients": 10,
+     "named": 3,
+     "direct": 3,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 2,
+       "S-dict": 2,
+       "S-union": 2,
+       "pure dict": 2
+      },
+      "strict": {
+       "S-mix": 1,
+       "S-dict": 2,
+       "S-union": 2
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0009766"
+     ],
+     "name": "Allergic Conjunctivitis",
+     "patients": 10,
+     "named": 2,
+     "direct": 0,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 2,
+       "S-dict": 2,
+       "S-union": 2,
+       "pure dict": 2
+      },
+      "strict": {
+       "S-mix": 2,
+       "S-dict": 2,
+       "S-union": 2
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0004238"
+     ],
+     "name": "Atrial Fibrillation",
+     "patients": 7,
+     "named": 2,
+     "direct": 0,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 1,
+       "S-dict": 2,
+       "S-union": 2,
+       "pure dict": 2
+      },
+      "strict": {
+       "S-mix": 1,
+       "S-dict": 2,
+       "S-union": 2
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0018790"
+     ],
+     "name": "Cardiac Arrest",
+     "patients": 8,
+     "named": 2,
+     "direct": 0,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 2,
+       "S-dict": 2,
+       "S-union": 2,
+       "pure dict": 2
+      },
+      "strict": {
+       "S-mix": 2,
+       "S-dict": 2,
+       "S-union": 2
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0007789"
+     ],
+     "name": "Cerebral Palsy",
+     "patients": 7,
+     "named": 2,
+     "direct": 0,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 1,
+       "S-dict": 2,
+       "S-union": 2,
+       "pure dict": 2
+      },
+      "strict": {
+       "S-mix": 1,
+       "S-dict": 2,
+       "S-union": 2
+      }
+     }
+    },
+    {
+     "gold": [
+      "C0033117"
+     ],
+     "name": "Priapism",
+     "patients": 10,
+     "named": 2,
+     "direct": 0,
+     "named_top10_hits": {
+      "lineage": {
+       "S-mix": 1,
+       "S-dict": 0,
+       "S-union": 1,
+       "pure dict": 0
+      },
+      "strict": {
+       "S-mix": 1,
+       "S-dict": 0,
+       "S-union": 1
+      }
+     }
+    }
+   ]
+  }
+ },
+ "p13_rule": {
+  "rule": "DDXPlus-E, neither stratum, lineage Top-10: S-dict - S-mix CI includes 0 or is negative -> H3 caveat 4 at the sealed-set level; otherwise development-level only",
+  "S-dict - S-mix": {
+   "diff": -1.27,
+   "ci": [
+    -2.54,
+    -0.09
+   ],
+   "ci_cluster": [
+    -6.21,
+    4.29
+   ]
+  },
+  "n": 2283,
+  "diseases": 47,
+  "met_patient_ci": true,
+  "met_cluster_ci": true
+ }
+}

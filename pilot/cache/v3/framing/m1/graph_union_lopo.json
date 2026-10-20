@@ -1,0 +1,24 @@
+{
+ "smix_uri": "bolt://localhost:7689",
+ "smix_build_fingerprint": "15ba677103f6938a1feea713618ec6f4448b11e9",
+ "smix_rows_fingerprint": "d4be8fda50f025a5d6feaac345c2dbfbb9574601",
+ "hpoa": "/tmp/tmp.PJBAYmENgH/lopo.hpoa",
+ "hpoa_sha256": "b35e66804993a42d9981572bdecd12eb790ae331d2990c9dd7b3dc68d106425c",
+ "hpoa_variant": "lopo",
+ "merge_rule": "edge in both: S-mix n_docs + 1, n_topic_docs + 1 (one on-topic curated source); HPOA-only edge: n_docs = n_topic_docs = 1; S-mix-only edge unchanged; src_chars from S-mix",
+ "edges": 5481896,
+ "edges_by_source": {
+  "both": 102877,
+  "hpoa": 260611,
+  "smix": 5118408
+ },
+ "hpoa_edges": 363488,
+ "smix_edges": 5221285,
+ "diseases_with_findings": 34503,
+ "smix_diseases_with_findings": 33537,
+ "diseases_with_hpoa_findings_only": 966,
+ "concepts": 88561,
+ "fingerprint": "85ecc048a87125ae96230ec8cea330534a515814",
+ "load_sec": 282,
+ "uri": "bolt://localhost:7688"
+}

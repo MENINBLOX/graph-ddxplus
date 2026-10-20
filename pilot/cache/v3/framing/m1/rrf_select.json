@@ -1,0 +1,141 @@
+{
+ "criterion": "D3: dev macro lineage Top-10 over the nine development sets, ties Top-1, smaller w first",
+ "selected_w": 0.75,
+ "selected_score": [
+  57.029,
+  29.473
+ ],
+ "trail": [
+  {
+   "w": 0.25,
+   "macro_top10": 51.428,
+   "macro_top1": 28.658,
+   "per_set": {
+    "DDXPlus-test": [
+     40.4,
+     10.77
+    ],
+    "RareBench-RAMEDIS": [
+     67.15,
+     22.76
+    ],
+    "RareBench-LIRICAL": [
+     46.49,
+     30.0
+    ],
+    "RareBench-HMS": [
+     53.41,
+     28.41
+    ],
+    "RareBench-MME": [
+     67.5,
+     55.0
+    ],
+    "PUMCH_L": [
+     70.34,
+     43.72
+    ],
+    "PUMCH-ADM": [
+     65.33,
+     42.67
+    ],
+    "Phenopacket-store": [
+     38.81,
+     22.0
+    ],
+    "SymCat": [
+     13.42,
+     2.59
+    ]
+   }
+  },
+  {
+   "w": 0.5,
+   "macro_top10": 48.837,
+   "macro_top1": 28.953,
+   "per_set": {
+    "DDXPlus-test": [
+     28.43,
+     4.8
+    ],
+    "RareBench-RAMEDIS": [
+     66.35,
+     26.44
+    ],
+    "RareBench-LIRICAL": [
+     45.95,
+     31.35
+    ],
+    "RareBench-HMS": [
+     48.86,
+     28.41
+    ],
+    "RareBench-MME": [
+     70.0,
+     60.0
+    ],
+    "PUMCH_L": [
+     66.6,
+     42.81
+    ],
+    "PUMCH-ADM": [
+     57.33,
+     40.0
+    ],
+    "Phenopacket-store": [
+     44.33,
+     24.51
+    ],
+    "SymCat": [
+     11.68,
+     2.26
+    ]
+   }
+  },
+  {
+   "w": 0.75,
+   "macro_top10": 57.029,
+   "macro_top1": 29.473,
+   "per_set": {
+    "DDXPlus-test": [
+     18.87,
+     3.03
+    ],
+    "RareBench-RAMEDIS": [
+     65.87,
+     33.33
+    ],
+    "RareBench-LIRICAL": [
+     73.51,
+     33.51
+    ],
+    "RareBench-HMS": [
+     52.27,
+     23.86
+    ],
+    "RareBench-MME": [
+     95.0,
+     65.0
+    ],
+    "PUMCH_L": [
+     62.96,
+     40.28
+    ],
+    "PUMCH-ADM": [
+     64.0,
+     34.67
+    ],
+    "Phenopacket-store": [
+     74.95,
+     29.9
+    ],
+    "SymCat": [
+     5.83,
+     1.68
+    ]
+   }
+  }
+ ],
+ "lineage_check": "S-mix and HPOA/HPOA-LOPO list files give the same lineage for every gold set",
+ "endpoint_check": "w = 0 and w = 1 reproduce the stored S-mix and HPOA ranks for every patient"
+}
