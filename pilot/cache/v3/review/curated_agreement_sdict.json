@@ -1,0 +1,141 @@
+{
+ "uri": "bolt://localhost:7688",
+ "compare_uri": "bolt://localhost:7689",
+ "diseases_annotated": 12296,
+ "diseases_with_comparable_edges": 11385,
+ "comparable_edges": 1572570,
+ "agree_exact": 7.763915119835683,
+ "agree_exact_or_parent": 10.132776283408688,
+ "null_exact_mean": 1.9174949286836198,
+ "null_exact_or_parent_mean": 2.701943315718855,
+ "by_n_docs": {
+  "1 doc": {
+   "edges": 1024476,
+   "agree_exact": 4.351883304245292,
+   "agree_exact_or_parent": 5.915707151753677,
+   "null_exact_mean": 1.5860010385797227,
+   "null_exact_or_parent_mean": 2.288472350743209
+  },
+  "2 docs": {
+   "edges": 261982,
+   "agree_exact": 8.473101205426326,
+   "agree_exact_or_parent": 11.048850684398165,
+   "null_exact_mean": 2.1351657747478834,
+   "null_exact_or_parent_mean": 2.99463321907612
+  },
+  "3-4 docs": {
+   "edges": 151217,
+   "agree_exact": 14.63129145532579,
+   "agree_exact_or_parent": 18.560082530403328,
+   "null_exact_mean": 2.7368285311836633,
+   "null_exact_or_parent_mean": 3.7461065885449387
+  },
+  ">=5 docs": {
+   "edges": 134895,
+   "agree_exact": 24.60135661069721,
+   "agree_exact_or_parent": 30.933689165647355,
+   "null_exact_mean": 3.093850772823307,
+   "null_exact_or_parent_mean": 4.1031543052003405
+  }
+ },
+ "by_topic": {
+  "topic doc >=1": {
+   "edges": 940180,
+   "agree_exact": 10.59786423876279,
+   "agree_exact_or_parent": 13.576017358378182,
+   "null_exact_mean": 2.0162202982407624,
+   "null_exact_or_parent_mean": 2.8233529749622415
+  },
+  "off-topic docs only": {
+   "edges": 632390,
+   "agree_exact": 3.5506570312623538,
+   "agree_exact_or_parent": 5.0136782681573075,
+   "null_exact_mean": 1.770719018327298,
+   "null_exact_or_parent_mean": 2.521442464302092
+  }
+ },
+ "by_n_docs_topic": {
+  "1 doc": {
+   "topic doc >=1": {
+    "edges": 533790,
+    "agree_exact": 5.726221922478877,
+    "agree_exact_or_parent": 7.567582757264093,
+    "null_exact_mean": 1.5999644054778097,
+    "null_exact_or_parent_mean": 2.3031903932258
+   },
+   "off-topic docs only": {
+    "edges": 490686,
+    "agree_exact": 2.8568167830343643,
+    "agree_exact_or_parent": 4.118723582902304,
+    "null_exact_mean": 1.5708110685856127,
+    "null_exact_or_parent_mean": 2.272461411167223
+   }
+  },
+  "2 docs": {
+   "topic doc >=1": {
+    "edges": 170396,
+    "agree_exact": 10.511983849386136,
+    "agree_exact_or_parent": 13.539050212446302,
+    "null_exact_mean": 2.1161881734313015,
+    "null_exact_or_parent_mean": 2.982493720509871
+   },
+   "off-topic docs only": {
+    "edges": 91586,
+    "agree_exact": 4.679754547638285,
+    "agree_exact_or_parent": 6.415827746598825,
+    "null_exact_mean": 2.1704736531784334,
+    "null_exact_or_parent_mean": 3.0172187888978668
+   }
+  },
+  "3-4 docs": {
+   "topic doc >=1": {
+    "edges": 115083,
+    "agree_exact": 16.92343786658325,
+    "agree_exact_or_parent": 21.257700963652322,
+    "null_exact_mean": 2.709653033028336,
+    "null_exact_or_parent_mean": 3.7098441994039084
+   },
+   "off-topic docs only": {
+    "edges": 36134,
+    "agree_exact": 7.33104555266508,
+    "agree_exact_or_parent": 9.968450766591022,
+    "null_exact_mean": 2.8233796424420214,
+    "null_exact_or_parent_mean": 3.8615984944927213
+   }
+  },
+  ">=5 docs": {
+   "topic doc >=1": {
+    "edges": 120911,
+    "agree_exact": 26.205225331028608,
+    "agree_exact_or_parent": 32.84233857961641,
+    "null_exact_mean": 3.0529893888893485,
+    "null_exact_or_parent_mean": 4.0516991836970995
+   },
+   "off-topic docs only": {
+    "edges": 13984,
+    "agree_exact": 10.733695652173912,
+    "agree_exact_or_parent": 14.430778032036613,
+    "null_exact_mean": 3.447153890160183,
+    "null_exact_or_parent_mean": 4.548054919908467
+   }
+  }
+ },
+ "by_other_graph": {
+  "also in other graph": {
+   "edges": 801933,
+   "agree_exact": 13.009191540939206,
+   "agree_exact_or_parent": 16.542155017937908,
+   "null_exact_mean": 2.498743660630003,
+   "null_exact_or_parent_mean": 3.4455434556253453
+  },
+  "only in this graph": {
+   "edges": 770637,
+   "agree_exact": 2.3056250867788597,
+   "agree_exact_or_parent": 3.4631090902720736,
+   "null_exact_mean": 1.3126413603291822,
+   "null_exact_or_parent_mean": 1.9281451578369584
+  }
+ },
+ "curated_pairs_on_these_diseases": 372112,
+ "curated_recall_exact": 32.81082039815969
+}
