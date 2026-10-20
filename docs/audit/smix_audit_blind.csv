@@ -1,0 +1,290 @@
+row,disease_id,disease,cui,phrase,sentence,doc_id,pmid,title,judgement (supports / not_supported / wrong_concept)
+1,C0265449,Pallister-Killian syndrome,C0004352,autism,One of these children met criteria for Autism on the Autism Diagnostic Interview-Revised.,PMID23169763,23169763,Developmental and behavioral characteristics of individuals with Pallister-Killian syndrome.,
+2,MONDO:0011262,"camptodactyly, myopia, and fibrosis of the medial rectus muscle of eye",C2981150,cleft palate,"The aim of this article is to publish a literature review and report on two new cases of Gordon syndrome (GS), a rare syndrome documented to have an autosomal dominant inheritance pattern or to occur sporadically; it is characterized by camptodactyly, cleft palate, and talipes equinovarus.",PMID24878349,24878349,Gordon syndrome: literature review and a report of two cases.,
+3,C0033771,Prurigo,C0033774,itching,"For example, itching induced by IL-31 and periostin is transmitted by TRPV1+TRPA1+ neurons ( 60 , 128 ).",PMC10701428,38077377,Molecular mechanisms of pruritus in prurigo nodularis,
+4,C1443942,Ricin poisoning,C0004238,atrial fibrillation,"] | Adult (mixed injection and oral intake) | Not specified (died 38 h post-exposure) | Not reported | Intensive medical care (not specified) | Death
+[19] | Previously healthy adult man | Severe agitation, suspected aspiration | Bidirectional ventricular tachycardia (180 bpm, alternating QRS axis); non-sustained VT and atrial fibrillation persisted after conversion | Activated charcoal, IV sodium bicarbonate, 5 electrical cardioversions, 450 mg IV amiodarone, endotracheal intubation, supportive care (~ 2 h) | Survival; intubated 10 days (aspiration pneumonia); discharged in good health at 24 d",TBLPMC13658434,42560523,"Medico-legal aspects of fatal ricin poisoning: a systematic review of clinical manifestations, toxicological findings and autopsy results",
+5,C0233649,Circumstantiality,C1704632,response,"Here, a lower number of related words was associated with positive FTD, whereas negative FTD were associated with increased response latencies ( Docherty et al., 2011 ) as well as low word and switch counts ( Egeland et al., 2018 ).",PMC10710163,38078276,Linguistic findings in persons with schizophrenia—a review of the current literature,
+6,C5679781,"Mucopolysaccharidosis type 6, rapidly progressing",C4014344,flattened nasal root,"Musculo-skeletal deformities increased with hypertelorism, flattened nasal root, macrocephaly, bell-shaped thorax, dorsal kyphosis, genu valgus, metaphyseal widening, and short and broad fingers with slight stiffness of distal interphalange.",PMC6211882,30335002,Family study of a novel mutation of mucopolysaccharidosis type VI with a severe phenotype and good response to enzymatic replacement therapy,
+7,C4553710,Infantile poisoning caused by mercury,C0085633,emotional lability,"nsomnia, emotional lability, and memory impairment).",PMC6501246,31179131,"Papillon-Lefèvre Syndrome: Diagnosis, Dental Management, and a Case Report",
+8,C5234914,Heat Syncope,C0043251,trauma,"| Syncope, hypotension, arrhythmia, ischemic events, heat exhaustion/heat stroke, and secondary trauma.",TBLPMC12986314,41827327,"Acute Heat Exposure-Related Illness: A Unified Emergency Medicine Framework for Hot Baths, Hot Springs, and Saunas—A Narrative Review",
+9,C3539494,"SPASTIC PARAPLEGIA 53, AUTOSOMAL RECESSIVE",C1719404,family history of idiopathic transverse myelitis,To identify genetic differences among siblings with a family history of idiopathic transverse myelitis (ITM).,PMID29473047,29473047,Familial monophasic acute transverse myelitis due to the pathogenic variant in ,
+10,C0518959,Left atrial myxoma,C0745673,left atrial mass,The echocardiogram proved to be a simple non-invasive technique for the diagnosis of left atrial mass.,PMID4691096,4691096,Diagnosis of left atrial myxoma by echocardiography.,
+11,C0152436,"Hymen, Imperforate",C4321351,low level,"Pelvic ultrasonography revealed a normal urinary bladder that was compressed by a distended vagina containing homogeneous low-level echoes, consistent with hematometrocolpos.",PMC12117595,40438833,Early Diagnosis of Imperforate Hymen in a Pediatric Patient: A Case Report,
+12,C5567229,"Early-onset progressive encephalopathy, hearing loss, pons hypoplasia, brain atrophy syndrome",C0497202,eye movement abnormalities,"Atypical forms have an onset at adolescence or early adulthood, and include dystonia-parkinsonism, cerebellar ataxia, eye movement abnormalities, cognitive decline, and psychiatric disturbances.",TBLPMC7589120,33092153,"Mitochondrial Dysfunction, Oxidative Stress and Neuroinflammation in Neurodegeneration with Brain Iron Accumulation (NBIA)",
+13,C0017178,Gastrointestinal Diseases,C4068833,loss of vascularity,"On endoscopic examination of patients with eosinophilic colitis, patchy erythema, loss of vascularity, and lymphonodular hyperplasia are seen typically localized to the rectum but may extend to the entire colon [ 34 ].",PMC3389712,22792476,Eosinophilic Gastrointestinal Diseases: Review and Update,
+14,C3805432,"COLOBOMA, OCULAR, WITH OR WITHOUT HEARING IMPAIRMENT, CLEFT LIP/PALATE, AND/OR IMPAIRED INTELLECTUAL DEVELOPMENT",C0266544,microcornea,"/60; 6/36 | B/L laser
+IFC16 | 11 | M | B/L microophthalmia + type II IFC | 22.65;21.80 | 3/60;6/60 | B/L laser
+IFC17 | 11 | M | B/L type I IFC with squint | 18.25; 22.45 | 1/60; 2/60 | B/L laser
+IFC18 | 9 | M | B/L microophthalmia + IFC type I | 22.45; 23.10 | PL+; 1/60 | B/L laser
+IFC19 | 19 | F | B/L microcornea + type II IFC | 22.12; 22.70 | 1/60; 3/60 | B/L laser
+IFC20 | 28 | F | B/L IFC type III + nystagamus | 26.18; 27.66 | HMCF/6/60 | B/L laser
+IFC21 | 15 | M | LE IFC type II | 22.73; 26.73 | 6/6; HMCF | L laser
+IFC22 | 33 | M | B/L IFC type III | 21.35; 21.50 | 6/36; 6/36 | B/L laser
+I",TBLPMC3108901,21655361,PAX6 gene analysis in irido-fundal coloboma,
+15,C4311047,"CHROMOSOME 11p13 DELETION SYNDROME, DISTAL",C0848558,Hypospadias,"ladder | 1/67 (1.5%) | 0/28 | 1/39 (2.6%)
+Congenital anomaly of the kidney and/or urinary tract (CAKUT) | 30/78 (38.5%) | 17/32 (53.1%) | 13/46 (28.3%)
+Recurrent urinary tract infections (UTIs) | 15/73 (20.5%) | 5/31 (16.1%) | 10/42 (23.8%)
+Male-related issues
+Cryptorchidism | – | 21/31 (67.7%) | –
+Hypospadias | – | 11/31 (35.5%) | –
+Micropenis | – | 7/28 (25.0%) | –
+Female-related issues
+Streak ovaries | – | – | 11/31 (35.5%)
+Bicornuate uterus | – | – | 5/34 (14.7%)
+Polycystic ovarian syndrome (PCOS) | – | – | 3/39 (7.7%)
+Small uterus | – | – | 2/32 (6.3%)
+R ange of cognitive, behavioral, and",TBLPMC8712693,34970513,Results From the WAGR Syndrome Patient Registry: Characterization of WAGR Spectrum and Recommendations for Care Management,
+16,MONDO:0100489,"Graves disease, susceptibility to, 1",C0002453,amenorrhea,"Other features include insomnia, anxiety, nervousness, hyperkinesia, dyspnea, muscle weakness, pruritus, polyuria, oligomenorrhea or amenorrhea in the female, loss of libido, and neck fullness.",statpearls:article-22414,,Graves Disease,
+17,C0001824,Agranulocytosis,C0035243,respiratory infections,"Clozapine-treated patients with cerebrovascular, cardiovascular, diabetes, or multiple recent respiratory infections requiring antibiotics are at increased risk for severe COVID-19 complications [ 50 ].",PMC11207370,38921968,Decoding Clozapine-Induced Agranulocytosis: Unraveling Interactions and Mitigation Strategies,
+18,C4551568,Joubert syndrome 1,C0885860,tribe,"Among the important clinical clues are similar family history of liver disease, consanguinity, the tribe, the region of origin, dysmorphic face, clinical findings that suggest a specific cause of cholestasis (e.g., arthrogryposis in ARC syndrome), and eye findings (e.g., cataract, cherry red spot).",PMC11319143,39139600,Patterns and unique features of infantile cholestasis among Arabs,
+19,C1833797,"Optic Nerve Hypoplasia, Bilateral",C3687360,poor body condition,"Physical examination revealed a poor body condition, prognathism, dome-shaped head, excessive nasal drainage, mild contracture of the limbs, and fever.",PMC8440096,34532149,Congenital Cataracts and Microphakia with Retinal Dysplasia and Optic Nerve Hypoplasia in a Calf,
+20,C0752347,Lewy Body Disease,C0037019,shy drager syndrome,"About 60% of the cases began with memory disturbance, while 25% showed Parkinson's or Shy-Drager syndrome initially.",PMID2196340,2196340,Diffuse Lewy body disease in Japan.,
+21,MONDO:0021726,abdominal cystic lymphangioma,C0232462,loss of appetite,"Associated with this he had a loss of appetite, significant weight loss, and constipation.",PMC10172770,37130478,A rare case of huge intra-abdominal cystic lymphangioma arising from rectovesical pouch; a case report,
+22,C0155909,Abscess of mediastinum,C1262477,weight loss,"A 73-year-old male with a past medical history of hypertension, obesity, hyperlipidemia, stroke, and coronary artery disease presented to the emergency department with two weeks of shortness of breath, fatigue, weight loss, fevers, and confusion.",PMC12995425,41853397,Delayed Saphenous Vein Graft Rupture Secondary to Mediastinal Abscess: A Case Report,
+23,C1864389,PREMATURE CHROMATID SEPARATION TRAIT,C0152013,luad,"Thus, the bioinformatic analysis and further verification in LUAD tissues confirmed the high expression of BUB1b, which could indicate a dismal prognosis in LUAD patients.",PMC11266579,39043653,BUB1b impairs chemotherapy sensitivity via resistance to ferroptosis in lung adenocarcinoma,
+24,C0018425,Gyrate Atrophy,C0333768,selective atrophy with tubular aggregates,GA is characterized by centripetally progressing retinal and choroidal destruction and selective atrophy with tubular aggregates in type II skeletal muscle fibres.,PMID10604138,10604138,Central nervous system involvement in gyrate atrophy of the choroid and retina with hyperornithinaemia.,
+25,C0014058,"Encephalitis, myelitis and encephalomyelitis",C0040822,shaking,"Neck stiffness, positive Kernig's sign, uncontrolled shaking of the body and hypertonia were also present.",PMC3282669,22168358,Encephalitis temporally associated with live attenuated Japanese encephalitis vaccine: four case reports,
+26,C0015544,Failure to Thrive,C0002871,anemia,population is at risk of deficiency of at least one vitamin or has anemia [ 42 ].,PMC7468984,32722001,Failure to Thrive in the Outpatient Clinic: A New Insight,
+27,MONDO:0002816,adrenal cortex disorder,C4324389,greater cardiovascular risk,A delayed or missed diagnosis leads to poor blood pressure control and greater cardiovascular risk.,PMID32362038,32362038,Impact of Victoria's first dedicated endocrine hypertension service on the pattern of primary aldosteronism diagnoses.,
+28,C0006131,Branchial Cleft Cyst,C1446409,positive,"A history of a positive transillumination reaction and variable edema character to exclude the possibility of cystic hygroma, as well as solid nodules such as tumors of various neck tissues and cervical lymphadenitis and other vascular malformations should be excluded [ 10 ].",PMC10382765,37364465,"A second branchial cleft cyst, a case report",
+29,C3551077,Macular pattern dystrophy,C0024441,macular hole,One eye developed a full-thickness stage 4 macular hole during follow-up.,PMID40098045,40098045,Foveal crack sign and macular pattern dystrophy.,
+30,C0584960,Factor V Leiden mutation,C0271051,significant macular edema,"After 2 months, BCVA decreased to <1/20 because of significant macular edema (fig.",PMC4777962,26955350,Combined Central Retinal Artery and Vein Occlusion Associated with Factor V Leiden Mutation and Treated with Hyperbaric Oxygen,
+31,C4225557,"SMITH-LEMLI-OPITZ SYNDROME, MILD",C1510420,cavity,"Over the following years, the patient began inserting paperclips into his abdominal cavity.",PMC10916526,38449995,Traumatic Self-Inflicted Ventricular Laceration: A Case of Smith-Lemli-Opitz Syndrome in an Adult,
+32,C0017605,Angle Closure Glaucoma,C0577559,mass,"(1999) [16] | 2(2) | 57-year-old woman, cerebral frontal lobe cystic mass resection 54-year-old woman, cholecystectomy | Atropine during induction of anesthesia
+Lentschener et al.",TBLPMC8933444,35371375,Acute angle-closure glaucoma after total knee replacement surgery: case report and literature review,
+33,GR:NBK559435,SPTBN4 Disorder,C0427065,severe distal muscle weakness,"A physical examination at age 3 years revealed a high palate, myopathic facies, severe distal muscle weakness, generalized amyotrophy, bilateral ankle flexion contractures (Fig.",PMC8298470,33772159,Novel bi-allelic variants expand the SPTBN4-related genetic and phenotypic spectrum,
+34,C0730362,Disorder of macula of retina,C4319729,Hyperreflective areas,"| Acute phase [1]: Hyperreflective areas → later replaced by hyporeflective cystic spaces (rectangular, receptor loss) [54];Frequent Verhoeff membrane and ellipsoid line disruption [74];Severe cases: possible external nuclear layer and external limiting membrane disruption.",TBLPMC12028490,40283193,Photic Retinopathy: Diagnosis and Management of This Phototoxic Maculopathy,
+35,C4510043,Severe generalized recessive dystrophic epidermolysis bullosa,C0149663,dehiscence,"Day 7 Wound observation and management Yellow slough, skin dehiscence at venipuncture site, port puncture site; Urgo hydrogel and silver alginate dressing applied.",PMC13401919,42504299,EGFR Inhibitor-Induced Delayed Wound Healing Following PICC-port Implantation: Three Cases and a Literature Review,
+36,C5679817,"Congenital insensitivity to pain, hyperhidrosis, absence of cutaneous sensory innervation",C0003892,Charcot arthropathy,"| Genetic variants | Race | Sex | Age (y) | Insensitivity to pain | Charcot arthropathy | Recurrent bone fracture | Self-mutilation | Compromised proprioceptive sensation | Anhidrosis | Recurrent unexplained fever | Intellectual disability | Reference
+1 | Homo.",TBLPMC6023048,29619836,Phenotypic heterogeneity of intellectual disability in patients with congenital insensitivity to pain with anhidrosis: A case report and literature review,
+37,MONDO:0005057,large cell neuroendocrine carcinoma,C0728993,Vaginal spotting,"RT, chemo | NED (12 months) | Sato et al.17
+Cervix | Abnormal Pap | 42 | IIA | TAH, BSO | RT, chemo | DOD (6 months) | Sato et al.17
+Cervix | N/A | 31 | IA | RH | NFT | NED (10 months) | Yun27
+Cervix | Atypical vaginal bleeding | 40 | IB | TAH, BSO, PLD | NFT | NED (9 months) | Kawauchi28
+Cervix | Vaginal spotting | 47 | IIA | RH, PPALD | RT and brachytherapy (patient could not afford chemo) | NED (6 months) | Cetiner et al.12
+Cervix | Screening Pap | 25 | IB1 | RH, PPALD | INITIAL: Etoposide + cisplatin; RECURRENCE: Vincristine, adriamycin + cytoxan; carboplatin + etoposide; THEN: Topotecan;",TBLPMC7605029,33194158,Gynecologic large cell neuroendocrine carcinoma: A review,
+38,C0840927,Asomatognosia,C0237868,Separation of a limb,"ic state with leukoaraiosis | [31, 32, 41]
+
+Table: Differential diagnosis
+Differential diagnosis of alien hand syndrome
+Disorder | Definition/distinguishing features
+Category | Manifestations
+Delusional disorders/beliefs | Alien limbLoss of identity of a body partAttributing the limb to someone elseSeparation of a limbInfestation delusionsSomatic delusionsSchneiderian first-rank symptoms specifically delusions of control/passivityXenomeliaSomatic paraphrenia
+Body schema disorders | Limb distortionsShape distortionsDisplacement/absence of limbMalfunction of the limbXenomelia (body integrity dys",TBLPMC12502178,41053873,Unraveling the mystery of alien hand syndrome: when your hand has a mind of its own,
+39,C2749137,"Retinitis Pigmentosa, X-Linked, And Sinorespiratory Infections, With Or Without Deafness",C1299586,difficulty,"| Ethical issues for ESCs, malignant growth for iPSCs, difficulty handling cells, clinical trials with small samples of patients and short follow-up period.
+Hyperbaric Oxygen | Increase the transfer of oxygen into tissues, helping the retinal cells with their metabolic request.",TBLPMC10819364,38276069,Retinitis Pigmentosa: From Pathomolecular Mechanisms to Therapeutic Strategies,
+40,C0796068,Oculodigitoesophagoduodenal syndrome,C0266174,duodenal atresia,"We report a new family with oculodigitoesophagoduodenal syndrome (ODED syndrome), which associates microcephaly, abnormalities of the hands and feet, shortened palpebral fissures, tracheoesophageal fistula and duodenal atresia.",PMID10905665,10905665,Vertebral anomalies in a new family with ODED syndrome.,
+41,C0685409,Congenital Camptodactyly,C4521986,oral,"Table: CACP syndrome patients reported till date.
+Publication | Country | Number of patients (M/F) | Consanguinity | Mutations reported | Age of diagnosis (months) | Clinical features | Therapy
+Camptodactyly | Large joint arthropathy | Coxa vara | Pericarditis
+Bulutlar 1986 | Turkey | 4 (0/4) | 4 | NA | 7–16 | 3 | 4 | 4 | 2 | NA
+Laxer 1986 | Canada | 1 (1/0) | 1 | NA | 60 | 1 | 1 | 0 | 1 | NSAID, intra-articular steroid, physiotherapy
+Bahabri 1994 | Saudi Arabia | 3 (1/2) | 0 | NA | 84–156 | 3 | 3 | 3 | 0 | Oral gold, physiotherapy
+Bahabri 1998a | Saudi Arabia | 8 (5/3) | 1 | NA | 24–156 | 8 |",TBLPMC9760854,36545657,Pseudo-rheumatic manifestations of limping: Camptodactyly–arthropathy–coxa vara–pericarditis syndrome: Single case report and review of the literature,
+42,C4749142,"MASTOCYTOSIS, INDOLENT",C4512006,history of anaphylaxis,"ECNM guidelines recommend that every SM patient, regardless of the presence of mediator symptoms, history of anaphylaxis, or bone disease, should be preferentially managed and followed by a multidisciplinary team with at least a hematologist, an allergologist and an endocrinologist, should assume adequate intake of calcium and vitamin D, and undergo periodical radiological evaluation (spine X-ray and bone marrow density).",PMC9229771,35745657,Target Therapies for Systemic Mastocytosis: An Update,
+43,C1848814,"Thymoma, Familial",C0027721,minimal change nephropathy,"Immune deficiency syndromes | Hypogammaglobulinemia, T-cell deficiency syndrome
+Dermatologic disorders | Pemphigus, alopecia, chronic mucocutaneous candidiasis
+Endocrine disorders | Cushing’s syndrome, panhypopituitarism, Addison’s disease, hypertrophic osteoarthropathy
+Renal disorders | Nephrosis, minimal change nephropathy, nephrotic syndrome
+Hematological syndromes | Red cell aplasia, red cell hypoplasia, pernicious anemia, erythrocytosis, agranulocytosis, multiple myeloma, hemolytic anemia, acute leukemia, T-cell lymphocytosis, pancytopenia",TBLPMC7797839,33447443,Epidemiology of thymoma,
+44,C0013595,Eczema,C0020456,hyperglycaemia,"| There are no standardized regimens; typically, prednisone 0.5–0.1 mg/kg/day per day (up to a maximum of 60 mg/day) for 7 days | Risk of disease relapse when discontinued; gradual tapering is strongly recommended; suitable for use during flares of CHE, not for chronic phases | Fluid retention, hyperglycaemia, osteoporosis, myopathy, bone fractures, skin atrophy, acne, mood changes, insomnia, psychosis, peptic ulcers, increased risk of infections, cataracts, glaucoma | There are no RCTs about systemic steroids in CHE; there are difficulties in obtaining affordable data about efficacy
+Retinoids",TBLPMC11971080,40064754,Chronic Hand Eczema (CHE): A Narrative Review,
+45,C4081841,Primary malignant neuroendocrine neoplasm of ileum,C0812425,mitotic index,"tastasis | Distant metastasis
+1a |  | Metastasis to liver
+1b |  | Metastasis in at least 1 extrahepatic site (eg, lung, ovary, nonregional lymph node, peritoneum, bone)
+1c |  | Both hepatic and extrahepatic metastasis
+
+Table: Grading of JI-NETs according to ENETS/UICC and AJCC.
+Grade | Ki67 Index | Mitotic index (mitoses/10 HPF)
+G1 | ≤2% | <2
+G2 | 3–20% | 2–20
+G3 | >20% | >20",TBLPMC8196396,34092781,Ileal Neuroendocrine Tumor in a Patient with Sclerosing Mesenteritis: Which Came First?,
+46,MONDO:0005714,congenital syphilis,C0032285,pneumonia alba,"ia, thrombocytopenia *; hypoglycemia; liver transaminitisc and direct hyperbilirubinemia; cerebrospinal fluid pleocytosis, elevated protein content, reactive VDRL/RPR test; proteinuria (nephrotic syndrome); hypopituitarism (diabetes insipidus)
+Radiographic findings | periostitis; osteochondritis *; pneumonia alba
+Late congenital syphilis (>2 years of age) | 
+ | Hutchinson’s teeth; Mulberry molars; interstitial keratitis; optic nerve atrophy; healed chorioretinitis; rhagades; gummas; cranial nerve VIII nerve deafness
+ | intellectual disability; hydrocephalus; seizures; juvenile general paresis;",TBLPMC11206692,38921779,Congenital Syphilis: A Re-Emerging but Preventable Infection,
+47,C0155284,Other orbital disorders,C0151671,impaired glucose tolerance,"We report a case of a 69-year-old man with a history of impaired glucose tolerance, hypertension, and knee algodystrophy, who had recently initiated intramuscular neridronic acid therapy on the recommendation of his orthopedic specialist.",PMC13609169,42788107,Acute Orbital Inflammation following Neridronate Therapy: A Case Report,
+48,C0391816,Tietz syndrome,C0266058,anterior crossbite,A Vietnamese girl of 16 years old presented with severe symptoms of anterior crossbite and Class III malocclusion of the skeletal and dental structures.,PMC11604280,39610856,Correcting Class III Malocclusion Using Multiloop Edgewise Archwire (MEAW) Combines Temporary Anchorage Devices (TADs) With Modified Class III Elastics for Camouflage Treatment of in Adolescent: A Case Report,
+49,C1853136,Neutral Lipid Storage Disease with Myopathy,C1550647,polymorphonuclear leukocytes,"Our summary confirmed that Jordan's anomaly, polymorphonuclear leukocytes with lipid accumulation, was the most consistent finding of this disease.",PMID32564019,32564019,Neutral Lipid Storage Disease Associated with the PNPLA2 Gene: Case Report and Literature Review.,
+50,C0237962,Retroperitoneal abscess,C1960160,constant pain,"Six months postoperatively, the patient presented to our department complaining of high fever (body temperature up to 39.2°C), chills, and constant pain in the right lumbar region for two days.",PMC3513733,23227410,Retroperitoneal Abscess Formation as a Result of Spilled Gallstones during Laparoscopic Cholecystectomy: An Unusual Case Report,
+51,C2118460,Acute colitis,C0949920,Norovirus,"| 179 (100%) | 0 (0%) | 0 (0%) | 
+Cyclospora cayetanensis | 179 (100%) | 0 (0%) | 0 (0%)
+Entamoeba histolytica | 179 (100%) | 2 (1.1%) | 1 (50%)
+Giardia lamblia | 179 (100%) | 0 (0%) | 0 (0%)
+Viruses | Adenovirus F40/41 | 179 (100%) | 0 (0%) | 0 (0%) | 
+Astrovirus | 179 (100%) | 0 (0%) | 0 (0%)
+Norovirus GI/GII | 179 (100%) | 4 (2.2%) | 4 (100%)
+Rotavirus A | 179 (100%) | 2 (1.1%) | 1 (50%)
+Sapovirus I, II, IV, V | 179 (100%) | 2 (1.1%) | 1 (50%)
+TOTAL (positive patients) | – | 179 (100%) | 108 (60.3%) | – | – | 179 (100%) | 93 (52%) | – | 73 (40.8%)
+
+Table: Colonoscopy findings in patients wi",TBLPMC9192641,35697847,Mapping of etiologies of computed tomography-proven acute colitis: a prospective cohort study,
+52,C5680675,Autosomal recessive hereditary sensory and autonomic neuropathy,C4012054,"Neuropathy, hereditary sensory and autonomic, type IID","d autonomic, type II | 10–20 years | 201,300
+ | HSAN-IIB | FAM134B | AR | 5p15.1 | Neuropathy, hereditary sensory and autonomic, type IIB | 1–10 years | 613,115
+ | HSAN-IIC | KIF1A | AR | 2q37 | Neuropathy, hereditary sensory, type IIC | From birth | 614,213
+ | HSAN-IID/CIP1 | SCN9A | AR | 2q24.3 | Neuropathy, hereditary sensory and autonomic, type IID | From birth | 243,000
+HSAN-III | Familial dysautonomia, Riley–Day syndrome | IKBKAP/ ELP1 | AR | 9q31 | Dysautonomia, familial | From birth | 223,900
+HSAN-IV, CIPA |  | NTRK1 | AR | 1q23.1 | Insensitivity to pain, congenital, with anhidrosis |",TBLPMC12678596,40938507,Rare autosomal recessive hereditary sensory and autonomic neuropathy type VI in a Pakistani family caused by a novel DST variant,
+53,C4225557,"SMITH-LEMLI-OPITZ SYNDROME, MILD",C0264733,Ventricular dilatation,"Table: Reported ultrasound findings in conceptuses with Smith–Lemli–Opitz syndrome
+General in utero demise Intrauterine growth retardation
+Nervous system Ventricular dilatation Abnormal corpus callosum or cerebellum Dandy–Walker malformation/variant Holoprosencephaly
+Facial Cleft lip/palate Bifid uvula Short nose with anteverted nares
+Cardiac Septal or major vessel defects Complex malformations
+Genital Ambiguous genitalia
+Skeletal Micromelia Postaxial polydactyly 2–3 toe syndactyly Microcephaly
+Abdominal Renal hypoplasia or agenesis Hydronephrosis
+
+Table: DHCR7 carrier frequencies in selected ",TBLPMC5413855,28166604,Smith–Lemli–Opitz syndrome carrier frequency and estimates of in utero mortality rates†,
+54,C5774257,"DYSKERATOSIS CONGENITA, AUTOSOMAL RECESSIVE 8",C0005741,blepharitis,"3 Ophthalmic manifestations of DC include blepharitis, conjunctivitis, nasolacrimal duct obstruction, ectropion, entropion, and trichiasis.",PMC4145822,25170286,The diagnosis and treatment of dyskeratosis congenita: a review,
+55,C0398370,Lipedema,C3278575,increased il 8,"d SVF cell yield in lipedema preparations with increased CD90 and CD146-positive cells;reduced in vitro differentiation capacity of lipedema ASCs | [53]
+ELISAOilRedO stainingCell counting | LipoaspiratesSVF/ASCs In vitro differentiated adipocytes | Increased proliferative activity of lipedema ASCs; increased IL-8 levels in supernatants from lipedema ASCs;reduced adipokine and aromatase levels in supernatants from in vitro differentiated lipedema adipocytes; reduced differentiation capacity of lipedema ASCs | [54]
+Proliferation assayCFU fibroblast assayqPCROilRedO staining | LipoaspiratesSVF/AS",TBLPMC9860653,36675759,Lipedema Research—Quo Vadis?,
+56,C1856305,"GSD IV, Neuromuscular Form, Childhood",C0012634,disease,"Common causes of death in the latter group included liver failure or hemorrhage (L10, L24, L121, L114, and L139), complications associated with liver transplant (L29 and L30), progression of extrahepatic disease such as cardiomyopathy (L38 and L103), and other causes such as infection (L8 and L12).",PMC9513518,36176296,A novel approach to characterize phenotypic variation in GSD IV: Reconceptualizing the clinical continuum,
+57,C1845181,"INTELLECTUAL DEVELOPMENTAL DISORDER, X-LINKED 78",C0683598,Resistance to AETs,"onic seizures | 8 | 4 | 12 | p = 0.71, Fisher's exact test
+Atonic seizures | 11 | 0 | 11 | p = 0.0006, Fisher's exact test
+Myoclonic seizures | 9 | 1 | 10 | p = 0.023, Fisher's exact test
+Infantile spasms | 8 | 1 | 9 | p = 0.049, Fisher's exact test
+Clonic | 2 | 2 | 4 | 
+Dyscognitive | 1 | 3 | 4 | 
+Resistance to AETs | 13/16 | 2/11 |  | p = 0.002, Fisher's exact test",TBLPMC6752297,30206421,IQSEC2-related encephalopathy in males and females: a comparative study including 37 novel patients,
+58,MONDO:0020807,ovarian sertoli-stromal cell tumor,C0150312,present,"Heterologous stromal elements were present in three of 11 Sertoli-stromal cell tumors (two showed skeletal muscle and one showed both skeletal muscle and cartilage differentiation) and in four of six carcinosarcomas (one skeletal muscle, one cartilage, and two cartilage and skeletal muscle).",PMID1612579,1612579,Utility of immunohistochemistry in distinguishing ovarian sertoli-stromal cell tumors from carcinosarcomas.,
+59,C5680378,Autosomal dominant pure spastic paraplegia,C1855789,sici,"of patients) | 1 | 2 | 2
+2 | 2 | 2
+3 | 2 | 4
+4 | 2 | 2
+5 | 2 | 0
+MAS | 3.4±0.9 | 3.2±0.8
+FMA-UE | 23±14 | 22±17
+FIM (all items) | 63±4 | 73±3
+FIM (six items) | 21±2 | 31±2
+HRS-D | 19±4 | 21±2
+HRS-A | 10±5 | 8±4
+
+Table: Repeated results of primary clinical and electrophysiological outcomes.
+ | group | T0 | T1 | T2 | Post-hoc T1 | Post-hoc T2 | d
+MAS | A | 3.4±0.9 | 2±0.6 | 3±0.6 | <0.001 | 0.007 | 0.6
+B | 3.2±0.8 | 2.4±0.7 | 3.2±0.5 | 0.3 | 0.4
+SICI (%) | A | 80±2 | 51±2 | 50±3 | <0.001 | <0.001 | 0.7
+B | 79±3 | 69±3 | 81±3 | 0.5 | 0.1
+HMR (%) | A | 130±3 | 81±4 | 89±5 | <0.001 | <0.001 | 0.7
+B",TBLPMC5626518,28973024,Is two better than one? Muscle vibration plus robotic rehabilitation to improve upper limb spasticity and function: A pilot randomized controlled trial,
+60,C5681689,Aortic malformation,C4281748,leakage,"weight loss, cough | Fever, chills, weakness, weight loss
+Cardiac findings | Mitral aortic valve deformity, aortic valve vegetation | Vegetations on chordae tendineae of the anterior leaflet of the mitral valve | Aortic valve thickening with vegetations | Vegetations on bioprosthetic aortic valve, mild to moderate aortic perivalvular leakage | Stenosis and Regurgitation of aortic and mitral valves. Aortic valve vegetation | Atrial perivalvular abscess and vegetation. Mitral valve regurgitation
+Phase I IgG | 1:800 | 1:1600 | 1:>5120 | 1:3200 | >1:1600 | 1:6400
+Phase II IgG | 1:800 | 1:800 | 1:",TBLPMC5221114,28051025,Retrospective Examination of Q Fever Endocarditis: An Underdiagnosed Disease in the Mainland of China,
+61,C3809420,"CORTICAL DYSPLASIA, COMPLEX, WITH OTHER BRAIN MALFORMATIONS 4",C1155266,inflammatory response,"Moreover, differential expression analysis further demonstrated stronger expression of components of the inflammatory response and complement activation in the BCs region.",PMID39614299,39614299,Spatial transcriptomics in focal cortical dysplasia type IIb.,
+62,MONDO:0021140,congenital,C5551413,sensory impairments,Close follow-up for affected infants is necessary to monitor for developmental delays and sensory impairments to implement interventional therapies at the earliest time possible.,PMID32281058,32281058,Congenital Cytomegalovirus and Zika Infections.,
+63,C0020075,"Hereditary Sensory Autonomic Neuropathy, Type 5",C0333751,Focal muscle fiber atrophy,Focal muscle fiber atrophy was also evident.,PMC13359195,42563873,Hereditary sensory autonomic neuropathy type VI in the age of genetic testing,
+64,C5441823,Corneal endothelial dystrophy,C1705285,mutation,"Genetic analysis demonstrated a rare CHST6 promoter mutation (c.-690G>C) in the homozygous state in affected individuals from three families and in the compound heterozygous state with a CHST6 coding mutation (p.R211Q, p.Y268C or p.P280L) in affected individuals from the other four families.",PMID40803642,40803642,"Peripheral Macular Endothelial Dystrophy: Clinical, Histopathologic, Genetic and Functional Characterization.",
+65,C1266092,Thymoma type AB,C1446409,positive for,"Immunohistochemistry showed epithelial cells positive for cytokeratins, p40, p63, PAX8, and BCL-2 with low Ki-67, and lymphocytes positive for CD3 ( Figure 2 ).",PMC13422200,42534859,Neoadjuvant chemotherapy enabling resection of stage IVA thymoma with myasthenia gravis and systemic lupus erythematosus: a case report,
+66,C4015156,"MICROCEPHALY 12, PRIMARY, AUTOSOMAL RECESSIVE",C4477000,hyperechogenic liver,"| n/r | - | - | - | n/r | + | + | + | 5/8 (63%)
+Facial hypotonia | + | + | - | - | - | + | n/r | n/r | - | + | + | + | 6/10 (60%)
+Seizures | - | - | - | - | - | - | - | - | - | - | - | - | 0/12 (0%)
+ | Liver
+Hepatomegaly | n/r | + | n/r | n/r | n/r | + | + | + | + (mild) | + | + | n/r | 7/7 (100%)
+Hyperechogenic liver texture | n/r | + | n/r | n/r | n/r | + | + | + | + (mild) | - | - | n/r | 5/7 (71%)
+Elevated liver enzymes | - | - | - | n/r | n/r | - | - | - | One episode | n/r | n/r | - | 1/8 (13%)
+History of Ascites | - | - | - | - | - | - | - | - | - | + | - | - | 1/12 (9%)
+Liver failure",TBLPMC8599376,34536092,The recurrent missense mutation p.(Arg367Trp) in YARS1 causes a distinct neurodevelopmental phenotype,
+67,C4025327,Congenital pyloric atresia,C1706180,male,"In this case, a full-term male neonate was born to a G4P2+1L1 multipara through cesarean section delivery in hospital in a non-consanguineous marriage with 4000mL of II°meconium-stained amniotic fluid.",PMID38784139,38784139,Lessons to Learn About the Misdiagnosis of a Rare Case in China: Bart Syndrome or Carmi Syndrome?,
+68,C0342841,"Hunter's syndrome, severe form",C1458156,recurrence,"Altogether, 87.5% (7/8) experienced recurrence with cerebral infarction after antithrombotic therapy alone.",PMID32009470,32009470,Bow Hunter's syndrome combined with ipsilateral vertebral artery dissection/pseudoaneurysm: case study and literature review.,
+69,C3160858,Posterior reversible encephalopathy syndrome,C0035608,rifampicin,"Table: Demographic, clinical and radiological characteristics of PRES cases associated with antibiotic therapy (n = 12, including our case report).
+General data
+World region (n) | Europe (4)East Asia (3)North America (3)South Asia (1)Middle East (1)
+Age in years [mean ± sd (range)] | 50.2 ± 22.3 (16–87)
+Sex (n, %) | female (10, 83.3) / male (2, 16.7)
+Prescribed antibiotic (n) | metronidazol (4)linezolid (2)rifampicin (2)ciprofloxacin (2)moxifloxacin (1)levofloxacin (1)daptomycin (1)teicoplanin (1)ceftriaxone (1)vancomycin (1)
+Co-prescribed drugs (n) | immunosuppressive drugs (3)antihypertensiv",TBLPMC11306538,38679625,Posterior reversible encephalopathy syndrome associated with antibiotic therapy: a case report and systematic review,
+70,MONDO:0004130,anus basaloid carcinoma,C0027651,tumor,"A jigsaw-like arrangement of tumor lobules was present in two cases, while peripheral palisading was prominent in two.",PMC7685972,32461623,CYLD-mutant cylindroma-like basaloid carcinoma of the anus: a genetically and morphologically distinct class of HPV-related anal carcinoma,
+71,C3280785,VENTRICULAR SEPTAL DEFECT 3,C0311468,hyperbilirubinemia,"Table: Summary of all patients with congenital portosystemic shunts.
+Case | Dx Method | Age at Dx | Type of shunt | Fetal US findings | Biometry/hemodynamics | Clinical presentation | Biochemical findings at Dx | Associated anomalies/findings | Mngx | FU in mo | Outcome
+1 | AN | 33 w (GA) | EPSS | ADVUV-IVC Shunt | LGA Polyhydramnios | CHF at age 2 days | HypoglycemiaHigh GGTIndirect-Hyperbilirubinemia | Cutaneous Hemangioma | Transcatheter closure | 115 | Alive & well
+2 | AN | 26 w (GA) | EPSS | ADVRight portal vein-IVC Shunt | IUGROligohydraminos | Asymptomatic | High LFT's | Static Communic",TBLPMC7567999,33094141,Pre and postnatal diagnosis of congenital portosystemic shunt: Impact of interventional therapy,
+72,C0085859,Polyglandular Type I Autoimmune Syndrome,C0235896,recurrent pulmonary infiltrates and GGOs,"(For interpretation of the references to colour in this figure legend, the reader is referred to the Web version of this article.) Following surgery, he developed recurrent pulmonary infiltrates and GGOs responsive to steroids.",PMC8349050,34401309,Fatal autoimmune pneumonitis requiring bilobectomy and omental flap repair in a patient with autoimmune polyendocrinopathy-candidiasis-ectodermal dystrophy (APECED),
+73,C4518080,"Autism spectrum disorder, epilepsy, arthrogryposis syndrome",C0042963,vomiting,"For example, ADHD medications can affect appetite negatively, anticonvulsants can cause nausea, vomiting, diarrhea, and decreased levels of vitamin D and calcium due to osteoclastic activity, and atypical antipsychotics may lead to increased appetite, weight gain, and glucose intolerance[ 77 ].",PMC11572612,39654662,Nutritional management and autism spectrum disorder: A systematic review,
+74,C5774339,"NEURODEVELOPMENTAL DISORDER WITH MICROCEPHALY, SHORT STATURE, SPEECH DELAY, AND BEHAVIORAL ABNORMALITIES",C1535926,neurodevelopmental disorder,"Autosomal recessive PRUNE1 mutations on chromosome 1q21.3 are reported to cause a neurodevelopmental disorder with microcephaly, hypotonia, and variable brain malformations.",PMID31882333,31882333,Altered MR imaging findings in a Japanese female child with PRUNE1-related disorder.,
+75,C0162834,Hyperpigmentation,C5229936,Labial melanotic macule on lower lip,"(2010) [24] | 16 years, male, Caucasian | AD | Topical, 0.1%, twice daily (3 weeks), once daily (6 weeks) | 12 months (lesions appeared at 9 months) | Labial melanotic macule on lower lip | Tacrolimus continued following initial discovery of macules with lesions persisting at 12 months
+Zattra et al.",TBLPMC12445934,40980790,Tacrolimus-Associated Hyperpigmentation: A Case Report and Literature Review,
+76,C0334480,Pleomorphic Rhabdomyosarcoma,C0338614,psychotic episodes,"During this period, the patient’s condition continued to deteriorate gradually, requiring continuous emergency hospitalization for chronic acute respiratory failure (SaO 2 at 89%), marked dyspnea, high blood pressure (140/100 mmHg), important fatigue, abundant sweating, generalized edema, and acute psychotic episodes with auditory hallucinations.",PMC12452751,40981124,Adult Pleomorphic Rhabdomyosarcoma: Case Report,
+77,C5979982,Ring chromosome syndrome,C0037268,Skin abnormalities,"(29.0), High‐arched palate (23.2), Low‐set ears (21.7), Hypertelorism (25.8), Down‐turned mouth (14.3), Strabismus (16.7).
+Skeletal deformities | 27/44 | 12/27 | 39/71 | 54.9
+(%): Clinodactyly (27.1), Small hands or feet (20.3), Brachydactyly (22.9), Kyphosis (8.6), Talipes equinovarus (11.4), etc.
+Skin abnormalities | 21/42 | 7/23 | 28/65 | 43.1
+(%): Café au lait macules (33.8), Hypochromic or hyperchromic patches (15.6), Abnormal simian crease (8.8), etc.
+Bone age delay | 8/10 | 6/8 | 14/18 | 77.8
+Cardiac abnormalities | 7/45 | 8/27 | 15/72 | 20.8
+ASD, VSD, DCM, Atretic mitral valve, Hypopla",TBLPMC8683626,34747577,The phenotype and rhGH treatment response of ring Chromosome 15 Syndrome: Case report and literature review,
+78,C3809369,PAROXYSMAL NOCTURNAL HEMOGLOBINURIA 2,C4540165,cortical hypoplasia,"Cranial magnetic resonance imaging (MRI) showed an external hydrocephalus and a widening of the subarachnoid and frontal temporal spaces, particularly frontally, suggesting cortical hypoplasia and cerebellar vermis dysplasia (Figure 1B ).",PMC5951959,29868109,Homozygous PIGT Mutation Lead to Multiple Congenital Anomalies-Hypotonia Seizures Syndrome 3,
+79,C3278148,"BERNARD-SOULIER SYNDROME, TYPE A1",C0009566,bleeding complications,Lack or loss-of-function in the ligand-receptor pair results in bleeding complications.,PMID27683759,27683759,"A novel platelet-type von Willebrand disease mutation (GP1BA p.Met255Ile) associated with type 2B ""Malmö/New York"" von Willebrand disease.",
+80,C5569009,Immunoglobulin G4 related ophthalmic disease,C0242339,Dyslipidaemia,"eyes | 67 | 67 | N/A
+Age (years) | 63.8 ± 12.2 | 63.3 ± 5.9 | 0.378
+Male: Female | 41:26 | 41:26 | 1.0
+Ex/current smoker (N, %) | 27% | 21% | 0.418
+Systemic disease | 
+Hypertension (N, %) | 22% | 28% | 0.799
+Diabetes mellitus (N, %) | 19% | 13% | 0.350
+Dyslipidaemia (N, %) | 20% | 20% | 1.0
+Ocular condition: |  |  | 
+Pseudophakia(N, %) | 12(18%) | 12(18%) | 1.0
+Axial length (mm) | 23.9 | 24.0 | 0.338
+
+Table: The corneal biomechanical differences between IgG4-ROD patients and healthy control subjects.
+ | IgG4-ROD patients | healthy controls | P Value
+Number of eyes | 67 | 67 | N/A
+Intraocular p",TBLPMC13189291,42160296,Cornea biomechanics and biometric evaluations in immunoglobulin G4-related ophthalmic disease,
+81,C0017919,Glycogen Storage Disease,C0428554,Normalized blood glucose levels,"2011 | Human G6PC | HDAd | Human apolipoprotein AI | GSD Ia dogs | Jugular venipuncture (3‐day‐old dogs) | Normalized blood glucose levels between 6 and 22 months elevated hepatic G6Pase activity and reduced glycogen content; prolonged survival
+Demaster et al.",TBLPMC10874634,38370424,"Glycogen storage disease type I: Genetic etiology, clinical manifestations, and conventional and gene therapies",
+82,C5203411,"NEUTROPENIA, SEVERE CONGENITAL, 8, AUTOSOMAL DOMINANT",C0027059,myocarditis,"Symptoms included proximal muscle weakness in all 28 (100%) patients, neck weakness in 9 (32%), myalgia in 15 (54%), dysphagia in 5 (18%), dyspnea in 4 (14%), dysarthria in 2 (7%), interstitial lung disease in 2 (7%), and myocarditis in 2 (7%).",PMID39778565,39778565,Profiling of Anti-Signal-Recognition Particle Antibodies and Clinical Characteristics in South Korean Patients With Immune-Mediated Necrotizing Myopathy.,
+83,C0023656,Lichenoid drug eruption,C3279547,mild hypergranulosis,"Histopathologic features included compact orthokeratosis with foci of parakeratosis, mild hypergranulosis, and irregular epidermal acanthosis.",PMC11992399,40225092,Delayed lichenoid drug eruption associated with apremilast,
+84,C1858854,MEGALENCEPHALIC LEUKOENCEPHALOPATHY WITH SUBCORTICAL CYSTS,C1287399,brain imaging findings,"The core phenotype of macrocephaly, subcortical cysts and white matter appeared homogeneous although the patients differed in the onset, clinical course, disease severity and brain imaging findings.",PMID27389245,27389245,Megalencephalic leukoencephalopathy with cysts in twelve Egyptian patients: novel mutations in MLC1 and HEPACAM and a founder effect.,
+85,MONDO:0850426,high-grade B-cell lymphoma double-hit/triple-hit,C0577053,hypodense hepatic lesion,"Staging with thoracic and abdominopelvic CT scans revealed splenomegaly, multiple retroperitoneal lymph nodes, and a hypodense hepatic lesion, suggestive of a lymphoproliferative disorder.",PMC12992044,41852892,Triple-hit diffuse large B-cell lymphoma with choroidal and cavernous sinus involvement mimicking inflammatory and neuro-ophthalmic disease: case report,
+86,MONDO:0023113,familial colorectal cancer,C1314687,sex,"In the tool, we additionally collected data on age, sex, nationality, educational level, native language and reasons for non-participation, if any.",PMC5999176,28936633,Evaluation of an online family history tool for identifying hereditary and familial colorectal cancer,
+87,MONDO:0015160,multiple congenital anomalies/dysmorphic syndrome-variable intellectual disability syndrome,C0042063,Abnormality of the genitourinary system,"eletal system (HP: 0033127) | - | - | 67%
+Diaphragmatic eventration (HP: 0009110) | - | X | -
+Abnormality of the digestive system (HP: 0025031) | - | - | 67%
+Exocrine pancreatic insufficiency (HP: 0001738) | X | - | -
+Feeding difficulties (HP: 0011968) | X | - | -
+Vomiting (HP: 0002013) | X | - | -
+Abnormality of the genitourinary system (HP: 0000119) | - | - | 67%
+Abnormal localization of kidney (HP: 0100542) | - | X | -
+Abnormality of prenatal development or birth (HP: 0001197) | - | - | 67%
+Abnormality of the umbilical cord (HP: 0010881) | X | - | -
+Premature birth (HP: 0001622) | - | X | -",TBLPMC12008699,40121532,Identification of de novo variants in KCTD10 as a proposed cause for multiple congenital anomalies,
+88,C3809536,"CARDIAC ARRHYTHMIA SYNDROME, WITH OR WITHOUT SKELETAL MUSCLE WEAKNESS",C0235242,exertional syncope,"We describe 2 siblings from a consanguineous Malian family presenting with exertional syncope and bradycardia, in whom a novel homozygous pathogenic TRDN variant was identified.",PMID40760564,40760564,Unusual catecholaminergic polymorphic ventricular tachycardia and bradycardia caused by a novel triadin variant in 2 siblings from a Malian family.,
+89,C0341505,Chemical peritonitis,C0035956,spontaneous rupture,"They are usually asymptomatic, but can complicate pregnancies if they lead to ovarian torsion or chemical peritonitis due to spontaneous rupture.",PMID39316566,39316566,Ruptured Ovarian Mature Teratoma in a Pregnant Woman with Severe Chemical Peritonitis: A Case Report.,
+90,C0340442,Other diseases of pericardium,C5441846,Hispanic or Latino,"16.88% | 0.0012 | 0.0186 | 5087 | 16.92% | 5076 | 16.88% | 0.9047 | 0.0010
+Asian | 140,399 | 3.23% | 498 | 1.66% | <0.0001 | 0.1022 | 794 | 2.64% | 498 | 1.66% | <0.0001 | 0.0679
+Unknown Race | 551,362 | 1.69% | 4192 | 13.94% | <0.0001 | 0.0367 | 3659 | 12.17% | 4192 | 13.94% | <0.0001 | 0.0526
+Not Hispanic or Latinoa | 3,119,470 | 71.82% | 21,960 | 73.03% | <0.0001 | 0.0270 | 21,940 | 72.96% | 21,960 | 73.03% | 0.8543 | 0.0015
+Hispanic or Latino | 348,510 | 8.02% | 1961 | 6.52% | <0.0001 | 0.0579 | 2249 | 7.48% | 1961 | 6.52% | <0.0001 | 0.0375
+Unknown Ethnicity | 875,405 | 20.16% | 6149 | 20",TBLPMC10279782,37285617,"Cutaneous lupus erythematosus is associated with an increased risk of cardiac and vascular diseases: a large-scale, propensity-matched global retrospective cohort study",
+91,C5681077,Lysosomal glycogen storage disease,C1272241,family history of cardiomyopathy,"Red flags pointing towards a diagnosis of Fabry disease include the typical childhood symptoms described above, a family history of cardiomyopathy, chronic kidney disease, stroke, unexplained early death, or other signs/symptoms of Fabry disease.",PMC3596758,22736678,Left ventricular hypertrophy in Fabry disease: a practical approach to diagnosis,
+92,C0751604,Hereditary X-Linked Recessive Spastic Paraplegia,C0153665,lower limb,"| ➢Length-dependent small and large fiber distal axonopathy of motor and sensory spinal tracts | ➢Widespread inflammatory white and grey matter infiltration with secondary neuronal and axonal loss
+Clinical | ➢Average age of onset 65 y➢Male:female 1.2–1.4:1➢Average survival 3 y➢UMN and LMN signs with varying phenotypes | ➢Average age of onset 50 y➢Male:female 2–4:1➢Average survival 7.9 y➢Progressive pure UMN syndrome, commonly lower limb onset | ➢Average age of onset 40 y➢Male:female not known➢Normal lifespan➢Progressive lower limb onset UMN syndrome | ➢Average age of onset 40 y➢Male:female 1:1",TBLPMC8392624,34439577,The Upper Motor Neuron—Improved Knowledge from ALS and Related Clinical Disorders,
+93,C0007820,Cerebrovascular Disorders,C0010957,damage,"On the other hand, it has been described that transient hypoxia damage can increase the hyperphosphorylation of tau in cortical neurons [ 245 , 246 ].",PMC8036996,33805974,SSAO/VAP-1 in Cerebrovascular Disorders: A Potential Therapeutic Target for Stroke and Alzheimer’s Disease,
+94,C0432282,Dysplasia epiphysealis hemimelica,C0205082,severe,Severe osteoarthritic changes in the lateral compartment were also found.,PMC7071648,32171273,TKA in the treatment of bilateral dysplasia epiphysealis hemimelica (Trevor’s Disease) of the knee in a 50-year-old man: a case report,
+95,MONDO:0002547,nerve sheath neoplasm,C1266188,converted into malignant perineurioma,"The recurrent tumor had converted into malignant perineurioma, defined as increased nuclear pleomorphism and cellularity.",PMID24992065,24992065,Reverse adipofascial flap after resection of a malignant perineurioma of the forearm.,
+96,MONDO:0004006,rete ovarii cystadenofibroma,C0006610,CA-125,"Table: Antibodies used in the study.
+Antibodies | Source | Dilution | Type | Pre-treatment | Result in our case
+CK5/6 | Leica | Pre-dilute | Monoclonal | ER2, 10 min | (− ve
+ER | Leica | Pre-dilute | Monoclonal | ER2, 20 min | (+ ve
+PR | Novastra | 1/200 | Monoclonal | ER1, 20 min | Patchy (+ ve
+SMA | Leica | Pre-dilute | Monoclonal | No pre-treatment | Focal (+ ve
+Desmin | Leica | Pre-dilute | Monoclonal | ER2, 20 min | Focal (+ ve
+S100 | Biogenix | 1/400 | Monoclonal | ENZ 1, 10 min | (− ve
+CA-125 | Nocacastra | 1/100 | Monoclonal | ER2, 20 min | (+ ve
+Cam 5.2 | BD Bioscience | 1/20 | Monocl",TBLPMC2994433,21139896,Cystadenofibroma of the rete ovarii: a case report with review of literature,
+97,C0796208,"METHYLMALONIC ACIDURIA AND HOMOCYSTINURIA, cblX TYPE",C0035309,retinopathy,Only patients with the homozygous c.547_548 delGT mutations (n = 2) demonstrated advanced retinopathy associated with cone-rod or rod-cone dysfunction.,PMID18848477,18848477,"Ocular phenotype in patients with methylmalonic aciduria and homocystinuria, cobalamin C type.",
+98,C4015195,IMMUNODEFICIENCY 37,C3163616,Mean blood loss (ml),"9.2 | 79.2 | 29.4 | 55.6 | 0.0
+Mean anesthesia duration (min) | 155.0 | 144.0 | 166.1 | 0.097 | 122.7 | 118.1 | 127.9 | 0.613
+SD | 46.2 | 46.8 | 43.9 | 38.0 | 27.7 | 48.7
+Mean operative time (min) | 89.1 | 85.4 | 92.8 | 0.476 | 68.9 | 62.9 | 75.8 | 0.377
+SD | 35.3 | 37.5 | 33.4 | 28.9 | 14.5 | 39.6
+Mean blood loss (ml) | 143.3 | 123.3 | 163.3 | 0.331 | 100.0 | 60.0 | 145.0 | 0.113
+SD | 141.1 | 127.5 | 153.6 | 109.6 | 72.8 | 130.5
+
+Table: Top 20 CpGs comparing pre- and postoperative day 0 samples of POD cases, excluding CpGs that were commonly differentially methylated between pre- and postoper",TBLPMC13347018,42143058,Postoperative delirium in hip fracture patients linked to epigenetic alterations in inflammatory and immune pathways: a genome-wide DNA methylation study,
+99,C5848146,Progeroid syndrome,C0039082,syndrome,"One frequent neurological feature in our patient sample was an atactic syndrome of the lower limbs in 9/14, in five of them with functional deficits on gait function, but ataxia could not be assigned to a clear-cut cerebellar or spinocerebellar syndrome in seven cases while there were three patients with definite cerebellar dysfunction.",PMC3283603,22363517,The Cerebro-Morphological Fingerprint of a Progeroid Syndrome: White Matter Changes Correlate with Neurological Symptoms in Xeroderma Pigmentosum,
+100,C2718067,Alcoholic Steatohepatitis,C0006826,extrahepatic malignancies,"Finally, we present the screening protocols for both hepatocellular carcinoma and extrahepatic malignancies in these patients.",PMID32077609,32077609,Current management of non-alcoholic steatohepatitis.,
