@@ -1,0 +1,322 @@
+{
+ "note": "items = UMLS dictionary items (dict_umls_v2 + dict_umls_v3); cuiless_kept = items without a CUI that pass the build's document filters; mentions_T/E = their concept links with the gemma phrase table / the empty table (HPO name index only), after the excluded-TUI and no-self filters. Edges counted over the (disease, concept) keys where the two tables differ; the reconciliation with the build summaries passed.",
+ "counts": {
+  "items": 75180381,
+  "cuiless": 6481048,
+  "cuiless_kept": 5301794,
+  "mentions_T": 5272330,
+  "mentions_E": 1717338
+ },
+ "item_outcome": {
+  "table only (no link without it)": 2749278,
+  "table adds concepts": 804289,
+  "no link either way": 844427,
+  "same links": 903800
+ },
+ "edges": {
+  "removed": 622878,
+  "n_docs or n_topic_docs changed": 128841,
+  "mention count only": 30188
+ },
+ "summaries": {
+  "S-dict v3umls_ns": {
+   "diseases": 43575,
+   "diseases_with_findings": 34356,
+   "concepts": 95608,
+   "edges": 14506788,
+   "mentions": 59796310,
+   "docs": 984061,
+   "fingerprint": "d817e925658e34b4a21045d3e74faf1ab54edee5",
+   "scoring": "0.35 2.0 0.3 2.0 0.5"
+  },
+  "pure v3umlsnt_ns": {
+   "diseases": 43575,
+   "diseases_with_findings": 34354,
+   "concepts": 95481,
+   "edges": 13883910,
+   "mentions": 56241318,
+   "docs": 982256,
+   "fingerprint": "cc34f56370d7ee372fbe7b01bb337183f6fd3539",
+   "scoring": "0.35 2.0 0.3 2.0 0.5"
+  }
+ },
+ "top_cuiless_strings": [
+  [
+   "severe",
+   440665
+  ],
+  [
+   "tumor",
+   359298
+  ],
+  [
+   "cancer",
+   205264
+  ],
+  [
+   "history of",
+   138087
+  ],
+  [
+   "sensitivity",
+   136756
+  ],
+  [
+   "deletion",
+   123889
+  ],
+  [
+   "heart",
+   110295
+  ],
+  [
+   "kidney",
+   108631
+  ],
+  [
+   "regression",
+   106480
+  ],
+  [
+   "recurrence",
+   98408
+  ],
+  [
+   "injury",
+   92672
+  ],
+  [
+   "depression",
+   87989
+  ],
+  [
+   "history",
+   84229
+  ],
+  [
+   "asymptomatic",
+   77754
+  ],
+  [
+   "blood pressure",
+   65968
+  ],
+  [
+   "died",
+   65259
+  ],
+  [
+   "breast cancer",
+   63908
+  ],
+  [
+   "invasion",
+   50907
+  ],
+  [
+   "malignancy",
+   50664
+  ],
+  [
+   "medium",
+   48871
+  ],
+  [
+   "education",
+   48695
+  ],
+  [
+   "bladder",
+   44094
+  ],
+  [
+   "duplication",
+   38653
+  ],
+  [
+   "mutated",
+   35828
+  ],
+  [
+   "immunoglobulin",
+   35289
+  ]
+ ],
+ "top_strings_losing_links": [
+  [
+   "tumor",
+   355920,
+   [
+    "C0027651"
+   ]
+  ],
+  [
+   "cancer",
+   202618,
+   [
+    "C0006826"
+   ]
+  ],
+  [
+   "history of",
+   138087,
+   [
+    "C0262926"
+   ]
+  ],
+  [
+   "sensitivity",
+   136447,
+   [
+    "C0020517"
+   ]
+  ],
+  [
+   "deletion",
+   123758,
+   [
+    "C1442161"
+   ]
+  ],
+  [
+   "regression",
+   106480,
+   [
+    "C0684320"
+   ]
+  ],
+  [
+   "recurrence",
+   98408,
+   [
+    "C1458156"
+   ]
+  ],
+  [
+   "injury",
+   92672,
+   [
+    "C3263722"
+   ]
+  ],
+  [
+   "depression",
+   86910,
+   [
+    "C0011570"
+   ]
+  ],
+  [
+   "history",
+   84229,
+   [
+    "C0262512"
+   ]
+  ],
+  [
+   "asymptomatic",
+   77754,
+   [
+    "C0231221"
+   ]
+  ],
+  [
+   "blood pressure",
+   65968,
+   [
+    "C1271104"
+   ]
+  ],
+  [
+   "died",
+   65259,
+   [
+    "C1306577"
+   ]
+  ],
+  [
+   "breast cancer",
+   63546,
+   [
+    "C0006142"
+   ]
+  ],
+  [
+   "invasion",
+   50907,
+   [
+    "C1269955"
+   ]
+  ],
+  [
+   "malignancy",
+   50394,
+   [
+    "C0006826"
+   ]
+  ],
+  [
+   "medium",
+   48871,
+   [
+    "C4522282"
+   ]
+  ],
+  [
+   "education",
+   48695,
+   [
+    "C0013658"
+   ]
+  ],
+  [
+   "duplication",
+   38653,
+   [
+    "C0332597"
+   ]
+  ],
+  [
+   "wound",
+   34996,
+   [
+    "C0043250"
+   ]
+  ],
+  [
+   "sinus",
+   32831,
+   [
+    "C0016169"
+   ]
+  ],
+  [
+   "colon",
+   30390,
+   [
+    "C3888384"
+   ]
+  ],
+  [
+   "spinal cord",
+   29253,
+   [
+    "C3489532"
+   ]
+  ],
+  [
+   "enlargement",
+   28501,
+   [
+    "C0020564"
+   ]
+  ],
+  [
+   "cord",
+   26482,
+   [
+    "C3489532"
+   ]
+  ]
+ ]
+}

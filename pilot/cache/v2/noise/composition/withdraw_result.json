@@ -1,0 +1,348 @@
+{
+ "sim": {
+  "summary_md": "# 랭커 오류 민감도: 틀린 간선 구성에 대한 민감도 (§9.26 보강)\n\n2026-10-20 · 산출 `pilot/cache/v2/noise/composition/` · 실행 `scripts/run_grid.sh`(→ `run_noise_sensitivity.sh`의 `SIB`·`O`, `build_reference_graph.py --sib-share`) · 집계 `scripts/composition_effects.py` → `effects.json` · 부분군 `analysis.json`\n\n## 왜 다시 쟀나\n\n§9.26 시뮬레이션은 깨끗한 HPOA 그래프에 틀린 간선을 \"형제 질환 소견 70% + IE 어휘의 비소견 개념 30%\"로 섞었다. 이 비율은 학술 근거로 쓰지 않기로 한 사람 감사에서 왔다. 그래서 결론이 이 구성에 기대는지 두 순수 구성으로 다시 쟀다.\n\n- **형제 100%** (`--sib-share 1`): 같은 부모를 둔 형제 질환의 소견. 형제가 없으면 무작위 질환의 소견을 쓴다.\n- **어휘 100%** (`--sib-share 0`): gemma IE 어휘(`phrase2cui_gemma.json`)의 소견형 개념 중 무작위로 뽑는다.\n- **기본 혼합**(`--sib-share 0.7`): 같은 코드로 다시 돌려 비교 기준으로 썼다.\n\n고정 조건: HPOA v2024-12-12, 시드 0, 동결 HPOA 1-홉 설정, phenopacket 10,603증례, Neo4j `bolt://localhost:7688`.\n\n### 정밀도 수준을 맞추는 방식\n\n이미 있는 간선과 겹치는 후보는 건너뛴다. 그래서 같은 `--noise` 비율이라도 구성마다 실현 정밀도(참 간선 ÷ 전체 간선)가 다르다. 형제 소견은 참 소견과 자주 겹쳐 정밀도가 높게 나오고, 어휘 개념은 덜 겹쳐 낮게 나온다. 예를 들어 r=2.33·재현율 100%에서 형제 40.0%, 기본 35.9%, 어휘 30.5%다. 그래서 세 방식으로 모두 돌렸다.\n\n- **기존 비율**: 기존 격자와 같은 r=2.33(~36% 수준)과 r=1(~55% 수준)\n- **정밀도 맞춤**: 같은 재현율에서 기본 혼합과 실현 정밀도가 같아지는 비율(`matched_ratios.json`, `scripts/match_ratio.py`)\n- **20%**: 재현율 30%·15%에서 세 구성 모두 실현 정밀도를 20%로 맞춘 비율(`ratios_p20.json`). 아래 \"기준점\" 절의 HPOA 일치 하한 근처다.\n\n## 점별 Top-1/Top-10 (%, 괄호는 실현 간선 정밀도)\n\n정밀도 100% 열은 오류를 넣지 않은 점이라 세 구성이 같다. 재현율 100%는 `temporal/hpoa_v2024-12-12.json`, 30%·15%는 `noise/k*_r0_s0.json`이다.\n\n### 기본 혼합(형제 70%·어휘 30%)\n\n| 남긴 참 간선(재현율) | 정밀도 100% | ~55% (r1) | ~36% (r2.33) | 20% |\n|---|---|---|---|---|\n| 100% | 36.3/56.0 | 32.6/53.5 (55.3%) | 26.8/49.5 (35.9%) | — |\n| 30% | 13.3/27.9 | 11.7/27.5 (52.5%) | 10.8/26.4 (33.3%) | 8.8/24.8 (20.0%) |\n| 15% | 6.2/17.3 | 5.7/16.9 (51.8%) | 5.1/15.5 (32.6%) | 5.0/15.9 (20.0%) |\n\n### 형제 질환 소견 100%\n\n| 남긴 참 간선(재현율) | 정밀도 100% | ~55% (r1) | ~55% (맞춤) | ~36% (r2.33) | ~36% (맞춤) | 20% |\n|---|---|---|---|---|---|---|\n| 100% | 36.3/56.0 | 30.8/51.5 (58.5%) | 30.2/51.4 (55.4%) | 26.2/47.9 (40.0%) | 23.6/46.0 (35.9%) | — |\n| 30% | 13.3/27.9 | 11.8/28.6 (54.2%) | 11.7/27.0 (52.4%) | 10.2/27.8 (35.7%) | 10.5/26.1 (33.3%) | 7.4/24.3 (20.0%) |\n| 15% | 6.2/17.3 | 5.5/17.0 (53.2%) | 6.3/17.3 (51.8%) | 5.3/16.9 (34.6%) | 5.2/16.1 (32.6%) | 5.1/16.4 (20.0%) |\n\n### IE 어휘 비소견 개념 100%\n\n| 남긴 참 간선(재현율) | 정밀도 100% | ~55% (r1) | ~55% (맞춤) | ~36% (r2.33) | ~36% (맞춤) | 20% |\n|---|---|---|---|---|---|---|\n| 100% | 36.3/56.0 | 34.6/54.5 (50.3%) | 34.9/54.7 (55.3%) | 33.2/53.5 (30.5%) | 34.2/54.3 (35.9%) | — |\n| 30% | 13.3/27.9 | 12.6/27.3 (50.1%) | 12.6/27.2 (52.5%) | 11.6/25.8 (30.2%) | 12.1/25.8 (33.2%) | 11.5/24.7 (20.0%) |\n| 15% | 6.2/17.3 | 6.2/16.8 (50.0%) | 6.1/16.8 (51.9%) | 5.8/16.5 (30.1%) | 5.8/15.8 (32.5%) | 5.2/14.7 (20.0%) |\n\n## 재현율 효과와 정밀도 효과 (%p, 같은 10,603증례 대응 비교, 부트스트랩 95% CI)\n\n- **재현율 효과**: 같은 정밀도 수준에서 남긴 참 간선을 15%에서 30%로 늘렸을 때의 변화\n- **정밀도 효과**: 같은 재현율에서 해당 수준을 100%로 올렸을 때의 변화. 문헌 그래프의 운용점은 재현율 15%이고, 재현율 100% 값은 참고용이다.\n\n| 구성 | 정밀도 수준(재현율 15%/30% 실현값) | 재현율 효과 Top-1 / Top-10 | 정밀도 효과·재현율 15% Top-1 / Top-10 | 정밀도 효과·재현율 100% Top-1 / Top-10 |\n|---|---|---|---|---|\n| 기본 | ~36% r2.33 (32.6/33.3) | +5.7 [5.1, 6.3] / +10.9 [10.2, 11.7] | +1.1 [0.7, 1.6] / +1.8 [1.3, 2.4] | +9.5 [8.9, 10.2] / +6.5 [5.9, 7.1] |\n| 형제 | ~36% r2.33 (34.6/35.7) | +4.9 [4.3, 5.5] / +10.8 [10.1, 11.6] | +1.0 [0.5, 1.4] / +0.4 [−0.1, 1.0] | +10.1 [9.4, 10.8] / +8.1 [7.5, 8.7] |\n| 형제 | ~36% 맞춤 (32.6/33.3) | +5.3 [4.7, 5.9] / +10.0 [9.2, 10.7] | +1.0 [0.6, 1.5] / +1.2 [0.6, 1.8] | +12.7 [12.0, 13.4] / +10.1 [9.5, 10.8] |\n| 어휘 | ~36% r2.33 (30.1/30.2) | +5.9 [5.3, 6.4] / +9.3 [8.6, 10.0] | +0.5 [0.2, 0.7] / +0.9 [0.5, 1.3] | +3.1 [2.7, 3.5] / +2.6 [2.2, 3.0] |\n| 어휘 | ~36% 맞춤 (32.5/33.2) | +6.3 [5.7, 6.9] / +10.0 [9.3, 10.7] | +0.5 [0.2, 0.7] / +1.6 [1.2, 1.9] | +2.1 [1.7, 2.5] / +1.7 [1.3, 2.1] |\n| 기본 | 20% | +3.8 [3.3, 4.3] / +8.9 [8.2, 9.6] | +1.2 [0.8, 1.7] / +1.5 [0.8, 2.1] | — |\n| 형제 | 20% | +2.3 [1.8, 2.8] / +8.0 [7.2, 8.7] | +1.2 [0.7, 1.7] / +1.0 [0.3, 1.6] | — |\n| 어휘 | 20% | +6.3 [5.8, 6.9] / +10.0 [9.3, 10.7] | +1.1 [0.8, 1.4] / +2.7 [2.2, 3.1] | — |\n| 기본 | ~55% r1 (51.8/52.5) | +6.0 [5.4, 6.6] / +10.6 [9.8, 11.3] | +0.5 [0.2, 0.9] / +0.5 [−0.0, 0.9] | +3.7 [3.2, 4.3] / +2.6 [2.1, 3.0] |\n| 형제 | ~55% r1 (53.2/54.2) | +6.3 [5.7, 6.9] / +11.6 [10.9, 12.4] | +0.7 [0.4, 1.1] / +0.4 [−0.1, 0.8] | +5.5 [5.0, 6.1] / +4.6 [4.1, 5.1] |\n| 형제 | ~55% 맞춤 (51.8/52.4) | +5.4 [4.8, 6.0] / +9.7 [8.9, 10.4] | −0.1 [−0.5, 0.3] / +0.1 [−0.5, 0.5] | +6.1 [5.5, 6.6] / +4.6 [4.1, 5.1] |\n| 어휘 | ~55% r1 (50.0/50.1) | +6.4 [5.8, 7.0] / +10.5 [9.8, 11.2] | +0.0 [−0.2, 0.2] / +0.6 [0.3, 0.9] | +1.7 [1.3, 2.1] / +1.6 [1.2, 1.9] |\n| 어휘 | ~55% 맞춤 (51.9/52.5) | +6.6 [6.0, 7.2] / +10.4 [9.8, 11.2] | +0.2 [−0.0, 0.4] / +0.6 [0.3, 0.8] | +1.4 [1.1, 1.7] / +1.4 [1.1, 1.7] |\n\n## 판정\n\n**\"재현율이 더 큰 지렛대\"는 모든 조건에서 유지된다.** 세 구성, 정밀도 20%·~36%·~55% 수준, 기존 비율과 정밀도 맞춤을 모두 포함한다.\n\n- **운용점(재현율 15%) 비교**: 재현율을 15%에서 30%로 늘리면 Top-10 +8.0~+11.6%p, Top-1 +2.3~+6.6%p다. 정밀도를 100%로 올리면 Top-10 +0.1~+2.7%p, Top-1 −0.1~+1.2%p다.\n- **CI 기준**: 모든 행에서 재현율 효과의 CI 하한이 정밀도 효과의 CI 상한보다 크다. 가장 좁은 경우는 형제 100%·정밀도 20%의 Top-1이다(재현율 [1.8, 2.8] 대 정밀도 [0.7, 1.7]).\n\n**배수는 구성과 수준에 따라 달라진다.** §9.26의 \"약 6배\"(Top-10)는 기본 혼합의 값이다. 정밀도를 맞춘 ~36%에서는 6~8배이고, 가장 작은 경우는 어휘 100%·정밀도 20%의 3.7배(10.0 대 2.7)다. 논문에는 \"6배\" 대신 범위로 쓴다. 예: \"운용점에서 재현율을 두 배로 늘린 효과가 정밀도를 완벽히 고친 효과의 3.7배 이상\".\n\n**구성이 크게 작용하는 곳은 재현율 100%다.**\n\n- 실현 정밀도를 35.9%로 맞추면 Top-10 손실이 형제 100%에서 −10.1, 기본에서 −6.5, 어휘 100%에서 −1.7이다. 같은 정밀도라도 형제형 오류가 어휘형보다 약 6배 해롭다.\n- 따라서 §9.26의 \"오류를 넣어도 Top-10은 상대 12%만 떨어진다\"는 기본 혼합에서만 성립한다. 구성에 따라 상대 3~18%이므로, 구성 가정 없이 인용할 수 없고 쓴다면 범위로 써야 한다.\n- 재현율 15%에서는 어느 구성이든 정밀도 손실이 2.7%p 이하다. 운용점의 결론은 구성과 무관하다.\n\n**정밀도와 점수가 꼭 단조롭지는 않다.** 형제 100%·재현율 30%·~55%(r1)의 Top-10 28.6은 오류 없는 27.9보다 높다. 형제 소견 일부가 HPOA에 빠진 실제 소견이거나 계층 평활 역할을 할 가능성이 있다. 다만 1.5%p 안쪽 차이는 아래의 실현 변동 범위 안이다.\n\n## 재현성과 변동\n\n- **재현율 30%·15%**: 기본 혼합 점(`k0.3_r2.33_s0`, `k0.15_r2.33_s0`)은 다시 돌려도 증례별 순위까지 똑같다.\n- **재현율 100% 기존 점**: `add_noise`가 해시 순서 집합(`pairs_hpoa`)을 그대로 순회하던 코드로 만들어졌다. 그래서 프로세스마다 다른 틀린 간선이 뽑혔다. 입력을 정렬한 코드로 다시 돌린 값은 다음과 같다(`effects.json`의 `realization`).\n\n  | 비율 | 기존 Top-1/Top-10 | 재실행 Top-1/Top-10 |\n  |---|---|---|\n  | r2.33 | 28.3/49.5 | 26.8/49.5 |\n  | r1 | 32.0/52.7 | 32.6/53.5 |\n\n- **실현 변동**: 같은 시드에서도 오류 실현에 따라 Top-1이 최대 약 1.5%p, Top-10이 약 0.8%p 움직인다. 위 CI는 증례 표집만 반영하고 이 변동은 반영하지 않는다(시드 1개).\n- 이번 표의 재현율 100% 값은 모두 정렬한 코드로 새로 만들었다. §9.26 표의 재현율 100% 값과 섞지 않는다.\n\n## 감사 없이 시뮬레이션을 고정하는 것\n\n**재현율 축**은 사람 판정 없이 잰 값과 맞는다.\n\n- S-D(gemma v2.1) 그래프의 HPOA 쌍 재현율은 10.9%다(`v2/curated_agreement_gemma_v21.json`, `curated_recall_exact`).\n- §9.27 단계 분해의 \"간선 있음\"은 14.1%(환자 소견 가중)다.\n- 둘 다 HPOA 기준이다. 남긴 참 간선 15%는 이 범위와 맞는다.\n\n**정밀도 축은 측정값이 없다.** ~36%는 철회한 감사 수준에서 온 가정이다.\n\n- 사람 판정 없이 아는 것은 HPOA 일치의 하한뿐이다. S-D 그래프는 정확 일치 18.2%(부모 포함 22.1%)이고, 무작위 재배정은 2.8%(3.7%)다.\n- 대상은 HPOA 주석이 있는 질환(주로 희귀질환)의 간선 168,587개뿐이다.\n- 즉 알 수 있는 것은 \"그 간선들의 정밀도가 대략 18~22% 이상\"이라는 것까지다. 이번 실행은 20%, ~33~36%, ~52~55%, 100%를 모두 돌려 그 범위 안에서 결론이 유지됨을 보인다.\n\n**Top-10 일치(15.5 대 16.7)는 일관성 확인이지 정밀도 측정이 아니다.** 재현율 15%·정밀도 ~36% 점(기본 혼합, 실현 정밀도 32.6%)의 Top-10은 15.5다. 같은 10,603증례에서 gemma 문헌 그래프(`temporal/lit_full.json`, Top-1/Top-10 7.4/16.7)는 16.7이다. 이 일치를 정밀도의 근거로 읽으면 안 되는 이유는 셋이다.\n\n1. **재현율 15%에서 Top-10은 정밀도에 거의 반응하지 않는다.** 모든 구성과 정밀도 20~100%에서 14.7~17.3이고, 오류가 없는 점(17.3)이 오히려 16.7에 더 가깝다. 그러니 이 일치로 정밀도를 거꾸로 추정할 수 없다. 말할 수 있는 것은 \"문헌 그래프의 Top-10은 재현율 15% 수준 HPOA 그래프와 같은 범위\"까지다. §9.26의 \"문헌 그래프 ≈ HPOA 재현율 15% + 오류 64%\" 중 \"오류 64%\"는 이 일치로 뒷받침되지 않는다.\n2. **Top-1은 맞지 않는다.** 재현율 15% 시뮬레이션은 5.0~6.3이고 문헌 그래프는 7.4다.\n3. **비교 조건이 다르다.**\n   - 랭커 설정: 동결 HPOA 1-홉은 α 0.2·감쇠 0.5·β 0·주제 밖 가중 1, gemma 1-홉은 α 0.35·감쇠 0.3·β 0.5·주제 밖 가중 0이다.\n   - 개념 어휘가 다르다.\n   - 지식 시점: HPOA 2024-12-12 대 문헌 2026-10-01이다. 시점을 맞춘 `temporal/lit_2024.json`은 6.6/15.2다.\n\n## 바뀐 코드 (기본값은 그대로)\n\n- **`pilot/scripts/build_reference_graph.py`**\n  - `--sib-share`(기본 0.7)를 더했다.\n  - `add_noise`가 입력 간선을 정렬해 순회한다. 재현율 30%·15% 기존 산출과 간선 수·순위가 같다.\n  - 요약 JSON에 `true_edges`를 기록한다.\n  - docstring에서 감사 인용을 뺐다.\n- **`pilot/scripts/run_noise_sensitivity.sh`**: `SIB`·`O` 환경변수를 받는다(기본 0.7, `pilot/cache/v2/noise`). 주석의 \"audited precision levels\"를 뺐다.\n- **`pilot/scripts/noise_analysis.py`**: `--runs` glob을 받고, 기본값은 기존 경로라 `noise/analysis.json`이 바이트 단위로 같게 재생성된다. 요약에 `true_edges`가 있으면 실현 정밀도를 함께 기록한다.\n- **이 폴더의 `scripts/`**\n  - `match_ratio.py`: 비율 탐색. Neo4j가 필요 없다.\n  - `composition_effects.py`: 효과와 CI 집계\n  - `run_grid.sh`: 전체 격자 실행. 끝난 점은 건너뛴다.\n",
+  "findings": [
+   "완료 범위: 구성 대안 2개(형제 100%, 어휘 100%)와 기본 0.7 재실행을 돌렸다. 정밀도 수준은 ~36%(r2.33)·~55%(r1), 재현율은 1.0/0.30/0.15, 시드 0, HPOA v2024-12-12다. 같은 비율에서 구성마다 실현 정밀도가 달라(r2.33·재현율 100%: 형제 40.0%, 어휘 30.5%) 기본 혼합과 정밀도를 맞춘 비율로도 돌렸다. 추가로 HPOA 일치 하한 근처인 정밀도 20%를 재현율 0.3/0.15에서 돌렸다. Neo4j는 7688만 썼다(기존 1,450만 간선 그래프는 지워졌다). 7687·7689는 건드리지 않았다.",
+   "판정: '재현율이 더 큰 지렛대'는 모든 구성·수준에서 유지된다. 운용점(재현율 15%)에서 재현율 15→30%는 Top-10 +8.0~+11.6%p, Top-1 +2.3~+6.6%p다. 정밀도를 100%로 올리면 Top-10 +0.1~+2.7%p, Top-1 −0.1~+1.2%p다. 모든 행에서 재현율 효과 CI 하한이 정밀도 효과 CI 상한보다 크다. 다만 배수는 '약 6배'로 고정되지 않는다. 정밀도를 맞춘 ~36%에서 6~8배, 최소는 어휘 100%·20%의 3.7배라 논문에는 범위로 써야 한다.",
+   "구성 의존성: 재현율 100%에서는 구성이 지배한다. 정밀도 35.9%로 맞추면 Top-10 손실이 형제 −10.1, 기본 −6.5, 어휘 −1.7이다. §9.26의 'Top-10 상대 12%만 하락'은 기본 혼합에만 해당하고 구성에 따라 상대 3~18%다. 재현율 15%에서는 어느 구성이든 정밀도 손실이 2.7%p 이하다.",
+   "기준점: Top-10 일치(15.5 대 lit_full 16.7)는 일관성 확인일 뿐 정밀도 측정이 아니다. 재현율 15%에서 Top-10은 정밀도 20~100% 전체에서 14.7~17.3이고, 오류 없는 점(17.3)이 오히려 더 가깝다. Top-1도 맞지 않는다(5.0~6.3 대 7.4). 랭커 설정·어휘·시점도 다르다(시점을 맞춘 lit_2024는 15.2). 따라서 §9.26의 '오류 64%'는 뒷받침되지 않는다. 재현율 15%는 HPOA 기준 재현율 10.9%(S-D curated_recall_exact)와 §9.27의 14.1%로 지지된다. 정밀도는 HPOA 일치 하한 18.2%(부모 포함 22.1%)만 있다.",
+   "재현성 문제를 발견해 고쳤다: add_noise가 pairs_hpoa의 집합 순서(PYTHONHASHSEED 의존)를 그대로 순회해, 기존 재현율 100% noise 점은 같은 시드로도 재현되지 않았다. 지금은 입력을 정렬한다. 재현율 30%·15% 기존 점은 증례별 순위까지 똑같이 재현된다. 재현율 100% r2.33은 Top-1/Top-10 28.3/49.5에서 26.8/49.5로 바뀌었다. 따라서 같은 시드에서도 Top-1이 최대 약 1.5%p 움직이며, 부트스트랩 CI에는 이 변동이 들어 있지 않다.",
+   "코드 변경(ruff 0.17 기본 규칙 통과, 커밋 안 함): pilot/scripts/build_reference_graph.py에 --sib-share(기본 0.7)를 더했고, 정렬 순회, 요약 true_edges, docstring의 감사 인용 제거, with-open과 불필요 noqa 정리를 했다. pilot/scripts/run_noise_sensitivity.sh는 SIB·O 환경변수를 받고 'audited' 문구를 뺐다. pilot/scripts/noise_analysis.py는 --runs와 실현 정밀도를 받으며, 기본 실행 시 noise/analysis.json과 바이트 동일함을 확인했다.",
+   "산출물: /home/max/thesis/pilot/cache/v2/noise/composition/ 아래에 sib1/, sib0/, sib0.7/(각 점의 .json·_summary.json·로그), effects.json, analysis.json, matched_ratios.json, ratios_p20.json, run*.log가 있다. scripts/에는 match_ratio.py, composition_effects.py, run_grid.sh가 있다.",
+   "주의: summary.md는 쓰지 못했다. 하네스가 서브에이전트의 .md 보고서 작성을 막았다. 같은 내용을 summary_md 필드에 담았으니 부모가 /home/max/thesis/pilot/cache/v2/noise/composition/summary.md로 저장해야 한다.",
+   "docs/research_design.md에는 다른 작업이 만든 수정이 미커밋 상태로 있다(§9.17/§9.25/§9.26 정정). 이번 작업은 문서를 건드리지 않았다. §9.26 본문의 '약 6배', '상대 12%', '오류 64%' 문구는 위 결과에 맞게 고쳐야 한다."
+  ]
+ },
+ "revisions": [
+  {
+   "id": "ABS-CON",
+   "changes": [
+    {
+     "source": "draft/paper_ko_v3/sections/ABS-CON.md, 초록 (추출 설명)",
+     "before": "소비자용 GPU 1장(RTX 4090, 24 GB)에서 구동한 gemma-4-E4B-it가 원문에서 소견 구절을 골랐다. LLM 입력에서",
+     "after": "소비자용 GPU 1장(RTX 4090, 24 GB)에서 구동한 gemma-4-E4B-it가 원문에서 소견 구절을 골랐다. 모델이 낸 구절 가운데 원문에서 위치를 찾지 못한 것은 버렸다. LLM 입력에서"
+    },
+    {
+     "source": "draft/paper_ko_v3/sections/ABS-CON.md, 초록 (출처 불변식 뒤 간선 정확도 문장; HPOA 수치는 pilot/cache/v3/review/curated_agreement_smix.json)",
+     "before": "간선 출처를 사람이 감사한 것은 이전 단계의 Qwen3 추출 그래프(v2.1)뿐이다. 주 시스템인 혼합 추출 그래프의 간선 정확도는 감사하지 않았다.",
+     "after": "간선의 정확도는 어느 그래프에서도 사람의 판정으로 검증하지 않았다. 정확도에 대해서는 HPO 주석(HPOA)과의 개념 정확 일치로 잰 하한만 있다. 혼합 추출 그래프에서 HPOA 주석이 있는 질환의 간선 856,023개 가운데 12.6%가 HPOA와 개념이 정확히 일치했다(질환을 무작위로 순열한 대응 2.5%). 일치율은 지지 문서가 1편인 간선 7.4%에서 5편 이상인 간선 41.7%로 올랐으나, 지지 문서 수의 모든 구간에서 수집 상한이 낮은 이전 단계의 LLM 추출 그래프 두 개보다 낮았다. HPOA는 주로 희귀질환을 주석하므로 이 하한은 그 질환들의 간선에만 해당한다."
+    },
+    {
+     "source": "draft/paper_ko_v3/sections/ABS-CON.md, 초록 (재현율 분해 문장; HPOA 약어를 앞 문장에서 정의했으므로 축약)",
+     "before": "Phenopacket-store 증례 소견 가운데 HPO 주석(HPOA)이 정답 질환에 붙인 것으로 측정했다",
+     "after": "Phenopacket-store 증례 소견 가운데 HPOA가 정답 질환에 붙인 것으로 측정했다"
+    },
+    {
+     "source": "draft/paper_ko_v3/sections/ABS-CON.md, 6. 결론 마지막 문단 (HPOA 수치: curated_agreement_smix.json, curated_agreement_gemma_v21.json, curated_agreement_sdict.json; 남은 과제는 5.2절의 정식 간선 주석과 맞춤)",
+     "before": "간선 출처 감사는 이전 단계의 Qwen3 추출 그래프(v2.1)에서만 수행했다. 주 시스템인 혼합 추출 그래프의 간선 정확도는 감사하지 않았다. 남은 과제는 5.2절에 적었다. 문헌에 소견 이름이 문자열로 나오지 않는 경우의 내역을 재고 문헌이 없는 질환을 수집하는 일, 근거 확인을 유지하면서 연결 손실을 줄이는 일, 혼합 추출 그래프의 출처 감사와 희귀질환 확증 세트, LLM의 구절 선택을 비용이 낮은 선택 방법과 비교하는 일이 그것이다.",
+     "after": "근거 경로를 추적할 수 있다는 것이 간선이 정확하다는 뜻은 아니다. 간선의 정확도는 어느 그래프에서도 사람의 판정으로 검증하지 않았고, 정확도에 대해 아는 것은 HPOA와의 개념 정확 일치로 잰 하한뿐이다. 혼합 추출 그래프에서 이 일치율은 12.6%(질환을 무작위로 순열한 대응 2.5%)였다. 일치율은 지지 문서가 많을수록(1편 7.4%, 5편 이상 41.7%), 그리고 주제 문서가 있을수록(14.9% 대 주제 밖 문서뿐 7.1%) 높았다. 같은 측정에서 설계 D 그래프는 18.2%, 사전 단독 그래프는 7.8%였다. 혼합 추출 그래프는 지지 문서 수의 모든 구간에서 설계 D 그래프보다 낮았다. 두 그래프는 문헌, 추출 모델과 방식, 빌더 규칙, 간선 수가 함께 달라 이 차이의 원인은 분리하지 않았다. HPOA는 주로 희귀질환을 주석하므로, 이 하한은 HPOA 주석이 있는 질환의 간선에만 해당한다. 남은 과제는 5.2절에 적었다. 문헌에 소견 이름이 문자열로 나오지 않는 경우의 내역을 재고 문헌이 없는 질환을 수집하는 일, 근거 확인을 유지하면서 연결 손실을 줄이는 일, 고정한 지침에 따라 배경을 밝힌 독립 판정자 두 명 이상이 간선을 판정하고 판정자 간 일치도를 보고하는 일, 희귀질환 확증 세트를 만드는 일, LLM의 구절 선택을 비용이 낮은 선택 방법과 비교하는 일이 그것이다."
+    },
+    {
+     "source": "draft/paper_ko_v3/sections/ABS-CON.md, 작성 메모 7 (본문 아님; 사람 감사 표본 설명을 HPOA 수치 출처로 교체)",
+     "before": "7) 사람이 감사한 그래프는 v2.1로 쓴다. 감사 표본(provenance_audit_v21_blind.csv, 커밋 519fd4e)은 주제 표시·문장 재절단을 더한 v2.1c 커밋(d574c5e)보다 먼저 깨끗한 v2.1 그래프에서 뽑았다(§9.17, §9.25).",
+     "after": "7) 간선 정확도에 관한 수치는 HPOA 일치(pilot/scripts/curated_agreement.py, phenotype.hpoa 2026-02-16)만 쓴다. 혼합 추출(S-mix): pilot/cache/v3/review/curated_agreement_smix.json — comparable_edges 856,023, agree_exact 12.65, null_exact_mean 2.48, by_n_docs 7.38/15.22/24.94/41.72, by_topic 14.88/7.07. 설계 D(S-D, gemma v2.1) 그래프: pilot/cache/v2/curated_agreement_gemma_v21.json — 18.22, null 2.76, by_n_docs 14.95/34.01/48.75/62.82. 사전 단독(S-dict): curated_agreement_sdict.json — 7.76, null 1.92. Qwen3 v2.1: pilot/cache/v2/curated_agreement_qwen3_v21.json — 16.40, by_n_docs 13.27/31.72/46.34/63.22. 초록의 '수집 상한이 낮은 이전 단계의 LLM 추출 그래프 두 개'는 Qwen3 v2.1과 S-D이며, S-mix는 네 구간(1, 2, 3–4, 5편 이상) 모두 두 그래프보다 낮다. HPOA에 없는 간선도 맞을 수 있으므로 일치율은 정밀도의 하한이고, 대상은 HPOA 주석이 있는 질환(주로 희귀질환)의 간선뿐이다. 초록의 '원문에서 위치를 찾지 못한 구절은 버렸다'는 MET-A 3.3의 원문 위치 확인이다(v2 모델 출력 560만 개 중 533만 개, v3 1,323만 개 중 1,232만 개 유지)."
+    }
+   ]
+  },
+  {
+   "id": "INT",
+   "changes": [
+    {
+     "before": "- **RQ5.** 간선 단위 출처 정보(주제 문서 여부, 지지 문서 수)는 근거 품질을 가리는 신호가 되는가? 의료진 판정은 이전 시스템(Qwen3-4B-Instruct-2507 추출, v2 문헌, 그래프 v2.1)의 그래프에서 측정했다. HPO 주석 일치율은 그 그래프와 S-D 그래프에서, 설계 E 확증 실행 뒤에는 S-mix·S-dict 그래프에서도 측정했다. 이 질문에는 두 측정의 결과로 답한다.",
+     "after": "- **RQ5.** 간선 단위 출처 정보(주제 문서 여부, 지지 문서 수)는 간선이 맞을 가능성을 가리는 신호가 되는가? 이 질문에는 간선 정확도의 하한인 HPO 주석 일치율로 답한다. 일치율은 S-D 그래프에서 측정했고, 설계 E 확증 실행 뒤에는 S-mix·S-dict 그래프에서도 측정했다.",
+     "source": "User decision 2026-10-20 (no human-judgment result in the paper; the old audit must not be presented as a clinician audit); reviewer-free evidence: pilot/cache/v2/curated_agreement_gemma_v21.json, pilot/cache/v3/review/curated_agreement_{smix,sdict}.json"
+    },
+    {
+     "before": "HPO 주석 그래프에 오류와 누락을 넣은 시뮬레이션도 했다(Phenopacket 10,603증례, 단일 실행). 출발점은 재현율 15%, 정밀도 32.6%(틀린 간선을 남긴 참 간선 1개당 2.33개 넣은 조건)다. 이 지점의 Top-10은 15.5%로, 같은 증례에서 S-D 그래프의 Top-10(16.7%)과 비슷하다. 재현율을 15%에서 30%로 2배로 늘린 효과(Top-10 +10.9%p)는 정밀도를 32.6%에서 100%로 올린 효과(+1.8%p)의 약 6배였다(4.3절).",
+     "after": "HPO 주석 그래프에 오류와 누락을 넣은 시뮬레이션도 했다(Phenopacket 10,603증례, 시드 0). 운용점은 참 간선의 15%만 남긴 지점이다. 이 값은 HPO 주석 기준으로 잰 S-D 그래프의 재현율(큐레이터 주석 쌍의 10.9%, 위 분해에서 주제 간선이 된 소견 14.1%)에 맞춘 것이다. 간선 정밀도는 측정값이 없으므로 운용점의 실현 정밀도를 20%, 30~35%, 50~53%로 바꾸어 가며 돌렸다. 틀린 간선의 구성도 가정이므로 형제 질환의 소견, IE 어휘에서 뽑은 개념, 둘의 7:3 혼합을 모두 돌렸다. 운용점에서 재현율을 15%에서 30%로 늘린 효과는 Top-10 +8.0~+11.6%p, Top-1 +2.3~+6.6%p였다. 정밀도를 100%로 올린 효과는 Top-10 +0.1~+2.7%p, Top-1 −0.1~+1.2%p였다. 같은 구성과 정밀도 수준끼리 비교하면 모든 조건에서 재현율 효과가 컸고, Top-10에서는 3.7배 이상이었다. 운용점의 Top-10(14.7~17.3%)은 같은 증례에서 S-D 그래프의 Top-10(16.7%)과 같은 범위였다. 이 일치는 일관성 확인이며 정밀도의 추정치가 아니다(4.3절).",
+     "source": "Simulation robustness result (pilot/cache/v2/noise/composition/effects.json; composition sib 1.0 / 0 / 0.7, precision ~20%/~36%/~55% plus matched ratios; recall anchor = S-D curated_recall_exact 10.9% in pilot/cache/v2/curated_agreement_gemma_v21.json and the 14.1% stage-decomposition value). Contribution 3 in INT.md; error composition now an assumption, the 15.5-vs-16.7 anchor now a consistency match, and the '약 6배' replaced by the range (≥3.7x on Top-10)."
+    },
+    {
+     "before": "8. 간선 단위 출처 정보와 근거 지지율의 관계를 측정한다. 의료진 판정은 이전 시스템(Qwen3-4B-Instruct-2507 추출, v2 문헌, 그래프 v2.1)의 그래프에서 했다. 의료진이 간선 200개를 판정한 결과, 주제 문서 간선의 지지율은 38.3%, 주제 밖 간선은 11.9%였다. HPO 주석과의 일치율은 지지 문서가 1편인 간선보다 5편 이상인 간선에서 높았다. 이전 시스템의 그래프에서는 13.3%에서 63.2%로, S-D 그래프에서는 15.0%에서 62.8%로 높아졌다. S-mix와 S-dict 그래프의 HPO 주석 일치율은 설계 E 확증 실행 뒤에 측정했다(4.4.7절, 4.7절).",
+     "after": "8. 간선 단위 출처 정보와 HPO 주석 일치율의 관계를 측정한다. HPO 주석 일치율은 간선 가운데 큐레이터 주석과 개념이 같은 간선의 비율이다. 큐레이터 주석이 있는 질환(주로 희귀질환)의 간선에서만 잴 수 있고, 큐레이션에 없는 간선도 맞을 수 있으므로 간선 정확도의 하한이다. S-mix 그래프의 정확 일치율은 12.6%(비교 가능 간선 856,023개)로, 질환을 무작위로 순열한 대응(2.5%)보다 높았다. S-mix의 일치율은 지지 문서가 1편인 간선의 7.4%에서 5편 이상인 간선의 41.7%로 높아졌다. 주제 문서가 1편 이상인 간선은 14.9%, 주제 밖 문서뿐인 간선은 7.1%였다. 같은 문헌의 S-dict 그래프도 같은 방향이었다(지지 문서 1편 4.4%, 5편 이상 24.6%; 주제 문서 10.6%, 주제 밖 문서뿐 3.6%). S-D 그래프의 일치율도 지지 문서 1편 15.0%에서 5편 이상 62.8%로 높아졌다. S-mix와 S-dict에 함께 있는 간선의 일치율은 13.0%, S-mix에만 있는 간선은 7.25%, S-dict에만 있는 간선은 2.31%였다. S-mix·S-dict의 일치율은 설계 E 확증 실행 뒤에 측정했다(4.4.7절, 4.7절).",
+     "source": "User decision 2026-10-20 (removes the 200-edge judgment, 38.3% vs 11.9%, and the clinician wording); numbers from pilot/cache/v3/review/curated_agreement_smix.json (agree_exact, by_n_docs, by_topic, by_other_graph), curated_agreement_sdict.json (by_n_docs, by_topic, by_other_graph) and pilot/cache/v2/curated_agreement_gemma_v21.json (by_n_docs). The old Qwen3 v2.1 graph is no longer named in the introduction; cross-references 4.4.7 and 4.7 are unchanged and no table numbers are referenced in INT.md."
+    }
+   ]
+  },
+  {
+   "id": "REL",
+   "changes": [
+    {
+     "source": "draft/paper_ko_v3/sections/REL.md §2.4, paragraph 2 (LLM IE hallucination), last two sentences",
+     "before": "다만 원문에 있는 구절이라도 그 문장이 해당 질환의 소견을 서술한다는 보장은 없다. 근거 문장의 지지 여부는 Qwen3로 추출한 v2.1 그래프의 간선 200개에서만 감사했다(4.7). 주 시스템(S-mix) 그래프의 근거 감사는 하지 않았다.",
+     "after": "다만 원문에 있는 구절이라도 그 문장이 해당 질환의 소견을 서술한다는 보장은 없다. 본 연구는 간선의 정확성을 HPO 주석과의 일치로만 잰다(4.7). 이 일치율은 정밀도의 하한이고, HPO 주석이 있는 질환(주로 희귀질환)의 간선에만 해당한다."
+    }
+   ]
+  },
+  {
+   "id": "MET-A",
+   "changes": [
+    {
+     "before": "MONDO의 '비인간 동물 질환'(MONDO:0005583) 하위 8,319개는 사람의 진단 대상이 아니므로 후보에서 뺐고, 후보 질환은 43,575개(UMLS 출처 35,590개, MONDO 7,985개)다. 이 제외 규칙은 구 시스템(Qwen3-4B IE, 그래프 v2.0)의 간선 표본 200개를 LLM 판정자 1인이 판정한 결과에서 정했다. 이 판정에서 비인간 질환 노드의 간선 39개 중 33개가 근거 문장에 지지되지 않았다. 독립 판정은 아니다. 노드 키는 ...",
+     "after": "MONDO의 '비인간 동물 질환'(MONDO:0005583) 하위 8,319개는 사람의 진단 대상이 아니므로 후보에서 뺐고, 후보 질환은 43,575개(UMLS 출처 35,590개, MONDO 7,985개)다. 노드 키는 ...",
+     "source": "Section 3.2 질환 목록 (MET-A.md line 35). Removed the unvalidated single-LLM-judge result on 200 edges of the Qwen3 v2.0 graph (the same judgment that produced supports 75 = 37.5%, docs/research_design.md §9.14), including the 33/39 non-human-node figure. The exclusion keeps its a priori reason (not human diagnostic targets). No reviewer-free replacement was needed."
+    },
+    {
+     "before": "전체 필드 검색은 다른 질환을 다루면서 질환명을 지나가듯 언급한 문서도 가져오기 때문이다. 이 규칙은 구 시스템의 출처 감사에서 관찰한 실패 유형(다른 질환을 다룬 문서)에서 도출했다. v3 그래프에서는 원인 유전자 기호가 제목에 있는 문서도 주제 문서로 인정한다. 단일 유전자 아형은 아형 이름 대신 원인 유전자 이름으로 보고되는 경우가 많기 때문이다. 주제 표시는 간선을 지우지 않고 채점의 가중에만 쓰인다(3.5절).",
+     "after": "전체 필드 검색은 다른 질환을 다루면서 질환명을 지나가듯 언급한 문서도 가져오기 때문이다. v3 그래프에서는 원인 유전자 기호가 제목에 있는 문서도 주제 문서로 인정한다. 단일 유전자 아형은 아형 이름 대신 원인 유전자 이름으로 보고되는 경우가 많기 때문이다. 주제 표시는 간선을 지우지 않고 채점의 가중에만 쓰인다(3.5절). 설계 E 확증 뒤 HPO 주석과 대조한 결과, 주제 문서가 1편 이상인 간선의 정확 일치율은 주제 밖 문서뿐인 간선보다 높았다(S-mix 14.9% 대 7.1%, S-dict 10.6% 대 3.6%; 4.7절). HPO 주석은 희귀질환 주석이고 불완전하므로, 이 일치율은 주석이 있는 질환의 간선에 대한 정확도의 하한이다.",
+     "source": "Section 3.2 문서 단위 규칙 (MET-A.md line 41). Removed the claim that the topic rule came from the old graph's provenance audit. The search-mechanism rationale stays, and the rule is now backed by the reviewer-free HPOA topic split from pilot/cache/v3/review/curated_agreement_smix.json (by_topic: topic doc >=1 agree_exact 14.88, off-topic docs only 7.07) and curated_agreement_sdict.json (10.60 vs 3.55). It is labelled as measured after the design E confirmation, so it is not presented as the rule's design basis, and it is framed as a lower bound that covers rare-disease annotation only. Neither qwen3_v21 nor gemma_v21 JSON has a topic split, so the old 19.3%/11.5% figures were not used. Other notes: MET-A has no noise-simulation description; that is in RES-A 4.3 / Table 8, whose caption still attributes the error mix to the old audit and needs the RES-A editor. MET-A references no removed table or section. Its only later-table reference, '부록 표 18', is an appendix table absent from the draft; it changes only if RES-B deletes Table 17 outright instead of keeping its HPOA columns. No limitation text and no mention of informal judgments were added."
+    }
+   ]
+  },
+  {
+   "id": "MET-B",
+   "changes": []
+  },
+  {
+   "id": "RES-A",
+   "changes": [
+    {
+     "before": "**랭커의 오류·재현율 민감도.** 문헌 그래프에는 간선별 정답이 없다. 그래서 깨끗한 HPO 주석 그래프(HPOA v2024-12-12)에 틀린 간선을 넣거나 참 간선을 빼고 순위를 냈다. 순위화에는 HPO 주석 그래프용으로 개발 세트에서 고른 동결 1-홉 설정(α 0.2, μ 2, 감쇠 0.5, unified_w 2)을 썼다(시드 0, 단일 실행). 틀린 간선의 구성은 구 Qwen3 v2.1 그래프의 출처 감사(4.7절)에서 본 오류를 따라, 70%를 형제 질환의 소견, 30%를 IE 어휘의 비소견 개념으로 했다. 틀린 간선은 남긴 참 간선 1개당 0.43개, 1개, 2.33개를 넣었다. 그 결과의 실제 정밀도(참 간선 수/전체 간선 수)는 73.7%, 55.3%, 35.9%였다(표 8 A). 간선 정밀도를 100%에서 35.9%로 낮추면 Top-10은 56.0%에서 49.5%로 낮아졌다(차이 −6.6%p [−7.2, −6.0]). 손실은 HPOA가 증례 논문을 이미 인용한 과거 증례에 몰렸다(84.0% → 75.1%). 미래 증례는 7.7%에서 7.1%로 거의 변하지 않았다. 참 간선을 남기는 비율(재현율)을 낮추면 Top-10은 더 크게 낮아졌다(정밀도 100%·재현율 15%에서 17.3%, 표 8 B). 재현율을 15%로 낮추고 틀린 간선을 같은 비율(참 간선 1개당 2.33개)로 넣으면 정밀도는 32.6%, Top-10은 15.5%였다. 같은 증례에서 S-D 그래프의 Top-10은 16.7%였다. 이 지점에서 재현율을 30%로 올리면(정밀도 33.3%) Top-10은 26.4%로 10.9%p 올랐다. 같은 지점에서 틀린 간선을 모두 빼면(정밀도 100%) Top-10은 17.3%로 1.8%p(상대 약 12%) 올랐다. 재현율 쪽 상승이 약 6배 컸다. 이 시뮬레이션의 오류 구성과 비율은 구 Qwen3 그래프의 감사에서 가져온 가정이다. S-D 그래프의 간선 정밀도는 감사하지 않았다.",
+     "after": "**랭커의 오류·재현율 민감도.** 문헌 그래프에는 간선별 정답이 없다. 그래서 깨끗한 HPO 주석 그래프(HPOA v2024-12-12)에서 참 간선을 빼거나 틀린 간선을 넣고 순위를 냈다. 순위화에는 HPO 주석 그래프용으로 개발 세트에서 고른 동결 1-홉 설정(α 0.2, μ 2, 감쇠 0.5, unified_w 2)을 썼다(시드 0, 점마다 단일 실행). 참 간선은 정한 비율(재현율)만큼 무작위로 남겼다. 틀린 간선은 남긴 참 간선 1개당 정한 수의 후보를 뽑아 넣었다. 후보의 구성은 측정한 값이 아니라 가정이다. 기본 혼합은 후보의 70%를 같은 부모를 둔 형제 질환의 소견(형제가 없으면 무작위 질환의 소견)에서, 30%를 v2 구절 표(3.3절)의 개념 가운데 빌더가 간선으로 받는 의미유형의 개념에서 무작위로 뽑는다. 이 가정에 대한 민감도를 보려고 형제 질환의 소견만 쓰는 구성(형제 구성)과 구절 표 개념만 쓰는 구성(어휘 구성)도 돌렸다. 이미 있는 간선과 겹치는 후보는 건너뛰므로, 같은 후보 비율에서도 실현 정밀도(참 간선 수/전체 간선 수)는 구성마다 다르다. 재현율 100%에서 참 간선 1개당 후보 2.33개를 넣으면 실현 정밀도는 형제 구성 40.0%, 기본 혼합 35.9%, 어휘 구성 30.5%였다. 그래서 두 순수 구성은 기본 혼합과 같은 후보 비율로도, 같은 재현율에서 기본 혼합과 실현 정밀도가 같아지는 비율로도 돌렸다. 재현율 30%와 15%에서는 세 구성 모두 실현 정밀도가 20%가 되는 비율로도 돌렸다.\n\n표 8 A·B는 기본 혼합의 결과다. 모든 참 간선을 남기고 간선 정밀도를 100%에서 55.3%, 35.9%로 낮추면 Top-10은 56.0%에서 53.5%, 49.5%로 낮아졌다(35.9%에서 차이 −6.5%p [−7.1, −5.9]). 손실은 HPOA가 증례 논문을 이미 인용한 과거 증례에 몰렸다(84.0% → 75.2%). 미래 증례는 7.7%에서 7.4%로 거의 변하지 않았다. 참 간선을 남기는 비율(재현율)을 낮추면 Top-10은 더 크게 낮아졌다(정밀도 100%·재현율 15%에서 17.3%). 재현율 15%에서 후보를 같은 비율(참 간선 1개당 2.33개)로 넣으면 정밀도는 32.6%, Top-10은 15.5%였다. 이 지점에서 재현율을 30%로 올리면(정밀도 33.3%) Top-10은 26.4%로 10.9%p [10.2, 11.7] 올랐다. 같은 지점에서 틀린 간선을 모두 빼면(정밀도 100%) Top-10은 17.3%로 1.8%p [1.3, 2.4] 올랐다. 같은 시드에서 질환별 소견의 순회 순서만 바꿔 틀린 간선을 다시 뽑으면, 재현율 100% 점의 Top-1은 최대 1.5%p, Top-10은 최대 0.8%p 달라졌다. 표 8의 CI는 증례 표집만 반영하고 이 실현 변동은 반영하지 않는다.\n\n틀린 간선의 구성을 바꿔도 재현율 15% 지점(아래에서 보듯 S-D 그래프의 재현율과 같은 범위, 이하 운용점)의 비교 방향은 바뀌지 않았다(표 8 C). 세 구성, 정밀도 20%·약 30–36%·약 50–54% 수준, 같은 후보 비율과 정밀도를 맞춘 비율을 합친 13개 조건에서, 재현율을 15%에서 30%로 늘린 효과는 Top-10 +8.0~+11.6%p, Top-1 +2.3~+6.6%p였다. 같은 재현율 15%에서 정밀도를 100%로 올린 효과는 Top-10 +0.1~+2.7%p, Top-1 −0.1~+1.2%p였다. 13개 조건 모두에서 재현율 효과의 CI 하한이 정밀도 효과의 CI 상한보다 컸다. 두 구간이 가장 가까운 조건은 형제 구성·정밀도 20%의 Top-1이었다([1.8, 2.8] 대 [0.7, 1.7]). Top-10에서 재현율 효과는 정밀도 효과의 3.7배 이상이었다. 기본 혼합(정밀도 32.6%)에서는 약 6배(10.9 대 1.8)였고, 가장 작은 비는 어휘 구성·정밀도 20%의 3.7배(10.0 대 2.7)였다. 재현율 100%에서는 구성에 따라 손실의 크기가 달랐다. 실현 정밀도를 35.9%로 맞추면 Top-10 손실은 형제 구성 10.1%p, 기본 혼합 6.5%p, 어휘 구성 1.7%p였다(오류가 없는 56.0% 대비 상대 18%, 12%, 3%). 운용점에서는 어느 구성에서도 정밀도로 인한 Top-10 손실이 2.7%p 이하였다.\n\n시뮬레이션의 두 축 가운데 재현율 쪽 운용점은 HPOA를 기준으로 잰 S-D 그래프의 재현율과 같은 범위에 있다. S-D 그래프는 HPOA(2026-02-16판) 주석 쌍 가운데 10.9%를 같은 개념의 간선으로 가졌다(비교 가능한 간선이 있는 8,132개 질환의 주석 쌍 281,825개 기준). 아래 단계 분해에서 정답 질환의 큐레이션 소견 가운데 간선으로 남은 비율은 14.1%였다(표 9A). 정밀도 쪽에는 측정값이 없다. S-D 그래프의 간선 정밀도에 대해 알 수 있는 것은 HPOA 일치율이라는 하한뿐이다. S-D 그래프에서 HPOA 주석 질환의 간선 가운데 개념이 HPO 용어에 대응되는 168,587개를 HPOA 주석과 대조하면 정확 일치율은 18.2%(HPO 부모 포함 22.1%)였다. 질환을 무작위로 바꾼 대응에서는 2.8%(3.7%)였다(4.7절). HPOA에 없는 간선도 맞을 수 있으므로 이 값은 그 간선들의 정밀도 하한이다. 또 이 값은 HPOA 주석이 있는 질환, 주로 희귀질환의 간선에만 해당한다. 표 8 C의 정밀도 수준은 이 하한 근처의 20%부터 100%까지를 포함한다.\n\n운용점의 기본 혼합·후보 2.33개 조건(정밀도 32.6%)에서 Top-10은 15.5%로, 같은 증례에서 S-D 그래프의 Top-10(16.7%)과 비슷했다. 이 일치는 일관성 확인이며 S-D 그래프의 정밀도를 재는 근거가 아니다. 운용점의 Top-10은 세 구성과 정밀도 20–100% 전체에서 14.7–17.3%로 정밀도에 거의 반응하지 않았다. 오류가 없는 점(17.3%)도 16.7%에 가까웠다. Top-1은 맞지 않았다(시뮬레이션 5.0–6.3% 대 S-D 그래프 7.4%). 두 순위화는 채점 설정(HPOA α 0.2·감쇠 0.5·β 0, S-D α 0.35·감쇠 0.3·β 0.5·offtopic_w 0)과 개념 어휘가 다르다. 지식 시점도 다르다(HPOA 2024-12-12판 대 시간 절단 없는 문헌). 2024년까지 출판된 문헌만으로 다시 집계한 S-D 그래프의 Top-1/Top-10은 6.6/15.2%였다. 따라서 이 비교로 말할 수 있는 것은 S-D 그래프의 Top-10이 재현율 15% 수준 HPOA 그래프와 같은 범위에 있다는 데까지다.",
+     "source": "RES-A.md 4.3 (line 129 → lines 129–137). Removed the old-audit provenance of the error mix ('구 Qwen3 v2.1 그래프의 출처 감사(4.7절)', '감사에서 가져온 가정', 'S-D 그래프의 간선 정밀도는 감사하지 않았다'); composition now stated as an assumption. Added composition robustness from pilot/cache/v2/noise/composition/effects.json and analysis.json (sib1/sib0/sib0.7; nominal, matched, p20). Replaced the 'about 6x' claim with the range (≥3.7x, default ~6x) and the relative-12% claim with the composition range (3–18%). Recall-100% default-mix values now come from the re-run with sorted iteration (old 28.3/49.5, 32.0/52.7 were not reproducible; re-run 26.8/49.5, 32.6/53.5); dropped the 0.43 point (no reproducible re-run). Reviewer-free anchors: S-D HPOA recall 10.9% and agreement 18.2% / 22.1% (random 2.8% / 3.7%, 168,587 edges, 8,132 diseases, 281,825 pairs) from pilot/cache/v2/curated_agreement_gemma_v21.json; 14.1% edge-present from Table 9A. 15.5 vs 16.7 match reframed as a consistency check; S-D Top-1 7.4 and lit_2024 6.6/15.2 recomputed from pilot/cache/v2/temporal/lit_full.json and lit_2024.json."
+    },
+    {
+     "before": "Table 8. Ranker sensitivity on the HPOA graph (v2024-12-12) with injected errors and removed true edges. HPOA 1-hop configuration re-selected on the development sets and frozen (α 0.2, μ 2, decay 0.5, unified_w 2); 10,603 phenopacket cases; seed 0, single run. Top-k in %. Differences are computed from unrounded values. The error mix (70% sibling-disease findings, 30% non-finding IE concepts) follows the provenance audit of the old Qwen3 v2.1 graph; the edge precision of the S-D graph was not audited.",
+     "after": "Table 8. Ranker sensitivity on the HPOA graph (v2024-12-12) with injected wrong edges and removed true edges. HPOA 1-hop configuration re-selected on the development sets and frozen (α 0.2, μ 2, decay 0.5, unified_w 2); 10,603 phenopacket cases; seed 0, one run per point. Top-k in %. The composition of wrong edges is an assumption, not a measurement: the default mix draws 70% of the candidates from the findings of a sibling disease (a random disease if there is none) and 30% from v2 phrase-table concepts of the semantic types the builder accepts; Panel C adds the two pure compositions. A candidate that is already an edge is skipped, so the realized precision (true edges / all edges) depends on the composition. Differences are computed from unrounded values. CIs are paired patient-bootstrap 95% intervals; they do not include the variation between wrong-edge realizations (at full recall, up to 1.5 pp in Top-1 and 0.8 pp in Top-10).",
+     "source": "RES-A.md Table 8 caption: removed the audit attribution of the error mix; composition stated as an assumption; realization variance from effects.json 'realization'."
+    },
+    {
+     "before": "Panel A. Edge precision (all true edges kept).\n\n| Wrong edges per true edge | ... |\n| 0 | 100% | 379,291 | 36.3 / 56.0 | 84.0 | 35.2 | 7.7 | — |\n| 0.43 | 73.7% | 514,758 | 35.1 / 55.0 | 82.5 | 34.5 | 7.6 | −1.0 [−1.3, −0.7] |\n| 1 | 55.3% | 685,924 | 32.0 / 52.7 | 80.6 | 31.3 | 7.6 | −3.4 [−3.8, −3.0] |\n| 2.33 | 35.9% | 1,056,421 | 28.3 / 49.5 | 75.1 | 30.0 | 7.1 | −6.6 [−7.2, −6.0] |",
+     "after": "Panel A. Edge precision, all true edges kept (default mix).\n\n| Wrong-edge candidates per true edge | ... |\n| 0 | 100% | 379,291 | 36.3 / 56.0 | 84.0 | 35.2 | 7.7 | — |\n| 1 | 55.3% | 685,801 | 32.6 / 53.5 | 81.1 | 32.6 | 7.3 | −2.6 [−3.0, −2.1] |\n| 2.33 | 35.9% | 1,056,700 | 26.8 / 49.5 | 75.2 | 29.9 | 7.4 | −6.5 [−7.1, −5.9] |",
+     "source": "pilot/cache/v2/noise/composition/analysis.json (sib0.7/r1_s0, sib0.7/r2.33_s0; sorted-iteration re-run). 0.43 row dropped: only the non-reproducible run exists."
+    },
+    {
+     "before": "Panel B. Recall (share of true edges kept), all cases. Wrong edges are added at 2.33 per kept true edge, so the realized precision falls as fewer true edges are kept.\n...\n| 100% | 36.3 / 56.0 | 35.9% | 28.3 / 49.5 |",
+     "after": "Panel B. Recall (share of true edges kept), all cases, default mix. Wrong edges are added at 2.33 candidates per kept true edge, so the realized precision falls as fewer true edges are kept.\n...\n| 100% | 36.3 / 56.0 | 35.9% | 26.8 / 49.5 |",
+     "source": "Re-run value (effects.json realization r2.33_s0). The 50/30/15% rows are unchanged; the keep<1 path was already sorted and reproduces exactly."
+    },
+    {
+     "before": "(none)",
+     "after": "Panel C. Composition of wrong edges: recall effect and precision effect (pp [95% CI]), all cases. ... 13 rows: Default mix / Sibling only / Vocabulary only × ratio 2.33, matched (~36%), 1, matched (~55%), precision 20%; columns: realized precision at recall 100/30/15%, recall effect Top-1/Top-10, precision effect at recall 15% Top-1/Top-10, precision effect at recall 100% Top-1/Top-10. Footnote b lists the matched and 20% ratios (from matched_ratios.json and ratios_p20.json).",
+     "source": "pilot/cache/v2/noise/composition/effects.json (all values checked against the file; CI separation verified for all 13 rows × Top-1/Top-10)."
+    },
+    {
+     "before": "For reference, the S-D literature graph reaches Top-10 16.7% on the same cases (16.5% on the 10,571 cases left after removing the 32 whose source papers are in the v2 corpus).",
+     "after": "For reference, the S-D literature graph reaches Top-1 / Top-10 7.4 / 16.7% on the same cases (Top-10 16.5% on the 10,571 cases left after removing the 32 whose source papers are in the v2 corpus) under its own scoring configuration (α 0.35, decay 0.3, β 0.5, offtopic_w 0) and concept vocabulary. The closeness of its Top-10 to the recall-15% points is a consistency check, not an estimate of its edge precision.",
+     "source": "pilot/cache/v2/temporal/lit_full.json (cfg and Top-1/Top-10 recomputed)."
+    },
+    {
+     "before": "INT.md:27 '…재현율을 15%에서 30%로 2배로 늘린 효과(Top-10 +10.9%p)는 정밀도를 32.6%에서 100%로 올린 효과(+1.8%p)의 약 6배였다(4.3절).'",
+     "after": "NOT APPLIED (other file). Should give the range: the recall effect was at least 3.7 times the precision effect across the assumed error compositions and precision levels (about 6 times for the default mix). The 15.5 vs 16.7 match should not be presented as evidence of S-D precision.",
+     "source": "Cross-file consistency with RES-A 4.3 / Table 8 C"
+    },
+    {
+     "before": "DIS.md:49 '그 틀린 간선의 구성(형제 질환의 소견 70%, 비소견 개념 30%)과 비율은 구 Qwen3 v2.1 그래프의 출처 감사에서 가져온 가정이다. 따라서 재현율 쪽 상승이 정밀도 쪽 상승의 약 6배라는 비교도 이 가정 아래의 값이다.'",
+     "after": "NOT APPLIED (other file). Remove the audit attribution. The composition is an assumption. The recall-over-precision ordering held for all three compositions and for precision 20–55% (≥3.7x in Top-10). The loss at full recall depends on the composition (3–18% relative). There is also a realization variance of ≤1.5 pp Top-1 that the CIs do not include.",
+     "source": "Cross-file consistency with RES-A 4.3"
+    },
+    {
+     "before": "DIS.md:37 'HPOA 시뮬레이션에서 정밀도를 36%에서 55%로 올리는 검증기의…' and RES-B.md:374 '4.3의 시뮬레이션에서 간선 정밀도를 36%에서 55%로 올렸을 때의 Top-10 기대 상승은 상대 약 6%였다.'",
+     "after": "NOT APPLIED (other files). With the reproducible re-run, the default mix gives 49.5 → 53.5 (+4.0 pp, about 8% relative). The value depends on the composition: precision-matched sibling only 46.0 → 51.4 (about 12%), vocabulary only 54.3 → 54.7 (about 1%). These sentences should cite the default-mix value with this range, or drop the number.",
+     "source": "effects.json points (sib0.7 nominal 36/55; sib1 and sib0 matched 36/55, recall 1)"
+    },
+    {
+     "before": "RES-B.md 4.7 (S-D HPOA agreement)",
+     "after": "NOT APPLIED (other file). RES-A now cites 4.7절 for the S-D HPOA agreement (18.2%, parent-inclusive 22.1%, random 2.8%/3.7%, 168,587 comparable edges, curated recall 10.9%). 4.7 must keep the S-D agreement under that section number. If 4.7 is renamed or renumbered, update the '(4.7절)' reference in RES-A 4.3. Table numbering is unchanged: Table 8 keeps its number, and no table was removed from RES-A.",
+     "source": "Cross-reference check across sections"
+    }
+   ]
+  },
+  {
+   "id": "RES-B",
+   "changes": [
+    {
+     "before": "4.4.7 **표본 판독.** S-mix 전용 간선 30개를 무작위로 뽑아(시드 0) 근거 문장과 대조했다. 이 판독은 저자의 판단이며 임상 판정이 아니다. 18개는 오류로 보였다. … 사전이 잡을 수 없는 새 표현은 3개였다. …(whole paragraph)",
+     "after": "(paragraph removed; 4.4.7 now goes 간선 구성 → 순위 반사실 → HPO 주석 일치 → 해석)",
+     "source": "Decision: no human judgment of S-mix edges may be used (the 30-edge author reading is one). NOTE for other files, which I did not edit: DIS.md line 17 still cites the 30-edge author reading. ABS-CON.md lines 3 and 17 ('간선 출처를 사람이 감사한 것은 … Qwen3 … v2.1뿐이다', '혼합 추출 그래프의 출처 감사'), INT.md line 32 (C8, '의료진 판정 … 38.3% … 11.9%'), DIS.md line 43 ('의료진 출처 감사 … 29.5%') and RES-A.md 4.3 / Table 8 caption ('error mix follows the provenance audit', '4.7절 감사') still use the withdrawn audit. Table numbering is unchanged: Table 17 is kept with new content, and no other section references Table 14d or Table 17."
+    },
+    {
+     "before": "Table 14b footnote ^d^: '... a concept may have several types. Reading of 30 random S-mix-only edges (seed 0; the author's reading, not a clinical judgment): likely wrong 18; a dictionary string of the concept is in the text but S-dict did not keep the edge 9; wording that no dictionary string matches 3.'",
+     "after": "'... a concept may have several types.' (sentence about the 30-edge reading removed)",
+     "source": "Same decision (S-mix edge judgments withdrawn)."
+    },
+    {
+     "before": "**HPO 주석 일치.** 4.7절과 같은 방법으로 … 대조했다(표 14d). … 5편 이상 41.7% 대 24.6%). 두 그래프에 함께 있는 간선의 일치율은 13.0%였다.",
+     "after": "**HPO 주석 일치.** 4.7절과 같은 방법으로 … 대조했다(표 14d, 표 17). … 5편 이상 41.7% 대 24.6%; 표 17a). 주제 문서가 1편 이상인 간선(14.9% 대 10.6%)과 주제 밖 문서뿐인 간선(7.1% 대 3.6%)에서도 S-mix가 높았다. 두 그래프에 함께 있는 간선의 일치율은 13.0%였다.",
+     "source": "pilot/cache/v3/review/curated_agreement_smix.json and curated_agreement_sdict.json (by_topic: S-mix 14.88 / 7.07, S-dict 10.60 / 3.55)."
+    },
+    {
+     "before": "**해석.** … 표본에서 새 표현은 30개 중 3개였고, 희귀질환 세트의 S-mix 승리는 정답 질환의 S-mix 전용 간선을 빼도(부분 반사실) 대부분 유지되었다.",
+     "after": "**해석.** … 희귀질환 세트의 S-mix 승리는 정답 질환의 S-mix 전용 간선을 빼도(부분 반사실) 대부분 유지되었다.",
+     "source": "Removed the clause that relied on the withdrawn 30-edge reading. The interpretation still rests on the reviewer-free overlap (86.9%), the HPOA agreement of S-dict-only edges (2.31%) compared with shared edges (13.0%), and the partial counterfactual."
+    },
+    {
+     "before": "Table 14(d): columns All (random) / 1 doc / 2 docs / 3–4 docs / ≥ 5 docs / Curated pairs recovered; rows S-mix, S-dict, both, S-mix-only, S-dict-only, plus 'Old Qwen3 v2.1 graph (Table 17)' and 'S-D graph (gemma v2.1)'; caption 'computed as in Table 17 … The graphs differ in literature, extraction, builder rules and edge count'.",
+     "after": "Table 14(d) is now the overlap split only: 'Graph or edge group | HPO-comparable edges | Agreement (random) | Curated pairs recovered', with rows S-mix 856,023 12.6 (2.5) 29.4; S-dict 1,572,570 7.8 (1.9) 32.8; both 801,933 13.0 (2.5); S-mix-only 54,090 7.25 (2.02); S-dict-only 770,637 2.31 (1.31). Caption: 'computed as in Section 4.7 … Agreement by supporting-document count and by topic document, with the old Qwen3 and S-D graphs, is in Table 17. The two graphs differ in extraction, concept linking and edge count …'",
+     "source": "curated_agreement_{smix,sdict}.json by_other_graph. The document-count strata and the old-graph rows moved to the new Table 17 to avoid duplication."
+    },
+    {
+     "before": "4.7 opening: '이 절의 간선 감사는 구 시스템에서만 했다. … 감사 표본은 v2.1 그래프에서 뽑았고, … S-mix 그래프의 간선 감사는 하지 않았다.'",
+     "after": "'이 절은 간선 출처에 관한 세 가지 측정(원문 위치 확인, HPO 주석과의 일치, 출처 불변식)을 보고하고, 간선 정밀도가 순위에 주는 영향을 4.3절의 시뮬레이션으로 가늠한다. 간선 정확도는 HPO 주석과의 일치로만 측정했다. 이 일치율은 정밀도의 하한이며, HPO 주석이 있는 질환(주로 희귀질환)의 간선에만 해당한다. HPO 주석 일치는 네 그래프에서 쟀다. … 구 Qwen3 그래프는 Qwen3-4B-Instruct-2507로 추출한 v2 문헌 그래프(v2.1)다. 주제 표시를 더한 판(v2.1c)은 간선 1,184,344개, 근거 언급 1,648,509개, 문서 88,266건이다.'",
+     "source": "Decision (no human-judgment result; no 'informal judgments exist' remark). The text says that correctness was measured only by HPOA agreement. It does not claim that nobody ever looked at edges, which would be inaccurate; DIS 5.1 may want the same wording."
+    },
+    {
+     "before": "Two paragraphs: '같은 그래프에서 시드 1로 뽑은 간선 200개 … 연구팀과 협력 병원의 의료진이 … supports 59개(29.5%, Wilson 95% CI 23.6–36.2) … LLM(Claude) 판정의 supports는 75개(37.5%) … 89%(Cohen's κ 0.75), … 70%(κ 0.48) …' and '의료진 판정 기준으로 … 38.3%(51/133) … 11.9%(8/67) … 52.9%(9/17) … 27.3%(50/183) … wrong_concept … 약 45행 … 보류(held-out) 평가 세트로 지정했다.'",
+     "after": "(both paragraphs removed)",
+     "source": "Decision: withdraw the human audit (29.5%, 59/200, 38.3/11.9, 52.9/27.3, wrong_concept types, κ) and the LLM-judge results validated against it (37.5%, 89%/70%)."
+    },
+    {
+     "before": "'구 Qwen3 그래프의 근거 언급 가운데 93.3%는 PMID로, 1.1%는 PMCID로, 5.6%는 StatPearls·GeneReviews 장 ID로 원 문헌이 식별되었다.'",
+     "after": "'**원문 위치 확인.** LLM 출력은 원문 창에서 위치가 확인된 구절만 남기고 나머지는 버렸다(3.3절). gemma-4-E4B-it 추출에서 남은 항목은 v2 문헌에서 모델 출력 560만 개 중 533만 개, v3 문헌에서 1,323만 개 중 1,232만 개였다. 남은 항목은 모두 근거 문장과 원 문서에 연결된다. 구 Qwen3 그래프의 근거 언급 가운데 93.3%는 PMID로, … 식별되었다.'",
+     "source": "Verbatim-span check, reviewer-free. Counts are from MET-A 3.3 (line 59) and RES-A 4.1 (line 11)."
+    },
+    {
+     "before": "'큐레이션 대조에는 HPO 주석 … 194,318개를 큐레이터 표현형과 대조했다(표 17). 정확 일치율은 16.4%(HPO 부모 포함 19.9%) … 주제 문서가 1편 이상인 간선은 19.3%, 주제 밖 문서뿐인 간선은 11.5%였다. … S-D 그래프 … 18.2%(무작위 2.8%) …'",
+     "after": "Same paragraph, now headed '**HPO 주석 일치.**', with '(표 17a)'.",
+     "source": "pilot/cache/v2/curated_agreement_qwen3_v21.json and curated_agreement_gemma_v21.json. The Qwen3 topic split (19.3% / 11.5%, 121,862 / 72,456 edges) is the same curated-agreement measurement on v2.1c, recorded in docs/research_design.md §9.17 (corrected 2026-10-20) as the reviewer-free basis of the topic rule."
+    },
+    {
+     "before": "Last paragraph: 'S-mix 그래프의 출처 상태는 다음과 같다. S-mix 간선의 의료진·LLM 판정은 하지 않았다. … 12.6% … 7.4%, 15.2%, 24.9%, 41.7% … 낮았다. 주제 … 14.9% … 7.1% … S-dict … 7.8%(무작위 1.9%)로 S-mix보다 낮았다. 빌더는 … (provenance invariant) … 따로 감사할 수 있게 하지만, 그 감사는 하지 않았다. 4.3의 시뮬레이션에서 간선 정밀도를 36%에서 55%로 올렸을 때의 Top-10 기대 상승은 상대 약 6%였다. 근거 경로를 …'",
+     "after": "Split into three parts. (1) New paragraph: 'S-mix 그래프의 정확 일치율은 12.6% … 7.4%, 15.2%, 24.9%, 41.7%였고, 같은 구간의 무작위 일치율은 2.0%, 2.9%, 3.6%, 4.5%였다. … 모든 구간에서 구 Qwen3 그래프와 S-D 그래프보다 낮았다. 주제 … 14.9%, … 7.1%였고, 두 묶음의 무작위 일치율은 모두 2.5%였다. … S-dict … 7.8%(무작위 1.9%) … 같은 방향(지지 문서 1편 4.4%에서 5편 이상 24.6%; 주제 문서 간선 10.6% 대 주제 밖 간선 3.6%). 두 그래프 모두 지지 문서 수의 네 구간 각각에서 주제 문서 간선의 일치율이 주제 밖 간선보다 높았다(표 17b). 지지 문서가 1편인 간선에서는 S-mix 8.3% 대 5.7%, S-dict 5.7% 대 2.9%였다. 네 그래프는 … 원인은 분리하지 않았다.' (2) '**출처 불변식.**' paragraph (unchanged content, with '감사' changed to '검토' and the '의료진·LLM 판정은 하지 않았다' sentence dropped). (3) '**간선 정밀도와 순위.**' paragraph (next change).",
+     "source": "curated_agreement_{smix,sdict}.json: by_n_docs (with null_exact_mean), by_topic, by_n_docs_topic."
+    },
+    {
+     "before": "'4.3의 시뮬레이션에서 간선 정밀도를 36%에서 55%로 올렸을 때의 Top-10 기대 상승은 상대 약 6%였다.'",
+     "after": "'**간선 정밀도와 순위.** 4.3절의 오류 시뮬레이션에서 틀린 간선의 구성은 측정값이 아니라 가정이다. 그래서 같은 상위 질환을 둔 형제 질환의 소견만 넣은 구성, IE 구절 표 어휘에서 무작위로 뽑은 개념만 넣은 구성, 둘을 7:3으로 섞은 구성에서 같은 비교를 했다. 남긴 참 간선이 15%인 HPOA 그래프에서 정밀도(참 간선 수/전체 간선 수) 20~53%를 100%로 올리면 Top-10은 +0.1~+2.7%p, Top-1은 −0.1~+1.2%p 바뀌었다. 같은 정밀도 수준에서 남긴 참 간선을 30%로 늘리면 Top-10은 +8.0~+11.6%p, Top-1은 +2.3~+6.6%p 올랐다. 모든 조건에서 재현율 효과의 95% CI 하한이 정밀도 효과의 CI 상한보다 높았다. 이 CI는 증례 부트스트랩이며(시드 1개), 오류 실현에 따른 변동(같은 시드에서 Top-1 최대 약 1.5%p)은 반영하지 않는다. 재현율 15%는 S-D 그래프의 HPO 주석 쌍 재현율(10.9%)에 가깝고, 정밀도 20%는 S-D 그래프의 일치 하한(18.2%, HPO 부모 포함 22.1%) 근처다. S-mix의 일치율(12.6%, 부모 포함 16.2%)은 20%보다 낮다. 일치율은 하한이므로, S-mix의 실제 정밀도가 이 시뮬레이션 범위 안에 있는지는 알 수 없다. 근거 경로를 추적할 수 있다는 것이 간선이 정확하다는 뜻은 아니다.'",
+     "source": "Composition robustness result (pilot/cache/v2/noise/composition/effects.json, summary). The error composition is stated as an assumption. The realized precision range 20.0–53.2% at recall 15% and the effect ranges are the 'operating point' rows. pilot/scripts/build_reference_graph.py add_noise confirms the vocabulary errors are random IE-phrase-table concepts of valid finding types, so I did not call them 'non-finding concepts'."
+    },
+    {
+     "before": "Table 17. Evidence quality by provenance signal on the old Qwen3-4B-Instruct-2507 graph … clinical audit (n = 200) and agreement with HPO curated annotations … The S-mix graph has not been audited … | Edge group | Audit: supported (%) | HPO agreement (%) | HPO-comparable edges | … 29.5 (59/200) … 38.3 (51/133) … 11.9 (8/67) … 27.3 (50/183) … 52.9 (9/17) …",
+     "after": "Table 17. Agreement with HPO curated annotations by provenance signal (phenotype.hpoa 2026-02-16; exact concept match, %) … lower bound … mostly rare diseases … per-group random values recorded for S-mix and S-dict only … topic document definition (S-mix/S-dict builds also count causal-gene titles, Section 3.5) … '– = not measured'. (a) columns Old Qwen3 (v2.1) | S-D (gemma v2.1) | S-mix | S-dict; rows: HPO-comparable edges 194,318 / 168,587 / 856,023 / 1,572,570; All exact (random) 16.4 (2.6) / 18.2 (2.8) / 12.6 (2.5) / 7.8 (1.9); exact or HPO parent 19.9 (3.5) / 22.1 (3.7) / 16.2 (3.4) / 10.1 (2.7); 1 doc 13.3 / 15.0 / 7.4 (2.0) / 4.4 (1.6); 2 docs 31.7 / 34.0 / 15.2 (2.9) / 8.5 (2.1); 3–4 docs 46.3 / 48.7 / 24.9 (3.6) / 14.6 (2.7); ≥5 docs 63.2 / 62.8 / 41.7 (4.5) / 24.6 (3.1); ≥1 topic 19.3 / – / 14.9 (2.5) / 10.6 (2.0); off-topic only 11.5 / – / 7.1 (2.5) / 3.6 (1.8); curated pairs recovered 11.3 / 10.9 / 29.4 / 32.8; footnotes with per-group edge counts. (b) topic / off-topic within each document count: S-mix 8.3/5.7, 16.3/11.1, 25.8/18.7, 42.3/29.0; S-dict 5.7/2.9, 10.5/4.7, 16.9/7.3, 26.2/10.7.",
+     "source": "curated_agreement_qwen3_v21.json, curated_agreement_gemma_v21.json, v3/review/curated_agreement_smix.json, curated_agreement_sdict.json. The table number stays 17, so cross-references in all sections remain consistent."
+    }
+   ]
+  },
+  {
+   "id": "DIS",
+   "changes": [
+    {
+     "before": "HPOA 그래프 시뮬레이션에서도 재현율을 15%에서 30%로 올리면 Top-10이 10.9%p 올랐고, 같은 재현율 15%에서 정밀도를 32.6%에서 100%로 올리면 1.8%p 올랐다.",
+     "after": "HPOA 그래프 시뮬레이션에서도 재현율을 15%에서 30%로 올리면 Top-10이 8.0~11.6%p 올랐고, 같은 재현율 15%에서 정밀도를 100%로 올리면 0.1~2.7%p 올랐다(가정한 틀린 간선 구성 세 가지와 실현 정밀도 약 20~55% 수준 전체, 4.3절).",
+     "source": "pilot/cache/v2/noise/composition/effects.json (composition robustness run; ranges over all rows of the recall/precision effect table)"
+    },
+    {
+     "before": "S-mix 전용 간선 30개를 저자가 판독한 결과(임상 판정 아님) 18개는 오류로 보였고, 9개는 사전도 잡았어야 했으며, 사전이 잡을 수 없는 새 표현은 3개였다.",
+     "after": "사전이 이름 붙일 수 없으면서 사전의 소견 의미유형에 드는 개념 위의 S-mix 전용 간선은 55,503개로, S-mix 전용 간선의 8.1%였다.",
+     "source": "Human (author) judgment of 30 S-mix edges removed; replaced with reviewer-free count from RES-B 4.4.7 edge composition (55,503 / 685,993)"
+    },
+    {
+     "before": "S-dict 전용 간선의 일치율은 2.31%(무작위 순열 1.31%)였다.",
+     "after": "두 그래프에 함께 있는 간선의 일치율은 13.0%, S-mix 전용 간선은 7.25%(무작위 순열 2.02%), S-dict 전용 간선은 2.31%(1.31%)였다.",
+     "source": "pilot/cache/v3/review/curated_agreement_{smix,sdict}.json by_other_graph (overlap split)"
+    },
+    {
+     "before": "판독한 S-mix 전용 간선 가운데 새 표현은 30개 중 3개였고, 희귀질환에서 S-mix의 승리는 대부분 그 간선에 기대지 않았기 때문이다.",
+     "after": "S-mix 간선의 86.9%가 S-dict에도 있고, 사전이 이름 붙일 수 없는 소견 개념 위의 간선은 S-mix 전용 간선의 8.1%이며, 희귀질환에서 S-mix의 승리는 대부분 S-mix 전용 간선에 기대지 않았기 때문이다.",
+     "source": "Interpretation re-based on reviewer-free measurements (RES-B 4.4.7 overlap, edge composition, partial counterfactual)"
+    },
+    {
+     "before": "구 시스템(Qwen3 v2.1 그래프)에서 의료진이 판정한 200개 간선 중 근거가 소견을 지지한 간선은 29.5%였다. 같은 판정에서 주제 문서 간선의 지지율은 38.3%, 주제 밖 문서만 가진 간선은 11.9%였다. ... S-mix 그래프에서는 간선 판정을 하지 않았다. ... 한편 HPOA 시뮬레이션에서 정밀도를 36%에서 55%로 올리는 검증기의 기대 상승은 Top-10 기준 상대 약 6%였다.",
+     "after": "이 논문이 간선 정확성에 대해 보고하는 근거는 HPO 주석과의 일치뿐이다. (하한·희귀질환 한정 명시) 지지 문서 1편→5편 이상 일치율: 구 Qwen3 v2.1 13.3%→63.2%, S-D 15.0%→62.8%, S-mix 7.4%→41.7% (4.7절, 표 14d). 무작위 순열 일치율도 함께 오름(S-mix 2.0%→4.5%), 무작위 대비 3.6배→9.4배. 주제 문서 간선 대 주제 밖 문서뿐 간선: S-mix 14.9% 대 7.1%, S-dict 10.6% 대 3.6% (무작위 2.5/2.5, 2.0/1.8); S-mix 지지 문서 네 구간 모두에서 주제 간선이 높음(1편 8.3 대 5.7, 5편 이상 42.3 대 29.0). 흔한 질환·HPO 밖 간선에서의 신호 타당성은 알 수 없음(5.1절). 시뮬레이션 운용점(재현율 15%)에서 정밀도 100%로 올려도 Top-10 +0.1~2.7%p (4.3절).",
+     "source": "pilot/cache/v2/curated_agreement_qwen3_v21.json, curated_agreement_gemma_v21.json, pilot/cache/v3/review/curated_agreement_{smix,sdict}.json (by_n_docs, by_topic, by_n_docs_topic); composition effects.json"
+    },
+    {
+     "before": "**출처.** 주 시스템 S-mix의 간선 정확도는 직접 검증하지 않았다. 의료진 출처 감사는 구 Qwen3 v2.1 그래프에서만 했고, 판정한 200개 간선 중 supports는 29.5%(Wilson 95% CI 23.6–36.2%)였다. ... 감사 시트(S-mix 간선 100개 ...)는 준비했고, 판정은 하지 않았다. 구 그래프 감사의 감사자는 한 연구팀과 한 협력 병원의 의료진이므로 ... LLM 판정은 의료진보다 관대했다(supports 37.5% 대 29.5%).",
+     "after": "**출처.** 이 논문은 어느 그래프에 대해서도 사람이 판정한 간선 정확성을 보고하지 않는다. 간선 정확성에 대해 아는 것은 HPO 주석과의 일치뿐이다(정밀도 하한, 주로 희귀질환 간선; 흔한 질환 간선은 이 하한으로도 말할 수 없음). 정확 일치율(부모 포함, 무작위): S-mix 12.6%(16.2%, 2.5%), S-dict 7.8%(10.1%, 1.9%), S-D 18.2%(22.1%, 2.8%), 구 Qwen3 v2.1 16.4%(19.9%, 2.6%). 지지 문서 구간별 S-mix(7.4/15.2/24.9/41.7%)는 구 Qwen3(13.3/31.7/46.3/63.2%)·S-D(15.0/34.0/48.7/62.8%)보다 모든 구간에서 낮음; 원인 미분리. 임상 근거로 쓰려면 정해진 지침에 따른 사람의 간선 판정이 먼저 필요(5.2절). (출처 불변식·Mention 빌드 문장 유지; 이전 시스템 값 목록에서 '출처 감사(Qwen3 v2.1)' 삭제)",
+     "source": "Same four curated_agreement JSON files (agree_exact, agree_exact_or_parent, null_exact_mean, by_n_docs)"
+    },
+    {
+     "before": "HPOA 그래프 시뮬레이션(4.3절)은 단일 실행(시드 0)이다. 그 틀린 간선의 구성(형제 질환의 소견 70%, 비소견 개념 30%)과 비율은 구 Qwen3 v2.1 그래프의 출처 감사에서 가져온 가정이다. 따라서 재현율 쪽 상승이 정밀도 쪽 상승의 약 6배라는 비교도 이 가정 아래의 값이다.",
+     "after": "(5.1에 새 단락) **시뮬레이션.** 시드 하나로 돌림; 같은 시드에서도 실현에 따라 Top-1 최대 약 1.5%p, Top-10 약 0.8%p 변동, 부트스트랩 CI는 미반영. 기본 구성(형제 질환 소견 70%, IE 어휘에서 뽑은 개념 30%)은 가정. 형제 100%·IE 어휘 100% 두 순수 구성에서도 운용점(재현율 15%)에서 재현율 효과 > 정밀도 효과, 실현 정밀도 약 20~55% 전 조건에서 재현율 효과 CI 하한 > 정밀도 효과 CI 상한. 배수는 구성·수준에 따라 다르며 Top-10 최소 3.7배(IE 어휘 100%, 정밀도 20%). 재현율 100%에서는 구성이 지배(정밀도 35.9%로 맞추면 Top-10 손실 형제 10.1%p, 어휘 1.7%p). 정밀도 수준은 측정값이 아님; 사람 판정 없이 아는 것은 S-D HPO 일치 하한 18.2%(부모 포함 22.1%)뿐. 기본 구성의 재현율 15%·정밀도 32.6% Top-10 15.5% 대 S-D 16.7%는 일관성 확인일 뿐(재현율 15%에서 Top-10은 14.7~17.3%로 정밀도에 둔감, Top-1 불일치 5.0~6.3 대 7.4, 랭커 설정·어휘·시점 상이). 재현율 15% 운용점은 S-D HPOA 쌍 재현율 10.9%·단계 분해 14.1%와 맞음.",
+     "source": "Simulation composition summary (pilot/cache/v2/noise/composition/effects.json, analysis.json); curated_agreement_gemma_v21.json (agree 18.2/22.1, curated_recall_exact 10.9)"
+    },
+    {
+     "before": "HPOA 그래프 시뮬레이션에서도 재현율을 15%에서 30%로 올린 효과(Top-10 +10.9%p)가 정밀도를 100%로 올린 효과(+1.8%p)보다 컸다.",
+     "after": "HPOA 그래프 시뮬레이션에서도 재현율을 15%에서 30%로 올린 효과(Top-10 +8.0~+11.6%p)가 정밀도를 100%로 올린 효과(+0.1~+2.7%p)보다 가정한 틀린 간선 구성 세 가지 모두에서 컸다.",
+     "source": "Composition effects.json (5.2 first item)"
+    },
+    {
+     "before": "저자가 판독한 S-mix 전용 간선 30개(임상 판정 아님) 가운데 사전이 잡을 수 없는 새 표현은 3개였다.",
+     "after": "사전이 이름 붙일 수 없는 소견 의미유형 개념 위의 간선은 S-mix 전용 간선의 8.1%였다.",
+     "source": "Human judgment removed (5.2 third item); RES-B 4.4.7 edge composition"
+    },
+    {
+     "before": "다른 하나는 간선의 귀속 판단이다. 구 Qwen3 그래프의 출처 감사에서 근거가 소견을 지지한 간선은 29.5%였고, LLM 판정에서 가장 많은 실패 유형은 근거 문서가 인접 아형 등 다른 질환을 다루는 경우였다(4.7절). S-mix 그래프의 출처를 감사하고, 근거 언급에 저장한 원 LLM 구절로 구절 선택 오류와 사전 이름 오류를 나누어 판정하면, 구축 단계에서 LLM이나 검증기가 맡을 일을 정할 수 있다.",
+     "after": "(삭제 후 새 단락) 넷째는 간선 정확성의 측정이다. 정확도 효과와 별개로 근거를 임상에서 쓰기 위한 전제다. 지금은 HPO 주석 일치라는 하한뿐이고 HPO 주석이 있는 질환(주로 희귀질환)의 간선에 한정된다(5.1절). 남은 과제는 정해진 판정 지침, 서로 독립적인 판정자 두 명 이상, 판정자 간 일치도 통계, 판정자 배경의 명시를 갖춘 간선 주석이다. 저장한 원 LLM 구절과 사전 이름을 나누어 판정하면 구절 선택 오류와 개념 연결 오류를 분리할 수 있다. 주제 문서 여부·지지 문서 수가 HPO 주석 밖, 특히 흔한 질환 간선에서도 근거 품질을 가리는지 같은 주석으로 확인한다.",
+     "source": "Task requirement (3): formal annotation as future work, no claim about who the annotators would be"
+    }
+   ]
+  }
+ ],
+ "recheck": {
+  "issues": [
+   {
+    "section": "draft/paper_ko_v3/paper_ko.md (assemble.py로 합친 원고, 941·943행 외) + evidence_log.md",
+    "quote": "같은 그래프에서 시드 1로 뽑은 간선 200개(간선마다 근거 언급 1개)를 연구팀과 협력 병원의 의료진이 LLM 판정을 보지 않고 판정했다.",
+    "problem": "sections/*.md 8개에는 철회한 사람·LLM 판정 결과와 '의료진' 표현이 하나도 남아 있지 않습니다. 그런데 합친 원고 paper_ko.md는 18:03에 만든 뒤 갱신하지 않았고, 섹션은 19:39–19:45에 수정되었습니다. 그래서 paper_ko.md에는 철회한 내용이 그대로 있습니다: '연구팀과 협력 병원의 의료진' 판정, supports 59(29.5%, Wilson CI), not_supported 99, wrong_concept 42, LLM(Claude) supports 75(37.5%), 일치도·κ, 38.3% 대 11.9%, 52.9% 대 27.3%, wrong_concept 유형 목록, RQ5·기여 8의 '의료진 판정'. '의료진'은 7회 나옵니다. 이 파일은 커밋되어 있습니다. evidence_log.md에도 '의료진이 간선 200개를 판정', '§9.25(같은 200행 의료진 supports 29.5%)'가 남아 있습니다.",
+    "fix": "섹션 수정을 마친 뒤 `python draft/paper_ko_v3/assemble.py draft/paper_ko_v3/workflow_result.json`으로 paper_ko.md를 다시 만듭니다. 그다음 `grep -c -E '의료진|29\\.5%|59/200|supports|κ|wrong_concept'`가 0인지 확인하고 커밋합니다. evidence_log.md는 첫 초안의 출처 기록이므로 공유 대상에서 빼거나, 해당 행을 '철회(§9.25 정정)'로 표시합니다."
+   },
+   {
+    "section": "DIS 5.1 한계 — 시뮬레이션",
+    "quote": "사람 판정 없이 아는 것은 S-D 그래프의 HPO 주석 일치 하한(18.2%, 부모 포함 22.1%)뿐이다.",
+    "problem": "'사람 판정 없이 아는 것'이라는 표현은 사람 판정으로 따로 알게 된 것이 있다는 뜻으로 읽힙니다. 즉 간선을 사람이 판정한 적이 있다고 암시합니다. 같은 절 5.1 '출처'에서는 어느 그래프도 사람이 판정하지 않았다고 적었으므로 서로 어긋납니다.",
+    "fix": "'정밀도에 대해 아는 것은 S-D 그래프의 HPO 주석 일치 하한(18.2%, 부모 포함 22.1%)뿐이며, 어느 그래프의 간선도 사람이 판정하지 않았다.'로 바꿉니다."
+   },
+   {
+    "section": "RES-B 4.7 HPO 주석 일치 + Table 17a (구 Qwen3 열, 각주 a)",
+    "quote": "주제 문서가 1편 이상인 간선은 19.3%, 주제 밖 문서뿐인 간선은 11.5%였다.",
+    "problem": "구 Qwen3 그래프의 주제 문서 구분 값(19.3/11.5%)과 Table 17a 각주의 간선 수 121,862·72,456은 지정된 근거 파일 pilot/cache/v2/curated_agreement_qwen3_v21.json에 없습니다. 이 파일에는 by_topic 항목이 없습니다. 출처는 docs/research_design.md §9.17·§9.16 본문 문장뿐입니다. 판정자 없이 잰 값이라 써도 되지만, 간선 수는 어디에도 기록이 없습니다. 이 값은 MET-A 3.2의 주제 규칙 근거로도 쓸 수 있는 값입니다.",
+    "fix": "curated_agreement.py를 v2.1c(주제 표시) 그래프에서 다시 실행해 by_topic을 포함한 JSON(예: pilot/cache/v2/curated_agreement_qwen3_v21c.json)을 저장하고, 표와 본문 값을 그 파일에 맞춥니다. 다시 실행할 수 없으면 Table 17a의 구 Qwen3 주제·주제 밖 칸을 '–'로 바꾸고 이 문장과 각주의 121,862·72,456을 지웁니다."
+   },
+   {
+    "section": "DIS 5. 논의 (출처 단락)",
+    "quote": "S-mix 그래프에서 7.4%에서 41.7%로 올랐다(4.7절, 표 14d).",
+    "problem": "참조 표가 틀렸습니다. 지지 문서 수 구간별 일치율(구 Qwen3 13.3→63.2, S-D 15.0→62.8, S-mix 7.4→41.7)과 바로 뒤의 무작위 2.0→4.5%는 표 17a에 있습니다. 표 14d에는 전체 일치율과 겹침(공유·전용 간선) 구분만 있습니다.",
+    "fix": "'(4.7절, 표 17a)'로 고칩니다."
+   },
+   {
+    "section": "RES-A 4.3 Table 8 Panel B (50% 행), docs/research_design.md §9.26",
+    "quote": "| 50% | 18.4 / 36.0 | 34.0% | 14.5 / 33.1 |",
+    "problem": "pilot/cache/v2/noise/composition/summary.md 파일은 없습니다. 그래서 composition/effects.json과 analysis.json으로 대조했고, Table 8 Panel A·C, 본문의 효과 범위(Top-10 +8.0~+11.6, +0.1~+2.7; Top-1 +2.3~+6.6, −0.1~+1.2; 3.7배; 14.7–17.3%; 5.0–6.3%), 각주 b의 비율은 모두 일치했습니다. 다만 Panel B의 50% 행(틀린 간선 포함)만 정렬 수정 이전 코드로 돌린 옛 실행(pilot/cache/v2/noise/k0.5_r2.33_s0, 간선 557,809개)에서 나왔습니다. 나머지 행은 composition/sib0.7에서 나왔습니다. 옛 코드에서는 같은 100% 점이 간선 1,056,421개, Top-1/Top-10 28.3/49.5였고, 표는 1,056,700개, 26.8/49.5입니다. 또 research_design §9.26에는 아직 옛 값이 적혀 있어(685,924개, 32.0/52.7, −3.4 [−3.8, −3.0]) 논문 Table 8A(685,801개, 32.6/53.5, −2.6 [−3.0, −2.1])와 다릅니다.",
+    "fix": "`KEEPS=0.5 RATIOS=2.33 SIB=0.7 O=pilot/cache/v2/noise/composition/sib0.7 pilot/scripts/run_noise_sensitivity.sh`를 실행하고 noise_analysis.py로 analysis.json을 다시 만든 뒤 50% 행을 교체합니다. 다시 실행하지 않는다면 이 행이 다른 실행에서 나왔다는 각주를 답니다. composition 결과 요약(summary.md)을 남기고 §9.26 표를 composition 값으로 갱신합니다."
+   },
+   {
+    "section": "RES-A 4.3 랭커의 오류·재현율 민감도 (+ RES-A 137행, DIS 5.1 시뮬레이션)",
+    "quote": "기본 혼합은 후보의 70%를 같은 부모를 둔 형제 질환의 소견(형제가 없으면 무작위 질환의 소견)에서, 30%를 v2 구절 표(3.3절)의 개념 가운데 빌더가 간선으로 받는 의미유형의 개념에서 무작위로 뽑는다.",
+    "problem": "7:3 구성과 후보 비율 2.33은 철회한 감사에서 나왔습니다. 7:3은 감사의 오류 유형 집계에서 왔습니다(수정 전 build_reference_graph.py 설명: 'the error mix the provenance audit found (§9.25)'). 2.33은 명목 정밀도 30%로, 감사의 29.5%에 맞춘 값입니다. 논문은 두 값의 근거를 밝히지 않은 채 '기본'으로 둡니다. 게다가 S-D와의 일관성 확인을 이 한 조건(정밀도 32.6%, Top-10 15.5%)으로 하므로(RES-A 137행, DIS 51행 '기본 구성의 재현율 15%·정밀도 32.6% 지점'), 철회한 감사가 숨은 기준점으로 남아 있습니다.",
+    "fix": "'후보 비율 2.33과 1은 명목 정밀도 1/(1+R) = 30%, 50%에 해당하는 격자값이며 측정값에 맞춘 것이 아니다'를 덧붙입니다. 7:3은 '기본'이 아니라 '혼합 구성(가정)'으로 불러 세 구성 가운데 하나로 둡니다. 일관성 확인은 특정 점 대신 세 구성·정밀도 20–100% 전체의 범위(14.7–17.3% 대 16.7%)로만 서술합니다."
+   },
+   {
+    "section": "MET-A 3.2 문서 단위 규칙",
+    "quote": "전체 필드 검색은 다른 질환을 다루면서 질환명을 지나가듯 언급한 문서도 가져오기 때문이다.",
+    "problem": "이 실패 유형('문서가 다른 질환에 대한 것')은 철회한 감사에서 관찰한 것입니다(§9.17). 판정자 없는 근거 없이 사실처럼 적혀 있습니다. 바로 뒤에 근거로 든 것은 설계 E 이후에 잰 HPOA 일치뿐이어서, 규칙을 정한 시점의 근거가 빠져 있습니다.",
+    "fix": "'…가져올 수 있기 때문이다'로 서술 수준을 낮춥니다. 그리고 규칙을 정한 시점에 판정자 없이 잰 근거인 구 Qwen3 v2.1의 HPOA 대조(주제 간선 19.3% 대 주제 밖 11.5%, 무작위 2.6%)를 인용합니다. 이 값을 인용하려면 위 Table 17a 항목처럼 근거 JSON을 먼저 확보합니다."
+   },
+   {
+    "section": "INT 서론 RQ5",
+    "quote": "일치율은 S-D 그래프에서 측정했고, 설계 E 확증 실행 뒤에는 S-mix·S-dict 그래프에서도 측정했다.",
+    "problem": "4.7절과 Table 17이 보고하는 구 Qwen3 v2.1 그래프가 빠져 있습니다. RQ5가 묻는 주제 문서 신호는 S-D에서 재지 않았습니다(Table 17a의 '–'). 따라서 문장을 그대로 읽으면 S-D에서 두 신호를 모두 잰 것처럼 보입니다.",
+    "fix": "'일치율은 구 Qwen3 v2.1 그래프와 S-D 그래프에서 측정했고(주제 문서 구분은 구 Qwen3 v2.1c에서만), 설계 E 확증 실행 뒤에는 S-mix·S-dict 그래프에서도 측정했다(4.7절).'로 바꿉니다."
+   },
+   {
+    "section": "ABS-CON 초록",
+    "quote": "혼합 추출 그래프에서 HPOA 주석이 있는 질환의 간선 856,023개 가운데 12.6%가 HPOA와 개념이 정확히 일치했다",
+    "problem": "856,023은 curated_agreement_smix.json의 comparable_edges입니다. 즉 HPOA 주석 질환의 간선 가운데 개념이 HPO 용어에 대응되는 간선만 센 수입니다. 초록 문장은 주석 질환의 모든 간선을 대조한 것처럼 읽힙니다. RES-A 4.3은 S-D에 대해 '개념이 HPO 용어에 대응되는 168,587개'로 정확히 적었습니다.",
+    "fix": "'HPOA 주석이 있는 질환의 간선 가운데 개념이 HPO 용어에 대응되는 856,023개 중 12.6%가'로 고칩니다."
+   },
+   {
+    "section": "DIS 5.1 시뮬레이션 (+ DIS 5. 논의 7행, INT 기여 3, RES-A 4.3, RES-B 4.7)",
+    "quote": "실현 정밀도 약 20~55%의 모든 조건에서 재현율 효과의 CI 하한이 정밀도 효과의 CI 상한보다 높았다.",
+    "problem": "같은 정밀도 범위가 절마다 다르게 적혀 있습니다. DIS는 '약 20~55%'(51행·7행), RES-B 4.7은 '20~53%', INT는 '20%, 30~35%, 50~53%', RES-A는 '20%·약 30–36%·약 50–54%'입니다. effects.json 기준으로 재현율 15% 점은 20.0–53.2%, 재현율 15·30% 점은 20.0–54.2%입니다. 55%는 어느 조건에도 없습니다.",
+    "fix": "DIS 두 곳을 '약 20~54%(재현율 15·30% 점)'로 맞춥니다. 재현율 15% 점만 말하는 곳(INT, 4.7)은 '20~53%'를 유지하고, 각 범위가 어느 점의 값인지 괄호로 적습니다."
+   },
+   {
+    "section": "DIS 5. 논의 (출처 단락)",
+    "quote": "두 단계의 오류를 따로 판정할 수 있다.",
+    "problem": "가능성을 말하는 문장이지만, 바로 앞뒤가 측정 결과 서술이어서 판정을 실제로 한 것처럼 읽힐 수 있습니다. 4.7절은 '그 검토는 하지 않았다'고 명시합니다.",
+    "fix": "'…따로 판정할 수 있게 했으나, 이 판정은 하지 않았다(4.7절).'로 바꿉니다."
+   },
+   {
+    "section": "DIS 5.2 후속 연구 둘째",
+    "quote": "먼저 빠지는 항목의 표본을 감사해 실제 소견의 비율을 잰다.",
+    "problem": "앞으로 할 사람 판정('감사', 같은 단락의 '연결 정밀도를 감사하는 조건')에 절차가 정해져 있지 않습니다. 비공식 감사를 철회한 경위에 비추어 보면 같은 방식을 되풀이하는 것으로 읽힐 수 있습니다. 넷째 항목이 정한 절차(지침, 독립 판정자 2명 이상, 일치도, 판정자 배경)와도 연결되어 있지 않습니다.",
+    "fix": "'먼저 빠지는 항목의 표본을 넷째 항목의 판정 절차(고정 지침, 배경을 밝힌 독립 판정자 두 명 이상, 판정자 간 일치도)로 판정해 실제 소견의 비율을 잰다.'로 고칩니다. '연결 정밀도를 감사하는 조건'도 같은 절차를 가리키게 합니다."
+   }
+  ]
+ }
+}

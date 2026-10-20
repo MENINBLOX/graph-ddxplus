@@ -1,0 +1,2357 @@
+{
+ "note": "diff = B - A in percentage points of lineage Top-k on the nine development sets; ci = patient-paired bootstrap 95% (2,000, seed 0); ci_cluster = gold-disease cluster bootstrap; p_holm = exact McNemar, Holm across the nine sets of one comparison at one k; macro = equal-weight mean of the set values (graph_dx.py rounding) and paired_stats.macro_compare.",
+ "rule": {
+  "semmeddb_tuned_dev_macro_top10": 23.2,
+  "semmeddb_frozen_dev_macro_top10": 17.53,
+  "s_dict_dev_macro_top10": 42.88,
+  "gap_tuned": -19.68,
+  "gap_frozen": -25.35,
+  "verdict": "do not write: SemMedDB is below S-dict"
+ },
+ "tuned_config": {
+  "alpha": 0.35,
+  "mu": 1.0,
+  "decay": 0.5,
+  "unified_w": 0.5,
+  "support_beta": 0.0,
+  "offtopic_w": 1.0
+ },
+ "tuned_trail_len": 39,
+ "graphs": {
+  "semantic_drop": {
+   "source": "semmeddb",
+   "edges": 889315,
+   "true_edges": 889315,
+   "diseases_with_findings": 11522,
+   "concepts": 41900,
+   "orient": "semantic",
+   "generic": "drop",
+   "predications": {
+    "ASSOCIATED_WITH disease_object": 366241,
+    "ASSOCIATED_WITH disease_subject": 40915,
+    "COEXISTS_WITH disease_object": 1373622,
+    "COEXISTS_WITH disease_subject": 1221853,
+    "MANIFESTATION_OF disease_object": 35263,
+    "dropped_generic": 333537
+   },
+   "n_docs_total": 2774544
+  },
+  "semantic_keep": {
+   "source": "semmeddb",
+   "edges": 938333,
+   "true_edges": 938333,
+   "diseases_with_findings": 11619,
+   "concepts": 42956,
+   "orient": "semantic",
+   "generic": "keep",
+   "predications": {
+    "ASSOCIATED_WITH disease_object": 428728,
+    "ASSOCIATED_WITH disease_subject": 48686,
+    "COEXISTS_WITH disease_object": 1574980,
+    "COEXISTS_WITH disease_subject": 1380621,
+    "MANIFESTATION_OF disease_object": 44661
+   },
+   "n_docs_total": 3195908
+  },
+  "subject_drop": {
+   "source": "semmeddb",
+   "edges": 458138,
+   "true_edges": 458138,
+   "diseases_with_findings": 10033,
+   "concepts": 28338,
+   "orient": "subject",
+   "generic": "drop",
+   "predications": {
+    "ASSOCIATED_WITH disease_subject": 40915,
+    "COEXISTS_WITH disease_subject": 1221853,
+    "MANIFESTATION_OF disease_object": 35263,
+    "dropped_generic": 333537
+   },
+   "n_docs_total": 1203999
+  }
+ },
+ "dev_macro": {
+  "S-mix": {
+   "top10": 46.11,
+   "top1": 19.66
+  },
+  "S-dict": {
+   "top10": 42.88,
+   "top1": 18.11
+  },
+  "SemMedDB semantic_drop tuned": {
+   "top10": 23.2,
+   "top1": 7.15
+  },
+  "SemMedDB semantic_drop frozen": {
+   "top10": 17.53,
+   "top1": 7.6
+  },
+  "SemMedDB semantic_keep tuned": {
+   "top10": 22.46,
+   "top1": 7.02
+  },
+  "SemMedDB semantic_keep frozen": {
+   "top10": 16.49,
+   "top1": 6.1
+  },
+  "SemMedDB subject_drop tuned": {
+   "top10": 18.61,
+   "top1": 7.25
+  },
+  "SemMedDB subject_drop frozen": {
+   "top10": 14.21,
+   "top1": 3.41
+  },
+  "HPOA (D3)": {
+   "top10": 52.45,
+   "top1": 30.37
+  },
+  "PrimeKG (D3)": {
+   "top10": 33.52,
+   "top1": 15.18
+  },
+  "MeSH co-occurrence (D3)": {
+   "top10": 9.13,
+   "top1": 2.61
+  }
+ },
+ "per_set": {
+  "S-mix": {
+   "DDXPlus-test": [
+    40.63,
+    11.77
+   ],
+   "RareBench-RAMEDIS": [
+    57.21,
+    10.58
+   ],
+   "RareBench-LIRICAL": [
+    38.38,
+    17.84
+   ],
+   "RareBench-HMS": [
+    44.32,
+    15.91
+   ],
+   "RareBench-MME": [
+    55.0,
+    35.0
+   ],
+   "PUMCH_L": [
+    67.11,
+    34.62
+   ],
+   "PUMCH-ADM": [
+    68.0,
+    33.33
+   ],
+   "Phenopacket-store": [
+    31.03,
+    15.41
+   ],
+   "SymCat": [
+    13.34,
+    2.51
+   ]
+  },
+  "S-dict": {
+   "DDXPlus-test": [
+    42.27,
+    16.63
+   ],
+   "RareBench-RAMEDIS": [
+    47.92,
+    8.17
+   ],
+   "RareBench-LIRICAL": [
+    32.7,
+    15.68
+   ],
+   "RareBench-HMS": [
+    43.18,
+    15.91
+   ],
+   "RareBench-MME": [
+    52.5,
+    22.5
+   ],
+   "PUMCH_L": [
+    64.78,
+    36.13
+   ],
+   "PUMCH-ADM": [
+    60.0,
+    30.67
+   ],
+   "Phenopacket-store": [
+    28.08,
+    13.93
+   ],
+   "SymCat": [
+    14.46,
+    3.34
+   ]
+  },
+  "SemMedDB semantic_drop tuned": {
+   "DDXPlus-test": [
+    45.33,
+    7.8
+   ],
+   "RareBench-RAMEDIS": [
+    28.69,
+    19.07
+   ],
+   "RareBench-LIRICAL": [
+    9.19,
+    5.14
+   ],
+   "RareBench-HMS": [
+    14.77,
+    0.0
+   ],
+   "RareBench-MME": [
+    32.5,
+    7.5
+   ],
+   "PUMCH_L": [
+    18.62,
+    3.34
+   ],
+   "PUMCH-ADM": [
+    37.33,
+    14.67
+   ],
+   "Phenopacket-store": [
+    10.09,
+    4.16
+   ],
+   "SymCat": [
+    12.28,
+    2.65
+   ]
+  },
+  "SemMedDB semantic_drop frozen": {
+   "DDXPlus-test": [
+    35.13,
+    11.1
+   ],
+   "RareBench-RAMEDIS": [
+    25.8,
+    17.31
+   ],
+   "RareBench-LIRICAL": [
+    7.84,
+    4.05
+   ],
+   "RareBench-HMS": [
+    11.36,
+    3.41
+   ],
+   "RareBench-MME": [
+    5.0,
+    0.0
+   ],
+   "PUMCH_L": [
+    9.41,
+    3.44
+   ],
+   "PUMCH-ADM": [
+    40.0,
+    20.0
+   ],
+   "Phenopacket-store": [
+    8.71,
+    5.18
+   ],
+   "SymCat": [
+    14.52,
+    3.93
+   ]
+  },
+  "SemMedDB semantic_keep tuned": {
+   "DDXPlus-test": [
+    45.53,
+    7.47
+   ],
+   "RareBench-RAMEDIS": [
+    28.21,
+    18.59
+   ],
+   "RareBench-LIRICAL": [
+    9.19,
+    5.14
+   ],
+   "RareBench-HMS": [
+    14.77,
+    0.0
+   ],
+   "RareBench-MME": [
+    30.0,
+    7.5
+   ],
+   "PUMCH_L": [
+    16.19,
+    2.83
+   ],
+   "PUMCH-ADM": [
+    36.0,
+    14.67
+   ],
+   "Phenopacket-store": [
+    10.01,
+    4.39
+   ],
+   "SymCat": [
+    12.2,
+    2.63
+   ]
+  },
+  "SemMedDB semantic_keep frozen": {
+   "DDXPlus-test": [
+    29.7,
+    5.37
+   ],
+   "RareBench-RAMEDIS": [
+    25.8,
+    16.83
+   ],
+   "RareBench-LIRICAL": [
+    7.03,
+    4.05
+   ],
+   "RareBench-HMS": [
+    10.23,
+    1.14
+   ],
+   "RareBench-MME": [
+    5.0,
+    0.0
+   ],
+   "PUMCH_L": [
+    8.6,
+    2.53
+   ],
+   "PUMCH-ADM": [
+    40.0,
+    16.0
+   ],
+   "Phenopacket-store": [
+    8.47,
+    5.2
+   ],
+   "SymCat": [
+    13.59,
+    3.74
+   ]
+  },
+  "SemMedDB subject_drop tuned": {
+   "DDXPlus-test": [
+    36.7,
+    7.9
+   ],
+   "RareBench-RAMEDIS": [
+    24.04,
+    19.55
+   ],
+   "RareBench-LIRICAL": [
+    5.95,
+    3.51
+   ],
+   "RareBench-HMS": [
+    9.09,
+    3.41
+   ],
+   "RareBench-MME": [
+    30.0,
+    15.0
+   ],
+   "PUMCH_L": [
+    15.49,
+    4.66
+   ],
+   "PUMCH-ADM": [
+    30.67,
+    8.0
+   ],
+   "Phenopacket-store": [
+    3.66,
+    1.15
+   ],
+   "SymCat": [
+    11.88,
+    2.1
+   ]
+  },
+  "SemMedDB subject_drop frozen": {
+   "DDXPlus-test": [
+    30.03,
+    6.7
+   ],
+   "RareBench-RAMEDIS": [
+    21.63,
+    3.85
+   ],
+   "RareBench-LIRICAL": [
+    4.86,
+    2.7
+   ],
+   "RareBench-HMS": [
+    11.36,
+    0.0
+   ],
+   "RareBench-MME": [
+    10.0,
+    0.0
+   ],
+   "PUMCH_L": [
+    7.49,
+    3.34
+   ],
+   "PUMCH-ADM": [
+    24.0,
+    8.0
+   ],
+   "Phenopacket-store": [
+    3.65,
+    2.63
+   ],
+   "SymCat": [
+    14.88,
+    3.49
+   ]
+  }
+ },
+ "rows": [
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop tuned",
+   "k": 10,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 45.33,
+   "B_pct": 40.63,
+   "diff": -4.7,
+   "ci": [
+    -6.63,
+    -2.73
+   ],
+   "ci_cluster": [
+    -15.27,
+    7.15
+   ],
+   "diseases": 48,
+   "only_A": 503,
+   "only_B": 362,
+   "p_holm": 9.203497833959942e-06
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop tuned",
+   "k": 10,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 28.69,
+   "B_pct": 57.21,
+   "diff": 28.53,
+   "ci": [
+    24.52,
+    32.53
+   ],
+   "ci_cluster": [
+    14.98,
+    45.16
+   ],
+   "diseases": 74,
+   "only_A": 13,
+   "only_B": 191,
+   "p_holm": 6.724054232684473e-41
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop tuned",
+   "k": 10,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 9.19,
+   "B_pct": 38.38,
+   "diff": 29.19,
+   "ci": [
+    24.32,
+    34.05
+   ],
+   "ci_cluster": [
+    22.6,
+    36.76
+   ],
+   "diseases": 252,
+   "only_A": 2,
+   "only_B": 110,
+   "p_holm": 1.462705274163218e-29
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop tuned",
+   "k": 10,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 14.77,
+   "B_pct": 44.32,
+   "diff": 29.55,
+   "ci": [
+    18.18,
+    42.05
+   ],
+   "ci_cluster": [
+    16.9,
+    41.33
+   ],
+   "diseases": 46,
+   "only_A": 5,
+   "only_B": 31,
+   "p_holm": 3.8740457966923714e-05
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop tuned",
+   "k": 10,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 32.5,
+   "B_pct": 55.0,
+   "diff": 22.5,
+   "ci": [
+    0.0,
+    45.0
+   ],
+   "ci_cluster": [
+    -24.07,
+    79.17
+   ],
+   "diseases": 17,
+   "only_A": 8,
+   "only_B": 17,
+   "p_holm": 0.10775214433670044
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop tuned",
+   "k": 10,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 18.62,
+   "B_pct": 67.11,
+   "diff": 48.48,
+   "ci": [
+    45.24,
+    51.72
+   ],
+   "ci_cluster": [
+    34.17,
+    57.77
+   ],
+   "diseases": 100,
+   "only_A": 16,
+   "only_B": 495,
+   "p_holm": 2.0094743338858293e-123
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop tuned",
+   "k": 10,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 37.33,
+   "B_pct": 68.0,
+   "diff": 30.67,
+   "ci": [
+    20.0,
+    42.67
+   ],
+   "ci_cluster": [
+    19.44,
+    40.54
+   ],
+   "diseases": 16,
+   "only_A": 2,
+   "only_B": 25,
+   "p_holm": 2.2590160369873047e-05
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop tuned",
+   "k": 10,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 10.09,
+   "B_pct": 31.03,
+   "diff": 20.94,
+   "ci": [
+    20.17,
+    21.77
+   ],
+   "ci_cluster": [
+    16.12,
+    25.59
+   ],
+   "diseases": 772,
+   "only_A": 55,
+   "only_B": 2214,
+   "p_holm": 0.0
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop tuned",
+   "k": 10,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 12.28,
+   "B_pct": 13.34,
+   "diff": 1.06,
+   "ci": [
+    0.25,
+    1.87
+   ],
+   "ci_cluster": [
+    -0.65,
+    2.71
+   ],
+   "diseases": 760,
+   "only_A": 477,
+   "only_B": 556,
+   "p_holm": 0.030379966289601237
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop tuned",
+   "k": 1,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 7.8,
+   "B_pct": 11.77,
+   "diff": 3.97,
+   "ci": [
+    2.53,
+    5.43
+   ],
+   "ci_cluster": [
+    -4.51,
+    12.56
+   ],
+   "diseases": 48,
+   "only_A": 203,
+   "only_B": 322,
+   "p_holm": 1.3956033985682681e-06
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop tuned",
+   "k": 1,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 19.07,
+   "B_pct": 10.58,
+   "diff": -8.49,
+   "ci": [
+    -12.5,
+    -4.33
+   ],
+   "ci_cluster": [
+    -35.43,
+    19.06
+   ],
+   "diseases": 74,
+   "only_A": 117,
+   "only_B": 64,
+   "p_holm": 0.000499766597364856
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop tuned",
+   "k": 1,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 5.14,
+   "B_pct": 17.84,
+   "diff": 12.7,
+   "ci": [
+    8.65,
+    17.03
+   ],
+   "ci_cluster": [
+    7.72,
+    18.42
+   ],
+   "diseases": 252,
+   "only_A": 11,
+   "only_B": 58,
+   "p_holm": 5.2890808199237884e-08
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop tuned",
+   "k": 1,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 0.0,
+   "B_pct": 15.91,
+   "diff": 15.91,
+   "ci": [
+    9.09,
+    23.86
+   ],
+   "ci_cluster": [
+    8.51,
+    24.73
+   ],
+   "diseases": 46,
+   "only_A": 0,
+   "only_B": 14,
+   "p_holm": 0.000499766597364856
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop tuned",
+   "k": 1,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 7.5,
+   "B_pct": 35.0,
+   "diff": 27.5,
+   "ci": [
+    10.0,
+    45.0
+   ],
+   "ci_cluster": [
+    6.06,
+    56.6
+   ],
+   "diseases": 17,
+   "only_A": 2,
+   "only_B": 13,
+   "p_holm": 0.0147705078125
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop tuned",
+   "k": 1,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 3.34,
+   "B_pct": 34.62,
+   "diff": 31.28,
+   "ci": [
+    28.24,
+    34.11
+   ],
+   "ci_cluster": [
+    13.7,
+    48.58
+   ],
+   "diseases": 100,
+   "only_A": 13,
+   "only_B": 322,
+   "p_holm": 2.021868811121632e-77
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop tuned",
+   "k": 1,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 14.67,
+   "B_pct": 33.33,
+   "diff": 18.67,
+   "ci": [
+    6.67,
+    30.67
+   ],
+   "ci_cluster": [
+    7.14,
+    31.08
+   ],
+   "diseases": 16,
+   "only_A": 4,
+   "only_B": 18,
+   "p_holm": 0.013030529022216797
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop tuned",
+   "k": 1,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 4.16,
+   "B_pct": 15.41,
+   "diff": 11.25,
+   "ci": [
+    10.59,
+    11.89
+   ],
+   "ci_cluster": [
+    7.04,
+    15.92
+   ],
+   "diseases": 772,
+   "only_A": 71,
+   "only_B": 1231,
+   "p_holm": 5.051427083322155e-273
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop tuned",
+   "k": 1,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 2.65,
+   "B_pct": 2.51,
+   "diff": -0.13,
+   "ci": [
+    -0.57,
+    0.35
+   ],
+   "ci_cluster": [
+    -0.94,
+    0.67
+   ],
+   "diseases": 760,
+   "only_A": 157,
+   "only_B": 147,
+   "p_holm": 0.6057978899878553
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop tuned",
+   "k": 10,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 45.33,
+   "B_pct": 42.27,
+   "diff": -3.07,
+   "ci": [
+    -4.97,
+    -1.1
+   ],
+   "ci_cluster": [
+    -14.53,
+    9.16
+   ],
+   "diseases": 48,
+   "only_A": 486,
+   "only_B": 394,
+   "p_holm": 0.0042802893889652225
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop tuned",
+   "k": 10,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 28.69,
+   "B_pct": 47.92,
+   "diff": 19.23,
+   "ci": [
+    15.38,
+    22.92
+   ],
+   "ci_cluster": [
+    8.77,
+    34.34
+   ],
+   "diseases": 74,
+   "only_A": 21,
+   "only_B": 141,
+   "p_holm": 3.5579756008975926e-22
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop tuned",
+   "k": 10,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 9.19,
+   "B_pct": 32.7,
+   "diff": 23.51,
+   "ci": [
+    18.92,
+    28.38
+   ],
+   "ci_cluster": [
+    17.94,
+    30.23
+   ],
+   "diseases": 252,
+   "only_A": 4,
+   "only_B": 91,
+   "p_holm": 1.0076783490419349e-21
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop tuned",
+   "k": 10,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 14.77,
+   "B_pct": 43.18,
+   "diff": 28.41,
+   "ci": [
+    17.05,
+    40.91
+   ],
+   "ci_cluster": [
+    13.75,
+    41.67
+   ],
+   "diseases": 46,
+   "only_A": 6,
+   "only_B": 31,
+   "p_holm": 0.0001650303602218628
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop tuned",
+   "k": 10,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 32.5,
+   "B_pct": 52.5,
+   "diff": 20.0,
+   "ci": [
+    -2.5,
+    40.0
+   ],
+   "ci_cluster": [
+    -24.62,
+    72.0
+   ],
+   "diseases": 17,
+   "only_A": 7,
+   "only_B": 15,
+   "p_holm": 0.13380050659179688
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop tuned",
+   "k": 10,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 18.62,
+   "B_pct": 64.78,
+   "diff": 46.15,
+   "ci": [
+    42.81,
+    49.6
+   ],
+   "ci_cluster": [
+    33.86,
+    54.55
+   ],
+   "diseases": 100,
+   "only_A": 16,
+   "only_B": 472,
+   "p_holm": 7.990017963058248e-117
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop tuned",
+   "k": 10,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 37.33,
+   "B_pct": 60.0,
+   "diff": 22.67,
+   "ci": [
+    10.67,
+    34.67
+   ],
+   "ci_cluster": [
+    10.14,
+    33.73
+   ],
+   "diseases": 16,
+   "only_A": 3,
+   "only_B": 20,
+   "p_holm": 0.00146484375
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop tuned",
+   "k": 10,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 10.09,
+   "B_pct": 28.08,
+   "diff": 17.99,
+   "ci": [
+    17.27,
+    18.79
+   ],
+   "ci_cluster": [
+    12.95,
+    23.59
+   ],
+   "diseases": 772,
+   "only_A": 89,
+   "only_B": 1944,
+   "p_holm": 0.0
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop tuned",
+   "k": 10,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 12.28,
+   "B_pct": 14.46,
+   "diff": 2.18,
+   "ci": [
+    1.35,
+    2.99
+   ],
+   "ci_cluster": [
+    0.55,
+    3.87
+   ],
+   "diseases": 760,
+   "only_A": 445,
+   "only_B": 608,
+   "p_holm": 2.8393559702515116e-06
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop tuned",
+   "k": 1,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 7.8,
+   "B_pct": 16.63,
+   "diff": 8.83,
+   "ci": [
+    7.17,
+    10.4
+   ],
+   "ci_cluster": [
+    0.69,
+    17.11
+   ],
+   "diseases": 48,
+   "only_A": 183,
+   "only_B": 448,
+   "p_holm": 9.622486508470726e-26
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop tuned",
+   "k": 1,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 19.07,
+   "B_pct": 8.17,
+   "diff": -10.9,
+   "ci": [
+    -14.74,
+    -7.05
+   ],
+   "ci_cluster": [
+    -36.9,
+    18.75
+   ],
+   "diseases": 74,
+   "only_A": 118,
+   "only_B": 50,
+   "p_holm": 9.674322670765535e-07
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop tuned",
+   "k": 1,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 5.14,
+   "B_pct": 15.68,
+   "diff": 10.54,
+   "ci": [
+    6.76,
+    14.86
+   ],
+   "ci_cluster": [
+    5.54,
+    15.99
+   ],
+   "diseases": 252,
+   "only_A": 12,
+   "only_B": 51,
+   "p_holm": 3.729861141082329e-06
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop tuned",
+   "k": 1,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 0.0,
+   "B_pct": 15.91,
+   "diff": 15.91,
+   "ci": [
+    9.09,
+    23.86
+   ],
+   "ci_cluster": [
+    7.06,
+    26.21
+   ],
+   "diseases": 46,
+   "only_A": 0,
+   "only_B": 14,
+   "p_holm": 0.00048828125
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop tuned",
+   "k": 1,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 7.5,
+   "B_pct": 22.5,
+   "diff": 15.0,
+   "ci": [
+    0.0,
+    30.0
+   ],
+   "ci_cluster": [
+    -7.69,
+    42.5
+   ],
+   "diseases": 17,
+   "only_A": 3,
+   "only_B": 9,
+   "p_holm": 0.14599609375
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop tuned",
+   "k": 1,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 3.34,
+   "B_pct": 36.13,
+   "diff": 32.79,
+   "ci": [
+    29.76,
+    35.73
+   ],
+   "ci_cluster": [
+    16.69,
+    46.24
+   ],
+   "diseases": 100,
+   "only_A": 6,
+   "only_B": 330,
+   "p_holm": 2.224178085406793e-88
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop tuned",
+   "k": 1,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 14.67,
+   "B_pct": 30.67,
+   "diff": 16.0,
+   "ci": [
+    6.67,
+    25.33
+   ],
+   "ci_cluster": [
+    4.55,
+    28.92
+   ],
+   "diseases": 16,
+   "only_A": 2,
+   "only_B": 14,
+   "p_holm": 0.012542724609375
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop tuned",
+   "k": 1,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 4.16,
+   "B_pct": 13.93,
+   "diff": 9.77,
+   "ci": [
+    9.15,
+    10.38
+   ],
+   "ci_cluster": [
+    5.71,
+    14.02
+   ],
+   "diseases": 772,
+   "only_A": 68,
+   "only_B": 1075,
+   "p_holm": 7.514236821799708e-233
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop tuned",
+   "k": 1,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 2.65,
+   "B_pct": 3.34,
+   "diff": 0.7,
+   "ci": [
+    0.24,
+    1.18
+   ],
+   "ci_cluster": [
+    -0.12,
+    1.54
+   ],
+   "diseases": 760,
+   "only_A": 139,
+   "only_B": 191,
+   "p_holm": 0.012542724609375
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop frozen",
+   "k": 10,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 35.13,
+   "B_pct": 40.63,
+   "diff": 5.5,
+   "ci": [
+    3.67,
+    7.33
+   ],
+   "ci_cluster": [
+    -4.42,
+    15.56
+   ],
+   "diseases": 48,
+   "only_A": 276,
+   "only_B": 441,
+   "p_holm": 3.845257985077628e-09
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop frozen",
+   "k": 10,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 25.8,
+   "B_pct": 57.21,
+   "diff": 31.41,
+   "ci": [
+    27.24,
+    35.1
+   ],
+   "ci_cluster": [
+    17.03,
+    48.01
+   ],
+   "diseases": 74,
+   "only_A": 5,
+   "only_B": 201,
+   "p_holm": 4.108611122734368e-52
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop frozen",
+   "k": 10,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 7.84,
+   "B_pct": 38.38,
+   "diff": 30.54,
+   "ci": [
+    25.68,
+    35.41
+   ],
+   "ci_cluster": [
+    24.0,
+    38.14
+   ],
+   "diseases": 252,
+   "only_A": 1,
+   "only_B": 114,
+   "p_holm": 3.3511181032337904e-32
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop frozen",
+   "k": 10,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 11.36,
+   "B_pct": 44.32,
+   "diff": 32.95,
+   "ci": [
+    21.59,
+    44.32
+   ],
+   "ci_cluster": [
+    18.07,
+    45.07
+   ],
+   "diseases": 46,
+   "only_A": 4,
+   "only_B": 33,
+   "p_holm": 4.337576683610678e-06
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop frozen",
+   "k": 10,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 5.0,
+   "B_pct": 55.0,
+   "diff": 50.0,
+   "ci": [
+    32.5,
+    67.5
+   ],
+   "ci_cluster": [
+    20.75,
+    83.33
+   ],
+   "diseases": 17,
+   "only_A": 1,
+   "only_B": 21,
+   "p_holm": 3.2901763916015625e-05
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop frozen",
+   "k": 10,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 9.41,
+   "B_pct": 67.11,
+   "diff": 57.69,
+   "ci": [
+    54.45,
+    60.73
+   ],
+   "ci_cluster": [
+    38.35,
+    69.9
+   ],
+   "diseases": 100,
+   "only_A": 10,
+   "only_B": 580,
+   "p_holm": 5.240862797909616e-156
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop frozen",
+   "k": 10,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 40.0,
+   "B_pct": 68.0,
+   "diff": 28.0,
+   "ci": [
+    16.0,
+    40.0
+   ],
+   "ci_cluster": [
+    11.94,
+    44.74
+   ],
+   "diseases": 16,
+   "only_A": 3,
+   "only_B": 24,
+   "p_holm": 9.846687316894531e-05
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop frozen",
+   "k": 10,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 8.71,
+   "B_pct": 31.03,
+   "diff": 22.32,
+   "ci": [
+    21.53,
+    23.15
+   ],
+   "ci_cluster": [
+    17.19,
+    27.39
+   ],
+   "diseases": 772,
+   "only_A": 29,
+   "only_B": 2330,
+   "p_holm": 0.0
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop frozen",
+   "k": 10,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 14.52,
+   "B_pct": 13.34,
+   "diff": -1.18,
+   "ci": [
+    -1.99,
+    -0.29
+   ],
+   "ci_cluster": [
+    -3.08,
+    0.79
+   ],
+   "diseases": 760,
+   "only_A": 599,
+   "only_B": 511,
+   "p_holm": 0.00898960615203027
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop frozen",
+   "k": 1,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 11.1,
+   "B_pct": 11.77,
+   "diff": 0.67,
+   "ci": [
+    -0.9,
+    2.27
+   ],
+   "ci_cluster": [
+    -10.11,
+    11.19
+   ],
+   "diseases": 48,
+   "only_A": 286,
+   "only_B": 306,
+   "p_holm": 0.43488952784859053
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop frozen",
+   "k": 1,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 17.31,
+   "B_pct": 10.58,
+   "diff": -6.73,
+   "ci": [
+    -10.58,
+    -2.56
+   ],
+   "ci_cluster": [
+    -32.26,
+    19.6
+   ],
+   "diseases": 74,
+   "only_A": 105,
+   "only_B": 63,
+   "p_holm": 0.005938778422121625
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop frozen",
+   "k": 1,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 4.05,
+   "B_pct": 17.84,
+   "diff": 13.78,
+   "ci": [
+    10.0,
+    17.84
+   ],
+   "ci_cluster": [
+    9.07,
+    19.32
+   ],
+   "diseases": 252,
+   "only_A": 6,
+   "only_B": 57,
+   "p_holm": 1.1476980975831663e-10
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop frozen",
+   "k": 1,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 3.41,
+   "B_pct": 15.91,
+   "diff": 12.5,
+   "ci": [
+    4.55,
+    20.45
+   ],
+   "ci_cluster": [
+    3.75,
+    21.62
+   ],
+   "diseases": 46,
+   "only_A": 2,
+   "only_B": 13,
+   "p_holm": 0.02215576171875
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop frozen",
+   "k": 1,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 0.0,
+   "B_pct": 35.0,
+   "diff": 35.0,
+   "ci": [
+    20.0,
+    50.0
+   ],
+   "ci_cluster": [
+    11.11,
+    61.29
+   ],
+   "diseases": 17,
+   "only_A": 0,
+   "only_B": 14,
+   "p_holm": 0.0006103515625
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop frozen",
+   "k": 1,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 3.44,
+   "B_pct": 34.62,
+   "diff": 31.17,
+   "ci": [
+    27.94,
+    34.11
+   ],
+   "ci_cluster": [
+    12.26,
+    49.97
+   ],
+   "diseases": 100,
+   "only_A": 20,
+   "only_B": 328,
+   "p_holm": 4.749104224613589e-72
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop frozen",
+   "k": 1,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 20.0,
+   "B_pct": 33.33,
+   "diff": 13.33,
+   "ci": [
+    1.33,
+    25.33
+   ],
+   "ci_cluster": [
+    -3.03,
+    27.71
+   ],
+   "diseases": 16,
+   "only_A": 5,
+   "only_B": 15,
+   "p_holm": 0.0827789306640625
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop frozen",
+   "k": 1,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 5.18,
+   "B_pct": 15.41,
+   "diff": 10.23,
+   "ci": [
+    9.63,
+    10.82
+   ],
+   "ci_cluster": [
+    6.54,
+    14.79
+   ],
+   "diseases": 772,
+   "only_A": 44,
+   "only_B": 1099,
+   "p_holm": 9.14202236794884e-264
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop frozen",
+   "k": 1,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 3.93,
+   "B_pct": 2.51,
+   "diff": -1.42,
+   "ci": [
+    -1.92,
+    -0.91
+   ],
+   "ci_cluster": [
+    -2.48,
+    -0.4
+   ],
+   "diseases": 760,
+   "only_A": 236,
+   "only_B": 130,
+   "p_holm": 1.966125622027276e-07
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop frozen",
+   "k": 10,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 35.13,
+   "B_pct": 42.27,
+   "diff": 7.13,
+   "ci": [
+    5.27,
+    9.0
+   ],
+   "ci_cluster": [
+    -3.05,
+    18.17
+   ],
+   "diseases": 48,
+   "only_A": 287,
+   "only_B": 501,
+   "p_holm": 1.1339336601659138e-13
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop frozen",
+   "k": 10,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 25.8,
+   "B_pct": 47.92,
+   "diff": 22.12,
+   "ci": [
+    18.43,
+    25.48
+   ],
+   "ci_cluster": [
+    11.65,
+    37.42
+   ],
+   "diseases": 74,
+   "only_A": 4,
+   "only_B": 142,
+   "p_holm": 2.932159953305437e-36
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop frozen",
+   "k": 10,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 7.84,
+   "B_pct": 32.7,
+   "diff": 24.86,
+   "ci": [
+    20.27,
+    29.46
+   ],
+   "ci_cluster": [
+    18.9,
+    31.61
+   ],
+   "diseases": 252,
+   "only_A": 3,
+   "only_B": 95,
+   "p_holm": 5.942886784926113e-24
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop frozen",
+   "k": 10,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 11.36,
+   "B_pct": 43.18,
+   "diff": 31.82,
+   "ci": [
+    20.45,
+    43.18
+   ],
+   "ci_cluster": [
+    15.38,
+    45.95
+   ],
+   "diseases": 46,
+   "only_A": 4,
+   "only_B": 32,
+   "p_holm": 7.766298949718475e-06
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop frozen",
+   "k": 10,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 5.0,
+   "B_pct": 52.5,
+   "diff": 47.5,
+   "ci": [
+    32.5,
+    62.5
+   ],
+   "ci_cluster": [
+    15.38,
+    80.39
+   ],
+   "diseases": 17,
+   "only_A": 0,
+   "only_B": 19,
+   "p_holm": 1.1444091796875e-05
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop frozen",
+   "k": 10,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 9.41,
+   "B_pct": 64.78,
+   "diff": 55.36,
+   "ci": [
+    52.23,
+    58.5
+   ],
+   "ci_cluster": [
+    37.37,
+    66.61
+   ],
+   "diseases": 100,
+   "only_A": 10,
+   "only_B": 557,
+   "p_holm": 2.9468434026405697e-149
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop frozen",
+   "k": 10,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 40.0,
+   "B_pct": 60.0,
+   "diff": 20.0,
+   "ci": [
+    8.0,
+    30.67
+   ],
+   "ci_cluster": [
+    4.05,
+    35.8
+   ],
+   "diseases": 16,
+   "only_A": 3,
+   "only_B": 18,
+   "p_holm": 0.002979278564453125
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop frozen",
+   "k": 10,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 8.71,
+   "B_pct": 28.08,
+   "diff": 19.37,
+   "ci": [
+    18.59,
+    20.16
+   ],
+   "ci_cluster": [
+    14.11,
+    25.29
+   ],
+   "diseases": 772,
+   "only_A": 38,
+   "only_B": 2035,
+   "p_holm": 0.0
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop frozen",
+   "k": 10,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 14.52,
+   "B_pct": 14.46,
+   "diff": -0.05,
+   "ci": [
+    -0.91,
+    0.78
+   ],
+   "ci_cluster": [
+    -1.88,
+    1.93
+   ],
+   "diseases": 760,
+   "only_A": 553,
+   "only_B": 549,
+   "p_holm": 0.9279975676874234
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop frozen",
+   "k": 1,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 11.1,
+   "B_pct": 16.63,
+   "diff": 5.53,
+   "ci": [
+    3.93,
+    7.1
+   ],
+   "ci_cluster": [
+    -5.02,
+    15.79
+   ],
+   "diseases": 48,
+   "only_A": 220,
+   "only_B": 386,
+   "p_holm": 1.0765237751410072e-10
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop frozen",
+   "k": 1,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 17.31,
+   "B_pct": 8.17,
+   "diff": -9.13,
+   "ci": [
+    -12.82,
+    -5.29
+   ],
+   "ci_cluster": [
+    -33.78,
+    18.96
+   ],
+   "diseases": 74,
+   "only_A": 105,
+   "only_B": 48,
+   "p_holm": 2.348252252508034e-05
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop frozen",
+   "k": 1,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 4.05,
+   "B_pct": 15.68,
+   "diff": 11.62,
+   "ci": [
+    8.11,
+    15.68
+   ],
+   "ci_cluster": [
+    6.72,
+    16.88
+   ],
+   "diseases": 252,
+   "only_A": 7,
+   "only_B": 50,
+   "p_holm": 2.542025906437928e-08
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop frozen",
+   "k": 1,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 3.41,
+   "B_pct": 15.91,
+   "diff": 12.5,
+   "ci": [
+    4.55,
+    21.59
+   ],
+   "ci_cluster": [
+    2.13,
+    23.29
+   ],
+   "diseases": 46,
+   "only_A": 3,
+   "only_B": 14,
+   "p_holm": 0.038177490234375
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop frozen",
+   "k": 1,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 0.0,
+   "B_pct": 22.5,
+   "diff": 22.5,
+   "ci": [
+    10.0,
+    35.0
+   ],
+   "ci_cluster": [
+    4.84,
+    44.44
+   ],
+   "diseases": 17,
+   "only_A": 0,
+   "only_B": 9,
+   "p_holm": 0.015625
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop frozen",
+   "k": 1,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 3.44,
+   "B_pct": 36.13,
+   "diff": 32.69,
+   "ci": [
+    29.45,
+    35.63
+   ],
+   "ci_cluster": [
+    15.47,
+    47.63
+   ],
+   "diseases": 100,
+   "only_A": 11,
+   "only_B": 334,
+   "p_holm": 4.056303613111975e-83
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop frozen",
+   "k": 1,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 20.0,
+   "B_pct": 30.67,
+   "diff": 10.67,
+   "ci": [
+    1.33,
+    21.33
+   ],
+   "ci_cluster": [
+    -5.33,
+    25.64
+   ],
+   "diseases": 16,
+   "only_A": 4,
+   "only_B": 12,
+   "p_holm": 0.076812744140625
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop frozen",
+   "k": 1,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 5.18,
+   "B_pct": 13.93,
+   "diff": 8.75,
+   "ci": [
+    8.13,
+    9.37
+   ],
+   "ci_cluster": [
+    4.99,
+    13.22
+   ],
+   "diseases": 772,
+   "only_A": 101,
+   "only_B": 1003,
+   "p_holm": 1.9051473005343995e-186
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop frozen",
+   "k": 1,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 3.93,
+   "B_pct": 3.34,
+   "diff": -0.59,
+   "ci": [
+    -1.14,
+    -0.09
+   ],
+   "ci_cluster": [
+    -1.67,
+    0.48
+   ],
+   "diseases": 760,
+   "only_A": 216,
+   "only_B": 172,
+   "p_holm": 0.0578119405333556
+  }
+ ],
+ "macro": [
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop tuned",
+   "k": 10,
+   "group": "all nine",
+   "A": 23.2,
+   "B": 46.11,
+   "diff": 22.91,
+   "ci_patient_stratified": [
+    19.6,
+    26.21
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop tuned",
+   "k": 10,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 28.81,
+   "B": 26.99,
+   "diff": -1.82,
+   "ci_patient_stratified": [
+    -2.92,
+    -0.78
+   ],
+   "p_bootstrap": 0.001
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop tuned",
+   "k": 10,
+   "group": "rare (7 sets)",
+   "A": 21.6,
+   "B": 51.58,
+   "diff": 29.98,
+   "ci_patient_stratified": [
+    25.62,
+    34.21
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop tuned",
+   "k": 1,
+   "group": "all nine",
+   "A": 7.15,
+   "B": 19.66,
+   "diff": 12.52,
+   "ci_patient_stratified": [
+    10.12,
+    15.0
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop tuned",
+   "k": 1,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 5.22,
+   "B": 7.14,
+   "diff": 1.92,
+   "ci_patient_stratified": [
+    1.12,
+    2.71
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop tuned",
+   "k": 1,
+   "group": "rare (7 sets)",
+   "A": 7.7,
+   "B": 23.24,
+   "diff": 15.54,
+   "ci_patient_stratified": [
+    12.16,
+    18.72
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop tuned",
+   "k": 10,
+   "group": "all nine",
+   "A": 23.2,
+   "B": 42.88,
+   "diff": 19.68,
+   "ci_patient_stratified": [
+    16.4,
+    22.83
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop tuned",
+   "k": 10,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 28.81,
+   "B": 28.36,
+   "diff": -0.44,
+   "ci_patient_stratified": [
+    -1.54,
+    0.61
+   ],
+   "p_bootstrap": 0.431
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop tuned",
+   "k": 10,
+   "group": "rare (7 sets)",
+   "A": 21.6,
+   "B": 47.02,
+   "diff": 25.42,
+   "ci_patient_stratified": [
+    21.29,
+    29.41
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop tuned",
+   "k": 1,
+   "group": "all nine",
+   "A": 7.15,
+   "B": 18.11,
+   "diff": 10.96,
+   "ci_patient_stratified": [
+    8.66,
+    13.34
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop tuned",
+   "k": 1,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 5.22,
+   "B": 9.99,
+   "diff": 4.76,
+   "ci_patient_stratified": [
+    3.92,
+    5.58
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop tuned",
+   "k": 1,
+   "group": "rare (7 sets)",
+   "A": 7.7,
+   "B": 20.43,
+   "diff": 12.73,
+   "ci_patient_stratified": [
+    9.64,
+    15.78
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop frozen",
+   "k": 10,
+   "group": "all nine",
+   "A": 17.53,
+   "B": 46.11,
+   "diff": 28.58,
+   "ci_patient_stratified": [
+    25.87,
+    31.36
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop frozen",
+   "k": 10,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 24.83,
+   "B": 26.99,
+   "diff": 2.16,
+   "ci_patient_stratified": [
+    1.19,
+    3.12
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop frozen",
+   "k": 10,
+   "group": "rare (7 sets)",
+   "A": 15.45,
+   "B": 51.58,
+   "diff": 36.13,
+   "ci_patient_stratified": [
+    32.52,
+    39.84
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop frozen",
+   "k": 1,
+   "group": "all nine",
+   "A": 7.6,
+   "B": 19.66,
+   "diff": 12.06,
+   "ci_patient_stratified": [
+    9.84,
+    14.45
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop frozen",
+   "k": 1,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 7.51,
+   "B": 7.14,
+   "diff": -0.38,
+   "ci_patient_stratified": [
+    -1.22,
+    0.45
+   ],
+   "p_bootstrap": 0.373
+  },
+  {
+   "comparison": "S-mix - SemMedDB semantic_drop frozen",
+   "k": 1,
+   "group": "rare (7 sets)",
+   "A": 7.63,
+   "B": 23.24,
+   "diff": 15.61,
+   "ci_patient_stratified": [
+    12.4,
+    18.74
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop frozen",
+   "k": 10,
+   "group": "all nine",
+   "A": 17.53,
+   "B": 42.88,
+   "diff": 25.35,
+   "ci_patient_stratified": [
+    22.73,
+    28.05
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop frozen",
+   "k": 10,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 24.83,
+   "B": 28.36,
+   "diff": 3.54,
+   "ci_patient_stratified": [
+    2.53,
+    4.54
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop frozen",
+   "k": 10,
+   "group": "rare (7 sets)",
+   "A": 15.45,
+   "B": 47.02,
+   "diff": 31.58,
+   "ci_patient_stratified": [
+    28.32,
+    35.05
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop frozen",
+   "k": 1,
+   "group": "all nine",
+   "A": 7.6,
+   "B": 18.11,
+   "diff": 10.5,
+   "ci_patient_stratified": [
+    8.42,
+    12.77
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop frozen",
+   "k": 1,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 7.51,
+   "B": 9.99,
+   "diff": 2.47,
+   "ci_patient_stratified": [
+    1.65,
+    3.32
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_drop frozen",
+   "k": 1,
+   "group": "rare (7 sets)",
+   "A": 7.63,
+   "B": 20.43,
+   "diff": 12.8,
+   "ci_patient_stratified": [
+    9.87,
+    15.69
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_keep tuned",
+   "k": 10,
+   "group": "all nine",
+   "A": 22.46,
+   "B": 42.88,
+   "diff": 20.42,
+   "ci_patient_stratified": [
+    17.14,
+    23.55
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_keep tuned",
+   "k": 1,
+   "group": "all nine",
+   "A": 7.02,
+   "B": 18.11,
+   "diff": 11.08,
+   "ci_patient_stratified": [
+    8.79,
+    13.44
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_keep frozen",
+   "k": 10,
+   "group": "all nine",
+   "A": 16.49,
+   "B": 42.88,
+   "diff": 26.39,
+   "ci_patient_stratified": [
+    23.83,
+    29.05
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "S-dict - SemMedDB semantic_keep frozen",
+   "k": 1,
+   "group": "all nine",
+   "A": 6.1,
+   "B": 18.11,
+   "diff": 12.01,
+   "ci_patient_stratified": [
+    9.95,
+    14.26
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "S-dict - SemMedDB subject_drop tuned",
+   "k": 10,
+   "group": "all nine",
+   "A": 18.61,
+   "B": 42.88,
+   "diff": 24.27,
+   "ci_patient_stratified": [
+    21.12,
+    27.36
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "S-dict - SemMedDB subject_drop tuned",
+   "k": 1,
+   "group": "all nine",
+   "A": 7.25,
+   "B": 18.11,
+   "diff": 10.85,
+   "ci_patient_stratified": [
+    8.23,
+    13.58
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "S-dict - SemMedDB subject_drop frozen",
+   "k": 10,
+   "group": "all nine",
+   "A": 14.21,
+   "B": 42.88,
+   "diff": 28.66,
+   "ci_patient_stratified": [
+    25.91,
+    31.45
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "S-dict - SemMedDB subject_drop frozen",
+   "k": 1,
+   "group": "all nine",
+   "A": 3.41,
+   "B": 18.11,
+   "diff": 14.7,
+   "ci_patient_stratified": [
+    12.64,
+    16.98
+   ],
+   "p_bootstrap": 0.0
+  }
+ ]
+}

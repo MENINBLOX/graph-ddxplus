@@ -38,3 +38,6 @@ CLAUDE.md
 # Temporary files
 tmp.md
 email/data/neo4j/
+
+# SemMedDB extracts fall under the UMLS licence and must not be redistributed
+pilot/cache/v3/p0/semmeddb/predications.tsv.gz

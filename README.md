@@ -2813,3 +2813,7 @@ Graph-DDXPlus/
 - **협조 필요 사항**:
   - 1단계: LLM IE 결과 검증에 참여 가능한 의료진 인력
   - 3단계: 환자 데이터 활용, IRB 절차, 평가 프로토콜 설계 자문
+
+## 라이선스
+
+코드는 MIT 라이선스(`LICENSE`)를 따른다. `data/`와 `pilot/cache/`에 있는 제3자 자료(UMLS, SemMedDB, HPO 주석, GeneReviews, PMC 문서 등)는 각 원 라이선스를 따르며 이 라이선스에 포함되지 않는다.
