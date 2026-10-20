@@ -1,0 +1,7 @@
+{
+ "source": "hpoa",
+ "edges": 389361,
+ "true_edges": 389361,
+ "diseases_with_findings": 12218,
+ "concepts": 9813
+}

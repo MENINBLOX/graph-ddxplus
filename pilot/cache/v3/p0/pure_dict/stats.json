@@ -1,0 +1,2081 @@
+{
+ "note": "diff = B - A in percentage points of lineage Top-k; ci = patient-paired bootstrap 95% (2,000, seed 0); ci_cluster = gold-disease cluster bootstrap; p_holm = exact McNemar, Holm across the sets of one comparison at one k. Development macro = mean of the nine graph_dx.py set values (D3).",
+ "rule": {
+  "pure_dev_macro_top10_ot0.5": 42.38,
+  "s_dict_dev_macro_top10": 42.88,
+  "gap": -0.5,
+  "threshold_pp": 1.0,
+  "verdict": "LLM-free dictionary path"
+ },
+ "dev_macro": {
+  "S-dict ot .5": {
+   "top10": 42.88,
+   "top1": 18.11
+  },
+  "S-mix ot .5": {
+   "top10": 46.11,
+   "top1": 19.66
+  },
+  "pure ot 0.0": {
+   "top10": 42.34,
+   "top1": 17.77
+  },
+  "pure ot 0.25": {
+   "top10": 42.43,
+   "top1": 17.83
+  },
+  "pure ot 0.5": {
+   "top10": 42.38,
+   "top1": 17.75
+  },
+  "pure ot 1.0": {
+   "top10": 39.16,
+   "top1": 16.75
+  }
+ },
+ "d3_pick": "0.25",
+ "rows": [
+  {
+   "part": "development",
+   "comparison": "pure - S-dict",
+   "k": 10,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 42.27,
+   "B_pct": 39.53,
+   "diff": -2.73,
+   "ci": [
+    -3.4,
+    -2.0
+   ],
+   "ci_cluster": [
+    -6.8,
+    0.15
+   ],
+   "diseases": 48,
+   "only_A": 97,
+   "only_B": 15,
+   "p_holm": 6.409674297257612e-15
+  },
+  {
+   "part": "development",
+   "comparison": "pure - S-dict",
+   "k": 10,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 47.92,
+   "B_pct": 47.92,
+   "diff": 0.0,
+   "ci": [
+    -0.48,
+    0.48
+   ],
+   "ci_cluster": [
+    -0.32,
+    0.56
+   ],
+   "diseases": 74,
+   "only_A": 1,
+   "only_B": 1,
+   "p_holm": 1.0
+  },
+  {
+   "part": "development",
+   "comparison": "pure - S-dict",
+   "k": 10,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 32.7,
+   "B_pct": 33.24,
+   "diff": 0.54,
+   "ci": [
+    0.0,
+    1.35
+   ],
+   "ci_cluster": [
+    0.0,
+    1.41
+   ],
+   "diseases": 252,
+   "only_A": 0,
+   "only_B": 2,
+   "p_holm": 1.0
+  },
+  {
+   "part": "development",
+   "comparison": "pure - S-dict",
+   "k": 10,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 43.18,
+   "B_pct": 42.05,
+   "diff": -1.14,
+   "ci": [
+    -5.68,
+    2.27
+   ],
+   "ci_cluster": [
+    -3.95,
+    0.0
+   ],
+   "diseases": 46,
+   "only_A": 2,
+   "only_B": 1,
+   "p_holm": 1.0
+  },
+  {
+   "part": "development",
+   "comparison": "pure - S-dict",
+   "k": 10,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 52.5,
+   "B_pct": 52.5,
+   "diff": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "ci_cluster": [
+    0.0,
+    0.0
+   ],
+   "diseases": 17,
+   "only_A": 0,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "part": "development",
+   "comparison": "pure - S-dict",
+   "k": 10,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 64.78,
+   "B_pct": 63.77,
+   "diff": -1.01,
+   "ci": [
+    -2.02,
+    0.0
+   ],
+   "ci_cluster": [
+    -2.61,
+    0.4
+   ],
+   "diseases": 100,
+   "only_A": 19,
+   "only_B": 9,
+   "p_holm": 0.6972684264183044
+  },
+  {
+   "part": "development",
+   "comparison": "pure - S-dict",
+   "k": 10,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 60.0,
+   "B_pct": 60.0,
+   "diff": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "ci_cluster": [
+    0.0,
+    0.0
+   ],
+   "diseases": 16,
+   "only_A": 0,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "part": "development",
+   "comparison": "pure - S-dict",
+   "k": 10,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 28.08,
+   "B_pct": 28.0,
+   "diff": -0.08,
+   "ci": [
+    -0.19,
+    0.04
+   ],
+   "ci_cluster": [
+    -0.29,
+    0.11
+   ],
+   "diseases": 772,
+   "only_A": 22,
+   "only_B": 14,
+   "p_holm": 1.0
+  },
+  {
+   "part": "development",
+   "comparison": "pure - S-dict",
+   "k": 10,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 14.46,
+   "B_pct": 14.41,
+   "diff": -0.05,
+   "ci": [
+    -0.32,
+    0.2
+   ],
+   "ci_cluster": [
+    -0.51,
+    0.43
+   ],
+   "diseases": 760,
+   "only_A": 57,
+   "only_B": 53,
+   "p_holm": 1.0
+  },
+  {
+   "part": "development",
+   "comparison": "pure - S-dict",
+   "k": 1,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 16.63,
+   "B_pct": 14.83,
+   "diff": -1.8,
+   "ci": [
+    -2.37,
+    -1.23
+   ],
+   "ci_cluster": [
+    -4.09,
+    0.11
+   ],
+   "diseases": 48,
+   "only_A": 62,
+   "only_B": 8,
+   "p_holm": 1.6440887286837697e-10
+  },
+  {
+   "part": "development",
+   "comparison": "pure - S-dict",
+   "k": 1,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 8.17,
+   "B_pct": 8.17,
+   "diff": 0.0,
+   "ci": [
+    -0.48,
+    0.48
+   ],
+   "ci_cluster": [
+    -0.49,
+    0.5
+   ],
+   "diseases": 74,
+   "only_A": 1,
+   "only_B": 1,
+   "p_holm": 1.0
+  },
+  {
+   "part": "development",
+   "comparison": "pure - S-dict",
+   "k": 1,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 15.68,
+   "B_pct": 15.14,
+   "diff": -0.54,
+   "ci": [
+    -1.35,
+    0.0
+   ],
+   "ci_cluster": [
+    -1.5,
+    0.0
+   ],
+   "diseases": 252,
+   "only_A": 2,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "part": "development",
+   "comparison": "pure - S-dict",
+   "k": 1,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 15.91,
+   "B_pct": 14.77,
+   "diff": -1.14,
+   "ci": [
+    -3.41,
+    0.0
+   ],
+   "ci_cluster": [
+    -2.97,
+    0.0
+   ],
+   "diseases": 46,
+   "only_A": 1,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "part": "development",
+   "comparison": "pure - S-dict",
+   "k": 1,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 22.5,
+   "B_pct": 22.5,
+   "diff": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "ci_cluster": [
+    0.0,
+    0.0
+   ],
+   "diseases": 17,
+   "only_A": 0,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "part": "development",
+   "comparison": "pure - S-dict",
+   "k": 1,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 36.13,
+   "B_pct": 35.12,
+   "diff": -1.01,
+   "ci": [
+    -1.92,
+    -0.1
+   ],
+   "ci_cluster": [
+    -2.05,
+    0.0
+   ],
+   "diseases": 100,
+   "only_A": 17,
+   "only_B": 7,
+   "p_holm": 0.3834879398345947
+  },
+  {
+   "part": "development",
+   "comparison": "pure - S-dict",
+   "k": 1,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 30.67,
+   "B_pct": 32.0,
+   "diff": 1.33,
+   "ci": [
+    0.0,
+    4.0
+   ],
+   "ci_cluster": [
+    0.0,
+    4.23
+   ],
+   "diseases": 16,
+   "only_A": 0,
+   "only_B": 1,
+   "p_holm": 1.0
+  },
+  {
+   "part": "development",
+   "comparison": "pure - S-dict",
+   "k": 1,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 13.93,
+   "B_pct": 13.72,
+   "diff": -0.2,
+   "ci": [
+    -0.35,
+    -0.07
+   ],
+   "ci_cluster": [
+    -0.65,
+    0.09
+   ],
+   "diseases": 772,
+   "only_A": 38,
+   "only_B": 17,
+   "p_holm": 0.0516464248796531
+  },
+  {
+   "part": "development",
+   "comparison": "pure - S-dict",
+   "k": 1,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 3.34,
+   "B_pct": 3.52,
+   "diff": 0.17,
+   "ci": [
+    0.03,
+    0.32
+   ],
+   "ci_cluster": [
+    -0.07,
+    0.48
+   ],
+   "diseases": 760,
+   "only_A": 10,
+   "only_B": 23,
+   "p_holm": 0.24557423358783126
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - pure",
+   "k": 10,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 39.53,
+   "B_pct": 40.63,
+   "diff": 1.1,
+   "ci": [
+    -0.03,
+    2.23
+   ],
+   "ci_cluster": [
+    -3.47,
+    6.03
+   ],
+   "diseases": 48,
+   "only_A": 140,
+   "only_B": 173,
+   "p_holm": 0.28125
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - pure",
+   "k": 10,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 47.92,
+   "B_pct": 57.21,
+   "diff": 9.29,
+   "ci": [
+    6.73,
+    12.02
+   ],
+   "ci_cluster": [
+    2.7,
+    19.88
+   ],
+   "diseases": 74,
+   "only_A": 10,
+   "only_B": 68,
+   "p_holm": 7.766491934603712e-11
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - pure",
+   "k": 10,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 33.24,
+   "B_pct": 38.38,
+   "diff": 5.14,
+   "ci": [
+    2.43,
+    7.84
+   ],
+   "ci_cluster": [
+    2.19,
+    8.33
+   ],
+   "diseases": 252,
+   "only_A": 5,
+   "only_B": 24,
+   "p_holm": 0.0038227885961532593
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - pure",
+   "k": 10,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 42.05,
+   "B_pct": 44.32,
+   "diff": 2.27,
+   "ci": [
+    -4.55,
+    9.09
+   ],
+   "ci_cluster": [
+    -3.57,
+    9.46
+   ],
+   "diseases": 46,
+   "only_A": 4,
+   "only_B": 6,
+   "p_holm": 1.0
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - pure",
+   "k": 10,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 52.5,
+   "B_pct": 55.0,
+   "diff": 2.5,
+   "ci": [
+    -7.5,
+    12.5
+   ],
+   "ci_cluster": [
+    -8.0,
+    18.18
+   ],
+   "diseases": 17,
+   "only_A": 2,
+   "only_B": 3,
+   "p_holm": 1.0
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - pure",
+   "k": 10,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 63.77,
+   "B_pct": 67.11,
+   "diff": 3.34,
+   "ci": [
+    1.52,
+    5.36
+   ],
+   "ci_cluster": [
+    -0.46,
+    7.35
+   ],
+   "diseases": 100,
+   "only_A": 31,
+   "only_B": 64,
+   "p_holm": 0.004623222058859659
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - pure",
+   "k": 10,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 60.0,
+   "B_pct": 68.0,
+   "diff": 8.0,
+   "ci": [
+    1.33,
+    16.0
+   ],
+   "ci_cluster": [
+    1.3,
+    17.33
+   ],
+   "diseases": 16,
+   "only_A": 1,
+   "only_B": 7,
+   "p_holm": 0.28125
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - pure",
+   "k": 10,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 28.0,
+   "B_pct": 31.03,
+   "diff": 3.03,
+   "ci": [
+    2.52,
+    3.53
+   ],
+   "ci_cluster": [
+    0.73,
+    5.51
+   ],
+   "diseases": 772,
+   "only_A": 191,
+   "only_B": 503,
+   "p_holm": 2.592264858543339e-32
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - pure",
+   "k": 10,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 14.41,
+   "B_pct": 13.34,
+   "diff": -1.07,
+   "ci": [
+    -1.67,
+    -0.45
+   ],
+   "ci_cluster": [
+    -2.29,
+    0.07
+   ],
+   "diseases": 760,
+   "only_A": 314,
+   "only_B": 234,
+   "p_holm": 0.004347817662534826
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - pure",
+   "k": 1,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 14.83,
+   "B_pct": 11.77,
+   "diff": -3.07,
+   "ci": [
+    -4.0,
+    -2.1
+   ],
+   "ci_cluster": [
+    -7.97,
+    0.54
+   ],
+   "diseases": 48,
+   "only_A": 154,
+   "only_B": 62,
+   "p_holm": 2.5850540707177657e-09
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - pure",
+   "k": 1,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 8.17,
+   "B_pct": 10.58,
+   "diff": 2.4,
+   "ci": [
+    0.16,
+    4.49
+   ],
+   "ci_cluster": [
+    -2.3,
+    7.77
+   ],
+   "diseases": 74,
+   "only_A": 16,
+   "only_B": 31,
+   "p_holm": 0.23991634095631298
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - pure",
+   "k": 1,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 15.14,
+   "B_pct": 17.84,
+   "diff": 2.7,
+   "ci": [
+    0.54,
+    5.14
+   ],
+   "ci_cluster": [
+    0.28,
+    5.51
+   ],
+   "diseases": 252,
+   "only_A": 5,
+   "only_B": 15,
+   "p_holm": 0.23991634095631298
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - pure",
+   "k": 1,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 14.77,
+   "B_pct": 15.91,
+   "diff": 1.14,
+   "ci": [
+    -5.68,
+    7.95
+   ],
+   "ci_cluster": [
+    -8.74,
+    8.6
+   ],
+   "diseases": 46,
+   "only_A": 4,
+   "only_B": 5,
+   "p_holm": 1.0
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - pure",
+   "k": 1,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 22.5,
+   "B_pct": 35.0,
+   "diff": 12.5,
+   "ci": [
+    0.0,
+    25.0
+   ],
+   "ci_cluster": [
+    0.0,
+    30.43
+   ],
+   "diseases": 17,
+   "only_A": 1,
+   "only_B": 6,
+   "p_holm": 0.5
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - pure",
+   "k": 1,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 35.12,
+   "B_pct": 34.62,
+   "diff": -0.51,
+   "ci": [
+    -2.73,
+    1.72
+   ],
+   "ci_cluster": [
+    -7.5,
+    5.1
+   ],
+   "diseases": 100,
+   "only_A": 67,
+   "only_B": 62,
+   "p_holm": 1.0
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - pure",
+   "k": 1,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 32.0,
+   "B_pct": 33.33,
+   "diff": 1.33,
+   "ci": [
+    -8.0,
+    10.67
+   ],
+   "ci_cluster": [
+    -8.7,
+    11.76
+   ],
+   "diseases": 16,
+   "only_A": 5,
+   "only_B": 6,
+   "p_holm": 1.0
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - pure",
+   "k": 1,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 13.72,
+   "B_pct": 15.41,
+   "diff": 1.69,
+   "ci": [
+    1.25,
+    2.12
+   ],
+   "ci_cluster": [
+    0.18,
+    3.11
+   ],
+   "diseases": 772,
+   "only_A": 181,
+   "only_B": 355,
+   "p_holm": 4.272201277090502e-13
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - pure",
+   "k": 1,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 3.52,
+   "B_pct": 2.51,
+   "diff": -1.0,
+   "ci": [
+    -1.36,
+    -0.65
+   ],
+   "ci_cluster": [
+    -1.63,
+    -0.41
+   ],
+   "diseases": 760,
+   "only_A": 136,
+   "only_B": 61,
+   "p_holm": 6.675916958221122e-07
+  },
+  {
+   "part": "development, pure at D3 pick 0.25",
+   "comparison": "pure - S-dict",
+   "k": 10,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 42.27,
+   "B_pct": 39.67,
+   "diff": -2.6,
+   "ci": [
+    -3.3,
+    -1.9
+   ],
+   "ci_cluster": [
+    -6.67,
+    0.28
+   ],
+   "diseases": 48,
+   "only_A": 96,
+   "only_B": 18,
+   "p_holm": 4.249289814605338e-13
+  },
+  {
+   "part": "development, pure at D3 pick 0.25",
+   "comparison": "pure - S-dict",
+   "k": 10,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 47.92,
+   "B_pct": 47.92,
+   "diff": 0.0,
+   "ci": [
+    -0.8,
+    0.8
+   ],
+   "ci_cluster": [
+    -0.75,
+    0.9
+   ],
+   "diseases": 74,
+   "only_A": 3,
+   "only_B": 3,
+   "p_holm": 1.0
+  },
+  {
+   "part": "development, pure at D3 pick 0.25",
+   "comparison": "pure - S-dict",
+   "k": 10,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 32.7,
+   "B_pct": 33.51,
+   "diff": 0.81,
+   "ci": [
+    0.0,
+    1.89
+   ],
+   "ci_cluster": [
+    0.0,
+    1.86
+   ],
+   "diseases": 252,
+   "only_A": 0,
+   "only_B": 3,
+   "p_holm": 1.0
+  },
+  {
+   "part": "development, pure at D3 pick 0.25",
+   "comparison": "pure - S-dict",
+   "k": 10,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 43.18,
+   "B_pct": 42.05,
+   "diff": -1.14,
+   "ci": [
+    -6.82,
+    3.41
+   ],
+   "ci_cluster": [
+    -5.43,
+    2.38
+   ],
+   "diseases": 46,
+   "only_A": 3,
+   "only_B": 2,
+   "p_holm": 1.0
+  },
+  {
+   "part": "development, pure at D3 pick 0.25",
+   "comparison": "pure - S-dict",
+   "k": 10,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 52.5,
+   "B_pct": 52.5,
+   "diff": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "ci_cluster": [
+    0.0,
+    0.0
+   ],
+   "diseases": 17,
+   "only_A": 0,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "part": "development, pure at D3 pick 0.25",
+   "comparison": "pure - S-dict",
+   "k": 10,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 64.78,
+   "B_pct": 63.66,
+   "diff": -1.11,
+   "ci": [
+    -2.23,
+    -0.1
+   ],
+   "ci_cluster": [
+    -2.59,
+    0.25
+   ],
+   "diseases": 100,
+   "only_A": 21,
+   "only_B": 10,
+   "p_holm": 0.5660443678498268
+  },
+  {
+   "part": "development, pure at D3 pick 0.25",
+   "comparison": "pure - S-dict",
+   "k": 10,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 60.0,
+   "B_pct": 60.0,
+   "diff": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "ci_cluster": [
+    0.0,
+    0.0
+   ],
+   "diseases": 16,
+   "only_A": 0,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "part": "development, pure at D3 pick 0.25",
+   "comparison": "pure - S-dict",
+   "k": 10,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 28.08,
+   "B_pct": 28.06,
+   "diff": -0.02,
+   "ci": [
+    -0.18,
+    0.15
+   ],
+   "ci_cluster": [
+    -0.29,
+    0.25
+   ],
+   "diseases": 772,
+   "only_A": 36,
+   "only_B": 34,
+   "p_holm": 1.0
+  },
+  {
+   "part": "development, pure at D3 pick 0.25",
+   "comparison": "pure - S-dict",
+   "k": 10,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 14.46,
+   "B_pct": 14.54,
+   "diff": 0.08,
+   "ci": [
+    -0.2,
+    0.36
+   ],
+   "ci_cluster": [
+    -0.38,
+    0.57
+   ],
+   "diseases": 760,
+   "only_A": 56,
+   "only_B": 62,
+   "p_holm": 1.0
+  },
+  {
+   "part": "development, pure at D3 pick 0.25",
+   "comparison": "pure - S-dict",
+   "k": 1,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 16.63,
+   "B_pct": 14.77,
+   "diff": -1.87,
+   "ci": [
+    -2.43,
+    -1.33
+   ],
+   "ci_cluster": [
+    -4.21,
+    0.11
+   ],
+   "diseases": 48,
+   "only_A": 66,
+   "only_B": 10,
+   "p_holm": 2.664041795303209e-10
+  },
+  {
+   "part": "development, pure at D3 pick 0.25",
+   "comparison": "pure - S-dict",
+   "k": 1,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 8.17,
+   "B_pct": 8.17,
+   "diff": 0.0,
+   "ci": [
+    -0.48,
+    0.48
+   ],
+   "ci_cluster": [
+    -0.49,
+    0.5
+   ],
+   "diseases": 74,
+   "only_A": 1,
+   "only_B": 1,
+   "p_holm": 1.0
+  },
+  {
+   "part": "development, pure at D3 pick 0.25",
+   "comparison": "pure - S-dict",
+   "k": 1,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 15.68,
+   "B_pct": 14.86,
+   "diff": -0.81,
+   "ci": [
+    -1.89,
+    0.0
+   ],
+   "ci_cluster": [
+    -1.93,
+    0.0
+   ],
+   "diseases": 252,
+   "only_A": 3,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "part": "development, pure at D3 pick 0.25",
+   "comparison": "pure - S-dict",
+   "k": 1,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 15.91,
+   "B_pct": 14.77,
+   "diff": -1.14,
+   "ci": [
+    -3.41,
+    0.0
+   ],
+   "ci_cluster": [
+    -2.97,
+    0.0
+   ],
+   "diseases": 46,
+   "only_A": 1,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "part": "development, pure at D3 pick 0.25",
+   "comparison": "pure - S-dict",
+   "k": 1,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 22.5,
+   "B_pct": 22.5,
+   "diff": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "ci_cluster": [
+    0.0,
+    0.0
+   ],
+   "diseases": 17,
+   "only_A": 0,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "part": "development, pure at D3 pick 0.25",
+   "comparison": "pure - S-dict",
+   "k": 1,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 36.13,
+   "B_pct": 36.03,
+   "diff": -0.1,
+   "ci": [
+    -1.21,
+    1.01
+   ],
+   "ci_cluster": [
+    -1.28,
+    1.12
+   ],
+   "diseases": 100,
+   "only_A": 15,
+   "only_B": 14,
+   "p_holm": 1.0
+  },
+  {
+   "part": "development, pure at D3 pick 0.25",
+   "comparison": "pure - S-dict",
+   "k": 1,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 30.67,
+   "B_pct": 32.0,
+   "diff": 1.33,
+   "ci": [
+    0.0,
+    4.0
+   ],
+   "ci_cluster": [
+    0.0,
+    4.23
+   ],
+   "diseases": 16,
+   "only_A": 0,
+   "only_B": 1,
+   "p_holm": 1.0
+  },
+  {
+   "part": "development, pure at D3 pick 0.25",
+   "comparison": "pure - S-dict",
+   "k": 1,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 13.93,
+   "B_pct": 13.79,
+   "diff": -0.14,
+   "ci": [
+    -0.29,
+    0.01
+   ],
+   "ci_cluster": [
+    -0.56,
+    0.15
+   ],
+   "diseases": 772,
+   "only_A": 41,
+   "only_B": 27,
+   "p_holm": 0.799780147949463
+  },
+  {
+   "part": "development, pure at D3 pick 0.25",
+   "comparison": "pure - S-dict",
+   "k": 1,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 3.34,
+   "B_pct": 3.58,
+   "diff": 0.24,
+   "ci": [
+    0.08,
+    0.39
+   ],
+   "ci_cluster": [
+    -0.03,
+    0.57
+   ],
+   "diseases": 760,
+   "only_A": 10,
+   "only_B": 28,
+   "p_holm": 0.04078114638105035
+  },
+  {
+   "part": "development, pure at D3 pick 0.25",
+   "comparison": "S-mix - pure",
+   "k": 10,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 39.67,
+   "B_pct": 40.63,
+   "diff": 0.97,
+   "ci": [
+    -0.13,
+    2.07
+   ],
+   "ci_cluster": [
+    -3.7,
+    6.0
+   ],
+   "diseases": 48,
+   "only_A": 143,
+   "only_B": 172,
+   "p_holm": 0.3435294151280113
+  },
+  {
+   "part": "development, pure at D3 pick 0.25",
+   "comparison": "S-mix - pure",
+   "k": 10,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 47.92,
+   "B_pct": 57.21,
+   "diff": 9.29,
+   "ci": [
+    6.89,
+    12.02
+   ],
+   "ci_cluster": [
+    2.87,
+    19.84
+   ],
+   "diseases": 74,
+   "only_A": 9,
+   "only_B": 67,
+   "p_holm": 3.467481811312018e-11
+  },
+  {
+   "part": "development, pure at D3 pick 0.25",
+   "comparison": "S-mix - pure",
+   "k": 10,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 33.51,
+   "B_pct": 38.38,
+   "diff": 4.86,
+   "ci": [
+    2.16,
+    7.57
+   ],
+   "ci_cluster": [
+    1.96,
+    8.02
+   ],
+   "diseases": 252,
+   "only_A": 5,
+   "only_B": 23,
+   "p_holm": 0.004561170935630798
+  },
+  {
+   "part": "development, pure at D3 pick 0.25",
+   "comparison": "S-mix - pure",
+   "k": 10,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 42.05,
+   "B_pct": 44.32,
+   "diff": 2.27,
+   "ci": [
+    -4.55,
+    9.09
+   ],
+   "ci_cluster": [
+    -3.45,
+    9.59
+   ],
+   "diseases": 46,
+   "only_A": 4,
+   "only_B": 6,
+   "p_holm": 1.0
+  },
+  {
+   "part": "development, pure at D3 pick 0.25",
+   "comparison": "S-mix - pure",
+   "k": 10,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 52.5,
+   "B_pct": 55.0,
+   "diff": 2.5,
+   "ci": [
+    -7.5,
+    12.5
+   ],
+   "ci_cluster": [
+    -8.0,
+    18.18
+   ],
+   "diseases": 17,
+   "only_A": 2,
+   "only_B": 3,
+   "p_holm": 1.0
+  },
+  {
+   "part": "development, pure at D3 pick 0.25",
+   "comparison": "S-mix - pure",
+   "k": 10,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 63.66,
+   "B_pct": 67.11,
+   "diff": 3.44,
+   "ci": [
+    1.52,
+    5.36
+   ],
+   "ci_cluster": [
+    -0.63,
+    7.65
+   ],
+   "diseases": 100,
+   "only_A": 31,
+   "only_B": 65,
+   "p_holm": 0.004048311422000033
+  },
+  {
+   "part": "development, pure at D3 pick 0.25",
+   "comparison": "S-mix - pure",
+   "k": 10,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 60.0,
+   "B_pct": 68.0,
+   "diff": 8.0,
+   "ci": [
+    1.33,
+    16.0
+   ],
+   "ci_cluster": [
+    1.3,
+    17.33
+   ],
+   "diseases": 16,
+   "only_A": 1,
+   "only_B": 7,
+   "p_holm": 0.28125
+  },
+  {
+   "part": "development, pure at D3 pick 0.25",
+   "comparison": "S-mix - pure",
+   "k": 10,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 28.06,
+   "B_pct": 31.03,
+   "diff": 2.97,
+   "ci": [
+    2.45,
+    3.48
+   ],
+   "ci_cluster": [
+    0.64,
+    5.44
+   ],
+   "diseases": 772,
+   "only_A": 200,
+   "only_B": 506,
+   "p_holm": 1.648865900189886e-30
+  },
+  {
+   "part": "development, pure at D3 pick 0.25",
+   "comparison": "S-mix - pure",
+   "k": 10,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 14.54,
+   "B_pct": 13.34,
+   "diff": -1.2,
+   "ci": [
+    -1.8,
+    -0.57
+   ],
+   "ci_cluster": [
+    -2.44,
+    -0.05
+   ],
+   "diseases": 760,
+   "only_A": 316,
+   "only_B": 226,
+   "p_holm": 0.0008935158173537948
+  },
+  {
+   "part": "development, pure at D3 pick 0.25",
+   "comparison": "S-mix - pure",
+   "k": 1,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 14.77,
+   "B_pct": 11.77,
+   "diff": -3.0,
+   "ci": [
+    -3.93,
+    -2.07
+   ],
+   "ci_cluster": [
+    -8.05,
+    0.65
+   ],
+   "diseases": 48,
+   "only_A": 155,
+   "only_B": 65,
+   "p_holm": 9.314868698111857e-09
+  },
+  {
+   "part": "development, pure at D3 pick 0.25",
+   "comparison": "S-mix - pure",
+   "k": 1,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 8.17,
+   "B_pct": 10.58,
+   "diff": 2.4,
+   "ci": [
+    0.16,
+    4.49
+   ],
+   "ci_cluster": [
+    -2.3,
+    7.77
+   ],
+   "diseases": 74,
+   "only_A": 16,
+   "only_B": 31,
+   "p_holm": 0.19993028413026082
+  },
+  {
+   "part": "development, pure at D3 pick 0.25",
+   "comparison": "S-mix - pure",
+   "k": 1,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 14.86,
+   "B_pct": 17.84,
+   "diff": 2.97,
+   "ci": [
+    0.81,
+    5.41
+   ],
+   "ci_cluster": [
+    0.58,
+    5.79
+   ],
+   "diseases": 252,
+   "only_A": 5,
+   "only_B": 16,
+   "p_holm": 0.1596221923828125
+  },
+  {
+   "part": "development, pure at D3 pick 0.25",
+   "comparison": "S-mix - pure",
+   "k": 1,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 14.77,
+   "B_pct": 15.91,
+   "diff": 1.14,
+   "ci": [
+    -5.68,
+    7.95
+   ],
+   "ci_cluster": [
+    -8.74,
+    8.6
+   ],
+   "diseases": 46,
+   "only_A": 4,
+   "only_B": 5,
+   "p_holm": 1.0
+  },
+  {
+   "part": "development, pure at D3 pick 0.25",
+   "comparison": "S-mix - pure",
+   "k": 1,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 22.5,
+   "B_pct": 35.0,
+   "diff": 12.5,
+   "ci": [
+    0.0,
+    25.0
+   ],
+   "ci_cluster": [
+    0.0,
+    30.43
+   ],
+   "diseases": 17,
+   "only_A": 1,
+   "only_B": 6,
+   "p_holm": 0.5
+  },
+  {
+   "part": "development, pure at D3 pick 0.25",
+   "comparison": "S-mix - pure",
+   "k": 1,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 36.03,
+   "B_pct": 34.62,
+   "diff": -1.42,
+   "ci": [
+    -3.74,
+    0.81
+   ],
+   "ci_cluster": [
+    -8.59,
+    4.17
+   ],
+   "diseases": 100,
+   "only_A": 71,
+   "only_B": 57,
+   "p_holm": 0.7513196418577783
+  },
+  {
+   "part": "development, pure at D3 pick 0.25",
+   "comparison": "S-mix - pure",
+   "k": 1,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 32.0,
+   "B_pct": 33.33,
+   "diff": 1.33,
+   "ci": [
+    -8.0,
+    10.67
+   ],
+   "ci_cluster": [
+    -8.7,
+    11.76
+   ],
+   "diseases": 16,
+   "only_A": 5,
+   "only_B": 6,
+   "p_holm": 1.0
+  },
+  {
+   "part": "development, pure at D3 pick 0.25",
+   "comparison": "S-mix - pure",
+   "k": 1,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 13.79,
+   "B_pct": 15.41,
+   "diff": 1.62,
+   "ci": [
+    1.16,
+    2.07
+   ],
+   "ci_cluster": [
+    0.13,
+    3.05
+   ],
+   "diseases": 772,
+   "only_A": 187,
+   "only_B": 354,
+   "p_holm": 5.673161514937178e-12
+  },
+  {
+   "part": "development, pure at D3 pick 0.25",
+   "comparison": "S-mix - pure",
+   "k": 1,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 3.58,
+   "B_pct": 2.51,
+   "diff": -1.07,
+   "ci": [
+    -1.43,
+    -0.71
+   ],
+   "ci_cluster": [
+    -1.7,
+    -0.47
+   ],
+   "diseases": 760,
+   "only_A": 141,
+   "only_B": 61,
+   "p_holm": 1.2535388490828394e-07
+  },
+  {
+   "part": "confirmation E (post hoc)",
+   "comparison": "pure - S-dict",
+   "k": 10,
+   "bench": "ConfirmE-DDXPlus",
+   "n": 3000,
+   "A_pct": 43.5,
+   "B_pct": 40.4,
+   "diff": -3.1,
+   "ci": [
+    -3.77,
+    -2.4
+   ],
+   "ci_cluster": [
+    -6.95,
+    -0.14
+   ],
+   "diseases": 49,
+   "only_A": 105,
+   "only_B": 12,
+   "p_holm": 2.077580672990582e-19
+  },
+  {
+   "part": "confirmation E (post hoc)",
+   "comparison": "pure - S-dict",
+   "k": 10,
+   "bench": "ConfirmE-SymCat",
+   "n": 7463,
+   "A_pct": 14.08,
+   "B_pct": 14.0,
+   "diff": -0.08,
+   "ci": [
+    -0.32,
+    0.16
+   ],
+   "ci_cluster": [
+    -0.43,
+    0.28
+   ],
+   "diseases": 760,
+   "only_A": 44,
+   "only_B": 38,
+   "p_holm": 0.5811144541766469
+  },
+  {
+   "part": "confirmation E (post hoc)",
+   "comparison": "pure - S-dict",
+   "k": 1,
+   "bench": "ConfirmE-DDXPlus",
+   "n": 3000,
+   "A_pct": 17.63,
+   "B_pct": 16.1,
+   "diff": -1.53,
+   "ci": [
+    -2.03,
+    -1.03
+   ],
+   "ci_cluster": [
+    -3.7,
+    0.16
+   ],
+   "diseases": 49,
+   "only_A": 53,
+   "only_B": 7,
+   "p_holm": 1.5343836548553647e-09
+  },
+  {
+   "part": "confirmation E (post hoc)",
+   "comparison": "pure - S-dict",
+   "k": 1,
+   "bench": "ConfirmE-SymCat",
+   "n": 7463,
+   "A_pct": 3.12,
+   "B_pct": 3.22,
+   "diff": 0.09,
+   "ci": [
+    -0.07,
+    0.25
+   ],
+   "ci_cluster": [
+    -0.12,
+    0.31
+   ],
+   "diseases": 760,
+   "only_A": 13,
+   "only_B": 20,
+   "p_holm": 0.296206368599087
+  },
+  {
+   "part": "confirmation E (post hoc)",
+   "comparison": "S-mix - pure",
+   "k": 10,
+   "bench": "ConfirmE-DDXPlus",
+   "n": 3000,
+   "A_pct": 40.4,
+   "B_pct": 41.07,
+   "diff": 0.67,
+   "ci": [
+    -0.47,
+    1.87
+   ],
+   "ci_cluster": [
+    -3.94,
+    5.16
+   ],
+   "diseases": 49,
+   "only_A": 138,
+   "only_B": 158,
+   "p_holm": 0.26941116133699927
+  },
+  {
+   "part": "confirmation E (post hoc)",
+   "comparison": "S-mix - pure",
+   "k": 10,
+   "bench": "ConfirmE-SymCat",
+   "n": 7463,
+   "A_pct": 14.0,
+   "B_pct": 12.92,
+   "diff": -1.09,
+   "ci": [
+    -1.65,
+    -0.48
+   ],
+   "ci_cluster": [
+    -2.09,
+    -0.09
+   ],
+   "diseases": 760,
+   "only_A": 282,
+   "only_B": 201,
+   "p_holm": 0.0005287914362531003
+  },
+  {
+   "part": "confirmation E (post hoc)",
+   "comparison": "S-mix - pure",
+   "k": 1,
+   "bench": "ConfirmE-DDXPlus",
+   "n": 3000,
+   "A_pct": 16.1,
+   "B_pct": 12.43,
+   "diff": -3.67,
+   "ci": [
+    -4.6,
+    -2.73
+   ],
+   "ci_cluster": [
+    -8.12,
+    -0.29
+   ],
+   "diseases": 49,
+   "only_A": 162,
+   "only_B": 52,
+   "p_holm": 4.8277810871686637e-14
+  },
+  {
+   "part": "confirmation E (post hoc)",
+   "comparison": "S-mix - pure",
+   "k": 1,
+   "bench": "ConfirmE-SymCat",
+   "n": 7463,
+   "A_pct": 3.22,
+   "B_pct": 2.45,
+   "diff": -0.76,
+   "ci": [
+    -1.11,
+    -0.42
+   ],
+   "ci_cluster": [
+    -1.37,
+    -0.16
+   ],
+   "diseases": 760,
+   "only_A": 117,
+   "only_B": 60,
+   "p_holm": 2.19952869190665e-05
+  }
+ ],
+ "macro": [
+  {
+   "part": "development",
+   "comparison": "pure - S-dict",
+   "k": 10,
+   "group": "all nine",
+   "A": 42.88,
+   "B": 42.38,
+   "diff": -0.5,
+   "ci_patient_stratified": [
+    -0.96,
+    -0.07
+   ],
+   "p_bootstrap": 0.02
+  },
+  {
+   "part": "development",
+   "comparison": "pure - S-dict",
+   "k": 10,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 28.36,
+   "B": 26.97,
+   "diff": -1.39,
+   "ci_patient_stratified": [
+    -1.78,
+    -1.03
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "part": "development",
+   "comparison": "pure - S-dict",
+   "k": 10,
+   "group": "rare (7 sets)",
+   "A": 47.02,
+   "B": 46.78,
+   "diff": -0.24,
+   "ci_patient_stratified": [
+    -0.84,
+    0.31
+   ],
+   "p_bootstrap": 0.392
+  },
+  {
+   "part": "development",
+   "comparison": "pure - S-dict",
+   "k": 1,
+   "group": "all nine",
+   "A": 18.11,
+   "B": 17.75,
+   "diff": -0.35,
+   "ci_patient_stratified": [
+    -0.77,
+    0.06
+   ],
+   "p_bootstrap": 0.086
+  },
+  {
+   "part": "development",
+   "comparison": "pure - S-dict",
+   "k": 1,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 9.99,
+   "B": 9.17,
+   "diff": -0.81,
+   "ci_patient_stratified": [
+    -1.09,
+    -0.54
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "part": "development",
+   "comparison": "pure - S-dict",
+   "k": 1,
+   "group": "rare (7 sets)",
+   "A": 20.43,
+   "B": 20.2,
+   "diff": -0.22,
+   "ci_patient_stratified": [
+    -0.75,
+    0.3
+   ],
+   "p_bootstrap": 0.357
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - pure",
+   "k": 10,
+   "group": "all nine",
+   "A": 42.38,
+   "B": 46.11,
+   "diff": 3.73,
+   "ci_patient_stratified": [
+    2.07,
+    5.37
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - pure",
+   "k": 10,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 26.97,
+   "B": 26.99,
+   "diff": 0.02,
+   "ci_patient_stratified": [
+    -0.64,
+    0.66
+   ],
+   "p_bootstrap": 0.948
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - pure",
+   "k": 10,
+   "group": "rare (7 sets)",
+   "A": 46.78,
+   "B": 51.58,
+   "diff": 4.8,
+   "ci_patient_stratified": [
+    2.7,
+    7.07
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - pure",
+   "k": 1,
+   "group": "all nine",
+   "A": 17.75,
+   "B": 19.66,
+   "diff": 1.91,
+   "ci_patient_stratified": [
+    0.09,
+    3.73
+   ],
+   "p_bootstrap": 0.037
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - pure",
+   "k": 1,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 9.17,
+   "B": 7.14,
+   "diff": -2.03,
+   "ci_patient_stratified": [
+    -2.53,
+    -1.53
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - pure",
+   "k": 1,
+   "group": "rare (7 sets)",
+   "A": 20.2,
+   "B": 23.24,
+   "diff": 3.04,
+   "ci_patient_stratified": [
+    0.71,
+    5.42
+   ],
+   "p_bootstrap": 0.019
+  },
+  {
+   "part": "development, pure at D3 pick 0.25",
+   "comparison": "pure - S-dict",
+   "k": 10,
+   "group": "all nine",
+   "A": 42.88,
+   "B": 42.43,
+   "diff": -0.44,
+   "ci_patient_stratified": [
+    -1.02,
+    0.14
+   ],
+   "p_bootstrap": 0.124
+  },
+  {
+   "part": "development, pure at D3 pick 0.25",
+   "comparison": "pure - S-dict",
+   "k": 1,
+   "group": "all nine",
+   "A": 18.11,
+   "B": 17.83,
+   "diff": -0.28,
+   "ci_patient_stratified": [
+    -0.71,
+    0.15
+   ],
+   "p_bootstrap": 0.185
+  },
+  {
+   "part": "development, pure at D3 pick 0.25",
+   "comparison": "S-mix - pure",
+   "k": 10,
+   "group": "all nine",
+   "A": 42.43,
+   "B": 46.11,
+   "diff": 3.68,
+   "ci_patient_stratified": [
+    2.03,
+    5.36
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "part": "development, pure at D3 pick 0.25",
+   "comparison": "S-mix - pure",
+   "k": 1,
+   "group": "all nine",
+   "A": 17.83,
+   "B": 19.66,
+   "diff": 1.83,
+   "ci_patient_stratified": [
+    0.03,
+    3.64
+   ],
+   "p_bootstrap": 0.047
+  },
+  {
+   "part": "confirmation E (post hoc)",
+   "comparison": "pure - S-dict",
+   "k": 10,
+   "group": "both sets",
+   "A": 28.79,
+   "B": 27.2,
+   "diff": -1.59,
+   "ci_patient_stratified": [
+    -1.96,
+    -1.24
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "part": "confirmation E (post hoc)",
+   "comparison": "pure - S-dict",
+   "k": 1,
+   "group": "both sets",
+   "A": 10.38,
+   "B": 9.66,
+   "diff": -0.72,
+   "ci_patient_stratified": [
+    -0.98,
+    -0.47
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "part": "confirmation E (post hoc)",
+   "comparison": "S-mix - pure",
+   "k": 10,
+   "group": "both sets",
+   "A": 27.2,
+   "B": 26.99,
+   "diff": -0.21,
+   "ci_patient_stratified": [
+    -0.84,
+    0.45
+   ],
+   "p_bootstrap": 0.538
+  },
+  {
+   "part": "confirmation E (post hoc)",
+   "comparison": "S-mix - pure",
+   "k": 1,
+   "group": "both sets",
+   "A": 9.66,
+   "B": 7.44,
+   "diff": -2.22,
+   "ci_patient_stratified": [
+    -2.73,
+    -1.72
+   ],
+   "p_bootstrap": 0.0
+  }
+ ]
+}

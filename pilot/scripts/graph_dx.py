@@ -99,6 +99,7 @@ def evaluate(dx: GraphDx, name: str, pats, boot: int = 0) -> dict:
     hits = {r: {k: 0 for k in O.KS} for r in ("strict", "lineage")}
     m = 0
     ranks = {"strict": [], "lineage": []}           # per patient: 1-based position or None
+    top_gold, top_desc = [], []     # per patient: top max(KS) positions held by gold keys / by non-gold lineage
     t0 = time.time()
     for gold_raw, ev in pats:
         gold = v2_ids.gold_keys(gold_raw)
@@ -112,6 +113,8 @@ def evaluate(dx: GraphDx, name: str, pats, boot: int = 0) -> dict:
             ranks[rule].append(pos)
             for k in O.KS:
                 hits[rule][k] += pos is not None and pos <= k
+        top_gold.append([i + 1 for i, d in enumerate(ranked) if d in gold])
+        top_desc.append([i + 1 for i, d in enumerate(ranked) if d in lin and d not in gold])
     res = {"bench": name, "patients": len(pats), "evaluated": m, "sec": round(time.time() - t0)}
     for rule in hits:
         for k in O.KS:
@@ -123,6 +126,8 @@ def evaluate(dx: GraphDx, name: str, pats, boot: int = 0) -> dict:
                 res[f"{rule}@{k}_ci"] = [round(dist[int(0.025 * boot)], 1), round(dist[int(0.975 * boot) - 1], 1)]
     # per-patient positions (1-based, None = not in top max(KS)) for paired comparisons
     res["ranks_lineage"] = ranks["lineage"]
+    res["ranks_strict"] = ranks["strict"]
+    res["top_gold"], res["top_descendants"] = top_gold, top_desc
     print(f"{name:20} n={m:6} | lineage " + " ".join(f"@{k} {res[f'lineage@{k}']:5.1f}" for k in O.KS)
           + " | strict " + " ".join(f"@{k} {res[f'strict@{k}']:5.1f}" for k in O.KS)
           + f" | {res['sec']}s", flush=True)

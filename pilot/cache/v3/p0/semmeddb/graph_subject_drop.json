@@ -1,0 +1,16 @@
+{
+ "source": "semmeddb",
+ "edges": 458138,
+ "true_edges": 458138,
+ "diseases_with_findings": 10033,
+ "concepts": 28338,
+ "orient": "subject",
+ "generic": "drop",
+ "predications": {
+  "ASSOCIATED_WITH disease_subject": 40915,
+  "COEXISTS_WITH disease_subject": 1221853,
+  "MANIFESTATION_OF disease_object": 35263,
+  "dropped_generic": 333537
+ },
+ "n_docs_total": 1203999
+}

@@ -1,0 +1,10509 @@
+{
+ "note": "diff = B - A in percentage points of lineage Top-k; ci = patient-paired bootstrap 95% (2,000, seed 0); ci_cluster = gold-disease cluster bootstrap 95%; p_holm = exact McNemar, Holm across the nine sets of one comparison at one k; macro = equal-weight mean of per-set differences, set-stratified patient bootstrap. Development sets: every value is post hoc.",
+ "reproduction_mismatched_patients": {
+  "DDXPlus-test": 0,
+  "RareBench-RAMEDIS": 0,
+  "RareBench-LIRICAL": 0,
+  "RareBench-HMS": 0,
+  "RareBench-MME": 0,
+  "PUMCH_L": 0,
+  "PUMCH-ADM": 0,
+  "Phenopacket-store": 0,
+  "SymCat": 0
+ },
+ "runs": {
+  "S-mix": "pilot/cache/v2/devD/variants/dev_v3llmd_ns_ot0.5.json",
+  "HPOA-base": "pilot/cache/v3/p0/hpoa_lopo/dev_base.json",
+  "HPOA-lopo": "pilot/cache/v3/p0/hpoa_lopo/dev_lopo.json",
+  "HPOA-rand_s0": "pilot/cache/v3/p0/hpoa_lopo/dev_rand_s0.json",
+  "HPOA-rand_s1": "pilot/cache/v3/p0/hpoa_lopo/dev_rand_s1.json",
+  "HPOA-rand_s2": "pilot/cache/v3/p0/hpoa_lopo/dev_rand_s2.json",
+  "HPOA-rand_dz_s0": "pilot/cache/v3/p0/hpoa_lopo/dev_rand_dz_s0.json",
+  "HPOA-lopo_strip": "pilot/cache/v3/p0/hpoa_lopo/dev_lopo_strip.json",
+  "HPOA-nopmid": "pilot/cache/v3/p0/hpoa_lopo/dev_nopmid.json",
+  "HPOA-rand_nopmid": "pilot/cache/v3/p0/hpoa_lopo/dev_rand_nopmid.json",
+  "HPOA-lopo10": "dev_lopo.json with Phenopacket-store from fold_0..9.json"
+ },
+ "per_set": {
+  "S-mix": {
+   "DDXPlus-test": [
+    40.63,
+    11.77
+   ],
+   "RareBench-RAMEDIS": [
+    57.21,
+    10.58
+   ],
+   "RareBench-LIRICAL": [
+    38.38,
+    17.84
+   ],
+   "RareBench-HMS": [
+    44.32,
+    15.91
+   ],
+   "RareBench-MME": [
+    55.0,
+    35.0
+   ],
+   "PUMCH_L": [
+    67.11,
+    34.62
+   ],
+   "PUMCH-ADM": [
+    68.0,
+    33.33
+   ],
+   "Phenopacket-store": [
+    31.03,
+    15.41
+   ],
+   "SymCat": [
+    13.34,
+    2.51
+   ]
+  },
+  "HPOA-base": {
+   "DDXPlus-test": [
+    10.3,
+    1.8
+   ],
+   "RareBench-RAMEDIS": [
+    59.94,
+    34.13
+   ],
+   "RareBench-LIRICAL": [
+    74.59,
+    49.46
+   ],
+   "RareBench-HMS": [
+    44.32,
+    18.18
+   ],
+   "RareBench-MME": [
+    95.0,
+    70.0
+   ],
+   "PUMCH_L": [
+    53.24,
+    28.14
+   ],
+   "PUMCH-ADM": [
+    57.33,
+    18.67
+   ],
+   "Phenopacket-store": [
+    73.69,
+    52.24
+   ],
+   "SymCat": [
+    3.6,
+    0.75
+   ]
+  },
+  "HPOA-lopo": {
+   "DDXPlus-test": [
+    10.7,
+    1.8
+   ],
+   "RareBench-RAMEDIS": [
+    59.46,
+    33.01
+   ],
+   "RareBench-LIRICAL": [
+    42.7,
+    21.08
+   ],
+   "RareBench-HMS": [
+    43.18,
+    18.18
+   ],
+   "RareBench-MME": [
+    95.0,
+    70.0
+   ],
+   "PUMCH_L": [
+    52.83,
+    28.95
+   ],
+   "PUMCH-ADM": [
+    61.33,
+    17.33
+   ],
+   "Phenopacket-store": [
+    25.45,
+    10.7
+   ],
+   "SymCat": [
+    3.6,
+    0.76
+   ]
+  },
+  "HPOA-rand_s0": {
+   "DDXPlus-test": [
+    10.1,
+    2.17
+   ],
+   "RareBench-RAMEDIS": [
+    60.42,
+    33.33
+   ],
+   "RareBench-LIRICAL": [
+    72.7,
+    48.65
+   ],
+   "RareBench-HMS": [
+    44.32,
+    14.77
+   ],
+   "RareBench-MME": [
+    95.0,
+    70.0
+   ],
+   "PUMCH_L": [
+    52.73,
+    27.33
+   ],
+   "PUMCH-ADM": [
+    61.33,
+    22.67
+   ],
+   "Phenopacket-store": [
+    72.22,
+    49.41
+   ],
+   "SymCat": [
+    3.5,
+    0.82
+   ]
+  },
+  "HPOA-rand_s1": {
+   "DDXPlus-test": [
+    10.57,
+    2.03
+   ],
+   "RareBench-RAMEDIS": [
+    59.13,
+    33.49
+   ],
+   "RareBench-LIRICAL": [
+    74.05,
+    47.3
+   ],
+   "RareBench-HMS": [
+    42.05,
+    14.77
+   ],
+   "RareBench-MME": [
+    87.5,
+    70.0
+   ],
+   "PUMCH_L": [
+    52.73,
+    28.14
+   ],
+   "PUMCH-ADM": [
+    58.67,
+    22.67
+   ],
+   "Phenopacket-store": [
+    72.0,
+    49.53
+   ],
+   "SymCat": [
+    3.46,
+    0.82
+   ]
+  },
+  "HPOA-rand_s2": {
+   "DDXPlus-test": [
+    10.13,
+    1.6
+   ],
+   "RareBench-RAMEDIS": [
+    59.94,
+    32.69
+   ],
+   "RareBench-LIRICAL": [
+    74.05,
+    48.11
+   ],
+   "RareBench-HMS": [
+    40.91,
+    18.18
+   ],
+   "RareBench-MME": [
+    92.5,
+    70.0
+   ],
+   "PUMCH_L": [
+    52.02,
+    26.11
+   ],
+   "PUMCH-ADM": [
+    60.0,
+    17.33
+   ],
+   "Phenopacket-store": [
+    72.47,
+    49.81
+   ],
+   "SymCat": [
+    3.5,
+    0.7
+   ]
+  },
+  "HPOA-rand_dz_s0": {
+   "DDXPlus-test": [
+    10.3,
+    1.8
+   ],
+   "RareBench-RAMEDIS": [
+    59.13,
+    33.01
+   ],
+   "RareBench-LIRICAL": [
+    71.89,
+    47.3
+   ],
+   "RareBench-HMS": [
+    43.18,
+    18.18
+   ],
+   "RareBench-MME": [
+    95.0,
+    70.0
+   ],
+   "PUMCH_L": [
+    53.64,
+    27.94
+   ],
+   "PUMCH-ADM": [
+    57.33,
+    18.67
+   ],
+   "Phenopacket-store": [
+    73.62,
+    52.41
+   ],
+   "SymCat": [
+    3.58,
+    0.75
+   ]
+  },
+  "HPOA-lopo_strip": {
+   "DDXPlus-test": [
+    10.7,
+    1.8
+   ],
+   "RareBench-RAMEDIS": [
+    60.42,
+    33.17
+   ],
+   "RareBench-LIRICAL": [
+    44.86,
+    22.16
+   ],
+   "RareBench-HMS": [
+    44.32,
+    18.18
+   ],
+   "RareBench-MME": [
+    95.0,
+    70.0
+   ],
+   "PUMCH_L": [
+    52.83,
+    28.85
+   ],
+   "PUMCH-ADM": [
+    61.33,
+    17.33
+   ],
+   "Phenopacket-store": [
+    28.62,
+    12.38
+   ],
+   "SymCat": [
+    3.6,
+    0.76
+   ]
+  },
+  "HPOA-nopmid": {
+   "DDXPlus-test": [
+    11.8,
+    2.0
+   ],
+   "RareBench-RAMEDIS": [
+    53.21,
+    29.49
+   ],
+   "RareBench-LIRICAL": [
+    38.65,
+    18.11
+   ],
+   "RareBench-HMS": [
+    43.18,
+    15.91
+   ],
+   "RareBench-MME": [
+    65.0,
+    50.0
+   ],
+   "PUMCH_L": [
+    53.44,
+    29.76
+   ],
+   "PUMCH-ADM": [
+    54.67,
+    18.67
+   ],
+   "Phenopacket-store": [
+    25.15,
+    10.65
+   ],
+   "SymCat": [
+    3.56,
+    0.7
+   ]
+  },
+  "HPOA-rand_nopmid": {
+   "DDXPlus-test": [
+    11.23,
+    3.4
+   ],
+   "RareBench-RAMEDIS": [
+    50.32,
+    31.41
+   ],
+   "RareBench-LIRICAL": [
+    62.7,
+    39.46
+   ],
+   "RareBench-HMS": [
+    39.77,
+    12.5
+   ],
+   "RareBench-MME": [
+    80.0,
+    57.5
+   ],
+   "PUMCH_L": [
+    44.03,
+    23.28
+   ],
+   "PUMCH-ADM": [
+    57.33,
+    25.33
+   ],
+   "Phenopacket-store": [
+    60.27,
+    36.64
+   ],
+   "SymCat": [
+    3.18,
+    0.78
+   ]
+  },
+  "HPOA-lopo10": {
+   "DDXPlus-test": [
+    10.7,
+    1.8
+   ],
+   "RareBench-RAMEDIS": [
+    59.46,
+    33.01
+   ],
+   "RareBench-LIRICAL": [
+    42.7,
+    21.08
+   ],
+   "RareBench-HMS": [
+    43.18,
+    18.18
+   ],
+   "RareBench-MME": [
+    95.0,
+    70.0
+   ],
+   "PUMCH_L": [
+    52.83,
+    28.95
+   ],
+   "PUMCH-ADM": [
+    61.33,
+    17.33
+   ],
+   "Phenopacket-store": [
+    25.6,
+    10.9
+   ],
+   "SymCat": [
+    3.6,
+    0.76
+   ]
+  }
+ },
+ "rows": [
+  {
+   "comparison": "HPOA-base - S-mix",
+   "k": 10,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 40.63,
+   "B_pct": 10.3,
+   "diff": -30.33,
+   "ci": [
+    -32.27,
+    -28.43
+   ],
+   "ci_cluster": [
+    -43.51,
+    -18.39
+   ],
+   "diseases": 48,
+   "only_A": 1014,
+   "only_B": 104,
+   "p_holm": 3.773109921098415e-187
+  },
+  {
+   "comparison": "HPOA-base - S-mix",
+   "k": 10,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 57.21,
+   "B_pct": 59.94,
+   "diff": 2.72,
+   "ci": [
+    -1.44,
+    7.05
+   ],
+   "ci_cluster": [
+    -8.88,
+    18.99
+   ],
+   "diseases": 74,
+   "only_A": 86,
+   "only_B": 103,
+   "p_holm": 0.4888417834655494
+  },
+  {
+   "comparison": "HPOA-base - S-mix",
+   "k": 10,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 38.38,
+   "B_pct": 74.59,
+   "diff": 36.22,
+   "ci": [
+    30.27,
+    42.16
+   ],
+   "ci_cluster": [
+    27.27,
+    44.58
+   ],
+   "diseases": 252,
+   "only_A": 18,
+   "only_B": 152,
+   "p_holm": 7.846933519107658e-27
+  },
+  {
+   "comparison": "HPOA-base - S-mix",
+   "k": 10,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 44.32,
+   "B_pct": 44.32,
+   "diff": 0.0,
+   "ci": [
+    -11.36,
+    11.36
+   ],
+   "ci_cluster": [
+    -14.77,
+    13.39
+   ],
+   "diseases": 46,
+   "only_A": 13,
+   "only_B": 13,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-base - S-mix",
+   "k": 10,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 55.0,
+   "B_pct": 95.0,
+   "diff": 40.0,
+   "ci": [
+    25.0,
+    55.0
+   ],
+   "ci_cluster": [
+    6.45,
+    72.31
+   ],
+   "diseases": 17,
+   "only_A": 0,
+   "only_B": 16,
+   "p_holm": 0.0001220703125
+  },
+  {
+   "comparison": "HPOA-base - S-mix",
+   "k": 10,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 67.11,
+   "B_pct": 53.24,
+   "diff": -13.87,
+   "ci": [
+    -16.9,
+    -10.83
+   ],
+   "ci_cluster": [
+    -25.85,
+    -1.86
+   ],
+   "diseases": 100,
+   "only_A": 199,
+   "only_B": 62,
+   "p_holm": 3.1379386445975486e-17
+  },
+  {
+   "comparison": "HPOA-base - S-mix",
+   "k": 10,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 68.0,
+   "B_pct": 57.33,
+   "diff": -10.67,
+   "ci": [
+    -22.67,
+    1.33
+   ],
+   "ci_cluster": [
+    -26.67,
+    4.69
+   ],
+   "diseases": 16,
+   "only_A": 14,
+   "only_B": 6,
+   "p_holm": 0.34595489501953125
+  },
+  {
+   "comparison": "HPOA-base - S-mix",
+   "k": 10,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 31.03,
+   "B_pct": 73.69,
+   "diff": 42.66,
+   "ci": [
+    41.55,
+    43.74
+   ],
+   "ci_cluster": [
+    33.68,
+    51.52
+   ],
+   "diseases": 772,
+   "only_A": 516,
+   "only_B": 4914,
+   "p_holm": 0.0
+  },
+  {
+   "comparison": "HPOA-base - S-mix",
+   "k": 10,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 13.34,
+   "B_pct": 3.6,
+   "diff": -9.74,
+   "ci": [
+    -10.52,
+    -8.98
+   ],
+   "ci_cluster": [
+    -11.51,
+    -8.06
+   ],
+   "diseases": 760,
+   "only_A": 862,
+   "only_B": 133,
+   "p_holm": 1.6525105769741993e-130
+  },
+  {
+   "comparison": "HPOA-base - S-mix",
+   "k": 1,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 11.77,
+   "B_pct": 1.8,
+   "diff": -9.97,
+   "ci": [
+    -11.23,
+    -8.77
+   ],
+   "ci_cluster": [
+    -17.0,
+    -3.82
+   ],
+   "diseases": 48,
+   "only_A": 341,
+   "only_B": 42,
+   "p_holm": 1.9923380571610528e-58
+  },
+  {
+   "comparison": "HPOA-base - S-mix",
+   "k": 1,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 10.58,
+   "B_pct": 34.13,
+   "diff": 23.56,
+   "ci": [
+    19.23,
+    28.04
+   ],
+   "ci_cluster": [
+    -2.13,
+    46.23
+   ],
+   "diseases": 74,
+   "only_A": 40,
+   "only_B": 187,
+   "p_holm": 4.5436389238994945e-23
+  },
+  {
+   "comparison": "HPOA-base - S-mix",
+   "k": 1,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 17.84,
+   "B_pct": 49.46,
+   "diff": 31.62,
+   "ci": [
+    25.68,
+    37.3
+   ],
+   "ci_cluster": [
+    23.56,
+    39.34
+   ],
+   "diseases": 252,
+   "only_A": 22,
+   "only_B": 139,
+   "p_holm": 3.414783427844288e-21
+  },
+  {
+   "comparison": "HPOA-base - S-mix",
+   "k": 1,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 15.91,
+   "B_pct": 18.18,
+   "diff": 2.27,
+   "ci": [
+    -6.82,
+    11.36
+   ],
+   "ci_cluster": [
+    -9.23,
+    11.97
+   ],
+   "diseases": 46,
+   "only_A": 8,
+   "only_B": 10,
+   "p_holm": 0.8145294189453125
+  },
+  {
+   "comparison": "HPOA-base - S-mix",
+   "k": 1,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 35.0,
+   "B_pct": 70.0,
+   "diff": 35.0,
+   "ci": [
+    15.0,
+    55.0
+   ],
+   "ci_cluster": [
+    4.17,
+    60.47
+   ],
+   "diseases": 17,
+   "only_A": 4,
+   "only_B": 18,
+   "p_holm": 0.013030529022216797
+  },
+  {
+   "comparison": "HPOA-base - S-mix",
+   "k": 1,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 34.62,
+   "B_pct": 28.14,
+   "diff": -6.48,
+   "ci": [
+    -9.62,
+    -3.24
+   ],
+   "ci_cluster": [
+    -12.03,
+    2.99
+   ],
+   "diseases": 100,
+   "only_A": 150,
+   "only_B": 86,
+   "p_holm": 0.0001486374455828577
+  },
+  {
+   "comparison": "HPOA-base - S-mix",
+   "k": 1,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 33.33,
+   "B_pct": 18.67,
+   "diff": -14.67,
+   "ci": [
+    -26.67,
+    -2.67
+   ],
+   "ci_cluster": [
+    -31.25,
+    4.11
+   ],
+   "diseases": 16,
+   "only_A": 17,
+   "only_B": 6,
+   "p_holm": 0.06937932968139648
+  },
+  {
+   "comparison": "HPOA-base - S-mix",
+   "k": 1,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 15.41,
+   "B_pct": 52.24,
+   "diff": 36.83,
+   "ci": [
+    35.67,
+    38.04
+   ],
+   "ci_cluster": [
+    26.28,
+    46.42
+   ],
+   "diseases": 772,
+   "only_A": 718,
+   "only_B": 4515,
+   "p_holm": 0.0
+  },
+  {
+   "comparison": "HPOA-base - S-mix",
+   "k": 1,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 2.51,
+   "B_pct": 0.75,
+   "diff": -1.76,
+   "ci": [
+    -2.17,
+    -1.4
+   ],
+   "ci_cluster": [
+    -2.52,
+    -1.09
+   ],
+   "diseases": 760,
+   "only_A": 171,
+   "only_B": 39,
+   "p_holm": 3.276882483554318e-20
+  },
+  {
+   "comparison": "HPOA-lopo - S-mix",
+   "k": 10,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 40.63,
+   "B_pct": 10.7,
+   "diff": -29.93,
+   "ci": [
+    -31.93,
+    -27.93
+   ],
+   "ci_cluster": [
+    -43.4,
+    -17.7
+   ],
+   "diseases": 48,
+   "only_A": 1014,
+   "only_B": 116,
+   "p_holm": 1.3029515288848933e-178
+  },
+  {
+   "comparison": "HPOA-lopo - S-mix",
+   "k": 10,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 57.21,
+   "B_pct": 59.46,
+   "diff": 2.24,
+   "ci": [
+    -1.92,
+    6.73
+   ],
+   "ci_cluster": [
+    -9.58,
+    18.23
+   ],
+   "diseases": 74,
+   "only_A": 90,
+   "only_B": 104,
+   "p_holm": 0.996917724609375
+  },
+  {
+   "comparison": "HPOA-lopo - S-mix",
+   "k": 10,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 38.38,
+   "B_pct": 42.7,
+   "diff": 4.32,
+   "ci": [
+    -1.35,
+    9.73
+   ],
+   "ci_cluster": [
+    -5.12,
+    13.3
+   ],
+   "diseases": 252,
+   "only_A": 50,
+   "only_B": 66,
+   "p_holm": 0.6536926899101949
+  },
+  {
+   "comparison": "HPOA-lopo - S-mix",
+   "k": 10,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 44.32,
+   "B_pct": 43.18,
+   "diff": -1.14,
+   "ci": [
+    -12.5,
+    10.23
+   ],
+   "ci_cluster": [
+    -16.13,
+    12.17
+   ],
+   "diseases": 46,
+   "only_A": 13,
+   "only_B": 12,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo - S-mix",
+   "k": 10,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 55.0,
+   "B_pct": 95.0,
+   "diff": 40.0,
+   "ci": [
+    25.0,
+    55.0
+   ],
+   "ci_cluster": [
+    6.45,
+    72.31
+   ],
+   "diseases": 17,
+   "only_A": 0,
+   "only_B": 16,
+   "p_holm": 0.000152587890625
+  },
+  {
+   "comparison": "HPOA-lopo - S-mix",
+   "k": 10,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 67.11,
+   "B_pct": 52.83,
+   "diff": -14.27,
+   "ci": [
+    -17.41,
+    -11.23
+   ],
+   "ci_cluster": [
+    -25.99,
+    -2.47
+   ],
+   "diseases": 100,
+   "only_A": 202,
+   "only_B": 61,
+   "p_holm": 4.8868536616933746e-18
+  },
+  {
+   "comparison": "HPOA-lopo - S-mix",
+   "k": 10,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 68.0,
+   "B_pct": 61.33,
+   "diff": -6.67,
+   "ci": [
+    -17.33,
+    4.0
+   ],
+   "ci_cluster": [
+    -19.48,
+    6.35
+   ],
+   "diseases": 16,
+   "only_A": 11,
+   "only_B": 6,
+   "p_holm": 0.996917724609375
+  },
+  {
+   "comparison": "HPOA-lopo - S-mix",
+   "k": 10,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 31.03,
+   "B_pct": 25.45,
+   "diff": -5.58,
+   "ci": [
+    -6.42,
+    -4.75
+   ],
+   "ci_cluster": [
+    -9.92,
+    -1.23
+   ],
+   "diseases": 772,
+   "only_A": 1301,
+   "only_B": 726,
+   "p_holm": 7.170151203052987e-37
+  },
+  {
+   "comparison": "HPOA-lopo - S-mix",
+   "k": 10,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 13.34,
+   "B_pct": 3.6,
+   "diff": -9.74,
+   "ci": [
+    -10.53,
+    -8.98
+   ],
+   "ci_cluster": [
+    -11.54,
+    -8.08
+   ],
+   "diseases": 760,
+   "only_A": 863,
+   "only_B": 134,
+   "p_holm": 4.058980943920146e-130
+  },
+  {
+   "comparison": "HPOA-lopo - S-mix",
+   "k": 1,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 11.77,
+   "B_pct": 1.8,
+   "diff": -9.97,
+   "ci": [
+    -11.23,
+    -8.77
+   ],
+   "ci_cluster": [
+    -17.0,
+    -3.82
+   ],
+   "diseases": 48,
+   "only_A": 341,
+   "only_B": 42,
+   "p_holm": 2.2413803143061844e-58
+  },
+  {
+   "comparison": "HPOA-lopo - S-mix",
+   "k": 1,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 10.58,
+   "B_pct": 33.01,
+   "diff": 22.44,
+   "ci": [
+    18.11,
+    27.08
+   ],
+   "ci_cluster": [
+    -3.1,
+    45.66
+   ],
+   "diseases": 74,
+   "only_A": 47,
+   "only_B": 187,
+   "p_holm": 4.1216967131766674e-20
+  },
+  {
+   "comparison": "HPOA-lopo - S-mix",
+   "k": 1,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 17.84,
+   "B_pct": 21.08,
+   "diff": 3.24,
+   "ci": [
+    -1.89,
+    8.11
+   ],
+   "ci_cluster": [
+    -3.78,
+    9.71
+   ],
+   "diseases": 252,
+   "only_A": 39,
+   "only_B": 51,
+   "p_holm": 0.49221289943255586
+  },
+  {
+   "comparison": "HPOA-lopo - S-mix",
+   "k": 1,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 15.91,
+   "B_pct": 18.18,
+   "diff": 2.27,
+   "ci": [
+    -6.82,
+    11.36
+   ],
+   "ci_cluster": [
+    -9.23,
+    11.97
+   ],
+   "diseases": 46,
+   "only_A": 8,
+   "only_B": 10,
+   "p_holm": 0.8145294189453125
+  },
+  {
+   "comparison": "HPOA-lopo - S-mix",
+   "k": 1,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 35.0,
+   "B_pct": 70.0,
+   "diff": 35.0,
+   "ci": [
+    15.0,
+    55.0
+   ],
+   "ci_cluster": [
+    4.17,
+    60.47
+   ],
+   "diseases": 17,
+   "only_A": 4,
+   "only_B": 18,
+   "p_holm": 0.017374038696289062
+  },
+  {
+   "comparison": "HPOA-lopo - S-mix",
+   "k": 1,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 34.62,
+   "B_pct": 28.95,
+   "diff": -5.67,
+   "ci": [
+    -8.81,
+    -2.43
+   ],
+   "ci_cluster": [
+    -11.02,
+    3.53
+   ],
+   "diseases": 100,
+   "only_A": 142,
+   "only_B": 86,
+   "p_holm": 0.0012652750251767
+  },
+  {
+   "comparison": "HPOA-lopo - S-mix",
+   "k": 1,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 33.33,
+   "B_pct": 17.33,
+   "diff": -16.0,
+   "ci": [
+    -28.0,
+    -4.0
+   ],
+   "ci_cluster": [
+    -32.0,
+    2.9
+   ],
+   "diseases": 16,
+   "only_A": 17,
+   "only_B": 5,
+   "p_holm": 0.05070161819458008
+  },
+  {
+   "comparison": "HPOA-lopo - S-mix",
+   "k": 1,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 15.41,
+   "B_pct": 10.7,
+   "diff": -4.71,
+   "ci": [
+    -5.46,
+    -4.02
+   ],
+   "ci_cluster": [
+    -10.72,
+    0.49
+   ],
+   "diseases": 772,
+   "only_A": 980,
+   "only_B": 494,
+   "p_holm": 2.477018776759882e-36
+  },
+  {
+   "comparison": "HPOA-lopo - S-mix",
+   "k": 1,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 2.51,
+   "B_pct": 0.76,
+   "diff": -1.75,
+   "ci": [
+    -2.15,
+    -1.38
+   ],
+   "ci_cluster": [
+    -2.5,
+    -1.08
+   ],
+   "diseases": 760,
+   "only_A": 171,
+   "only_B": 40,
+   "p_holm": 1.0448658648544902e-19
+  },
+  {
+   "comparison": "HPOA-rand_s0 - S-mix",
+   "k": 10,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 40.63,
+   "B_pct": 10.1,
+   "diff": -30.53,
+   "ci": [
+    -32.43,
+    -28.57
+   ],
+   "ci_cluster": [
+    -44.69,
+    -18.26
+   ],
+   "diseases": 48,
+   "only_A": 1032,
+   "only_B": 116,
+   "p_holm": 3.044804027336298e-183
+  },
+  {
+   "comparison": "HPOA-rand_s0 - S-mix",
+   "k": 10,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 57.21,
+   "B_pct": 60.42,
+   "diff": 3.21,
+   "ci": [
+    -0.8,
+    7.53
+   ],
+   "ci_cluster": [
+    -8.5,
+    20.26
+   ],
+   "diseases": 74,
+   "only_A": 82,
+   "only_B": 102,
+   "p_holm": 0.48336681288293915
+  },
+  {
+   "comparison": "HPOA-rand_s0 - S-mix",
+   "k": 10,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 38.38,
+   "B_pct": 72.7,
+   "diff": 34.32,
+   "ci": [
+    28.11,
+    40.27
+   ],
+   "ci_cluster": [
+    26.07,
+    42.33
+   ],
+   "diseases": 252,
+   "only_A": 22,
+   "only_B": 149,
+   "p_holm": 1.359858007723922e-23
+  },
+  {
+   "comparison": "HPOA-rand_s0 - S-mix",
+   "k": 10,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 44.32,
+   "B_pct": 44.32,
+   "diff": 0.0,
+   "ci": [
+    -12.5,
+    12.5
+   ],
+   "ci_cluster": [
+    -15.66,
+    14.94
+   ],
+   "diseases": 46,
+   "only_A": 15,
+   "only_B": 15,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-rand_s0 - S-mix",
+   "k": 10,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 55.0,
+   "B_pct": 95.0,
+   "diff": 40.0,
+   "ci": [
+    25.0,
+    55.0
+   ],
+   "ci_cluster": [
+    6.45,
+    72.31
+   ],
+   "diseases": 17,
+   "only_A": 0,
+   "only_B": 16,
+   "p_holm": 0.0001220703125
+  },
+  {
+   "comparison": "HPOA-rand_s0 - S-mix",
+   "k": 10,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 67.11,
+   "B_pct": 52.73,
+   "diff": -14.37,
+   "ci": [
+    -17.41,
+    -11.34
+   ],
+   "ci_cluster": [
+    -25.85,
+    -2.29
+   ],
+   "diseases": 100,
+   "only_A": 203,
+   "only_B": 61,
+   "p_holm": 2.642631942883626e-18
+  },
+  {
+   "comparison": "HPOA-rand_s0 - S-mix",
+   "k": 10,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 68.0,
+   "B_pct": 61.33,
+   "diff": -6.67,
+   "ci": [
+    -17.33,
+    4.0
+   ],
+   "ci_cluster": [
+    -18.07,
+    5.71
+   ],
+   "diseases": 16,
+   "only_A": 11,
+   "only_B": 6,
+   "p_holm": 0.66461181640625
+  },
+  {
+   "comparison": "HPOA-rand_s0 - S-mix",
+   "k": 10,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 31.03,
+   "B_pct": 72.22,
+   "diff": 41.19,
+   "ci": [
+    40.08,
+    42.3
+   ],
+   "ci_cluster": [
+    33.53,
+    49.16
+   ],
+   "diseases": 772,
+   "only_A": 464,
+   "only_B": 4711,
+   "p_holm": 0.0
+  },
+  {
+   "comparison": "HPOA-rand_s0 - S-mix",
+   "k": 10,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 13.34,
+   "B_pct": 3.5,
+   "diff": -9.84,
+   "ci": [
+    -10.64,
+    -9.06
+   ],
+   "ci_cluster": [
+    -11.61,
+    -8.16
+   ],
+   "diseases": 760,
+   "only_A": 869,
+   "only_B": 133,
+   "p_holm": 3.5045783317884367e-132
+  },
+  {
+   "comparison": "HPOA-rand_s0 - S-mix",
+   "k": 1,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 11.77,
+   "B_pct": 2.17,
+   "diff": -9.6,
+   "ci": [
+    -10.9,
+    -8.37
+   ],
+   "ci_cluster": [
+    -16.82,
+    -3.54
+   ],
+   "diseases": 48,
+   "only_A": 341,
+   "only_B": 53,
+   "p_holm": 1.0237854812551069e-51
+  },
+  {
+   "comparison": "HPOA-rand_s0 - S-mix",
+   "k": 1,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 10.58,
+   "B_pct": 33.33,
+   "diff": 22.76,
+   "ci": [
+    18.43,
+    27.08
+   ],
+   "ci_cluster": [
+    -2.67,
+    45.37
+   ],
+   "diseases": 74,
+   "only_A": 42,
+   "only_B": 184,
+   "p_holm": 1.523048333857964e-21
+  },
+  {
+   "comparison": "HPOA-rand_s0 - S-mix",
+   "k": 1,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 17.84,
+   "B_pct": 48.65,
+   "diff": 30.81,
+   "ci": [
+    24.86,
+    36.76
+   ],
+   "ci_cluster": [
+    21.89,
+    39.08
+   ],
+   "diseases": 252,
+   "only_A": 24,
+   "only_B": 138,
+   "p_holm": 7.093661067770509e-20
+  },
+  {
+   "comparison": "HPOA-rand_s0 - S-mix",
+   "k": 1,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 15.91,
+   "B_pct": 14.77,
+   "diff": -1.14,
+   "ci": [
+    -10.23,
+    6.82
+   ],
+   "ci_cluster": [
+    -12.33,
+    8.22
+   ],
+   "diseases": 46,
+   "only_A": 8,
+   "only_B": 7,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-rand_s0 - S-mix",
+   "k": 1,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 35.0,
+   "B_pct": 70.0,
+   "diff": 35.0,
+   "ci": [
+    15.0,
+    55.0
+   ],
+   "ci_cluster": [
+    4.17,
+    60.47
+   ],
+   "diseases": 17,
+   "only_A": 4,
+   "only_B": 18,
+   "p_holm": 0.013030529022216797
+  },
+  {
+   "comparison": "HPOA-rand_s0 - S-mix",
+   "k": 1,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 34.62,
+   "B_pct": 27.33,
+   "diff": -7.29,
+   "ci": [
+    -10.32,
+    -4.35
+   ],
+   "ci_cluster": [
+    -12.79,
+    1.54
+   ],
+   "diseases": 100,
+   "only_A": 151,
+   "only_B": 79,
+   "p_holm": 9.50983582208938e-06
+  },
+  {
+   "comparison": "HPOA-rand_s0 - S-mix",
+   "k": 1,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 33.33,
+   "B_pct": 22.67,
+   "diff": -10.67,
+   "ci": [
+    -21.33,
+    0.0
+   ],
+   "ci_cluster": [
+    -25.35,
+    7.14
+   ],
+   "diseases": 16,
+   "only_A": 13,
+   "only_B": 5,
+   "p_holm": 0.1925048828125
+  },
+  {
+   "comparison": "HPOA-rand_s0 - S-mix",
+   "k": 1,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 15.41,
+   "B_pct": 49.41,
+   "diff": 34.0,
+   "ci": [
+    32.85,
+    35.14
+   ],
+   "ci_cluster": [
+    24.39,
+    42.72
+   ],
+   "diseases": 772,
+   "only_A": 666,
+   "only_B": 4171,
+   "p_holm": 0.0
+  },
+  {
+   "comparison": "HPOA-rand_s0 - S-mix",
+   "k": 1,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 2.51,
+   "B_pct": 0.82,
+   "diff": -1.7,
+   "ci": [
+    -2.1,
+    -1.31
+   ],
+   "ci_cluster": [
+    -2.47,
+    -1.03
+   ],
+   "diseases": 760,
+   "only_A": 171,
+   "only_B": 44,
+   "p_holm": 3.576945533856842e-18
+  },
+  {
+   "comparison": "HPOA-rand_s1 - S-mix",
+   "k": 10,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 40.63,
+   "B_pct": 10.57,
+   "diff": -30.07,
+   "ci": [
+    -32.03,
+    -28.07
+   ],
+   "ci_cluster": [
+    -44.68,
+    -17.2
+   ],
+   "diseases": 48,
+   "only_A": 1024,
+   "only_B": 122,
+   "p_holm": 4.009568036911016e-177
+  },
+  {
+   "comparison": "HPOA-rand_s1 - S-mix",
+   "k": 10,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 57.21,
+   "B_pct": 59.13,
+   "diff": 1.92,
+   "ci": [
+    -2.56,
+    6.41
+   ],
+   "ci_cluster": [
+    -10.08,
+    19.33
+   ],
+   "diseases": 74,
+   "only_A": 91,
+   "only_B": 103,
+   "p_holm": 0.8594949900289561
+  },
+  {
+   "comparison": "HPOA-rand_s1 - S-mix",
+   "k": 10,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 38.38,
+   "B_pct": 74.05,
+   "diff": 35.68,
+   "ci": [
+    29.46,
+    41.62
+   ],
+   "ci_cluster": [
+    26.41,
+    44.47
+   ],
+   "diseases": 252,
+   "only_A": 22,
+   "only_B": 154,
+   "p_holm": 8.30888007367582e-25
+  },
+  {
+   "comparison": "HPOA-rand_s1 - S-mix",
+   "k": 10,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 44.32,
+   "B_pct": 42.05,
+   "diff": -2.27,
+   "ci": [
+    -13.64,
+    10.23
+   ],
+   "ci_cluster": [
+    -16.35,
+    10.71
+   ],
+   "diseases": 46,
+   "only_A": 15,
+   "only_B": 13,
+   "p_holm": 0.8594949900289561
+  },
+  {
+   "comparison": "HPOA-rand_s1 - S-mix",
+   "k": 10,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 55.0,
+   "B_pct": 87.5,
+   "diff": 32.5,
+   "ci": [
+    15.0,
+    50.0
+   ],
+   "ci_cluster": [
+    -4.17,
+    68.25
+   ],
+   "diseases": 17,
+   "only_A": 2,
+   "only_B": 15,
+   "p_holm": 0.0093994140625
+  },
+  {
+   "comparison": "HPOA-rand_s1 - S-mix",
+   "k": 10,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 67.11,
+   "B_pct": 52.73,
+   "diff": -14.37,
+   "ci": [
+    -17.51,
+    -11.34
+   ],
+   "ci_cluster": [
+    -25.74,
+    -2.48
+   ],
+   "diseases": 100,
+   "only_A": 205,
+   "only_B": 63,
+   "p_holm": 5.149318984162253e-18
+  },
+  {
+   "comparison": "HPOA-rand_s1 - S-mix",
+   "k": 10,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 68.0,
+   "B_pct": 58.67,
+   "diff": -9.33,
+   "ci": [
+    -20.0,
+    1.33
+   ],
+   "ci_cluster": [
+    -22.09,
+    4.23
+   ],
+   "diseases": 16,
+   "only_A": 12,
+   "only_B": 5,
+   "p_holm": 0.430389404296875
+  },
+  {
+   "comparison": "HPOA-rand_s1 - S-mix",
+   "k": 10,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 31.03,
+   "B_pct": 72.0,
+   "diff": 40.97,
+   "ci": [
+    39.83,
+    42.09
+   ],
+   "ci_cluster": [
+    32.47,
+    49.83
+   ],
+   "diseases": 772,
+   "only_A": 531,
+   "only_B": 4755,
+   "p_holm": 0.0
+  },
+  {
+   "comparison": "HPOA-rand_s1 - S-mix",
+   "k": 10,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 13.34,
+   "B_pct": 3.46,
+   "diff": -9.88,
+   "ci": [
+    -10.68,
+    -9.13
+   ],
+   "ci_cluster": [
+    -11.64,
+    -8.14
+   ],
+   "diseases": 760,
+   "only_A": 868,
+   "only_B": 129,
+   "p_holm": 2.8986066023733456e-134
+  },
+  {
+   "comparison": "HPOA-rand_s1 - S-mix",
+   "k": 1,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 11.77,
+   "B_pct": 2.03,
+   "diff": -9.73,
+   "ci": [
+    -11.0,
+    -8.53
+   ],
+   "ci_cluster": [
+    -16.9,
+    -3.55
+   ],
+   "diseases": 48,
+   "only_A": 341,
+   "only_B": 49,
+   "p_holm": 4.7847722077928247e-54
+  },
+  {
+   "comparison": "HPOA-rand_s1 - S-mix",
+   "k": 1,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 10.58,
+   "B_pct": 33.49,
+   "diff": 22.92,
+   "ci": [
+    18.59,
+    27.4
+   ],
+   "ci_cluster": [
+    -2.81,
+    45.57
+   ],
+   "diseases": 74,
+   "only_A": 41,
+   "only_B": 184,
+   "p_holm": 5.622140016666612e-22
+  },
+  {
+   "comparison": "HPOA-rand_s1 - S-mix",
+   "k": 1,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 17.84,
+   "B_pct": 47.3,
+   "diff": 29.46,
+   "ci": [
+    23.51,
+    35.14
+   ],
+   "ci_cluster": [
+    20.86,
+    37.31
+   ],
+   "diseases": 252,
+   "only_A": 23,
+   "only_B": 132,
+   "p_holm": 5.251482755413048e-19
+  },
+  {
+   "comparison": "HPOA-rand_s1 - S-mix",
+   "k": 1,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 15.91,
+   "B_pct": 14.77,
+   "diff": -1.14,
+   "ci": [
+    -10.23,
+    7.95
+   ],
+   "ci_cluster": [
+    -10.53,
+    7.14
+   ],
+   "diseases": 46,
+   "only_A": 9,
+   "only_B": 8,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-rand_s1 - S-mix",
+   "k": 1,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 35.0,
+   "B_pct": 70.0,
+   "diff": 35.0,
+   "ci": [
+    15.0,
+    55.0
+   ],
+   "ci_cluster": [
+    7.41,
+    57.89
+   ],
+   "diseases": 17,
+   "only_A": 3,
+   "only_B": 17,
+   "p_holm": 0.0077304840087890625
+  },
+  {
+   "comparison": "HPOA-rand_s1 - S-mix",
+   "k": 1,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 34.62,
+   "B_pct": 28.14,
+   "diff": -6.48,
+   "ci": [
+    -9.62,
+    -3.34
+   ],
+   "ci_cluster": [
+    -11.66,
+    1.92
+   ],
+   "diseases": 100,
+   "only_A": 152,
+   "only_B": 88,
+   "p_holm": 0.00017319223988745784
+  },
+  {
+   "comparison": "HPOA-rand_s1 - S-mix",
+   "k": 1,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 33.33,
+   "B_pct": 22.67,
+   "diff": -10.67,
+   "ci": [
+    -22.67,
+    1.33
+   ],
+   "ci_cluster": [
+    -25.64,
+    7.04
+   ],
+   "diseases": 16,
+   "only_A": 15,
+   "only_B": 7,
+   "p_holm": 0.26760101318359375
+  },
+  {
+   "comparison": "HPOA-rand_s1 - S-mix",
+   "k": 1,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 15.41,
+   "B_pct": 49.53,
+   "diff": 34.12,
+   "ci": [
+    32.95,
+    35.29
+   ],
+   "ci_cluster": [
+    24.1,
+    43.3
+   ],
+   "diseases": 772,
+   "only_A": 703,
+   "only_B": 4221,
+   "p_holm": 0.0
+  },
+  {
+   "comparison": "HPOA-rand_s1 - S-mix",
+   "k": 1,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 2.51,
+   "B_pct": 0.82,
+   "diff": -1.7,
+   "ci": [
+    -2.1,
+    -1.32
+   ],
+   "ci_cluster": [
+    -2.44,
+    -1.03
+   ],
+   "diseases": 760,
+   "only_A": 171,
+   "only_B": 44,
+   "p_holm": 3.576945533856842e-18
+  },
+  {
+   "comparison": "HPOA-rand_s2 - S-mix",
+   "k": 10,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 40.63,
+   "B_pct": 10.13,
+   "diff": -30.5,
+   "ci": [
+    -32.4,
+    -28.5
+   ],
+   "ci_cluster": [
+    -44.43,
+    -17.39
+   ],
+   "diseases": 48,
+   "only_A": 1026,
+   "only_B": 111,
+   "p_holm": 3.269321719474216e-185
+  },
+  {
+   "comparison": "HPOA-rand_s2 - S-mix",
+   "k": 10,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 57.21,
+   "B_pct": 59.94,
+   "diff": 2.72,
+   "ci": [
+    -1.6,
+    6.89
+   ],
+   "ci_cluster": [
+    -8.68,
+    17.77
+   ],
+   "diseases": 74,
+   "only_A": 87,
+   "only_B": 104,
+   "p_holm": 0.713653564453125
+  },
+  {
+   "comparison": "HPOA-rand_s2 - S-mix",
+   "k": 10,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 38.38,
+   "B_pct": 74.05,
+   "diff": 35.68,
+   "ci": [
+    29.73,
+    41.62
+   ],
+   "ci_cluster": [
+    26.72,
+    43.95
+   ],
+   "diseases": 252,
+   "only_A": 19,
+   "only_B": 151,
+   "p_holm": 6.329660769527716e-26
+  },
+  {
+   "comparison": "HPOA-rand_s2 - S-mix",
+   "k": 10,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 44.32,
+   "B_pct": 40.91,
+   "diff": -3.41,
+   "ci": [
+    -14.77,
+    7.95
+   ],
+   "ci_cluster": [
+    -19.1,
+    11.46
+   ],
+   "diseases": 46,
+   "only_A": 15,
+   "only_B": 12,
+   "p_holm": 0.713653564453125
+  },
+  {
+   "comparison": "HPOA-rand_s2 - S-mix",
+   "k": 10,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 55.0,
+   "B_pct": 92.5,
+   "diff": 37.5,
+   "ci": [
+    22.5,
+    55.0
+   ],
+   "ci_cluster": [
+    2.22,
+    71.05
+   ],
+   "diseases": 17,
+   "only_A": 1,
+   "only_B": 16,
+   "p_holm": 0.0010986328125
+  },
+  {
+   "comparison": "HPOA-rand_s2 - S-mix",
+   "k": 10,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 67.11,
+   "B_pct": 52.02,
+   "diff": -15.08,
+   "ci": [
+    -18.32,
+    -11.94
+   ],
+   "ci_cluster": [
+    -25.95,
+    -3.93
+   ],
+   "diseases": 100,
+   "only_A": 214,
+   "only_B": 65,
+   "p_holm": 4.948900095055396e-19
+  },
+  {
+   "comparison": "HPOA-rand_s2 - S-mix",
+   "k": 10,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 68.0,
+   "B_pct": 60.0,
+   "diff": -8.0,
+   "ci": [
+    -18.67,
+    2.67
+   ],
+   "ci_cluster": [
+    -20.48,
+    5.97
+   ],
+   "diseases": 16,
+   "only_A": 12,
+   "only_B": 6,
+   "p_holm": 0.713653564453125
+  },
+  {
+   "comparison": "HPOA-rand_s2 - S-mix",
+   "k": 10,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 31.03,
+   "B_pct": 72.47,
+   "diff": 41.45,
+   "ci": [
+    40.3,
+    42.54
+   ],
+   "ci_cluster": [
+    33.5,
+    49.75
+   ],
+   "diseases": 772,
+   "only_A": 494,
+   "only_B": 4767,
+   "p_holm": 0.0
+  },
+  {
+   "comparison": "HPOA-rand_s2 - S-mix",
+   "k": 10,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 13.34,
+   "B_pct": 3.5,
+   "diff": -9.84,
+   "ci": [
+    -10.64,
+    -9.05
+   ],
+   "ci_cluster": [
+    -11.61,
+    -8.15
+   ],
+   "diseases": 760,
+   "only_A": 875,
+   "only_B": 139,
+   "p_holm": 3.3431455935996032e-130
+  },
+  {
+   "comparison": "HPOA-rand_s2 - S-mix",
+   "k": 1,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 11.77,
+   "B_pct": 1.6,
+   "diff": -10.17,
+   "ci": [
+    -11.43,
+    -8.97
+   ],
+   "ci_cluster": [
+    -17.22,
+    -4.06
+   ],
+   "diseases": 48,
+   "only_A": 341,
+   "only_B": 36,
+   "p_holm": 1.5560607555426905e-62
+  },
+  {
+   "comparison": "HPOA-rand_s2 - S-mix",
+   "k": 1,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 10.58,
+   "B_pct": 32.69,
+   "diff": 22.12,
+   "ci": [
+    17.47,
+    26.76
+   ],
+   "ci_cluster": [
+    -5.86,
+    47.39
+   ],
+   "diseases": 74,
+   "only_A": 48,
+   "only_B": 186,
+   "p_holm": 1.15709071905377e-19
+  },
+  {
+   "comparison": "HPOA-rand_s2 - S-mix",
+   "k": 1,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 17.84,
+   "B_pct": 48.11,
+   "diff": 30.27,
+   "ci": [
+    24.59,
+    35.95
+   ],
+   "ci_cluster": [
+    21.69,
+    38.37
+   ],
+   "diseases": 252,
+   "only_A": 23,
+   "only_B": 135,
+   "p_holm": 1.0510790389786765e-19
+  },
+  {
+   "comparison": "HPOA-rand_s2 - S-mix",
+   "k": 1,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 15.91,
+   "B_pct": 18.18,
+   "diff": 2.27,
+   "ci": [
+    -6.82,
+    12.5
+   ],
+   "ci_cluster": [
+    -9.46,
+    12.77
+   ],
+   "diseases": 46,
+   "only_A": 9,
+   "only_B": 11,
+   "p_holm": 0.8238029479980469
+  },
+  {
+   "comparison": "HPOA-rand_s2 - S-mix",
+   "k": 1,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 35.0,
+   "B_pct": 70.0,
+   "diff": 35.0,
+   "ci": [
+    15.0,
+    55.0
+   ],
+   "ci_cluster": [
+    7.41,
+    58.33
+   ],
+   "diseases": 17,
+   "only_A": 3,
+   "only_B": 17,
+   "p_holm": 0.0077304840087890625
+  },
+  {
+   "comparison": "HPOA-rand_s2 - S-mix",
+   "k": 1,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 34.62,
+   "B_pct": 26.11,
+   "diff": -8.5,
+   "ci": [
+    -11.54,
+    -5.47
+   ],
+   "ci_cluster": [
+    -13.02,
+    -1.72
+   ],
+   "diseases": 100,
+   "only_A": 155,
+   "only_B": 71,
+   "p_holm": 9.388941259714003e-08
+  },
+  {
+   "comparison": "HPOA-rand_s2 - S-mix",
+   "k": 1,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 33.33,
+   "B_pct": 17.33,
+   "diff": -16.0,
+   "ci": [
+    -28.0,
+    -4.0
+   ],
+   "ci_cluster": [
+    -32.0,
+    2.9
+   ],
+   "diseases": 16,
+   "only_A": 17,
+   "only_B": 5,
+   "p_holm": 0.03380107879638672
+  },
+  {
+   "comparison": "HPOA-rand_s2 - S-mix",
+   "k": 1,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 15.41,
+   "B_pct": 49.81,
+   "diff": 34.39,
+   "ci": [
+    33.24,
+    35.51
+   ],
+   "ci_cluster": [
+    24.91,
+    43.23
+   ],
+   "diseases": 772,
+   "only_A": 698,
+   "only_B": 4244,
+   "p_holm": 0.0
+  },
+  {
+   "comparison": "HPOA-rand_s2 - S-mix",
+   "k": 1,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 2.51,
+   "B_pct": 0.7,
+   "diff": -1.82,
+   "ci": [
+    -2.23,
+    -1.44
+   ],
+   "ci_cluster": [
+    -2.56,
+    -1.18
+   ],
+   "diseases": 760,
+   "only_A": 174,
+   "only_B": 38,
+   "p_holm": 3.817931780785022e-21
+  },
+  {
+   "comparison": "HPOA-rand_dz_s0 - S-mix",
+   "k": 10,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 40.63,
+   "B_pct": 10.3,
+   "diff": -30.33,
+   "ci": [
+    -32.27,
+    -28.43
+   ],
+   "ci_cluster": [
+    -43.51,
+    -18.39
+   ],
+   "diseases": 48,
+   "only_A": 1014,
+   "only_B": 104,
+   "p_holm": 3.773109921098415e-187
+  },
+  {
+   "comparison": "HPOA-rand_dz_s0 - S-mix",
+   "k": 10,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 57.21,
+   "B_pct": 59.13,
+   "diff": 1.92,
+   "ci": [
+    -2.24,
+    6.25
+   ],
+   "ci_cluster": [
+    -8.94,
+    16.74
+   ],
+   "diseases": 74,
+   "only_A": 89,
+   "only_B": 101,
+   "p_holm": 0.8498638581244852
+  },
+  {
+   "comparison": "HPOA-rand_dz_s0 - S-mix",
+   "k": 10,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 38.38,
+   "B_pct": 71.89,
+   "diff": 33.51,
+   "ci": [
+    27.3,
+    39.46
+   ],
+   "ci_cluster": [
+    24.38,
+    41.94
+   ],
+   "diseases": 252,
+   "only_A": 22,
+   "only_B": 146,
+   "p_holm": 7.202950706580426e-23
+  },
+  {
+   "comparison": "HPOA-rand_dz_s0 - S-mix",
+   "k": 10,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 44.32,
+   "B_pct": 43.18,
+   "diff": -1.14,
+   "ci": [
+    -12.5,
+    10.23
+   ],
+   "ci_cluster": [
+    -16.13,
+    12.17
+   ],
+   "diseases": 46,
+   "only_A": 13,
+   "only_B": 12,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-rand_dz_s0 - S-mix",
+   "k": 10,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 55.0,
+   "B_pct": 95.0,
+   "diff": 40.0,
+   "ci": [
+    25.0,
+    55.0
+   ],
+   "ci_cluster": [
+    6.45,
+    72.31
+   ],
+   "diseases": 17,
+   "only_A": 0,
+   "only_B": 16,
+   "p_holm": 0.0001220703125
+  },
+  {
+   "comparison": "HPOA-rand_dz_s0 - S-mix",
+   "k": 10,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 67.11,
+   "B_pct": 53.64,
+   "diff": -13.46,
+   "ci": [
+    -16.6,
+    -10.43
+   ],
+   "ci_cluster": [
+    -25.14,
+    -1.45
+   ],
+   "diseases": 100,
+   "only_A": 197,
+   "only_B": 64,
+   "p_holm": 3.1251214087536146e-16
+  },
+  {
+   "comparison": "HPOA-rand_dz_s0 - S-mix",
+   "k": 10,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 68.0,
+   "B_pct": 57.33,
+   "diff": -10.67,
+   "ci": [
+    -22.67,
+    1.33
+   ],
+   "ci_cluster": [
+    -26.67,
+    4.69
+   ],
+   "diseases": 16,
+   "only_A": 14,
+   "only_B": 6,
+   "p_holm": 0.34595489501953125
+  },
+  {
+   "comparison": "HPOA-rand_dz_s0 - S-mix",
+   "k": 10,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 31.03,
+   "B_pct": 73.62,
+   "diff": 42.59,
+   "ci": [
+    41.5,
+    43.67
+   ],
+   "ci_cluster": [
+    33.73,
+    51.36
+   ],
+   "diseases": 772,
+   "only_A": 508,
+   "only_B": 4899,
+   "p_holm": 0.0
+  },
+  {
+   "comparison": "HPOA-rand_dz_s0 - S-mix",
+   "k": 10,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 13.34,
+   "B_pct": 3.58,
+   "diff": -9.76,
+   "ci": [
+    -10.55,
+    -9.0
+   ],
+   "ci_cluster": [
+    -11.53,
+    -8.08
+   ],
+   "diseases": 760,
+   "only_A": 863,
+   "only_B": 133,
+   "p_holm": 9.533921748860276e-131
+  },
+  {
+   "comparison": "HPOA-rand_dz_s0 - S-mix",
+   "k": 1,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 11.77,
+   "B_pct": 1.8,
+   "diff": -9.97,
+   "ci": [
+    -11.23,
+    -8.77
+   ],
+   "ci_cluster": [
+    -17.0,
+    -3.82
+   ],
+   "diseases": 48,
+   "only_A": 341,
+   "only_B": 42,
+   "p_holm": 1.9923380571610528e-58
+  },
+  {
+   "comparison": "HPOA-rand_dz_s0 - S-mix",
+   "k": 1,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 10.58,
+   "B_pct": 33.01,
+   "diff": 22.44,
+   "ci": [
+    18.11,
+    26.76
+   ],
+   "ci_cluster": [
+    -2.26,
+    45.1
+   ],
+   "diseases": 74,
+   "only_A": 40,
+   "only_B": 180,
+   "p_holm": 1.4825427097957647e-21
+  },
+  {
+   "comparison": "HPOA-rand_dz_s0 - S-mix",
+   "k": 1,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 17.84,
+   "B_pct": 47.3,
+   "diff": 29.46,
+   "ci": [
+    23.51,
+    34.86
+   ],
+   "ci_cluster": [
+    21.62,
+    37.1
+   ],
+   "diseases": 252,
+   "only_A": 23,
+   "only_B": 132,
+   "p_holm": 4.376235629510873e-19
+  },
+  {
+   "comparison": "HPOA-rand_dz_s0 - S-mix",
+   "k": 1,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 15.91,
+   "B_pct": 18.18,
+   "diff": 2.27,
+   "ci": [
+    -6.82,
+    11.36
+   ],
+   "ci_cluster": [
+    -9.23,
+    11.97
+   ],
+   "diseases": 46,
+   "only_A": 8,
+   "only_B": 10,
+   "p_holm": 0.8145294189453125
+  },
+  {
+   "comparison": "HPOA-rand_dz_s0 - S-mix",
+   "k": 1,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 35.0,
+   "B_pct": 70.0,
+   "diff": 35.0,
+   "ci": [
+    15.0,
+    55.0
+   ],
+   "ci_cluster": [
+    4.17,
+    60.47
+   ],
+   "diseases": 17,
+   "only_A": 4,
+   "only_B": 18,
+   "p_holm": 0.013030529022216797
+  },
+  {
+   "comparison": "HPOA-rand_dz_s0 - S-mix",
+   "k": 1,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 34.62,
+   "B_pct": 27.94,
+   "diff": -6.68,
+   "ci": [
+    -9.82,
+    -3.44
+   ],
+   "ci_cluster": [
+    -12.47,
+    3.13
+   ],
+   "diseases": 100,
+   "only_A": 152,
+   "only_B": 86,
+   "p_holm": 8.991524303527381e-05
+  },
+  {
+   "comparison": "HPOA-rand_dz_s0 - S-mix",
+   "k": 1,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 33.33,
+   "B_pct": 18.67,
+   "diff": -14.67,
+   "ci": [
+    -26.67,
+    -2.67
+   ],
+   "ci_cluster": [
+    -31.25,
+    4.11
+   ],
+   "diseases": 16,
+   "only_A": 17,
+   "only_B": 6,
+   "p_holm": 0.06937932968139648
+  },
+  {
+   "comparison": "HPOA-rand_dz_s0 - S-mix",
+   "k": 1,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 15.41,
+   "B_pct": 52.41,
+   "diff": 36.99,
+   "ci": [
+    35.87,
+    38.16
+   ],
+   "ci_cluster": [
+    26.44,
+    46.6
+   ],
+   "diseases": 772,
+   "only_A": 717,
+   "only_B": 4531,
+   "p_holm": 0.0
+  },
+  {
+   "comparison": "HPOA-rand_dz_s0 - S-mix",
+   "k": 1,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 2.51,
+   "B_pct": 0.75,
+   "diff": -1.76,
+   "ci": [
+    -2.17,
+    -1.4
+   ],
+   "ci_cluster": [
+    -2.52,
+    -1.09
+   ],
+   "diseases": 760,
+   "only_A": 171,
+   "only_B": 39,
+   "p_holm": 3.932258980265182e-20
+  },
+  {
+   "comparison": "HPOA-lopo_strip - S-mix",
+   "k": 10,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 40.63,
+   "B_pct": 10.7,
+   "diff": -29.93,
+   "ci": [
+    -31.93,
+    -27.93
+   ],
+   "ci_cluster": [
+    -43.4,
+    -17.7
+   ],
+   "diseases": 48,
+   "only_A": 1014,
+   "only_B": 116,
+   "p_holm": 1.3029515288848933e-178
+  },
+  {
+   "comparison": "HPOA-lopo_strip - S-mix",
+   "k": 10,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 57.21,
+   "B_pct": 60.42,
+   "diff": 3.21,
+   "ci": [
+    -0.96,
+    7.53
+   ],
+   "ci_cluster": [
+    -8.45,
+    19.72
+   ],
+   "diseases": 74,
+   "only_A": 86,
+   "only_B": 106,
+   "p_holm": 0.5104435787890731
+  },
+  {
+   "comparison": "HPOA-lopo_strip - S-mix",
+   "k": 10,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 38.38,
+   "B_pct": 44.86,
+   "diff": 6.49,
+   "ci": [
+    0.81,
+    12.16
+   ],
+   "ci_cluster": [
+    -2.96,
+    15.44
+   ],
+   "diseases": 252,
+   "only_A": 47,
+   "only_B": 71,
+   "p_holm": 0.1351527018873035
+  },
+  {
+   "comparison": "HPOA-lopo_strip - S-mix",
+   "k": 10,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 44.32,
+   "B_pct": 44.32,
+   "diff": 0.0,
+   "ci": [
+    -11.36,
+    11.36
+   ],
+   "ci_cluster": [
+    -14.77,
+    13.39
+   ],
+   "diseases": 46,
+   "only_A": 13,
+   "only_B": 13,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo_strip - S-mix",
+   "k": 10,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 55.0,
+   "B_pct": 95.0,
+   "diff": 40.0,
+   "ci": [
+    25.0,
+    55.0
+   ],
+   "ci_cluster": [
+    6.45,
+    72.31
+   ],
+   "diseases": 17,
+   "only_A": 0,
+   "only_B": 16,
+   "p_holm": 0.000152587890625
+  },
+  {
+   "comparison": "HPOA-lopo_strip - S-mix",
+   "k": 10,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 67.11,
+   "B_pct": 52.83,
+   "diff": -14.27,
+   "ci": [
+    -17.41,
+    -11.23
+   ],
+   "ci_cluster": [
+    -25.99,
+    -2.47
+   ],
+   "diseases": 100,
+   "only_A": 202,
+   "only_B": 61,
+   "p_holm": 5.701329271975603e-18
+  },
+  {
+   "comparison": "HPOA-lopo_strip - S-mix",
+   "k": 10,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 68.0,
+   "B_pct": 61.33,
+   "diff": -6.67,
+   "ci": [
+    -17.33,
+    4.0
+   ],
+   "ci_cluster": [
+    -19.48,
+    6.35
+   ],
+   "diseases": 16,
+   "only_A": 11,
+   "only_B": 6,
+   "p_holm": 0.66461181640625
+  },
+  {
+   "comparison": "HPOA-lopo_strip - S-mix",
+   "k": 10,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 31.03,
+   "B_pct": 28.62,
+   "diff": -2.41,
+   "ci": [
+    -3.23,
+    -1.58
+   ],
+   "ci_cluster": [
+    -6.49,
+    1.75
+   ],
+   "diseases": 772,
+   "only_A": 1119,
+   "only_B": 871,
+   "p_holm": 1.775224344937088e-07
+  },
+  {
+   "comparison": "HPOA-lopo_strip - S-mix",
+   "k": 10,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 13.34,
+   "B_pct": 3.6,
+   "diff": -9.74,
+   "ci": [
+    -10.53,
+    -8.98
+   ],
+   "ci_cluster": [
+    -11.54,
+    -8.08
+   ],
+   "diseases": 760,
+   "only_A": 863,
+   "only_B": 134,
+   "p_holm": 4.058980943920146e-130
+  },
+  {
+   "comparison": "HPOA-lopo_strip - S-mix",
+   "k": 1,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 11.77,
+   "B_pct": 1.8,
+   "diff": -9.97,
+   "ci": [
+    -11.23,
+    -8.77
+   ],
+   "ci_cluster": [
+    -17.0,
+    -3.82
+   ],
+   "diseases": 48,
+   "only_A": 341,
+   "only_B": 42,
+   "p_holm": 2.2413803143061844e-58
+  },
+  {
+   "comparison": "HPOA-lopo_strip - S-mix",
+   "k": 1,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 10.58,
+   "B_pct": 33.17,
+   "diff": 22.6,
+   "ci": [
+    18.11,
+    27.08
+   ],
+   "ci_cluster": [
+    -3.02,
+    45.79
+   ],
+   "diseases": 74,
+   "only_A": 46,
+   "only_B": 187,
+   "p_holm": 1.8791380215466993e-20
+  },
+  {
+   "comparison": "HPOA-lopo_strip - S-mix",
+   "k": 1,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 17.84,
+   "B_pct": 22.16,
+   "diff": 4.32,
+   "ci": [
+    -0.54,
+    9.19
+   ],
+   "ci_cluster": [
+    -2.72,
+    10.76
+   ],
+   "diseases": 252,
+   "only_A": 37,
+   "only_B": 53,
+   "p_holm": 0.2266887080868413
+  },
+  {
+   "comparison": "HPOA-lopo_strip - S-mix",
+   "k": 1,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 15.91,
+   "B_pct": 18.18,
+   "diff": 2.27,
+   "ci": [
+    -6.82,
+    11.36
+   ],
+   "ci_cluster": [
+    -9.23,
+    11.97
+   ],
+   "diseases": 46,
+   "only_A": 8,
+   "only_B": 10,
+   "p_holm": 0.8145294189453125
+  },
+  {
+   "comparison": "HPOA-lopo_strip - S-mix",
+   "k": 1,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 35.0,
+   "B_pct": 70.0,
+   "diff": 35.0,
+   "ci": [
+    15.0,
+    55.0
+   ],
+   "ci_cluster": [
+    4.17,
+    60.47
+   ],
+   "diseases": 17,
+   "only_A": 4,
+   "only_B": 18,
+   "p_holm": 0.017374038696289062
+  },
+  {
+   "comparison": "HPOA-lopo_strip - S-mix",
+   "k": 1,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 34.62,
+   "B_pct": 28.85,
+   "diff": -5.77,
+   "ci": [
+    -8.91,
+    -2.53
+   ],
+   "ci_cluster": [
+    -11.11,
+    3.39
+   ],
+   "diseases": 100,
+   "only_A": 142,
+   "only_B": 85,
+   "p_holm": 0.0009395770758090249
+  },
+  {
+   "comparison": "HPOA-lopo_strip - S-mix",
+   "k": 1,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 33.33,
+   "B_pct": 17.33,
+   "diff": -16.0,
+   "ci": [
+    -28.0,
+    -4.0
+   ],
+   "ci_cluster": [
+    -32.0,
+    2.9
+   ],
+   "diseases": 16,
+   "only_A": 17,
+   "only_B": 5,
+   "p_holm": 0.05070161819458008
+  },
+  {
+   "comparison": "HPOA-lopo_strip - S-mix",
+   "k": 1,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 15.41,
+   "B_pct": 12.38,
+   "diff": -3.04,
+   "ci": [
+    -3.79,
+    -2.32
+   ],
+   "ci_cluster": [
+    -9.06,
+    2.42
+   ],
+   "diseases": 772,
+   "only_A": 912,
+   "only_B": 599,
+   "p_holm": 4.77087517034171e-15
+  },
+  {
+   "comparison": "HPOA-lopo_strip - S-mix",
+   "k": 1,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 2.51,
+   "B_pct": 0.76,
+   "diff": -1.75,
+   "ci": [
+    -2.15,
+    -1.38
+   ],
+   "ci_cluster": [
+    -2.5,
+    -1.08
+   ],
+   "diseases": 760,
+   "only_A": 171,
+   "only_B": 40,
+   "p_holm": 1.2190101756635718e-19
+  },
+  {
+   "comparison": "HPOA-nopmid - S-mix",
+   "k": 10,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 40.63,
+   "B_pct": 11.8,
+   "diff": -28.83,
+   "ci": [
+    -30.8,
+    -26.9
+   ],
+   "ci_cluster": [
+    -42.22,
+    -16.67
+   ],
+   "diseases": 48,
+   "only_A": 984,
+   "only_B": 119,
+   "p_holm": 5.323195017962504e-169
+  },
+  {
+   "comparison": "HPOA-nopmid - S-mix",
+   "k": 10,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 57.21,
+   "B_pct": 53.21,
+   "diff": -4.01,
+   "ci": [
+    -8.33,
+    0.64
+   ],
+   "ci_cluster": [
+    -18.89,
+    12.75
+   ],
+   "diseases": 74,
+   "only_A": 119,
+   "only_B": 94,
+   "p_holm": 0.3994249019459596
+  },
+  {
+   "comparison": "HPOA-nopmid - S-mix",
+   "k": 10,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 38.38,
+   "B_pct": 38.65,
+   "diff": 0.27,
+   "ci": [
+    -5.95,
+    6.22
+   ],
+   "ci_cluster": [
+    -11.26,
+    11.03
+   ],
+   "diseases": 252,
+   "only_A": 66,
+   "only_B": 67,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-nopmid - S-mix",
+   "k": 10,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 44.32,
+   "B_pct": 43.18,
+   "diff": -1.14,
+   "ci": [
+    -12.5,
+    10.23
+   ],
+   "ci_cluster": [
+    -16.67,
+    12.94
+   ],
+   "diseases": 46,
+   "only_A": 15,
+   "only_B": 14,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-nopmid - S-mix",
+   "k": 10,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 55.0,
+   "B_pct": 65.0,
+   "diff": 10.0,
+   "ci": [
+    -10.0,
+    32.5
+   ],
+   "ci_cluster": [
+    -33.33,
+    43.86
+   ],
+   "diseases": 17,
+   "only_A": 8,
+   "only_B": 12,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-nopmid - S-mix",
+   "k": 10,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 67.11,
+   "B_pct": 53.44,
+   "diff": -13.66,
+   "ci": [
+    -16.7,
+    -10.63
+   ],
+   "ci_cluster": [
+    -24.49,
+    -2.47
+   ],
+   "diseases": 100,
+   "only_A": 195,
+   "only_B": 60,
+   "p_holm": 4.622103744934564e-17
+  },
+  {
+   "comparison": "HPOA-nopmid - S-mix",
+   "k": 10,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 68.0,
+   "B_pct": 54.67,
+   "diff": -13.33,
+   "ci": [
+    -25.33,
+    -2.67
+   ],
+   "ci_cluster": [
+    -27.71,
+    1.39
+   ],
+   "diseases": 16,
+   "only_A": 15,
+   "only_B": 5,
+   "p_holm": 0.20694732666015625
+  },
+  {
+   "comparison": "HPOA-nopmid - S-mix",
+   "k": 10,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 31.03,
+   "B_pct": 25.15,
+   "diff": -5.88,
+   "ci": [
+    -6.75,
+    -5.01
+   ],
+   "ci_cluster": [
+    -10.81,
+    -0.75
+   ],
+   "diseases": 772,
+   "only_A": 1410,
+   "only_B": 804,
+   "p_holm": 1.884646153158084e-37
+  },
+  {
+   "comparison": "HPOA-nopmid - S-mix",
+   "k": 10,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 13.34,
+   "B_pct": 3.56,
+   "diff": -9.78,
+   "ci": [
+    -10.57,
+    -9.04
+   ],
+   "ci_cluster": [
+    -11.57,
+    -8.07
+   ],
+   "diseases": 760,
+   "only_A": 859,
+   "only_B": 127,
+   "p_holm": 3.2803416057714836e-133
+  },
+  {
+   "comparison": "HPOA-nopmid - S-mix",
+   "k": 1,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 11.77,
+   "B_pct": 2.0,
+   "diff": -9.77,
+   "ci": [
+    -11.03,
+    -8.57
+   ],
+   "ci_cluster": [
+    -16.94,
+    -3.56
+   ],
+   "diseases": 48,
+   "only_A": 341,
+   "only_B": 48,
+   "p_holm": 1.3480431116831305e-54
+  },
+  {
+   "comparison": "HPOA-nopmid - S-mix",
+   "k": 1,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 10.58,
+   "B_pct": 29.49,
+   "diff": 18.91,
+   "ci": [
+    14.42,
+    23.56
+   ],
+   "ci_cluster": [
+    -10.63,
+    46.03
+   ],
+   "diseases": 74,
+   "only_A": 52,
+   "only_B": 170,
+   "p_holm": 4.874869429072199e-15
+  },
+  {
+   "comparison": "HPOA-nopmid - S-mix",
+   "k": 1,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 17.84,
+   "B_pct": 18.11,
+   "diff": 0.27,
+   "ci": [
+    -4.59,
+    5.14
+   ],
+   "ci_cluster": [
+    -7.06,
+    7.67
+   ],
+   "diseases": 252,
+   "only_A": 43,
+   "only_B": 44,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-nopmid - S-mix",
+   "k": 1,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 15.91,
+   "B_pct": 15.91,
+   "diff": 0.0,
+   "ci": [
+    -9.09,
+    9.09
+   ],
+   "ci_cluster": [
+    -12.5,
+    10.34
+   ],
+   "diseases": 46,
+   "only_A": 9,
+   "only_B": 9,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-nopmid - S-mix",
+   "k": 1,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 35.0,
+   "B_pct": 50.0,
+   "diff": 15.0,
+   "ci": [
+    -5.0,
+    37.5
+   ],
+   "ci_cluster": [
+    -27.45,
+    46.55
+   ],
+   "diseases": 17,
+   "only_A": 7,
+   "only_B": 13,
+   "p_holm": 0.7895278930664062
+  },
+  {
+   "comparison": "HPOA-nopmid - S-mix",
+   "k": 1,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 34.62,
+   "B_pct": 29.76,
+   "diff": -4.86,
+   "ci": [
+    -8.0,
+    -1.72
+   ],
+   "ci_cluster": [
+    -10.07,
+    3.97
+   ],
+   "diseases": 100,
+   "only_A": 136,
+   "only_B": 88,
+   "p_holm": 0.008140129657446265
+  },
+  {
+   "comparison": "HPOA-nopmid - S-mix",
+   "k": 1,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 33.33,
+   "B_pct": 18.67,
+   "diff": -14.67,
+   "ci": [
+    -26.67,
+    -4.0
+   ],
+   "ci_cluster": [
+    -27.5,
+    1.3
+   ],
+   "diseases": 16,
+   "only_A": 16,
+   "only_B": 5,
+   "p_holm": 0.106414794921875
+  },
+  {
+   "comparison": "HPOA-nopmid - S-mix",
+   "k": 1,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 15.41,
+   "B_pct": 10.65,
+   "diff": -4.76,
+   "ci": [
+    -5.48,
+    -4.05
+   ],
+   "ci_cluster": [
+    -10.23,
+    -0.1
+   ],
+   "diseases": 772,
+   "only_A": 969,
+   "only_B": 478,
+   "p_holm": 8.69227811870332e-38
+  },
+  {
+   "comparison": "HPOA-nopmid - S-mix",
+   "k": 1,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 2.51,
+   "B_pct": 0.7,
+   "diff": -1.82,
+   "ci": [
+    -2.21,
+    -1.46
+   ],
+   "ci_cluster": [
+    -2.57,
+    -1.17
+   ],
+   "diseases": 760,
+   "only_A": 170,
+   "only_B": 34,
+   "p_holm": 4.1974491774248456e-22
+  },
+  {
+   "comparison": "HPOA-rand_nopmid - S-mix",
+   "k": 10,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 40.63,
+   "B_pct": 11.23,
+   "diff": -29.4,
+   "ci": [
+    -31.3,
+    -27.4
+   ],
+   "ci_cluster": [
+    -43.68,
+    -17.0
+   ],
+   "diseases": 48,
+   "only_A": 1007,
+   "only_B": 125,
+   "p_holm": 7.292619495532521e-171
+  },
+  {
+   "comparison": "HPOA-rand_nopmid - S-mix",
+   "k": 10,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 57.21,
+   "B_pct": 50.32,
+   "diff": -6.89,
+   "ci": [
+    -11.06,
+    -2.56
+   ],
+   "ci_cluster": [
+    -18.6,
+    5.38
+   ],
+   "diseases": 74,
+   "only_A": 116,
+   "only_B": 73,
+   "p_holm": 0.008663888644403045
+  },
+  {
+   "comparison": "HPOA-rand_nopmid - S-mix",
+   "k": 10,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 38.38,
+   "B_pct": 62.7,
+   "diff": 24.32,
+   "ci": [
+    18.11,
+    30.27
+   ],
+   "ci_cluster": [
+    14.58,
+    33.73
+   ],
+   "diseases": 252,
+   "only_A": 35,
+   "only_B": 125,
+   "p_holm": 2.2842936408809528e-12
+  },
+  {
+   "comparison": "HPOA-rand_nopmid - S-mix",
+   "k": 10,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 44.32,
+   "B_pct": 39.77,
+   "diff": -4.55,
+   "ci": [
+    -17.05,
+    6.82
+   ],
+   "ci_cluster": [
+    -17.65,
+    8.0
+   ],
+   "diseases": 46,
+   "only_A": 17,
+   "only_B": 13,
+   "p_holm": 0.584664711728692
+  },
+  {
+   "comparison": "HPOA-rand_nopmid - S-mix",
+   "k": 10,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 55.0,
+   "B_pct": 80.0,
+   "diff": 25.0,
+   "ci": [
+    7.5,
+    42.5
+   ],
+   "ci_cluster": [
+    -15.0,
+    61.54
+   ],
+   "diseases": 17,
+   "only_A": 3,
+   "only_B": 13,
+   "p_holm": 0.063812255859375
+  },
+  {
+   "comparison": "HPOA-rand_nopmid - S-mix",
+   "k": 10,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 67.11,
+   "B_pct": 44.03,
+   "diff": -23.08,
+   "ci": [
+    -26.42,
+    -19.74
+   ],
+   "ci_cluster": [
+    -39.82,
+    -7.57
+   ],
+   "diseases": 100,
+   "only_A": 282,
+   "only_B": 54,
+   "p_holm": 1.3399353484937488e-37
+  },
+  {
+   "comparison": "HPOA-rand_nopmid - S-mix",
+   "k": 10,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 68.0,
+   "B_pct": 57.33,
+   "diff": -10.67,
+   "ci": [
+    -21.33,
+    1.33
+   ],
+   "ci_cluster": [
+    -24.66,
+    2.82
+   ],
+   "diseases": 16,
+   "only_A": 14,
+   "only_B": 6,
+   "p_holm": 0.2306365966796875
+  },
+  {
+   "comparison": "HPOA-rand_nopmid - S-mix",
+   "k": 10,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 31.03,
+   "B_pct": 60.27,
+   "diff": 29.24,
+   "ci": [
+    28.08,
+    30.42
+   ],
+   "ci_cluster": [
+    21.82,
+    37.26
+   ],
+   "diseases": 772,
+   "only_A": 783,
+   "only_B": 3798,
+   "p_holm": 0.0
+  },
+  {
+   "comparison": "HPOA-rand_nopmid - S-mix",
+   "k": 10,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 13.34,
+   "B_pct": 3.18,
+   "diff": -10.16,
+   "ci": [
+    -10.96,
+    -9.4
+   ],
+   "ci_cluster": [
+    -11.92,
+    -8.41
+   ],
+   "diseases": 760,
+   "only_A": 877,
+   "only_B": 117,
+   "p_holm": 9.810621059625075e-144
+  },
+  {
+   "comparison": "HPOA-rand_nopmid - S-mix",
+   "k": 1,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 11.77,
+   "B_pct": 3.4,
+   "diff": -8.37,
+   "ci": [
+    -9.7,
+    -7.1
+   ],
+   "ci_cluster": [
+    -16.26,
+    -1.29
+   ],
+   "diseases": 48,
+   "only_A": 339,
+   "only_B": 88,
+   "p_holm": 6.494207888247102e-35
+  },
+  {
+   "comparison": "HPOA-rand_nopmid - S-mix",
+   "k": 1,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 10.58,
+   "B_pct": 31.41,
+   "diff": 20.83,
+   "ci": [
+    16.35,
+    25.0
+   ],
+   "ci_cluster": [
+    -7.14,
+    46.74
+   ],
+   "diseases": 74,
+   "only_A": 46,
+   "only_B": 176,
+   "p_holm": 2.46718431459548e-18
+  },
+  {
+   "comparison": "HPOA-rand_nopmid - S-mix",
+   "k": 1,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 17.84,
+   "B_pct": 39.46,
+   "diff": 21.62,
+   "ci": [
+    15.95,
+    27.03
+   ],
+   "ci_cluster": [
+    12.82,
+    29.8
+   ],
+   "diseases": 252,
+   "only_A": 27,
+   "only_B": 107,
+   "p_holm": 7.273332419303322e-12
+  },
+  {
+   "comparison": "HPOA-rand_nopmid - S-mix",
+   "k": 1,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 15.91,
+   "B_pct": 12.5,
+   "diff": -3.41,
+   "ci": [
+    -12.5,
+    4.55
+   ],
+   "ci_cluster": [
+    -14.86,
+    5.88
+   ],
+   "diseases": 46,
+   "only_A": 9,
+   "only_B": 6,
+   "p_holm": 0.60723876953125
+  },
+  {
+   "comparison": "HPOA-rand_nopmid - S-mix",
+   "k": 1,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 35.0,
+   "B_pct": 57.5,
+   "diff": 22.5,
+   "ci": [
+    2.5,
+    42.5
+   ],
+   "ci_cluster": [
+    -21.05,
+    58.06
+   ],
+   "diseases": 17,
+   "only_A": 5,
+   "only_B": 14,
+   "p_holm": 0.190704345703125
+  },
+  {
+   "comparison": "HPOA-rand_nopmid - S-mix",
+   "k": 1,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 34.62,
+   "B_pct": 23.28,
+   "diff": -11.34,
+   "ci": [
+    -14.27,
+    -8.3
+   ],
+   "ci_cluster": [
+    -17.06,
+    -1.94
+   ],
+   "diseases": 100,
+   "only_A": 177,
+   "only_B": 65,
+   "p_holm": 1.8182693505524639e-12
+  },
+  {
+   "comparison": "HPOA-rand_nopmid - S-mix",
+   "k": 1,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 33.33,
+   "B_pct": 25.33,
+   "diff": -8.0,
+   "ci": [
+    -20.0,
+    4.0
+   ],
+   "ci_cluster": [
+    -24.32,
+    11.11
+   ],
+   "diseases": 16,
+   "only_A": 14,
+   "only_B": 8,
+   "p_holm": 0.5725574493408203
+  },
+  {
+   "comparison": "HPOA-rand_nopmid - S-mix",
+   "k": 1,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 15.41,
+   "B_pct": 36.64,
+   "diff": 21.23,
+   "ci": [
+    20.16,
+    22.31
+   ],
+   "ci_cluster": [
+    13.87,
+    28.11
+   ],
+   "diseases": 772,
+   "only_A": 700,
+   "only_B": 2889,
+   "p_holm": 2.16709846279e-312
+  },
+  {
+   "comparison": "HPOA-rand_nopmid - S-mix",
+   "k": 1,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 2.51,
+   "B_pct": 0.78,
+   "diff": -1.74,
+   "ci": [
+    -2.15,
+    -1.35
+   ],
+   "ci_cluster": [
+    -2.48,
+    -1.05
+   ],
+   "diseases": 760,
+   "only_A": 172,
+   "only_B": 42,
+   "p_holm": 5.037527280999715e-19
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-base",
+   "k": 10,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 10.3,
+   "B_pct": 10.7,
+   "diff": 0.4,
+   "ci": [
+    0.2,
+    0.63
+   ],
+   "ci_cluster": [
+    0.0,
+    1.26
+   ],
+   "diseases": 48,
+   "only_A": 0,
+   "only_B": 12,
+   "p_holm": 0.00341796875
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-base",
+   "k": 10,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 59.94,
+   "B_pct": 59.46,
+   "diff": -0.48,
+   "ci": [
+    -1.92,
+    0.8
+   ],
+   "ci_cluster": [
+    -3.83,
+    1.52
+   ],
+   "diseases": 74,
+   "only_A": 11,
+   "only_B": 8,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-base",
+   "k": 10,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 74.59,
+   "B_pct": 42.7,
+   "diff": -31.89,
+   "ci": [
+    -37.03,
+    -27.03
+   ],
+   "ci_cluster": [
+    -37.98,
+    -26.18
+   ],
+   "diseases": 252,
+   "only_A": 122,
+   "only_B": 4,
+   "p_holm": 1.94523193778593e-30
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-base",
+   "k": 10,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 44.32,
+   "B_pct": 43.18,
+   "diff": -1.14,
+   "ci": [
+    -3.41,
+    0.0
+   ],
+   "ci_cluster": [
+    -3.75,
+    0.0
+   ],
+   "diseases": 46,
+   "only_A": 1,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-base",
+   "k": 10,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 95.0,
+   "B_pct": 95.0,
+   "diff": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "ci_cluster": [
+    0.0,
+    0.0
+   ],
+   "diseases": 17,
+   "only_A": 0,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-base",
+   "k": 10,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 53.24,
+   "B_pct": 52.83,
+   "diff": -0.4,
+   "ci": [
+    -1.11,
+    0.3
+   ],
+   "ci_cluster": [
+    -1.94,
+    0.51
+   ],
+   "diseases": 100,
+   "only_A": 9,
+   "only_B": 5,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-base",
+   "k": 10,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 57.33,
+   "B_pct": 61.33,
+   "diff": 4.0,
+   "ci": [
+    0.0,
+    9.33
+   ],
+   "ci_cluster": [
+    0.0,
+    9.64
+   ],
+   "diseases": 16,
+   "only_A": 0,
+   "only_B": 3,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-base",
+   "k": 10,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 73.69,
+   "B_pct": 25.45,
+   "diff": -48.23,
+   "ci": [
+    -49.21,
+    -47.28
+   ],
+   "ci_cluster": [
+    -56.61,
+    -39.83
+   ],
+   "diseases": 772,
+   "only_A": 5120,
+   "only_B": 147,
+   "p_holm": 0.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-base",
+   "k": 10,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 3.6,
+   "B_pct": 3.6,
+   "diff": 0.0,
+   "ci": [
+    -0.09,
+    0.09
+   ],
+   "ci_cluster": [
+    -0.14,
+    0.12
+   ],
+   "diseases": 760,
+   "only_A": 7,
+   "only_B": 7,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-base",
+   "k": 1,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 1.8,
+   "B_pct": 1.8,
+   "diff": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "ci_cluster": [
+    0.0,
+    0.0
+   ],
+   "diseases": 48,
+   "only_A": 0,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-base",
+   "k": 1,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 34.13,
+   "B_pct": 33.01,
+   "diff": -1.12,
+   "ci": [
+    -2.4,
+    0.0
+   ],
+   "ci_cluster": [
+    -4.29,
+    0.82
+   ],
+   "diseases": 74,
+   "only_A": 11,
+   "only_B": 4,
+   "p_holm": 0.7108154296875
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-base",
+   "k": 1,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 49.46,
+   "B_pct": 21.08,
+   "diff": -28.38,
+   "ci": [
+    -33.24,
+    -23.51
+   ],
+   "ci_cluster": [
+    -34.69,
+    -22.28
+   ],
+   "diseases": 252,
+   "only_A": 112,
+   "only_B": 7,
+   "p_holm": 1.4367058916783548e-24
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-base",
+   "k": 1,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 18.18,
+   "B_pct": 18.18,
+   "diff": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "ci_cluster": [
+    0.0,
+    0.0
+   ],
+   "diseases": 46,
+   "only_A": 0,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-base",
+   "k": 1,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 70.0,
+   "B_pct": 70.0,
+   "diff": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "ci_cluster": [
+    0.0,
+    0.0
+   ],
+   "diseases": 17,
+   "only_A": 0,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-base",
+   "k": 1,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 28.14,
+   "B_pct": 28.95,
+   "diff": 0.81,
+   "ci": [
+    0.2,
+    1.42
+   ],
+   "ci_cluster": [
+    0.0,
+    1.5
+   ],
+   "diseases": 100,
+   "only_A": 1,
+   "only_B": 9,
+   "p_holm": 0.150390625
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-base",
+   "k": 1,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 18.67,
+   "B_pct": 17.33,
+   "diff": -1.33,
+   "ci": [
+    -4.0,
+    0.0
+   ],
+   "ci_cluster": [
+    -4.29,
+    0.0
+   ],
+   "diseases": 16,
+   "only_A": 1,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-base",
+   "k": 1,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 52.24,
+   "B_pct": 10.7,
+   "diff": -41.54,
+   "ci": [
+    -42.55,
+    -40.61
+   ],
+   "ci_cluster": [
+    -48.6,
+    -34.55
+   ],
+   "diseases": 772,
+   "only_A": 4393,
+   "only_B": 110,
+   "p_holm": 0.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-base",
+   "k": 1,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 0.75,
+   "B_pct": 0.76,
+   "diff": 0.01,
+   "ci": [
+    0.0,
+    0.04
+   ],
+   "ci_cluster": [
+    0.0,
+    0.04
+   ],
+   "diseases": 760,
+   "only_A": 0,
+   "only_B": 1,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-rand_s0 - HPOA-base",
+   "k": 10,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 10.3,
+   "B_pct": 10.1,
+   "diff": -0.2,
+   "ci": [
+    -1.0,
+    0.5
+   ],
+   "ci_cluster": [
+    -2.52,
+    1.72
+   ],
+   "diseases": 48,
+   "only_A": 66,
+   "only_B": 60,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-rand_s0 - HPOA-base",
+   "k": 10,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 59.94,
+   "B_pct": 60.42,
+   "diff": 0.48,
+   "ci": [
+    -0.96,
+    1.92
+   ],
+   "ci_cluster": [
+    -0.98,
+    1.94
+   ],
+   "diseases": 74,
+   "only_A": 10,
+   "only_B": 13,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-rand_s0 - HPOA-base",
+   "k": 10,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 74.59,
+   "B_pct": 72.7,
+   "diff": -1.89,
+   "ci": [
+    -4.05,
+    0.27
+   ],
+   "ci_cluster": [
+    -3.9,
+    0.5
+   ],
+   "diseases": 252,
+   "only_A": 12,
+   "only_B": 5,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-rand_s0 - HPOA-base",
+   "k": 10,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 44.32,
+   "B_pct": 44.32,
+   "diff": 0.0,
+   "ci": [
+    -5.68,
+    5.68
+   ],
+   "ci_cluster": [
+    -6.94,
+    5.56
+   ],
+   "diseases": 46,
+   "only_A": 3,
+   "only_B": 3,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-rand_s0 - HPOA-base",
+   "k": 10,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 95.0,
+   "B_pct": 95.0,
+   "diff": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "ci_cluster": [
+    0.0,
+    0.0
+   ],
+   "diseases": 17,
+   "only_A": 0,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-rand_s0 - HPOA-base",
+   "k": 10,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 53.24,
+   "B_pct": 52.73,
+   "diff": -0.51,
+   "ci": [
+    -1.92,
+    0.81
+   ],
+   "ci_cluster": [
+    -4.06,
+    1.91
+   ],
+   "diseases": 100,
+   "only_A": 27,
+   "only_B": 22,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-rand_s0 - HPOA-base",
+   "k": 10,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 57.33,
+   "B_pct": 61.33,
+   "diff": 4.0,
+   "ci": [
+    0.0,
+    9.33
+   ],
+   "ci_cluster": [
+    0.0,
+    9.52
+   ],
+   "diseases": 16,
+   "only_A": 0,
+   "only_B": 3,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-rand_s0 - HPOA-base",
+   "k": 10,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 73.69,
+   "B_pct": 72.22,
+   "diff": -1.46,
+   "ci": [
+    -1.95,
+    -0.99
+   ],
+   "ci_cluster": [
+    -3.43,
+    0.61
+   ],
+   "diseases": 772,
+   "only_A": 369,
+   "only_B": 218,
+   "p_holm": 4.340279608707812e-09
+  },
+  {
+   "comparison": "HPOA-rand_s0 - HPOA-base",
+   "k": 10,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 3.6,
+   "B_pct": 3.5,
+   "diff": -0.09,
+   "ci": [
+    -0.29,
+    0.12
+   ],
+   "ci_cluster": [
+    -0.37,
+    0.19
+   ],
+   "diseases": 760,
+   "only_A": 35,
+   "only_B": 28,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-rand_s0 - HPOA-base",
+   "k": 1,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 1.8,
+   "B_pct": 2.17,
+   "diff": 0.37,
+   "ci": [
+    0.1,
+    0.67
+   ],
+   "ci_cluster": [
+    -0.13,
+    1.24
+   ],
+   "diseases": 48,
+   "only_A": 4,
+   "only_B": 15,
+   "p_holm": 0.1536865234375
+  },
+  {
+   "comparison": "HPOA-rand_s0 - HPOA-base",
+   "k": 1,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 34.13,
+   "B_pct": 33.33,
+   "diff": -0.8,
+   "ci": [
+    -2.56,
+    0.96
+   ],
+   "ci_cluster": [
+    -2.4,
+    0.84
+   ],
+   "diseases": 74,
+   "only_A": 19,
+   "only_B": 14,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-rand_s0 - HPOA-base",
+   "k": 1,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 49.46,
+   "B_pct": 48.65,
+   "diff": -0.81,
+   "ci": [
+    -3.24,
+    1.62
+   ],
+   "ci_cluster": [
+    -3.45,
+    1.76
+   ],
+   "diseases": 252,
+   "only_A": 12,
+   "only_B": 9,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-rand_s0 - HPOA-base",
+   "k": 1,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 18.18,
+   "B_pct": 14.77,
+   "diff": -3.41,
+   "ci": [
+    -7.95,
+    0.0
+   ],
+   "ci_cluster": [
+    -8.0,
+    0.0
+   ],
+   "diseases": 46,
+   "only_A": 3,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-rand_s0 - HPOA-base",
+   "k": 1,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 70.0,
+   "B_pct": 70.0,
+   "diff": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "ci_cluster": [
+    0.0,
+    0.0
+   ],
+   "diseases": 17,
+   "only_A": 0,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-rand_s0 - HPOA-base",
+   "k": 1,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 28.14,
+   "B_pct": 27.33,
+   "diff": -0.81,
+   "ci": [
+    -2.13,
+    0.51
+   ],
+   "ci_cluster": [
+    -3.16,
+    0.52
+   ],
+   "diseases": 100,
+   "only_A": 25,
+   "only_B": 17,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-rand_s0 - HPOA-base",
+   "k": 1,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 18.67,
+   "B_pct": 22.67,
+   "diff": 4.0,
+   "ci": [
+    -1.33,
+    10.67
+   ],
+   "ci_cluster": [
+    0.0,
+    8.33
+   ],
+   "diseases": 16,
+   "only_A": 1,
+   "only_B": 4,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-rand_s0 - HPOA-base",
+   "k": 1,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 52.24,
+   "B_pct": 49.41,
+   "diff": -2.83,
+   "ci": [
+    -3.38,
+    -2.28
+   ],
+   "ci_cluster": [
+    -4.47,
+    -1.22
+   ],
+   "diseases": 772,
+   "only_A": 551,
+   "only_B": 259,
+   "p_holm": 4.223107969930469e-24
+  },
+  {
+   "comparison": "HPOA-rand_s0 - HPOA-base",
+   "k": 1,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 0.75,
+   "B_pct": 0.82,
+   "diff": 0.07,
+   "ci": [
+    -0.03,
+    0.17
+   ],
+   "ci_cluster": [
+    -0.05,
+    0.25
+   ],
+   "diseases": 760,
+   "only_A": 5,
+   "only_B": 10,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-rand_s0",
+   "k": 10,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 10.1,
+   "B_pct": 10.7,
+   "diff": 0.6,
+   "ci": [
+    -0.07,
+    1.33
+   ],
+   "ci_cluster": [
+    -1.38,
+    2.89
+   ],
+   "diseases": 48,
+   "only_A": 51,
+   "only_B": 69,
+   "p_holm": 0.842294794170606
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-rand_s0",
+   "k": 10,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 60.42,
+   "B_pct": 59.46,
+   "diff": -0.96,
+   "ci": [
+    -2.72,
+    0.64
+   ],
+   "ci_cluster": [
+    -4.31,
+    1.34
+   ],
+   "diseases": 74,
+   "only_A": 17,
+   "only_B": 11,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-rand_s0",
+   "k": 10,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 72.7,
+   "B_pct": 42.7,
+   "diff": -30.0,
+   "ci": [
+    -35.14,
+    -24.86
+   ],
+   "ci_cluster": [
+    -36.27,
+    -23.97
+   ],
+   "diseases": 252,
+   "only_A": 119,
+   "only_B": 8,
+   "p_holm": 1.3495962922462602e-25
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-rand_s0",
+   "k": 10,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 44.32,
+   "B_pct": 43.18,
+   "diff": -1.14,
+   "ci": [
+    -6.82,
+    4.55
+   ],
+   "ci_cluster": [
+    -8.22,
+    6.45
+   ],
+   "diseases": 46,
+   "only_A": 4,
+   "only_B": 3,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-rand_s0",
+   "k": 10,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 95.0,
+   "B_pct": 95.0,
+   "diff": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "ci_cluster": [
+    0.0,
+    0.0
+   ],
+   "diseases": 17,
+   "only_A": 0,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-rand_s0",
+   "k": 10,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 52.73,
+   "B_pct": 52.83,
+   "diff": 0.1,
+   "ci": [
+    -1.21,
+    1.32
+   ],
+   "ci_cluster": [
+    -2.22,
+    3.29
+   ],
+   "diseases": 100,
+   "only_A": 21,
+   "only_B": 22,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-rand_s0",
+   "k": 10,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 61.33,
+   "B_pct": 61.33,
+   "diff": 0.0,
+   "ci": [
+    -6.67,
+    6.67
+   ],
+   "ci_cluster": [
+    -3.9,
+    4.0
+   ],
+   "diseases": 16,
+   "only_A": 3,
+   "only_B": 3,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-rand_s0",
+   "k": 10,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 72.22,
+   "B_pct": 25.45,
+   "diff": -46.77,
+   "ci": [
+    -47.76,
+    -45.83
+   ],
+   "ci_cluster": [
+    -54.48,
+    -39.48
+   ],
+   "diseases": 772,
+   "only_A": 4928,
+   "only_B": 106,
+   "p_holm": 0.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-rand_s0",
+   "k": 10,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 3.5,
+   "B_pct": 3.6,
+   "diff": 0.09,
+   "ci": [
+    -0.13,
+    0.29
+   ],
+   "ci_cluster": [
+    -0.18,
+    0.38
+   ],
+   "diseases": 760,
+   "only_A": 29,
+   "only_B": 36,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-rand_s0",
+   "k": 1,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 2.17,
+   "B_pct": 1.8,
+   "diff": -0.37,
+   "ci": [
+    -0.67,
+    -0.1
+   ],
+   "ci_cluster": [
+    -1.24,
+    0.13
+   ],
+   "diseases": 48,
+   "only_A": 15,
+   "only_B": 4,
+   "p_holm": 0.1344757080078125
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-rand_s0",
+   "k": 1,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 33.33,
+   "B_pct": 33.01,
+   "diff": -0.32,
+   "ci": [
+    -2.24,
+    1.6
+   ],
+   "ci_cluster": [
+    -3.79,
+    2.43
+   ],
+   "diseases": 74,
+   "only_A": 20,
+   "only_B": 18,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-rand_s0",
+   "k": 1,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 48.65,
+   "B_pct": 21.08,
+   "diff": -27.57,
+   "ci": [
+    -32.97,
+    -22.7
+   ],
+   "ci_cluster": [
+    -34.29,
+    -20.69
+   ],
+   "diseases": 252,
+   "only_A": 115,
+   "only_B": 13,
+   "p_holm": 1.119617244817867e-20
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-rand_s0",
+   "k": 1,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 14.77,
+   "B_pct": 18.18,
+   "diff": 3.41,
+   "ci": [
+    0.0,
+    7.95
+   ],
+   "ci_cluster": [
+    0.0,
+    8.0
+   ],
+   "diseases": 46,
+   "only_A": 0,
+   "only_B": 3,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-rand_s0",
+   "k": 1,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 70.0,
+   "B_pct": 70.0,
+   "diff": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "ci_cluster": [
+    0.0,
+    0.0
+   ],
+   "diseases": 17,
+   "only_A": 0,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-rand_s0",
+   "k": 1,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 27.33,
+   "B_pct": 28.95,
+   "diff": 1.62,
+   "ci": [
+    0.2,
+    2.94
+   ],
+   "ci_cluster": [
+    0.15,
+    3.64
+   ],
+   "diseases": 100,
+   "only_A": 15,
+   "only_B": 31,
+   "p_holm": 0.15537649075940863
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-rand_s0",
+   "k": 1,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 22.67,
+   "B_pct": 17.33,
+   "diff": -5.33,
+   "ci": [
+    -10.67,
+    -1.33
+   ],
+   "ci_cluster": [
+    -10.39,
+    -1.27
+   ],
+   "diseases": 16,
+   "only_A": 4,
+   "only_B": 0,
+   "p_holm": 0.625
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-rand_s0",
+   "k": 1,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 49.41,
+   "B_pct": 10.7,
+   "diff": -38.71,
+   "ci": [
+    -39.71,
+    -37.74
+   ],
+   "ci_cluster": [
+    -45.13,
+    -32.62
+   ],
+   "diseases": 772,
+   "only_A": 4150,
+   "only_B": 159,
+   "p_holm": 0.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-rand_s0",
+   "k": 1,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 0.82,
+   "B_pct": 0.76,
+   "diff": -0.05,
+   "ci": [
+    -0.17,
+    0.05
+   ],
+   "ci_cluster": [
+    -0.24,
+    0.08
+   ],
+   "diseases": 760,
+   "only_A": 10,
+   "only_B": 6,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo10 - S-mix",
+   "k": 10,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 40.63,
+   "B_pct": 10.7,
+   "diff": -29.93,
+   "ci": [
+    -31.93,
+    -27.93
+   ],
+   "ci_cluster": [
+    -43.4,
+    -17.7
+   ],
+   "diseases": 48,
+   "only_A": 1014,
+   "only_B": 116,
+   "p_holm": 1.3029515288848933e-178
+  },
+  {
+   "comparison": "HPOA-lopo10 - S-mix",
+   "k": 10,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 57.21,
+   "B_pct": 59.46,
+   "diff": 2.24,
+   "ci": [
+    -1.92,
+    6.73
+   ],
+   "ci_cluster": [
+    -9.58,
+    18.23
+   ],
+   "diseases": 74,
+   "only_A": 90,
+   "only_B": 104,
+   "p_holm": 0.996917724609375
+  },
+  {
+   "comparison": "HPOA-lopo10 - S-mix",
+   "k": 10,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 38.38,
+   "B_pct": 42.7,
+   "diff": 4.32,
+   "ci": [
+    -1.35,
+    9.73
+   ],
+   "ci_cluster": [
+    -5.12,
+    13.3
+   ],
+   "diseases": 252,
+   "only_A": 50,
+   "only_B": 66,
+   "p_holm": 0.6536926899101949
+  },
+  {
+   "comparison": "HPOA-lopo10 - S-mix",
+   "k": 10,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 44.32,
+   "B_pct": 43.18,
+   "diff": -1.14,
+   "ci": [
+    -12.5,
+    10.23
+   ],
+   "ci_cluster": [
+    -16.13,
+    12.17
+   ],
+   "diseases": 46,
+   "only_A": 13,
+   "only_B": 12,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo10 - S-mix",
+   "k": 10,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 55.0,
+   "B_pct": 95.0,
+   "diff": 40.0,
+   "ci": [
+    25.0,
+    55.0
+   ],
+   "ci_cluster": [
+    6.45,
+    72.31
+   ],
+   "diseases": 17,
+   "only_A": 0,
+   "only_B": 16,
+   "p_holm": 0.000152587890625
+  },
+  {
+   "comparison": "HPOA-lopo10 - S-mix",
+   "k": 10,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 67.11,
+   "B_pct": 52.83,
+   "diff": -14.27,
+   "ci": [
+    -17.41,
+    -11.23
+   ],
+   "ci_cluster": [
+    -25.99,
+    -2.47
+   ],
+   "diseases": 100,
+   "only_A": 202,
+   "only_B": 61,
+   "p_holm": 4.8868536616933746e-18
+  },
+  {
+   "comparison": "HPOA-lopo10 - S-mix",
+   "k": 10,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 68.0,
+   "B_pct": 61.33,
+   "diff": -6.67,
+   "ci": [
+    -17.33,
+    4.0
+   ],
+   "ci_cluster": [
+    -19.48,
+    6.35
+   ],
+   "diseases": 16,
+   "only_A": 11,
+   "only_B": 6,
+   "p_holm": 0.996917724609375
+  },
+  {
+   "comparison": "HPOA-lopo10 - S-mix",
+   "k": 10,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 31.03,
+   "B_pct": 25.6,
+   "diff": -5.43,
+   "ci": [
+    -6.34,
+    -4.58
+   ],
+   "ci_cluster": [
+    -10.19,
+    -0.58
+   ],
+   "diseases": 772,
+   "only_A": 1396,
+   "only_B": 836,
+   "p_holm": 8.794285463443256e-32
+  },
+  {
+   "comparison": "HPOA-lopo10 - S-mix",
+   "k": 10,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 13.34,
+   "B_pct": 3.6,
+   "diff": -9.74,
+   "ci": [
+    -10.53,
+    -8.98
+   ],
+   "ci_cluster": [
+    -11.54,
+    -8.08
+   ],
+   "diseases": 760,
+   "only_A": 863,
+   "only_B": 134,
+   "p_holm": 4.058980943920146e-130
+  },
+  {
+   "comparison": "HPOA-lopo10 - S-mix",
+   "k": 1,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 11.77,
+   "B_pct": 1.8,
+   "diff": -9.97,
+   "ci": [
+    -11.23,
+    -8.77
+   ],
+   "ci_cluster": [
+    -17.0,
+    -3.82
+   ],
+   "diseases": 48,
+   "only_A": 341,
+   "only_B": 42,
+   "p_holm": 2.2413803143061844e-58
+  },
+  {
+   "comparison": "HPOA-lopo10 - S-mix",
+   "k": 1,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 10.58,
+   "B_pct": 33.01,
+   "diff": 22.44,
+   "ci": [
+    18.11,
+    27.08
+   ],
+   "ci_cluster": [
+    -3.1,
+    45.66
+   ],
+   "diseases": 74,
+   "only_A": 47,
+   "only_B": 187,
+   "p_holm": 4.1216967131766674e-20
+  },
+  {
+   "comparison": "HPOA-lopo10 - S-mix",
+   "k": 1,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 17.84,
+   "B_pct": 21.08,
+   "diff": 3.24,
+   "ci": [
+    -1.89,
+    8.11
+   ],
+   "ci_cluster": [
+    -3.78,
+    9.71
+   ],
+   "diseases": 252,
+   "only_A": 39,
+   "only_B": 51,
+   "p_holm": 0.49221289943255586
+  },
+  {
+   "comparison": "HPOA-lopo10 - S-mix",
+   "k": 1,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 15.91,
+   "B_pct": 18.18,
+   "diff": 2.27,
+   "ci": [
+    -6.82,
+    11.36
+   ],
+   "ci_cluster": [
+    -9.23,
+    11.97
+   ],
+   "diseases": 46,
+   "only_A": 8,
+   "only_B": 10,
+   "p_holm": 0.8145294189453125
+  },
+  {
+   "comparison": "HPOA-lopo10 - S-mix",
+   "k": 1,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 35.0,
+   "B_pct": 70.0,
+   "diff": 35.0,
+   "ci": [
+    15.0,
+    55.0
+   ],
+   "ci_cluster": [
+    4.17,
+    60.47
+   ],
+   "diseases": 17,
+   "only_A": 4,
+   "only_B": 18,
+   "p_holm": 0.017374038696289062
+  },
+  {
+   "comparison": "HPOA-lopo10 - S-mix",
+   "k": 1,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 34.62,
+   "B_pct": 28.95,
+   "diff": -5.67,
+   "ci": [
+    -8.81,
+    -2.43
+   ],
+   "ci_cluster": [
+    -11.02,
+    3.53
+   ],
+   "diseases": 100,
+   "only_A": 142,
+   "only_B": 86,
+   "p_holm": 0.0012652750251767
+  },
+  {
+   "comparison": "HPOA-lopo10 - S-mix",
+   "k": 1,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 33.33,
+   "B_pct": 17.33,
+   "diff": -16.0,
+   "ci": [
+    -28.0,
+    -4.0
+   ],
+   "ci_cluster": [
+    -32.0,
+    2.9
+   ],
+   "diseases": 16,
+   "only_A": 17,
+   "only_B": 5,
+   "p_holm": 0.05070161819458008
+  },
+  {
+   "comparison": "HPOA-lopo10 - S-mix",
+   "k": 1,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 15.41,
+   "B_pct": 10.9,
+   "diff": -4.51,
+   "ci": [
+    -5.31,
+    -3.79
+   ],
+   "ci_cluster": [
+    -11.01,
+    0.99
+   ],
+   "diseases": 772,
+   "only_A": 1018,
+   "only_B": 553,
+   "p_holm": 3.3600544210976373e-31
+  },
+  {
+   "comparison": "HPOA-lopo10 - S-mix",
+   "k": 1,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 2.51,
+   "B_pct": 0.76,
+   "diff": -1.75,
+   "ci": [
+    -2.15,
+    -1.38
+   ],
+   "ci_cluster": [
+    -2.5,
+    -1.08
+   ],
+   "diseases": 760,
+   "only_A": 171,
+   "only_B": 40,
+   "p_holm": 1.0448658648544902e-19
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-base",
+   "k": 10,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 10.3,
+   "B_pct": 10.7,
+   "diff": 0.4,
+   "ci": [
+    0.2,
+    0.63
+   ],
+   "ci_cluster": [
+    0.0,
+    1.26
+   ],
+   "diseases": 48,
+   "only_A": 0,
+   "only_B": 12,
+   "p_holm": 0.00341796875
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-base",
+   "k": 10,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 59.94,
+   "B_pct": 59.46,
+   "diff": -0.48,
+   "ci": [
+    -1.92,
+    0.8
+   ],
+   "ci_cluster": [
+    -3.83,
+    1.52
+   ],
+   "diseases": 74,
+   "only_A": 11,
+   "only_B": 8,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-base",
+   "k": 10,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 74.59,
+   "B_pct": 42.7,
+   "diff": -31.89,
+   "ci": [
+    -37.03,
+    -27.03
+   ],
+   "ci_cluster": [
+    -37.98,
+    -26.18
+   ],
+   "diseases": 252,
+   "only_A": 122,
+   "only_B": 4,
+   "p_holm": 1.94523193778593e-30
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-base",
+   "k": 10,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 44.32,
+   "B_pct": 43.18,
+   "diff": -1.14,
+   "ci": [
+    -3.41,
+    0.0
+   ],
+   "ci_cluster": [
+    -3.75,
+    0.0
+   ],
+   "diseases": 46,
+   "only_A": 1,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-base",
+   "k": 10,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 95.0,
+   "B_pct": 95.0,
+   "diff": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "ci_cluster": [
+    0.0,
+    0.0
+   ],
+   "diseases": 17,
+   "only_A": 0,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-base",
+   "k": 10,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 53.24,
+   "B_pct": 52.83,
+   "diff": -0.4,
+   "ci": [
+    -1.11,
+    0.3
+   ],
+   "ci_cluster": [
+    -1.94,
+    0.51
+   ],
+   "diseases": 100,
+   "only_A": 9,
+   "only_B": 5,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-base",
+   "k": 10,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 57.33,
+   "B_pct": 61.33,
+   "diff": 4.0,
+   "ci": [
+    0.0,
+    9.33
+   ],
+   "ci_cluster": [
+    0.0,
+    9.64
+   ],
+   "diseases": 16,
+   "only_A": 0,
+   "only_B": 3,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-base",
+   "k": 10,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 73.69,
+   "B_pct": 25.6,
+   "diff": -48.09,
+   "ci": [
+    -49.07,
+    -47.17
+   ],
+   "ci_cluster": [
+    -55.86,
+    -40.68
+   ],
+   "diseases": 772,
+   "only_A": 4983,
+   "only_B": 25,
+   "p_holm": 0.0
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-base",
+   "k": 10,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 3.6,
+   "B_pct": 3.6,
+   "diff": 0.0,
+   "ci": [
+    -0.09,
+    0.09
+   ],
+   "ci_cluster": [
+    -0.14,
+    0.12
+   ],
+   "diseases": 760,
+   "only_A": 7,
+   "only_B": 7,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-base",
+   "k": 1,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 1.8,
+   "B_pct": 1.8,
+   "diff": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "ci_cluster": [
+    0.0,
+    0.0
+   ],
+   "diseases": 48,
+   "only_A": 0,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-base",
+   "k": 1,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 34.13,
+   "B_pct": 33.01,
+   "diff": -1.12,
+   "ci": [
+    -2.4,
+    0.0
+   ],
+   "ci_cluster": [
+    -4.29,
+    0.82
+   ],
+   "diseases": 74,
+   "only_A": 11,
+   "only_B": 4,
+   "p_holm": 0.7108154296875
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-base",
+   "k": 1,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 49.46,
+   "B_pct": 21.08,
+   "diff": -28.38,
+   "ci": [
+    -33.24,
+    -23.51
+   ],
+   "ci_cluster": [
+    -34.69,
+    -22.28
+   ],
+   "diseases": 252,
+   "only_A": 112,
+   "only_B": 7,
+   "p_holm": 1.4367058916783548e-24
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-base",
+   "k": 1,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 18.18,
+   "B_pct": 18.18,
+   "diff": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "ci_cluster": [
+    0.0,
+    0.0
+   ],
+   "diseases": 46,
+   "only_A": 0,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-base",
+   "k": 1,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 70.0,
+   "B_pct": 70.0,
+   "diff": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "ci_cluster": [
+    0.0,
+    0.0
+   ],
+   "diseases": 17,
+   "only_A": 0,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-base",
+   "k": 1,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 28.14,
+   "B_pct": 28.95,
+   "diff": 0.81,
+   "ci": [
+    0.2,
+    1.42
+   ],
+   "ci_cluster": [
+    0.0,
+    1.5
+   ],
+   "diseases": 100,
+   "only_A": 1,
+   "only_B": 9,
+   "p_holm": 0.150390625
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-base",
+   "k": 1,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 18.67,
+   "B_pct": 17.33,
+   "diff": -1.33,
+   "ci": [
+    -4.0,
+    0.0
+   ],
+   "ci_cluster": [
+    -4.29,
+    0.0
+   ],
+   "diseases": 16,
+   "only_A": 1,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-base",
+   "k": 1,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 52.24,
+   "B_pct": 10.9,
+   "diff": -41.34,
+   "ci": [
+    -42.28,
+    -40.4
+   ],
+   "ci_cluster": [
+    -47.78,
+    -34.95
+   ],
+   "diseases": 772,
+   "only_A": 4282,
+   "only_B": 20,
+   "p_holm": 0.0
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-base",
+   "k": 1,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 0.75,
+   "B_pct": 0.76,
+   "diff": 0.01,
+   "ci": [
+    0.0,
+    0.04
+   ],
+   "ci_cluster": [
+    0.0,
+    0.04
+   ],
+   "diseases": 760,
+   "only_A": 0,
+   "only_B": 1,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-lopo10",
+   "k": 10,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 10.7,
+   "B_pct": 10.7,
+   "diff": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "ci_cluster": [
+    0.0,
+    0.0
+   ],
+   "diseases": 48,
+   "only_A": 0,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-lopo10",
+   "k": 10,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 59.46,
+   "B_pct": 59.46,
+   "diff": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "ci_cluster": [
+    0.0,
+    0.0
+   ],
+   "diseases": 74,
+   "only_A": 0,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-lopo10",
+   "k": 10,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 42.7,
+   "B_pct": 42.7,
+   "diff": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "ci_cluster": [
+    0.0,
+    0.0
+   ],
+   "diseases": 252,
+   "only_A": 0,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-lopo10",
+   "k": 10,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 43.18,
+   "B_pct": 43.18,
+   "diff": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "ci_cluster": [
+    0.0,
+    0.0
+   ],
+   "diseases": 46,
+   "only_A": 0,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-lopo10",
+   "k": 10,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 95.0,
+   "B_pct": 95.0,
+   "diff": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "ci_cluster": [
+    0.0,
+    0.0
+   ],
+   "diseases": 17,
+   "only_A": 0,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-lopo10",
+   "k": 10,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 52.83,
+   "B_pct": 52.83,
+   "diff": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "ci_cluster": [
+    0.0,
+    0.0
+   ],
+   "diseases": 100,
+   "only_A": 0,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-lopo10",
+   "k": 10,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 61.33,
+   "B_pct": 61.33,
+   "diff": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "ci_cluster": [
+    0.0,
+    0.0
+   ],
+   "diseases": 16,
+   "only_A": 0,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-lopo10",
+   "k": 10,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 25.6,
+   "B_pct": 25.45,
+   "diff": -0.15,
+   "ci": [
+    -0.52,
+    0.25
+   ],
+   "ci_cluster": [
+    -1.9,
+    1.53
+   ],
+   "diseases": 772,
+   "only_A": 221,
+   "only_B": 206,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-lopo10",
+   "k": 10,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 3.6,
+   "B_pct": 3.6,
+   "diff": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "ci_cluster": [
+    0.0,
+    0.0
+   ],
+   "diseases": 760,
+   "only_A": 0,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-lopo10",
+   "k": 1,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 1.8,
+   "B_pct": 1.8,
+   "diff": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "ci_cluster": [
+    0.0,
+    0.0
+   ],
+   "diseases": 48,
+   "only_A": 0,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-lopo10",
+   "k": 1,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 33.01,
+   "B_pct": 33.01,
+   "diff": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "ci_cluster": [
+    0.0,
+    0.0
+   ],
+   "diseases": 74,
+   "only_A": 0,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-lopo10",
+   "k": 1,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 21.08,
+   "B_pct": 21.08,
+   "diff": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "ci_cluster": [
+    0.0,
+    0.0
+   ],
+   "diseases": 252,
+   "only_A": 0,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-lopo10",
+   "k": 1,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 18.18,
+   "B_pct": 18.18,
+   "diff": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "ci_cluster": [
+    0.0,
+    0.0
+   ],
+   "diseases": 46,
+   "only_A": 0,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-lopo10",
+   "k": 1,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 70.0,
+   "B_pct": 70.0,
+   "diff": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "ci_cluster": [
+    0.0,
+    0.0
+   ],
+   "diseases": 17,
+   "only_A": 0,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-lopo10",
+   "k": 1,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 28.95,
+   "B_pct": 28.95,
+   "diff": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "ci_cluster": [
+    0.0,
+    0.0
+   ],
+   "diseases": 100,
+   "only_A": 0,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-lopo10",
+   "k": 1,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 17.33,
+   "B_pct": 17.33,
+   "diff": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "ci_cluster": [
+    0.0,
+    0.0
+   ],
+   "diseases": 16,
+   "only_A": 0,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-lopo10",
+   "k": 1,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 10.9,
+   "B_pct": 10.7,
+   "diff": -0.2,
+   "ci": [
+    -0.51,
+    0.12
+   ],
+   "ci_cluster": [
+    -1.42,
+    1.04
+   ],
+   "diseases": 772,
+   "only_A": 150,
+   "only_B": 129,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-lopo10",
+   "k": 1,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 0.76,
+   "B_pct": 0.76,
+   "diff": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "ci_cluster": [
+    0.0,
+    0.0
+   ],
+   "diseases": 760,
+   "only_A": 0,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-rand_s0",
+   "k": 10,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 10.1,
+   "B_pct": 10.7,
+   "diff": 0.6,
+   "ci": [
+    -0.07,
+    1.33
+   ],
+   "ci_cluster": [
+    -1.38,
+    2.89
+   ],
+   "diseases": 48,
+   "only_A": 51,
+   "only_B": 69,
+   "p_holm": 0.842294794170606
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-rand_s0",
+   "k": 10,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 60.42,
+   "B_pct": 59.46,
+   "diff": -0.96,
+   "ci": [
+    -2.72,
+    0.64
+   ],
+   "ci_cluster": [
+    -4.31,
+    1.34
+   ],
+   "diseases": 74,
+   "only_A": 17,
+   "only_B": 11,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-rand_s0",
+   "k": 10,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 72.7,
+   "B_pct": 42.7,
+   "diff": -30.0,
+   "ci": [
+    -35.14,
+    -24.86
+   ],
+   "ci_cluster": [
+    -36.27,
+    -23.97
+   ],
+   "diseases": 252,
+   "only_A": 119,
+   "only_B": 8,
+   "p_holm": 1.3495962922462602e-25
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-rand_s0",
+   "k": 10,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 44.32,
+   "B_pct": 43.18,
+   "diff": -1.14,
+   "ci": [
+    -6.82,
+    4.55
+   ],
+   "ci_cluster": [
+    -8.22,
+    6.45
+   ],
+   "diseases": 46,
+   "only_A": 4,
+   "only_B": 3,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-rand_s0",
+   "k": 10,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 95.0,
+   "B_pct": 95.0,
+   "diff": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "ci_cluster": [
+    0.0,
+    0.0
+   ],
+   "diseases": 17,
+   "only_A": 0,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-rand_s0",
+   "k": 10,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 52.73,
+   "B_pct": 52.83,
+   "diff": 0.1,
+   "ci": [
+    -1.21,
+    1.32
+   ],
+   "ci_cluster": [
+    -2.22,
+    3.29
+   ],
+   "diseases": 100,
+   "only_A": 21,
+   "only_B": 22,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-rand_s0",
+   "k": 10,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 61.33,
+   "B_pct": 61.33,
+   "diff": 0.0,
+   "ci": [
+    -6.67,
+    6.67
+   ],
+   "ci_cluster": [
+    -3.9,
+    4.0
+   ],
+   "diseases": 16,
+   "only_A": 3,
+   "only_B": 3,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-rand_s0",
+   "k": 10,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 72.22,
+   "B_pct": 25.6,
+   "diff": -46.62,
+   "ci": [
+    -47.62,
+    -45.67
+   ],
+   "ci_cluster": [
+    -53.59,
+    -40.03
+   ],
+   "diseases": 772,
+   "only_A": 4902,
+   "only_B": 95,
+   "p_holm": 0.0
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-rand_s0",
+   "k": 10,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 3.5,
+   "B_pct": 3.6,
+   "diff": 0.09,
+   "ci": [
+    -0.13,
+    0.29
+   ],
+   "ci_cluster": [
+    -0.18,
+    0.38
+   ],
+   "diseases": 760,
+   "only_A": 29,
+   "only_B": 36,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-rand_s0",
+   "k": 1,
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 2.17,
+   "B_pct": 1.8,
+   "diff": -0.37,
+   "ci": [
+    -0.67,
+    -0.1
+   ],
+   "ci_cluster": [
+    -1.24,
+    0.13
+   ],
+   "diseases": 48,
+   "only_A": 15,
+   "only_B": 4,
+   "p_holm": 0.1344757080078125
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-rand_s0",
+   "k": 1,
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 33.33,
+   "B_pct": 33.01,
+   "diff": -0.32,
+   "ci": [
+    -2.24,
+    1.6
+   ],
+   "ci_cluster": [
+    -3.79,
+    2.43
+   ],
+   "diseases": 74,
+   "only_A": 20,
+   "only_B": 18,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-rand_s0",
+   "k": 1,
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 48.65,
+   "B_pct": 21.08,
+   "diff": -27.57,
+   "ci": [
+    -32.97,
+    -22.7
+   ],
+   "ci_cluster": [
+    -34.29,
+    -20.69
+   ],
+   "diseases": 252,
+   "only_A": 115,
+   "only_B": 13,
+   "p_holm": 1.119617244817867e-20
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-rand_s0",
+   "k": 1,
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 14.77,
+   "B_pct": 18.18,
+   "diff": 3.41,
+   "ci": [
+    0.0,
+    7.95
+   ],
+   "ci_cluster": [
+    0.0,
+    8.0
+   ],
+   "diseases": 46,
+   "only_A": 0,
+   "only_B": 3,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-rand_s0",
+   "k": 1,
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 70.0,
+   "B_pct": 70.0,
+   "diff": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "ci_cluster": [
+    0.0,
+    0.0
+   ],
+   "diseases": 17,
+   "only_A": 0,
+   "only_B": 0,
+   "p_holm": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-rand_s0",
+   "k": 1,
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 27.33,
+   "B_pct": 28.95,
+   "diff": 1.62,
+   "ci": [
+    0.2,
+    2.94
+   ],
+   "ci_cluster": [
+    0.15,
+    3.64
+   ],
+   "diseases": 100,
+   "only_A": 15,
+   "only_B": 31,
+   "p_holm": 0.15537649075940863
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-rand_s0",
+   "k": 1,
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 22.67,
+   "B_pct": 17.33,
+   "diff": -5.33,
+   "ci": [
+    -10.67,
+    -1.33
+   ],
+   "ci_cluster": [
+    -10.39,
+    -1.27
+   ],
+   "diseases": 16,
+   "only_A": 4,
+   "only_B": 0,
+   "p_holm": 0.625
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-rand_s0",
+   "k": 1,
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 49.41,
+   "B_pct": 10.9,
+   "diff": -38.51,
+   "ci": [
+    -39.47,
+    -37.54
+   ],
+   "ci_cluster": [
+    -44.31,
+    -32.97
+   ],
+   "diseases": 772,
+   "only_A": 4074,
+   "only_B": 104,
+   "p_holm": 0.0
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-rand_s0",
+   "k": 1,
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 0.82,
+   "B_pct": 0.76,
+   "diff": -0.05,
+   "ci": [
+    -0.17,
+    0.05
+   ],
+   "ci_cluster": [
+    -0.24,
+    0.08
+   ],
+   "diseases": 760,
+   "only_A": 10,
+   "only_B": 6,
+   "p_holm": 1.0
+  }
+ ],
+ "macro": [
+  {
+   "comparison": "HPOA-base - S-mix",
+   "k": 10,
+   "group": "rare (7 sets)",
+   "A": 51.58,
+   "B": 65.44,
+   "diff": 13.87,
+   "ci_patient_stratified": [
+    10.46,
+    17.25
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-base - S-mix",
+   "k": 10,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 26.99,
+   "B": 6.95,
+   "diff": -20.04,
+   "ci_patient_stratified": [
+    -21.09,
+    -18.97
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-base - S-mix",
+   "k": 10,
+   "group": "all nine",
+   "A": 46.11,
+   "B": 52.44,
+   "diff": 6.33,
+   "ci_patient_stratified": [
+    3.69,
+    8.9
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-base - S-mix",
+   "k": 1,
+   "group": "rare (7 sets)",
+   "A": 23.24,
+   "B": 38.69,
+   "diff": 15.45,
+   "ci_patient_stratified": [
+    11.6,
+    19.46
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-base - S-mix",
+   "k": 1,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 7.14,
+   "B": 1.27,
+   "diff": -5.87,
+   "ci_patient_stratified": [
+    -6.51,
+    -5.22
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-base - S-mix",
+   "k": 1,
+   "group": "all nine",
+   "A": 19.66,
+   "B": 30.37,
+   "diff": 10.71,
+   "ci_patient_stratified": [
+    7.58,
+    13.5
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-lopo - S-mix",
+   "k": 10,
+   "group": "rare (7 sets)",
+   "A": 51.58,
+   "B": 54.28,
+   "diff": 2.7,
+   "ci_patient_stratified": [
+    -0.65,
+    6.0
+   ],
+   "p_bootstrap": 0.093
+  },
+  {
+   "comparison": "HPOA-lopo - S-mix",
+   "k": 10,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 26.99,
+   "B": 7.15,
+   "diff": -19.84,
+   "ci_patient_stratified": [
+    -20.88,
+    -18.77
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-lopo - S-mix",
+   "k": 10,
+   "group": "all nine",
+   "A": 46.11,
+   "B": 43.81,
+   "diff": -2.31,
+   "ci_patient_stratified": [
+    -4.86,
+    0.25
+   ],
+   "p_bootstrap": 0.082
+  },
+  {
+   "comparison": "HPOA-lopo - S-mix",
+   "k": 1,
+   "group": "rare (7 sets)",
+   "A": 23.24,
+   "B": 28.46,
+   "diff": 5.22,
+   "ci_patient_stratified": [
+    1.55,
+    9.08
+   ],
+   "p_bootstrap": 0.008
+  },
+  {
+   "comparison": "HPOA-lopo - S-mix",
+   "k": 1,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 7.14,
+   "B": 1.28,
+   "diff": -5.86,
+   "ci_patient_stratified": [
+    -6.5,
+    -5.2
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-lopo - S-mix",
+   "k": 1,
+   "group": "all nine",
+   "A": 19.66,
+   "B": 22.42,
+   "diff": 2.76,
+   "ci_patient_stratified": [
+    -0.28,
+    5.51
+   ],
+   "p_bootstrap": 0.079
+  },
+  {
+   "comparison": "HPOA-rand_s0 - S-mix",
+   "k": 10,
+   "group": "rare (7 sets)",
+   "A": 51.58,
+   "B": 65.53,
+   "diff": 13.95,
+   "ci_patient_stratified": [
+    10.58,
+    17.35
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-rand_s0 - S-mix",
+   "k": 10,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 26.99,
+   "B": 6.8,
+   "diff": -20.19,
+   "ci_patient_stratified": [
+    -21.23,
+    -19.13
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-rand_s0 - S-mix",
+   "k": 10,
+   "group": "all nine",
+   "A": 46.11,
+   "B": 52.48,
+   "diff": 6.37,
+   "ci_patient_stratified": [
+    3.72,
+    8.97
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-rand_s0 - S-mix",
+   "k": 1,
+   "group": "rare (7 sets)",
+   "A": 23.24,
+   "B": 38.02,
+   "diff": 14.78,
+   "ci_patient_stratified": [
+    11.01,
+    18.56
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-rand_s0 - S-mix",
+   "k": 1,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 7.14,
+   "B": 1.49,
+   "diff": -5.65,
+   "ci_patient_stratified": [
+    -6.31,
+    -5.01
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-rand_s0 - S-mix",
+   "k": 1,
+   "group": "all nine",
+   "A": 19.66,
+   "B": 29.9,
+   "diff": 10.24,
+   "ci_patient_stratified": [
+    7.22,
+    12.88
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-rand_s1 - S-mix",
+   "k": 10,
+   "group": "rare (7 sets)",
+   "A": 51.58,
+   "B": 63.73,
+   "diff": 12.16,
+   "ci_patient_stratified": [
+    8.54,
+    15.75
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-rand_s1 - S-mix",
+   "k": 10,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 26.99,
+   "B": 7.01,
+   "diff": -19.97,
+   "ci_patient_stratified": [
+    -21.07,
+    -18.9
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-rand_s1 - S-mix",
+   "k": 10,
+   "group": "all nine",
+   "A": 46.11,
+   "B": 51.13,
+   "diff": 5.02,
+   "ci_patient_stratified": [
+    2.3,
+    7.81
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-rand_s1 - S-mix",
+   "k": 1,
+   "group": "rare (7 sets)",
+   "A": 23.24,
+   "B": 37.99,
+   "diff": 14.75,
+   "ci_patient_stratified": [
+    11.1,
+    18.58
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-rand_s1 - S-mix",
+   "k": 1,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 7.14,
+   "B": 1.42,
+   "diff": -5.72,
+   "ci_patient_stratified": [
+    -6.37,
+    -5.06
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-rand_s1 - S-mix",
+   "k": 1,
+   "group": "all nine",
+   "A": 19.66,
+   "B": 29.86,
+   "diff": 10.2,
+   "ci_patient_stratified": [
+    7.22,
+    12.75
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-rand_s2 - S-mix",
+   "k": 10,
+   "group": "rare (7 sets)",
+   "A": 51.58,
+   "B": 64.56,
+   "diff": 12.98,
+   "ci_patient_stratified": [
+    9.43,
+    16.55
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-rand_s2 - S-mix",
+   "k": 10,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 26.99,
+   "B": 6.82,
+   "diff": -20.17,
+   "ci_patient_stratified": [
+    -21.24,
+    -19.12
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-rand_s2 - S-mix",
+   "k": 10,
+   "group": "all nine",
+   "A": 46.11,
+   "B": 51.73,
+   "diff": 5.61,
+   "ci_patient_stratified": [
+    3.05,
+    8.26
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-rand_s2 - S-mix",
+   "k": 1,
+   "group": "rare (7 sets)",
+   "A": 23.24,
+   "B": 37.46,
+   "diff": 14.22,
+   "ci_patient_stratified": [
+    10.53,
+    17.98
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-rand_s2 - S-mix",
+   "k": 1,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 7.14,
+   "B": 1.15,
+   "diff": -5.99,
+   "ci_patient_stratified": [
+    -6.63,
+    -5.35
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-rand_s2 - S-mix",
+   "k": 1,
+   "group": "all nine",
+   "A": 19.66,
+   "B": 29.39,
+   "diff": 9.73,
+   "ci_patient_stratified": [
+    6.83,
+    12.46
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-rand_dz_s0 - S-mix",
+   "k": 10,
+   "group": "rare (7 sets)",
+   "A": 51.58,
+   "B": 64.83,
+   "diff": 13.25,
+   "ci_patient_stratified": [
+    9.85,
+    16.58
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-rand_dz_s0 - S-mix",
+   "k": 10,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 26.99,
+   "B": 6.94,
+   "diff": -20.05,
+   "ci_patient_stratified": [
+    -21.09,
+    -18.99
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-rand_dz_s0 - S-mix",
+   "k": 10,
+   "group": "all nine",
+   "A": 46.11,
+   "B": 51.97,
+   "diff": 5.85,
+   "ci_patient_stratified": [
+    3.22,
+    8.42
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-rand_dz_s0 - S-mix",
+   "k": 1,
+   "group": "rare (7 sets)",
+   "A": 23.24,
+   "B": 38.21,
+   "diff": 14.97,
+   "ci_patient_stratified": [
+    11.16,
+    18.9
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-rand_dz_s0 - S-mix",
+   "k": 1,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 7.14,
+   "B": 1.27,
+   "diff": -5.87,
+   "ci_patient_stratified": [
+    -6.51,
+    -5.22
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-rand_dz_s0 - S-mix",
+   "k": 1,
+   "group": "all nine",
+   "A": 19.66,
+   "B": 30.01,
+   "diff": 10.34,
+   "ci_patient_stratified": [
+    7.22,
+    13.07
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-lopo_strip - S-mix",
+   "k": 10,
+   "group": "rare (7 sets)",
+   "A": 51.58,
+   "B": 55.34,
+   "diff": 3.76,
+   "ci_patient_stratified": [
+    0.36,
+    7.11
+   ],
+   "p_bootstrap": 0.032
+  },
+  {
+   "comparison": "HPOA-lopo_strip - S-mix",
+   "k": 10,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 26.99,
+   "B": 7.15,
+   "diff": -19.84,
+   "ci_patient_stratified": [
+    -20.88,
+    -18.77
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-lopo_strip - S-mix",
+   "k": 10,
+   "group": "all nine",
+   "A": 46.11,
+   "B": 44.63,
+   "diff": -1.48,
+   "ci_patient_stratified": [
+    -4.0,
+    1.12
+   ],
+   "p_bootstrap": 0.263
+  },
+  {
+   "comparison": "HPOA-lopo_strip - S-mix",
+   "k": 1,
+   "group": "rare (7 sets)",
+   "A": 23.24,
+   "B": 28.87,
+   "diff": 5.63,
+   "ci_patient_stratified": [
+    1.95,
+    9.52
+   ],
+   "p_bootstrap": 0.003
+  },
+  {
+   "comparison": "HPOA-lopo_strip - S-mix",
+   "k": 1,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 7.14,
+   "B": 1.28,
+   "diff": -5.86,
+   "ci_patient_stratified": [
+    -6.5,
+    -5.2
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-lopo_strip - S-mix",
+   "k": 1,
+   "group": "all nine",
+   "A": 19.66,
+   "B": 22.74,
+   "diff": 3.07,
+   "ci_patient_stratified": [
+    0.05,
+    5.82
+   ],
+   "p_bootstrap": 0.045
+  },
+  {
+   "comparison": "HPOA-nopmid - S-mix",
+   "k": 10,
+   "group": "rare (7 sets)",
+   "A": 51.58,
+   "B": 47.61,
+   "diff": -3.96,
+   "ci_patient_stratified": [
+    -7.95,
+    0.25
+   ],
+   "p_bootstrap": 0.07
+  },
+  {
+   "comparison": "HPOA-nopmid - S-mix",
+   "k": 10,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 26.99,
+   "B": 7.68,
+   "diff": -19.31,
+   "ci_patient_stratified": [
+    -20.37,
+    -18.25
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-nopmid - S-mix",
+   "k": 10,
+   "group": "all nine",
+   "A": 46.11,
+   "B": 38.74,
+   "diff": -7.37,
+   "ci_patient_stratified": [
+    -10.5,
+    -4.3
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-nopmid - S-mix",
+   "k": 1,
+   "group": "rare (7 sets)",
+   "A": 23.24,
+   "B": 24.65,
+   "diff": 1.41,
+   "ci_patient_stratified": [
+    -2.42,
+    5.43
+   ],
+   "p_bootstrap": 0.472
+  },
+  {
+   "comparison": "HPOA-nopmid - S-mix",
+   "k": 1,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 7.14,
+   "B": 1.35,
+   "diff": -5.79,
+   "ci_patient_stratified": [
+    -6.44,
+    -5.16
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-nopmid - S-mix",
+   "k": 1,
+   "group": "all nine",
+   "A": 19.66,
+   "B": 19.47,
+   "diff": -0.19,
+   "ci_patient_stratified": [
+    -3.34,
+    2.67
+   ],
+   "p_bootstrap": 0.901
+  },
+  {
+   "comparison": "HPOA-rand_nopmid - S-mix",
+   "k": 10,
+   "group": "rare (7 sets)",
+   "A": 51.58,
+   "B": 56.35,
+   "diff": 4.77,
+   "ci_patient_stratified": [
+    1.01,
+    8.49
+   ],
+   "p_bootstrap": 0.016
+  },
+  {
+   "comparison": "HPOA-rand_nopmid - S-mix",
+   "k": 10,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 26.99,
+   "B": 7.21,
+   "diff": -19.78,
+   "ci_patient_stratified": [
+    -20.81,
+    -18.72
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-rand_nopmid - S-mix",
+   "k": 10,
+   "group": "all nine",
+   "A": 46.11,
+   "B": 45.43,
+   "diff": -0.69,
+   "ci_patient_stratified": [
+    -3.56,
+    2.25
+   ],
+   "p_bootstrap": 0.637
+  },
+  {
+   "comparison": "HPOA-rand_nopmid - S-mix",
+   "k": 1,
+   "group": "rare (7 sets)",
+   "A": 23.24,
+   "B": 32.3,
+   "diff": 9.06,
+   "ci_patient_stratified": [
+    5.3,
+    12.99
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-rand_nopmid - S-mix",
+   "k": 1,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 7.14,
+   "B": 2.09,
+   "diff": -5.05,
+   "ci_patient_stratified": [
+    -5.76,
+    -4.39
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-rand_nopmid - S-mix",
+   "k": 1,
+   "group": "all nine",
+   "A": 19.66,
+   "B": 25.59,
+   "diff": 5.93,
+   "ci_patient_stratified": [
+    2.94,
+    8.71
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-base",
+   "k": 10,
+   "group": "rare (7 sets)",
+   "A": 65.44,
+   "B": 54.28,
+   "diff": -11.16,
+   "ci_patient_stratified": [
+    -12.17,
+    -10.05
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-base",
+   "k": 10,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 6.95,
+   "B": 7.15,
+   "diff": 0.2,
+   "ci_patient_stratified": [
+    0.09,
+    0.33
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-base",
+   "k": 10,
+   "group": "all nine",
+   "A": 52.44,
+   "B": 43.81,
+   "diff": -8.64,
+   "ci_patient_stratified": [
+    -9.45,
+    -7.8
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-base",
+   "k": 1,
+   "group": "rare (7 sets)",
+   "A": 38.69,
+   "B": 28.46,
+   "diff": -10.22,
+   "ci_patient_stratified": [
+    -11.08,
+    -9.35
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-base",
+   "k": 1,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 1.27,
+   "B": 1.28,
+   "diff": 0.01,
+   "ci_patient_stratified": [
+    0.0,
+    0.02
+   ],
+   "p_bootstrap": 0.717
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-base",
+   "k": 1,
+   "group": "all nine",
+   "A": 30.37,
+   "B": 22.42,
+   "diff": -7.95,
+   "ci_patient_stratified": [
+    -8.6,
+    -7.3
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-rand_s0 - HPOA-base",
+   "k": 10,
+   "group": "rare (7 sets)",
+   "A": 65.44,
+   "B": 65.53,
+   "diff": 0.09,
+   "ci_patient_stratified": [
+    -0.95,
+    1.2
+   ],
+   "p_bootstrap": 0.874
+  },
+  {
+   "comparison": "HPOA-rand_s0 - HPOA-base",
+   "k": 10,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 6.95,
+   "B": 6.8,
+   "diff": -0.15,
+   "ci_patient_stratified": [
+    -0.52,
+    0.23
+   ],
+   "p_bootstrap": 0.404
+  },
+  {
+   "comparison": "HPOA-rand_s0 - HPOA-base",
+   "k": 10,
+   "group": "all nine",
+   "A": 52.44,
+   "B": 52.48,
+   "diff": 0.04,
+   "ci_patient_stratified": [
+    -0.77,
+    0.95
+   ],
+   "p_bootstrap": 0.92
+  },
+  {
+   "comparison": "HPOA-rand_s0 - HPOA-base",
+   "k": 1,
+   "group": "rare (7 sets)",
+   "A": 38.69,
+   "B": 38.02,
+   "diff": -0.67,
+   "ci_patient_stratified": [
+    -1.74,
+    0.43
+   ],
+   "p_bootstrap": 0.238
+  },
+  {
+   "comparison": "HPOA-rand_s0 - HPOA-base",
+   "k": 1,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 1.27,
+   "B": 1.49,
+   "diff": 0.22,
+   "ci_patient_stratified": [
+    0.06,
+    0.37
+   ],
+   "p_bootstrap": 0.004
+  },
+  {
+   "comparison": "HPOA-rand_s0 - HPOA-base",
+   "k": 1,
+   "group": "all nine",
+   "A": 30.37,
+   "B": 29.9,
+   "diff": -0.47,
+   "ci_patient_stratified": [
+    -1.27,
+    0.38
+   ],
+   "p_bootstrap": 0.299
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-rand_s0",
+   "k": 10,
+   "group": "rare (7 sets)",
+   "A": 65.53,
+   "B": 54.28,
+   "diff": -11.25,
+   "ci_patient_stratified": [
+    -12.7,
+    -9.78
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-rand_s0",
+   "k": 10,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 6.8,
+   "B": 7.15,
+   "diff": 0.35,
+   "ci_patient_stratified": [
+    -0.02,
+    0.72
+   ],
+   "p_bootstrap": 0.066
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-rand_s0",
+   "k": 10,
+   "group": "all nine",
+   "A": 52.48,
+   "B": 43.81,
+   "diff": -8.67,
+   "ci_patient_stratified": [
+    -9.84,
+    -7.53
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-rand_s0",
+   "k": 1,
+   "group": "rare (7 sets)",
+   "A": 38.02,
+   "B": 28.46,
+   "diff": -9.56,
+   "ci_patient_stratified": [
+    -10.78,
+    -8.34
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-rand_s0",
+   "k": 1,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 1.49,
+   "B": 1.28,
+   "diff": -0.21,
+   "ci_patient_stratified": [
+    -0.36,
+    -0.05
+   ],
+   "p_bootstrap": 0.009
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-rand_s0",
+   "k": 1,
+   "group": "all nine",
+   "A": 29.9,
+   "B": 22.42,
+   "diff": -7.48,
+   "ci_patient_stratified": [
+    -8.5,
+    -6.55
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-lopo10 - S-mix",
+   "k": 10,
+   "group": "rare (7 sets)",
+   "A": 51.58,
+   "B": 54.3,
+   "diff": 2.72,
+   "ci_patient_stratified": [
+    -0.59,
+    6.0
+   ],
+   "p_bootstrap": 0.095
+  },
+  {
+   "comparison": "HPOA-lopo10 - S-mix",
+   "k": 10,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 26.99,
+   "B": 7.15,
+   "diff": -19.84,
+   "ci_patient_stratified": [
+    -20.88,
+    -18.77
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-lopo10 - S-mix",
+   "k": 10,
+   "group": "all nine",
+   "A": 46.11,
+   "B": 43.82,
+   "diff": -2.29,
+   "ci_patient_stratified": [
+    -4.83,
+    0.26
+   ],
+   "p_bootstrap": 0.083
+  },
+  {
+   "comparison": "HPOA-lopo10 - S-mix",
+   "k": 1,
+   "group": "rare (7 sets)",
+   "A": 23.24,
+   "B": 28.49,
+   "diff": 5.25,
+   "ci_patient_stratified": [
+    1.6,
+    9.11
+   ],
+   "p_bootstrap": 0.008
+  },
+  {
+   "comparison": "HPOA-lopo10 - S-mix",
+   "k": 1,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 7.14,
+   "B": 1.28,
+   "diff": -5.86,
+   "ci_patient_stratified": [
+    -6.5,
+    -5.2
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-lopo10 - S-mix",
+   "k": 1,
+   "group": "all nine",
+   "A": 19.66,
+   "B": 22.45,
+   "diff": 2.78,
+   "ci_patient_stratified": [
+    -0.25,
+    5.54
+   ],
+   "p_bootstrap": 0.077
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-base",
+   "k": 10,
+   "group": "rare (7 sets)",
+   "A": 65.44,
+   "B": 54.3,
+   "diff": -11.14,
+   "ci_patient_stratified": [
+    -12.15,
+    -10.02
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-base",
+   "k": 10,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 6.95,
+   "B": 7.15,
+   "diff": 0.2,
+   "ci_patient_stratified": [
+    0.09,
+    0.33
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-base",
+   "k": 10,
+   "group": "all nine",
+   "A": 52.44,
+   "B": 43.82,
+   "diff": -8.62,
+   "ci_patient_stratified": [
+    -9.43,
+    -7.79
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-base",
+   "k": 1,
+   "group": "rare (7 sets)",
+   "A": 38.69,
+   "B": 28.49,
+   "diff": -10.19,
+   "ci_patient_stratified": [
+    -11.05,
+    -9.32
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-base",
+   "k": 1,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 1.27,
+   "B": 1.28,
+   "diff": 0.01,
+   "ci_patient_stratified": [
+    0.0,
+    0.02
+   ],
+   "p_bootstrap": 0.717
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-base",
+   "k": 1,
+   "group": "all nine",
+   "A": 30.37,
+   "B": 22.45,
+   "diff": -7.93,
+   "ci_patient_stratified": [
+    -8.57,
+    -7.28
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-lopo10",
+   "k": 10,
+   "group": "rare (7 sets)",
+   "A": 54.3,
+   "B": 54.28,
+   "diff": -0.02,
+   "ci_patient_stratified": [
+    -0.08,
+    0.04
+   ],
+   "p_bootstrap": 0.486
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-lopo10",
+   "k": 10,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 7.15,
+   "B": 7.15,
+   "diff": 0.0,
+   "ci_patient_stratified": [
+    0.0,
+    0.0
+   ],
+   "p_bootstrap": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-lopo10",
+   "k": 10,
+   "group": "all nine",
+   "A": 43.82,
+   "B": 43.81,
+   "diff": -0.02,
+   "ci_patient_stratified": [
+    -0.06,
+    0.03
+   ],
+   "p_bootstrap": 0.472
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-lopo10",
+   "k": 1,
+   "group": "rare (7 sets)",
+   "A": 28.49,
+   "B": 28.46,
+   "diff": -0.03,
+   "ci_patient_stratified": [
+    -0.07,
+    0.02
+   ],
+   "p_bootstrap": 0.207
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-lopo10",
+   "k": 1,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 1.28,
+   "B": 1.28,
+   "diff": 0.0,
+   "ci_patient_stratified": [
+    0.0,
+    0.0
+   ],
+   "p_bootstrap": 1.0
+  },
+  {
+   "comparison": "HPOA-lopo - HPOA-lopo10",
+   "k": 1,
+   "group": "all nine",
+   "A": 22.45,
+   "B": 22.42,
+   "diff": -0.02,
+   "ci_patient_stratified": [
+    -0.06,
+    0.01
+   ],
+   "p_bootstrap": 0.194
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-rand_s0",
+   "k": 10,
+   "group": "rare (7 sets)",
+   "A": 65.53,
+   "B": 54.3,
+   "diff": -11.23,
+   "ci_patient_stratified": [
+    -12.69,
+    -9.75
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-rand_s0",
+   "k": 10,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 6.8,
+   "B": 7.15,
+   "diff": 0.35,
+   "ci_patient_stratified": [
+    -0.02,
+    0.72
+   ],
+   "p_bootstrap": 0.066
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-rand_s0",
+   "k": 10,
+   "group": "all nine",
+   "A": 52.48,
+   "B": 43.82,
+   "diff": -8.66,
+   "ci_patient_stratified": [
+    -9.83,
+    -7.5
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-rand_s0",
+   "k": 1,
+   "group": "rare (7 sets)",
+   "A": 38.02,
+   "B": 28.49,
+   "diff": -9.53,
+   "ci_patient_stratified": [
+    -10.76,
+    -8.31
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-rand_s0",
+   "k": 1,
+   "group": "common (DDXPlus, SymCat)",
+   "A": 1.49,
+   "B": 1.28,
+   "diff": -0.21,
+   "ci_patient_stratified": [
+    -0.36,
+    -0.05
+   ],
+   "p_bootstrap": 0.009
+  },
+  {
+   "comparison": "HPOA-lopo10 - HPOA-rand_s0",
+   "k": 1,
+   "group": "all nine",
+   "A": 29.9,
+   "B": 22.45,
+   "diff": -7.46,
+   "ci_patient_stratified": [
+    -8.48,
+    -6.53
+   ],
+   "p_bootstrap": 0.0
+  }
+ ],
+ "lopo_subgroups": [
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile intact",
+   "n": 2280,
+   "comparison": "HPOA-base - S-mix",
+   "k": 10,
+   "S-mix": 52.41,
+   "HPOA": 48.86,
+   "diff": -3.55,
+   "ci": [
+    -5.61,
+    -1.54
+   ],
+   "ci_cluster": [
+    -13.37,
+    5.06
+   ],
+   "diseases": 158
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile intact",
+   "n": 2280,
+   "comparison": "HPOA-base - S-mix",
+   "k": 1,
+   "S-mix": 27.37,
+   "HPOA": 20.48,
+   "diff": -6.89,
+   "ci": [
+    -8.95,
+    -4.69
+   ],
+   "ci_cluster": [
+    -27.21,
+    9.43
+   ],
+   "diseases": 158
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile intact",
+   "n": 2280,
+   "comparison": "HPOA-lopo - S-mix",
+   "k": 10,
+   "S-mix": 52.41,
+   "HPOA": 51.1,
+   "diff": -1.32,
+   "ci": [
+    -3.33,
+    0.75
+   ],
+   "ci_cluster": [
+    -9.97,
+    6.69
+   ],
+   "diseases": 158
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile intact",
+   "n": 2280,
+   "comparison": "HPOA-lopo - S-mix",
+   "k": 1,
+   "S-mix": 27.37,
+   "HPOA": 24.25,
+   "diff": -3.11,
+   "ci": [
+    -5.18,
+    -0.96
+   ],
+   "ci_cluster": [
+    -20.36,
+    11.83
+   ],
+   "diseases": 158
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile intact",
+   "n": 2280,
+   "comparison": "HPOA-rand_s0 - S-mix",
+   "k": 10,
+   "S-mix": 52.41,
+   "HPOA": 48.64,
+   "diff": -3.77,
+   "ci": [
+    -5.88,
+    -1.8
+   ],
+   "ci_cluster": [
+    -12.42,
+    4.56
+   ],
+   "diseases": 158
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile intact",
+   "n": 2280,
+   "comparison": "HPOA-rand_s0 - S-mix",
+   "k": 1,
+   "S-mix": 27.37,
+   "HPOA": 21.75,
+   "diff": -5.61,
+   "ci": [
+    -7.76,
+    -3.46
+   ],
+   "ci_cluster": [
+    -26.57,
+    10.88
+   ],
+   "diseases": 158
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile intact",
+   "n": 2280,
+   "comparison": "HPOA-rand_s1 - S-mix",
+   "k": 10,
+   "S-mix": 52.41,
+   "HPOA": 46.75,
+   "diff": -5.66,
+   "ci": [
+    -7.72,
+    -3.6
+   ],
+   "ci_cluster": [
+    -15.56,
+    4.25
+   ],
+   "diseases": 158
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile intact",
+   "n": 2280,
+   "comparison": "HPOA-rand_s1 - S-mix",
+   "k": 1,
+   "S-mix": 27.37,
+   "HPOA": 20.35,
+   "diff": -7.02,
+   "ci": [
+    -9.04,
+    -4.78
+   ],
+   "ci_cluster": [
+    -25.33,
+    8.82
+   ],
+   "diseases": 158
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile intact",
+   "n": 2280,
+   "comparison": "HPOA-rand_s2 - S-mix",
+   "k": 10,
+   "S-mix": 52.41,
+   "HPOA": 45.7,
+   "diff": -6.71,
+   "ci": [
+    -8.77,
+    -4.65
+   ],
+   "ci_cluster": [
+    -16.93,
+    3.46
+   ],
+   "diseases": 158
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile intact",
+   "n": 2280,
+   "comparison": "HPOA-rand_s2 - S-mix",
+   "k": 1,
+   "S-mix": 27.37,
+   "HPOA": 19.17,
+   "diff": -8.2,
+   "ci": [
+    -10.22,
+    -6.18
+   ],
+   "ci_cluster": [
+    -26.85,
+    8.01
+   ],
+   "diseases": 158
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile intact",
+   "n": 2280,
+   "comparison": "HPOA-rand_dz_s0 - S-mix",
+   "k": 10,
+   "S-mix": 52.41,
+   "HPOA": 49.43,
+   "diff": -2.98,
+   "ci": [
+    -5.09,
+    -0.96
+   ],
+   "ci_cluster": [
+    -12.88,
+    5.73
+   ],
+   "diseases": 158
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile intact",
+   "n": 2280,
+   "comparison": "HPOA-rand_dz_s0 - S-mix",
+   "k": 1,
+   "S-mix": 27.37,
+   "HPOA": 21.05,
+   "diff": -6.32,
+   "ci": [
+    -8.42,
+    -4.12
+   ],
+   "ci_cluster": [
+    -27.18,
+    10.04
+   ],
+   "diseases": 158
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile intact",
+   "n": 2280,
+   "comparison": "HPOA-lopo_strip - S-mix",
+   "k": 10,
+   "S-mix": 52.41,
+   "HPOA": 51.1,
+   "diff": -1.32,
+   "ci": [
+    -3.33,
+    0.75
+   ],
+   "ci_cluster": [
+    -9.97,
+    6.69
+   ],
+   "diseases": 158
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile intact",
+   "n": 2280,
+   "comparison": "HPOA-lopo_strip - S-mix",
+   "k": 1,
+   "S-mix": 27.37,
+   "HPOA": 23.86,
+   "diff": -3.51,
+   "ci": [
+    -5.53,
+    -1.4
+   ],
+   "ci_cluster": [
+    -20.74,
+    11.46
+   ],
+   "diseases": 158
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile intact",
+   "n": 2280,
+   "comparison": "HPOA-nopmid - S-mix",
+   "k": 10,
+   "S-mix": 52.41,
+   "HPOA": 47.81,
+   "diff": -4.61,
+   "ci": [
+    -6.67,
+    -2.54
+   ],
+   "ci_cluster": [
+    -15.58,
+    4.48
+   ],
+   "diseases": 158
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile intact",
+   "n": 2280,
+   "comparison": "HPOA-nopmid - S-mix",
+   "k": 1,
+   "S-mix": 27.37,
+   "HPOA": 20.83,
+   "diff": -6.54,
+   "ci": [
+    -8.46,
+    -4.61
+   ],
+   "ci_cluster": [
+    -22.57,
+    6.06
+   ],
+   "diseases": 158
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile intact",
+   "n": 2280,
+   "comparison": "HPOA-rand_nopmid - S-mix",
+   "k": 10,
+   "S-mix": 52.41,
+   "HPOA": 40.39,
+   "diff": -12.02,
+   "ci": [
+    -14.17,
+    -9.87
+   ],
+   "ci_cluster": [
+    -19.34,
+    -1.01
+   ],
+   "diseases": 158
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile intact",
+   "n": 2280,
+   "comparison": "HPOA-rand_nopmid - S-mix",
+   "k": 1,
+   "S-mix": 27.37,
+   "HPOA": 18.29,
+   "diff": -9.08,
+   "ci": [
+    -10.96,
+    -7.15
+   ],
+   "ci_cluster": [
+    -25.63,
+    3.09
+   ],
+   "diseases": 158
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile intact",
+   "n": 2280,
+   "comparison": "HPOA-lopo10 - S-mix",
+   "k": 10,
+   "S-mix": 52.41,
+   "HPOA": 49.17,
+   "diff": -3.25,
+   "ci": [
+    -5.35,
+    -1.23
+   ],
+   "ci_cluster": [
+    -12.99,
+    5.4
+   ],
+   "diseases": 158
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile intact",
+   "n": 2280,
+   "comparison": "HPOA-lopo10 - S-mix",
+   "k": 1,
+   "S-mix": 27.37,
+   "HPOA": 20.75,
+   "diff": -6.62,
+   "ci": [
+    -8.73,
+    -4.39
+   ],
+   "ci_cluster": [
+    -26.99,
+    9.83
+   ],
+   "diseases": 158
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold lost edges",
+   "n": 4318,
+   "comparison": "HPOA-base - S-mix",
+   "k": 10,
+   "S-mix": 39.14,
+   "HPOA": 79.92,
+   "diff": 40.78,
+   "ci": [
+    39.09,
+    42.54
+   ],
+   "ci_cluster": [
+    27.95,
+    53.74
+   ],
+   "diseases": 221
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold lost edges",
+   "n": 4318,
+   "comparison": "HPOA-base - S-mix",
+   "k": 1,
+   "S-mix": 21.14,
+   "HPOA": 57.11,
+   "diff": 35.97,
+   "ci": [
+    34.25,
+    37.86
+   ],
+   "ci_cluster": [
+    19.43,
+    50.56
+   ],
+   "diseases": 221
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold lost edges",
+   "n": 4318,
+   "comparison": "HPOA-lopo - S-mix",
+   "k": 10,
+   "S-mix": 39.14,
+   "HPOA": 33.63,
+   "diff": -5.51,
+   "ci": [
+    -7.09,
+    -3.94
+   ],
+   "ci_cluster": [
+    -14.71,
+    3.46
+   ],
+   "diseases": 221
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold lost edges",
+   "n": 4318,
+   "comparison": "HPOA-lopo - S-mix",
+   "k": 1,
+   "S-mix": 21.14,
+   "HPOA": 12.69,
+   "diff": -8.45,
+   "ci": [
+    -9.77,
+    -7.25
+   ],
+   "ci_cluster": [
+    -17.17,
+    0.21
+   ],
+   "diseases": 221
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold lost edges",
+   "n": 4318,
+   "comparison": "HPOA-rand_s0 - S-mix",
+   "k": 10,
+   "S-mix": 39.14,
+   "HPOA": 79.87,
+   "diff": 40.74,
+   "ci": [
+    39.16,
+    42.47
+   ],
+   "ci_cluster": [
+    30.83,
+    51.2
+   ],
+   "diseases": 221
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold lost edges",
+   "n": 4318,
+   "comparison": "HPOA-rand_s0 - S-mix",
+   "k": 1,
+   "S-mix": 21.14,
+   "HPOA": 55.35,
+   "diff": 34.21,
+   "ci": [
+    32.47,
+    36.04
+   ],
+   "ci_cluster": [
+    19.98,
+    46.96
+   ],
+   "diseases": 221
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold lost edges",
+   "n": 4318,
+   "comparison": "HPOA-rand_s1 - S-mix",
+   "k": 10,
+   "S-mix": 39.14,
+   "HPOA": 78.81,
+   "diff": 39.67,
+   "ci": [
+    37.96,
+    41.41
+   ],
+   "ci_cluster": [
+    27.94,
+    51.09
+   ],
+   "diseases": 221
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold lost edges",
+   "n": 4318,
+   "comparison": "HPOA-rand_s1 - S-mix",
+   "k": 1,
+   "S-mix": 21.14,
+   "HPOA": 54.59,
+   "diff": 33.44,
+   "ci": [
+    31.73,
+    35.32
+   ],
+   "ci_cluster": [
+    17.87,
+    47.01
+   ],
+   "diseases": 221
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold lost edges",
+   "n": 4318,
+   "comparison": "HPOA-rand_s2 - S-mix",
+   "k": 10,
+   "S-mix": 39.14,
+   "HPOA": 80.89,
+   "diff": 41.76,
+   "ci": [
+    40.16,
+    43.4
+   ],
+   "ci_cluster": [
+    31.71,
+    52.49
+   ],
+   "diseases": 221
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold lost edges",
+   "n": 4318,
+   "comparison": "HPOA-rand_s2 - S-mix",
+   "k": 1,
+   "S-mix": 21.14,
+   "HPOA": 56.21,
+   "diff": 35.06,
+   "ci": [
+    33.19,
+    36.89
+   ],
+   "ci_cluster": [
+    20.23,
+    48.46
+   ],
+   "diseases": 221
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold lost edges",
+   "n": 4318,
+   "comparison": "HPOA-rand_dz_s0 - S-mix",
+   "k": 10,
+   "S-mix": 39.14,
+   "HPOA": 79.37,
+   "diff": 40.23,
+   "ci": [
+    38.51,
+    41.96
+   ],
+   "ci_cluster": [
+    27.37,
+    53.23
+   ],
+   "diseases": 221
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold lost edges",
+   "n": 4318,
+   "comparison": "HPOA-rand_dz_s0 - S-mix",
+   "k": 1,
+   "S-mix": 21.14,
+   "HPOA": 57.16,
+   "diff": 36.01,
+   "ci": [
+    34.21,
+    37.89
+   ],
+   "ci_cluster": [
+    19.36,
+    50.63
+   ],
+   "diseases": 221
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold lost edges",
+   "n": 4318,
+   "comparison": "HPOA-lopo_strip - S-mix",
+   "k": 10,
+   "S-mix": 39.14,
+   "HPOA": 41.01,
+   "diff": 1.88,
+   "ci": [
+    0.3,
+    3.47
+   ],
+   "ci_cluster": [
+    -6.97,
+    10.28
+   ],
+   "diseases": 221
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold lost edges",
+   "n": 4318,
+   "comparison": "HPOA-lopo_strip - S-mix",
+   "k": 1,
+   "S-mix": 21.14,
+   "HPOA": 16.91,
+   "diff": -4.24,
+   "ci": [
+    -5.53,
+    -2.92
+   ],
+   "ci_cluster": [
+    -13.8,
+    4.83
+   ],
+   "diseases": 221
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold lost edges",
+   "n": 4318,
+   "comparison": "HPOA-nopmid - S-mix",
+   "k": 10,
+   "S-mix": 39.14,
+   "HPOA": 34.78,
+   "diff": -4.35,
+   "ci": [
+    -6.04,
+    -2.64
+   ],
+   "ci_cluster": [
+    -14.56,
+    6.69
+   ],
+   "diseases": 221
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold lost edges",
+   "n": 4318,
+   "comparison": "HPOA-nopmid - S-mix",
+   "k": 1,
+   "S-mix": 21.14,
+   "HPOA": 14.4,
+   "diff": -6.74,
+   "ci": [
+    -8.01,
+    -5.51
+   ],
+   "ci_cluster": [
+    -15.26,
+    1.88
+   ],
+   "diseases": 221
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold lost edges",
+   "n": 4318,
+   "comparison": "HPOA-rand_nopmid - S-mix",
+   "k": 10,
+   "S-mix": 39.14,
+   "HPOA": 68.39,
+   "diff": 29.25,
+   "ci": [
+    27.61,
+    30.96
+   ],
+   "ci_cluster": [
+    20.17,
+    39.73
+   ],
+   "diseases": 221
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold lost edges",
+   "n": 4318,
+   "comparison": "HPOA-rand_nopmid - S-mix",
+   "k": 1,
+   "S-mix": 21.14,
+   "HPOA": 42.24,
+   "diff": 21.1,
+   "ci": [
+    19.5,
+    22.81
+   ],
+   "ci_cluster": [
+    10.86,
+    31.07
+   ],
+   "diseases": 221
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold lost edges",
+   "n": 4318,
+   "comparison": "HPOA-lopo10 - S-mix",
+   "k": 10,
+   "S-mix": 39.14,
+   "HPOA": 34.65,
+   "diff": -4.49,
+   "ci": [
+    -6.11,
+    -2.76
+   ],
+   "ci_cluster": [
+    -13.99,
+    6.05
+   ],
+   "diseases": 221
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold lost edges",
+   "n": 4318,
+   "comparison": "HPOA-lopo10 - S-mix",
+   "k": 1,
+   "S-mix": 21.14,
+   "HPOA": 14.89,
+   "diff": -6.25,
+   "ci": [
+    -7.55,
+    -4.98
+   ],
+   "ci_cluster": [
+    -15.4,
+    2.71
+   ],
+   "diseases": 221
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile emptied",
+   "n": 3712,
+   "comparison": "HPOA-base - S-mix",
+   "k": 10,
+   "S-mix": 8.46,
+   "HPOA": 81.68,
+   "diff": 73.22,
+   "ci": [
+    71.82,
+    74.68
+   ],
+   "ci_cluster": [
+    67.81,
+    78.43
+   ],
+   "diseases": 393
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile emptied",
+   "n": 3712,
+   "comparison": "HPOA-base - S-mix",
+   "k": 1,
+   "S-mix": 1.4,
+   "HPOA": 66.08,
+   "diff": 64.68,
+   "ci": [
+    63.12,
+    66.27
+   ],
+   "ci_cluster": [
+    59.29,
+    69.72
+   ],
+   "diseases": 393
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile emptied",
+   "n": 3712,
+   "comparison": "HPOA-lopo - S-mix",
+   "k": 10,
+   "S-mix": 8.46,
+   "HPOA": 0.19,
+   "diff": -8.27,
+   "ci": [
+    -9.16,
+    -7.38
+   ],
+   "ci_cluster": [
+    -11.89,
+    -5.15
+   ],
+   "diseases": 393
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile emptied",
+   "n": 3712,
+   "comparison": "HPOA-lopo - S-mix",
+   "k": 1,
+   "S-mix": 1.4,
+   "HPOA": 0.05,
+   "diff": -1.35,
+   "ci": [
+    -1.75,
+    -0.97
+   ],
+   "ci_cluster": [
+    -2.49,
+    -0.48
+   ],
+   "diseases": 393
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile emptied",
+   "n": 3712,
+   "comparison": "HPOA-rand_s0 - S-mix",
+   "k": 10,
+   "S-mix": 8.46,
+   "HPOA": 77.8,
+   "diff": 69.34,
+   "ci": [
+    67.89,
+    70.82
+   ],
+   "ci_cluster": [
+    63.86,
+    74.66
+   ],
+   "diseases": 393
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile emptied",
+   "n": 3712,
+   "comparison": "HPOA-rand_s0 - S-mix",
+   "k": 1,
+   "S-mix": 1.4,
+   "HPOA": 59.48,
+   "diff": 58.08,
+   "ci": [
+    56.41,
+    59.73
+   ],
+   "ci_cluster": [
+    52.7,
+    63.44
+   ],
+   "diseases": 393
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile emptied",
+   "n": 3712,
+   "comparison": "HPOA-rand_s1 - S-mix",
+   "k": 10,
+   "S-mix": 8.46,
+   "HPOA": 79.58,
+   "diff": 71.12,
+   "ci": [
+    69.67,
+    72.6
+   ],
+   "ci_cluster": [
+    65.72,
+    76.2
+   ],
+   "diseases": 393
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile emptied",
+   "n": 3712,
+   "comparison": "HPOA-rand_s1 - S-mix",
+   "k": 1,
+   "S-mix": 1.4,
+   "HPOA": 61.58,
+   "diff": 60.18,
+   "ci": [
+    58.65,
+    61.83
+   ],
+   "ci_cluster": [
+    55.11,
+    65.13
+   ],
+   "diseases": 393
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile emptied",
+   "n": 3712,
+   "comparison": "HPOA-rand_s2 - S-mix",
+   "k": 10,
+   "S-mix": 8.46,
+   "HPOA": 79.12,
+   "diff": 70.66,
+   "ci": [
+    69.1,
+    72.14
+   ],
+   "ci_cluster": [
+    64.98,
+    76.01
+   ],
+   "diseases": 393
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile emptied",
+   "n": 3712,
+   "comparison": "HPOA-rand_s2 - S-mix",
+   "k": 1,
+   "S-mix": 1.4,
+   "HPOA": 61.18,
+   "diff": 59.78,
+   "ci": [
+    58.16,
+    61.42
+   ],
+   "ci_cluster": [
+    54.49,
+    64.93
+   ],
+   "diseases": 393
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile emptied",
+   "n": 3712,
+   "comparison": "HPOA-rand_dz_s0 - S-mix",
+   "k": 10,
+   "S-mix": 8.46,
+   "HPOA": 81.79,
+   "diff": 73.33,
+   "ci": [
+    71.88,
+    74.78
+   ],
+   "ci_cluster": [
+    67.93,
+    78.53
+   ],
+   "diseases": 393
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile emptied",
+   "n": 3712,
+   "comparison": "HPOA-rand_dz_s0 - S-mix",
+   "k": 1,
+   "S-mix": 1.4,
+   "HPOA": 66.14,
+   "diff": 64.74,
+   "ci": [
+    63.2,
+    66.33
+   ],
+   "ci_cluster": [
+    59.39,
+    69.78
+   ],
+   "diseases": 393
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile emptied",
+   "n": 3712,
+   "comparison": "HPOA-lopo_strip - S-mix",
+   "k": 10,
+   "S-mix": 8.46,
+   "HPOA": 0.4,
+   "diff": -8.05,
+   "ci": [
+    -8.92,
+    -7.14
+   ],
+   "ci_cluster": [
+    -11.67,
+    -4.96
+   ],
+   "diseases": 393
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile emptied",
+   "n": 3712,
+   "comparison": "HPOA-lopo_strip - S-mix",
+   "k": 1,
+   "S-mix": 1.4,
+   "HPOA": 0.05,
+   "diff": -1.35,
+   "ci": [
+    -1.75,
+    -0.97
+   ],
+   "ci_cluster": [
+    -2.49,
+    -0.48
+   ],
+   "diseases": 393
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile emptied",
+   "n": 3712,
+   "comparison": "HPOA-nopmid - S-mix",
+   "k": 10,
+   "S-mix": 8.46,
+   "HPOA": 0.03,
+   "diff": -8.43,
+   "ci": [
+    -9.32,
+    -7.52
+   ],
+   "ci_cluster": [
+    -12.05,
+    -5.31
+   ],
+   "diseases": 393
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile emptied",
+   "n": 3712,
+   "comparison": "HPOA-nopmid - S-mix",
+   "k": 1,
+   "S-mix": 1.4,
+   "HPOA": 0.03,
+   "diff": -1.37,
+   "ci": [
+    -1.78,
+    -1.0
+   ],
+   "ci_cluster": [
+    -2.52,
+    -0.51
+   ],
+   "diseases": 393
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile emptied",
+   "n": 3712,
+   "comparison": "HPOA-rand_nopmid - S-mix",
+   "k": 10,
+   "S-mix": 8.46,
+   "HPOA": 63.04,
+   "diff": 54.58,
+   "ci": [
+    52.8,
+    56.38
+   ],
+   "ci_cluster": [
+    48.81,
+    60.28
+   ],
+   "diseases": 393
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile emptied",
+   "n": 3712,
+   "comparison": "HPOA-rand_nopmid - S-mix",
+   "k": 1,
+   "S-mix": 1.4,
+   "HPOA": 41.41,
+   "diff": 40.01,
+   "ci": [
+    38.47,
+    41.59
+   ],
+   "ci_cluster": [
+    35.29,
+    44.87
+   ],
+   "diseases": 393
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile emptied",
+   "n": 3712,
+   "comparison": "HPOA-lopo10 - S-mix",
+   "k": 10,
+   "S-mix": 8.46,
+   "HPOA": 0.59,
+   "diff": -7.87,
+   "ci": [
+    -8.76,
+    -6.95
+   ],
+   "ci_cluster": [
+    -11.56,
+    -4.76
+   ],
+   "diseases": 393
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile emptied",
+   "n": 3712,
+   "comparison": "HPOA-lopo10 - S-mix",
+   "k": 1,
+   "S-mix": 1.4,
+   "HPOA": 0.22,
+   "diff": -1.19,
+   "ci": [
+    -1.59,
+    -0.78
+   ],
+   "ci_cluster": [
+    -2.31,
+    -0.31
+   ],
+   "diseases": 393
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold profile intact",
+   "n": 118,
+   "comparison": "HPOA-base - S-mix",
+   "k": 10,
+   "S-mix": 55.93,
+   "HPOA": 61.02,
+   "diff": 5.08,
+   "ci": [
+    -5.08,
+    15.25
+   ],
+   "ci_cluster": [
+    -5.04,
+    15.38
+   ],
+   "diseases": 107
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold profile intact",
+   "n": 118,
+   "comparison": "HPOA-base - S-mix",
+   "k": 1,
+   "S-mix": 28.81,
+   "HPOA": 32.2,
+   "diff": 3.39,
+   "ci": [
+    -6.78,
+    13.56
+   ],
+   "ci_cluster": [
+    -6.61,
+    13.95
+   ],
+   "diseases": 107
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold profile intact",
+   "n": 118,
+   "comparison": "HPOA-lopo - S-mix",
+   "k": 10,
+   "S-mix": 55.93,
+   "HPOA": 61.86,
+   "diff": 5.93,
+   "ci": [
+    -3.39,
+    15.25
+   ],
+   "ci_cluster": [
+    -3.54,
+    15.93
+   ],
+   "diseases": 107
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold profile intact",
+   "n": 118,
+   "comparison": "HPOA-lopo - S-mix",
+   "k": 1,
+   "S-mix": 28.81,
+   "HPOA": 34.75,
+   "diff": 5.93,
+   "ci": [
+    -4.24,
+    16.1
+   ],
+   "ci_cluster": [
+    -4.2,
+    16.52
+   ],
+   "diseases": 107
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold profile intact",
+   "n": 118,
+   "comparison": "HPOA-rand_s0 - S-mix",
+   "k": 10,
+   "S-mix": 55.93,
+   "HPOA": 61.02,
+   "diff": 5.08,
+   "ci": [
+    -5.93,
+    16.1
+   ],
+   "ci_cluster": [
+    -5.98,
+    16.36
+   ],
+   "diseases": 107
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold profile intact",
+   "n": 118,
+   "comparison": "HPOA-rand_s0 - S-mix",
+   "k": 1,
+   "S-mix": 28.81,
+   "HPOA": 28.81,
+   "diff": 0.0,
+   "ci": [
+    -10.17,
+    10.17
+   ],
+   "ci_cluster": [
+    -10.34,
+    10.74
+   ],
+   "diseases": 107
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold profile intact",
+   "n": 118,
+   "comparison": "HPOA-rand_s1 - S-mix",
+   "k": 10,
+   "S-mix": 55.93,
+   "HPOA": 59.32,
+   "diff": 3.39,
+   "ci": [
+    -6.78,
+    13.56
+   ],
+   "ci_cluster": [
+    -6.9,
+    14.16
+   ],
+   "diseases": 107
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold profile intact",
+   "n": 118,
+   "comparison": "HPOA-rand_s1 - S-mix",
+   "k": 1,
+   "S-mix": 28.81,
+   "HPOA": 30.51,
+   "diff": 1.69,
+   "ci": [
+    -7.63,
+    11.86
+   ],
+   "ci_cluster": [
+    -8.47,
+    12.1
+   ],
+   "diseases": 107
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold profile intact",
+   "n": 118,
+   "comparison": "HPOA-rand_s2 - S-mix",
+   "k": 10,
+   "S-mix": 55.93,
+   "HPOA": 61.02,
+   "diff": 5.08,
+   "ci": [
+    -5.08,
+    14.41
+   ],
+   "ci_cluster": [
+    -5.04,
+    15.25
+   ],
+   "diseases": 107
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold profile intact",
+   "n": 118,
+   "comparison": "HPOA-rand_s2 - S-mix",
+   "k": 1,
+   "S-mix": 28.81,
+   "HPOA": 31.36,
+   "diff": 2.54,
+   "ci": [
+    -7.63,
+    11.86
+   ],
+   "ci_cluster": [
+    -7.83,
+    12.8
+   ],
+   "diseases": 107
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold profile intact",
+   "n": 118,
+   "comparison": "HPOA-rand_dz_s0 - S-mix",
+   "k": 10,
+   "S-mix": 55.93,
+   "HPOA": 61.02,
+   "diff": 5.08,
+   "ci": [
+    -5.08,
+    15.25
+   ],
+   "ci_cluster": [
+    -5.04,
+    15.38
+   ],
+   "diseases": 107
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold profile intact",
+   "n": 118,
+   "comparison": "HPOA-rand_dz_s0 - S-mix",
+   "k": 1,
+   "S-mix": 28.81,
+   "HPOA": 32.2,
+   "diff": 3.39,
+   "ci": [
+    -5.93,
+    13.56
+   ],
+   "ci_cluster": [
+    -6.25,
+    13.56
+   ],
+   "diseases": 107
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold profile intact",
+   "n": 118,
+   "comparison": "HPOA-lopo_strip - S-mix",
+   "k": 10,
+   "S-mix": 55.93,
+   "HPOA": 62.71,
+   "diff": 6.78,
+   "ci": [
+    -2.54,
+    16.1
+   ],
+   "ci_cluster": [
+    -3.25,
+    16.67
+   ],
+   "diseases": 107
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold profile intact",
+   "n": 118,
+   "comparison": "HPOA-lopo_strip - S-mix",
+   "k": 1,
+   "S-mix": 28.81,
+   "HPOA": 34.75,
+   "diff": 5.93,
+   "ci": [
+    -4.24,
+    16.1
+   ],
+   "ci_cluster": [
+    -4.2,
+    16.52
+   ],
+   "diseases": 107
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold profile intact",
+   "n": 118,
+   "comparison": "HPOA-nopmid - S-mix",
+   "k": 10,
+   "S-mix": 55.93,
+   "HPOA": 40.68,
+   "diff": -15.25,
+   "ci": [
+    -25.42,
+    -5.08
+   ],
+   "ci_cluster": [
+    -25.83,
+    -4.96
+   ],
+   "diseases": 107
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold profile intact",
+   "n": 118,
+   "comparison": "HPOA-nopmid - S-mix",
+   "k": 1,
+   "S-mix": 28.81,
+   "HPOA": 22.03,
+   "diff": -6.78,
+   "ci": [
+    -15.25,
+    1.69
+   ],
+   "ci_cluster": [
+    -15.25,
+    1.74
+   ],
+   "diseases": 107
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold profile intact",
+   "n": 118,
+   "comparison": "HPOA-rand_nopmid - S-mix",
+   "k": 10,
+   "S-mix": 55.93,
+   "HPOA": 49.15,
+   "diff": -6.78,
+   "ci": [
+    -17.8,
+    3.39
+   ],
+   "ci_cluster": [
+    -17.54,
+    3.54
+   ],
+   "diseases": 107
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold profile intact",
+   "n": 118,
+   "comparison": "HPOA-rand_nopmid - S-mix",
+   "k": 1,
+   "S-mix": 28.81,
+   "HPOA": 23.73,
+   "diff": -5.08,
+   "ci": [
+    -15.25,
+    4.24
+   ],
+   "ci_cluster": [
+    -15.0,
+    5.13
+   ],
+   "diseases": 107
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold profile intact",
+   "n": 118,
+   "comparison": "HPOA-lopo10 - S-mix",
+   "k": 10,
+   "S-mix": 55.93,
+   "HPOA": 61.86,
+   "diff": 5.93,
+   "ci": [
+    -3.39,
+    15.25
+   ],
+   "ci_cluster": [
+    -3.54,
+    15.93
+   ],
+   "diseases": 107
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold profile intact",
+   "n": 118,
+   "comparison": "HPOA-lopo10 - S-mix",
+   "k": 1,
+   "S-mix": 28.81,
+   "HPOA": 34.75,
+   "diff": 5.93,
+   "ci": [
+    -4.24,
+    16.1
+   ],
+   "ci_cluster": [
+    -4.2,
+    16.52
+   ],
+   "diseases": 107
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold lost edges",
+   "n": 231,
+   "comparison": "HPOA-base - S-mix",
+   "k": 10,
+   "S-mix": 31.6,
+   "HPOA": 81.39,
+   "diff": 49.78,
+   "ci": [
+    42.86,
+    56.28
+   ],
+   "ci_cluster": [
+    38.68,
+    59.77
+   ],
+   "diseases": 132
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold lost edges",
+   "n": 231,
+   "comparison": "HPOA-base - S-mix",
+   "k": 1,
+   "S-mix": 13.85,
+   "HPOA": 59.31,
+   "diff": 45.45,
+   "ci": [
+    38.1,
+    52.38
+   ],
+   "ci_cluster": [
+    35.4,
+    54.85
+   ],
+   "diseases": 132
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold lost edges",
+   "n": 231,
+   "comparison": "HPOA-lopo - S-mix",
+   "k": 10,
+   "S-mix": 31.6,
+   "HPOA": 36.8,
+   "diff": 5.19,
+   "ci": [
+    -2.16,
+    12.55
+   ],
+   "ci_cluster": [
+    -9.22,
+    18.9
+   ],
+   "diseases": 132
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold lost edges",
+   "n": 231,
+   "comparison": "HPOA-lopo - S-mix",
+   "k": 1,
+   "S-mix": 13.85,
+   "HPOA": 16.02,
+   "diff": 2.16,
+   "ci": [
+    -3.9,
+    8.23
+   ],
+   "ci_cluster": [
+    -7.45,
+    11.61
+   ],
+   "diseases": 132
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold lost edges",
+   "n": 231,
+   "comparison": "HPOA-rand_s0 - S-mix",
+   "k": 10,
+   "S-mix": 31.6,
+   "HPOA": 78.79,
+   "diff": 47.19,
+   "ci": [
+    40.26,
+    54.11
+   ],
+   "ci_cluster": [
+    36.7,
+    56.58
+   ],
+   "diseases": 132
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold lost edges",
+   "n": 231,
+   "comparison": "HPOA-rand_s0 - S-mix",
+   "k": 1,
+   "S-mix": 13.85,
+   "HPOA": 60.61,
+   "diff": 46.75,
+   "ci": [
+    38.96,
+    53.68
+   ],
+   "ci_cluster": [
+    36.28,
+    56.64
+   ],
+   "diseases": 132
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold lost edges",
+   "n": 231,
+   "comparison": "HPOA-rand_s1 - S-mix",
+   "k": 10,
+   "S-mix": 31.6,
+   "HPOA": 82.25,
+   "diff": 50.65,
+   "ci": [
+    43.72,
+    57.58
+   ],
+   "ci_cluster": [
+    39.55,
+    60.82
+   ],
+   "diseases": 132
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold lost edges",
+   "n": 231,
+   "comparison": "HPOA-rand_s1 - S-mix",
+   "k": 1,
+   "S-mix": 13.85,
+   "HPOA": 56.28,
+   "diff": 42.42,
+   "ci": [
+    35.5,
+    49.78
+   ],
+   "ci_cluster": [
+    32.03,
+    52.4
+   ],
+   "diseases": 132
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold lost edges",
+   "n": 231,
+   "comparison": "HPOA-rand_s2 - S-mix",
+   "k": 10,
+   "S-mix": 31.6,
+   "HPOA": 80.95,
+   "diff": 49.35,
+   "ci": [
+    42.42,
+    56.28
+   ],
+   "ci_cluster": [
+    38.64,
+    59.22
+   ],
+   "diseases": 132
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold lost edges",
+   "n": 231,
+   "comparison": "HPOA-rand_s2 - S-mix",
+   "k": 1,
+   "S-mix": 13.85,
+   "HPOA": 58.01,
+   "diff": 44.16,
+   "ci": [
+    36.8,
+    51.08
+   ],
+   "ci_cluster": [
+    33.8,
+    54.17
+   ],
+   "diseases": 132
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold lost edges",
+   "n": 231,
+   "comparison": "HPOA-rand_dz_s0 - S-mix",
+   "k": 10,
+   "S-mix": 31.6,
+   "HPOA": 77.06,
+   "diff": 45.45,
+   "ci": [
+    38.1,
+    52.81
+   ],
+   "ci_cluster": [
+    33.49,
+    56.18
+   ],
+   "diseases": 132
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold lost edges",
+   "n": 231,
+   "comparison": "HPOA-rand_dz_s0 - S-mix",
+   "k": 1,
+   "S-mix": 13.85,
+   "HPOA": 54.98,
+   "diff": 41.13,
+   "ci": [
+    33.77,
+    48.05
+   ],
+   "ci_cluster": [
+    31.05,
+    50.78
+   ],
+   "diseases": 132
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold lost edges",
+   "n": 231,
+   "comparison": "HPOA-lopo_strip - S-mix",
+   "k": 10,
+   "S-mix": 31.6,
+   "HPOA": 39.83,
+   "diff": 8.23,
+   "ci": [
+    0.87,
+    16.02
+   ],
+   "ci_cluster": [
+    -5.99,
+    21.52
+   ],
+   "diseases": 132
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold lost edges",
+   "n": 231,
+   "comparison": "HPOA-lopo_strip - S-mix",
+   "k": 1,
+   "S-mix": 13.85,
+   "HPOA": 17.75,
+   "diff": 3.9,
+   "ci": [
+    -2.16,
+    9.96
+   ],
+   "ci_cluster": [
+    -5.66,
+    13.41
+   ],
+   "diseases": 132
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold lost edges",
+   "n": 231,
+   "comparison": "HPOA-nopmid - S-mix",
+   "k": 10,
+   "S-mix": 31.6,
+   "HPOA": 41.13,
+   "diff": 9.52,
+   "ci": [
+    1.3,
+    17.32
+   ],
+   "ci_cluster": [
+    -7.25,
+    24.58
+   ],
+   "diseases": 132
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold lost edges",
+   "n": 231,
+   "comparison": "HPOA-nopmid - S-mix",
+   "k": 1,
+   "S-mix": 13.85,
+   "HPOA": 17.75,
+   "diff": 3.9,
+   "ci": [
+    -2.6,
+    10.39
+   ],
+   "ci_cluster": [
+    -6.76,
+    14.72
+   ],
+   "diseases": 132
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold lost edges",
+   "n": 231,
+   "comparison": "HPOA-rand_nopmid - S-mix",
+   "k": 10,
+   "S-mix": 31.6,
+   "HPOA": 70.56,
+   "diff": 38.96,
+   "ci": [
+    31.6,
+    46.32
+   ],
+   "ci_cluster": [
+    26.84,
+    50.36
+   ],
+   "diseases": 132
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold lost edges",
+   "n": 231,
+   "comparison": "HPOA-rand_nopmid - S-mix",
+   "k": 1,
+   "S-mix": 13.85,
+   "HPOA": 48.92,
+   "diff": 35.06,
+   "ci": [
+    28.14,
+    41.99
+   ],
+   "ci_cluster": [
+    24.42,
+    45.29
+   ],
+   "diseases": 132
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold lost edges",
+   "n": 231,
+   "comparison": "HPOA-lopo10 - S-mix",
+   "k": 10,
+   "S-mix": 31.6,
+   "HPOA": 36.8,
+   "diff": 5.19,
+   "ci": [
+    -2.16,
+    12.55
+   ],
+   "ci_cluster": [
+    -9.22,
+    18.9
+   ],
+   "diseases": 132
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold lost edges",
+   "n": 231,
+   "comparison": "HPOA-lopo10 - S-mix",
+   "k": 1,
+   "S-mix": 13.85,
+   "HPOA": 16.02,
+   "diff": 2.16,
+   "ci": [
+    -3.9,
+    8.23
+   ],
+   "ci_cluster": [
+    -7.45,
+    11.61
+   ],
+   "diseases": 132
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold profile emptied",
+   "n": 21,
+   "comparison": "HPOA-base - S-mix",
+   "k": 10,
+   "S-mix": 14.29,
+   "HPOA": 76.19,
+   "diff": 61.9,
+   "ci": [
+    42.86,
+    80.95
+   ],
+   "ci_cluster": [
+    35.29,
+    84.0
+   ],
+   "diseases": 13
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold profile emptied",
+   "n": 21,
+   "comparison": "HPOA-base - S-mix",
+   "k": 1,
+   "S-mix": 0.0,
+   "HPOA": 38.1,
+   "diff": 38.1,
+   "ci": [
+    19.05,
+    61.9
+   ],
+   "ci_cluster": [
+    19.23,
+    63.16
+   ],
+   "diseases": 13
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold profile emptied",
+   "n": 21,
+   "comparison": "HPOA-lopo - S-mix",
+   "k": 10,
+   "S-mix": 14.29,
+   "HPOA": 0.0,
+   "diff": -14.29,
+   "ci": [
+    -28.57,
+    0.0
+   ],
+   "ci_cluster": [
+    -35.71,
+    0.0
+   ],
+   "diseases": 13
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold profile emptied",
+   "n": 21,
+   "comparison": "HPOA-lopo - S-mix",
+   "k": 1,
+   "S-mix": 0.0,
+   "HPOA": 0.0,
+   "diff": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "ci_cluster": [
+    0.0,
+    0.0
+   ],
+   "diseases": 13
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold profile emptied",
+   "n": 21,
+   "comparison": "HPOA-rand_s0 - S-mix",
+   "k": 10,
+   "S-mix": 14.29,
+   "HPOA": 71.43,
+   "diff": 57.14,
+   "ci": [
+    38.1,
+    76.19
+   ],
+   "ci_cluster": [
+    35.0,
+    76.47
+   ],
+   "diseases": 13
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold profile emptied",
+   "n": 21,
+   "comparison": "HPOA-rand_s0 - S-mix",
+   "k": 1,
+   "S-mix": 0.0,
+   "HPOA": 28.57,
+   "diff": 28.57,
+   "ci": [
+    9.52,
+    47.62
+   ],
+   "ci_cluster": [
+    11.54,
+    53.33
+   ],
+   "diseases": 13
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold profile emptied",
+   "n": 21,
+   "comparison": "HPOA-rand_s1 - S-mix",
+   "k": 10,
+   "S-mix": 14.29,
+   "HPOA": 66.67,
+   "diff": 52.38,
+   "ci": [
+    33.33,
+    76.19
+   ],
+   "ci_cluster": [
+    29.63,
+    75.0
+   ],
+   "diseases": 13
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold profile emptied",
+   "n": 21,
+   "comparison": "HPOA-rand_s1 - S-mix",
+   "k": 1,
+   "S-mix": 0.0,
+   "HPOA": 42.86,
+   "diff": 42.86,
+   "ci": [
+    23.81,
+    66.67
+   ],
+   "ci_cluster": [
+    23.08,
+    69.23
+   ],
+   "diseases": 13
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold profile emptied",
+   "n": 21,
+   "comparison": "HPOA-rand_s2 - S-mix",
+   "k": 10,
+   "S-mix": 14.29,
+   "HPOA": 71.43,
+   "diff": 57.14,
+   "ci": [
+    38.1,
+    80.95
+   ],
+   "ci_cluster": [
+    29.41,
+    80.0
+   ],
+   "diseases": 13
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold profile emptied",
+   "n": 21,
+   "comparison": "HPOA-rand_s2 - S-mix",
+   "k": 1,
+   "S-mix": 0.0,
+   "HPOA": 33.33,
+   "diff": 33.33,
+   "ci": [
+    14.29,
+    52.38
+   ],
+   "ci_cluster": [
+    15.38,
+    60.0
+   ],
+   "diseases": 13
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold profile emptied",
+   "n": 21,
+   "comparison": "HPOA-rand_dz_s0 - S-mix",
+   "k": 10,
+   "S-mix": 14.29,
+   "HPOA": 76.19,
+   "diff": 61.9,
+   "ci": [
+    42.86,
+    80.95
+   ],
+   "ci_cluster": [
+    35.29,
+    84.0
+   ],
+   "diseases": 13
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold profile emptied",
+   "n": 21,
+   "comparison": "HPOA-rand_dz_s0 - S-mix",
+   "k": 1,
+   "S-mix": 0.0,
+   "HPOA": 47.62,
+   "diff": 47.62,
+   "ci": [
+    28.57,
+    71.43
+   ],
+   "ci_cluster": [
+    27.78,
+    68.18
+   ],
+   "diseases": 13
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold profile emptied",
+   "n": 21,
+   "comparison": "HPOA-lopo_strip - S-mix",
+   "k": 10,
+   "S-mix": 14.29,
+   "HPOA": 0.0,
+   "diff": -14.29,
+   "ci": [
+    -28.57,
+    0.0
+   ],
+   "ci_cluster": [
+    -35.71,
+    0.0
+   ],
+   "diseases": 13
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold profile emptied",
+   "n": 21,
+   "comparison": "HPOA-lopo_strip - S-mix",
+   "k": 1,
+   "S-mix": 0.0,
+   "HPOA": 0.0,
+   "diff": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "ci_cluster": [
+    0.0,
+    0.0
+   ],
+   "diseases": 13
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold profile emptied",
+   "n": 21,
+   "comparison": "HPOA-nopmid - S-mix",
+   "k": 10,
+   "S-mix": 14.29,
+   "HPOA": 0.0,
+   "diff": -14.29,
+   "ci": [
+    -28.57,
+    0.0
+   ],
+   "ci_cluster": [
+    -35.71,
+    0.0
+   ],
+   "diseases": 13
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold profile emptied",
+   "n": 21,
+   "comparison": "HPOA-nopmid - S-mix",
+   "k": 1,
+   "S-mix": 0.0,
+   "HPOA": 0.0,
+   "diff": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "ci_cluster": [
+    0.0,
+    0.0
+   ],
+   "diseases": 13
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold profile emptied",
+   "n": 21,
+   "comparison": "HPOA-rand_nopmid - S-mix",
+   "k": 10,
+   "S-mix": 14.29,
+   "HPOA": 52.38,
+   "diff": 38.1,
+   "ci": [
+    14.29,
+    61.9
+   ],
+   "ci_cluster": [
+    10.0,
+    68.75
+   ],
+   "diseases": 13
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold profile emptied",
+   "n": 21,
+   "comparison": "HPOA-rand_nopmid - S-mix",
+   "k": 1,
+   "S-mix": 0.0,
+   "HPOA": 23.81,
+   "diff": 23.81,
+   "ci": [
+    9.52,
+    42.86
+   ],
+   "ci_cluster": [
+    5.26,
+    50.0
+   ],
+   "diseases": 13
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold profile emptied",
+   "n": 21,
+   "comparison": "HPOA-lopo10 - S-mix",
+   "k": 10,
+   "S-mix": 14.29,
+   "HPOA": 0.0,
+   "diff": -14.29,
+   "ci": [
+    -28.57,
+    0.0
+   ],
+   "ci_cluster": [
+    -35.71,
+    0.0
+   ],
+   "diseases": 13
+  },
+  {
+   "scheme": "lopo (all case papers)",
+   "bench": "RareBench-LIRICAL",
+   "group": "gold profile emptied",
+   "n": 21,
+   "comparison": "HPOA-lopo10 - S-mix",
+   "k": 1,
+   "S-mix": 0.0,
+   "HPOA": 0.0,
+   "diff": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "ci_cluster": [
+    0.0,
+    0.0
+   ],
+   "diseases": 13
+  },
+  {
+   "scheme": "lopo10 (own fold's papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile intact",
+   "n": 2906,
+   "comparison": "HPOA-base - S-mix",
+   "k": 10,
+   "S-mix": 45.97,
+   "HPOA": 49.72,
+   "diff": 3.75,
+   "ci": [
+    1.89,
+    5.64
+   ],
+   "ci_cluster": [
+    -5.35,
+    12.94
+   ],
+   "diseases": 234
+  },
+  {
+   "scheme": "lopo10 (own fold's papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile intact",
+   "n": 2906,
+   "comparison": "HPOA-base - S-mix",
+   "k": 1,
+   "S-mix": 23.74,
+   "HPOA": 22.2,
+   "diff": -1.55,
+   "ci": [
+    -3.54,
+    0.31
+   ],
+   "ci_cluster": [
+    -17.96,
+    11.64
+   ],
+   "diseases": 234
+  },
+  {
+   "scheme": "lopo10 (own fold's papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile intact",
+   "n": 2906,
+   "comparison": "HPOA-rand_s0 - S-mix",
+   "k": 10,
+   "S-mix": 45.97,
+   "HPOA": 48.97,
+   "diff": 2.99,
+   "ci": [
+    1.07,
+    4.89
+   ],
+   "ci_cluster": [
+    -5.31,
+    11.81
+   ],
+   "diseases": 234
+  },
+  {
+   "scheme": "lopo10 (own fold's papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile intact",
+   "n": 2906,
+   "comparison": "HPOA-rand_s0 - S-mix",
+   "k": 1,
+   "S-mix": 23.74,
+   "HPOA": 22.81,
+   "diff": -0.93,
+   "ci": [
+    -2.82,
+    0.96
+   ],
+   "ci_cluster": [
+    -17.94,
+    12.17
+   ],
+   "diseases": 234
+  },
+  {
+   "scheme": "lopo10 (own fold's papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile intact",
+   "n": 2906,
+   "comparison": "HPOA-lopo10 - S-mix",
+   "k": 10,
+   "S-mix": 45.97,
+   "HPOA": 50.03,
+   "diff": 4.06,
+   "ci": [
+    2.17,
+    5.92
+   ],
+   "ci_cluster": [
+    -4.96,
+    13.37
+   ],
+   "diseases": 234
+  },
+  {
+   "scheme": "lopo10 (own fold's papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile intact",
+   "n": 2906,
+   "comparison": "HPOA-lopo10 - S-mix",
+   "k": 1,
+   "S-mix": 23.74,
+   "HPOA": 22.47,
+   "diff": -1.27,
+   "ci": [
+    -3.23,
+    0.62
+   ],
+   "ci_cluster": [
+    -17.8,
+    11.9
+   ],
+   "diseases": 234
+  },
+  {
+   "scheme": "lopo10 (own fold's papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold lost edges",
+   "n": 5416,
+   "comparison": "HPOA-base - S-mix",
+   "k": 10,
+   "S-mix": 31.81,
+   "HPOA": 82.68,
+   "diff": 50.87,
+   "ci": [
+    49.32,
+    52.33
+   ],
+   "ci_cluster": [
+    38.51,
+    61.89
+   ],
+   "diseases": 352
+  },
+  {
+   "scheme": "lopo10 (own fold's papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold lost edges",
+   "n": 5416,
+   "comparison": "HPOA-base - S-mix",
+   "k": 1,
+   "S-mix": 16.34,
+   "HPOA": 61.61,
+   "diff": 45.27,
+   "ci": [
+    43.65,
+    46.9
+   ],
+   "ci_cluster": [
+    29.65,
+    57.61
+   ],
+   "diseases": 352
+  },
+  {
+   "scheme": "lopo10 (own fold's papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold lost edges",
+   "n": 5416,
+   "comparison": "HPOA-rand_s0 - S-mix",
+   "k": 10,
+   "S-mix": 31.81,
+   "HPOA": 81.96,
+   "diff": 50.15,
+   "ci": [
+    48.69,
+    51.59
+   ],
+   "ci_cluster": [
+    40.8,
+    59.29
+   ],
+   "diseases": 352
+  },
+  {
+   "scheme": "lopo10 (own fold's papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold lost edges",
+   "n": 5416,
+   "comparison": "HPOA-rand_s0 - S-mix",
+   "k": 1,
+   "S-mix": 16.34,
+   "HPOA": 58.03,
+   "diff": 41.69,
+   "ci": [
+    40.12,
+    43.19
+   ],
+   "ci_cluster": [
+    28.0,
+    52.79
+   ],
+   "diseases": 352
+  },
+  {
+   "scheme": "lopo10 (own fold's papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold lost edges",
+   "n": 5416,
+   "comparison": "HPOA-lopo10 - S-mix",
+   "k": 10,
+   "S-mix": 31.81,
+   "HPOA": 21.88,
+   "diff": -9.93,
+   "ci": [
+    -11.13,
+    -8.7
+   ],
+   "ci_cluster": [
+    -17.14,
+    -2.77
+   ],
+   "diseases": 352
+  },
+  {
+   "scheme": "lopo10 (own fold's papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold lost edges",
+   "n": 5416,
+   "comparison": "HPOA-lopo10 - S-mix",
+   "k": 1,
+   "S-mix": 16.34,
+   "HPOA": 8.7,
+   "diff": -7.64,
+   "ci": [
+    -8.6,
+    -6.68
+   ],
+   "ci_cluster": [
+    -15.16,
+    -1.54
+   ],
+   "diseases": 352
+  },
+  {
+   "scheme": "lopo10 (own fold's papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile emptied",
+   "n": 1988,
+   "comparison": "HPOA-base - S-mix",
+   "k": 10,
+   "S-mix": 7.04,
+   "HPOA": 84.21,
+   "diff": 77.16,
+   "ci": [
+    75.3,
+    79.12
+   ],
+   "ci_cluster": [
+    71.71,
+    82.07
+   ],
+   "diseases": 273
+  },
+  {
+   "scheme": "lopo10 (own fold's papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile emptied",
+   "n": 1988,
+   "comparison": "HPOA-base - S-mix",
+   "k": 1,
+   "S-mix": 0.7,
+   "HPOA": 70.62,
+   "diff": 69.92,
+   "ci": [
+    68.01,
+    71.98
+   ],
+   "ci_cluster": [
+    64.69,
+    74.76
+   ],
+   "diseases": 273
+  },
+  {
+   "scheme": "lopo10 (own fold's papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile emptied",
+   "n": 1988,
+   "comparison": "HPOA-rand_s0 - S-mix",
+   "k": 10,
+   "S-mix": 7.04,
+   "HPOA": 79.68,
+   "diff": 72.64,
+   "ci": [
+    70.67,
+    74.65
+   ],
+   "ci_cluster": [
+    66.82,
+    78.3
+   ],
+   "diseases": 273
+  },
+  {
+   "scheme": "lopo10 (own fold's papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile emptied",
+   "n": 1988,
+   "comparison": "HPOA-rand_s0 - S-mix",
+   "k": 1,
+   "S-mix": 0.7,
+   "HPOA": 64.79,
+   "diff": 64.08,
+   "ci": [
+    62.07,
+    66.3
+   ],
+   "ci_cluster": [
+    57.89,
+    70.01
+   ],
+   "diseases": 273
+  },
+  {
+   "scheme": "lopo10 (own fold's papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile emptied",
+   "n": 1988,
+   "comparison": "HPOA-lopo10 - S-mix",
+   "k": 10,
+   "S-mix": 7.04,
+   "HPOA": 0.0,
+   "diff": -7.04,
+   "ci": [
+    -8.2,
+    -5.99
+   ],
+   "ci_cluster": [
+    -10.74,
+    -3.86
+   ],
+   "diseases": 273
+  },
+  {
+   "scheme": "lopo10 (own fold's papers)",
+   "bench": "Phenopacket-store",
+   "group": "gold profile emptied",
+   "n": 1988,
+   "comparison": "HPOA-lopo10 - S-mix",
+   "k": 1,
+   "S-mix": 0.7,
+   "HPOA": 0.0,
+   "diff": -0.7,
+   "ci": [
+    -1.11,
+    -0.35
+   ],
+   "ci_cluster": [
+    -1.57,
+    -0.1
+   ],
+   "diseases": 273
+  }
+ ]
+}
