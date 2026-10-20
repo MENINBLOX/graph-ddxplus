@@ -1,0 +1,21 @@
+{
+ "workers": 8,
+ "index_load_sec": 6.5,
+ "index_strings": 853484,
+ "v2": {
+  "files": 2595,
+  "chars": 77416840,
+  "match_sec": 4.8,
+  "items": 1061180,
+  "out_bytes": 331444809,
+  "chars_per_sec": 16081155.62512184
+ },
+ "v3new": {
+  "files": 2179,
+  "chars": 218178576,
+  "match_sec": 11.6,
+  "items": 2771913,
+  "out_bytes": 822054042,
+  "chars_per_sec": 18787743.952511024
+ }
+}

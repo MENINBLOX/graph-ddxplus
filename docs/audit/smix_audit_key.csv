@@ -1,0 +1,101 @@
+row,disease_id,cui,mention_origin,mention_span,mention_topic,edge_origin,edge_mentions_llm_table,edge_mentions_dict_relink,n_mentions,n_docs,n_topic_docs
+1,C0265449,C0004352,dict_relink,Autism on the Autism Diagnostic Interview-Revised,True,dict_relink,0,3,3,2,2
+2,MONDO:0011262,C2981150,dict_relink,"camptodactyly, cleft palate, and talipes equinovarus",False,dict_relink,0,1,1,1,0
+3,C0033771,C0033774,dict_relink,itching induced by IL-31 and periostin,True,both,13,107,120,35,35
+4,C1443942,C0004238,dict_relink,non-sustained VT and atrial fibrillation,True,dict_relink,0,1,1,1,1
+5,C0233649,C1704632,dict_relink,increased response latencies,False,dict_relink,0,2,2,1,0
+6,C5679781,C4014344,llm_table,,False,llm_table,1,0,1,1,0
+7,C4553710,C0085633,dict_relink,"nsomnia, emotional lability, and memory impairment",False,dict_relink,0,1,1,1,0
+8,C5234914,C0043251,llm_table,,False,llm_table,1,0,1,1,0
+9,C3539494,C1719404,llm_table,,False,llm_table,1,0,1,1,0
+10,C0518959,C0745673,llm_table,,True,llm_table,5,0,5,3,3
+11,C0152436,C4321351,dict_relink,distended vagina containing homogeneous low-level echoes,True,dict_relink,0,1,1,1,1
+12,C5567229,C0497202,llm_table,,False,llm_table,1,0,1,1,0
+13,C0017178,C4068833,llm_table,,True,llm_table,1,0,1,1,1
+14,C3805432,C0266544,dict_relink,B/L microcornea + type II IFC,True,both,1,8,9,4,4
+15,C4311047,C0848558,llm_table,,False,llm_table,1,0,1,1,0
+16,MONDO:0100489,C0002453,llm_table,,True,llm_table,1,0,1,1,1
+17,C0001824,C0035243,dict_relink,multiple recent respiratory infections,True,dict_relink,0,1,1,1,1
+18,C4551568,C0885860,llm_table,,False,llm_table,1,0,1,1,0
+19,C1833797,C3687360,llm_table,,True,llm_table,1,0,1,1,1
+20,C0752347,C0037019,dict_relink,Parkinson's or Shy-Drager syndrome initially,True,dict_relink,0,1,1,1,1
+21,MONDO:0021726,C0232462,llm_table,,True,llm_table,6,0,6,2,2
+22,C0155909,C1262477,llm_table,,True,llm_table,2,0,2,1,1
+23,C1864389,C0152013,dict_relink,dismal prognosis in LUAD patients,True,dict_relink,0,1,1,1,1
+24,C0018425,C0333768,llm_table,,True,llm_table,1,0,1,1,1
+25,C0014058,C0040822,dict_relink,uncontrolled shaking of the body,True,both,1,1,2,2,2
+26,C0015544,C0002871,llm_table,,True,both,3,2,5,4,4
+27,MONDO:0002816,C4324389,llm_table,,False,llm_table,1,0,1,1,0
+28,C0006131,C1446409,dict_relink,positive transillumination reaction,True,dict_relink,0,2,2,1,1
+29,C3551077,C0024441,dict_relink,full-thickness stage 4 macular hole,True,dict_relink,0,1,1,1,1
+30,C0584960,C0271051,llm_table,,True,llm_table,1,0,1,1,1
+31,C4225557,C1510420,dict_relink,inserting paperclips into his abdominal cavity,True,dict_relink,0,2,2,1,1
+32,C0017605,C0577559,dict_relink,cerebral frontal lobe cystic mass resection,True,dict_relink,0,1,1,1,1
+33,GR:NBK559435,C0427065,llm_table,,False,llm_table,1,0,1,1,0
+34,C0730362,C4319729,llm_table,,True,llm_table,1,0,1,1,1
+35,C4510043,C0149663,dict_relink,skin dehiscence at venipuncture site,False,both,1,2,3,1,0
+36,C5679817,C0003892,llm_table,,True,both,7,4,11,10,10
+37,MONDO:0005057,C0728993,llm_table,,True,llm_table,1,0,1,1,1
+38,C0840927,C0237868,llm_table,,False,llm_table,1,0,1,1,0
+39,C2749137,C1299586,dict_relink,difficulty handling cells,True,both,1,3,4,4,4
+40,C0796068,C0266174,llm_table,,True,both,1,4,5,3,1
+41,C0685409,C4521986,dict_relink,"Oral gold, physiotherapy",True,dict_relink,0,1,1,1,1
+42,C4749142,C4512006,llm_table,,True,llm_table,1,0,1,1,1
+43,C1848814,C0027721,dict_relink,minimal change nephropathy,True,dict_relink,0,1,1,1,1
+44,C0013595,C0020456,llm_table,,True,llm_table,1,0,1,1,1
+45,C4081841,C0812425,dict_relink,Mitotic index (mitoses/10 HPF),True,dict_relink,0,2,2,2,2
+46,MONDO:0005714,C0032285,llm_table,,True,llm_table,4,0,4,4,4
+47,C0155284,C0151671,llm_table,,False,llm_table,2,0,2,1,0
+48,C0391816,C0266058,llm_table,,True,llm_table,1,0,1,1,1
+49,C1853136,C1550647,llm_table,,True,llm_table,1,0,1,1,1
+50,C0237962,C1960160,dict_relink,constant pain in the right lumbar region,True,dict_relink,0,1,1,1,1
+51,C2118460,C0949920,llm_table,,True,llm_table,1,0,1,1,1
+52,C5680675,C4012054,llm_table,,True,llm_table,1,0,1,1,1
+53,C4225557,C0264733,llm_table,,True,llm_table,1,0,1,1,1
+54,C5774257,C0005741,llm_table,,True,llm_table,7,0,7,6,6
+55,C0398370,C3278575,dict_relink,increased IL-8 levels in supernatants,True,dict_relink,0,1,1,1,1
+56,C1856305,C0012634,dict_relink,progression of extrahepatic disease,True,dict_relink,0,3,3,2,1
+57,C1845181,C0683598,llm_table,,True,llm_table,1,0,1,1,1
+58,MONDO:0020807,C0150312,dict_relink,Heterologous stromal elements were present,False,dict_relink,0,1,1,1,0
+59,C5680378,C1855789,dict_relink,SICI (%),False,dict_relink,0,1,1,1,0
+60,C5681689,C4281748,dict_relink,mild to moderate aortic perivalvular leakage,False,dict_relink,0,1,1,1,0
+61,C3809420,C1155266,dict_relink,stronger expression of components of the inflammatory response,True,dict_relink,0,1,1,1,1
+62,MONDO:0021140,C5551413,llm_table,,True,llm_table,1,0,1,1,1
+63,C0020075,C0333751,llm_table,,True,llm_table,1,0,1,1,1
+64,C5441823,C1705285,dict_relink,CHST6 coding mutation,False,dict_relink,0,1,1,1,0
+65,C1266092,C1446409,dict_relink,lymphocytes positive for CD3,False,dict_relink,0,18,18,4,0
+66,C4015156,C4477000,dict_relink,Hyperechogenic liver texture,False,dict_relink,0,1,1,1,0
+67,C4025327,C1706180,dict_relink,full-term male neonate,False,dict_relink,0,2,2,2,1
+68,C0342841,C1458156,llm_table,,True,llm_table,1,0,1,1,1
+69,C3160858,C0035608,llm_table,,True,llm_table,1,0,1,1,1
+70,MONDO:0004130,C0027651,dict_relink,A jigsaw-like arrangement of tumor lobules,True,dict_relink,0,2,2,1,1
+71,C3280785,C0311468,dict_relink,HypoglycemiaHigh GGTIndirect-Hyperbilirubinemia,False,dict_relink,0,1,1,1,0
+72,C0085859,C0235896,llm_table,,True,llm_table,2,0,2,2,2
+73,C4518080,C0042963,dict_relink,"anticonvulsants can cause nausea, vomiting, diarrhea",True,both,2,1,3,2,2
+74,C5774339,C1535926,dict_relink,neurodevelopmental disorder with microcephaly,False,dict_relink,0,8,8,8,1
+75,C0162834,C5229936,llm_table,,True,llm_table,2,0,2,1,1
+76,C0334480,C0338614,dict_relink,acute psychotic episodes with auditory hallucinations,True,dict_relink,0,1,1,1,1
+77,C5979982,C0037268,llm_table,,True,llm_table,1,0,1,1,1
+78,C3809369,C4540165,dict_relink,cortical hypoplasia and cerebellar vermis dysplasia,True,dict_relink,0,1,1,1,1
+79,C3278148,C0009566,llm_table,,True,llm_table,1,0,1,1,1
+80,C5569009,C0242339,llm_table,,True,llm_table,1,0,1,1,1
+81,C0017919,C0428554,llm_table,,True,both,3,1,4,2,2
+82,C5203411,C0027059,dict_relink,myocarditis in 2 (7%),False,dict_relink,0,1,1,1,0
+83,C0023656,C3279547,llm_table,,True,both,3,3,6,5,5
+84,C1858854,C1287399,llm_table,,True,llm_table,1,0,1,1,1
+85,MONDO:0850426,C0577053,llm_table,,True,llm_table,1,0,1,1,1
+86,MONDO:0023113,C1314687,llm_table,,True,llm_table,2,0,2,2,2
+87,MONDO:0015160,C0042063,llm_table,,True,llm_table,2,0,2,2,2
+88,C3809536,C0235242,llm_table,,False,both,1,1,2,1,0
+89,C0341505,C0035956,dict_relink,chemical peritonitis due to spontaneous rupture,True,dict_relink,0,1,1,1,1
+90,C0340442,C5441846,llm_table,,False,llm_table,1,0,1,1,0
+91,C5681077,C1272241,llm_table,,False,llm_table,1,0,1,1,0
+92,C0751604,C0153665,dict_relink,Progressive lower limb onset UMN syndrome,False,dict_relink,0,1,1,1,0
+93,C0007820,C0010957,dict_relink,transient hypoxia damage can increase,True,dict_relink,0,1,1,1,1
+94,C0432282,C0205082,dict_relink,Severe osteoarthritic changes in the lateral compartment,True,dict_relink,0,3,3,3,3
+95,MONDO:0002547,C1266188,llm_table,,False,llm_table,1,0,1,1,0
+96,MONDO:0004006,C0006610,llm_table,,False,llm_table,1,0,1,1,0
+97,C0796208,C0035309,dict_relink,advanced retinopathy associated with cone-rod,True,dict_relink,0,2,2,2,2
+98,C4015195,C3163616,llm_table,,False,llm_table,1,0,1,1,0
+99,C5848146,C0039082,dict_relink,atactic syndrome of the lower limbs,True,dict_relink,0,3,3,3,2
+100,C2718067,C0006826,llm_table,,True,llm_table,1,0,1,1,1

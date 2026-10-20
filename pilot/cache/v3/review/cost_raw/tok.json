@@ -1,0 +1,16 @@
+{
+ "src_v2": {
+  "sample": 2000,
+  "windows_total": 450172,
+  "tok_per_window_mean": 1096.918,
+  "chars_per_token": 4.367153697906316,
+  "window_chars_mean": 3624.948
+ },
+ "src_v3new": {
+  "sample": 2000,
+  "windows_total": 1864256,
+  "tok_per_window_mean": 1043.3635,
+  "chars_per_token": 3.376381289933949,
+  "window_chars_mean": 2355.395
+ }
+}
