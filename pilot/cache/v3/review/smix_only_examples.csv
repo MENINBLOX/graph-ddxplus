@@ -1,0 +1,156 @@
+row,disease_id,disease,cui,concept,concept_tuis,n_docs,n_topic_docs,n_mentions,mentions_dict_relink,mentions_llm_table,edge_origin,phrase,span,sentence,doc_id,pmid,title,llm_phrase_verbatim_in_doc,concept_dict_strings,concept_dict_strings_examples,concept_strings_in_docs,sdict_links_concept_in_docs,dict_in_sentence,my_reading,my_reading_subtype,my_note
+1,C0019099,"Hemorrhagic Fever, Crimean",C0596235,calcium ion,T121/T196,2,2,2,0,2,llm_table,Ionized calcium (mmol/L),,"arameters during the hospital stay and at follow-up visits of the patient Parameter Day 0 Day 1 Day 2 Day 3 Day 4 Day 5 Day 7 Day 14 Hb (g/dl) 12.6 13 14 16 14.4 14.1 13.3 13.5 WBC (10 6 cells/μl) 1.85 2.06 2.66 4.37 8.25 12.4 10.6 8.9 Platelets (10 3 cells/μl) 36 21 13 9 17 101 334 387 AST (U/L) 27,220 47,220 27,220 12,004 1732 108 88 40 ALT (U/L) 11,100 27,688 11,550 4590 1001 223 56 28 PT (seconds) 17.1 17.5 15.5 12 APTT (seconds) 142.7 56 25 Creatinine (μmol/L) 88 84 68 Albumin (g/dl) 30 31 35 42 Ionized calcium (mmol/L) 1.7 1.94 2.05 2.3 VBG bicarbonate 15 12 15.9 17 20 VBG PCO 2 20 18 24",PMC5721681,29216924,Dengue hemorrhagic fever complicated with acute liver failure: a case report,y/y,0,,none,0/2,follow up -> C0589120,likely_wrong,not_a_finding,"Lab table row header 'Ionized calcium (mmol/L)' with values; linked to the substance concept calcium ion (T121/T196), no abnormality stated"
+2,C0031157,Peritonsillar Abscess,C1298907,Yes (qualifier value),T033,1,1,1,0,1,llm_table,Yes,,"Table: Descriptive Characteristics of Patients Presenting with a Peritonsillar Abscess.
+Variable | N (%) n = 75
+Age (Mean ± SD) | 35.9 ± 14.0
+Sex
+Male | 43 (57.3)
+Female | 32 (42.7)
+Side of PTA
+Right | 37 (49.3)
+Left | 36 (48.0)
+Unknown | 2 (2.7)
+Registered with a primary care provider
+Yes | 62 (82.7)
+No | 13 (17.3)
+History of PTA
+Yes | 7 (9.3)
+No/Not reported | 68 (90.7)
+Smoking
+Current smoker | 12 (16.0)
+Previous smoker | 7 (9.3)
+Non-smoker/Not reported | 56 (74.7)
+Patient temperature (Mean ± SD) | 37.2°C ± 0.7°C
+Febrile (>38.0°C) | 10 (13.3)
+Afebrile (<38.0°C) | 62 (82.7)
+Unknown | 3 (4.0)
+",TBLPMC10359955,36217949,Seasonal Variation of Peritonsillar Abscess Presentation to an Emergency Department in an Atlantic Canadian Climate: A Retrospective Review,y,1,yes qualifier value,none,0/1,peritonsillar abscess -> C0031157; male -> C1706180; history of (negated) -> C0262926; current smoker -> C3241966; smoker -> C0337664; non smoker -> C0337672; febrile -> C0015967; afebrile -> C0277797,likely_wrong,table_artifact,Table answer cell 'Yes' (registered with a primary care provider) linked to the qualifier value Yes
+3,C0040702,Transient Tic Disorder,C0239076,Cocaine user,T033,1,0,1,0,1,llm_table,cocaine use,,"Adults with new onset tics were more likely to have a symptomatic or secondary tic disorder, which in this series was caused by infection, trauma, cocaine use, and neuroleptic exposure.",PMID10811697,10811697,Adult onset tic disorders.,y,2,cocaine user | cocaine user finding,none,0/1,tics -> C0040188/C2169806; likely -> C0332148; secondary tic disorder -> C4302180; infection -> C3714514; trauma -> C3714660; cocaine use -> C3496069; exposure -> C0274281,likely_wrong,not_supported,"Cocaine use is named as a cause of secondary tic disorders in adults, not a finding of transient tic disorder (no on-topic document); S-dict matched the same words to another CUI (C3496069 Cocaine use) for this disease"
+4,C0042454,Velopharyngeal Insufficiency,C0265329,Organoid Nevus Phakomatosis,T047,1,1,1,0,1,llm_table,Epidermal-Nevus syndrome,,"Table: Neurologic causes of noncleft VPI.
+Posttraumatic brain injury | N = 2
+Developmental delay | N = 2
+Cerebral palsy | N = 1
+Myasthenia gravis | N = 1
+Associated speech delay | N = 3
+Undiagnosed neurologic condition | N = 10
+
+Table: Syndromic causes of noncleft VPI.
+Velocardiofacial syndrome | N = 7
+Klippel-Feil syndrome | N = 1
+Epidermal-Nevus syndrome | N = 1
+Alagille syndrome | N = 1
+Turner syndrome | N = 1
+VATER syndrome | N = 1
+Unrecognized syndrome | N = 1",TBLPMC3324135,22548069,Noncleft Velopharyngeal Insufficiency: Etiology and Need For Surgical Treatment,y,10,feuerstein mims syndrome | syndrome feuerstein mims | syndrome schimmelpenning | nevus phakomatoses organoid | nevus phakomatosis organoid,none,0/1,brain injury -> C0270611; developmental delay -> C0424605/C0557874; cerebral palsy -> C0007789; myasthenia gravis -> C0026896; speech delay -> C0023012/C0241210; undiagnosed -> C1408353; condition -> C0012634; velocardiofacial syndrome -> C0220704; klippel feil syndrome -> C0022738; epidermal nevus syndrome -> C5848385; alagille syndrome -> C0085280; turner syndrome -> C0041408; vater syndrome -> C0220708; syndrome -> C0039082,dict_should_match,other_cui,"'Epidermal-Nevus syndrome' listed among syndromic causes of noncleft VPI; S-dict matched the same string and named it C5848385 (S-dict has that edge), the phrase table named it C0265329"
+5,C0043325,Xanthomatosis,C1320716,Cardiovascular event,T033,1,1,1,0,1,llm_table,premature cardiovascular events,,"In the present atypical case with an unusual disease course, the patient was initially misdiagnosed with HeFH, most likely due to the lack of neurologic signs, the existence of premature cardiovascular events, and moderately elevated LDL-cholesterol levels.",PMC11663867,39717439,Cerebrotendinous xanthomatosis: a literature review and case study,y,2,cardiovascular event | cardiovascular event event,none,0/1,present -> C0150312; atypical -> C0741302; disease -> C0012634; likely -> C0332148; neurologic signs (negated) -> C0751378; premature -> C4018905; moderately -> C4085643; elevated ldl cholesterol -> C0549399,dict_should_match,inflection,'premature cardiovascular events' in a case of the disease; the dictionary has 'cardiovascular event' but exact token matching misses the plural
+6,C0221036,Acrodermatitis enteropathica,C0086152,Dietary Habits,T055,1,1,1,0,1,llm_table,regional dietary habits,,"In addition, AEs may exhibit clinical differences among different ethnic groups, possibly linked to regional dietary habits, environmental factors, and genetic backgrounds ( 5 ).",PMC12521432,41103716,Clinical features and genetic analysis of acrodermatitis enteropathica in an ethnic minority infant from Western China: a case report and literature review,y,0,,none,0/1,ethnic -> C0680174; environmental factors -> C1516998,likely_wrong,not_supported,"'regional dietary habits' is speculation about ethnic differences, not a finding of acrodermatitis enteropathica; concept is a behaviour (T055) outside the dictionary's semantic types"
+7,C0221106,Alkalemia,C1304757,"Finding of protein concentration, dipstick",T034,1,0,1,0,1,llm_table,total protein concentrations,,The lowering of PaCO2 was proportional to the reduction of serum albumin and total protein concentrations; no detectable difference was seen between the patients with cirrhosis and those without cirrhosis in this apparent dependence of PaCO2 on the concentration of serum proteins.,PMID3183488,3183488,Hyperventilation with hypoproteinemia.,y,4,protein concentration | protein concentration dipstick finding | finding of protein concentration dipstick | finding of protein concentration dipstick finding,none,0/1,reduction -> C0392756; cirrhosis -> C0023890/C1623038; cirrhosis (negated) -> C0023890/C1623038; dependence (negated) -> C0439857,likely_wrong,wrong_concept,'reduction of serum ... total protein concentrations' linked to a urine dipstick protein finding; the direction (reduced) is also lost
+8,C0238190,"Myositis, Inclusion Body",C0238883,(no English UMLS string here),T184,1,1,1,0,1,llm_table,bilateral calf tenderness,,"On physical examination, the patient exhibited dry mucous membranes and bilateral calf tenderness without swelling, deformity, or bony tenderness.",PMC12883225,41664754,A Case of Viral Myositis,y,0,,none,0/1,tenderness -> C0234233; swelling (negated) -> C0038999; deformity (negated) -> C0302142; tenderness (negated) -> C0234233,new_form,vocab_gap,"'bilateral calf tenderness' on examination is a literal phrase, but the UMLS subset the dictionary uses has no string for C0238883 (S-dict extracted only 'tenderness')"
+9,C0393590,Fahr's syndrome (disorder),C0349398,Paranoid delusion,T048,1,1,1,0,1,llm_table,paranoid delusions,,"Table: Principal characteristics of the seven subjects with Fahr’s disease
+Case | Gender | Age | Diagnosis | Risk factors | Classification by Manyam (and other neuroimaging findings) | Psychotic symptoms | Cognitive impaiment | Other Psychiatric disorders | Extrapyramidal disorders | Other neurologic abnormalities | Response to neuroleptics
+1 | Male | 73 | PrimaryLate onset | (cerebrovascular disease ?) | SPD calcinosis (+ left, frontal malacic area, leukoaraiosis, cortical atrophy) | Severe: well-structured paranoid delusions of robbery and conspirancy, with strong emotional involvment | Seve",TBLPMC5015253,27608765,Bilateral strio-pallido-dentate calcinosis (Fahr’s disease): report of seven cases and revision of literature,y,2,paranoid delusion | paranoid delusion finding,none,0/1,fahr s disease -> C0393590; risk factors -> C0035648; other -> C5202885; psychotic -> -; symptoms cognitive -> C0525041; other -> C5202885; psychiatric disorders -> C0004930/C0004936; extrapyramidal disorders -> C0015371; other -> C5202885; neurologic abnormalities -> C0497552; response -> C1704632; male -> C1706180; cerebrovascular disease -> C0007820; calcinosis -> C0006663; leukoaraiosis -> C0948163; cortical atrophy -> C4551583; severe -> C0205082; well -> C5575035; delusions -> C0011253; emotional -> C0849912,dict_should_match,inflection,'paranoid delusions' in the psychotic-symptom column of a Fahr's disease case table; dictionary string 'paranoid delusion' misses the plural
+10,C0574080,Guanidinoacetate methyltransferase deficiency,C0234550,EEG finding,T033,1,1,1,0,1,llm_table,non-specific EEG findings,,Epilepsy is one of the main symptoms in GAMT deficiency with various seizure types and non-specific EEG findings.,PMID38394710,38394710,Electro-clinical features and long-term outcomes in guanidinoacetate methyltransferase (GAMT) deficiency.,y,6,eeg finding | eeg finding nos | eeg observations | eeg finding finding | electroencephalogram finding,none,0/1,epilepsy -> C0014544; symptoms -> C1457887; gamt deficiency -> C0574080; various seizure types -> C4228249,dict_should_match,inflection,'non-specific EEG findings' in GAMT deficiency; dictionary string 'eeg finding' misses the plural
+11,C0742020,Recurrent cellulitis,C0877248,Adverse event,T046,1,1,1,0,1,llm_table,adverse events,,"Secondary outcomes were (1) the time to next episode of recurrence, (2) quality of life measures, and (3) adverse events (e.g.",PMID24576824,24576824,Antibiotic prophylaxis for preventing recurrent cellulitis: a systematic review and meta-analysis.,y,1,adverse event,none,0/1,recurrence -> C1458156; quality of life -> C0518214,likely_wrong,not_a_finding,"'adverse events' is a secondary trial outcome, not a finding of recurrent cellulitis"
+12,C1275278,Extraskeletal Myxoid Chondrosarcoma,C0023899,liver extract,T109/T121,1,1,1,0,1,llm_table,liver,,"Despite being a slow-growing tumor, it has a high rate of local recurrences and history of metastases to uncommon sites like the mandible, liver, retroperitoneum, right ventricle, pancreas, and central nervous system.",PMID26125202,26125202,Breast Metastasis of Extraskeletal Myxoid Chondrosarcoma: A Case Report.,y,0,,none,0/1,slow growing -> C4086857; tumor -> C0006826/C0027651; high -> C5202936; recurrences -> C2825055; history of -> C0262926; metastases -> C0027627; mandible -> C0153511; liver -> C0496870; retroperitoneum -> -; pancreas -> C0347284; nervous -> C0027769; system -> C5444317,likely_wrong,wrong_concept,'liver' as a metastatic site linked to liver extract (T109/T121); the finding would be liver metastasis
+13,C1833296,"FRONTOTEMPORAL DEMENTIA, CHROMOSOME 3-LINKED",C0036751,serotonin,T109/T123,1,1,1,0,1,llm_table,Serotonin,,"Table: Evidence for neurotransmitter deficits in frontotemporal dementia.
+ | Type of evidence
+Neurotransmitter | Neurobiological | Neurophysiological | Neuroradiological | Pharmacological
+Glutamate | + | + | + | -
+GABA | + | + | - | -
+Serotonin | + | - | + | +
+Dopamine | + | - | + | +
+Acetylcholine | - | - | - | -
+Noradrenaline | - | - | ± | +",TBLPMC6449454,30983965,Toward a Glutamate Hypothesis of Frontotemporal Dementia,y,0,,none,0/1,frontotemporal dementia -> C0338451,likely_wrong,wrong_concept,Neurotransmitter-deficit table row 'Serotonin | +' linked to the substance serotonin; the reported finding (serotonin deficit) is not what the concept says
+14,C1837285,"RESTLESS LEGS SYNDROME, SUSCEPTIBILITY TO, 2",C2825025,Iron Supplement [EPC],T121,1,1,1,0,1,llm_table,intake of iron supplements,,"(2014) [41] | 30 | Fe (15)53 ± 1393% | Pramipexole (15)59 ± 11100% |  |  | 7 (23%) | IC: 20–80 years old, diagnosis of RLS and a serum ferritin concentration between 15 and 50 ng/mL.EC: Pregnant women, history of hemochromatosis, severe liver disease, end-stage renal disease or malignancy, iron allergy and intake of iron supplements or medications that would affect RLS symptoms.
+Sagheb et al.",TBLPMC11280425,39064758,Effects of Dietary Supplementation in Patients with Restless Legs Syndrome: A Systematic Review,y,0,,none,0/1,pregnant -> C0549206; history of -> C0262926; hemochromatosis -> C0018995; severe liver disease -> C5707743; end stage renal disease -> C0022661/C2316810; malignancy -> C0006826; iron allergy -> C0571795; symptoms -> C1457887,likely_wrong,not_supported,'intake of iron supplements' is a trial exclusion criterion
+15,C1851112,Jones syndrome,C1261982,chondrosis,T047,1,0,1,0,1,llm_table,Chondrosis synovialis,,Clinical and pathological findings as well as diagnosis of Chondrosis synovialis (Henderson-Jones Syndrome) are presented and completed with authors observations.,PMID3577352,3577352,[Synovial chondrosis. Chondromatosis--osteochondromatosis].,y,0,,none,0/1,well -> C5575035; henderson jones syndrome -> C0008476,likely_wrong,not_supported,"The document is about synovial chondromatosis (Henderson-Jones syndrome), a name collision with Jones syndrome (gingival fibromatosis with deafness); no on-topic document"
+16,C1864846,"Pigmented Nodular Adrenocortical Disease, Primary, 1",C0016424,Follicle stimulating hormone injectable,T200,1,1,1,0,1,llm_table,FSH,,"00 µmol/L | (45-109)
+Total serum protein | 5.9 g/dL | (6.4-8.3)
+Albumin | 2.5 g/dL | (3.4-4.7)
+Globulin | 2.7 g/dL | (2.7-3.5)
+Sodium | 147 mmol/L | (136-145)
+Potassium | 3.4 mmol/L | (3.3-5.1)
+AST | 19 U/L | (0-37)
+ALT | 32 U/L | (0-41)
+TSH | 3.075 mIU/L | (0.25-4.55)
+IGF-1 | 125 ng/mL | (120-330)
+FSH | 6.0 mIU/mL | (1.0-10)
+LH | 5.4 mIU/mL | (1.0-10)
+Testosterone | 12.5 nmol/L | (9-35)
+Prolactin | 9.8 ng/mL | (2.7-16.9)",TBLPMC11497543,39445317,Male Infertility associated with a Novel PRKAR1A Mutation in Carney Complex,y,0,,none,0/1,,likely_wrong,not_a_finding,"Lab table row 'FSH | 6.0 mIU/mL (1.0-10)', a normal value, linked to an FSH injectable drug concept (T200)"
+17,C1866855,"Spastic paraplegia 4, autosomal dominant",C0520947,Clumsiness - motor delay,T048,1,1,1,0,1,llm_table,evidence of mild motor delay,,"At the age of 8 months, the patient was diagnosed with West syndrome, presenting with clusters of infantile spasms, a markedly disorganized electroencephalographic pattern consistent with hypsarrhythmia, and evidence of mild motor delay.",PMC13126082,42065018,Spastic Quadriplegia Resulting From a Pathogenic Variant in the SPAST Gene: A First Report,y,7,clumsy child | clumsy child finding | clumsy child syndrome | clumsiness motor delay | x clumsy child syndrome,none,0/1,west syndrome -> C0037769; infantile spasms -> C0037769/C3887898; hypsarrhythmia -> C0684276; mild motor delay -> C4314979,dict_should_match,other_cui,"'evidence of mild motor delay' in a case report; S-dict matched 'mild motor delay' and named it C4314979 (S-dict has that edge), the phrase table named it C0520947"
+18,C2751608,"Pituitary Hormone Deficiency, Combined, 1",C0042963,Vomiting,T184,2,2,2,0,2,llm_table,vomiting,,"guage retardation | Short stature /4.10 | PCCH
+3 | Female | 2day | 3.65 (75rd-90rd) | 50 (50rd-75rd) | 7.04 | 2.47 | 10.16 | 4.6/- | Normal | TSH elevation on newborn screening | Normal/10.10 | TCCH
+4 | Female | 16 | 7.2 (under 3rd) | 77 (25rd-50rd) | 3.26 | 2.73 | 11.49 | 3.5/2.4 | Normal | Fever, vomiting | Short stature /4.3 | PCCH
+5 | Female | 16 | 6 (under 3rd) | 66 (under 3rd) | 3.11 | 5.33 | 7.07 | 2.8/2.1 | Normal | Growth delay, cleft palate | Short stature /7.5 | PCCH
+6 | Male | 3.5 | 5.0 (under 3rd) | 60 (under 3rd) | 3.56 | 4.3 | 7.71 | 3.3/1.2 | Normal | Growth delay | Normal /6 |",TBLPMC10422988,37576911,Genetic Basis of Congenital Central Hypothyroidism in Children: Expanding the Mutational Spectrum of POU1F1 and ATP6V0A4,y/y,24,emesis | d emesis | vomiting | being sick | d vomiting,negated: 2,0/2,short stature -> C0349588; normal tsh -> C5542873; newborn (negated) -> C2239178; normal -> C1873497; normal -> C1873497; fever (negated) -> C0015967; vomiting (negated) -> C0042963; short stature (negated) -> C0349588; normal growth -> C0578019; cleft palate (negated) -> C0008925/C2981150; short stature (negated) -> C0349588; male -> C1706180; normal growth -> C0578019; normal (negated) -> C1873497,dict_should_match,negation,"Patient table cell 'Fever, vomiting'; S-dict dropped 'vomiting' because the cue 'normal' from the preceding table cell is within its five-token negation window"
+19,C3276539,"CUTIS LAXA, AUTOSOMAL DOMINANT 1",C0150037,Childhood growth AND/OR development alteration,T033,1,1,1,0,1,llm_table,Growth delay,,"Corpus callosum hypoplasia/aplasia | − | − | − | ++/− | − | +/−
+Open fontanel/late closure | − | − | ++ | − | − | −
+Microcephaly | + | ++ | + | +/− | + | −
+Dysmorphic features | + | + | ++ | + | + | ++
+Kinky, sparse hair | ++ | − | − | − | − | +/−
+Hypopigmentation skin/nails | + | − | − | − | − | −
+Growth delay | ++ | ++ | + | + | + | +
+Hyperlaxity of joints | + | + | ++ | + | ++ | +/−
+Adducted thumbs/distal arthrogryposis | − | ++ | − | ++ | − | −
+Spontaneous bone fracture | + | − | +/− | +/− | +/− | −
+Hernias | ++ | − | + | ++ | − | +/−
+VSD | − | + | − | − | − | +/−
+Spontaneous vascular rupt",TBLPMC3137780,21431621,Metabolic cutis laxa syndromes,y,3,growth and devlopment alteration | childhood growth and or development alteration | childhood growth and or development alteration finding,none,0/1,corpus callosum hypoplasia -> C0344482; aplasia -> C0243065; open fontanel -> C0239631; microcephaly -> C0025958/C4551563; dysmorphic features -> C0432072; sparse hair -> C0232411/C5551005; hypopigmentation -> C0162835; skin -> C0496955; growth delay -> C0151686/C0456070; hyperlaxity -> C0086437; adducted thumbs -> C0431886; distal arthrogryposis -> C0265213; bone fracture -> C0016658; hernias -> C0019270,dict_should_match,other_cui,"Table row 'Growth delay'; S-dict matched it and named it C0151686/C0456070 (S-dict has those edges), the phrase table also named it C0150037"
+20,C3554686,IMMUNODEFICIENCY 11,C1548502,Unknown - Vaccines administered,T121/T129,1,0,1,0,1,llm_table,Unknown (PCR),,"0 | 1.646 (1.083–2.341) | 0 | NS
+
+Table: Characteristics of the patients tested positive for Campylobacter
+N° | Sex | Age | Campylobacter species | Antibiotic treatment | Clinical signs | C-reactive protein (mg/L) | Digestive endoscopies | Faecal calprotectin (µg/g) | Immunodeficiency
+11 | M | 60 | Unknown (PCR) |  |  | 3.5 | Colonoscopy (2010): normal. | 527 | XLA
+13 | F | 78 | Unknown (PCR) |  | Diarrhea | 2.1 | Colonoscopy (2024): normal. | 149 | CVID
+27 | M | 49 | C. Coli (culture and PCR) |  | Diarrhea | 17.7 |  | 1857 | XLA
+29 | M | 43 | C. jejuni (culture) | Spiramycin | DiarrheaAbdomin",TBLPMC12532628,41099909,Stool Screening for Campylobacter Species in Hypogammaglobulinemic Patients Receiving Immunoglobulin Therapy,y,0,,none,0/1,positive for -> C1446409; immunodeficiency 11 -> C3554686; normal -> C1873497; diarrhea -> C0011991; normal -> C1873497; cvid (negated) -> C0009447; diarrhea -> C0011991,likely_wrong,table_artifact,Table cell 'Unknown (PCR)' (Campylobacter species) linked to a vaccine-administration code
+21,C4538468,MARSILI SYNDROME,C0729502,Chemotherapeutic agent,T121,1,0,1,0,1,llm_table,prolonged use of chemotherapeutic agents,,"Risk factors for MARSI: (1) Intrinsic risk factors: extreme age (neonates and the elderly), dehydration, malnutrition, altered skin condition, underlying diseases affecting the skin (infections, renal insufficiency, diabetes mellitus, chronic venous insufficiency, immunosuppression, edema); (2) Extrinsic risk factors: dry skin, use of inappropriate cleansing products (pH <5 or pH >6), prolonged exposure to moisture, prolonged use of chemotherapeutic agents, anti-inflammatory and anticoagulant drugs, corticosteroids, radiation therapy, ultraviolet radiation or photodamage.",TBLPMC12423774,40950560,Summary of the Best Evidence for the Prevention and Management of Medical Adhesive-Related Skin Injuries in Patients with Tracheal Intubation,y,0,,none,0/1,risk factors -> C0035648; risk factors -> C0035648; extreme -> C4085555; dehydration -> C0011175; malnutrition -> C0162429; skin -> C0496955; condition -> C0012634; underlying -> C4722602; diseases -> C0012634; skin infections -> C0037278; renal insufficiency -> C0035078/C1565489; diabetes mellitus -> C0011849; chronic venous insufficiency -> C1306557; immunosuppression -> C4048329; edema -> C0013604; risk factors -> C0035648; dry skin -> C0151908; exposure -> C0274281; therapy -> C1363945,likely_wrong,not_supported,Generic skin-tear risk factor table ('prolonged use of chemotherapeutic agents') with no relation to Marsili syndrome; no on-topic document
+22,C4551633,Pigmentary retinal dystrophy,C4699245,(no English UMLS string here),T033,1,0,1,0,1,llm_table,marked increased autofluorescence,,"Spectral-domain optical coherence tomography in younger patients revealed focal loss of photoreceptors, disruption and deposition at the retinal pigment epithelium/Bruch's membrane layer (corresponding to areas of marked increased autofluorescence), and hyperreflective foci in the outer nuclear layer.",PMID32533651,32533651,Pigmentary retinopathy can indicate the presence of pathogenic LAMP2 variants even in somatic mosaic carriers with no additional signs of Danon disease.,y,0,,none,0/1,increased -> C5236002; foci -> C4321394,new_form,vocab_gap,"'marked increased autofluorescence' on imaging is literal, but the UMLS subset the dictionary uses has no string for C4699245 (S-dict extracted only 'increased')"
+23,C4732825,Focal cortical dysplasia type III,C1562113,Fleck corneal dystrophy,T047,1,1,1,0,1,llm_table,fcd,,"FCD, focal cortical dysplasia; MRI, magnetic resonance imaging; IQR, interquartile range.",PMC9929418,36819249,Developing a deep learning model to predict epilepsy recurrence in patients with focal cortical dysplasia type III,y,5,corneal dystrophy fleck | fleck corneal dystrophy | fleck corneal dystrophy disorder | fran ois neetens speckled corneal dystrophy | corneal dystrophy francois neetens speckled or flecked,none,0/1,focal cortical dysplasia -> C2938983; resonance -> C0231881,likely_wrong,wrong_concept,The abbreviation 'FCD' (focal cortical dysplasia) in a table footnote resolved to fleck corneal dystrophy
+24,C5397706,Focal cognitive seizure with receptive dysphasia/aphasia,C1278524,White Irish,T098,1,1,1,0,1,llm_table,White—Irish,,"2 missing data points (range 1–16 years) | (range 2–19 years)
+Geographical location | South Yorkshire/Derbyshire | 9 (45) | 6 (60)
+London | 11 (55) | 4 (40)
+Ethnicity | White English/Scottish/Welsh/Northern | 13 (65) | 10 (100)
+Irish/UK | 3 (15%) | 
+White—Irish | 1 (5%) | 
+White—Other | 2 (10%) | 
+Black—African | 1 (5%) | 
+Black—British | 1 (5%) | 
+Arabic | Nb.",TBLPMC11842014,39977829,"Aphasia partnership training: What outcomes do people with aphasia, family members and speech and language therapists expect?",y,0,,none,0/1,missing data -> C4684714; 6 60 -> C0442756; other -> C5202885,likely_wrong,not_a_finding,Ethnicity table row 'White-Irish' linked to a population group
+25,C5543351,BURATTI-HAREL SYNDROME,C0520947,Clumsiness - motor delay,T048,1,1,1,0,1,llm_table,Motor delay,,"Table: Characteristics of patients described in previous reports (Buratti et al., 2021 and Douiev et al., 2025) as compared to our patient.
+ | This report (1 individual) | Buratti et al., 2021 (n = 5) | Douiev et al., 2025 (n = 8)
+Infantile hypotonia | + | 5 | 4
+Laryngomalacia | − | 4 | 5
+GERD | + | 4 | 4
+Recurrent pneumonia | − | 2 | 3
+Serous otitis media | − | 2 | N/A
+Motor delay | + | 4 | 8
+Speech delay | + | 5 | 7
+Intellectual disability | + (Global, mild to moderate) | 3 | 6
+Cardiac malformations | + (Persistent ductus arteriosus) | 1 | 4
+Ophthalmological abnormalities | − | 3 | N/A
+Endoc",TBLPMC12582652,41189745,Novel SIAH1 Frameshift Variant in a Chilean Patient With Buratti–Harel Syndrome,y,7,clumsy child | clumsy child finding | clumsy child syndrome | clumsiness motor delay | x clumsy child syndrome,none,0/1,infantile hypotonia -> C0270971/C1860834; laryngomalacia -> C0264303; gerd -> C0017168; recurrent pneumonia -> C0694550; serous otitis media -> C0271453; motor delay -> C1854301; speech delay -> C0023012/C0241210; intellectual disability -> C0025362/C3714756; moderate -> C0205081/C5201148; cardiac malformations -> C4228353; persistent ductus arteriosus -> C0013274; abnormalities -> C0000768,dict_should_match,other_cui,"Table row 'Motor delay | +'; S-dict matched 'motor delay' and named it C1854301 (both graphs have that edge), the phrase table named it C0520947"
+26,C5681721,Rare coagulation disorder,C0001792,Elderly (population group),T098,1,0,1,0,1,llm_table,advanced age,,"Owing to his urinary tract infection and advanced age, oral prednisolone was initiated at 20 mg (0.3 mg/kg/day) for BP.",PMID39391459,39391459,A Case of Acquired Factor V Inhibitor During Bullous Pemphigoid Treatment.,y,0,,none,0/1,urinary tract infection -> C0042029; oral -> C4521986,likely_wrong,not_supported,"'advanced age' is the reason for a steroid dose in one patient, not a finding of the disorder; population-group concept (T098)"
+27,MONDO:0000840,dysbaric osteonecrosis,C0013922,Embolism,T046,1,1,1,0,1,llm_table,autochthonous or embolic,,"Obstructing materials, whether autochthonous or embolic, may result from blood-bubble interface reactions.",PMID639412,639412,Dysbaric osteonecrosis. Etiological and pathogenetic concepts.,y,3,embolism | embolisms | embolism disorder,none,0/1,result -> C2825142,new_form,paraphrase,"'Obstructing materials, whether autochthonous or embolic': the adjective 'embolic' implies embolism as the mechanism; no dictionary string (embolism, embolisms) matches the adjective"
+28,MONDO:0005616,pulmonary mucoepidermoid carcinoma,C1550465,Observation Interpretation - intermediate,T034,1,1,2,0,2,llm_table,Low/Intermediate,,"TNM stage |  |  | 
+I∼IIA | 19 (90.5) | 17 (81.0) | 0.663
+IIB∼IV | 2 (9.5) | 4 (19.0) | 
+LN involvement |  |  | 
+Yes | 2 (9.5) | 5 (23.8) | 0.410
+No | 19 (90.5) | 16 (76.2) | 
+Intrathoracic invasion |  |  | 
+Yes | 4 (19.0) | 6 (28.6) | 0.719
+No | 17 (81.0) | 15 (71.4) | 
+Pathological grade |  |  | 
+Low/Intermediate | 21 (100.0) | 12 (57.1) | 0.001
+High | 0 (0.0) | 9 (42.9) | 
+Recurrence/metastasis |  |  | 
+Yes | 2 (9.5) | 7 (33.3) | 0.130
+No | 19 (90.5) | 14 (66.7) | 
+
+Table: Prognostic Factors for Survival in Multivariate Analysis.
+ | Overall Survival | Disease-free Survival
+Variables | P | H",TBLPMC3979848,24714697,MAML2 Rearrangement in Primary Pulmonary Mucoepidermoid Carcinoma and the Correlation with FLT1 Expression,y/y,1,observation interpretation intermediate,none,0/1,invasion -> C1269955; intermediate -> C5202835; high -> C5202936; recurrence -> C1458156; metastasis -> C4255448; disease -> C0012634,likely_wrong,wrong_concept,Pathological grade 'Low/Intermediate' linked to an HL7 observation-interpretation code
+29,MONDO:0012779,"celiac disease, susceptibility to, 10",C0030552,Paresis,T047,1,1,1,0,1,llm_table,muscle weakness,,"Gastrointestinal Symptoms Extraintestinal Symptoms Physical Examination Findings Physical examination in children and adults may reveal low body weight with reduced muscle mass, abdominal distension or tenderness, muscle weakness, joint or bone tenderness, pallor from anemia, cheilosis or glossitis due to vitamin deficiencies, and skin rashes.",statpearls:article-19095,,Celiac Disease,y,11,pareses | paresis | paresis nos | muscle pareses | muscle paresis,none,0/1,gastrointestinal symptoms -> C0426576; symptoms -> C1457887; low body weight -> C0041667; reduced muscle mass -> C1849578; abdominal distension -> C0000731/C5980104; tenderness muscle -> C0575064; weakness -> C0004093/C3714552; bone tenderness -> C0238807; pallor -> C0241137; anemia -> C0002871; cheilosis -> C0221264; glossitis -> C0017675; vitamin deficiencies -> C1510471; skin rashes -> C5779628,dict_should_match,other_cui,"'muscle weakness' on examination; the dictionary names it C0151786 (the phrase table chose C0030552 Paresis), and here S-dict lost it to the longer match 'tenderness muscle' across the comma"
+30,MONDO:0021152,inherited,C0796085,Nance-Horan syndrome,T047,1,1,1,0,1,llm_table,RDEB-nHS,,"Among those with RDEB-nHS, the cumulative risks were only 0·4%, 1·35%, and 2·75% at ages 1, 20 and 30 (through age 80), and in JEB-O, they were 1·14%, 1·14% and 4·94% by ages 3, 35 and 40 (through age 70), respectively.",PMC2592258,18616785,The risk of cardiomyopathy in inherited epidermolysis bullosa,y,5,nance horan syndrome | cataract dental syndrome | mesiodens cataract syndrome | nance horan syndrome disorder | cataract x linked with hutchinsonian teeth,none,0/1,rdeb -> C0079474,likely_wrong,wrong_concept,'RDEB-nHS' (non-Hallopeau-Siemens epidermolysis bullosa) resolved to Nance-Horan syndrome

@@ -2,9 +2,11 @@
 
 IE v2 output repeats the same phrases across diseases and articles ("fever" appears tens of
 thousands of times), so phrases are linked once each and the table is reused by graph assembly.
-Linking is the threshold-free scispaCy + MRXNS exact-match linker of v152 (no similarity cut-off
-decides a mapping). Incremental: phrases already in the table are skipped, so the step can follow
-the pipelined IE.
+Linking is v152's link_top over the scispaCy UMLS candidate generator: character n-gram similarity
+>= COV_THRESH (0.70), and a candidate below HIGH_CONF (0.88) must share a content word with the
+concept name; grounded() then requires a concept name or alias inside the phrase covering at least
+half of its content words. Incremental: phrases already in the table are skipped, so the step can
+follow the pipelined IE.
 
 Run in .venv-sci:
     .venv-sci/bin/python pilot/scripts/normalize_v2.py --ie OUT.jsonl --table phrase2cui.json

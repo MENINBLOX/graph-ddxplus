@@ -1,0 +1,18 @@
+{
+ "v2": {
+  "items": 1061180,
+  "items_without_cui": 95775,
+  "linked_with_table": 79448,
+  "linked_only_via_table": 48624,
+  "links_with_table": 93462,
+  "links_without_table": 30950
+ },
+ "v3new": {
+  "items": 2771913,
+  "items_without_cui": 240751,
+  "linked_with_table": 206424,
+  "linked_only_via_table": 126701,
+  "links_with_table": 242792,
+  "links_without_table": 80165
+ }
+}

@@ -1,0 +1,2815 @@
+{
+ "note": "diff = B - A in percentage points of lineage Top-k; ci = patient-paired bootstrap 95% (2,000, seed 0); ci_cluster = gold-disease cluster bootstrap 95% (whole diseases resampled); p = exact McNemar, p_holm = Holm across the sets of one comparison at one k",
+ "runs": {
+  "development": {
+   "S-mix": "pilot/cache/v2/devD/variants/dev_v3llmd_ns_ot0.5.json",
+   "S-dict": "pilot/cache/v2/devD/variants/dev_v3umls_ns_ot0.5.json",
+   "S-union": "pilot/cache/v2/devD/variants/dev_v3unionu_ns_ot0.5.json",
+   "S-llm": "pilot/cache/v2/devD/variants/dev_v3llm_ns_ot1.0.json"
+  },
+  "confirmation E": {
+   "S-mix": "pilot/cache/v2/confirmE/S-mix.json",
+   "S-dict": "pilot/cache/v2/confirmE/S-dict.json",
+   "S-union": "pilot/cache/v2/confirmE/S-union.json",
+   "S-D": "pilot/cache/v2/confirmE/S-D.json"
+  }
+ },
+ "gold_diseases": {
+  "DDXPlus-test": {
+   "patients": 3000,
+   "diseases": 48,
+   "patients_per_disease_min": 3,
+   "patients_per_disease_median": 60.0,
+   "patients_per_disease_max": 204,
+   "largest_disease_share_pct": 6.8
+  },
+  "RareBench-RAMEDIS": {
+   "patients": 624,
+   "diseases": 74,
+   "patients_per_disease_min": 1,
+   "patients_per_disease_median": 2.5,
+   "patients_per_disease_max": 148,
+   "largest_disease_share_pct": 23.7
+  },
+  "RareBench-LIRICAL": {
+   "patients": 370,
+   "diseases": 252,
+   "patients_per_disease_min": 1,
+   "patients_per_disease_median": 1.0,
+   "patients_per_disease_max": 19,
+   "largest_disease_share_pct": 5.1
+  },
+  "RareBench-HMS": {
+   "patients": 88,
+   "diseases": 46,
+   "patients_per_disease_min": 1,
+   "patients_per_disease_median": 1.0,
+   "patients_per_disease_max": 11,
+   "largest_disease_share_pct": 12.5
+  },
+  "RareBench-MME": {
+   "patients": 40,
+   "diseases": 17,
+   "patients_per_disease_min": 1,
+   "patients_per_disease_median": 1,
+   "patients_per_disease_max": 11,
+   "largest_disease_share_pct": 27.5
+  },
+  "PUMCH_L": {
+   "patients": 988,
+   "diseases": 100,
+   "patients_per_disease_min": 1,
+   "patients_per_disease_median": 1.0,
+   "patients_per_disease_max": 201,
+   "largest_disease_share_pct": 20.3
+  },
+  "PUMCH-ADM": {
+   "patients": 75,
+   "diseases": 16,
+   "patients_per_disease_min": 3,
+   "patients_per_disease_median": 5.0,
+   "patients_per_disease_max": 8,
+   "largest_disease_share_pct": 10.7
+  },
+  "Phenopacket-store": {
+   "patients": 10310,
+   "diseases": 772,
+   "patients_per_disease_min": 1,
+   "patients_per_disease_median": 5.0,
+   "patients_per_disease_max": 462,
+   "largest_disease_share_pct": 4.5
+  },
+  "SymCat": {
+   "patients": 7481,
+   "diseases": 760,
+   "patients_per_disease_min": 1,
+   "patients_per_disease_median": 10.0,
+   "patients_per_disease_max": 115,
+   "largest_disease_share_pct": 1.5
+  },
+  "ConfirmE-DDXPlus": {
+   "patients": 3000,
+   "diseases": 49,
+   "patients_per_disease_min": 1,
+   "patients_per_disease_median": 54,
+   "patients_per_disease_max": 217,
+   "largest_disease_share_pct": 7.2
+  },
+  "ConfirmE-SymCat": {
+   "patients": 7463,
+   "diseases": 760,
+   "patients_per_disease_min": 1,
+   "patients_per_disease_median": 10.0,
+   "patients_per_disease_max": 118,
+   "largest_disease_share_pct": 1.6
+  }
+ },
+ "rows": [
+  {
+   "part": "development",
+   "comparison": "S-mix - S-dict",
+   "A": "S-dict",
+   "B": "S-mix",
+   "k": 10,
+   "registration": "development (selection sets)",
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 42.27,
+   "B_pct": 40.63,
+   "diff": -1.63,
+   "ci": [
+    -2.9,
+    -0.4
+   ],
+   "ci_cluster": [
+    -8.27,
+    4.47
+   ],
+   "diseases": 48,
+   "only_A": 208,
+   "only_B": 159,
+   "p": 0.012121067453449784,
+   "p_holm": 0.06060533726724892,
+   "status": "S-dict higher: patient CI only"
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - S-dict",
+   "A": "S-dict",
+   "B": "S-mix",
+   "k": 10,
+   "registration": "development (selection sets)",
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 47.92,
+   "B_pct": 57.21,
+   "diff": 9.29,
+   "ci": [
+    6.89,
+    12.02
+   ],
+   "ci_cluster": [
+    2.48,
+    20.24
+   ],
+   "diseases": 74,
+   "only_A": 10,
+   "only_B": 68,
+   "p": 9.70811491825464e-12,
+   "p_holm": 7.766491934603712e-11,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - S-dict",
+   "A": "S-dict",
+   "B": "S-mix",
+   "k": 10,
+   "registration": "development (selection sets)",
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 32.7,
+   "B_pct": 38.38,
+   "diff": 5.68,
+   "ci": [
+    2.7,
+    8.65
+   ],
+   "ci_cluster": [
+    2.63,
+    9.01
+   ],
+   "diseases": 252,
+   "only_A": 5,
+   "only_B": 26,
+   "p": 0.00019219517707824707,
+   "p_holm": 0.0013453662395477295,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - S-dict",
+   "A": "S-dict",
+   "B": "S-mix",
+   "k": 10,
+   "registration": "development (selection sets)",
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 43.18,
+   "B_pct": 44.32,
+   "diff": 1.14,
+   "ci": [
+    -5.68,
+    7.95
+   ],
+   "ci_cluster": [
+    -4.21,
+    7.79
+   ],
+   "diseases": 46,
+   "only_A": 4,
+   "only_B": 5,
+   "p": 1.0,
+   "p_holm": 1.0,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - S-dict",
+   "A": "S-dict",
+   "B": "S-mix",
+   "k": 10,
+   "registration": "development (selection sets)",
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 52.5,
+   "B_pct": 55.0,
+   "diff": 2.5,
+   "ci": [
+    -7.5,
+    12.5
+   ],
+   "ci_cluster": [
+    -8.0,
+    18.18
+   ],
+   "diseases": 17,
+   "only_A": 2,
+   "only_B": 3,
+   "p": 1.0,
+   "p_holm": 1.0,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - S-dict",
+   "A": "S-dict",
+   "B": "S-mix",
+   "k": 10,
+   "registration": "development (selection sets)",
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 64.78,
+   "B_pct": 67.11,
+   "diff": 2.33,
+   "ci": [
+    0.4,
+    4.25
+   ],
+   "ci_cluster": [
+    -2.05,
+    6.49
+   ],
+   "diseases": 100,
+   "only_A": 37,
+   "only_B": 60,
+   "p": 0.02499073659259803,
+   "p_holm": 0.09996294637039212,
+   "status": "S-mix higher: patient CI only"
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - S-dict",
+   "A": "S-dict",
+   "B": "S-mix",
+   "k": 10,
+   "registration": "development (selection sets)",
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 60.0,
+   "B_pct": 68.0,
+   "diff": 8.0,
+   "ci": [
+    1.33,
+    16.0
+   ],
+   "ci_cluster": [
+    1.3,
+    17.33
+   ],
+   "diseases": 16,
+   "only_A": 1,
+   "only_B": 7,
+   "p": 0.0703125,
+   "p_holm": 0.2109375,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - S-dict",
+   "A": "S-dict",
+   "B": "S-mix",
+   "k": 10,
+   "registration": "development (selection sets)",
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 28.08,
+   "B_pct": 31.03,
+   "diff": 2.95,
+   "ci": [
+    2.43,
+    3.46
+   ],
+   "ci_cluster": [
+    0.51,
+    5.48
+   ],
+   "diseases": 772,
+   "only_A": 201,
+   "only_B": 505,
+   "p": 4.632903209659109e-31,
+   "p_holm": 4.169612888693198e-30,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - S-dict",
+   "A": "S-dict",
+   "B": "S-mix",
+   "k": 10,
+   "registration": "development (selection sets)",
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 14.46,
+   "B_pct": 13.34,
+   "diff": -1.12,
+   "ci": [
+    -1.7,
+    -0.52
+   ],
+   "ci_cluster": [
+    -2.17,
+    -0.16
+   ],
+   "diseases": 760,
+   "only_A": 291,
+   "only_B": 207,
+   "p": 0.0001934751729693986,
+   "p_holm": 0.0013453662395477295,
+   "status": "S-dict higher: disease CI excludes 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - S-dict",
+   "A": "S-dict",
+   "B": "S-mix",
+   "k": 1,
+   "registration": "development (selection sets)",
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 16.63,
+   "B_pct": 11.77,
+   "diff": -4.87,
+   "ci": [
+    -5.83,
+    -3.87
+   ],
+   "ci_cluster": [
+    -9.44,
+    -1.09
+   ],
+   "diseases": 48,
+   "only_A": 193,
+   "only_B": 47,
+   "p": 3.420560168675684e-22,
+   "p_holm": 3.0785041518081157e-21,
+   "status": "S-dict higher: disease CI excludes 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - S-dict",
+   "A": "S-dict",
+   "B": "S-mix",
+   "k": 1,
+   "registration": "development (selection sets)",
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 8.17,
+   "B_pct": 10.58,
+   "diff": 2.4,
+   "ci": [
+    0.32,
+    4.49
+   ],
+   "ci_cluster": [
+    -2.11,
+    7.59
+   ],
+   "diseases": 74,
+   "only_A": 15,
+   "only_B": 30,
+   "p": 0.035697803555194696,
+   "p_holm": 0.21418682133116818,
+   "status": "S-mix higher: patient CI only"
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - S-dict",
+   "A": "S-dict",
+   "B": "S-mix",
+   "k": 1,
+   "registration": "development (selection sets)",
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 15.68,
+   "B_pct": 17.84,
+   "diff": 2.16,
+   "ci": [
+    -0.27,
+    4.59
+   ],
+   "ci_cluster": [
+    -0.31,
+    5.03
+   ],
+   "diseases": 252,
+   "only_A": 7,
+   "only_B": 15,
+   "p": 0.13380050659179688,
+   "p_holm": 0.625,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - S-dict",
+   "A": "S-dict",
+   "B": "S-mix",
+   "k": 1,
+   "registration": "development (selection sets)",
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 15.91,
+   "B_pct": 15.91,
+   "diff": 0.0,
+   "ci": [
+    -6.82,
+    6.82
+   ],
+   "ci_cluster": [
+    -9.21,
+    7.78
+   ],
+   "diseases": 46,
+   "only_A": 4,
+   "only_B": 4,
+   "p": 1.0,
+   "p_holm": 1.0,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - S-dict",
+   "A": "S-dict",
+   "B": "S-mix",
+   "k": 1,
+   "registration": "development (selection sets)",
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 22.5,
+   "B_pct": 35.0,
+   "diff": 12.5,
+   "ci": [
+    0.0,
+    25.0
+   ],
+   "ci_cluster": [
+    0.0,
+    30.43
+   ],
+   "diseases": 17,
+   "only_A": 1,
+   "only_B": 6,
+   "p": 0.125,
+   "p_holm": 0.625,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - S-dict",
+   "A": "S-dict",
+   "B": "S-mix",
+   "k": 1,
+   "registration": "development (selection sets)",
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 36.13,
+   "B_pct": 34.62,
+   "diff": -1.52,
+   "ci": [
+    -3.74,
+    0.81
+   ],
+   "ci_cluster": [
+    -8.35,
+    4.0
+   ],
+   "diseases": 100,
+   "only_A": 72,
+   "only_B": 57,
+   "p": 0.21756125383946115,
+   "p_holm": 0.6526837615183835,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - S-dict",
+   "A": "S-dict",
+   "B": "S-mix",
+   "k": 1,
+   "registration": "development (selection sets)",
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 30.67,
+   "B_pct": 33.33,
+   "diff": 2.67,
+   "ci": [
+    -6.67,
+    12.0
+   ],
+   "ci_cluster": [
+    -7.59,
+    13.16
+   ],
+   "diseases": 16,
+   "only_A": 5,
+   "only_B": 7,
+   "p": 0.7744140625,
+   "p_holm": 1.0,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - S-dict",
+   "A": "S-dict",
+   "B": "S-mix",
+   "k": 1,
+   "registration": "development (selection sets)",
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 13.93,
+   "B_pct": 15.41,
+   "diff": 1.48,
+   "ci": [
+    1.04,
+    1.91
+   ],
+   "ci_cluster": [
+    0.08,
+    2.78
+   ],
+   "diseases": 772,
+   "only_A": 192,
+   "only_B": 345,
+   "p": 4.019709659653373e-11,
+   "p_holm": 3.2157677277226984e-10,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - S-dict",
+   "A": "S-dict",
+   "B": "S-mix",
+   "k": 1,
+   "registration": "development (selection sets)",
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 3.34,
+   "B_pct": 2.51,
+   "diff": -0.83,
+   "ci": [
+    -1.19,
+    -0.47
+   ],
+   "ci_cluster": [
+    -1.47,
+    -0.2
+   ],
+   "diseases": 760,
+   "only_A": 127,
+   "only_B": 65,
+   "p": 9.047629392044938e-06,
+   "p_holm": 6.333340574431457e-05,
+   "status": "S-dict higher: disease CI excludes 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-dict",
+   "A": "S-dict",
+   "B": "S-union",
+   "k": 10,
+   "registration": "development (selection sets)",
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 42.27,
+   "B_pct": 43.6,
+   "diff": 1.33,
+   "ci": [
+    0.4,
+    2.23
+   ],
+   "ci_cluster": [
+    -2.03,
+    5.29
+   ],
+   "diseases": 48,
+   "only_A": 83,
+   "only_B": 123,
+   "p": 0.0064425353079346935,
+   "p_holm": 0.05798281777141224,
+   "status": "S-union higher: patient CI only"
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-dict",
+   "A": "S-dict",
+   "B": "S-union",
+   "k": 10,
+   "registration": "development (selection sets)",
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 47.92,
+   "B_pct": 47.92,
+   "diff": 0.0,
+   "ci": [
+    -1.12,
+    0.96
+   ],
+   "ci_cluster": [
+    -1.02,
+    0.88
+   ],
+   "diseases": 74,
+   "only_A": 5,
+   "only_B": 5,
+   "p": 1.0,
+   "p_holm": 1.0,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-dict",
+   "A": "S-dict",
+   "B": "S-union",
+   "k": 10,
+   "registration": "development (selection sets)",
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 32.7,
+   "B_pct": 34.59,
+   "diff": 1.89,
+   "ci": [
+    0.27,
+    3.51
+   ],
+   "ci_cluster": [
+    0.0,
+    3.85
+   ],
+   "diseases": 252,
+   "only_A": 2,
+   "only_B": 9,
+   "p": 0.0654296875,
+   "p_holm": 0.4580078125,
+   "status": "S-union higher: patient CI only"
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-dict",
+   "A": "S-dict",
+   "B": "S-union",
+   "k": 10,
+   "registration": "development (selection sets)",
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 43.18,
+   "B_pct": 43.18,
+   "diff": 0.0,
+   "ci": [
+    -4.55,
+    4.55
+   ],
+   "ci_cluster": [
+    -3.09,
+    3.03
+   ],
+   "diseases": 46,
+   "only_A": 2,
+   "only_B": 2,
+   "p": 1.0,
+   "p_holm": 1.0,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-dict",
+   "A": "S-dict",
+   "B": "S-union",
+   "k": 10,
+   "registration": "development (selection sets)",
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 52.5,
+   "B_pct": 55.0,
+   "diff": 2.5,
+   "ci": [
+    0.0,
+    7.5
+   ],
+   "ci_cluster": [
+    0.0,
+    11.11
+   ],
+   "diseases": 17,
+   "only_A": 0,
+   "only_B": 1,
+   "p": 1.0,
+   "p_holm": 1.0,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-dict",
+   "A": "S-dict",
+   "B": "S-union",
+   "k": 10,
+   "registration": "development (selection sets)",
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 64.78,
+   "B_pct": 65.38,
+   "diff": 0.61,
+   "ci": [
+    -0.71,
+    1.92
+   ],
+   "ci_cluster": [
+    -1.3,
+    3.4
+   ],
+   "diseases": 100,
+   "only_A": 20,
+   "only_B": 26,
+   "p": 0.4613911821367651,
+   "p_holm": 1.0,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-dict",
+   "A": "S-dict",
+   "B": "S-union",
+   "k": 10,
+   "registration": "development (selection sets)",
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 60.0,
+   "B_pct": 61.33,
+   "diff": 1.33,
+   "ci": [
+    -2.67,
+    6.67
+   ],
+   "ci_cluster": [
+    0.0,
+    4.41
+   ],
+   "diseases": 16,
+   "only_A": 1,
+   "only_B": 2,
+   "p": 1.0,
+   "p_holm": 1.0,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-dict",
+   "A": "S-dict",
+   "B": "S-union",
+   "k": 10,
+   "registration": "development (selection sets)",
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 28.08,
+   "B_pct": 28.33,
+   "diff": 0.25,
+   "ci": [
+    0.04,
+    0.47
+   ],
+   "ci_cluster": [
+    -0.08,
+    0.72
+   ],
+   "diseases": 772,
+   "only_A": 48,
+   "only_B": 74,
+   "p": 0.023216360221353732,
+   "p_holm": 0.18573088177082986,
+   "status": "S-union higher: patient CI only"
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-dict",
+   "A": "S-dict",
+   "B": "S-union",
+   "k": 10,
+   "registration": "development (selection sets)",
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 14.46,
+   "B_pct": 14.61,
+   "diff": 0.15,
+   "ci": [
+    -0.19,
+    0.49
+   ],
+   "ci_cluster": [
+    -0.33,
+    0.61
+   ],
+   "diseases": 760,
+   "only_A": 78,
+   "only_B": 89,
+   "p": 0.4391289287803373,
+   "p_holm": 1.0,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-dict",
+   "A": "S-dict",
+   "B": "S-union",
+   "k": 1,
+   "registration": "development (selection sets)",
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 16.63,
+   "B_pct": 16.4,
+   "diff": -0.23,
+   "ci": [
+    -0.97,
+    0.53
+   ],
+   "ci_cluster": [
+    -2.83,
+    2.22
+   ],
+   "diseases": 48,
+   "only_A": 71,
+   "only_B": 64,
+   "p": 0.6057422651905525,
+   "p_holm": 1.0,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-dict",
+   "A": "S-dict",
+   "B": "S-union",
+   "k": 1,
+   "registration": "development (selection sets)",
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 8.17,
+   "B_pct": 8.65,
+   "diff": 0.48,
+   "ci": [
+    -0.32,
+    1.44
+   ],
+   "ci_cluster": [
+    -0.55,
+    1.96
+   ],
+   "diseases": 74,
+   "only_A": 2,
+   "only_B": 5,
+   "p": 0.453125,
+   "p_holm": 1.0,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-dict",
+   "A": "S-dict",
+   "B": "S-union",
+   "k": 1,
+   "registration": "development (selection sets)",
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 15.68,
+   "B_pct": 16.22,
+   "diff": 0.54,
+   "ci": [
+    -0.27,
+    1.62
+   ],
+   "ci_cluster": [
+    -0.52,
+    1.73
+   ],
+   "diseases": 252,
+   "only_A": 1,
+   "only_B": 3,
+   "p": 0.625,
+   "p_holm": 1.0,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-dict",
+   "A": "S-dict",
+   "B": "S-union",
+   "k": 1,
+   "registration": "development (selection sets)",
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 15.91,
+   "B_pct": 14.77,
+   "diff": -1.14,
+   "ci": [
+    -6.82,
+    3.41
+   ],
+   "ci_cluster": [
+    -5.48,
+    2.44
+   ],
+   "diseases": 46,
+   "only_A": 3,
+   "only_B": 2,
+   "p": 1.0,
+   "p_holm": 1.0,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-dict",
+   "A": "S-dict",
+   "B": "S-union",
+   "k": 1,
+   "registration": "development (selection sets)",
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 22.5,
+   "B_pct": 25.0,
+   "diff": 2.5,
+   "ci": [
+    0.0,
+    7.5
+   ],
+   "ci_cluster": [
+    0.0,
+    7.5
+   ],
+   "diseases": 17,
+   "only_A": 0,
+   "only_B": 1,
+   "p": 1.0,
+   "p_holm": 1.0,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-dict",
+   "A": "S-dict",
+   "B": "S-union",
+   "k": 1,
+   "registration": "development (selection sets)",
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 36.13,
+   "B_pct": 33.5,
+   "diff": -2.63,
+   "ci": [
+    -4.25,
+    -1.21
+   ],
+   "ci_cluster": [
+    -9.6,
+    1.37
+   ],
+   "diseases": 100,
+   "only_A": 41,
+   "only_B": 15,
+   "p": 0.0006855641563783821,
+   "p_holm": 0.006170077407405439,
+   "status": "S-dict higher: patient CI only"
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-dict",
+   "A": "S-dict",
+   "B": "S-union",
+   "k": 1,
+   "registration": "development (selection sets)",
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 30.67,
+   "B_pct": 26.67,
+   "diff": -4.0,
+   "ci": [
+    -10.67,
+    1.33
+   ],
+   "ci_cluster": [
+    -12.66,
+    2.86
+   ],
+   "diseases": 16,
+   "only_A": 4,
+   "only_B": 1,
+   "p": 0.375,
+   "p_holm": 1.0,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-dict",
+   "A": "S-dict",
+   "B": "S-union",
+   "k": 1,
+   "registration": "development (selection sets)",
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 13.93,
+   "B_pct": 13.6,
+   "diff": -0.33,
+   "ci": [
+    -0.56,
+    -0.11
+   ],
+   "ci_cluster": [
+    -1.17,
+    0.38
+   ],
+   "diseases": 772,
+   "only_A": 90,
+   "only_B": 56,
+   "p": 0.0061187033754636876,
+   "p_holm": 0.0489496270037095,
+   "status": "S-dict higher: patient CI only"
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-dict",
+   "A": "S-dict",
+   "B": "S-union",
+   "k": 1,
+   "registration": "development (selection sets)",
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 3.34,
+   "B_pct": 3.48,
+   "diff": 0.13,
+   "ci": [
+    -0.11,
+    0.35
+   ],
+   "ci_cluster": [
+    -0.22,
+    0.54
+   ],
+   "diseases": 760,
+   "only_A": 35,
+   "only_B": 45,
+   "p": 0.31430657986393706,
+   "p_holm": 1.0,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - S-llm",
+   "A": "S-llm",
+   "B": "S-mix",
+   "k": 10,
+   "registration": "development (selection sets)",
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 38.77,
+   "B_pct": 40.63,
+   "diff": 1.87,
+   "ci": [
+    0.93,
+    2.83
+   ],
+   "ci_cluster": [
+    -2.7,
+    5.77
+   ],
+   "diseases": 48,
+   "only_A": 72,
+   "only_B": 128,
+   "p": 9.129815585318742e-05,
+   "p_holm": 0.0006390870909723119,
+   "status": "S-mix higher: patient CI only"
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - S-llm",
+   "A": "S-llm",
+   "B": "S-mix",
+   "k": 10,
+   "registration": "development (selection sets)",
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 55.93,
+   "B_pct": 57.21,
+   "diff": 1.28,
+   "ci": [
+    -0.8,
+    3.37
+   ],
+   "ci_cluster": [
+    -1.32,
+    4.44
+   ],
+   "diseases": 74,
+   "only_A": 16,
+   "only_B": 24,
+   "p": 0.26818725105476915,
+   "p_holm": 1.0,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - S-llm",
+   "A": "S-llm",
+   "B": "S-mix",
+   "k": 10,
+   "registration": "development (selection sets)",
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 38.92,
+   "B_pct": 38.38,
+   "diff": -0.54,
+   "ci": [
+    -2.16,
+    1.08
+   ],
+   "ci_cluster": [
+    -2.22,
+    1.17
+   ],
+   "diseases": 252,
+   "only_A": 6,
+   "only_B": 4,
+   "p": 0.75390625,
+   "p_holm": 1.0,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - S-llm",
+   "A": "S-llm",
+   "B": "S-mix",
+   "k": 10,
+   "registration": "development (selection sets)",
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 44.32,
+   "B_pct": 44.32,
+   "diff": 0.0,
+   "ci": [
+    -6.82,
+    6.82
+   ],
+   "ci_cluster": [
+    -6.38,
+    6.86
+   ],
+   "diseases": 46,
+   "only_A": 4,
+   "only_B": 4,
+   "p": 1.0,
+   "p_holm": 1.0,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - S-llm",
+   "A": "S-llm",
+   "B": "S-mix",
+   "k": 10,
+   "registration": "development (selection sets)",
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 57.5,
+   "B_pct": 55.0,
+   "diff": -2.5,
+   "ci": [
+    -7.5,
+    0.0
+   ],
+   "ci_cluster": [
+    -11.11,
+    0.0
+   ],
+   "diseases": 17,
+   "only_A": 1,
+   "only_B": 0,
+   "p": 1.0,
+   "p_holm": 1.0,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - S-llm",
+   "A": "S-llm",
+   "B": "S-mix",
+   "k": 10,
+   "registration": "development (selection sets)",
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 63.36,
+   "B_pct": 67.11,
+   "diff": 3.74,
+   "ci": [
+    2.02,
+    5.57
+   ],
+   "ci_cluster": [
+    0.57,
+    7.69
+   ],
+   "diseases": 100,
+   "only_A": 21,
+   "only_B": 58,
+   "p": 3.761512780416608e-05,
+   "p_holm": 0.00030092102243332863,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - S-llm",
+   "A": "S-llm",
+   "B": "S-mix",
+   "k": 10,
+   "registration": "development (selection sets)",
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 62.67,
+   "B_pct": 68.0,
+   "diff": 5.33,
+   "ci": [
+    -1.33,
+    13.33
+   ],
+   "ci_cluster": [
+    -1.3,
+    11.43
+   ],
+   "diseases": 16,
+   "only_A": 2,
+   "only_B": 6,
+   "p": 0.2890625,
+   "p_holm": 1.0,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - S-llm",
+   "A": "S-llm",
+   "B": "S-mix",
+   "k": 10,
+   "registration": "development (selection sets)",
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 31.14,
+   "B_pct": 31.03,
+   "diff": -0.12,
+   "ci": [
+    -0.51,
+    0.27
+   ],
+   "ci_cluster": [
+    -1.71,
+    1.21
+   ],
+   "diseases": 772,
+   "only_A": 213,
+   "only_B": 201,
+   "p": 0.5888225418579742,
+   "p_holm": 1.0,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - S-llm",
+   "A": "S-llm",
+   "B": "S-mix",
+   "k": 10,
+   "registration": "development (selection sets)",
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 11.48,
+   "B_pct": 13.34,
+   "diff": 1.86,
+   "ci": [
+    1.35,
+    2.41
+   ],
+   "ci_cluster": [
+    1.04,
+    2.72
+   ],
+   "diseases": 760,
+   "only_A": 132,
+   "only_B": 271,
+   "p": 3.839135779291739e-12,
+   "p_holm": 3.4552222013625645e-11,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - S-llm",
+   "A": "S-llm",
+   "B": "S-mix",
+   "k": 1,
+   "registration": "development (selection sets)",
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 11.03,
+   "B_pct": 11.77,
+   "diff": 0.73,
+   "ci": [
+    -0.07,
+    1.5
+   ],
+   "ci_cluster": [
+    -2.9,
+    3.58
+   ],
+   "diseases": 48,
+   "only_A": 63,
+   "only_B": 85,
+   "p": 0.08396661724393041,
+   "p_holm": 0.5037997034635825,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - S-llm",
+   "A": "S-llm",
+   "B": "S-mix",
+   "k": 1,
+   "registration": "development (selection sets)",
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 11.38,
+   "B_pct": 10.58,
+   "diff": -0.8,
+   "ci": [
+    -2.72,
+    1.12
+   ],
+   "ci_cluster": [
+    -3.74,
+    3.06
+   ],
+   "diseases": 74,
+   "only_A": 21,
+   "only_B": 16,
+   "p": 0.5113757815852296,
+   "p_holm": 1.0,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - S-llm",
+   "A": "S-llm",
+   "B": "S-mix",
+   "k": 1,
+   "registration": "development (selection sets)",
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 17.84,
+   "B_pct": 17.84,
+   "diff": 0.0,
+   "ci": [
+    -1.89,
+    1.89
+   ],
+   "ci_cluster": [
+    -2.02,
+    1.91
+   ],
+   "diseases": 252,
+   "only_A": 8,
+   "only_B": 8,
+   "p": 1.0,
+   "p_holm": 1.0,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - S-llm",
+   "A": "S-llm",
+   "B": "S-mix",
+   "k": 1,
+   "registration": "development (selection sets)",
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 17.05,
+   "B_pct": 15.91,
+   "diff": -1.14,
+   "ci": [
+    -4.55,
+    2.27
+   ],
+   "ci_cluster": [
+    -5.51,
+    3.7
+   ],
+   "diseases": 46,
+   "only_A": 2,
+   "only_B": 1,
+   "p": 1.0,
+   "p_holm": 1.0,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - S-llm",
+   "A": "S-llm",
+   "B": "S-mix",
+   "k": 1,
+   "registration": "development (selection sets)",
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 37.5,
+   "B_pct": 35.0,
+   "diff": -2.5,
+   "ci": [
+    -10.0,
+    5.0
+   ],
+   "ci_cluster": [
+    -8.93,
+    7.5
+   ],
+   "diseases": 17,
+   "only_A": 2,
+   "only_B": 1,
+   "p": 1.0,
+   "p_holm": 1.0,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - S-llm",
+   "A": "S-llm",
+   "B": "S-mix",
+   "k": 1,
+   "registration": "development (selection sets)",
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 31.88,
+   "B_pct": 34.62,
+   "diff": 2.73,
+   "ci": [
+    1.01,
+    4.55
+   ],
+   "ci_cluster": [
+    0.15,
+    6.7
+   ],
+   "diseases": 100,
+   "only_A": 28,
+   "only_B": 55,
+   "p": 0.004039208886669412,
+   "p_holm": 0.0323136710933553,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - S-llm",
+   "A": "S-llm",
+   "B": "S-mix",
+   "k": 1,
+   "registration": "development (selection sets)",
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 30.67,
+   "B_pct": 33.33,
+   "diff": 2.67,
+   "ci": [
+    0.0,
+    6.67
+   ],
+   "ci_cluster": [
+    0.0,
+    6.58
+   ],
+   "diseases": 16,
+   "only_A": 0,
+   "only_B": 2,
+   "p": 0.5,
+   "p_holm": 1.0,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - S-llm",
+   "A": "S-llm",
+   "B": "S-mix",
+   "k": 1,
+   "registration": "development (selection sets)",
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 14.18,
+   "B_pct": 15.41,
+   "diff": 1.23,
+   "ci": [
+    0.88,
+    1.59
+   ],
+   "ci_cluster": [
+    -0.14,
+    3.29
+   ],
+   "diseases": 772,
+   "only_A": 108,
+   "only_B": 235,
+   "p": 5.896434222376575e-12,
+   "p_holm": 5.306790800138918e-11,
+   "status": "S-mix higher: patient CI only"
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - S-llm",
+   "A": "S-llm",
+   "B": "S-mix",
+   "k": 1,
+   "registration": "development (selection sets)",
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 2.21,
+   "B_pct": 2.51,
+   "diff": 0.31,
+   "ci": [
+    0.04,
+    0.6
+   ],
+   "ci_cluster": [
+    -0.12,
+    0.74
+   ],
+   "diseases": 760,
+   "only_A": 45,
+   "only_B": 68,
+   "p": 0.038018645582796384,
+   "p_holm": 0.2661305190795747,
+   "status": "S-mix higher: patient CI only"
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-mix",
+   "A": "S-mix",
+   "B": "S-union",
+   "k": 10,
+   "registration": "development (selection sets)",
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 40.63,
+   "B_pct": 43.6,
+   "diff": 2.97,
+   "ci": [
+    1.73,
+    4.13
+   ],
+   "ci_cluster": [
+    -2.58,
+    9.07
+   ],
+   "diseases": 48,
+   "only_A": 129,
+   "only_B": 218,
+   "p": 2.045737228624283e-06,
+   "p_holm": 1.432016060036998e-05,
+   "status": "S-union higher: patient CI only"
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-mix",
+   "A": "S-mix",
+   "B": "S-union",
+   "k": 10,
+   "registration": "development (selection sets)",
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 57.21,
+   "B_pct": 47.92,
+   "diff": -9.29,
+   "ci": [
+    -12.18,
+    -6.73
+   ],
+   "ci_cluster": [
+    -20.29,
+    -2.69
+   ],
+   "diseases": 74,
+   "only_A": 68,
+   "only_B": 10,
+   "p": 9.70811491825464e-12,
+   "p_holm": 7.766491934603712e-11,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-mix",
+   "A": "S-mix",
+   "B": "S-union",
+   "k": 10,
+   "registration": "development (selection sets)",
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 38.38,
+   "B_pct": 34.59,
+   "diff": -3.78,
+   "ci": [
+    -6.49,
+    -1.08
+   ],
+   "ci_cluster": [
+    -6.84,
+    -1.16
+   ],
+   "diseases": 252,
+   "only_A": 19,
+   "only_B": 5,
+   "p": 0.006610751152038574,
+   "p_holm": 0.03305375576019287,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-mix",
+   "A": "S-mix",
+   "B": "S-union",
+   "k": 10,
+   "registration": "development (selection sets)",
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 44.32,
+   "B_pct": 43.18,
+   "diff": -1.14,
+   "ci": [
+    -6.82,
+    4.55
+   ],
+   "ci_cluster": [
+    -7.04,
+    3.3
+   ],
+   "diseases": 46,
+   "only_A": 4,
+   "only_B": 3,
+   "p": 1.0,
+   "p_holm": 1.0,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-mix",
+   "A": "S-mix",
+   "B": "S-union",
+   "k": 10,
+   "registration": "development (selection sets)",
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 55.0,
+   "B_pct": 55.0,
+   "diff": 0.0,
+   "ci": [
+    -10.0,
+    10.0
+   ],
+   "ci_cluster": [
+    -13.04,
+    10.2
+   ],
+   "diseases": 17,
+   "only_A": 2,
+   "only_B": 2,
+   "p": 1.0,
+   "p_holm": 1.0,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-mix",
+   "A": "S-mix",
+   "B": "S-union",
+   "k": 10,
+   "registration": "development (selection sets)",
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 67.11,
+   "B_pct": 65.38,
+   "diff": -1.72,
+   "ci": [
+    -3.64,
+    0.2
+   ],
+   "ci_cluster": [
+    -5.06,
+    2.58
+   ],
+   "diseases": 100,
+   "only_A": 56,
+   "only_B": 39,
+   "p": 0.10017333048675542,
+   "p_holm": 0.4006933219470217,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-mix",
+   "A": "S-mix",
+   "B": "S-union",
+   "k": 10,
+   "registration": "development (selection sets)",
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 68.0,
+   "B_pct": 61.33,
+   "diff": -6.67,
+   "ci": [
+    -13.33,
+    0.0
+   ],
+   "ci_cluster": [
+    -15.79,
+    0.0
+   ],
+   "diseases": 16,
+   "only_A": 6,
+   "only_B": 1,
+   "p": 0.125,
+   "p_holm": 0.4006933219470217,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-mix",
+   "A": "S-mix",
+   "B": "S-union",
+   "k": 10,
+   "registration": "development (selection sets)",
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 31.03,
+   "B_pct": 28.33,
+   "diff": -2.7,
+   "ci": [
+    -3.2,
+    -2.19
+   ],
+   "ci_cluster": [
+    -5.29,
+    -0.3
+   ],
+   "diseases": 772,
+   "only_A": 470,
+   "only_B": 192,
+   "p": 8.066864350092214e-28,
+   "p_holm": 7.260177915082993e-27,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-mix",
+   "A": "S-mix",
+   "B": "S-union",
+   "k": 10,
+   "registration": "development (selection sets)",
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 13.34,
+   "B_pct": 14.61,
+   "diff": 1.27,
+   "ci": [
+    0.74,
+    1.83
+   ],
+   "ci_cluster": [
+    0.38,
+    2.22
+   ],
+   "diseases": 760,
+   "only_A": 178,
+   "only_B": 273,
+   "p": 8.923563811000326e-06,
+   "p_holm": 5.354138286600196e-05,
+   "status": "S-union higher: disease CI excludes 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-mix",
+   "A": "S-mix",
+   "B": "S-union",
+   "k": 1,
+   "registration": "development (selection sets)",
+   "bench": "DDXPlus-test",
+   "n": 3000,
+   "A_pct": 11.77,
+   "B_pct": 16.4,
+   "diff": 4.63,
+   "ci": [
+    3.6,
+    5.63
+   ],
+   "ci_cluster": [
+    0.22,
+    9.81
+   ],
+   "diseases": 48,
+   "only_A": 54,
+   "only_B": 193,
+   "p": 1.6170114022500173e-19,
+   "p_holm": 1.4553102620250155e-18,
+   "status": "S-union higher: disease CI excludes 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-mix",
+   "A": "S-mix",
+   "B": "S-union",
+   "k": 1,
+   "registration": "development (selection sets)",
+   "bench": "RareBench-RAMEDIS",
+   "n": 624,
+   "A_pct": 10.58,
+   "B_pct": 8.65,
+   "diff": -1.92,
+   "ci": [
+    -4.01,
+    0.16
+   ],
+   "ci_cluster": [
+    -6.76,
+    2.62
+   ],
+   "diseases": 74,
+   "only_A": 29,
+   "only_B": 17,
+   "p": 0.10380535550410741,
+   "p_holm": 0.6228321330246445,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-mix",
+   "A": "S-mix",
+   "B": "S-union",
+   "k": 1,
+   "registration": "development (selection sets)",
+   "bench": "RareBench-LIRICAL",
+   "n": 370,
+   "A_pct": 17.84,
+   "B_pct": 16.22,
+   "diff": -1.62,
+   "ci": [
+    -3.78,
+    0.27
+   ],
+   "ci_cluster": [
+    -3.98,
+    0.72
+   ],
+   "diseases": 252,
+   "only_A": 12,
+   "only_B": 6,
+   "p": 0.237884521484375,
+   "p_holm": 0.8984375,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-mix",
+   "A": "S-mix",
+   "B": "S-union",
+   "k": 1,
+   "registration": "development (selection sets)",
+   "bench": "RareBench-HMS",
+   "n": 88,
+   "A_pct": 15.91,
+   "B_pct": 14.77,
+   "diff": -1.14,
+   "ci": [
+    -6.82,
+    4.55
+   ],
+   "ci_cluster": [
+    -7.23,
+    5.05
+   ],
+   "diseases": 46,
+   "only_A": 4,
+   "only_B": 3,
+   "p": 1.0,
+   "p_holm": 1.0,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-mix",
+   "A": "S-mix",
+   "B": "S-union",
+   "k": 1,
+   "registration": "development (selection sets)",
+   "bench": "RareBench-MME",
+   "n": 40,
+   "A_pct": 35.0,
+   "B_pct": 25.0,
+   "diff": -10.0,
+   "ci": [
+    -22.5,
+    0.0
+   ],
+   "ci_cluster": [
+    -26.09,
+    0.0
+   ],
+   "diseases": 17,
+   "only_A": 5,
+   "only_B": 1,
+   "p": 0.21875,
+   "p_holm": 0.8984375,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-mix",
+   "A": "S-mix",
+   "B": "S-union",
+   "k": 1,
+   "registration": "development (selection sets)",
+   "bench": "PUMCH_L",
+   "n": 988,
+   "A_pct": 34.62,
+   "B_pct": 33.5,
+   "diff": -1.11,
+   "ci": [
+    -3.14,
+    0.71
+   ],
+   "ci_cluster": [
+    -5.29,
+    3.31
+   ],
+   "diseases": 100,
+   "only_A": 56,
+   "only_B": 45,
+   "p": 0.3197273207002655,
+   "p_holm": 0.8984375,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-mix",
+   "A": "S-mix",
+   "B": "S-union",
+   "k": 1,
+   "registration": "development (selection sets)",
+   "bench": "PUMCH-ADM",
+   "n": 75,
+   "A_pct": 33.33,
+   "B_pct": 26.67,
+   "diff": -6.67,
+   "ci": [
+    -14.67,
+    1.33
+   ],
+   "ci_cluster": [
+    -14.67,
+    1.35
+   ],
+   "diseases": 16,
+   "only_A": 7,
+   "only_B": 2,
+   "p": 0.1796875,
+   "p_holm": 0.8984375,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-mix",
+   "A": "S-mix",
+   "B": "S-union",
+   "k": 1,
+   "registration": "development (selection sets)",
+   "bench": "Phenopacket-store",
+   "n": 10310,
+   "A_pct": 15.41,
+   "B_pct": 13.6,
+   "diff": -1.81,
+   "ci": [
+    -2.23,
+    -1.39
+   ],
+   "ci_cluster": [
+    -3.55,
+    0.01
+   ],
+   "diseases": 772,
+   "only_A": 354,
+   "only_B": 167,
+   "p": 1.7475860189988172e-16,
+   "p_holm": 1.3980688151990537e-15,
+   "status": "S-mix higher: patient CI only"
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-mix",
+   "A": "S-mix",
+   "B": "S-union",
+   "k": 1,
+   "registration": "development (selection sets)",
+   "bench": "SymCat",
+   "n": 7481,
+   "A_pct": 2.51,
+   "B_pct": 3.48,
+   "diff": 0.96,
+   "ci": [
+    0.65,
+    1.28
+   ],
+   "ci_cluster": [
+    0.49,
+    1.44
+   ],
+   "diseases": 760,
+   "only_A": 40,
+   "only_B": 112,
+   "p": 4.372591882668503e-09,
+   "p_holm": 3.060814317867952e-08,
+   "status": "S-union higher: disease CI excludes 0"
+  },
+  {
+   "part": "confirmation E",
+   "comparison": "S-union - S-dict",
+   "A": "S-dict",
+   "B": "S-union",
+   "k": 10,
+   "registration": "post hoc (not pre-registered)",
+   "bench": "ConfirmE-DDXPlus",
+   "n": 3000,
+   "A_pct": 43.5,
+   "B_pct": 45.07,
+   "diff": 1.57,
+   "ci": [
+    0.63,
+    2.57
+   ],
+   "ci_cluster": [
+    -1.79,
+    5.76
+   ],
+   "diseases": 49,
+   "only_A": 87,
+   "only_B": 134,
+   "p": 0.001906286015530941,
+   "p_holm": 0.003812572031061882,
+   "status": "S-union higher: patient CI only"
+  },
+  {
+   "part": "confirmation E",
+   "comparison": "S-union - S-dict",
+   "A": "S-dict",
+   "B": "S-union",
+   "k": 10,
+   "registration": "post hoc (not pre-registered)",
+   "bench": "ConfirmE-SymCat",
+   "n": 7463,
+   "A_pct": 14.08,
+   "B_pct": 14.24,
+   "diff": 0.16,
+   "ci": [
+    -0.17,
+    0.48
+   ],
+   "ci_cluster": [
+    -0.25,
+    0.57
+   ],
+   "diseases": 760,
+   "only_A": 74,
+   "only_B": 86,
+   "p": 0.3845671514777665,
+   "p_holm": 0.3845671514777665,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "confirmation E",
+   "comparison": "S-union - S-dict",
+   "A": "S-dict",
+   "B": "S-union",
+   "k": 1,
+   "registration": "post hoc (not pre-registered)",
+   "bench": "ConfirmE-DDXPlus",
+   "n": 3000,
+   "A_pct": 17.63,
+   "B_pct": 17.93,
+   "diff": 0.3,
+   "ci": [
+    -0.43,
+    1.03
+   ],
+   "ci_cluster": [
+    -2.15,
+    2.85
+   ],
+   "diseases": 49,
+   "only_A": 54,
+   "only_B": 63,
+   "p": 0.45969138732555304,
+   "p_holm": 0.4901216660458914,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "confirmation E",
+   "comparison": "S-union - S-dict",
+   "A": "S-dict",
+   "B": "S-union",
+   "k": 1,
+   "registration": "post hoc (not pre-registered)",
+   "bench": "ConfirmE-SymCat",
+   "n": 7463,
+   "A_pct": 3.12,
+   "B_pct": 3.26,
+   "diff": 0.13,
+   "ci": [
+    -0.07,
+    0.33
+   ],
+   "ci_cluster": [
+    -0.15,
+    0.5
+   ],
+   "diseases": 760,
+   "only_A": 25,
+   "only_B": 35,
+   "p": 0.2450608330229457,
+   "p_holm": 0.4901216660458914,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "confirmation E",
+   "comparison": "S-mix - S-dict",
+   "A": "S-dict",
+   "B": "S-mix",
+   "k": 10,
+   "registration": "post hoc (not pre-registered)",
+   "bench": "ConfirmE-DDXPlus",
+   "n": 3000,
+   "A_pct": 43.5,
+   "B_pct": 41.07,
+   "diff": -2.43,
+   "ci": [
+    -3.7,
+    -1.17
+   ],
+   "ci_cluster": [
+    -8.77,
+    3.53
+   ],
+   "diseases": 49,
+   "only_A": 209,
+   "only_B": 136,
+   "p": 0.00010037094820402358,
+   "p_holm": 0.00010037094820402358,
+   "status": "S-dict higher: patient CI only"
+  },
+  {
+   "part": "confirmation E",
+   "comparison": "S-mix - S-dict",
+   "A": "S-dict",
+   "B": "S-mix",
+   "k": 10,
+   "registration": "post hoc (not pre-registered)",
+   "bench": "ConfirmE-SymCat",
+   "n": 7463,
+   "A_pct": 14.08,
+   "B_pct": 12.92,
+   "diff": -1.17,
+   "ci": [
+    -1.72,
+    -0.59
+   ],
+   "ci_cluster": [
+    -2.1,
+    -0.22
+   ],
+   "diseases": 760,
+   "only_A": 269,
+   "only_B": 182,
+   "p": 4.8808911758541196e-05,
+   "p_holm": 9.761782351708239e-05,
+   "status": "S-dict higher: disease CI excludes 0"
+  },
+  {
+   "part": "confirmation E",
+   "comparison": "S-mix - S-dict",
+   "A": "S-dict",
+   "B": "S-mix",
+   "k": 1,
+   "registration": "post hoc (not pre-registered)",
+   "bench": "ConfirmE-DDXPlus",
+   "n": 3000,
+   "A_pct": 17.63,
+   "B_pct": 12.43,
+   "diff": -5.2,
+   "ci": [
+    -6.2,
+    -4.13
+   ],
+   "ci_cluster": [
+    -9.83,
+    -1.39
+   ],
+   "diseases": 49,
+   "only_A": 202,
+   "only_B": 46,
+   "p": 1.681366150810372e-24,
+   "p_holm": 3.362732301620744e-24,
+   "status": "S-dict higher: disease CI excludes 0"
+  },
+  {
+   "part": "confirmation E",
+   "comparison": "S-mix - S-dict",
+   "A": "S-dict",
+   "B": "S-mix",
+   "k": 1,
+   "registration": "post hoc (not pre-registered)",
+   "bench": "ConfirmE-SymCat",
+   "n": 7463,
+   "A_pct": 3.12,
+   "B_pct": 2.45,
+   "diff": -0.67,
+   "ci": [
+    -1.0,
+    -0.32
+   ],
+   "ci_cluster": [
+    -1.28,
+    -0.08
+   ],
+   "diseases": 760,
+   "only_A": 111,
+   "only_B": 61,
+   "p": 0.00016964950828826124,
+   "p_holm": 0.00016964950828826124,
+   "status": "S-dict higher: disease CI excludes 0"
+  },
+  {
+   "part": "confirmation E",
+   "comparison": "S-mix - S-D",
+   "A": "S-D",
+   "B": "S-mix",
+   "k": 10,
+   "registration": "pre-registered E-T1 (patient CI, Holm); disease CI auxiliary",
+   "bench": "ConfirmE-DDXPlus",
+   "n": 3000,
+   "A_pct": 34.53,
+   "B_pct": 41.07,
+   "diff": 6.53,
+   "ci": [
+    4.63,
+    8.47
+   ],
+   "ci_cluster": [
+    -6.07,
+    19.33
+   ],
+   "diseases": 49,
+   "only_A": 317,
+   "only_B": 513,
+   "p": 1.0489083142017847e-11,
+   "p_holm": 2.0978166284035695e-11,
+   "status": "S-mix higher: patient CI only"
+  },
+  {
+   "part": "confirmation E",
+   "comparison": "S-mix - S-D",
+   "A": "S-D",
+   "B": "S-mix",
+   "k": 10,
+   "registration": "pre-registered E-T1 (patient CI, Holm); disease CI auxiliary",
+   "bench": "ConfirmE-SymCat",
+   "n": 7463,
+   "A_pct": 10.49,
+   "B_pct": 12.92,
+   "diff": 2.43,
+   "ci": [
+    1.73,
+    3.12
+   ],
+   "ci_cluster": [
+    1.04,
+    3.87
+   ],
+   "diseases": 760,
+   "only_A": 282,
+   "only_B": 463,
+   "p": 3.432439281654237e-11,
+   "p_holm": 3.432439281654237e-11,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "part": "confirmation E",
+   "comparison": "S-mix - S-D",
+   "A": "S-D",
+   "B": "S-mix",
+   "k": 1,
+   "registration": "post hoc (not pre-registered)",
+   "bench": "ConfirmE-DDXPlus",
+   "n": 3000,
+   "A_pct": 11.73,
+   "B_pct": 12.43,
+   "diff": 0.7,
+   "ci": [
+    -0.57,
+    2.0
+   ],
+   "ci_cluster": [
+    -6.13,
+    8.29
+   ],
+   "diseases": 49,
+   "only_A": 177,
+   "only_B": 198,
+   "p": 0.30169278409308375,
+   "p_holm": 0.30169278409308375,
+   "status": "both CIs include 0"
+  },
+  {
+   "part": "confirmation E",
+   "comparison": "S-mix - S-D",
+   "A": "S-D",
+   "B": "S-mix",
+   "k": 1,
+   "registration": "post hoc (not pre-registered)",
+   "bench": "ConfirmE-SymCat",
+   "n": 7463,
+   "A_pct": 3.23,
+   "B_pct": 2.45,
+   "diff": -0.78,
+   "ci": [
+    -1.22,
+    -0.36
+   ],
+   "ci_cluster": [
+    -1.7,
+    0.05
+   ],
+   "diseases": 760,
+   "only_A": 168,
+   "only_B": 110,
+   "p": 0.0006041303529967884,
+   "p_holm": 0.0012082607059935768,
+   "status": "S-D higher: patient CI only"
+  }
+ ],
+ "macro": [
+  {
+   "part": "development",
+   "comparison": "S-mix - S-dict",
+   "k": 10,
+   "group": "common (DDXPlus, SymCat)",
+   "sets": [
+    "DDXPlus-test",
+    "SymCat"
+   ],
+   "A": 28.36,
+   "B": 26.99,
+   "diff": -1.38,
+   "ci_patient_stratified": [
+    -2.06,
+    -0.69
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - S-dict",
+   "k": 10,
+   "group": "rare (7 sets)",
+   "sets": [
+    "PUMCH-ADM",
+    "PUMCH_L",
+    "Phenopacket-store",
+    "RareBench-HMS",
+    "RareBench-LIRICAL",
+    "RareBench-MME",
+    "RareBench-RAMEDIS"
+   ],
+   "A": 47.02,
+   "B": 51.58,
+   "diff": 4.55,
+   "ci_patient_stratified": [
+    2.44,
+    6.73
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - S-dict",
+   "k": 1,
+   "group": "common (DDXPlus, SymCat)",
+   "sets": [
+    "DDXPlus-test",
+    "SymCat"
+   ],
+   "A": 9.99,
+   "B": 7.14,
+   "diff": -2.85,
+   "ci_patient_stratified": [
+    -3.36,
+    -2.33
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - S-dict",
+   "k": 1,
+   "group": "rare (7 sets)",
+   "sets": [
+    "PUMCH-ADM",
+    "PUMCH_L",
+    "Phenopacket-store",
+    "RareBench-HMS",
+    "RareBench-LIRICAL",
+    "RareBench-MME",
+    "RareBench-RAMEDIS"
+   ],
+   "A": 20.43,
+   "B": 23.24,
+   "diff": 2.81,
+   "ci_patient_stratified": [
+    0.45,
+    5.21
+   ],
+   "p_bootstrap": 0.023
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-dict",
+   "k": 10,
+   "group": "common (DDXPlus, SymCat)",
+   "sets": [
+    "DDXPlus-test",
+    "SymCat"
+   ],
+   "A": 28.36,
+   "B": 29.11,
+   "diff": 0.74,
+   "ci_patient_stratified": [
+    0.22,
+    1.26
+   ],
+   "p_bootstrap": 0.007
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-dict",
+   "k": 10,
+   "group": "rare (7 sets)",
+   "sets": [
+    "PUMCH-ADM",
+    "PUMCH_L",
+    "Phenopacket-store",
+    "RareBench-HMS",
+    "RareBench-LIRICAL",
+    "RareBench-MME",
+    "RareBench-RAMEDIS"
+   ],
+   "A": 47.02,
+   "B": 47.96,
+   "diff": 0.94,
+   "ci_patient_stratified": [
+    -0.15,
+    2.22
+   ],
+   "p_bootstrap": 0.1
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-dict",
+   "k": 1,
+   "group": "common (DDXPlus, SymCat)",
+   "sets": [
+    "DDXPlus-test",
+    "SymCat"
+   ],
+   "A": 9.99,
+   "B": 9.94,
+   "diff": -0.05,
+   "ci_patient_stratified": [
+    -0.45,
+    0.35
+   ],
+   "p_bootstrap": 0.808
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-dict",
+   "k": 1,
+   "group": "rare (7 sets)",
+   "sets": [
+    "PUMCH-ADM",
+    "PUMCH_L",
+    "Phenopacket-store",
+    "RareBench-HMS",
+    "RareBench-LIRICAL",
+    "RareBench-MME",
+    "RareBench-RAMEDIS"
+   ],
+   "A": 20.43,
+   "B": 19.77,
+   "diff": -0.65,
+   "ci_patient_stratified": [
+    -1.99,
+    0.63
+   ],
+   "p_bootstrap": 0.315
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - S-llm",
+   "k": 10,
+   "group": "common (DDXPlus, SymCat)",
+   "sets": [
+    "DDXPlus-test",
+    "SymCat"
+   ],
+   "A": 25.12,
+   "B": 26.99,
+   "diff": 1.86,
+   "ci_patient_stratified": [
+    1.36,
+    2.37
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - S-llm",
+   "k": 10,
+   "group": "rare (7 sets)",
+   "sets": [
+    "PUMCH-ADM",
+    "PUMCH_L",
+    "Phenopacket-store",
+    "RareBench-HMS",
+    "RareBench-LIRICAL",
+    "RareBench-MME",
+    "RareBench-RAMEDIS"
+   ],
+   "A": 50.55,
+   "B": 51.58,
+   "diff": 1.03,
+   "ci_patient_stratified": [
+    -0.57,
+    2.65
+   ],
+   "p_bootstrap": 0.21
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - S-llm",
+   "k": 1,
+   "group": "common (DDXPlus, SymCat)",
+   "sets": [
+    "DDXPlus-test",
+    "SymCat"
+   ],
+   "A": 6.62,
+   "B": 7.14,
+   "diff": 0.52,
+   "ci_patient_stratified": [
+    0.12,
+    0.95
+   ],
+   "p_bootstrap": 0.014
+  },
+  {
+   "part": "development",
+   "comparison": "S-mix - S-llm",
+   "k": 1,
+   "group": "rare (7 sets)",
+   "sets": [
+    "PUMCH-ADM",
+    "PUMCH_L",
+    "Phenopacket-store",
+    "RareBench-HMS",
+    "RareBench-LIRICAL",
+    "RareBench-MME",
+    "RareBench-RAMEDIS"
+   ],
+   "A": 22.93,
+   "B": 23.24,
+   "diff": 0.31,
+   "ci_patient_stratified": [
+    -1.2,
+    1.85
+   ],
+   "p_bootstrap": 0.648
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-mix",
+   "k": 10,
+   "group": "common (DDXPlus, SymCat)",
+   "sets": [
+    "DDXPlus-test",
+    "SymCat"
+   ],
+   "A": 26.99,
+   "B": 29.11,
+   "diff": 2.12,
+   "ci_patient_stratified": [
+    1.43,
+    2.79
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-mix",
+   "k": 10,
+   "group": "rare (7 sets)",
+   "sets": [
+    "PUMCH-ADM",
+    "PUMCH_L",
+    "Phenopacket-store",
+    "RareBench-HMS",
+    "RareBench-LIRICAL",
+    "RareBench-MME",
+    "RareBench-RAMEDIS"
+   ],
+   "A": 51.58,
+   "B": 47.96,
+   "diff": -3.61,
+   "ci_patient_stratified": [
+    -5.65,
+    -1.68
+   ],
+   "p_bootstrap": 0.001
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-mix",
+   "k": 1,
+   "group": "common (DDXPlus, SymCat)",
+   "sets": [
+    "DDXPlus-test",
+    "SymCat"
+   ],
+   "A": 7.14,
+   "B": 9.94,
+   "diff": 2.8,
+   "ci_patient_stratified": [
+    2.31,
+    3.32
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "part": "development",
+   "comparison": "S-union - S-mix",
+   "k": 1,
+   "group": "rare (7 sets)",
+   "sets": [
+    "PUMCH-ADM",
+    "PUMCH_L",
+    "Phenopacket-store",
+    "RareBench-HMS",
+    "RareBench-LIRICAL",
+    "RareBench-MME",
+    "RareBench-RAMEDIS"
+   ],
+   "A": 23.24,
+   "B": 19.77,
+   "diff": -3.47,
+   "ci_patient_stratified": [
+    -5.7,
+    -1.28
+   ],
+   "p_bootstrap": 0.002
+  },
+  {
+   "part": "confirmation E",
+   "comparison": "S-union - S-dict",
+   "k": 10,
+   "group": "both sets",
+   "sets": [
+    "ConfirmE-DDXPlus",
+    "ConfirmE-SymCat"
+   ],
+   "A": 28.79,
+   "B": 29.66,
+   "diff": 0.86,
+   "ci_patient_stratified": [
+    0.36,
+    1.36
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "part": "confirmation E",
+   "comparison": "S-union - S-dict",
+   "k": 1,
+   "group": "both sets",
+   "sets": [
+    "ConfirmE-DDXPlus",
+    "ConfirmE-SymCat"
+   ],
+   "A": 10.38,
+   "B": 10.59,
+   "diff": 0.22,
+   "ci_patient_stratified": [
+    -0.15,
+    0.58
+   ],
+   "p_bootstrap": 0.243
+  },
+  {
+   "part": "confirmation E",
+   "comparison": "S-mix - S-dict",
+   "k": 10,
+   "group": "both sets",
+   "sets": [
+    "ConfirmE-DDXPlus",
+    "ConfirmE-SymCat"
+   ],
+   "A": 28.79,
+   "B": 26.99,
+   "diff": -1.8,
+   "ci_patient_stratified": [
+    -2.44,
+    -1.12
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "part": "confirmation E",
+   "comparison": "S-mix - S-dict",
+   "k": 1,
+   "group": "both sets",
+   "sets": [
+    "ConfirmE-DDXPlus",
+    "ConfirmE-SymCat"
+   ],
+   "A": 10.38,
+   "B": 7.44,
+   "diff": -2.93,
+   "ci_patient_stratified": [
+    -3.51,
+    -2.4
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "part": "confirmation E",
+   "comparison": "S-mix - S-D",
+   "k": 10,
+   "group": "both sets",
+   "sets": [
+    "ConfirmE-DDXPlus",
+    "ConfirmE-SymCat"
+   ],
+   "A": 22.51,
+   "B": 26.99,
+   "diff": 4.48,
+   "ci_patient_stratified": [
+    3.53,
+    5.48
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "part": "confirmation E",
+   "comparison": "S-mix - S-D",
+   "k": 1,
+   "group": "both sets",
+   "sets": [
+    "ConfirmE-DDXPlus",
+    "ConfirmE-SymCat"
+   ],
+   "A": 7.48,
+   "B": 7.44,
+   "diff": -0.04,
+   "ci_patient_stratified": [
+    -0.7,
+    0.61
+   ],
+   "p_bootstrap": 0.93
+  }
+ ]
+}

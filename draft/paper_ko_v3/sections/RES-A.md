@@ -42,7 +42,7 @@ Table 5b. Literature graphs compared in this paper (build detail for the graph s
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | S-D | base_nm | v2 | LLM (gemma-4-E4B-it) | none; self-edges kept | 0 (frozen) | 27,309 | 46,130 | 832,671 | 1,201,064 | 86,276 | 30.56 / 12.64 |
 | S-llm | v3llm_ns | v2 + v3 | LLM | coordination split, HPO names, causal-gene titles; self-edges removed | 1.0 | 33,123 | 76,487 | 3,672,106 | 7,010,155 | 589,666 | 44.90 / 19.30 |
-| S-dict | v3umls_ns | v2 + v3 | UMLS finding-string dictionary (no LLM) | same as S-llm | 0.5 | 34,356 | 95,608 | 14,506,788 | 59,796,310 | 984,061 | 42.88 / 18.11 |
+| S-dict | v3umls_ns | v2 + v3 | UMLS finding-string dictionary (no LLM extraction)^e^ | same as S-llm | 0.5 | 34,356 | 95,608 | 14,506,788 | 59,796,310 | 984,061 | 42.88 / 18.11 |
 | S-union | v3unionu_ns | v2 + v3 | LLM + UMLS dictionary | same as S-llm | 0.5 | 34,359 | 115,224 | 15,396,388 | 66,898,838 | 986,098 | 43.77 / 17.59 |
 | S-mix | v3llmd_ns | v2 + v3 | LLM spans; spans the phrase table cannot link (except negated, over-8-word and table-absent spans) are named by UMLS strings inside the span | same as S-llm | 0.5 | 33,537 | 85,761 | 5,221,285 | 11,582,169 | 711,350 | 46.11 / 19.66 |
 
@@ -50,6 +50,7 @@ Table 5b. Literature graphs compared in this paper (build detail for the graph s
 ^b^ Aggregated evidence-mention count. Development builds have no Mention nodes; the frozen S-D graph and the S-mix rebuild with Mentions (Section 4.1) do.
 ^c^ Distinct document IDs supporting at least one edge; a PMC table document is counted separately from its article.
 ^d^ Development values (nine sets). At each graph's offtopic_w selected on these sets, S-mix had the highest macro Top-10 and Top-1 of the 32 graphs evaluated (base_nm included; 18 on v2 literature, 14 on v2 + v3 literature, two of which read the full PMC text instead of the 12k clinical sections), so its value includes selection optimism (Section 4.4).
+^e^ CUI-less dictionary items are linked through HPO names and the v2 phrase table, which was built from LLM phrases (Section 3.3). In a 1/20 sample of literature files, 4.6% of dictionary items received their concept only through this table (Section 4.4.7).
 
 구축과 분석 중 발견한 무증상 실패와 그 수정을 정리한다. 수집에서는 질환명 변형 함수가 6자 미만 이름을 버려 Gout, Croup, Mumps 등 25개 질환의 질의가 한 번도 나가지 않았다. 원래 이름을 항상 질의하도록 고친 뒤 이 질환들을 재수집했다. 벤치마크 전처리에서는 DDXPlus 근거 사상이 응답 값을 무시해, 여행하지 않았다는 응답(trav1_@_N)이 환자 93%에서 'Travel History'로 사상되었다. 기본값 응답은 근거에서 빼도록 고쳤다. DDXPlus 정답 사상은 ICD-10 경로 때문에 Pneumonia가 'Pneumonia in diseases classified elsewhere'로 연결되는 식으로 어긋나 있었다. 영문 질환명의 UMLS 정확 일치를 우선하도록 고쳤다. 정규화에서는 의미유형 표 누락으로 언급 20.6만 개가 잘못 탈락했다. 의미유형을 UMLS MRSTY 원본에서 읽도록 고쳤다.
 
@@ -152,18 +153,45 @@ For reference, the S-D literature graph reaches Top-10 16.7% on the same cases (
 
 **재현율 손실의 단계 분해.** Phenopacket 증례에서 관찰된 소견 중 HPO 주석이 정답 질환에 붙인 소견을 분해 대상으로 삼았다(증례×정답×소견 82,751건, 질환 878개). 각 소견은 정답 질환의 문헌 근거가 처음 사라진 단계로 분류했다(S-D 그래프의 문헌·추출·구절 표 기준). 소견의 22.4%는 쓸 만한 문헌이 없는 질환에 속했다(표 9A). 44.7%는 문헌은 있으나 소견 이름이 텍스트에 없었다. 따라서 최대 55,465건(67.0%)이 수집 단계에서 빠졌다(반올림한 두 비율의 합은 67.1%). 이는 전체 손실(85.9%)의 78%다. 간선으로 남은 소견은 14.1%였다. 텍스트에 이름이 있는 소견(33.0%) 중 약 74%는 추출과 개념 연결을 통과했다. 추출되지 않은 소견은 2.3%, 추출되었으나 연결되지 않거나 다른 CUI로 연결된 소견은 6.2%였다. 연결 실패의 주된 유형은 등위 구절 미분해('arachnodactyly, kyphosis or scoliosis')와 같은 개념의 다른 CUI(failure to thrive C0015544 대 C0231246)였다. 소견 이름을 UMLS 영어 문자열로 넓혀도 '텍스트에 없음'의 0.7%만 추가로 발견되었다. 문자열 일치는 소견 존재의 하한이다. 따라서 '텍스트에 없음'은 수집 손실의 상한이고 '추출 안 됨'은 추출 손실의 하한이다. 질환–소견 쌍(22,626쌍) 단위로 세면 간선이 있는 쌍은 5.8%였다.
 
-Table 9A. Stage at which a curated finding of the gold disease is first lost (S-D literature, extraction and phrase table; offtopic_w 0). Cases: the 10,603 phenopacket cases, including 32 whose source papers are in the v2 corpus. Percentages are rounded; the first two stages together are 55,465 triples (67.0%).
+**v2+v3 그래프의 단계 분해.** 같은 82,751건을 v2+v3 문헌의 세 그래프(S-mix, S-llm, S-dict)에서 다시 분해했다(표 9A). 이 재측정은 설계 E 확증 실행 뒤에 했다. 각 그래프의 분해는 그 그래프의 문헌, 추출, 구절 표와 빌더 규칙(등위 분해, HPO 이름 연결, 원인 유전자 제목 주제 인정, 자기 간선 제거)을 따랐다. 분해 스크립트를 이에 맞게 고친 뒤에도 기본 설정은 S-D 분해를 질환–소견 쌍별 판정까지 그대로 재현했다. 수집 손실(문헌 없음과 텍스트에 이름 없음의 합)은 S-D 67.0%에서 S-mix 37.3%로 줄었다(S-llm 37.7%, S-dict 36.4%). 쓸 만한 문헌이 없는 소견은 22.4%에서 0.3%로 줄었다. 문헌은 있으나 소견 이름이 텍스트에 없는 소견은 44.7%에서 37.0%로 줄었다. S-mix에서도 이 단계가 가장 큰 손실이었다. 이 값도 문자열 일치 기준이므로 수집 손실의 상한이다. 다른 말로 적힌 소견은 이 단계에 들어간다. 추출·연결 손실(추출 안 됨과 연결 안 됨의 합)은 늘지 않았다(8.5% → 5.1%). S-D와 같은 v2 문헌·추출에 v2+v3 그래프의 빌더 규칙만 적용해도 추출·연결 손실은 5.0%(4,153건)였다. 따라서 S-D 대비 감소는 문헌 확장보다 빌더 규칙의 차이에 해당한다. 정답 개념의 주제 간선이 된 소견은 14.1%에서 41.3%로 늘었다. 단계 분류와 별개로, 동결 순위화가 그 소견으로 정답 질환에 0보다 큰 점수를 주는 비율은 14.9%에서 55.5%로 늘었다(S-llm 53.4%, S-dict 59.3%). 질환–소견 쌍 단위로 세면 간선이 있는 쌍은 5.8%에서 22.5%로 늘었다.
 
-| Stage | Case × gold × finding triples (%; n = 82,751) | Disease–finding pairs (%; n = 22,626) |
-|---|---|---|
-| No usable document (none, or all generic) | 22.4 | 31.9 |
-| Documents exist, finding name not in text | 44.7 | 49.6 |
-| In text, not extracted | 2.3 | 1.7 |
-| Extracted, not linked or linked to a different CUI | 6.2 | 3.7 |
-| Linked, removed by a filter (generic document) | 3.5 | 3.0 |
-| Only in off-topic documents (offtopic_w 0) | 4.3 | 2.6 |
-| Only a parent or child concept has an edge | 2.6 | 1.8 |
-| Edge present | 14.1 | 5.8 |
+분해의 정의에는 두 가지 단서가 있다. 첫째, 분해는 HPO 소견을 HPO 온톨로지(hp.json)의 UMLS 교차참조 CUI로 찾는다. 순위화는 소견마다 환자 쪽 평가에 쓰는 HPO–UMLS 대응의 CUI 하나를 쓴다. 소견을 순위화의 CUI로 찾으면 수집 손실은 S-D 66.6%, S-mix 36.0%였다. 두 CUI 중 하나로 찾는 경우까지 포함해, 네 그래프 모두에서 수집 손실은 교차참조 기준 값에서 3.2%p 이내로 움직였다. 둘째, v2+v3 그래프에서 '주제 밖 문서에만 있음' 단계(4.4–4.9%)는 손실이 아니다. 이 그래프들의 동결 offtopic_w는 0보다 크다(S-mix·S-dict 0.5, S-llm 1.0). 그래서 이 단계 소견의 97.8–98.0%가 점수를 받는다. S-D(offtopic_w 0)에서는 이 단계가 손실이다.
+
+Table 9A. Stage at which a curated finding of the gold disease is first lost: the design D graph (S-D; v2 literature, gemma-4-E4B-it extraction, v2 phrase table, offtopic_w 0) and three v2 + v3 graphs of Table 5b (each with its own extraction, phrase table and builder rules). Cases: the 10,603 phenopacket cases, including 32 whose source papers are in the v2 corpus. Every column uses the same 82,751 case × gold × finding triples (22,626 disease–finding pairs, 878 gold diseases). Findings are matched by the UMLS cross-references of their HPO terms (hp.json)^d^. Percentages are rounded; subtotals are computed from counts.
+
+Panel A. Case × gold × finding triples, n (%).
+
+| Stage | S-D | S-mix | S-llm | S-dict |
+|---|---|---|---|---|
+| No usable document (none, or all generic) | 18,502 (22.4) | 208 (0.3) | 208 (0.3) | 206 (0.2) |
+| Documents exist, finding name not in text | 36,963 (44.7) | 30,656 (37.0) | 30,958 (37.4) | 29,901 (36.1) |
+| In text, not extracted | 1,906 (2.3) | 2,022 (2.4) | 2,053 (2.5) | 277 (0.3) |
+| Extracted, not linked or linked to a different CUI | 5,113 (6.2) | 2,219 (2.7) | 2,857 (3.5) | 2,439 (2.9) |
+| Linked, removed by a filter^a^ | 2,881 (3.5) | 3,113 (3.8) | 3,160 (3.8) | 3,087 (3.7) |
+| Only in off-topic documents^b^ | 3,569 (4.3) | 3,627 (4.4) | 3,775 (4.6) | 4,042 (4.9) |
+| Only a parent or child concept has an edge | 2,132 (2.6) | 6,755 (8.2) | 6,622 (8.0) | 7,104 (8.6) |
+| Edge present | 11,685 (14.1) | 34,151 (41.3) | 33,118 (40.0) | 35,695 (43.1) |
+| Collection loss (first two stages) | 55,465 (67.0) | 30,864 (37.3) | 31,166 (37.7) | 30,107 (36.4) |
+| Extraction and linking loss (third and fourth stages) | 7,019 (8.5) | 4,241 (5.1) | 4,910 (5.9) | 2,716 (3.3) |
+| Scored by the frozen ranker for the gold disease^c^ | 12,303 (14.9) | 45,891 (55.5) | 44,222 (53.4) | 49,090 (59.3) |
+
+Panel B. Disease–finding pairs (%; n = 22,626).
+
+| Stage | S-D | S-mix | S-llm | S-dict |
+|---|---|---|---|---|
+| No usable document (none, or all generic) | 31.9 | 0.5 | 0.5 | 0.5 |
+| Documents exist, finding name not in text | 49.6 | 56.4 | 56.9 | 55.1 |
+| In text, not extracted | 1.7 | 3.0 | 3.0 | 0.3 |
+| Extracted, not linked or linked to a different CUI | 3.7 | 2.2 | 2.9 | 2.5 |
+| Linked, removed by a filter^a^ | 3.0 | 4.9 | 4.8 | 5.2 |
+| Only in off-topic documents^b^ | 2.6 | 4.1 | 4.0 | 4.9 |
+| Only a parent or child concept has an edge | 1.8 | 6.6 | 6.5 | 7.2 |
+| Edge present | 5.8 | 22.5 | 21.4 | 24.3 |
+
+^a^ Generic document or excluded semantic type; in the v2 + v3 columns also a concept naming the disease or a parent disease (self-edge removal).
+^b^ Scored at the graph's offtopic_w. A loss for S-D (offtopic_w 0); not a loss for the v2 + v3 graphs (frozen design E values: S-mix 0.5, S-llm 1.0, S-dict 0.5), where 97.8–98.0% of these triples receive a score.
+^c^ Independent of the stage: the frozen ranker gives the gold disease a score above 0 through the ranker's CUI for the finding (footnote d) or a graph IS_A parent of that CUI, over HAS_FINDING edges only (off-topic edges weighted by offtopic_w).
+^d^ The ranker queries one CUI per finding (the HPO–UMLS mapping used for patients). Matching findings by that CUI, or by either CUI, moves the collection loss by at most 3.2 pp in any column (ranker CUI: S-D 66.6%, S-mix 36.0%, S-llm 37.1%, S-dict 34.1%).
 
 **수집 확장 사전테스트.** 어떤 문헌 원천이 큐레이션 소견을 더 담는지 텍스트 출현율로 비교했다. HPO 주석이 있는 OMIM 질환 300개를 무작위로 뽑았고(시드 7, 벤치마크 정보 미사용), 그중 99개는 v2 코퍼스에 쓸 문헌이 없었다. 지표는 큐레이션 (질환, HPO) 쌍의 소견 이름이 그 질환 텍스트에 나오는 비율이다. 대조는 다른 무작위 질환의 큐레이션 소견이 나오는 비율로, 텍스트 양의 효과를 잰다. v2 코퍼스의 재현율은 18.4%, 대조는 2.9%였다(표 9B). PMC OA 리뷰·증례를 30+30편(임상 절, 12k 절단)으로 늘리면 재현율은 28.5%였다. 같은 문헌을 절단 없이 전문으로 읽으면 47.8%, PubMed 초록 50편을 더하면 49.4%, 원인 유전자 기호 검색을 더하면 58.1%였다. 재현율과 대조의 차이(질환 특이 신호)는 15.5%p에서 40.3%p로 2.6배가 되었다. 대조도 2.9%에서 17.8%로 6배가 되었다. 차이 기준 가장 큰 단일 상승은 12k 절단과 절 필터를 없앤 단계였다(+10.2%p). 무작위 40질환에서 임상 절 12k 텍스트에 없던 큐레이션 소견 181개 중 58.6%는 표에 있었다(중복 허용; 기타 절 38.7%, 고찰 30.4%, 서론 26.0%, 결과 19.9%). v2 수집은 본문의 `<p>` 요소만 저장해 표를 버렸다. 표를 더하면 PMC 30+30 임상 절의 재현율은 28.5%에서 40.9%로 올랐다. 재현율/대조 비는 임상 절+표 3.8, 전문+표 3.1이었다.
 

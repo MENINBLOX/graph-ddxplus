@@ -1,0 +1,40 @@
+{
+ "src_v2": {
+  "files": 51894,
+  "files_without_docs": 12886,
+  "docs": 304428,
+  "chars": 1555691255,
+  "windows": 450172,
+  "window_chars": 1613988855,
+  "prompt_template_chars": 525143126,
+  "sec": 16
+ },
+ "src_v3new": {
+  "files": 43575,
+  "files_without_docs": 8569,
+  "docs": 1619168,
+  "chars": 4264890488,
+  "windows": 1864256,
+  "window_chars": 4362925688,
+  "prompt_template_chars": 2176711177,
+  "sec": 27
+ },
+ "ie_v2": {
+  "diseases": 51894,
+  "diseases_with_items": 38062,
+  "windows": 450172,
+  "raw_items": 5601003,
+  "located_items": 5329390,
+  "items": 5329390,
+  "sec": 4
+ },
+ "ie_v3": {
+  "diseases": 43575,
+  "diseases_with_items": 34654,
+  "windows": 1866063,
+  "raw_items": 13225896,
+  "located_items": 12324780,
+  "items": 12324780,
+  "sec": 12
+ }
+}
