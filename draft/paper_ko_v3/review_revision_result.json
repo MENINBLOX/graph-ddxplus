@@ -1,0 +1,989 @@
+{
+ "rounds": [
+  {
+   "round": 1,
+   "revisions": [
+    {
+     "id": "ABS-CON",
+     "changes": [
+      {
+       "spec_item": "R2-3 (abstract)",
+       "before": "간선 출처를 사람이 감사한 것은 이전 단계의 Qwen3 추출 그래프(v2.1)뿐이며, 혼합 추출 그래프는 감사하지 않았다.",
+       "after": "간선 출처를 사람이 감사한 것은 이전 단계의 Qwen3 추출 그래프(v2.1)뿐이다. 주 시스템인 혼합 추출 그래프의 간선 정확도는 감사하지 않았다.",
+       "source": "revision_spec.md R2-3; RES-B 4.7 (S-mix not audited); DIS 5.1 출처"
+      },
+      {
+       "spec_item": "R1 cost finding, one sentence (abstract)",
+       "before": "(none; inserted after 'DDXPlus Top-1과 SymCat Top-1·Top-10에서는 사전 단독이 유의하게 높았다.')",
+       "after": "추출부터 그래프 적재까지의 일회성 구축 시간은 혼합 추출 그래프가 약 136시간(GPU에서의 LLM 생성 127.4시간 포함), 사전 단독 그래프가 CPU로 약 0.45시간이었다.",
+       "source": "pilot/cache/v3/review/cost.md summary and §3 (S-mix ~136.2 h, S-dict ~0.45 h, generation 127.4 GPU-h). Wrote 'CPU로', not 'LLM 없이', because cost.md §5 says S-dict uses the LLM-derived phrase table for 4.6% of sampled dictionary items"
+      },
+      {
+       "spec_item": "R3-2 disease-level status (abstract, post hoc)",
+       "before": "(none; inserted after the E-T1 DDXPlus cluster-CI sentence '…95% CI가 −6.1–19.3으로 0을 포함했다.')",
+       "after": "같은 부트스트랩을 사후 분석으로 혼합 추출과 사전 단독의 차이에 적용하면, CI는 SymCat(760질환) Top-10(−1.2%p, 95% CI 상한 −0.2%p)과 DDXPlus Top-1(−5.2%p, 95% CI 상한 −1.4%p)에서 0을 배제했고 DDXPlus Top-10(−2.4%p, 95% CI −8.8–3.5)에서는 0을 포함했다.",
+       "source": "pilot/cache/v3/review/dict_mix_stats.json confirmation E rows S-mix − S-dict ci_cluster (SymCat-E k10 −1.17 [−2.10, −0.22]; DDXPlus-E k1 −5.20 [−9.83, −1.39]; DDXPlus-E k10 −2.43 [−8.77, 3.53]); registration field 'post hoc (not pre-registered)'. The existing E-T1 cluster-CI sentence is kept"
+      },
+      {
+       "spec_item": "R3-1 scope narrowing (abstract, last sentence)",
+       "before": "흔한 질환 세트에서는 사전 추출이, 희귀질환 세트 일부에서는 LLM 구절 기반 추출이 높았다.",
+       "after": "흔한 질환 합성 세트 두 개(DDXPlus, SymCat)에서는 사전 추출이, 희귀질환 개발 세트 일부에서는 LLM 구절 기반 추출이 높았다.",
+       "source": "revision_spec.md R3-1; dict_mix_stats.json dev and E rows"
+      },
+      {
+       "spec_item": "G B1 conclusion summary paragraph (+ R1 cost sentence for the conclusion, R3-1 narrowing)",
+       "before": "(none; new first paragraph under '## 6. 결론')",
+       "after": "이 연구의 결과는 세 가지로 요약된다. 첫째, 설계 D 그래프에서 재현율 손실의 대부분은 수집 단계에서 생겼다(문자열 일치 기준 상한). 개발 탐색에서 매크로 Top-10은 추출·연결 방식이나 빌더 규칙보다 수집 깊이에 더 크게 반응했다. 둘째, LLM 구절 기반 추출과 사전 추출 가운데 어느 쪽이 높은지는 평가 세트에 따라 갈렸다. 흔한 질환 합성 세트 두 개(DDXPlus, SymCat)에서는 사전 추출이 높았고, 이 방향은 새 환자의 확증 세트에서도 같았다. 사전 단독 그래프의 구축 시간은 혼합 추출 그래프의 약 300분의 1이었다(CPU 약 0.45시간 대 GPU에서의 LLM 생성을 포함한 약 136시간). LLM 구절 기반 추출이 높았던 곳은 희귀질환 개발 세트였다. 셋째, 혼합 추출 그래프에 대해 확증된 것은 두 흔한 질환 합성 세트의 새 환자에서 설계 D 동결 그래프 대비 Top-10 향상과 LLM 단독 추출 대비 비열등이다.",
+       "source": "gemini_review_plan.md B1 draft (one sentence split so each holds one idea; '질환 영역' changed to '평가 세트' and the third point scoped to the two synthetic sets per R3); cost.md for the 1/300 sentence; decomp.json loss share 78.0% (draft note 1) for '대부분'"
+      },
+      {
+       "spec_item": "R3-1 scope narrowing (conclusion paragraph on development results)",
+       "before": "흔한 질환 세트에서는 사전 단독이 유의하게 높았다(DDXPlus Top-1, SymCat Top-1·Top-10; Holm 보정).",
+       "after": "흔한 질환 합성 세트 두 개(DDXPlus 48질환, SymCat 760질환)에서는 사전 단독이 유의하게 높았다(DDXPlus Top-1, SymCat Top-1·Top-10; Holm 보정).",
+       "source": "dict_mix_stats.json gold_diseases (DDXPlus-test 48, SymCat 760). 48 is used because this is the development sample (R3-3)"
+      },
+      {
+       "spec_item": "R3-2 disease-level status (conclusion, post hoc)",
+       "before": "(none; inserted after 'DDXPlus Top-1은 사전 단독(17.6%)과 합집합(17.9%)이 혼합 추출(12.4%)보다 높았다.')",
+       "after": "정답 질환 군집 부트스트랩을 사후 분석으로 혼합 추출과 사전 단독의 차이에 적용하면, 사전 단독의 우세는 SymCat Top-10(−1.2%p, 95% CI 상한 −0.2%p)과 DDXPlus Top-1(−5.2%p, 95% CI 상한 −1.4%p)에서 군집 CI도 0을 배제했고, DDXPlus Top-10(−2.4%p, 95% CI −8.8–3.5)에서는 환자 단위에서만 유의했다.",
+       "source": "dict_mix_stats.json confirmation E rows (DDXPlus-E k10 patient CI [−3.70, −1.17], Holm p .0001). The existing E-T1 cluster sentence (−6.1–19.3, 49질환) is unchanged"
+      },
+      {
+       "spec_item": "R2-3 (conclusion) + G B7(b) last conclusion paragraph",
+       "before": "간선 출처 감사는 이전 단계의 Qwen3 추출 그래프(v2.1)에서만 수행했다. 혼합 추출 그래프의 출처 감사는 남은 과제다. 설계 E 시스템을 평가할 희귀질환 확증 세트와 아직 큐레이션되지 않은 질환의 문헌 공백도 남은 과제다.",
+       "after": "간선 출처 감사는 이전 단계의 Qwen3 추출 그래프(v2.1)에서만 수행했다. 주 시스템인 혼합 추출 그래프의 간선 정확도는 감사하지 않았다. 남은 과제는 5.2절에 적었다. v2+v3 문헌 그래프에서 재현율 분해를 다시 하고 문헌이 없는 질환을 수집하는 일, 근거 확인을 유지하면서 연결 손실을 줄이는 일, 혼합 추출 그래프의 출처 감사와 희귀질환 확증 세트, LLM의 구절 선택을 비용이 낮은 선택 방법과 비교하는 일이 그것이다.",
+       "source": "revision_spec.md R2-3; gemini_review_plan.md B7(b) text, with one item added ('LLM의 구절 선택을 비용이 낮은 선택 방법과 비교하는 일') so the list matches the 5.2 third paragraph the spec's G changes to follow R1-5. The audit sheet is not mentioned here, per G (it goes once, in R2-2)"
+      },
+      {
+       "spec_item": "Authoring note (HTML comment, not body text)",
+       "before": "Notes 1)–8)",
+       "after": "Added note 9). It gives the sources of the cost numbers (cost.md, and why 'CPU로' rather than 'LLM 없이'), the unrounded post hoc cluster CIs from dict_mix_stats.json, and the disease counts (development DDXPlus 48, DDXPlus-E 49, SymCat 760). It also explains why the sentences that summarise development and E together carry no disease counts.",
+       "source": "cost.md; dict_mix_stats.json"
+      }
+     ],
+     "skipped": [
+      {
+       "spec_item": "R1 selection interpretation (LLM acts as a selector rather than a finder of new forms) in the abstract and conclusion",
+       "why": "Each place allowed at most one sentence on R1, and each sentence holds one idea. I used that sentence for the measured cost (abstract) and for cost next to accuracy (conclusion B1). The selection interpretation stays in DIS/RES-B. The conclusion only points to it through the B7(b) item comparing LLM selection with cheaper selection methods."
+      },
+      {
+       "spec_item": "R3-1 literal wording '(DDXPlus 49질환, SymCat 760질환)' in every narrowed sentence",
+       "why": "R3-3 says the development DDXPlus sample has 48 diseases and only confirmation E has 49. So I gave counts by context: 48/760 in the development sentence, and 49 (existing E-T1 sentence) plus 760 in the E disease-level sentences. Sentences that summarise development and E together (abstract last sentence, B1) say 'DDXPlus, SymCat' with no counts."
+      },
+      {
+       "spec_item": "R3-3 fix of '49질환' written for the development set",
+       "why": "No change was needed in ABS-CON. Both existing '49질환' uses (abstract E-T1 cluster sentence, conclusion paragraph 4) refer to confirmation set E, which has 49 diseases (dict_mix_stats.json ConfirmE-DDXPlus)."
+      },
+      {
+       "spec_item": "New tables / table numbering",
+       "why": "No table was added to ABS-CON, so no table number was used or changed. The headings '## 초록' and '## 6. 결론' are unchanged."
+      },
+      {
+       "spec_item": "R1-4/R2-1 HPO-agreement proxy numbers in abstract or conclusion",
+       "why": "Not part of the ABS-CON assignment. R2-3 asks for only one sentence (edge accuracy not audited). The proxy comparison belongs to RES-B 4.7 and DIS 5.1 (R2-1, R2-2)."
+      }
+     ]
+    },
+    {
+     "id": "INT",
+     "changes": [
+      {
+       "spec_item": "R3-1 (INT contribution 5, development comparison of extraction methods)",
+       "before": "UMLS 사전 매칭·합집합 대비 유의한 우세는 희귀질환 세트에만 있었고, DDXPlus·SymCat에서는 UMLS 사전 매칭·합집합이 높았다(4.4절).",
+       "after": "UMLS 사전 매칭·합집합 대비 유의한 우세는 희귀질환 세트에만 있었다. 흔한 질환 합성 세트 두 개(DDXPlus 48질환, SymCat 760질환)에서는 UMLS 사전 매칭·합집합이 높았다(4.4절).",
+       "source": "pilot/cache/v3/review/dict_mix_stats.json gold_diseases: DDXPlus-test 48 diseases (development sample, so 48 rather than 49 per R3-3), SymCat 760. Development rows: S-mix − S-dict Top-10 DDXPlus −1.63, SymCat −1.12; S-union − S-mix Top-10 DDXPlus +2.97, SymCat +1.27 (dictionary and union higher on both sets, so the existing claim still holds)"
+      },
+      {
+       "spec_item": "R1-1 build cost, one clause in the contribution that states the dictionary result (contribution 5)",
+       "before": "(nothing; contribution 5 ended at '...높았다(4.4절).')",
+       "after": "추출부터 그래프 적재까지의 일회성 구축 시간도 비교했다(S-dict 약 0.45시간, S-mix 약 136시간, 4.4.7절).",
+       "source": "pilot/cache/v3/review/cost.md section 3 (extraction-to-graph wall clock: S-mix about 136.2 h, S-dict about 0.45 h; collection excluded, which is why it says 'from extraction to graph loading'). 4.4.7 is the next free subsection in RES-B (current RES-B ends at 4.4.6), and the spec creates it there. 'CPU only' and 'without LLM' are left out on purpose: cost.md section 5 says the S-dict build takes concepts from the LLM-derived phrase table for 4.6% of sampled entries."
+      },
+      {
+       "spec_item": "R3-1 (INT contribution 2, design E confirmation sets on which the S-dict/S-union non-inferiority failure was measured)",
+       "before": "...설계 E 확증(2026-10-19~20, 1회)에서 개발 질환의 새 합성 환자(DDXPlus-E 3,000명, SymCat-E 7,463명)로 평가했다.",
+       "after": "...설계 E 확증(2026-10-19~20, 1회)에서 개발 세트와 같은 흔한 질환 합성 벤치마크 두 개(DDXPlus 49질환, SymCat 760질환)에서 새로 뽑은 환자(DDXPlus-E 3,000명, SymCat-E 7,463명)로 평가했다.",
+       "source": "pilot/cache/v3/review/dict_mix_stats.json gold_diseases: ConfirmE-DDXPlus 3,000 patients / 49 diseases, ConfirmE-SymCat 7,463 / 760. The old phrase '개발 질환' was changed to '개발 세트와 같은 ... 벤치마크' because the E set has 49 diseases and the development sample has 48 (R3-3), so '개발 질환' would no longer be literally accurate."
+      }
+     ],
+     "skipped": [
+      {
+       "spec_item": "R3-1 for the RQ3 question and for the non-contribution paragraphs of INT",
+       "why": "My assignment limits R3-1 in INT to the contribution list. RQ3 asks a question and makes no claim. Paragraphs 1-13 contain no 'dictionary is higher on common diseases' claim."
+      },
+      {
+       "spec_item": "R3-2 (disease-level CI status of the dictionary advantage)",
+       "why": "Not assigned to INT. Contributions 2 and 5 still say only 'higher', which holds at patient level on both sets, so nothing contradicts the CI wording planned for RES-B, DIS and ABS-CON."
+      },
+      {
+       "spec_item": "R3-3 (48 vs 49 diseases)",
+       "why": "Not assigned to INT. INT has no place where '49질환' is used for the development set; the existing '(49질환)' in paragraph 13 refers to DDXPlus-E and is correct. The new contribution 5 text uses 48 for development and contribution 2 uses 49 for E."
+      },
+      {
+       "spec_item": "R1-2 to R1-5, R2, G (B1-B7)",
+       "why": "Outside INT's assigned scope. R2-3 also forbids limitations in the introduction, so no audit-gap sentence was added."
+      },
+      {
+       "spec_item": "Table numbering",
+       "why": "No table was added to INT, so no table numbers changed."
+      }
+     ]
+    },
+    {
+     "id": "MET-B",
+     "changes": [
+      {
+       "spec_item": "G B6(a): benchmark input mapping of pain attributes and per-finding onset (MET-B 3.6, input-mapping paragraph, line 29)",
+       "before": "... 'Travel History'로 사상되던 결함을 고친 것이다(4.1절). DDXPlus 정답은 영문 질환명의 UMLS 정확 일치를 우선한다. ...",
+       "after": "... 'Travel History'로 사상되던 결함을 고친 것이다(4.1절). 통증의 성격, 강도, 방사 부위, 위치가 분명한 정도, 생긴 속도를 묻는 문항은 기본값이 아닌 응답이면 값과 관계없이 통증 개념(Pain, C0030193)으로만 옮긴다. Phenopacket-store 증례는 관찰된 소견의 HPO 코드만 쓰고, 소견별 발병 시점은 쓰지 않는다. DDXPlus 정답은 영문 질환명의 UMLS 정확 일치를 우선한다. ...",
+       "source": "/home/max/thesis/pilot/scripts/opendx_eval.py: ddx_crosswalk() skips default-value tokens, base_cui() falls back from douleurxx_carac/_intens/_irrad/_precis/_soudain to douleurxx = C0030193 'Pain' (checked against data/ddxplus/release_evidences.json and umls_mapping.json; none of the five sub-codes has its own mapping), and only *_endroitducorps values are composed into region symptoms; load_phenopacket() reads only f['type']['id'] of non-excluded phenotypicFeatures (the zip holds 9,280 features with an onset field, which the loader ignores). The same loaders feed graph_dx.py and load_confirm_e. Placement: the spec puts the sentence right after '…합성한다.', but I put it one sentence later, after the trav1 sentence. Otherwise the existing '이 규칙은' would point at the new pain sentence instead of the default-value rule. I changed the spec wording '응답값과 관계없이' to '기본값이 아닌 응답이면 값과 관계없이', because default answers are dropped before mapping. I also listed all five pain sub-questions; the spec's '발병 양상' is douleurxx_soudain ('How fast did the pain appear?') and is written here as '생긴 속도'. The DIS B6(b) sentence refers back to 3.6, which matches this location."
+      }
+     ],
+     "skipped": [
+      {
+       "spec_item": "R3-3 disease counts (DDXPlus 48 dev / 49 E)",
+       "why": "MET-B is already correct; nothing to fix. Line 27 says the development sample has 48 of 49 diseases (no bronchiolitis), Table 4 lists 48 gold-disease clusters for DDXPlus (test) development and 49 for DDXPlus-E, line 74 says bronchiolitis (1 patient) is the only E disease absent from development, line 106 says DDXPlus-E has 49 gold diseases, and line 149 says the development sample has 3,000 patients in 48 diseases. All match pilot/cache/v3/review/dict_mix_stats.json (gold_diseases: DDXPlus-test 48, ConfirmE-DDXPlus 49 with a 1-patient minimum). The '49개 질환 중 31개 이름 일치, 18개 ICD-10' sentence describes how all 49 generator diseases were mapped, not the development sample (data/ddxplus/disease_umls_mapping_v2.json: 49 entries, exact-name 31, icd10 18), so I left it unchanged."
+      },
+      {
+       "spec_item": "New table / table renumbering",
+       "why": "Not needed. B6(a) adds two sentences and no table, so Table 4 and Table 5 keep their numbers."
+      }
+     ]
+    },
+    {
+     "id": "RES-B",
+     "changes": [
+      {
+       "spec_item": "R1 (4.4 intro consistency)",
+       "before": "이 절의 결과는 모두 설계 D 확증(2026-10-13) 이후 같은 9개 개발 세트에서 수행한 탐색이다. 4.2의 확증 결과는 바뀌지 않는다.",
+       "after": "... 수행한 탐색이다(4.4.7절은 설계 E 확증 실행 뒤의 분석이며, 확증 세트 E의 사후 분석을 일부 포함한다). 4.2의 확증 결과는 바뀌지 않는다.",
+       "source": "revision_spec.md R1; dict_mix_stats.json (confirmation E rows are post hoc)"
+      },
+      {
+       "spec_item": "R1 caution (+8.0/+6.2/+3.1 label)",
+       "before": "희귀질환 세트 7개 중 6개에서 S-llm의 Top-10이 높았다(Holm 유의: RAMEDIS +8.0%p, ...",
+       "after": "희귀질환 세트 7개 중 6개에서 S-llm의 Top-10이 높았다(S-llm − S-dict, Holm 유의: RAMEDIS +8.0%p, ...",
+       "source": "Table 11b in RES-B (S-llm 55.9/38.9/31.1 minus S-dict 47.9/32.7/28.1); 4.4.7 now states S-mix − S-dict values +9.3/+5.7/+3.0 separately"
+      },
+      {
+       "spec_item": "R3-1 / R3-3 (4.4.2)",
+       "before": "흔한 질환 세트에서는 S-dict가 높았다(Holm 유의: DDXPlus Top-10 −3.5%p ...",
+       "after": "흔한 질환 합성 세트 두 개(DDXPlus 48질환, SymCat 760질환)에서는 S-dict가 높았다(Holm 유의: ...",
+       "source": "dict_mix_stats.json gold_diseases: DDXPlus-test 48, SymCat 760 (development)"
+      },
+      {
+       "spec_item": "R1 new subsection 4.4.7 + Table 18 (cost, accuracy, overlap, sample reading, counterfactual, HPOA agreement, interpretation)",
+       "before": "(none; 4.4.6 ended and 4.5 followed)",
+       "after": "#### 4.4.7 사전 그래프 대비 혼합 추출: 비용과 기전 — paragraphs 구축 비용 / 정확도 / S-union − S-dict / 간선 구성 / 표본 판독 / 순위 반사실 / HPO 주석 일치 / 해석(labelled '측정이 아니라 해석'), plus Table 18 (a) build cost and ranking time, (b) edge overlap, (c) development rank wins and partial counterfactual, (d) HPO agreement incl. bin-wise comparison with old graphs. Key numbers: 127.4 GPU-h (66.9 + 60.6), output ~3.5억 tokens, input ~24억 (estimated), normalization ≤ 6.7 h, dictionary ~6 min, S-mix ~136 h vs S-dict ~0.45 h (~300x), v3-setting estimate ~86.5 h, ranking 155 vs 87 ms (DDXPlus-E), 4.6% phrase-table dependence; common macro S-mix − S-dict dev −1.38 [−2.06, −0.69], E −1.80 [−2.44, −1.12]; rare macro +4.55 [2.44, 6.73]; S-union − S-dict common dev +0.74 [0.22, 1.26], E +0.86 [0.36, 1.36] (post hoc, patient-level only), rare +0.94 [−0.15, 2.22]; overlap 86.9% shared, S-dict 2.8x, S-mix-only 685,993 (97.3% phrase-table path, 48.5% not nameable, 55,503 with finding type); reading 18/9/3; counterfactual kept 92.6/76.9/88.7%, DDXPlus S-dict wins kept 45.2%, SymCat 72.5%; competitor top-10 S-dict-only medians 9/8/5 (shares 18.7/5.8/4.9%); HPO exact S-mix 12.6% (2.5), S-dict 7.8% (1.9), bins 7.4/15.2/24.9/41.7 vs 4.4/8.5/14.6/24.6, S-dict-only 2.31 (1.31), S-mix-only 7.25 (2.02), shared 13.0, curated recall 32.8 vs 29.4.",
+       "source": "pilot/cache/v3/review/cost.md; dict_mix_stats.json (macro, rows); dict_mix_overlap.json (overlap, origin, dictionary_reach, ranking, sample_reading); smix_only_reading.csv; curated_agreement_smix.json, curated_agreement_sdict.json; pilot/cache/v2/curated_agreement_qwen3_v21.json, curated_agreement_gemma_v21.json; pilot/scripts/dict_mix_overlap.py (definitions of wins, partial counterfactual, loser_top10). All values recomputed with a script before writing."
+      },
+      {
+       "spec_item": "R3-2 (4.6 cluster CI paragraph)",
+       "before": "S-mix − S-dict와 S-mix − S-union의 DDXPlus-E 군집 CI도 각각 [−8.8, +3.5], [−10.3, +1.3]으로 0을 포함했다. S-mix − S-bm25의 ...",
+       "after": "... 0을 포함했다. 반면 SymCat-E의 S-mix − S-dict 차이(−1.2%p)는 군집 CI [−2.1, −0.2]가 0을 포함하지 않았다. DDXPlus-E Top-1의 S-mix − S-dict 차이(−5.2%p)도 군집 CI [−9.8, −1.4]가 0을 포함하지 않았다. 곧 흔한 질환 합성 세트 두 개(DDXPlus-E 49질환, SymCat-E 760질환)에서 S-dict의 Top-10 우세는 SymCat-E에서는 질환 수준에서도, DDXPlus-E에서는 환자 수준에서만 확인되었다. S-mix − S-bm25의 ... (existing E-T1 DDXPlus-E cluster CI statement kept)",
+       "source": "pilot/cache/v2/confirmE/aux_cluster.json (pre-registered auxiliary indicator, docs/research_design.md E4); matches dict_mix_stats.json"
+      },
+      {
+       "spec_item": "R2-1 (4.7 opening)",
+       "before": "이 절의 간선 감사는 구 시스템에서만, 큐레이션 대조는 구 시스템과 S-D 그래프에서 측정했다. ... S-mix 그래프에서는 두 측정 모두 하지 않았다.",
+       "after": "이 절의 간선 감사는 구 시스템에서만 했다. 큐레이션 대조는 구 시스템과 S-D 그래프에서 측정했고, 설계 E 확증 실행 뒤에 S-mix와 S-dict 그래프에서도 측정했다(4.4.7절). ... S-mix 그래프의 간선 감사는 하지 않았다.",
+       "source": "curated_agreement_smix.json, curated_agreement_sdict.json"
+      },
+      {
+       "spec_item": "R2-1 (Table 16 caption)",
+       "before": "The new S-mix graph has not been audited or compared with HPO annotations.",
+       "after": "The S-mix graph has not been audited; its HPO agreement, computed the same way, is in Table 18d.",
+       "source": "curated_agreement_smix.json"
+      },
+      {
+       "spec_item": "R2-1 (4.7 [미측정] filled)",
+       "before": "S-mix 그래프와 HPO 주석의 대조(위와 같은 방식)도 계산하지 않았다 [미측정].",
+       "after": "S-mix 그래프와 HPO 주석의 대조는 위와 같은 방식으로 설계 E 확증 실행 뒤에 계산했다(표 18d). 정확 일치율은 12.6%(비교 가능 간선 856,023개, 무작위 2.5%)였다. 지지 문서 1편, 2편, 3–4편, 5편 이상 구간의 일치율은 7.4%, 15.2%, 24.9%, 41.7%였다. 이 값은 같은 구간의 구 Qwen3 그래프(13.3%, 31.7%, 46.3%, 63.2%)와 S-D 그래프(15.0%, 34.0%, 48.7%, 62.8%)보다 모든 구간에서 낮았다. 주제 문서가 1편 이상인 S-mix 간선의 일치율은 14.9%, 주제 밖 문서뿐인 간선은 7.1%였다. S-mix와 두 구 그래프는 문헌, 추출 모델과 방식, 빌더 규칙, 간선 수가 다르다. 따라서 이 차이의 원인은 분리하지 않았다. 같은 문헌의 S-dict 그래프는 일치율이 7.8%(무작위 1.9%)로 S-mix보다 낮았다.",
+       "source": "curated_agreement_smix.json (by_n_docs, by_topic), curated_agreement_sdict.json, pilot/cache/v2/curated_agreement_qwen3_v21.json, curated_agreement_gemma_v21.json (same phenotype.hpoa 2026-02-16, same script)"
+      }
+     ],
+     "skipped": [
+      {
+       "spec_item": "Table number for the new table",
+       "why": "Not skipped, but flagged: the new table is numbered Table 18, not 17, because MET-A.md line 65 already cites '부록 표 17' (an appendix table that is referenced but not present in any section file). Tables 10-16 in RES-B are unchanged. DIS.md currently cites '4.4.7절' only, so no cross-reference conflict was found; if the orchestrator decides the appendix table should be renumbered instead, Table 18 and the four '표 18'/'Table 18d' references in RES-B must change together."
+      },
+      {
+       "spec_item": "R2-2, R2-3 (DIS 5.1 limitation, abstract/conclusion sentence, audit sheet mention)",
+       "why": "Belong to DIS.md and ABS-CON.md, which this task does not edit. The audit sheet preparation is deliberately not mentioned in RES-B so it is stated once in DIS 5.1 as the spec requires."
+      },
+      {
+       "spec_item": "R1 DIS paragraph on dictionary competitiveness; R3-1 in ABS-CON, DIS, INT",
+       "why": "Outside RES-B.md; RES-B instances of the common-disease claim were narrowed (4.4.2, 4.4.7, 4.6)."
+      },
+      {
+       "spec_item": "R3-3 corrections of '49질환' applied to development sets",
+       "why": "No such instance exists in RES-B: every '49' in RES-B refers to the DDXPlus generator or to DDXPlus-E. The development count 48 was written where dev disease counts were newly introduced (4.4.2, 4.4.7)."
+      },
+      {
+       "spec_item": "G (B1-B7 from gemini_review_plan.md)",
+       "why": "None of B1-B7 targets RES-B (they target ABS-CON, DIS, MET-B); B8 (RES-B 4.4.6 PKU sentence) is excluded by the spec and its value is an uncommitted ad hoc computation."
+      },
+      {
+       "spec_item": "S-mix − S-union disease-level CIs on E (SymCat-E [−2.23, −0.46], DDXPlus-E Top-1 [−10.41, −1.35])",
+       "why": "R3-2 asks for the dictionary (S-dict) comparison only; S-union values were left out to keep the change within scope."
+      }
+     ]
+    },
+    {
+     "id": "DIS",
+     "changes": [
+      {
+       "spec_item": "G B2(a) — DIS 수집 깊이 단락 첫 문장",
+       "before": "D 확증 이후의 개발 탐색에서 Top-10을 가장 크게 움직인 것은 추출 방식이 아니라 수집 깊이였다.",
+       "after": "D 확증 이후의 개발 탐색에서 매크로 Top-10을 가장 크게 움직인 것은 수집 깊이였다. 그 효과는 희귀질환 세트 대부분에서 컸고, 흔한 질환 합성 세트 두 개에서는 작았다(UMLS 사전/LLM의 Top-10 상승: DDXPlus +4.43/+3.63%p, SymCat +0.41/+1.06%p; 표 9C).",
+       "source": "RES-A Table 9C (analysis.json dev per_bench). The plan cited only SymCat; I added DDXPlus as well because '흔한 질환 세트에서 작았다' has to cover both sets."
+      },
+      {
+       "spec_item": "G B2(b) — 본문 전체 읽기 결과와 v3 이후 재현율 분해를 하지 않았다는 사실",
+       "before": "(없음) The plan put this right after '…보다 크다(+4.1%p, v2unionu_ns).'",
+       "after": "Added at the end of the same paragraph instead, after the 8,267/938 sentence, so it does not split the LLM-vs-UMLS rise discussion: '정리하면, 단계 분해가 가장 큰 손실로 가리킨 수집 단계를 넓히자 개발 Top-10이 올랐다. 반면 … 본문 전체로 읽은 사전 그래프는 … UMLS 사전에서 0.20%p, HPO 사전에서 0.87%p 높았고(Top-1은 +1.30%p, +2.33%p) … 텍스트 출현율(표 9B의 재현율)을 40.9%에서 51.1%로 … 재현율 분해는 v2 문헌의 설계 D 그래프에서만 했고 … S-mix 그래프에서 손실이 여전히 수집 단계에 몰려 있는지는 확인하지 않았다.'",
+       "source": "RES-A 4.3 (*full graphs: 43.08 vs 42.88, 41.38 vs 40.51, Top-1 19.41/18.11, 18.27/15.94), Table 9B (40.9, 51.1), and decomp.json (v2/S-D only)"
+      },
+      {
+       "spec_item": "R3-1 / R3-2 (dev) and the R1 caution on which comparison +8.0/+6.2/+3.1 is — DIS 추출 방식 단락",
+       "before": "LLM은 … (RAMEDIS +8.0%p, LIRICAL +6.2%p, Phenopacket +3.1%p) … 사전은 흔한 질환 벤치에서 Top-10이 높았다(DDXPlus +3.5%p, SymCat +3.0%p …). S-mix는 RAMEDIS(+9.3%p) … DDXPlus … (p = .06), Top-1은 4.9%p 낮았다(Holm 유의).",
+       "after": "Each difference now names its comparison: (S-llm − S-dict: +8.0/+6.2/+3.1), (S-dict − S-llm: DDXPlus +3.5, SymCat +3.0), (S-mix − S-dict +9.3 …). Narrowed to '흔한 질환 합성 세트 두 개(개발 표본 기준 DDXPlus 48질환, SymCat 760질환)'. Added: '이 네 차이는 정답 질환 군집 CI도 0을 배제했다', DDXPlus Top-10 군집 CI [−8.3, +4.5], Top-1 군집 CI [−9.4, −1.1].",
+       "source": "RES-B 4.4.2 (the S-llm − S-dict values) and dict_mix_stats.json development rows S-mix − S-dict (ci_cluster)"
+      },
+      {
+       "spec_item": "R1 — 비용과 사전 질문을 정면으로 다루는 단락(추출 방식 단락들 뒤, 어휘 편향 단락 다음)",
+       "before": "(없음)",
+       "after": "Two new paragraphs. (1) Cost and accuracy: build time S-mix about 136 h vs S-dict about 0.45 h on CPU, about 300×; 127.4 GPU hours on one RTX 4090; about 86.5 h generation at v3 settings (estimate); same Cypher query with S-dict slower (155 vs 87 ms); 4.6% of sampled S-dict items get their concept only from the LLM-derived phrase table. Common sets: S-dict higher in development and E (macro −1.38 [−2.06, −0.69], −1.80 [−2.44, −1.12]). Rare: S-mix +4.55 [+2.44, +6.73]. S-union − S-dict: +0.74 [+0.22, +1.26] in development and +0.86 [+0.36, +1.36] on E (post hoc), patient CI only; rare +0.94 [−0.15, +2.22]. (2) Mechanism: 86.9% shared; 685,993 S-mix-only edges, 97.3% via the phrase table, 48.5% outside the dictionary vocabulary (mostly non-finding types); author reading 18/9/3 (not a clinical judgment). Partial counterfactual: 63/68, 20/26 and 448/505 wins kept. S-dict competitors carry S-dict-only edges (median 9/8/5 of 10). DDXPlus S-dict wins kept 94/208 (45.2%). HPO agreement 12.6% (2.5%) vs 7.8% (1.9%); S-dict-only 2.31% (1.31%); recall 32.8 vs 29.4; not applied to the common sets. Then an explicitly labelled interpretation ('다음은 측정이 아니라 해석이다') that LLM phrases act as selection, plus the R1-5 statements and untested cheaper selectors (5.2절).",
+       "source": "cost.md (summary, §3–§5), dict_mix_stats.json (macro, rows), dict_mix_overlap.json (overlap, origin, dictionary_reach, ranking, sample_reading), curated_agreement_smix.json and curated_agreement_sdict.json"
+      },
+      {
+       "spec_item": "G B3 — 시간 분할 해석 한 문장",
+       "before": "…모든 문헌 그래프의 Top-10은 2.2% 이하였고, HPOA 2022-12는 0.1%였다. 50질환…",
+       "after": "Inserted after that sentence: '같은 묶음에서 2022년 12월 HPOA도 이 질환들을 거의 맞히지 못했으므로, 이 결과는 큐레이션과 문헌 추출의 우열을 가르지 않는다. 절단 시점에 두 지식원 모두 이 질환들의 소견을 거의 담지 못했다는 해석과 맞는다.'",
+       "source": "DIS existing values (HPOA 0.1%), gemini_review_plan B3"
+      },
+      {
+       "spec_item": "R3-1 / R3-2 (E) — E-T2 단락",
+       "before": "따라서 흔한 질환 세트에서 사전 쪽이 높다는 개발 결과는 새 환자에서도 재현되었다.",
+       "after": "따라서 흔한 질환 합성 세트 두 개(DDXPlus-E 49질환, SymCat-E 760질환)에서 사전 쪽이 높다는 개발 결과는 같은 질환의 새 환자에서도 재현되었다. Then the post hoc cluster CIs (S-mix − S-dict): SymCat-E Top-10 −1.2 [−2.1, −0.2] excludes 0; DDXPlus-E Top-10 −2.4 [−8.8, +3.5] includes 0 (patient level only); DDXPlus-E Top-1 −5.2 [−9.8, −1.4] excludes 0. The existing E-T1 sentence (DDXPlus cluster CI includes 0) is unchanged.",
+       "source": "dict_mix_stats.json confirmation E rows (registration: post hoc) = confirmE/aux_cluster.json; matches the ABS-CON wording '사후 분석'"
+      },
+      {
+       "spec_item": "G B4 + R2 consistency — DIS 출처 단락(5장 본문)",
+       "before": "간선 단위 출처는 … 정확성을 뜻하지 않는다. 구 시스템… / …S-mix 그래프에서는 간선 판정과 큐레이션 대조를 하지 않았다.",
+       "after": "Added the discard rates from source-position checking (v2 about 5%, 5.6M→5.33M; v3 about 7%, 13.23M→12.32M; 3.3절) and what the check does not guarantee. Changed the second sentence to '간선 판정을 하지 않았다', and added that S-mix HPO agreement rises from 7.4% to 41.7% but is lower than both older graphs in every bin (5.1절). The old sentence would have become false once R2-1 fills 4.7.",
+       "source": "MET-A 3.3 and RES-A 4.1 (533만/560만, 1,232만/1,323만), curated_agreement_smix.json by_n_docs"
+      },
+      {
+       "spec_item": "R2-2 — 5.1 출처 한계를 강화해 첫 항목으로",
+       "before": "**출처.** 출처 감사는 구 Qwen3 v2.1 그래프에서만 했다. … 새 S-mix 그래프의 간선 정밀도와 큐레이션 일치율은 측정하지 않았다. … (it was the fourth item)",
+       "after": "Moved to the first item of 5.1 (order now 출처, 확증과 통계, 데이터, 방법, 범위). It opens with '주 시스템 S-mix의 간선 정확도는 직접 검증하지 않았다'. The 29.5% audit cannot be carried over to S-mix (different model, extraction and corpus). The HPO agreement proxy is lower in every bin than the audited old graph (7.4/15.2/24.9/41.7 vs 13.3/31.7/46.3/63.2) and the S-D graph (15.0/34.0/48.7/62.8); the cause is not separated. A support rate below 29.5% cannot be ruled out, so an audit is needed before the graph's evidence is used as clinical evidence. The audit sheet (100 edges, blind, separate key file) is prepared but not judged; it is mentioned only here. The stale sentence '…큐레이션 일치율은 측정하지 않았다' was removed; the remaining sentences are kept.",
+       "source": "curated_agreement_smix.json, curated_agreement_qwen3_v21.json, curated_agreement_gemma_v21.json, docs/audit/smix_audit_blind.csv (100 rows), smix_audit_key.csv, smix_audit_instructions.md"
+      },
+      {
+       "spec_item": "R3-1 — 5.1 데이터: 흔한 질환 결론의 범위",
+       "before": "**데이터.** 어휘 편향을 배제하지 못한다.",
+       "after": "**데이터.** 흔한 질환 세트 두 개는 모두 합성 환자다. DDXPlus는 49질환의 환자 생성기로, SymCat은 801질환의 증상 확률표로 만든 환자이며, 개발 표본에는 각각 48질환과 760질환이 들어 있다. 따라서 흔한 질환에 대한 이 논문의 결론은 이 두 합성 세트에 한정되며, 실제 흔한 질환 환자 기록에서는 평가하지 않았다. 어휘 편향을 배제하지 못한다.",
+       "source": "MET-B 3.6 (DDXPlus 49 diseases, 48 in the dev sample, SymCat 801), dict_mix_stats.json gold_diseases (dev 48/760, E 49/760), REL 2.1"
+      },
+      {
+       "spec_item": "R3-1 + G B5 — 5.1 방법",
+       "before": "개발에서 S-mix는 흔한 질환 벤치에서 … / …의미 유형(12.2%)·부정(2.1%) 같은 정당한 거부도 포함된다. 재연결은…",
+       "after": "'흔한 질환 합성 세트 두 개에서'. B5 inserted: the 63.1% is the value before relinking; of the 10,455,243 relink targets, 4,994,784 had no dictionary match (28.3% of all LLM items, 3.3절); negated, over-8-words and not-in-table items (680,558) are not relink targets; the negation rule also drops phrases such as 'absent deep-tendon reflexes'; item-level loss differs from curated-finding loss (6.2%, 표 9A).",
+       "source": "MET-A 3.3 (10,455,243, 4,994,784), pilot/cache/v3/maint/link_loss.json (363,515 + 307,574 + 9,469 = 680,558; negated examples), Table 9A"
+      },
+      {
+       "spec_item": "G B6(b) — 5.1 범위",
+       "before": "…로컬 LLM의 직접 진단과의 비교는 이 논문의 범위 밖이다.",
+       "after": "Added: 구절 표 연결기는 구절에서 정도·발병 수식어를 지운 뒤 개념을 고르고(3.3절), 벤치마크 입력 사상도 통증의 성격·강도 값이나 소견별 발병 시점을 개념으로 옮기지 않는다(3.6절). 따라서 이 논문은 발병 시점이나 악화 인자 같은 조건부·시간 관계 지식의 효용에 대해 말하지 않는다.",
+       "source": "MET-A 3.3 rule (3), MET-B 3.6 (B6(a) text already present in MET-B)"
+      },
+      {
+       "spec_item": "G B7(a) + R1-5 alignment — 새 5.2 후속 연구",
+       "before": "(없음)",
+       "after": "### 5.2 후속 연구 with an intro and four paragraphs: (1) collection: rerun the decomposition on v2+v3 S-llm/S-mix; targets 8,267 and 938; full-text reading low priority (+0.20%p, UMLS). (2) Linking recall while keeping grounding: E S-mix − S-llm reported as +1.64 [+1.17, +2.18] with 'E-T2는 비열등 판정' instead of '올렸다'; 4,994,784 items (28.3%); expected gain smaller (6.2%); embedding linking only under stated conditions. (3) Where the LLM is needed, aligned with R1-5: the rare-set advantage (S-mix − S-dict +9.3/+5.7/+3.0, Holm and cluster CI) mostly did not come from new expressions (3/30; wins kept without those edges), labelled as the interpretation given earlier in the chapter. The next task is comparing LLM selection with cheaper selectors (topic-document restriction, small sentence classifier) on the same corpus and ranking, judged on an unused rare-disease confirmation set. Attribution audit with src_t; inferred extraction only after first measuring the paraphrase share. No mention of the audit sheet. (4) Ranking low priority: PPR −15.8; S-D/S-mix/HPOA 30.56/46.11/52.45, noting HPO annotation has its own ranker parameters and S-mix includes selection optimism; learned ranking is outside the design boundary.",
+       "source": "Table 9C, Table 8B (+10.9, +1.8), decomp.json/Table 9A (67.0%, 82,751, 6.2%), RES-A Table 2 (8,267, 938), RES-A 4.3 (+0.20), confirmE paired (+1.64), MET-A 3.3 (4,994,784), dict_mix_stats.json, dict_mix_overlap.json, RES-B 4.7 (29.5%, failure type), DIS (−15.8, 30.56/46.11/52.45)"
+      },
+      {
+       "spec_item": "R3-1 — 나머지 흔한 질환 문장 좁히기",
+       "before": "흔한 질환에서는 방향이 반대였다. / 흔한 질환 두 세트의 매크로 Top-10 차이는",
+       "after": "흔한 질환 합성 세트 두 개에서는 방향이 반대였다. / 흔한 질환 합성 세트 두 개의 매크로 Top-10 차이는",
+       "source": "wording consistency with INT and ABS-CON"
+      }
+     ],
+     "skipped": [
+      {
+       "spec_item": "R1-1: output tokens (about 350M), input tokens (about 2.4B, estimate), normalization ≤ 6.7 CPU hours, v2 66.9 h / v3 60.6 h split",
+       "why": "Left out of DIS to keep the paragraph about the decision; these belong in the RES-B 4.4.7 table. DIS gives the total (127.4 GPU hours), the build-time ratio, the v3-settings estimate, inference latency and the 4.6% phrase-table dependence."
+      },
+      {
+       "spec_item": "New table in DIS",
+       "why": "DIS needed no table. The R1 table belongs to RES-B 4.4.7, which another worker writes. DIS refers to it by section ('4.4.7절'), not by table number, so it cannot clash with whatever number that worker picks. Highest numbers in use now: Table 18 (appendix), 표 22 in RES-A."
+      },
+      {
+       "spec_item": "R3-3: fix '49질환' used for the development set",
+       "why": "No such use was found in DIS. Existing 49 mentions refer to DDXPlus-E or the 49-disease generator. The narrowed sentences now give the development sample as 48 diseases and E as 49."
+      },
+      {
+       "spec_item": "R2-1, R2-3, G B1, B6(a), B7(b), B8",
+       "why": "Outside my file: RES-B 4.7, ABS-CON, and MET-B are other sections; B8 is excluded by the spec. MET-B already contains the B6(a) sentence that DIS 5.1 범위 now cites (3.6절), and the ABS-CON 6장 last paragraph already points to 5.2 with the cheaper-selector task."
+      },
+      {
+       "spec_item": "Verifying the bronchiolitis patient in DDXPlus-E directly from the confirmation set",
+       "why": "The loader refuses to read the sealed set E without CONFIRM_E_UNSEAL=1, and I did not override that guard. The fact (one bronchiolitis patient, 48 vs 49 diseases) is taken from MET-B 3.6, RES-B 4.6, research_design.md §E/§9.30 and the gold_diseases counts in dict_mix_stats.json."
+      }
+     ]
+    }
+   ],
+   "recheck": {
+    "issues": [
+     {
+      "section": "INT",
+      "quote": "S-mix 그래프에서는 두 측정 모두 하지 않았다(4.7절).",
+      "problem": "기여 8에서 S-mix에 대해 의료진 판정과 HPO 주석 일치를 둘 다 재지 않았다고 쓴다. R2-1에 따라 RES-B 4.7과 표 18d는 S-mix의 HPO 주석 일치율을 측정값으로 보고한다(12.6%, 구간별 7.4/15.2/24.9/41.7%). 같은 측정을 두 절이 반대로 말한다. 이 문장은 서론에 들어간 한계 문장이기도 하다.",
+      "correct": "서론에서 한계 문장을 뺀다. 예: 'S-mix와 S-dict 그래프의 HPO 주석 일치율은 설계 E 확증 실행 뒤에 측정했다(4.4.7, 4.7절).' 의료진 판정을 하지 않았다는 사실은 5.1에만 둔다.",
+      "evidence": "RES-B 4.7 마지막 단락 및 Table 18d; pilot/cache/v3/review/curated_agreement_smix.json의 agree_exact 12.645와 by_n_docs 7.38/15.22/24.94/41.72",
+      "severity": "wrong"
+     },
+     {
+      "section": "INT",
+      "quote": "HPO 주석 일치율은 그 그래프와 S-D 그래프에서 측정했다.",
+      "problem": "RQ5는 HPO 주석 일치율을 v2.1 그래프와 S-D 그래프에서만 쟀다고 쓴다. RES-B 4.7 첫 문장은 S-mix와 S-dict에서도 쟀다고 쓰고, 4.4.7은 그 값을 보고한다.",
+      "correct": "'HPO 주석 일치율은 그 그래프와 S-D 그래프에서, 설계 E 확증 실행 뒤에는 S-mix·S-dict 그래프에서도 측정했다.'",
+      "evidence": "RES-B 4.7: '큐레이션 대조는 구 시스템과 S-D 그래프에서 측정했고, 설계 E 확증 실행 뒤에 S-mix와 S-dict 그래프에서도 측정했다(4.4.7절)'",
+      "severity": "imprecise"
+     },
+     {
+      "section": "RES-B",
+      "quote": "Table 18. S-mix versus the UMLS dictionary graph S-dict, analysed after the design-E confirmation run.",
+      "problem": "새 표 번호 18이 DIS에서 이미 쓰는 '부록 Table 18'(AARLC·MEDDxAgent·RareBench GPT-4 등의 보고 수치)과 겹친다. 그래서 같은 번호가 서로 다른 두 표를 가리킨다. MET-A는 '부록 표 17'도 쓴다. 새 표는 표 14–16보다 앞 절(4.4.7)에 나오는데 번호는 그보다 크다.",
+      "correct": "4.4.7의 표 번호를 다시 매긴다(예: 4.4.7 표를 순서에 맞게 번호 붙이고 뒤 표와 부록 표 번호를 밀기). 본문의 '표 18', '표 18b/c/d' 참조와 DIS의 '부록 Table 18'을 함께 맞춘다.",
+      "evidence": "DIS ¶35 '직접 비교하지 않는다(부록 Table 18).'; MET-A L65 '(부록 표 17)'; RES-B 4.4.7·4.7의 '표 18', '표 18d'",
+      "severity": "wrong"
+     },
+     {
+      "section": "RES-A",
+      "quote": "| UMLS finding-string dictionary (no LLM) |",
+      "problem": "Table 5b는 S-dict를 'no LLM'이라고 적는다. RES-B 4.4.7, Table 18a 주 c, DIS ¶15는 CUI 없는 사전 항목이 LLM 구절로 만든 v2 구절 표로 연결된다고 밝힌다(표본 항목의 4.6%가 이 표로만 개념을 얻음). cost.md §5와 ABS-CON 작성 메모 9도 'LLM 없이'라고 쓰지 않는다고 정했다.",
+      "correct": "'UMLS finding-string dictionary (no LLM extraction; CUI-less items linked via the phrase table built from LLM phrases)'처럼 고치거나, 'no LLM'을 빼고 각주로 4.6%를 적는다.",
+      "evidence": "pilot/cache/v3/review/cost.md §5: \"S-dict는 LLM 없이 만들 수 있다\"고 쓰려면 빈 표로 다시 빌드해 확인해야 한다(실행하지 않음); 4.6% = v3 126,701/2,771,913",
+      "severity": "imprecise"
+     },
+     {
+      "section": "RES-B",
+      "quote": "| v2dict | HPO dictionary (no LLM) |",
+      "problem": "Table 10은 v2dict(HPO 사전)와 v2umls(UMLS 사전)를 'no LLM'으로 적는다. MET-A 3.3에 따르면 HPO 사전 항목은 모두 CUI 없이 저장되고 HPO 이름 연결과 구절 표로 개념을 얻는다. UMLS 사전도 v2 표본 항목의 4.6%가 LLM 유래 구절 표로만 개념을 얻는다. 같은 절 4.4.7과 서로 다르게 말한다.",
+      "correct": "'no LLM'을 'no LLM extraction'으로 바꾸고, 캡션에 'CUI-less dictionary items are linked through the phrase table built from LLM phrases (4.4.7)'를 덧붙인다(v2umls 행도 같다).",
+      "evidence": "MET-A L67 'HPO 사전 항목은 CUI 없이 저장되며, 빌더가 HPO 이름 연결과 구절 표로 개념을 붙인다... 사전 그래프의 구절 표는 v2 구절 표다'; cost.md §5 v2 48,624/1,061,180 = 4.6%",
+      "severity": "imprecise"
+     },
+     {
+      "section": "MET-A",
+      "quote": "LLM 없는 기준으로, 사전 매칭을",
+      "problem": "사전 추출을 'LLM 없는 기준'으로 정의한다. 그러나 같은 단락이 CUI 없는 항목을 v2 구절 표로 연결한다고 쓰고, RES-B 4.4.7은 이 표가 LLM 구절로 만든 것이라 S-dict가 LLM 산출물과 완전히 독립적이지 않다고 쓴다. DIS ¶9 'LLM 없는 UMLS 사전 매칭이'도 같은 문제다.",
+      "correct": "'LLM 추출을 쓰지 않는 기준으로' 정도로 좁힌다. 같은 단락에 'CUI 없는 항목을 연결하는 v2 구절 표는 LLM 구절로 만들었으므로, 사전 그래프도 이 경로에서는 LLM 산출물에 기댄다(4.4.7절)'를 더한다. DIS ¶9도 같은 방식으로 고친다.",
+      "evidence": "RES-B 4.4.7 'S-dict 구축도 LLM 산출물과 완전히 독립적이지는 않다... 사전 항목의 4.6%가 이 표로만 개념을 얻었다'",
+      "severity": "imprecise"
+     },
+     {
+      "section": "ABS-CON",
+      "quote": "같은 부트스트랩을 사후 분석으로 혼합 추출과 사전 단독의 차이에 적용하면",
+      "problem": "초록(그리고 결론 5단락 '정답 질환 군집 부트스트랩을 사후 분석으로 혼합 추출과 사전 단독의 차이에 적용하면')은 확증 세트 E의 S-mix − S-dict 군집 CI를 사후 분석이라고 쓴다. 그러나 MET-B 3.8은 대응 비교(E-T1·E-T2·E-T3·E-T5)의 군집 CI를 미리 정한 보조 지표로 둔다. 이 값들은 확증 직후 confirm_e_aux.py가 '모든 판정 비교'에 대해 계산했고(aux_cluster.json, 커밋 8831c57), RES-B 4.6은 사후 표시 없이 보조 지표로 보고한다. 같은 수치가 절마다 다른 지위로 쓰인다. 실제로 사후인 것은 E의 S-union − S-dict 비교뿐이다(RES-B 4.4.7).",
+      "correct": "'같은 보조 부트스트랩에서 혼합 추출과 사전 단독의 차이는...'로 고치고 '사후 분석'을 뺀다. 결론 5단락과 작성 메모 9도 함께 고친다.",
+      "evidence": "MET-B L159 '설계 E는 대응 비교(E-T1·E-T2·E-T3·E-T5)의 Top-1·Top-3 차이, 정답 질환 군집 CI ... 를 판정에 쓰지 않는 보조 지표로 정했다'; pilot/cache/v2/confirmE/aux_cluster.json의 S-dict vs S-mix k10/k1 행; pilot/scripts/confirm_e_aux.py 'Gold-disease cluster bootstrap CIs for every judged comparison' (research_design.md E4)",
+      "severity": "imprecise"
+     },
+     {
+      "section": "DIS",
+      "quote": "사후 분석으로 계산한 정답 질환 군집 CI(S-mix − S-dict)는",
+      "problem": "DIS ¶27은 E의 S-mix − S-dict 군집 CI를 사후 분석이라고 쓴다. 같은 파일의 E-T1 군집 CI는 ¶25에서 '보조 지표'로 쓴다. 두 값은 같은 사전 지정 보조 계산(aux_cluster.json)에서 나왔다. RES-B 4.6과 MET-B 3.8도 보조 지표로 다룬다.",
+      "correct": "'보조 지표인 정답 질환 군집 CI(S-mix − S-dict)는'으로 고친다.",
+      "evidence": "DIS ¶25 '정답 질환 군집 CI(보조 지표)는 SymCat-E(760질환)에서 [+1.0, +3.9]'; aux_cluster.json(S-dict vs S-mix: k10 SymCat [−2.10, −0.22], DDXPlus [−8.77, 3.53]; k1 DDXPlus [−9.83, −1.39])",
+      "severity": "imprecise"
+     },
+     {
+      "section": "DIS",
+      "quote": "측정으로 돌아가면, 흔한 질환 합성 세트 두 개에서는 사전 그래프가 약 300분의 1의 구축 시간으로 Top-10이 더 높았다. LLM 선택의 이점은 희귀질환 개발 세트에서만 관찰되었고 확증되지 않았다.",
+      "problem": "'측정으로 돌아가면' 바로 뒤에서 희귀질환 개발 세트의 S-mix 우세를 'LLM 선택의 이점'이라고 부른다. 이 우세가 LLM 선택에서 왔다는 것은 바로 앞에서 해석이라고 밝힌 내용이다. 그 해석이 측정 문장 안에 들어가 측정처럼 읽힌다.",
+      "correct": "'사전 그래프 대비 S-mix의 우세는 희귀질환 개발 세트에서만 관찰되었고 확증되지 않았다.'",
+      "evidence": "같은 단락 '다음은 측정이 아니라 해석이다. 이 데이터에서 LLM 구절이 한 일은 ... 선택에 가깝다'; dict_mix_stats.json의 rare macro +4.55 [2.44, 6.73] (development)",
+      "severity": "overclaim"
+     },
+     {
+      "section": "INT",
+      "quote": "따라서 확증은 같은 질환의 다른 환자에서 결과가 재현되는지만 답한다.",
+      "problem": "서론에 한계 서술이 남아 있다. ¶13에는 이 문장과 함께 E-T1 DDXPlus 군집 CI가 0을 포함한다는 문장, '새 질환에 대한 결과와 ... 희귀질환 결과는 모두 개발 결과로만 보고한다'가 있다. 기여 7에는 'S-mix가 개발 세트에서 고른 가중치 0.5로는 시간 분할을 평가하지 않았다', 기여 8에는 'S-mix 그래프에서는 두 측정 모두 하지 않았다'가 있다. 작성 규칙은 서론에 한계를 넣지 않는 것이다. 같은 내용은 ABS-CON, RES-B 4.6, DIS 5.1에 이미 있다.",
+      "correct": "이 문장들을 서론에서 빼고 5.1(확증과 통계, 출처)과 4.5·4.6의 서술에 맡긴다. 서론에는 확증 세트의 구성(같은 질환의 새 환자)만 사실로 남긴다.",
+      "evidence": "INT ¶13, 기여 7·8; DIS 5.1 확증과 통계 'E는 환자 표본 수준의 낙관만 검사했고, 질환 수준이나 실제 환자로의 일반화는 확증하지 않았다'",
+      "severity": "style"
+     },
+     {
+      "section": "DIS",
+      "quote": "HPOA 그래프 시뮬레이션에서도 재현율을 15%에서 30%로 올리면 Top-10이 11%p 올랐고",
+      "problem": "같은 시뮬레이션 효과를 DIS ¶7은 11%p로, DIS 5.2 첫째 문단과 INT 기여 3은 +10.9%p로 쓴다. 같은 값이 두 가지로 적혀 있다.",
+      "correct": "'Top-10이 10.9%p 올랐고'",
+      "evidence": "DIS 5.2 '재현율을 15%에서 30%로 올린 효과(Top-10 +10.9%p)'; INT 기여 3 '(Top-10 +10.9%p)'; gemini_review_plan.md B7 출처 표 8B",
+      "severity": "style"
+     }
+    ]
+   }
+  },
+  {
+   "round": 2,
+   "revisions": [
+    {
+     "id": "ABS-CON",
+     "changes": [
+      {
+       "spec_item": "7 [imprecise] ABS-CON: abstract",
+       "before": "같은 부트스트랩을 사후 분석으로 혼합 추출과 사전 단독의 차이에 적용하면, CI는 SymCat(760질환) Top-10(−1.2%p, 95% CI 상한 −0.2%p)과 DDXPlus Top-1(−5.2%p, 95% CI 상한 −1.4%p)에서 0을 배제했고 DDXPlus Top-10(−2.4%p, 95% CI −8.8–3.5)에서는 0을 포함했다.",
+       "after": "혼합 추출과 사전 단독의 차이에서도 같은 보조 부트스트랩 CI는 SymCat(760질환) Top-10(−1.2%p, 95% CI 상한 −0.2%p)과 DDXPlus Top-1(−5.2%p, 95% CI 상한 −1.4%p)에서 0을 배제했고, DDXPlus Top-10(−2.4%p, 95% CI −8.8–3.5)에서는 0을 포함했다.",
+       "source": "MET-B 3.8 (L159: E-T1·E-T2·E-T3·E-T5의 군집 CI는 판정에 쓰지 않는 보조 지표); docs/research_design.md E4 L74; pilot/cache/v2/confirmE/aux_cluster.json, S-dict vs S-mix 행: k10 SymCat −1.17 [−2.10, −0.22], k1 DDXPlus −5.2 [−9.83, −1.39], k10 DDXPlus −2.43 [−8.77, 3.53] (commit 8831c57, confirm_e_aux.py 'every judged comparison'); RES-B 4.6 L316에 사후 표시 없음"
+      },
+      {
+       "spec_item": "7 [imprecise] ABS-CON: conclusion paragraph 5",
+       "before": "정답 질환 군집 부트스트랩을 사후 분석으로 혼합 추출과 사전 단독의 차이에 적용하면, 사전 단독의 우세는 SymCat Top-10(−1.2%p, 95% CI 상한 −0.2%p)과 DDXPlus Top-1(−5.2%p, 95% CI 상한 −1.4%p)에서 군집 CI도 0을 배제했고, DDXPlus Top-10(−2.4%p, 95% CI −8.8–3.5)에서는 환자 단위에서만 유의했다.",
+       "after": "같은 보조 부트스트랩에서 혼합 추출과 사전 단독의 차이는 SymCat Top-10(−1.2%p, 95% CI 상한 −0.2%p)과 DDXPlus Top-1(−5.2%p, 95% CI 상한 −1.4%p)에서 군집 CI도 0을 배제했다. DDXPlus Top-10의 차이(−2.4%p, 95% CI −8.8–3.5)는 환자 단위에서만 유의했다.",
+       "source": "aux_cluster.json에서 위와 같은 값; 환자 CI [−3.70, −1.17]과 p_holm 0.0001은 pilot/cache/v3/review/dict_mix_stats.json의 confirmation E S-mix − S-dict k10 DDXPlus 행"
+      },
+      {
+       "spec_item": "7 [imprecise] ABS-CON: writing memo 9",
+       "before": "사전 단독 대비 군집 CI는 pilot/cache/v3/review/dict_mix_stats.json의 confirmation E 행(S-mix − S-dict, ci_cluster, 사후)에서 반올림했다: ... (환자 CI [−3.70, −1.17], Holm p .0001). 질환 수는 같은 파일 gold_diseases의 값이다",
+       "after": "사전 단독 대비 군집 CI는 설계 E가 미리 정한 보조 지표다(MET-B 3.8, docs/research_design.md E4 '보조 지표'). 값은 확증 직후 pilot/scripts/confirm_e_aux.py가 모든 판정 비교에 대해 낸 pilot/cache/v2/confirmE/aux_cluster.json의 S-dict vs S-mix 행(커밋 8831c57)에서 반올림했고, pilot/cache/v3/review/dict_mix_stats.json의 confirmation E 행(S-mix − S-dict)과 같다. dict_mix_stats.json이 이 행에 붙인 'post hoc' 표시는 따르지 않았다. E에서 사후 분석인 것은 S-union − S-dict 비교뿐이다(RES-B 4.4.7). 값: ... (환자 CI [−3.70, −1.17], Holm p .0001은 dict_mix_stats.json). 질환 수는 dict_mix_stats.json gold_diseases의 값이다",
+       "source": "aux_cluster.json과 dict_mix_stats.json의 값이 일치함(확인함). dict_mix_stats.json은 이 행에 'registration: post hoc (not pre-registered)'를 붙이는데, 이것이 원래 오류의 출처다. git show --stat 8831c57에 aux_cluster.json과 confirm_e_aux.py가 함께 들어 있음"
+      }
+     ],
+     "skipped": [
+      {
+       "spec_item": "1 [wrong] INT (S-mix HPO 측정 문장)",
+       "why": "INT 대상이다. ABS-CON에는 S-mix의 HPO 주석 일치를 재지 않았다는 문장이 없다."
+      },
+      {
+       "spec_item": "2 [imprecise] INT (RQ5 측정 범위)",
+       "why": "INT 대상이다. ABS-CON에는 HPO 주석 일치율의 측정 범위를 적은 문장이 없다."
+      },
+      {
+       "spec_item": "3 [wrong] RES-B (Table 18 번호)",
+       "why": "RES-B·DIS·MET-A 대상이다. ABS-CON에는 표 번호 참조가 없다."
+      },
+      {
+       "spec_item": "4 [imprecise] RES-A (Table 5b 'no LLM')",
+       "why": "RES-A 대상이다. ABS-CON은 S-dict 구축을 이미 'CPU로'라고 쓰며 'LLM 없이'라고 쓰지 않는다(작성 메모 9). '추론 시점 LLM 없이'는 추론을 가리키므로 해당하지 않는다."
+      },
+      {
+       "spec_item": "5 [imprecise] RES-B (Table 10 'no LLM')",
+       "why": "RES-B 대상이다. ABS-CON에는 'no LLM'이라는 표현이 없다."
+      },
+      {
+       "spec_item": "6 [imprecise] MET-A/DIS ('LLM 없는 기준')",
+       "why": "MET-A·DIS 대상이다. ABS-CON에서 'LLM 없이'가 나오는 곳은 추론 시점을 가리키는 문장뿐이고, 사전 추출을 그렇게 정의한 곳은 없다."
+      },
+      {
+       "spec_item": "8 [imprecise] DIS ¶27 사후 군집 CI",
+       "why": "DIS 대상이다. 같은 문제가 ABS-CON에도 있었는데, 그것은 7번으로 고쳤다."
+      },
+      {
+       "spec_item": "9 [overclaim] DIS ('LLM 선택의 이점')",
+       "why": "DIS 대상이다. ABS-CON에는 'LLM 선택의 이점'이라는 표현이 없다. 결론의 'LLM의 구절 선택을 비용이 낮은 선택 방법과 비교하는 일'은 남은 과제를 말하는 문장이고, 측정을 주장하지 않는다."
+      },
+      {
+       "spec_item": "10 [style] INT (서론의 한계 문장)",
+       "why": "INT 대상이다. 같은 한계 내용은 초록과 결론에 있어야 하는 서술이라 ABS-CON에서는 그대로 두었다."
+      },
+      {
+       "spec_item": "11 [style] DIS ('11%p' 대 '10.9%p')",
+       "why": "DIS 대상이다. ABS-CON에는 HPOA 시뮬레이션의 재현율 15→30% 효과 수치가 없다."
+      }
+     ]
+    },
+    {
+     "id": "INT",
+     "changes": [
+      {
+       "spec_item": "1 [wrong] INT 기여 8: S-mix에서 두 측정 모두 하지 않았다는 문장",
+       "before": "S-mix 그래프에서는 두 측정 모두 하지 않았다(4.7절).",
+       "after": "S-mix와 S-dict 그래프의 HPO 주석 일치율은 설계 E 확증 실행 뒤에 측정했다(4.4.7절, 4.7절).",
+       "source": "RES-B 4.4.7 'HPO 주석 일치' 단락과 4.7 첫 문장·마지막 단락; pilot/cache/v3/review/curated_agreement_smix.json agree_exact 12.645, by_n_docs 7.38/15.22/24.94/41.72; curated_agreement_sdict.json agree_exact 7.76. 의료진 판정을 하지 않았다는 사실은 DIS 5.1과 RES-B 4.7에 남아 있어 서론에서 뺐다."
+      },
+      {
+       "spec_item": "2 [imprecise] INT RQ5: HPO 주석 일치율을 측정한 그래프 범위",
+       "before": "HPO 주석 일치율은 그 그래프와 S-D 그래프에서 측정했다.",
+       "after": "HPO 주석 일치율은 그 그래프와 S-D 그래프에서, 설계 E 확증 실행 뒤에는 S-mix·S-dict 그래프에서도 측정했다.",
+       "source": "RES-B 4.7 첫 문장 '큐레이션 대조는 구 시스템과 S-D 그래프에서 측정했고, 설계 E 확증 실행 뒤에 S-mix와 S-dict 그래프에서도 측정했다(4.4.7절)'; curated_agreement_smix.json, curated_agreement_sdict.json"
+      },
+      {
+       "spec_item": "10 [style] INT ¶13: 서론에 남은 한계 문장 삭제, 확증 세트 구성만 사실로 남김",
+       "before": "(¶13) '...평가한 환자는 7,463명이다. 확증은 ...' / '...결합과 BM25의 차이는 +11.25%p [+10.36, +12.14]였다. 확증 세트 E는 개발 세트와 같은 질환 집합에서 뽑은 새 환자다. 따라서 확증은 같은 질환의 다른 환자에서 결과가 재현되는지만 답한다. 판정에 쓰지 않은 보조 지표로, 정답 질환 단위로 다시 뽑는 군집 부트스트랩 CI도 계산했다. E-T1의 DDXPlus-E 차이(+6.5%p)의 군집 CI는 [−6.1, +19.3]으로 0을 포함했다(49질환). SymCat-E 차이(+2.4%p)의 군집 CI는 [+1.0, +3.9]였다(760질환). 새 질환에 대한 결과와 설계 E 시스템(S-mix 등)의 희귀질환 결과는 모두 개발 결과로만 보고한다. 확증 수준의 희귀질환 결과는 D 확증의 Phenopacket 신규 증례에서 낸 설계 D 시스템과 비교 지식원의 결과뿐이다. 설계 E의 확증 결과는 4.6절에 보고한다.'",
+       "after": "(¶13) '...평가한 환자는 7,463명이다. 두 부분 모두 개발 세트와 같은 질환 집합에서 뽑았다. 확증은 ...' / '...결합과 BM25의 차이는 +11.25%p [+10.36, +12.14]였다. 설계 E의 확증 결과는 4.6절에 보고한다.'",
+       "source": "같은 내용이 다른 절에 남아 있음을 확인함: 군집 CI [−6.1, +19.3]·[+1.0, +3.9]는 RES-B 4.6(L316), DIS 5.1 확증과 통계, ABS-CON L15에 있다. '희귀질환 결과는 개발 수준'과 '확증 수준의 희귀질환 결과는 D 확증 ... 뿐'은 ABS-CON L15와 DIS 5.1에 있다. 같은 질환 집합 서술은 DIS L23과 5.1에 있다. 구성 문장은 결과 뒤가 아니라 확증 세트 설명 바로 뒤로 옮겼다."
+      },
+      {
+       "spec_item": "10 [style] INT 기여 7: 가중치 0.5로 평가하지 않았다는 한계 문장",
+       "before": "S-mix 그래프의 격차는 −7.1%p였다. S-mix가 개발 세트에서 고른 가중치 0.5로는 시간 분할을 평가하지 않았다(4.5절).",
+       "after": "S-mix 그래프의 격차는 −7.1%p였다(4.5절).",
+       "source": "RES-B 4.5 Table 14 캡션 'same 1-hop ranker, ot 0'과 L265의 ot 1.0 대 ot 0 비교; DIS L21 '시간 분할 비교는 모든 그래프를 offtopic_w 0으로 실행했다'. 사실 문장 '이 비교에서는 모든 그래프의 주제 밖 간선 가중치를 0으로 두었다'는 기여 7에 그대로 남겼다."
+      }
+     ],
+     "skipped": [
+      {
+       "spec_item": "3 [wrong] RES-B: Table 18 번호가 부록 Table 18과 겹침",
+       "why": "RES-B·DIS·MET-A 쪽 문제다. INT는 표 번호를 인용하지 않고 절 번호(4.4.7, 4.7)만 쓰므로 번호를 다시 매겨도 INT는 바꿀 것이 없다."
+      },
+      {
+       "spec_item": "4 [imprecise] RES-A Table 5b 'no LLM'",
+       "why": "RES-A 소관이고 INT에는 해당 표현이 없다. INT ¶5의 '사전 매칭은 LLM 없이 어휘 사전의 문자열을 문장에서 찾는 추출이다'는 매칭 단계의 정의라 이 항목이 인용한 문장이 아니다. 범위 밖이므로 그대로 두었다."
+      },
+      {
+       "spec_item": "5 [imprecise] RES-B Table 10 'no LLM'",
+       "why": "RES-B 소관이며 INT에는 해당 표현이 없다."
+      },
+      {
+       "spec_item": "6 [imprecise] MET-A·DIS ¶9 'LLM 없는 기준'",
+       "why": "MET-A·DIS 소관이며 INT에 인용된 문장이 없다."
+      },
+      {
+       "spec_item": "7 [imprecise] ABS-CON: S-mix − S-dict 군집 CI를 '사후 분석'이라고 씀",
+       "why": "ABS-CON 소관이다. INT에는 S-mix − S-dict 군집 CI 서술이 없다."
+      },
+      {
+       "spec_item": "8 [imprecise] DIS ¶27: 군집 CI를 '사후 분석'이라고 씀",
+       "why": "DIS 소관이며 INT에 해당 문장이 없다."
+      },
+      {
+       "spec_item": "9 [overclaim] DIS: 측정 문장 속 'LLM 선택의 이점'",
+       "why": "DIS 소관이며 INT에 해당 문장이 없다."
+      },
+      {
+       "spec_item": "11 [style] DIS ¶7: 11%p 대 10.9%p",
+       "why": "DIS 소관이다. INT 기여 3은 이미 'Top-10 +10.9%p'라고 쓰고 있어 고칠 것이 없다(INT에 있는 '+0.11%p'는 E-T5 값이라 이 항목과 관계없다)."
+      }
+     ]
+    },
+    {
+     "id": "REL",
+     "changes": [
+      {
+       "spec_item": "3. [wrong] RES-B table numbering (Table 18 collides with appendix Table 18) — REL cross-references",
+       "before": "본 연구 결과와 직접 비교하지 않는다(부록 Table 18).",
+       "after": "본 연구 결과와 직접 비교하지 않는다(부록 Table 19).",
+       "source": "The spec's suggested scheme (number the 4.4.7 table in order and shift the later tables): the 4.4.7 table, which sits after Table 13 (4.4.5) and before Table 14 (4.5) in RES-B, becomes 14; old 14→15, 15→16, 16→17; appendix 17→18, appendix 18→19. The appendix table of reported external numbers (AARLC, MEDDxAgent, RareBench GPT-4) is the one DIS ¶35 cites as '부록 Table 18'. Only REL L5 and DIS L35 cite it, and no appendix file exists in draft/paper_ko_v3. When I finished, RES-B, DIS and MET-A still had the old numbers (Table 18 at RES-B L205, 부록 Table 18 at DIS L35, 부록 표 17 at MET-A L65), so their editors must use the same 14–19 scheme, or REL must be changed back."
+      },
+      {
+       "spec_item": "3. [wrong] RES-B table numbering — REL cross-reference to the design-E judgment table",
+       "before": "설계 E의 E-T2로 한 번 확증 평가했다(4.6, 표 15b).",
+       "after": "설계 E의 E-T2로 한 번 확증 평가했다(4.6, 표 16b).",
+       "source": "RES-B L292/L322: Table 15(b) holds the design-E judgments and their pre-registered expectations ('일곱 판정은 모두 실행 전에 커밋한 예상과 같았다(표 15b)'). Under the same renumbering, Table 15 becomes Table 16, so 15b becomes 16b."
+      }
+     ],
+     "skipped": [
+      {
+       "spec_item": "1. [wrong] INT 기여 8 S-mix HPO agreement / limitation in introduction",
+       "why": "Concerns INT only. REL L19 says only that the S-mix grounding audit (근거 감사) was not done, and that is still true; REL does not say HPO agreement was left unmeasured for S-mix."
+      },
+      {
+       "spec_item": "2. [imprecise] INT RQ5 HPO agreement graphs",
+       "why": "Concerns INT only. REL does not say which graphs HPO agreement was measured on."
+      },
+      {
+       "spec_item": "4. [imprecise] RES-A Table 5b 'no LLM'",
+       "why": "Concerns RES-A only. REL has no 'no LLM' or 'LLM 없는' wording for S-dict."
+      },
+      {
+       "spec_item": "5. [imprecise] RES-B Table 10 'no LLM'",
+       "why": "Concerns RES-B only. REL has no such wording."
+      },
+      {
+       "spec_item": "6. [imprecise] MET-A/DIS 'LLM 없는 기준'",
+       "why": "Concerns MET-A and DIS. REL calls S-dict only 'UMLS 사전 매칭(S-dict)'. REL L13 already says S-dict uses the v2 phrase table, and REL never calls it LLM-free."
+      },
+      {
+       "spec_item": "7. [imprecise] ABS-CON 'post hoc' cluster CI",
+       "why": "Concerns ABS-CON only. REL already labels the cluster CI of the S-llm comparison as '보조 지표', not post hoc, and it gives no S-mix − S-dict cluster CI."
+      },
+      {
+       "spec_item": "8. [imprecise] DIS ¶27 'post hoc' cluster CI",
+       "why": "Concerns DIS only. REL's own wording ('정답 질환 군집 95% CI(보조 지표)') already matches the fix."
+      },
+      {
+       "spec_item": "9. [overclaim] DIS 'LLM 선택의 이점'",
+       "why": "Concerns DIS only. REL has no such sentence. REL L21 reports the rare-set superiority only as a development result."
+      },
+      {
+       "spec_item": "10. [style] INT limitation sentences",
+       "why": "The rule bans limitations in the introduction, and this item concerns INT only. REL L21 has a similar scoping sentence ('질환 수준의 일반화는 확증하지 않았다'), but related work is not covered by the rule and this item does not cite REL, so I left it."
+      },
+      {
+       "spec_item": "11. [style] DIS '11%p' vs '10.9%p'",
+       "why": "Concerns DIS only. REL does not mention the HPOA recall simulation effect."
+      }
+     ]
+    },
+    {
+     "id": "MET-A",
+     "changes": [
+      {
+       "spec_item": "6. [imprecise] MET-A — 사전 추출을 'LLM 없는 기준'으로 정의 (3.3 사전 추출 단락, L67)",
+       "before": "**사전 추출.** LLM 없는 기준으로, 사전 매칭을 LLM과 같은 문서의 모든 문장에 적용했다.",
+       "after": "**사전 추출.** LLM 추출을 쓰지 않는 기준으로, 사전 매칭을 LLM과 같은 문서의 모든 문장에 적용했다.",
+       "source": "pilot/cache/v3/review/cost.md §5 (S-dict 빌드는 CUI 없는 항목을 LLM 구절로 만든 phrase2cui_gemma.json으로 연결; 'S-dict는 LLM 없이 만들 수 있다'고 쓰려면 빈 표 재빌드 필요, 실행하지 않음); RES-B 4.4.7 'S-dict 구축도 LLM 산출물과 완전히 독립적이지는 않다'"
+      },
+      {
+       "spec_item": "6. [imprecise] MET-A — 같은 단락에 구절 표의 LLM 의존 문장 추가",
+       "before": "사전 그래프의 구절 표는 v2 구절 표다. S-dict는 같은 문헌의 UMLS 사전 그래프이며,",
+       "after": "사전 그래프의 구절 표는 v2 구절 표다. CUI 없는 항목을 연결하는 v2 구절 표는 LLM 구절로 만들었으므로, 사전 그래프도 이 경로에서는 LLM 산출물에 기댄다(4.4.7절). S-dict는 같은 문헌의 UMLS 사전 그래프이며,",
+       "source": "cost.md §5와 표 2행 '구절 정규화 v2 (phrase2cui_gemma.json) … S-dict는 CUI 없는 항목에만 씀'; 1/20 표본에서 사전 항목의 4.6%(v3 126,701/2,771,913, v2 48,624/1,061,180)가 이 표로만 개념을 얻음. 수치는 RES-B 4.4.7에 있으므로 MET-A에서는 절만 참조함"
+      },
+      {
+       "spec_item": "3. [wrong] RES-B 표 번호 충돌 — MET-A의 '부록 표 17' 참조",
+       "before": "표에 없음 0.1%다(부록 표 17).",
+       "after": "표에 없음 0.1%다(부록 표 18).",
+       "source": "동시에 진행된 편집을 확인함. RES-B가 4.4.7 표를 Table 14로 다시 매기고 기존 14–16을 15–17로 밀었고(RES-B L205 'Table 14.', L361 'Table 17.'), REL은 부록 Table 18을 19로 밀었음. 이 상태로 두면 본문 Table 17과 부록 표 17이 겹치므로, 같은 방식으로 부록 번호를 한 칸 밀었음"
+      }
+     ],
+     "skipped": [
+      {
+       "spec_item": "1, 2, 10 (INT)",
+       "why": "INT.md만 해당하고 MET-A는 해당하지 않음. MET-A에는 S-mix의 HPO 주석 일치나 서론 한계 문장에 관한 서술이 없음."
+      },
+      {
+       "spec_item": "4 (RES-A Table 5b 'no LLM')",
+       "why": "RES-A만 해당함. MET-A 3.3은 이미 CUI 없는 사전 항목이 구절 표로 연결된다고 쓰고 있고, 이번에 LLM 의존 문장도 더했으므로 내용이 맞음."
+      },
+      {
+       "spec_item": "5 (RES-B Table 10 'no LLM')",
+       "why": "RES-B만 해당함. MET-A L67은 근거로 인용되었을 뿐이며, 'HPO 사전 항목은 CUI 없이 저장되며 … 구절 표로 개념을 붙인다'는 문장은 맞는 내용이라 그대로 둠."
+      },
+      {
+       "spec_item": "7 (ABS-CON), 8·9·11 (DIS)",
+       "why": "MET-A에 닿는 부분이 없음. MET-A에는 S-mix − S-dict 군집 CI, '측정으로 돌아가면' 문장, 시뮬레이션 Top-10 +10.9%p가 나오지 않음. DIS ¶9의 'LLM 없는 UMLS 사전 매칭'(6번 항목의 후반부)은 DIS 편집자가 맡음."
+      },
+      {
+       "spec_item": "6번 관련: MET-A L51 'LLM 없는 사전 추출'",
+       "why": "고치지 않음. 이 문장은 추출 단계를 말하고, 추출 단계에서는 실제로 LLM을 쓰지 않음. 같은 단락이 S-dict가 v2 구절 표를 쓴다고 따로 밝히므로 정확함. 6번 항목이 인용한 것은 L67뿐임."
+      },
+      {
+       "spec_item": "3번 관련: DIS의 '부록 Table 18'",
+       "why": "DIS.md는 이 작업의 범위 밖임. 확인했을 때 DIS L35는 아직 '부록 Table 18'이었음. REL은 19로 밀었으므로, 부록 표 번호 이동이 일관되려면 DIS도 '부록 Table 19'가 되어야 함."
+      }
+     ]
+    },
+    {
+     "id": "MET-B",
+     "changes": [
+      {
+       "spec_item": "3. [wrong] RES-B 표 번호 18 중복·순서 역전 (MET-B의 확증 표 참조)",
+       "before": "확증 결과는 4.6절과 Table 15에 보고한다.",
+       "after": "확증 결과는 4.6절과 Table 16에 보고한다.",
+       "source": "수정 예시('4.4.7 표를 순서에 맞게 번호 붙이고 뒤 표와 부록 표 번호를 밀기')를 따랐다. 4.4.7 표가 14가 되고 기존 14→15, 15(설계 E 확증)→16, 16→17, 부록 17→18, 18→19로 밀린다. 같은 시각에 REL 편집이 같은 방식을 썼다(REL: 표 15b→16b, 부록 Table 18→19). 편집 시점의 RES-B.md는 아직 'Table 15. Design E confirmation'과 'Table 18. S-mix versus…'를 담고 있었다."
+      },
+      {
+       "spec_item": "3. [wrong] RES-B 표 번호 18 중복·순서 역전 (MET-B 3.8의 Top-3 표 참조)",
+       "before": "Top-3는 시스템별 정확도(표 15a)로만 적고",
+       "after": "Top-3는 시스템별 정확도(표 16a)로만 적고",
+       "source": "위와 같은 번호 체계. 확증 표의 (a)가 시스템별 정확도다(RES-B 4.6 '표 15a는 일곱 시스템의 확증 정확도다')."
+      }
+     ],
+     "skipped": [
+      {
+       "spec_item": "1. [wrong] INT 'S-mix 그래프에서는 두 측정 모두 하지 않았다'",
+       "why": "INT만 해당한다. MET-B에는 S-mix의 HPO 주석 일치나 의료진 판정을 말하는 문장이 없다."
+      },
+      {
+       "spec_item": "2. [imprecise] INT RQ5 HPO 주석 일치율 측정 그래프",
+       "why": "INT만 해당한다. MET-B에는 RQ5 서술이 없다."
+      },
+      {
+       "spec_item": "4. [imprecise] RES-A Table 5b 'no LLM'",
+       "why": "RES-A만 해당한다. MET-B Table 5의 S-dict 행은 'UMLS finding-string dictionary on every sentence (v3umls_ns)'로 적혀 있고 'no LLM'이라는 주장이 없다. MET-B의 'no LLM'/'LLM 없음'은 MeSH 공출현(NLM 2024) 행뿐이다. 이 지식원은 실제로 LLM을 쓰지 않으므로 지적 대상이 아니다."
+      },
+      {
+       "spec_item": "5. [imprecise] RES-B Table 10 v2dict/v2umls 'no LLM'",
+       "why": "RES-B만 해당한다. MET-B에는 Table 10이나 v2 사전 그래프를 'no LLM'으로 적은 곳이 없다."
+      },
+      {
+       "spec_item": "6. [imprecise] MET-A 'LLM 없는 기준' / DIS ¶9",
+       "why": "MET-A와 DIS만 해당한다. MET-B 3.6·3.7의 S-dict 서술은 사전 그래프를 'LLM 없는' 것으로 정의하지 않는다."
+      },
+      {
+       "spec_item": "7. [imprecise] ABS-CON S-mix − S-dict 군집 CI를 '사후 분석'으로 표기",
+       "why": "ABS-CON만 해당한다. MET-B 3.8은 대응 비교(E-T1·E-T2·E-T3·E-T5)의 군집 CI를 판정에 쓰지 않는 보조 지표로 이미 정해 두었다. 이는 pilot/cache/v2/confirmE/aux_cluster.json(S-dict vs S-mix 행 포함), pilot/scripts/confirm_e_aux.py('every judged comparison'), docs/research_design.md E4와 맞으므로 고칠 것이 없다."
+      },
+      {
+       "spec_item": "8. [imprecise] DIS ¶27 '사후 분석으로 계산한 정답 질환 군집 CI'",
+       "why": "DIS만 해당한다. MET-B 3.6의 E-T1 군집 CI([−6.1, +19.3], [+1.0, +3.9])와 Top-1 차이(+0.7 [−0.6, +2.0], −0.8 [−1.2, −0.4])를 aux_cluster.json과 대조했고 일치한다."
+      },
+      {
+       "spec_item": "9. [overclaim] DIS 'LLM 선택의 이점은 희귀질환 개발 세트에서만'",
+       "why": "DIS만 해당한다. MET-B에는 이 문장이 없다."
+      },
+      {
+       "spec_item": "10. [style] INT 서론의 한계 서술",
+       "why": "INT만 해당한다. MET-B 3.6의 '같은 질환에서 새로 뽑은 환자 표본에서 결과가 재현되는지까지만 검사하며'는 방법 절에서 확증의 범위를 정의하는 문장이고 서론이 아니다."
+      },
+      {
+       "spec_item": "11. [style] DIS '11%p' 대 '+10.9%p'",
+       "why": "DIS만 해당한다. MET-B에는 재현율 시뮬레이션 수치가 없다."
+      }
+     ]
+    },
+    {
+     "id": "RES-A",
+     "changes": [
+      {
+       "spec_item": "4. [imprecise] RES-A Table 5b S-dict 'no LLM'",
+       "before": "| S-dict | v3umls_ns | v2 + v3 | UMLS finding-string dictionary (no LLM) | same as S-llm | ...",
+       "after": "| S-dict | v3umls_ns | v2 + v3 | UMLS finding-string dictionary (no LLM extraction)^e^ | same as S-llm | ... ; new footnote under Table 5b: '^e^ CUI-less dictionary items are linked through HPO names and the v2 phrase table, which was built from LLM phrases (Section 3.3). In a 1/20 sample of literature files, 4.6% of dictionary items received their concept only through this table (Section 4.4.7).'",
+       "source": "pilot/cache/v3/review/cost.md §5 and cost_raw/dict_table_dep.json (linked_only_via_table: v3 126,701/2,771,913 = 4.57%, v2 48,624/1,061,180 = 4.58%); MET-A 사전 추출 단락 ('사전 그래프의 구절 표는 v2 구절 표다', HPO 이름 연결과 구절 표로 연결); RES-B 4.4.7 구축 비용 단락 ('문헌 파일의 1/20 표본에서 사전 항목의 4.6%')"
+      }
+     ],
+     "skipped": [
+      {
+       "spec_item": "1. [wrong] INT 기여 8 S-mix 측정 문장",
+       "why": "INT 파일 대상이며 RES-A에는 해당 문장이 없다."
+      },
+      {
+       "spec_item": "2. [imprecise] INT RQ5 HPO 주석 일치율 측정 범위",
+       "why": "INT 파일 대상이며 RES-A에는 해당 문장이 없다."
+      },
+      {
+       "spec_item": "3. [wrong] RES-B 표 18 번호 충돌",
+       "why": "RES-A에는 표 10 이상이나 부록 표를 가리키는 참조가 없다(grep '표 1[0-9]|Table 1[0-9]|부록|Appendix' 일치 없음). 새 각주는 표 번호 대신 4.4.7절을 가리키므로 번호를 다시 매겨도 영향이 없다."
+      },
+      {
+       "spec_item": "5. [imprecise] RES-B Table 10 v2dict/v2umls 'no LLM'",
+       "why": "RES-B 파일 대상이다. RES-A에는 v2dict·v2umls를 'no LLM'으로 적은 곳이 없다."
+      },
+      {
+       "spec_item": "6. [imprecise] MET-A 'LLM 없는 기준' / DIS ¶9",
+       "why": "MET-A·DIS 파일 대상이다. RES-A에는 'LLM 없는' 표현이 없다."
+      },
+      {
+       "spec_item": "7. [imprecise] ABS-CON 사후 분석 표시",
+       "why": "ABS-CON 파일 대상이며 RES-A에는 해당 문장이 없다."
+      },
+      {
+       "spec_item": "8. [imprecise] DIS ¶27 사후 분석 표시",
+       "why": "DIS 파일 대상이며 RES-A에는 해당 문장이 없다."
+      },
+      {
+       "spec_item": "9. [overclaim] DIS 'LLM 선택의 이점'",
+       "why": "DIS 파일 대상이며 RES-A에는 해당 문장이 없다."
+      },
+      {
+       "spec_item": "10. [style] INT 한계 서술",
+       "why": "INT 파일 대상이며 RES-A와 관계없다."
+      },
+      {
+       "spec_item": "11. [style] DIS 11%p 대 10.9%p",
+       "why": "DIS 파일 대상이다. RES-A에는 HPOA 재현율 시뮬레이션의 11%p 표기가 없다."
+      }
+     ]
+    },
+    {
+     "id": "RES-B",
+     "changes": [
+      {
+       "spec_item": "3. [wrong] RES-B — Table 18 number collides with appendix Table 18 and is out of order",
+       "before": "4.4.7 table: 'Table 18' (body refs 표 18, 18b, 18c, 18d; Table 16 caption 'Table 18d'; 4.7 last paragraph '표 18d'). Time split: Table 14. Design E confirmation: Table 15 (15a/15b). Evidence quality: Table 16 (Table 18d caption 'computed as in Table 16', row 'Old Qwen3 v2.1 graph (Table 16)').",
+       "after": "Renumbered in order of appearance, following the spec's example. 4.4.7 table is Table 14 (표 14, 14b, 14c, 14d; Table 17 caption now cites 'Table 14d'; 4.7 cites '표 14d'). Time split is Table 15 (표 15 ×2, caption). Design E confirmation is Table 16 (표 16a/16b ×5, caption). Evidence quality is Table 17 (표 17, caption; Table 14d caption 'computed as in Table 17', row '(Table 17)'). Tables 10–17 in RES-B now run in order, and no RES-B table uses 18. I made 20 reference replacements in one pass with no chained substitutions. Other files that must change to match, outside my file: MET-B L106 'Table 15'→'Table 16' and L159 '표 15a'→'표 16a'; REL L21 '표 15b'→'표 16b'; MET-A L65 '부록 표 17'→'부록 표 18' (otherwise it collides with the new Table 17); DIS L35 and REL L5 '부록 Table 18'→'부록 Table 19'. When I checked, none of these had changed yet.",
+       "source": "DIS L35 and REL L5 '부록 Table 18'; MET-A L65 '부록 표 17'; MET-B L106/L159 and REL L21 references to Table 15; RES-B table captions at 4.4.7, 4.5, 4.6, 4.7"
+      },
+      {
+       "spec_item": "5. [imprecise] RES-B — Table 10 labels v2dict and v2umls 'no LLM'",
+       "before": "| v2dict | HPO dictionary (no LLM) | ... and | v2umls | UMLS finding-type dictionary (no LLM) | ...; caption had no phrase-table note",
+       "after": "Rows read 'HPO dictionary (no LLM extraction)' and 'UMLS finding-type dictionary (no LLM extraction)'. Sentences added to the Table 10 caption: 'No LLM extraction = dictionary matching without an LLM; CUI-less dictionary items (all HPO dictionary items, and UMLS strings not resolved to one concept) are linked by HPO name and through the v2 phrase table, which was built from LLM phrases (3.3, 4.4.7). In a 1/20 sample of the v2 literature, 4.6% of UMLS dictionary items received their concept only through that table.'",
+       "source": "MET-A 3.3 사전 추출 단락 (HPO dictionary items are stored without a CUI; UMLS strings with no single preferred-name concept are stored without a CUI; the dictionary graphs use the v2 phrase table); pilot/scripts/run_graph_variants.sh L48 (v2dict and v2umls use TABLE=phrase2cui_gemma.json); pilot/cache/v3/review/cost.md §5 and cost_raw/dict_table_dep.json v2: linked_only_via_table 48,624 / items 1,061,180 = 4.58%, UMLS dictionary items (dict_table_dep.py docstring)"
+      }
+     ],
+     "skipped": [
+      {
+       "spec_item": "1. [wrong] INT — contribution 8 says S-mix was not measured",
+       "why": "Not in RES-B. RES-B 4.7 and Table 14d (formerly 18d) already report the S-mix HPO agreement: 12.6%, bins 7.4/15.2/24.9/41.7%. These match curated_agreement_smix.json, so RES-B needs no change."
+      },
+      {
+       "spec_item": "2. [imprecise] INT — RQ5 lists only the v2.1 and S-D graphs",
+       "why": "Not in RES-B. The first sentence of RES-B 4.7 already says S-mix and S-dict were measured after the design-E confirmation run (4.4.7)."
+      },
+      {
+       "spec_item": "4. [imprecise] RES-A — Table 5b says 'no LLM'",
+       "why": "In RES-A, not RES-B. The parallel wording in RES-B Table 10 is fixed under item 5."
+      },
+      {
+       "spec_item": "6. [imprecise] MET-A / DIS ¶9 — 'LLM 없는 기준'",
+       "why": "In MET-A and DIS, not RES-B. RES-B 4.4.7 already says S-dict is not fully independent of LLM output (4.6%)."
+      },
+      {
+       "spec_item": "7. [imprecise] ABS-CON — S-mix − S-dict cluster CI labelled post hoc",
+       "why": "In ABS-CON, not RES-B. RES-B already matches the source: 4.4.7 labels only the E comparison S-union − S-dict as post hoc. 4.6 reports the S-mix − S-dict cluster CIs as auxiliary, with values matching aux_cluster.json (k10 DDXPlus-E [−8.77, 3.53], SymCat-E; k1 DDXPlus-E)."
+      },
+      {
+       "spec_item": "8. [imprecise] DIS ¶27 — cluster CI labelled post hoc",
+       "why": "In DIS, not RES-B. RES-B 4.6 already treats these CIs as auxiliary metrics."
+      },
+      {
+       "spec_item": "9. [overclaim] DIS — 'LLM 선택의 이점' inside a measurement sentence",
+       "why": "The quoted text, after '측정으로 돌아가면', is in DIS. RES-B 4.4.7 has a similar sentence, but it sits in the paragraph headed '해석. 다음은 측정이 아니라 해석이다', so it is already labelled as interpretation. I left it as is because the task says to fix only issues that touch this file."
+      },
+      {
+       "spec_item": "10. [style] INT — limitation sentences in the introduction",
+       "why": "In INT, not RES-B. RES-B 4.5 and 4.6 already state the scope of the confirmation, which the spec says is where this content should go."
+      },
+      {
+       "spec_item": "11. [style] DIS — 11%p vs +10.9%p",
+       "why": "In DIS, not RES-B. RES-B does not report this simulation effect."
+      }
+     ]
+    },
+    {
+     "id": "DIS",
+     "changes": [
+      {
+       "spec_item": "11 (style, DIS ¶7): simulation effect written two ways",
+       "before": "HPOA 그래프 시뮬레이션에서도 재현율을 15%에서 30%로 올리면 Top-10이 11%p 올랐고,",
+       "after": "HPOA 그래프 시뮬레이션에서도 재현율을 15%에서 30%로 올리면 Top-10이 10.9%p 올랐고,",
+       "source": "RES-A Table 8 Panel B, with wrong edges: recall 15% Top-10 15.5 to 30% Top-10 26.4 (+10.9); same value in DIS 5.2 and INT contribution 3"
+      },
+      {
+       "spec_item": "6 (imprecise, DIS ¶9): 'LLM 없는 UMLS 사전 매칭'",
+       "before": "v2 문헌에서는 LLM 없는 UMLS 사전 매칭이 LLM 추출과 같거나 높았다(자기 간선 제거 시 개발 매크로 Top-10/Top-1 34.50/14.24% 대 31.94/13.06%).",
+       "after": "v2 문헌에서는 LLM 추출을 쓰지 않는 UMLS 사전 매칭이 LLM 추출과 같거나 높았다(자기 간선 제거 시 개발 매크로 Top-10/Top-1 34.50/14.24% 대 31.94/13.06%). 다만 CUI 없는 사전 항목을 연결하는 v2 구절 표는 LLM 구절로 만들었으므로, 사전 그래프도 이 경로에서는 LLM 산출물에 기댄다(4.4.7절).",
+       "source": "MET-A L67 '사전 그래프의 구절 표는 v2 구절 표다'; pilot/cache/v3/review/cost.md §5 (phrase2cui_gemma.json is built from normalized LLM phrases; v2 48,624/1,061,180 = 4.6% of dictionary items get a concept only through it); RES-B 4.4.7 'S-dict 구축도 LLM 산출물과 완전히 독립적이지는 않다'"
+      },
+      {
+       "spec_item": "9 (overclaim, DIS ¶17): interpretation inside the measurement sentence",
+       "before": "LLM 선택의 이점은 희귀질환 개발 세트에서만 관찰되었고 확증되지 않았다.",
+       "after": "사전 그래프 대비 S-mix의 우세는 희귀질환 개발 세트에서만 관찰되었고 확증되지 않았다.",
+       "source": "pilot/cache/v3/review/dict_mix_stats.json macro, development, S-mix - S-dict, k10, rare (7 sets): diff 4.55, CI [2.44, 6.73]; the selection reading is labelled as interpretation earlier in the same paragraph"
+      },
+      {
+       "spec_item": "8 (imprecise, DIS ¶27): S-mix − S-dict cluster CI labelled post hoc",
+       "before": "사후 분석으로 계산한 정답 질환 군집 CI(S-mix − S-dict)는 SymCat-E Top-10(−1.2%p)에서 [−2.1, −0.2]로 0을 배제했다.",
+       "after": "보조 지표인 정답 질환 군집 CI(S-mix − S-dict)는 SymCat-E Top-10(−1.2%p)에서 [−2.1, −0.2]로 0을 배제했다.",
+       "source": "pilot/cache/v2/confirmE/aux_cluster.json, S-dict vs S-mix: k10 SymCat −1.17 cluster [−2.10, −0.22], k10 DDXPlus −2.43 [−8.77, 3.53], k1 DDXPlus −5.2 [−9.83, −1.39]; written by pilot/scripts/confirm_e_aux.py ('Gold-disease cluster bootstrap CIs for every judged comparison', research_design.md E4) in commit 8831c57; MET-B L159 lists cluster CIs among the pre-specified auxiliary metrics. The rounded values already in the text match. The genuinely post-hoc S-union − S-dict label in ¶15 is unchanged."
+      },
+      {
+       "spec_item": "3 (wrong, cross-file table numbering): DIS '부록 Table 18'",
+       "before": "직접 비교하지 않는다(부록 Table 18).",
+       "after": "직접 비교하지 않는다(부록 표 19).",
+       "source": "Checked the working tree while the other editors were at work: RES-B now numbers the 4.4.7 table as Table 14 and shifts time split→15, design E→16, provenance→17. MET-A's appendix table became '부록 표 18', and REL already reads '부록 Table 19'. So the appendix table of reported external numbers is now 19. I used '표' to match the Korean body references in DIS (표 9A/9B/9C) and MET-A. DIS has no other references to Tables 14–18."
+      }
+     ],
+     "skipped": [
+      {
+       "spec_item": "1 (INT, S-mix measurements in contribution 8)",
+       "why": "This is an INT fix. Its only link to DIS is that the fact 'no clinician judgment of S-mix' stays in 5.1. DIS 5.1 '출처' already says this ('주 시스템 S-mix의 간선 정확도는 직접 검증하지 않았다 ... 판정은 하지 않았다') and gives the S-mix HPO agreement as measured (7.4/15.2/24.9/41.7%). ¶37 matches it. No change needed."
+      },
+      {
+       "spec_item": "2 (INT, RQ5 wording)",
+       "why": "This is INT only. DIS already reports S-mix and S-dict HPO agreement as measured (¶17, ¶37, 5.1), so nothing in DIS contradicts the fix."
+      },
+      {
+       "spec_item": "4 (RES-A Table 5b 'no LLM')",
+       "why": "This is RES-A only. I edited DIS's own 'LLM 없는' wording under item 6."
+      },
+      {
+       "spec_item": "5 (RES-B Table 10 'no LLM')",
+       "why": "This is RES-B only. I edited DIS's own 'LLM 없는' wording under item 6."
+      },
+      {
+       "spec_item": "7 (ABS-CON post-hoc label on the S-mix − S-dict cluster CI)",
+       "why": "This is ABS-CON only. I fixed the same mislabel in DIS under item 8. In DIS ¶15, '(사후 비교)' sits on the S-union − S-dict E value, which really is post hoc (RES-B 4.4.7), so I kept it."
+      },
+      {
+       "spec_item": "10 (INT limitation sentences moved out)",
+       "why": "The fix hands these facts to 5.1, 4.5 and 4.6, so I checked that DIS 5.1 already holds each one. It has E tested only patient-sample optimism, not disease-level or real-patient generalization. It has the E-T1 DDXPlus-E cluster CI [−6.1, +19.3] and SymCat-E [+1.0, +3.9]. It says all rare-disease claims for design E systems are development-level, and that the only confirmation-level rare result is D's Phenopacket-new. It says S-mix edges were not audited. The time-split ot 0.5 point is in RES-B 4.5 ('S-mix 그래프는 시간 분할에서 ot 0과 1.0으로만 평가했다') and DIS ¶21 (all graphs at offtopic_w 0). Nothing needed to be added to DIS."
+      }
+     ]
+    }
+   ],
+   "recheck": {
+    "issues": [
+     {
+      "section": "RES-B",
+      "quote": "단계별 시간을 더하면 추출부터 그래프 빌드까지 S-mix는 약 136시간, S-dict는 약 0.45시간이었다.",
+      "problem": "본문은 바로 앞에서 GPU 시간을 순수 생성 시간 127.4시간으로만 제시한다. 본문에 나온 단계값(127.4 h + 정규화 ≤ 6.7 h + 재연결 3.5분 + 빌드 9.2분)을 더하면 약 134.3시간이고 136시간이 되지 않는다. 136시간은 모델 적재를 포함한 GPU 프로세스 시간 129.3시간으로 계산한 값인데, 이 사실은 표 14a 각주 a에만 있다.",
+      "correct": "본문에 '합계는 모델 적재를 포함한 GPU 프로세스 시간(129.3시간)으로 계산했다'를 넣거나, '생성 127.4시간(프로세스 129.3시간)'처럼 두 값을 함께 적는다.",
+      "evidence": "pilot/cache/v3/review/cost.md §3: 'GPU는 프로세스 시간(129.3 h)을 … 넣었고'; S-mix 합계 약 136.2 h = 129.3 + 6.7 + 0.06 + 0.15",
+      "severity": "imprecise"
+     },
+     {
+      "section": "DIS",
+      "quote": "D 확증 이후의 결과는 설계 E 확증을 빼면 모두 같은 9개 개발 세트와 시간 분할 증례를 반복해 쓴 탐색이다.",
+      "problem": "이번 수정으로 확증 세트 E에서 계산한 사후 분석(S-union − S-dict, 4.4.7절과 DIS 15단락에서 '사후' 표시)이 생겼다. 그런데 5.1의 이 요약 문장은 그 분석을 빠뜨려, D 확증 이후 결과의 범주를 개발 세트와 시간 분할만으로 적는다. 초록('이후의 결과는 설계 E 확증을 빼면 모두 개발 세트와 시간 분할 증례에서 한 탐색이다')과 결론 11행의 같은 문장도 범주가 같다.",
+      "correct": "'…탐색이다. 예외로 확증 세트 E에서 S-union − S-dict를 사후 분석했다(4.4.7절)'처럼 E 사후 분석을 범주에 넣는다.",
+      "evidence": "RES-B 4.4.7 187행: '확증 세트 E에서 계산한 S-union − S-dict 비교는 사전에 정하지 않은 사후 분석이다'; dict_mix_stats.json의 confirmation E 행 S-union − S-dict 'post hoc (not pre-registered)'",
+      "severity": "imprecise"
+     },
+     {
+      "section": "DIS",
+      "quote": "4.4.7절의 측정에서 이 우세의 대부분은 사전에 없는 새 표현에서 오지 않았다.",
+      "problem": "이 문장은 측정 결과처럼 쓰여 있지만, 실제 측정은 둘뿐이다. 하나는 30개 표본 판독(저자 판독, 임상 판정 아님)이고, 다른 하나는 정답 질환 쪽 S-mix 전용 간선만 뺀 부분 반사실이다. 5.2에서는 '부분 반사실'이라는 단서가 빠졌고, 뒤 문장 '희귀질환에서 S-mix의 승리는 대부분 그 간선 없이도 유지되었다'에도 단서가 없다. 4.4.7과 DIS 17단락은 같은 결과에 이 단서를 붙인다.",
+      "correct": "'4.4.7절의 부분 반사실(정답 질환의 S-mix 전용 간선만 제거)에서 희귀질환 승리의 대부분이 유지되었고, 저자 판독 30개 중 새 표현은 3개였다'처럼 측정한 내용만 적는다.",
+      "evidence": "dict_mix_overlap.json ranking: still_top10_without_winner_only_edges RAMEDIS 63/68, LIRICAL 20/26, Phenopacket 448/505 (gold 쪽 간선만 제거); sample_reading caveat 'Claude's own reading … not a clinical judgment'",
+      "severity": "imprecise"
+     },
+     {
+      "section": "MET-A",
+      "quote": "같은 문헌에 네 가지 추출 방식을 적용했다. LLM 추출, LLM 없는 사전 추출, 두 결과의 합집합",
+      "problem": "같은 절 67행은 '사전 추출. LLM 추출을 쓰지 않는 기준으로'로 고쳐졌다. 67행에는 CUI 없는 사전 항목이 LLM 구절로 만든 v2 구절 표에 기댄다는 단서도 들어갔다. 3.3절 첫머리만 'LLM 없는 사전 추출'로 남아, 같은 시스템이 한 절 안에서 두 가지로 표현된다. 수정 사양 R1-1은 사전 그래프 구축이 표본 항목의 4.6%에서 LLM 유래 구절 표를 쓴다고 정했다.",
+      "correct": "'LLM 추출을 쓰지 않는 사전 추출'로 맞춘다.",
+      "evidence": "cost.md §5: 'S-dict 빌드가 LLM 산출물에 완전히 독립적이지는 않다 … 4.6%'; MET-A 67행 수정 문장",
+      "severity": "imprecise"
+     },
+     {
+      "section": "INT",
+      "quote": "S-mix는 같은 9개 세트에서 최고점으로 고른 그래프이므로 이 값에는 선택 낙관이 들어 있다.",
+      "problem": "서론의 기여 항목에 한계성 단서가 남아 있다. 이 문장 외에도 기여 2의 'S-D 대비 Top-1 개선은 확증되지 않았다(판정에 쓰지 않은 보조 지표)', 기여 3의 '틀린 간선의 구성과 비율은 이전 시스템 그래프(v2.1)의 출처 감사에서 가져온 가정이다'가 있다. 이번 수정에서 서론의 다른 한계 문장 두 개는 이미 지웠으므로 남은 것만 규칙과 어긋난다. '서론에 한계를 넣지 않는다'는 작성 규칙과 사양 R2-3 기준이다.",
+      "correct": "이 단서들은 5.1(확증과 통계, 방법)로 옮기고, 서론 기여 문장은 단서가 필요 없는 범위로 적는다(예: '개발 세트에서 고른 S-mix의 매크로 Top-10/Top-1은 46.11/19.66%였다').",
+      "evidence": "revision_spec.md R2-3 '(서론에는 한계를 넣지 않는다)'; git diff INT.md: 시간 분할 ot 0.5 미평가 문장과 'S-mix 그래프에서는 두 측정 모두 하지 않았다' 삭제",
+      "severity": "style"
+     }
+    ]
+   }
+  }
+ ],
+ "recheck": {
+  "issues": [
+   {
+    "section": "RES-B",
+    "quote": "단계별 시간을 더하면 추출부터 그래프 빌드까지 S-mix는 약 136시간, S-dict는 약 0.45시간이었다.",
+    "problem": "본문은 바로 앞에서 GPU 시간을 순수 생성 시간 127.4시간으로만 제시한다. 본문에 나온 단계값(127.4 h + 정규화 ≤ 6.7 h + 재연결 3.5분 + 빌드 9.2분)을 더하면 약 134.3시간이고 136시간이 되지 않는다. 136시간은 모델 적재를 포함한 GPU 프로세스 시간 129.3시간으로 계산한 값인데, 이 사실은 표 14a 각주 a에만 있다.",
+    "correct": "본문에 '합계는 모델 적재를 포함한 GPU 프로세스 시간(129.3시간)으로 계산했다'를 넣거나, '생성 127.4시간(프로세스 129.3시간)'처럼 두 값을 함께 적는다.",
+    "evidence": "pilot/cache/v3/review/cost.md §3: 'GPU는 프로세스 시간(129.3 h)을 … 넣었고'; S-mix 합계 약 136.2 h = 129.3 + 6.7 + 0.06 + 0.15",
+    "severity": "imprecise"
+   },
+   {
+    "section": "DIS",
+    "quote": "D 확증 이후의 결과는 설계 E 확증을 빼면 모두 같은 9개 개발 세트와 시간 분할 증례를 반복해 쓴 탐색이다.",
+    "problem": "이번 수정으로 확증 세트 E에서 계산한 사후 분석(S-union − S-dict, 4.4.7절과 DIS 15단락에서 '사후' 표시)이 생겼다. 그런데 5.1의 이 요약 문장은 그 분석을 빠뜨려, D 확증 이후 결과의 범주를 개발 세트와 시간 분할만으로 적는다. 초록('이후의 결과는 설계 E 확증을 빼면 모두 개발 세트와 시간 분할 증례에서 한 탐색이다')과 결론 11행의 같은 문장도 범주가 같다.",
+    "correct": "'…탐색이다. 예외로 확증 세트 E에서 S-union − S-dict를 사후 분석했다(4.4.7절)'처럼 E 사후 분석을 범주에 넣는다.",
+    "evidence": "RES-B 4.4.7 187행: '확증 세트 E에서 계산한 S-union − S-dict 비교는 사전에 정하지 않은 사후 분석이다'; dict_mix_stats.json의 confirmation E 행 S-union − S-dict 'post hoc (not pre-registered)'",
+    "severity": "imprecise"
+   },
+   {
+    "section": "DIS",
+    "quote": "4.4.7절의 측정에서 이 우세의 대부분은 사전에 없는 새 표현에서 오지 않았다.",
+    "problem": "이 문장은 측정 결과처럼 쓰여 있지만, 실제 측정은 둘뿐이다. 하나는 30개 표본 판독(저자 판독, 임상 판정 아님)이고, 다른 하나는 정답 질환 쪽 S-mix 전용 간선만 뺀 부분 반사실이다. 5.2에서는 '부분 반사실'이라는 단서가 빠졌고, 뒤 문장 '희귀질환에서 S-mix의 승리는 대부분 그 간선 없이도 유지되었다'에도 단서가 없다. 4.4.7과 DIS 17단락은 같은 결과에 이 단서를 붙인다.",
+    "correct": "'4.4.7절의 부분 반사실(정답 질환의 S-mix 전용 간선만 제거)에서 희귀질환 승리의 대부분이 유지되었고, 저자 판독 30개 중 새 표현은 3개였다'처럼 측정한 내용만 적는다.",
+    "evidence": "dict_mix_overlap.json ranking: still_top10_without_winner_only_edges RAMEDIS 63/68, LIRICAL 20/26, Phenopacket 448/505 (gold 쪽 간선만 제거); sample_reading caveat 'Claude's own reading … not a clinical judgment'",
+    "severity": "imprecise"
+   },
+   {
+    "section": "MET-A",
+    "quote": "같은 문헌에 네 가지 추출 방식을 적용했다. LLM 추출, LLM 없는 사전 추출, 두 결과의 합집합",
+    "problem": "같은 절 67행은 '사전 추출. LLM 추출을 쓰지 않는 기준으로'로 고쳐졌다. 67행에는 CUI 없는 사전 항목이 LLM 구절로 만든 v2 구절 표에 기댄다는 단서도 들어갔다. 3.3절 첫머리만 'LLM 없는 사전 추출'로 남아, 같은 시스템이 한 절 안에서 두 가지로 표현된다. 수정 사양 R1-1은 사전 그래프 구축이 표본 항목의 4.6%에서 LLM 유래 구절 표를 쓴다고 정했다.",
+    "correct": "'LLM 추출을 쓰지 않는 사전 추출'로 맞춘다.",
+    "evidence": "cost.md §5: 'S-dict 빌드가 LLM 산출물에 완전히 독립적이지는 않다 … 4.6%'; MET-A 67행 수정 문장",
+    "severity": "imprecise"
+   },
+   {
+    "section": "INT",
+    "quote": "S-mix는 같은 9개 세트에서 최고점으로 고른 그래프이므로 이 값에는 선택 낙관이 들어 있다.",
+    "problem": "서론의 기여 항목에 한계성 단서가 남아 있다. 이 문장 외에도 기여 2의 'S-D 대비 Top-1 개선은 확증되지 않았다(판정에 쓰지 않은 보조 지표)', 기여 3의 '틀린 간선의 구성과 비율은 이전 시스템 그래프(v2.1)의 출처 감사에서 가져온 가정이다'가 있다. 이번 수정에서 서론의 다른 한계 문장 두 개는 이미 지웠으므로 남은 것만 규칙과 어긋난다. '서론에 한계를 넣지 않는다'는 작성 규칙과 사양 R2-3 기준이다.",
+    "correct": "이 단서들은 5.1(확증과 통계, 방법)로 옮기고, 서론 기여 문장은 단서가 필요 없는 범위로 적는다(예: '개발 세트에서 고른 S-mix의 매크로 Top-10/Top-1은 46.11/19.66%였다').",
+    "evidence": "revision_spec.md R2-3 '(서론에는 한계를 넣지 않는다)'; git diff INT.md: 시간 분할 ot 0.5 미평가 문장과 'S-mix 그래프에서는 두 측정 모두 하지 않았다' 삭제",
+    "severity": "style"
+   }
+  ]
+ }
+}

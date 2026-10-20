@@ -42,7 +42,7 @@ Table 5b. Literature graphs compared in this paper (build detail for the graph s
 |---|---|---|---|---|---|---|---|---|---|---|---|
 | S-D | base_nm | v2 | LLM (gemma-4-E4B-it) | none; self-edges kept | 0 (frozen) | 27,309 | 46,130 | 832,671 | 1,201,064 | 86,276 | 30.56 / 12.64 |
 | S-llm | v3llm_ns | v2 + v3 | LLM | coordination split, HPO names, causal-gene titles; self-edges removed | 1.0 | 33,123 | 76,487 | 3,672,106 | 7,010,155 | 589,666 | 44.90 / 19.30 |
-| S-dict | v3umls_ns | v2 + v3 | UMLS finding-string dictionary (no LLM) | same as S-llm | 0.5 | 34,356 | 95,608 | 14,506,788 | 59,796,310 | 984,061 | 42.88 / 18.11 |
+| S-dict | v3umls_ns | v2 + v3 | UMLS finding-string dictionary (no LLM extraction)^e^ | same as S-llm | 0.5 | 34,356 | 95,608 | 14,506,788 | 59,796,310 | 984,061 | 42.88 / 18.11 |
 | S-union | v3unionu_ns | v2 + v3 | LLM + UMLS dictionary | same as S-llm | 0.5 | 34,359 | 115,224 | 15,396,388 | 66,898,838 | 986,098 | 43.77 / 17.59 |
 | S-mix | v3llmd_ns | v2 + v3 | LLM spans; spans the phrase table cannot link (except negated, over-8-word and table-absent spans) are named by UMLS strings inside the span | same as S-llm | 0.5 | 33,537 | 85,761 | 5,221,285 | 11,582,169 | 711,350 | 46.11 / 19.66 |
 
@@ -50,6 +50,7 @@ Table 5b. Literature graphs compared in this paper (build detail for the graph s
 ^b^ Aggregated evidence-mention count. Development builds have no Mention nodes; the frozen S-D graph and the S-mix rebuild with Mentions (Section 4.1) do.
 ^c^ Distinct document IDs supporting at least one edge; a PMC table document is counted separately from its article.
 ^d^ Development values (nine sets). At each graph's offtopic_w selected on these sets, S-mix had the highest macro Top-10 and Top-1 of the 32 graphs evaluated (base_nm included; 18 on v2 literature, 14 on v2 + v3 literature, two of which read the full PMC text instead of the 12k clinical sections), so its value includes selection optimism (Section 4.4).
+^e^ CUI-less dictionary items are linked through HPO names and the v2 phrase table, which was built from LLM phrases (Section 3.3). In a 1/20 sample of literature files, 4.6% of dictionary items received their concept only through this table (Section 4.4.7).
 
 구축과 분석 중 발견한 무증상 실패와 그 수정을 정리한다. 수집에서는 질환명 변형 함수가 6자 미만 이름을 버려 Gout, Croup, Mumps 등 25개 질환의 질의가 한 번도 나가지 않았다. 원래 이름을 항상 질의하도록 고친 뒤 이 질환들을 재수집했다. 벤치마크 전처리에서는 DDXPlus 근거 사상이 응답 값을 무시해, 여행하지 않았다는 응답(trav1_@_N)이 환자 93%에서 'Travel History'로 사상되었다. 기본값 응답은 근거에서 빼도록 고쳤다. DDXPlus 정답 사상은 ICD-10 경로 때문에 Pneumonia가 'Pneumonia in diseases classified elsewhere'로 연결되는 식으로 어긋나 있었다. 영문 질환명의 UMLS 정확 일치를 우선하도록 고쳤다. 정규화에서는 의미유형 표 누락으로 언급 20.6만 개가 잘못 탈락했다. 의미유형을 UMLS MRSTY 원본에서 읽도록 고쳤다.
 
