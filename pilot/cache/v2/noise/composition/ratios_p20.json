@@ -1,0 +1,32 @@
+{
+ "k0.3_p20_sib0.7": {
+  "target": 20.0,
+  "ratio": 4.95,
+  "precision": 20.0
+ },
+ "k0.3_p20_sib1.0": {
+  "target": 20.0,
+  "ratio": 6.0,
+  "precision": 20.01
+ },
+ "k0.3_p20_sib0.0": {
+  "target": 20.0,
+  "ratio": 4.05,
+  "precision": 19.97
+ },
+ "k0.15_p20_sib0.7": {
+  "target": 20.0,
+  "ratio": 4.77,
+  "precision": 19.97
+ },
+ "k0.15_p20_sib1.0": {
+  "target": 20.0,
+  "ratio": 5.59,
+  "precision": 19.99
+ },
+ "k0.15_p20_sib0.0": {
+  "target": 20.0,
+  "ratio": 4.03,
+  "precision": 19.96
+ }
+}

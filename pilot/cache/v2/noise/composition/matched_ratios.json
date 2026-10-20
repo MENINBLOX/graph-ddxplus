@@ -1,0 +1,62 @@
+{
+ "k1.0_r2.33_sib1.0": {
+  "target": 35.89,
+  "ratio": 2.86,
+  "precision": 35.87
+ },
+ "k1.0_r2.33_sib0.0": {
+  "target": 35.89,
+  "ratio": 1.82,
+  "precision": 35.89
+ },
+ "k1.0_r1.0_sib1.0": {
+  "target": 55.31,
+  "ratio": 1.15,
+  "precision": 55.35
+ },
+ "k1.0_r1.0_sib0.0": {
+  "target": 55.31,
+  "ratio": 0.82,
+  "precision": 55.25
+ },
+ "k0.3_r2.33_sib1.0": {
+  "target": 33.26,
+  "ratio": 2.63,
+  "precision": 33.27
+ },
+ "k0.3_r2.33_sib0.0": {
+  "target": 33.26,
+  "ratio": 2.02,
+  "precision": 33.24
+ },
+ "k0.3_r1.0_sib1.0": {
+  "target": 52.48,
+  "ratio": 1.08,
+  "precision": 52.44
+ },
+ "k0.3_r1.0_sib0.0": {
+  "target": 52.48,
+  "ratio": 0.91,
+  "precision": 52.45
+ },
+ "k0.15_r2.33_sib1.0": {
+  "target": 32.56,
+  "ratio": 2.58,
+  "precision": 32.57
+ },
+ "k0.15_r2.33_sib0.0": {
+  "target": 32.56,
+  "ratio": 2.08,
+  "precision": 32.54
+ },
+ "k0.15_r1.0_sib1.0": {
+  "target": 51.82,
+  "ratio": 1.06,
+  "precision": 51.78
+ },
+ "k0.15_r1.0_sib0.0": {
+  "target": 51.82,
+  "ratio": 0.93,
+  "precision": 51.85
+ }
+}

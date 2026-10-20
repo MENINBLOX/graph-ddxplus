@@ -12,9 +12,11 @@ identical Cypher query. There are no Mention nodes: these sources carry no sente
 
     python build_reference_graph.py --source hpoa
 
---noise R adds R wrong edges per true edge with the error mix the provenance audit found in the
-literature graph (§9.25): 70% findings of a related disease (sibling under a shared parent, else a
-random disease), 30% concepts from the IE vocabulary that are not findings of the disease.
+--noise R draws R wrong-edge candidates per true edge. --sib-share S sets their composition: a share
+S are findings of a related disease (sibling under a shared parent, else a random disease), the rest
+concepts from the IE vocabulary. The default 0.7 is the mix of the main grid (§9.26); 1.0 and 0.0 are
+the two pure compositions. A candidate that is already an edge is skipped, so the realized precision
+(true_edges / edges in the summary) is above 1/(1+R) and depends on S.
 --keep P first keeps each true edge with probability P (recall); noise is then added relative to
 the kept edges, so --keep and --noise together simulate a graph of given recall and precision.
 """
@@ -32,9 +34,9 @@ from collections import defaultdict
 from neo4j import GraphDatabase
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import curated_agreement as CA  # noqa: E402
-import v2_ids  # noqa: E402
-from build_graph_v2 import run_batches  # noqa: E402
+import curated_agreement as CA
+import v2_ids
+from build_graph_v2 import run_batches
 
 V2 = "pilot/cache/v2"
 # finding/evidence semantic types accepted by normalize_v2, minus tests/procedures (T058-T061)
@@ -55,27 +57,29 @@ def pairs_primekg(uni) -> dict:
     mondo2key = v2_ids._maps()[0]
     out = {}
     import csv
-    for f in csv.reader(open("data/external_kg/primekg.csv")):
-        if f[0] != "disease_phenotype_positive":
-            continue
-        # x = disease (MONDO or MONDO_grouped "id_id_..."), y = HPO phenotype
-        x_id, x_src, y_id, y_src = f[3], f[6], f[8], f[11]
-        if y_src != "HPO" or not x_src.startswith("MONDO"):
-            continue
-        cuis = h2c.get(f"HP:{int(y_id):07d}", set())
-        for m in x_id.split("_"):
-            k = mondo2key.get(f"MONDO:{int(m):07d}")
-            if k in uni:
-                for c in cuis:
-                    out[(k, c)] = 1
+    with open("data/external_kg/primekg.csv") as fh:
+        for f in csv.reader(fh):
+            if f[0] != "disease_phenotype_positive":
+                continue
+            # x = disease (MONDO or MONDO_grouped "id_id_..."), y = HPO phenotype
+            x_id, x_src, y_id, y_src = f[3], f[6], f[8], f[11]
+            if y_src != "HPO" or not x_src.startswith("MONDO"):
+                continue
+            cuis = h2c.get(f"HP:{int(y_id):07d}", set())
+            for m in x_id.split("_"):
+                k = mondo2key.get(f"MONDO:{int(m):07d}")
+                if k in uni:
+                    for c in cuis:
+                        out[(k, c)] = 1
     return out
 
 
 def pairs_cooc(uni) -> dict:
     sty = defaultdict(set)
-    for ln in open("pilot/cache/umls_maps/cui_sty.tsv"):
-        c, t = ln.split("\t")[:2]
-        sty[c].add(t)
+    with open("pilot/cache/umls_maps/cui_sty.tsv") as fh:
+        for ln in fh:
+            c, t = ln.split("\t")[:2]
+            sty[c].add(t)
     out = defaultdict(int)
     with gzip.open(COOC, "rt") as fh:
         next(fh)
@@ -88,10 +92,11 @@ def pairs_cooc(uni) -> dict:
     return dict(out)
 
 
-def add_noise(edge: dict, ratio: float, seed: int) -> dict:
+def add_noise(edge: dict, ratio: float, seed: int, sib_share: float = 0.7) -> dict:
     rng = random.Random(seed)
     prof = defaultdict(list)
-    for d, c in edge:
+    # sorted: pairs_hpoa builds edges from sets, whose order changes with PYTHONHASHSEED
+    for d, c in sorted(edge):
         prof[d].append(c)
     dz = sorted(prof)
     up, down = defaultdict(list), defaultdict(list)
@@ -99,13 +104,14 @@ def add_noise(edge: dict, ratio: float, seed: int) -> dict:
         up[c].append(p)
         down[p].append(c)
     sib = {d: sorted({s for p in up[d] for s in down[p] if s != d and s in prof}) for d in dz}
-    tab = json.load(open(f"{V2}/phrase2cui_gemma.json"))
+    with open(f"{V2}/phrase2cui_gemma.json") as fh:
+        tab = json.load(fh)
     vocab = [v["cui"] for v in tab.values() if v.get("cui") and v.get("tui") in VALID_TUI]
     out = dict(edge)
     for d in dz:
         k = int(ratio * len(prof[d])) + (rng.random() < ratio * len(prof[d]) % 1)
         for _ in range(k):
-            if rng.random() < 0.7:
+            if rng.random() < sib_share:
                 src = rng.choice(sib[d]) if sib[d] else rng.choice(dz)
                 c = rng.choice(prof[src])
             else:
@@ -123,18 +129,22 @@ def main() -> None:
     ap.add_argument("--summary", default="")
     ap.add_argument("--noise", type=float, default=0.0, help="wrong edges added per true edge")
     ap.add_argument("--keep", type=float, default=1.0, help="share of true edges kept")
+    ap.add_argument("--sib-share", type=float, default=0.7,
+                    help="share of wrong edges taken from a related disease's findings (rest: IE vocabulary)")
     ap.add_argument("--seed", type=int, default=0)
     a = ap.parse_args()
     CA.HPOA = a.hpoa
     uni = dict(v2_ids.universe())
-    for k in json.load(open(f"{V2}/exclude_nonhuman_diseases.json")):
-        uni.pop(k, None)
+    with open(f"{V2}/exclude_nonhuman_diseases.json") as fh:
+        for k in json.load(fh):
+            uni.pop(k, None)
     edge = {"hpoa": pairs_hpoa, "primekg": pairs_primekg, "cooc": pairs_cooc}[a.source](uni)
     if a.keep < 1:
         rng = random.Random(a.seed)
         edge = {e: n for e, n in sorted(edge.items()) if rng.random() < a.keep}
+    n_true = len(edge)
     if a.noise:
-        edge = add_noise(edge, a.noise, a.seed)
+        edge = add_noise(edge, a.noise, a.seed, a.sib_share)
     prof = defaultdict(set)
     for d, c in edge:
         prof[d].add(c)
@@ -144,7 +154,8 @@ def main() -> None:
             df[c] += 1
     n_dz = max(1, len(prof))
     cuis = set(df)
-    parents = json.load(open("pilot/cache/umls_maps/phenotype_parents.json"))
+    with open("pilot/cache/umls_maps/phenotype_parents.json") as fh:
+        parents = json.load(fh)
     isa_c = [{"c": c, "p": p} for c in cuis for p in parents.get(c, [])]
     cuis |= {r["p"] for r in isa_c}
     print(f"{a.source}: edges {len(edge)}, diseases with findings {len(prof)}, concepts {len(df)}", flush=True)
@@ -178,8 +189,9 @@ def main() -> None:
         if n != len(uni):
             sys.exit(f"graph check failed: {n} Disease nodes vs {len(uni)}")
     drv.close()
-    json.dump({"source": a.source, "edges": len(edge), "diseases_with_findings": len(prof),
-               "concepts": len(df)}, open(a.summary or f"{V2}/refgraph_{a.source}_summary.json", "w"), indent=1)
+    with open(a.summary or f"{V2}/refgraph_{a.source}_summary.json", "w") as fh:
+        json.dump({"source": a.source, "edges": len(edge), "true_edges": n_true,
+                   "diseases_with_findings": len(prof), "concepts": len(df)}, fh, indent=1)
     print("done", flush=True)
 
 

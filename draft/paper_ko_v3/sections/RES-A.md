@@ -126,30 +126,57 @@ Table 7. Design D judgments (criteria fixed before the confirmation run). Differ
 
 이 절의 결과는 모두 설계 D 확증 이후의 탐색이며 확증 판정을 바꾸지 않는다. 이 절의 시뮬레이션과 단계 분해는 Phenopacket-store 0.1.27과 그 이후 main에 추가된 증례 중 정답과 소견을 사상할 수 있는 10,603건을 쓴다. 이 증례에는 설계 D 확증의 Phenopacket-new 증례 파일이 포함된다. v2 수집은 0.1.27의 원출처 PMID 1,733편만 뺐다. 그래서 0.1.27 이후 증례 중 32건은 원 논문(9편)이 v2 코퍼스에 들어 있다. 단계 분해(표 9A)와 S-D 그래프의 참고값은 이 32건을 포함한 값이다. 이 32건을 빼면(10,571건) S-D 그래프의 Top-10은 16.7%에서 16.5%가 된다.
 
-**랭커의 오류·재현율 민감도.** 문헌 그래프에는 간선별 정답이 없다. 그래서 깨끗한 HPO 주석 그래프(HPOA v2024-12-12)에 틀린 간선을 넣거나 참 간선을 빼고 순위를 냈다. 순위화에는 HPO 주석 그래프용으로 개발 세트에서 고른 동결 1-홉 설정(α 0.2, μ 2, 감쇠 0.5, unified_w 2)을 썼다(시드 0, 단일 실행). 틀린 간선의 구성은 구 Qwen3 v2.1 그래프의 출처 감사(4.7절)에서 본 오류를 따라, 70%를 형제 질환의 소견, 30%를 IE 어휘의 비소견 개념으로 했다. 틀린 간선은 남긴 참 간선 1개당 0.43개, 1개, 2.33개를 넣었다. 그 결과의 실제 정밀도(참 간선 수/전체 간선 수)는 73.7%, 55.3%, 35.9%였다(표 8 A). 간선 정밀도를 100%에서 35.9%로 낮추면 Top-10은 56.0%에서 49.5%로 낮아졌다(차이 −6.6%p [−7.2, −6.0]). 손실은 HPOA가 증례 논문을 이미 인용한 과거 증례에 몰렸다(84.0% → 75.1%). 미래 증례는 7.7%에서 7.1%로 거의 변하지 않았다. 참 간선을 남기는 비율(재현율)을 낮추면 Top-10은 더 크게 낮아졌다(정밀도 100%·재현율 15%에서 17.3%, 표 8 B). 재현율을 15%로 낮추고 틀린 간선을 같은 비율(참 간선 1개당 2.33개)로 넣으면 정밀도는 32.6%, Top-10은 15.5%였다. 같은 증례에서 S-D 그래프의 Top-10은 16.7%였다. 이 지점에서 재현율을 30%로 올리면(정밀도 33.3%) Top-10은 26.4%로 10.9%p 올랐다. 같은 지점에서 틀린 간선을 모두 빼면(정밀도 100%) Top-10은 17.3%로 1.8%p(상대 약 12%) 올랐다. 재현율 쪽 상승이 약 6배 컸다. 이 시뮬레이션의 오류 구성과 비율은 구 Qwen3 그래프의 감사에서 가져온 가정이다. S-D 그래프의 간선 정밀도는 감사하지 않았다.
+**랭커의 오류·재현율 민감도.** 문헌 그래프에는 간선별 정답이 없다. 그래서 깨끗한 HPO 주석 그래프(HPOA v2024-12-12)에서 참 간선을 빼거나 틀린 간선을 넣고 순위를 냈다. 순위화에는 HPO 주석 그래프용으로 개발 세트에서 고른 동결 1-홉 설정(α 0.2, μ 2, 감쇠 0.5, unified_w 2)을 썼다(시드 0, 점마다 단일 실행). 참 간선은 정한 비율(재현율)만큼 무작위로 남겼다. 틀린 간선은 남긴 참 간선 1개당 정한 수(후보 비율)의 후보를 뽑아 넣었다. 격자의 후보 비율 2.33과 1은 명목 정밀도 1/(1 + 후보 비율) 30%와 50%에 해당한다. 틀린 간선의 구성은 세 가지로 돌렸다. 형제 구성은 같은 부모를 둔 형제 질환의 소견(형제가 없으면 무작위 질환의 소견)에서 후보를 뽑는다. 관련 질환의 실제 소견이 잘못 붙는 오류를 본뜬 것이다. 어휘 구성은 v2 구절 표(3.3절)의 개념 가운데 빌더가 간선으로 받는 의미유형의 개념에서 무작위로 뽑는다. 추출 어휘의 임의 개념이 붙는 오류를 본뜬 것이다. 혼합 구성은 후보의 70%를 형제 구성의 방식으로, 30%를 어휘 구성의 방식으로 뽑는다. 후보 비율과 세 구성은 모두 가정이며, 이 값들을 뒷받침하는 측정값은 없다. 이미 있는 간선과 겹치는 후보는 건너뛰므로, 실현 정밀도(참 간선 수/전체 간선 수)는 명목 정밀도 이상이고 같은 후보 비율에서도 구성마다 다르다. 재현율 100%에서 후보 비율 2.33의 실현 정밀도는 형제 구성 40.0%, 혼합 구성 35.9%, 어휘 구성 30.5%였다. 그래서 두 순수 구성은 같은 후보 비율로도, 같은 재현율에서 혼합 구성과 실현 정밀도가 같아지는 비율로도 돌렸다. 재현율 30%와 15%에서는 세 구성 모두 실현 정밀도가 20%가 되는 비율로도 돌렸다.
 
-Table 8. Ranker sensitivity on the HPOA graph (v2024-12-12) with injected errors and removed true edges. HPOA 1-hop configuration re-selected on the development sets and frozen (α 0.2, μ 2, decay 0.5, unified_w 2); 10,603 phenopacket cases; seed 0, single run. Top-k in %. Differences are computed from unrounded values. The error mix (70% sibling-disease findings, 30% non-finding IE concepts) follows the provenance audit of the old Qwen3 v2.1 graph; the edge precision of the S-D graph was not audited.
+표 8a·8b는 혼합 구성의 결과다. 재현율 100%에서 혼합 구성의 실현 정밀도와 Top-10 손실은 두 순수 구성의 값 사이에 있었다(표 8c). 모든 참 간선을 남기고 간선 정밀도를 100%에서 55.3%, 35.9%로 낮추면 Top-10은 56.0%에서 53.5%, 49.5%로 낮아졌다(35.9%에서 차이 −6.5%p [−7.1, −5.9]). 손실은 HPOA가 증례 논문을 이미 인용한 과거 증례에 몰렸다(84.0% → 75.2%). 미래 증례는 7.7%에서 7.4%로 거의 변하지 않았다. 참 간선을 남기는 비율(재현율)을 낮추면 Top-10은 더 크게 낮아졌다(정밀도 100%·재현율 15%에서 17.3%). 재현율 15%에서 같은 후보 비율(참 간선 1개당 2.33개)로 넣으면 정밀도는 32.6%, Top-10은 15.5%였다. 이 지점에서 재현율을 30%로 올리면(정밀도 33.3%) Top-10은 26.4%로 10.9%p [10.2, 11.7] 올랐다. 같은 지점에서 틀린 간선을 모두 빼면(정밀도 100%) Top-10은 17.3%로 1.8%p [1.3, 2.4] 올랐다. 같은 시드에서 질환별 소견의 순회 순서만 바꿔 틀린 간선을 다시 뽑으면, 재현율 100% 점의 Top-1은 최대 1.5%p, Top-10은 최대 0.8%p 달라졌다. 표 8의 CI는 증례 표집만 반영하고 이 실현 변동은 반영하지 않는다.
 
-Panel A. Edge precision (all true edges kept).
+틀린 간선의 구성과 후보 비율을 바꿔도 재현율 15% 지점(아래에서 보듯 S-D 그래프의 재현율과 같은 범위, 이하 운용점)의 비교 방향은 바뀌지 않았다(표 8c). 비교한 조건은 세 구성에 세 정밀도 수준(혼합 구성의 후보 비율 2.33과 1에 해당하는 수준, 20%)과 같은 후보 비율·정밀도 맞춤 비율을 조합한 13개다. 이 조건들의 실현 정밀도는 재현율 15·30% 점에서 20.0–54.2%였다(재현율 15% 점만 보면 20.0–53.2%). 13개 조건에서 재현율을 15%에서 30%로 늘린 효과는 Top-10 +8.0~+11.6%p, Top-1 +2.3~+6.6%p였다. 같은 재현율 15%에서 정밀도를 100%로 올린 효과는 Top-10 +0.1~+2.7%p, Top-1 −0.1~+1.2%p였다. 13개 조건 모두에서 재현율 효과의 CI 하한이 정밀도 효과의 CI 상한보다 컸다. 두 구간이 가장 가까운 조건은 형제 구성·정밀도 20%의 Top-1이었다([1.8, 2.8] 대 [0.7, 1.7]). Top-10에서 재현율 효과는 모든 조건에서 정밀도 효과의 3.7배 이상이었다. 가장 작은 비는 어휘 구성·정밀도 20%의 3.7배(10.0 대 2.7)였다. 재현율 100%에서는 구성에 따라 손실의 크기가 달랐다. 실현 정밀도를 35.9%로 맞추면 Top-10 손실은 형제 구성 10.1%p, 혼합 구성 6.5%p, 어휘 구성 1.7%p였다(오류가 없는 56.0% 대비 상대 18%, 12%, 3%). 따라서 재현율 100%에서 오류가 Top-10을 얼마나 낮추는지는 구성 가정에 따라 달라진다. 운용점에서는 어느 구성에서도 정밀도로 인한 Top-10 손실이 2.7%p 이하였다.
 
-| Wrong edges per true edge | Edge precision | Edges | All cases Top-1 / Top-10 | Past, cited^a^ Top-10 (n = 5,008) | Past, uncited^a^ Top-10 (n = 4,748) | Future^a^ Top-10 (n = 847) | Top-10 difference vs 100% [95% CI] |
+시뮬레이션의 두 축 가운데 재현율 쪽 운용점은 HPOA를 기준으로 잰 S-D 그래프의 재현율과 같은 범위에 있다. S-D 그래프는 HPOA(2026-02-16판) 주석 쌍 가운데 10.9%를 같은 개념의 간선으로 가졌다(비교 가능한 간선이 있는 8,132개 질환의 주석 쌍 281,825개 기준). 아래 단계 분해에서 정답 질환의 큐레이션 소견 가운데 간선으로 남은 비율은 14.1%였다(표 9A). 정밀도 쪽에는 측정값이 없다. S-D 그래프의 간선 정밀도에 대해 알 수 있는 것은 HPOA 일치율이라는 하한뿐이다. S-D 그래프에서 HPOA 주석 질환의 간선 가운데 개념이 HPO 용어에 대응되는 168,587개를 HPOA 주석과 대조하면 정확 일치율은 18.2%(HPO 부모 포함 22.1%)였다. 질환을 무작위로 바꾼 대응에서는 2.8%(3.7%)였다(4.7절). HPOA에 없는 간선도 맞을 수 있으므로 이 값은 그 간선들의 정밀도 하한이다. 또 이 값은 HPOA 주석이 있는 질환, 주로 희귀질환의 간선에만 해당한다. 표 8c의 정밀도 수준은 이 하한 근처의 20%부터 100%까지를 포함한다.
+
+운용점의 Top-10은 세 구성과 정밀도 20–100% 전체에서 14.7–17.3%였다. 같은 증례에서 S-D 그래프의 Top-10(16.7%)은 이 범위 안에 있었다. 이 일치는 일관성 확인이며 S-D 그래프의 정밀도를 재는 근거가 아니다. 운용점의 Top-10은 정밀도에 거의 반응하지 않아, 오류가 없는 점(17.3%)도 16.7%에 가깝기 때문이다. Top-1은 맞지 않았다(시뮬레이션 5.0–6.3% 대 S-D 그래프 7.4%). 두 순위화는 채점 설정(HPOA α 0.2·감쇠 0.5·β 0, S-D α 0.35·감쇠 0.3·β 0.5·offtopic_w 0)과 개념 어휘가 다르다. 지식 시점도 다르다(HPOA 2024-12-12판 대 시간 절단 없는 문헌). 2024년까지 출판된 문헌만으로 다시 집계한 S-D 그래프의 Top-1/Top-10은 6.6/15.2%였다. 따라서 이 비교로 말할 수 있는 것은 S-D 그래프의 Top-10이 재현율 15% 수준 HPOA 그래프와 같은 범위에 있다는 데까지다.
+
+Table 8. Ranker sensitivity on the HPOA graph (v2024-12-12) with injected wrong edges and removed true edges. HPOA 1-hop configuration re-selected on the development sets and frozen (α 0.2, μ 2, decay 0.5, unified_w 2); 10,603 phenopacket cases; seed 0, one run per point. Top-k in %. The wrong-edge compositions and the candidate ratios are assumptions; no measurement supports them. The mixed composition (panels a and b) draws 70% of the candidates from the findings of a sibling disease (a random disease if there is none) and 30% from v2 phrase-table concepts of the semantic types the builder accepts; panel c adds the two pure compositions. The grid ratios 2.33 and 1 give nominal precisions 1 / (1 + ratio) of 30% and 50%. A candidate that is already an edge is skipped, so the realized precision (true edges / all edges) is at least the nominal value and depends on the composition. Differences are computed from unrounded values. CIs are paired patient-bootstrap 95% intervals; they do not include the variation between wrong-edge realizations (at full recall, up to 1.5 pp in Top-1 and 0.8 pp in Top-10).
+
+(a) Edge precision, all true edges kept (mixed composition).
+
+| Wrong-edge candidates per true edge | Edge precision | Edges | All cases Top-1 / Top-10 | Past, cited^a^ Top-10 (n = 5,008) | Past, uncited^a^ Top-10 (n = 4,748) | Future^a^ Top-10 (n = 847) | Top-10 difference vs 100% [95% CI] |
 |---|---|---|---|---|---|---|---|
 | 0 | 100% | 379,291 | 36.3 / 56.0 | 84.0 | 35.2 | 7.7 | — |
-| 0.43 | 73.7% | 514,758 | 35.1 / 55.0 | 82.5 | 34.5 | 7.6 | −1.0 [−1.3, −0.7] |
-| 1 | 55.3% | 685,924 | 32.0 / 52.7 | 80.6 | 31.3 | 7.6 | −3.4 [−3.8, −3.0] |
-| 2.33 | 35.9% | 1,056,421 | 28.3 / 49.5 | 75.1 | 30.0 | 7.1 | −6.6 [−7.2, −6.0] |
+| 1 | 55.3% | 685,801 | 32.6 / 53.5 | 81.1 | 32.6 | 7.3 | −2.6 [−3.0, −2.1] |
+| 2.33 | 35.9% | 1,056,700 | 26.8 / 49.5 | 75.2 | 29.9 | 7.4 | −6.5 [−7.1, −5.9] |
 
-Panel B. Recall (share of true edges kept), all cases. Wrong edges are added at 2.33 per kept true edge, so the realized precision falls as fewer true edges are kept.
+(b) Recall (share of true edges kept), all cases, mixed composition. Wrong edges are added at 2.33 candidates per kept true edge, so the realized precision falls as fewer true edges are kept.
 
 | True edges kept | No wrong edges (precision 100%): Top-1 / Top-10 | With wrong edges: precision | With wrong edges: Top-1 / Top-10 |
 |---|---|---|---|
-| 100% | 36.3 / 56.0 | 35.9% | 28.3 / 49.5 |
-| 50% | 18.4 / 36.0 | 34.0% | 14.5 / 33.1 |
+| 100% | 36.3 / 56.0 | 35.9% | 26.8 / 49.5 |
+| 50%^b^ | 18.4 / 36.0 | — | — |
 | 30% | 13.3 / 27.9 | 33.3% | 10.8 / 26.4 |
 | 15% | 6.2 / 17.3 | 32.6% | 5.1 / 15.5 |
 
+(c) Composition of wrong edges: recall effect and precision effect (pp [95% CI]), all cases. Recall effect = recall 30% minus recall 15% at the same precision level. Precision effect = no wrong edges minus wrong edges at the same recall. Sibling only = all candidates from sibling-disease findings; vocabulary only = all candidates from phrase-table concepts.
+
+| Composition | Candidates per true edge^c^ | Realized precision at recall 100 / 30 / 15% | Recall effect, Top-1 / Top-10 | Precision effect at recall 15%, Top-1 / Top-10 | Precision effect at recall 100%, Top-1 / Top-10 |
+|---|---|---|---|---|---|
+| Mixed (70 / 30) | 2.33 | 35.9 / 33.3 / 32.6 | +5.7 [5.1, 6.3] / +10.9 [10.2, 11.7] | +1.1 [0.7, 1.6] / +1.8 [1.3, 2.4] | +9.5 [8.9, 10.2] / +6.5 [5.9, 7.1] |
+| Sibling only | 2.33 | 40.0 / 35.7 / 34.6 | +4.9 [4.3, 5.5] / +10.8 [10.1, 11.6] | +1.0 [0.5, 1.4] / +0.4 [−0.1, 1.0] | +10.1 [9.4, 10.8] / +8.1 [7.5, 8.7] |
+| Sibling only | matched | 35.9 / 33.3 / 32.6 | +5.3 [4.7, 5.9] / +10.0 [9.2, 10.7] | +1.0 [0.6, 1.5] / +1.2 [0.6, 1.8] | +12.7 [12.0, 13.4] / +10.1 [9.5, 10.8] |
+| Vocabulary only | 2.33 | 30.5 / 30.2 / 30.1 | +5.9 [5.3, 6.4] / +9.3 [8.6, 10.0] | +0.5 [0.2, 0.7] / +0.9 [0.5, 1.3] | +3.1 [2.7, 3.5] / +2.6 [2.2, 3.0] |
+| Vocabulary only | matched | 35.9 / 33.2 / 32.5 | +6.3 [5.7, 6.9] / +10.0 [9.3, 10.7] | +0.5 [0.2, 0.7] / +1.6 [1.2, 1.9] | +2.1 [1.7, 2.5] / +1.7 [1.3, 2.1] |
+| Mixed (70 / 30) | 1 | 55.3 / 52.5 / 51.8 | +6.0 [5.4, 6.6] / +10.6 [9.8, 11.3] | +0.5 [0.2, 0.9] / +0.5 [−0.0, 0.9] | +3.7 [3.2, 4.3] / +2.6 [2.1, 3.0] |
+| Sibling only | 1 | 58.5 / 54.2 / 53.2 | +6.3 [5.7, 6.9] / +11.6 [10.9, 12.4] | +0.7 [0.4, 1.1] / +0.4 [−0.1, 0.8] | +5.5 [5.0, 6.1] / +4.6 [4.1, 5.1] |
+| Sibling only | matched | 55.4 / 52.4 / 51.8 | +5.4 [4.8, 6.0] / +9.7 [8.9, 10.4] | −0.1 [−0.5, 0.3] / +0.1 [−0.5, 0.5] | +6.1 [5.5, 6.6] / +4.6 [4.1, 5.1] |
+| Vocabulary only | 1 | 50.3 / 50.1 / 50.0 | +6.4 [5.8, 7.0] / +10.5 [9.8, 11.2] | +0.0 [−0.2, 0.2] / +0.6 [0.3, 0.9] | +1.7 [1.3, 2.1] / +1.6 [1.2, 1.9] |
+| Vocabulary only | matched | 55.3 / 52.5 / 51.9 | +6.6 [6.0, 7.2] / +10.4 [9.8, 11.2] | +0.2 [−0.0, 0.4] / +0.6 [0.3, 0.8] | +1.4 [1.1, 1.7] / +1.4 [1.1, 1.7] |
+| Mixed (70 / 30) | precision 20% | — / 20.0 / 20.0 | +3.8 [3.3, 4.3] / +8.9 [8.2, 9.6] | +1.2 [0.8, 1.7] / +1.5 [0.8, 2.1] | — |
+| Sibling only | precision 20% | — / 20.0 / 20.0 | +2.3 [1.8, 2.8] / +8.0 [7.2, 8.7] | +1.2 [0.7, 1.7] / +1.0 [0.3, 1.6] | — |
+| Vocabulary only | precision 20% | — / 20.0 / 20.0 | +6.3 [5.8, 6.9] / +10.0 [9.3, 10.7] | +1.1 [0.8, 1.4] / +2.7 [2.2, 3.1] | — |
+
 ^a^ Past, cited: published before the HPOA release and cited by it as evidence; past, uncited: published before but not cited; future: published after the release.
-For reference, the S-D literature graph reaches Top-10 16.7% on the same cases (16.5% on the 10,571 cases left after removing the 32 whose source papers are in the v2 corpus).
+^b^ The recall-50% point was not rerun with wrong edges.
+^c^ 2.33 and 1: the grid ratios (nominal precision 30% and 50%), run for all three compositions. Matched: the ratio that gives the mixed composition's realized precision at each recall (sibling only 2.86, 2.63, 2.58 and 1.15, 1.08, 1.06; vocabulary only 1.82, 2.02, 2.08 and 0.82, 0.91, 0.93; at recall 100, 30, 15%). Precision 20%: the ratio that gives a realized precision of 20% (mixed 4.95, 4.77; sibling only 6.0, 5.59; vocabulary only 4.05, 4.03; at recall 30, 15%). Over the 13 conditions, the realized precision at recall 30 and 15% spans 20.0–54.2% (20.0–53.2% at recall 15% alone).
+For reference, the S-D literature graph reaches Top-1 / Top-10 7.4 / 16.7% on the same cases (Top-10 16.5% on the 10,571 cases left after removing the 32 whose source papers are in the v2 corpus) under its own scoring configuration (α 0.35, decay 0.3, β 0.5, offtopic_w 0) and concept vocabulary. Its Top-10 lies within the range of the recall-15% points over all compositions and precisions 20–100% (14.7–17.3%); this is a consistency check, not an estimate of its edge precision.
 
 **재현율 손실의 단계 분해.** Phenopacket 증례에서 관찰된 소견 중 HPO 주석이 정답 질환에 붙인 소견을 분해 대상으로 삼았다(증례×정답×소견 82,751건, 질환 878개). 각 소견은 정답 질환의 문헌 근거가 처음 사라진 단계로 분류했다(S-D 그래프의 문헌·추출·구절 표 기준). 소견의 22.4%는 쓸 만한 문헌이 없는 질환에 속했다(표 9A). 44.7%는 문헌은 있으나 소견 이름이 텍스트에 없었다. 따라서 최대 55,465건(67.0%)이 수집 단계에서 빠졌다(반올림한 두 비율의 합은 67.1%). 이는 전체 손실(85.9%)의 78%다. 간선으로 남은 소견은 14.1%였다. 텍스트에 이름이 있는 소견(33.0%) 중 약 74%는 추출과 개념 연결을 통과했다. 추출되지 않은 소견은 2.3%, 추출되었으나 연결되지 않거나 다른 CUI로 연결된 소견은 6.2%였다. 연결 실패의 주된 유형은 등위 구절 미분해('arachnodactyly, kyphosis or scoliosis')와 같은 개념의 다른 CUI(failure to thrive C0015544 대 C0231246)였다. 소견 이름을 UMLS 영어 문자열로 넓혀도 '텍스트에 없음'의 0.7%만 추가로 발견되었다. 문자열 일치는 소견 존재의 하한이다. 따라서 '텍스트에 없음'은 수집 손실의 상한이고 '추출 안 됨'은 추출 손실의 하한이다. 질환–소견 쌍(22,626쌍) 단위로 세면 간선이 있는 쌍은 5.8%였다.
 
@@ -159,7 +186,7 @@ For reference, the S-D literature graph reaches Top-10 16.7% on the same cases (
 
 Table 9A. Stage at which a curated finding of the gold disease is first lost: the design D graph (S-D; v2 literature, gemma-4-E4B-it extraction, v2 phrase table, offtopic_w 0) and three v2 + v3 graphs of Table 5b (each with its own extraction, phrase table and builder rules). Cases: the 10,603 phenopacket cases, including 32 whose source papers are in the v2 corpus. Every column uses the same 82,751 case × gold × finding triples (22,626 disease–finding pairs, 878 gold diseases). Findings are matched by the UMLS cross-references of their HPO terms (hp.json)^d^. Percentages are rounded; subtotals are computed from counts.
 
-Panel A. Case × gold × finding triples, n (%).
+(a) Case × gold × finding triples, n (%).
 
 | Stage | S-D | S-mix | S-llm | S-dict |
 |---|---|---|---|---|
@@ -175,7 +202,7 @@ Panel A. Case × gold × finding triples, n (%).
 | Extraction and linking loss (third and fourth stages) | 7,019 (8.5) | 4,241 (5.1) | 4,910 (5.9) | 2,716 (3.3) |
 | Scored by the frozen ranker for the gold disease^c^ | 12,303 (14.9) | 45,891 (55.5) | 44,222 (53.4) | 49,090 (59.3) |
 
-Panel B. Disease–finding pairs (%; n = 22,626).
+(b) Disease–finding pairs (%; n = 22,626).
 
 | Stage | S-D | S-mix | S-llm | S-dict |
 |---|---|---|---|---|

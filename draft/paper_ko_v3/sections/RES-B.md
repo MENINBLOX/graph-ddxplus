@@ -194,13 +194,11 @@ RAMEDIS 624명 중 148명(24%)의 정답은 PKU(C0031485)였고, 동결 그래�
 
 **간선 구성.** 두 그래프의 간선을 (질환, 개념) 쌍으로 비교했다(표 14b). S-mix 간선 5,221,285개 가운데 86.9%(4,535,292개)는 S-dict에도 있었다. S-dict 간선은 14,506,788개로 S-mix의 2.8배였고, 그 가운데 68.7%는 S-mix에 없었다. S-mix에만 있는 간선(이하 S-mix 전용 간선)은 685,993개였다. 이 간선의 97.3%는 근거 언급이 모두 재연결되지 않은 LLM 항목(구절 표 경로)에서 나왔다. 근거 언급이 모두 구절 안 사전 재연결에서 나온 간선은 2.5%였다. S-mix 전용 간선의 88.7%는 지지 문서가 1편이었다. 공유 간선에서 이 비율은 S-mix 기준 71.0%였다. S-mix 전용 간선의 48.5%(332,817개)는 사전이 이름 붙일 수 없는 개념 위에 있었다. 곧 UMLS 사전 문자열도, 그 문자열의 HPO 이름도 그 개념을 가리키지 않았다. 이 간선의 개념에 많은 의미유형은 의약품(T121, 97,787개), 유기화합물(T109, 78,127개), 인구집단(T098, 46,455개)이었다(한 개념이 여러 유형을 가질 수 있다). 사전의 소견 의미유형에 드는 개념의 간선은 55,503개(16.7%)였다.
 
-**표본 판독.** S-mix 전용 간선 30개를 무작위로 뽑아(시드 0) 근거 문장과 대조했다. 이 판독은 저자의 판단이며 임상 판정이 아니다. 18개는 오류로 보였다. 근거 문장이 그 질환의 소견을 지지하지 않는 경우가 6개, 다른 개념으로 연결된 경우가 6개였다(예: 약어 FCD가 fleck corneal dystrophy로 연결됨). 소견이 아닌 항목(검사 표의 행, 임상시험 결과 항목, 인구집단)이 4개, 표 형식의 잔재('Yes', 'Unknown (PCR)' 같은 칸 값)가 2개였다. 9개는 개념의 사전 문자열이 텍스트에 있어 사전도 잡았어야 하는 경우였다. S-dict가 같은 문자열을 다른 CUI로 연결한 경우가 5개, 복수형이라 정확 일치에 실패한 경우가 3개, 앞 표 칸의 'normal'이 부정 단서로 걸린 경우가 1개였다. 사전이 잡을 수 없는 새 표현은 3개였다. 그중 2개는 사전이 쓰는 UMLS 문자열에 그 개념의 문자열이 없는 경우였고, 1개는 형용사 'embolic'을 Embolism으로 읽은 경우였다.
-
 **순위 반사실.** 개발 세트에서 한 그래프만 정답을 lineage Top-10에 넣은 환자를 그 그래프의 승리로 셌다(표 14c). 희귀질환 세트에서 S-mix의 승리는 RAMEDIS 68명, LIRICAL 26명, Phenopacket 505명이었다. 이 가운데 정답 질환에서 환자 소견 개념으로 가는 S-mix 전용 간선이 있는 환자는 16.2%, 61.5%, 17.8%였다. 같은 세트의 전체 환자에서 이 비율은 14.7%, 30.8%, 13.1%였다. 부분 반사실로, 정답 계보 질환의 S-mix 전용 간선 점수만 빼고 다른 질환의 점수와 길이 정규화는 그대로 두어 순위를 다시 계산했다. 이 계산에서도 승리는 대부분 유지되었다(RAMEDIS 63/68명, 92.6%; LIRICAL 20/26명, 76.9%; Phenopacket 448/505명, 88.7%). 같은 환자에서 S-dict가 정답 위에 올린 10개 질환 가운데 S-dict 전용 간선을 가진 질환은 중앙값으로 9개, 8개, 5개였다. 이 10개 질환의 소견 점수 합에서 S-dict 전용 간선의 몫은 중앙값으로 18.7%, 5.8%, 4.9%였다. 경쟁 질환에서 S-dict 전용 간선을 빼는 반사실은 하지 않았다. 반대로 DDXPlus에서 S-dict의 승리는 S-dict 전용 간선에 기댔다. DDXPlus의 S-dict 승리 208명(정답 15질환)에서 정답의 S-dict 전용 간선을 빼면 94명(45.2%)만 Top-10에 남았다. SymCat에서는 S-dict 승리 291명 중 211명(72.5%)이 남았다.
 
-**HPO 주석 일치.** 4.7절과 같은 방법으로 두 그래프의 간선을 HPO 주석(phenotype.hpoa, 2026-02-16)과 대조했다(표 14d). HPO 주석은 희귀질환 주석이므로 이 결과는 흔한 질환 세트에 대해 말하지 않는다. 정확 일치율은 S-mix 12.6%(비교 가능 간선 856,023개, 무작위 순열 2.5%), S-dict 7.8%(1,572,570개, 무작위 1.9%)였다. 지지 문서 수의 네 구간 모두에서 S-mix의 일치율이 높았다(1편 7.4% 대 4.4%, 2편 15.2% 대 8.5%, 3–4편 24.9% 대 14.6%, 5편 이상 41.7% 대 24.6%). 두 그래프에 함께 있는 간선의 일치율은 13.0%였다. S-dict 전용 간선은 2.31%(무작위 1.31%), S-mix 전용 간선은 7.25%(무작위 2.02%)였다. 반대 방향으로, 이 질환들의 큐레이터 주석 쌍 가운데 그래프에 있는 쌍의 비율은 S-dict 32.8%, S-mix 29.4%였다.
+**HPO 주석 일치.** 4.7절과 같은 방법으로 두 그래프의 간선을 HPO 주석(phenotype.hpoa, 2026-02-16)과 대조했다(표 14d, 표 17). HPO 주석은 희귀질환 주석이므로 이 결과는 흔한 질환 세트에 대해 말하지 않는다. HPO 주석이 있는 질환의 간선 가운데 개념이 HPO 용어에 대응되는 간선(S-mix 856,023개, S-dict 1,572,570개)에서 정확 일치율은 S-mix 12.6%(무작위 순열 2.5%), S-dict 7.8%(무작위 1.9%)였다. 지지 문서 수의 네 구간 모두에서 S-mix의 일치율이 높았다(1편 7.4% 대 4.4%, 2편 15.2% 대 8.5%, 3–4편 24.9% 대 14.6%, 5편 이상 41.7% 대 24.6%; 표 17a). 주제 문서가 1편 이상인 간선(14.9% 대 10.6%)과 주제 밖 문서뿐인 간선(7.1% 대 3.6%)에서도 S-mix가 높았다. 두 그래프에 함께 있는 간선의 일치율은 13.0%였다. S-dict 전용 간선은 2.31%(무작위 1.31%), S-mix 전용 간선은 7.25%(무작위 2.02%)였다. 반대 방향으로, 이 질환들의 큐레이터 주석 쌍 가운데 그래프에 있는 쌍의 비율은 S-dict 32.8%, S-mix 29.4%였다.
 
-**해석.** 다음은 측정이 아니라 해석이다. 이 데이터에서 LLM 구절이 한 일은 사전이 이름 붙이지 못하는 소견을 찾는 일보다, 어떤 텍스트가 그 질환의 소견인지 고르는 선택에 가깝다. 이 해석은 S-mix 간선의 86.9%가 S-dict에도 있고, S-dict 전용 간선의 HPO 일치율(2.31%)이 공유 간선(13.0%)보다 낮다는 측정에 기댄다. 따라서 'LLM은 사전에 없는 새 형태의 소견을 찾는 데만 쓴다'는 설계는 이 데이터에서 희귀질환 우세의 출처를 겨냥하지 않는다. 표본에서 새 표현은 30개 중 3개였고, 희귀질환 세트의 S-mix 승리는 정답 질환의 S-mix 전용 간선을 빼도(부분 반사실) 대부분 유지되었다. 흔한 질환 합성 세트 두 개가 목표라면 사전 그래프가 약 300분의 1의 구축 시간으로 더 높았다. LLM 선택의 이점은 희귀질환 개발 세트에서만 관찰되었고 확증되지 않았다. 주제 문서로 사전 일치를 제한하는 방법이나 작은 문장 분류기 같은 더 싼 선택기는 시험하지 않았다(5.2절).
+**해석.** 다음은 측정이 아니라 해석이다. 이 데이터에서 LLM 구절이 한 일은 사전이 이름 붙이지 못하는 소견을 찾는 일보다, 어떤 텍스트가 그 질환의 소견인지 고르는 선택에 가깝다. 이 해석은 S-mix 간선의 86.9%가 S-dict에도 있고, S-dict 전용 간선의 HPO 일치율(2.31%)이 공유 간선(13.0%)보다 낮다는 측정에 기댄다. 따라서 'LLM은 사전에 없는 새 형태의 소견을 찾는 데만 쓴다'는 설계는 이 데이터에서 희귀질환 우세의 출처를 겨냥하지 않는다. 희귀질환 세트의 S-mix 승리는 정답 질환의 S-mix 전용 간선을 빼도(부분 반사실) 대부분 유지되었다. 흔한 질환 합성 세트 두 개가 목표라면 사전 그래프가 약 300분의 1의 구축 시간으로 더 높았다. LLM 선택의 이점은 희귀질환 개발 세트에서만 관찰되었고 확증되지 않았다. 주제 문서로 사전 일치를 제한하는 방법이나 작은 문장 분류기 같은 더 싼 선택기는 시험하지 않았다(5.2절).
 
 Table 14. S-mix versus the UMLS dictionary graph S-dict, analysed after the design-E confirmation run. The rank analysis (c) uses the stored development runs and is a development result.
 
@@ -228,7 +226,7 @@ Table 14. S-mix versus the UMLS dictionary graph S-dict, analysed after the desi
 | – concept not nameable by the dictionary^d^ | 332,817 | 48.5% of S-mix only | 87.4 | 71.3 |
 | S-dict only | 9,971,496 | 68.7% of S-dict | 72.2 | 47.0 |
 
-^d^ Neither a UMLS dictionary string nor the HPO name of such a string names the concept; strings without a CUI that reach a concept through the phrase table are not counted. Of these edges, 55,503 (16.7%) have a concept in one of the dictionary's finding semantic types. The most frequent types are Pharmacologic Substance (T121, 97,787 edges), Organic Chemical (T109, 78,127) and Population Group (T098, 46,455); a concept may have several types. Reading of 30 random S-mix-only edges (seed 0; the author's reading, not a clinical judgment): likely wrong 18; a dictionary string of the concept is in the text but S-dict did not keep the edge 9; wording that no dictionary string matches 3.
+^d^ Neither a UMLS dictionary string nor the HPO name of such a string names the concept; strings without a CUI that reach a concept through the phrase table are not counted. Of these edges, 55,503 (16.7%) have a concept in one of the dictionary's finding semantic types. The most frequent types are Pharmacologic Substance (T121, 97,787 edges), Organic Chemical (T109, 78,127) and Population Group (T098, 46,455); a concept may have several types.
 
 (c) Development rank wins: patients whose gold is in the winner's lineage Top-10 and not in the other graph's. Gold via winner-only edge = patients whose gold disease reaches a patient concept through an edge only the winner has (wins / all evaluated patients of the set). Kept = wins still in Top-10 after a partial counterfactual that removes those edges from the gold lineage diseases and leaves all other diseases and the length normalization unchanged. Other graph's top 10 = the ten diseases the other graph ranked above the gold: median number of them with an edge only that graph has, and median share of such edges in their summed 1-hop finding score.
 
@@ -240,17 +238,15 @@ Table 14. S-mix versus the UMLS dictionary graph S-dict, analysed after the desi
 | DDXPlus | S-dict | 208 (15) | 67.3 / 65.7 | 94 (45.2%) | 4 (1.7%) |
 | SymCat | S-dict | 291 (123) | 55.0 / 42.9 | 211 (72.5%) | 1 (0.6%) |
 
-(d) Exact-concept agreement with HPO curated annotations (phenotype.hpoa 2026-02-16), computed as in Table 17; a lower bound on edge correctness, for rare-disease annotations only. Random = the same edges with diseases permuted (mean of 20). Curated pairs recovered = share of the curated (disease, phenotype) pairs of these diseases that the graph contains. The graphs differ in literature, extraction, builder rules and edge count; the causes of their differences were not separated.
+(d) Exact-concept agreement (%) with HPO curated annotations (phenotype.hpoa 2026-02-16) by edge overlap, computed as in Section 4.7; a lower bound on edge correctness, for rare-disease annotations only. Random = the same edges with diseases permuted (mean of 20). Curated pairs recovered = share of the curated (disease, phenotype) pairs of these diseases that the graph contains. Table 17 gives agreement by supporting-document count (also for the old Qwen3 and S-D graphs) and by topic document. The two graphs differ in extraction, concept linking and edge count; the causes of their differences were not separated.
 
-| Graph or edge group | HPO-comparable edges | All (random) | 1 doc | 2 docs | 3–4 docs | ≥ 5 docs | Curated pairs recovered |
-|---|---|---|---|---|---|---|---|
-| S-mix | 856,023 | 12.6 (2.5) | 7.4 | 15.2 | 24.9 | 41.7 | 29.4 |
-| S-dict | 1,572,570 | 7.8 (1.9) | 4.4 | 8.5 | 14.6 | 24.6 | 32.8 |
-| Edges in both graphs | 801,933 | 13.0 (2.5) | – | – | – | – | – |
-| S-mix-only edges | 54,090 | 7.25 (2.02) | – | – | – | – | – |
-| S-dict-only edges | 770,637 | 2.31 (1.31) | – | – | – | – | – |
-| Old Qwen3 v2.1 graph (Table 17) | 194,318 | 16.4 (2.6) | 13.3 | 31.7 | 46.3 | 63.2 | 11.3 |
-| S-D graph (gemma v2.1) | 168,587 | 18.2 (2.8) | 15.0 | 34.0 | 48.7 | 62.8 | 10.9 |
+| Graph or edge group | HPO-comparable edges | Agreement (random) | Curated pairs recovered |
+|---|---|---|---|
+| S-mix | 856,023 | 12.6 (2.5) | 29.4 |
+| S-dict | 1,572,570 | 7.8 (1.9) | 32.8 |
+| Edges in both graphs | 801,933 | 13.0 (2.5) | – |
+| S-mix-only edges | 54,090 | 7.25 (2.02) | – |
+| S-dict-only edges | 770,637 | 2.31 (1.31) | – |
 
 ### 4.5 시간 분할
 
@@ -348,27 +344,42 @@ Table 16. Design E confirmation (lineage, open set of 43,575 diseases; one run a
 
 ### 4.7 출처 추적과 근거 품질
 
-이 절의 간선 감사는 구 시스템에서만 했다. 큐레이션 대조는 구 시스템과 S-D 그래프에서 측정했고, 설계 E 확증 실행 뒤에 S-mix와 S-dict 그래프에서도 측정했다(4.4.7절). 구 시스템은 Qwen3-4B-Instruct-2507로 추출한 v2 문헌 그래프다. 감사 표본은 v2.1 그래프에서 뽑았고, 주제 표시를 더한 v2.1c 그래프는 간선 1,184,344개, 근거 언급 1,648,509개, 문서 88,266건이다. S-mix 그래프의 간선 감사는 하지 않았다.
+이 절은 간선 출처에 관한 세 가지 측정(원문 위치 확인, HPO 주석과의 일치, 출처 불변식)을 보고하고, 간선 정밀도가 순위에 주는 영향을 4.3절의 시뮬레이션으로 가늠한다. 간선 정확도는 HPO 주석과의 일치로만 측정했다. 이 일치율은 정밀도의 하한이며, HPO 주석이 있는 질환(주로 희귀질환)의 간선에만 해당한다. HPO 주석 일치는 네 그래프에서 쟀다. 구 Qwen3 그래프와 S-D 그래프, 그리고 설계 E 확증 실행 뒤에 잰 S-mix와 S-dict 그래프다(4.4.7절). 주제 문서별 일치는 S-mix와 S-dict에 대해서만 보고한다. 구 Qwen3 그래프는 Qwen3-4B-Instruct-2507로 추출한 v2 문헌 그래프(v2.1)로, 간선 1,184,344개, 근거 언급 1,648,509개, 문서 88,266건이다.
 
-구 Qwen3 그래프의 근거 언급 가운데 93.3%는 PMID로, 1.1%는 PMCID로, 5.6%는 StatPearls·GeneReviews 장 ID로 원 문헌이 식별되었다.
+**원문 위치 확인.** LLM 출력은 원문 창에서 위치가 확인된 구절만 남기고 나머지는 버렸다(3.3절). gemma-4-E4B-it 추출에서 남은 항목은 v2 문헌에서 모델 출력 560만 개 중 533만 개, v3 문헌에서 1,323만 개 중 1,232만 개였다. 남은 항목은 모두 근거 문장과 원 문서에 연결된다. 문서 노드는 원 문헌의 식별자(PMID·PMCID, 도서는 장 ID)를 담는다(3.2절, 표 3).
 
-같은 그래프에서 시드 1로 뽑은 간선 200개(간선마다 근거 언급 1개)를 연구팀과 협력 병원의 의료진이 LLM 판정을 보지 않고 판정했다. 판정은 supports 59개(29.5%, Wilson 95% CI 23.6–36.2), not_supported 99개, wrong_concept 42개였다. 같은 200행에 대한 LLM(Claude) 판정의 supports는 75개(37.5%)였다. 두 판정의 일치율은 supports 여부(이진) 기준 89%(Cohen's κ 0.75), 세 범주 기준 70%(κ 0.48)였다. 세 범주 불일치 60행 중 38행은 의료진 wrong_concept 대 LLM not_supported였다. LLM이 supports로, 의료진이 not_supported·wrong_concept로 판정한 행은 19행(16행·3행)이었고, 반대 방향은 3행이었다(순차이 16행).
+**HPO 주석 일치.** 큐레이션 대조에는 HPO 주석(phenotype.hpoa, 2026-02-16)을 썼다. 이 판에서 주석이 있는 질환은 12,296개이고, 그중 UMLS 개념으로 사상되는 표현형이 하나 이상인 질환은 12,251개다(3.7절 표 5의 HPO 주석 그래프). 구 Qwen3 그래프에서는 이 질환들의 간선 가운데 개념이 HPO 용어에 대응되는 194,318개를 큐레이터 표현형과 대조했다(표 17a). 정확 일치율은 16.4%(HPO 부모 포함 19.9%)로, 질환을 무작위로 순열한 대응(20회 평균) 2.6%보다 높았다. 일치율은 지지 문서 1편 13.3%(168,512간선), 2편 31.7%(18,262간선), 3–4편 46.3%(6,269간선), 5편 이상 63.2%(1,275간선)로 지지 문서 수에 따라 단조 증가했다. 큐레이션은 불완전하므로 큐레이션에 없는 간선도 맞을 수 있다. 따라서 일치율은 정밀도의 하한이다. 반대 방향으로, 큐레이터가 주석한 쌍 가운데 그래프가 재현한 비율은 11.3%였다. IE 모델만 gemma-4-E4B로 바꾼 v2.1 그래프, 곧 S-D 그래프(간선 832,671개, 근거 언급 1,201,064개, 문서 86,276건)에서는 같은 방식으로 대조한 168,587개의 일치율이 18.2%(무작위 2.8%)였고, 지지 문서 1편 15.0%에서 5편 이상 62.8%로 올랐다.
 
-의료진 판정 기준으로 주제 문서가 1편 이상인 간선의 supports는 38.3%(51/133), 주제 밖 문서뿐인 간선은 11.9%(8/67)였다. 지지 문서가 2편 이상인 간선은 52.9%(9/17), 1편인 간선은 27.3%(50/183)였다. 의료진이 wrong_concept로 판정한 42행에는 약물·치료, 검사·방법·경과·결과 표현, 인구통계 개념, 질환 자체나 다른 질환명, 구절 절단이 포함되었다. 같은 200행의 LLM 판정에서 가장 많은 실패 유형은 근거 문서가 인접 아형이나 증후군 등 다른 질환을 다루는 경우(약 45행)였다. 이 200행은 이후 보류(held-out) 평가 세트로 지정했다.
+S-mix 그래프의 정확 일치율은 12.6%(HPO 용어에 대응되는 간선 856,023개, 무작위 2.5%)였다. 지지 문서 1편, 2편, 3–4편, 5편 이상 구간의 일치율은 7.4%, 15.2%, 24.9%, 41.7%였고, 같은 구간의 무작위 일치율은 2.0%, 2.9%, 3.6%, 4.5%였다. S-mix의 구간별 일치율은 모든 구간에서 구 Qwen3 그래프와 S-D 그래프보다 낮았다. 주제 문서가 1편 이상인 S-mix 간선의 일치율은 14.9%, 주제 밖 문서뿐인 간선은 7.1%였고, 두 묶음의 무작위 일치율은 모두 2.5%였다. 같은 문헌의 S-dict 그래프는 일치율이 7.8%(무작위 1.9%)로 S-mix보다 낮았지만, 두 출처 신호에서 같은 방향을 보였다(지지 문서 1편 4.4%에서 5편 이상 24.6%; 주제 문서 간선 10.6% 대 주제 밖 간선 3.6%). 두 그래프 모두 지지 문서 수의 네 구간 각각에서 주제 문서 간선의 일치율이 주제 밖 간선보다 높았다(표 17b). 지지 문서가 1편인 간선에서는 S-mix 8.3% 대 5.7%, S-dict 5.7% 대 2.9%였다. 네 그래프는 문헌, 추출 모델과 방식, 빌더 규칙, 간선 수가 다르다. 따라서 그래프 사이 차이의 원인은 분리하지 않았다.
 
-큐레이션 대조에는 HPO 주석(phenotype.hpoa, 2026-02-16)을 썼다. 이 판에서 주석이 있는 질환은 12,296개이고, 그중 UMLS 개념으로 사상되는 표현형이 하나 이상인 질환은 12,251개다(3.7절 표 5의 HPO 주석 그래프). 이 질환들의 비교 가능한 간선 194,318개를 큐레이터 표현형과 대조했다(표 17). 정확 일치율은 16.4%(HPO 부모 포함 19.9%)로, 질환을 무작위로 순열한 대응(20회 평균) 2.6%보다 높았다. 일치율은 지지 문서 1편 13.3%(168,512간선), 2편 31.7%(18,262간선), 3–4편 46.3%(6,269간선), 5편 이상 63.2%(1,275간선)로 지지 문서 수에 따라 단조 증가했다. 주제 문서가 1편 이상인 간선은 19.3%, 주제 밖 문서뿐인 간선은 11.5%였다. 큐레이션은 불완전하므로 큐레이션에 없는 간선도 맞을 수 있다. 따라서 일치율은 정밀도의 하한이다. 반대 방향으로, 큐레이터가 주석한 쌍 가운데 그래프가 재현한 비율은 11.3%였다. IE 모델만 gemma-4-E4B로 바꾼 v2.1 그래프, 곧 S-D 그래프(간선 832,671개, 근거 언급 1,201,064개, 문서 86,276건)에서는 일치율이 18.2%(무작위 2.8%)였고, 지지 문서 1편 15.0%에서 5편 이상 62.8%로 올랐다.
+Table 17. Agreement with HPO curated annotations by provenance signal (phenotype.hpoa 2026-02-16; exact concept match, %, unless stated). Agreement is a lower bound on edge correctness and covers only edges of diseases with HPO annotations, mostly rare diseases. HPO-comparable edges = edges of annotated diseases whose concept maps to an HPO term. Random (in parentheses) = the same edges with diseases permuted (mean of 20); per-group random values were recorded for S-mix and S-dict only. Topic document = a supporting document whose title contains a name form of the disease; in the S-mix and S-dict builds, a title with a causal-gene symbol of the disease also counts (Section 3.2). Agreement by topic document is reported for S-mix and S-dict only. Old Qwen3 = the v2-literature graph extracted with Qwen3-4B-Instruct-2507 (v2.1). The four graphs differ in literature, extraction model and method, builder rules and edge count; the causes of their differences were not separated. – = not measured.
 
-Table 17. Evidence quality by provenance signal on the old Qwen3-4B-Instruct-2507 graph (audit sample drawn from v2.1; topic marks added in v2.1c): clinical audit (n = 200) and agreement with HPO curated annotations (exact concept match; a lower bound on edge correctness). The S-mix graph has not been audited; its HPO agreement, computed the same way, is in Table 14d.
+(a) Agreement by graph and edge group.
 
-| Edge group | Audit: supported (%) | HPO agreement (%) | HPO-comparable edges |
-|---|---|---|---|
-| All | 29.5 (59/200) | 16.4 | 194,318 |
-| Random disease permutation | – | 2.6 | 194,318 |
-| ≥1 topic document | 38.3 (51/133) | 19.3 | 121,862 |
-| Off-topic documents only | 11.9 (8/67) | 11.5 | 72,456 |
-| Supported by 1 document | 27.3 (50/183) | 13.3 | 168,512 |
-| Supported by ≥2 documents | 52.9 (9/17) | 31.7–63.2^a^ | 25,806 |
+| Edge group | Old Qwen3 (v2.1) | S-D (gemma v2.1) | S-mix | S-dict |
+|---|---|---|---|---|
+| HPO-comparable edges | 194,318 | 168,587 | 856,023 | 1,572,570 |
+| All, exact (random) | 16.4 (2.6) | 18.2 (2.8) | 12.6 (2.5) | 7.8 (1.9) |
+| All, exact or HPO parent (random) | 19.9 (3.5) | 22.1 (3.7) | 16.2 (3.4) | 10.1 (2.7) |
+| Supported by 1 document^a^ | 13.3 | 15.0 | 7.4 (2.0) | 4.4 (1.6) |
+| Supported by 2 documents | 31.7 | 34.0 | 15.2 (2.9) | 8.5 (2.1) |
+| Supported by 3–4 documents | 46.3 | 48.7 | 24.9 (3.6) | 14.6 (2.7) |
+| Supported by ≥ 5 documents | 63.2 | 62.8 | 41.7 (4.5) | 24.6 (3.1) |
+| ≥ 1 topic document^a^ | – | – | 14.9 (2.5) | 10.6 (2.0) |
+| Off-topic documents only | – | – | 7.1 (2.5) | 3.6 (1.8) |
+| Curated pairs recovered^b^ | 11.3 | 10.9 | 29.4 | 32.8 |
 
-^a^ 2 documents 31.7% (18,262 edges), 3–4 documents 46.3% (6,269), ≥5 documents 63.2% (1,275). The gemma-4-E4B v2.1 graph, which is the S-D graph, gives 18.2% overall agreement (random 2.8%), rising from 15.0% (1 document) to 62.8% (≥5 documents).
+^a^ Edges per group (1, 2, 3–4, ≥ 5 documents; topic, off-topic): old Qwen3 168,512, 18,262, 6,269, 1,275. S-D 145,751, 16,060, 5,668, 1,108. S-mix 580,586, 136,824, 78,959, 59,654; 611,047, 244,976. S-dict 1,024,476, 261,982, 151,217, 134,895; 940,180, 632,390. ^b^ Share of the curated (disease, phenotype) pairs of the compared diseases that the graph contains.
 
-S-mix 그래프의 출처 상태는 다음과 같다. S-mix 간선의 의료진·LLM 판정은 하지 않았다. S-mix 그래프와 HPO 주석의 대조는 위와 같은 방식으로 설계 E 확증 실행 뒤에 계산했다(표 14d). 정확 일치율은 12.6%(비교 가능 간선 856,023개, 무작위 2.5%)였다. 지지 문서 1편, 2편, 3–4편, 5편 이상 구간의 일치율은 7.4%, 15.2%, 24.9%, 41.7%였다. 이 값은 같은 구간의 구 Qwen3 그래프(13.3%, 31.7%, 46.3%, 63.2%)와 S-D 그래프(15.0%, 34.0%, 48.7%, 62.8%)보다 모든 구간에서 낮았다. 주제 문서가 1편 이상인 S-mix 간선의 일치율은 14.9%, 주제 밖 문서뿐인 간선은 7.1%였다. S-mix와 두 구 그래프는 문헌, 추출 모델과 방식, 빌더 규칙, 간선 수가 다르다. 따라서 이 차이의 원인은 분리하지 않았다. 같은 문헌의 S-dict 그래프는 일치율이 7.8%(무작위 1.9%)로 S-mix보다 낮았다. 빌더는 재연결 항목의 원 LLM 구절을 근거 언급의 span 속성으로 저장하고, 근거 문장을 그 구절을 중심으로 자르도록 바뀌었다(커밋 3b10c36). 이 빌더로 S-mix를 비교용 인스턴스에 다시 빌드한 그래프의 지문은 바뀌지 않았다(15ba677…). 적재된 HAS_FINDING 간선은 5,221,285개로 빌드 요약과 같았다. 근거 언급을 넣어 다시 빌드한 S-mix는 동결 전에 출처 불변식 검사를 통과했다. 근거 언급이 없는 HAS_FINDING 간선은 0개였고, Disease 노드는 43,575개였다. 근거 언급은 11,582,169개였고, 지문은 바뀌지 않았다(15ba677…). 개발 DDXPlus 3,000명 모두에서 정답 질환의 Top-10 내 위치(lineage)가 근거 언급이 없는 빌드와 같았다. span 속성은 근거 언급의 LLM 구절과 사전 이름을 따로 감사할 수 있게 하지만, 그 감사는 하지 않았다. 4.3의 시뮬레이션에서 간선 정밀도를 36%에서 55%로 올렸을 때의 Top-10 기대 상승은 상대 약 6%였다. 근거 경로를 추적할 수 있다는 것이 간선이 정확하다는 뜻은 아니다.
+(b) Topic versus off-topic edges within each supporting-document count: exact agreement (%), ≥ 1 topic document / off-topic documents only.
+
+| Supporting documents | S-mix | S-dict |
+|---|---|---|
+| 1 | 8.3 / 5.7 | 5.7 / 2.9 |
+| 2 | 16.3 / 11.1 | 10.5 / 4.7 |
+| 3–4 | 25.8 / 18.7 | 16.9 / 7.3 |
+| ≥ 5 | 42.3 / 29.0 | 26.2 / 10.7 |
+
+**출처 불변식.** 빌더는 재연결 항목의 원 LLM 구절을 근거 언급의 span 속성으로 저장하고, 근거 문장을 그 구절을 중심으로 자르도록 바뀌었다(커밋 3b10c36). 이 빌더로 S-mix를 비교용 인스턴스에 다시 빌드한 그래프의 지문은 바뀌지 않았다(15ba677…). 적재된 HAS_FINDING 간선은 5,221,285개로 빌드 요약과 같았다. 근거 언급을 넣어 다시 빌드한 S-mix는 동결 전에 출처 불변식 검사를 통과했다. 근거 언급이 없는 HAS_FINDING 간선은 0개였고, Disease 노드는 43,575개였다. 근거 언급은 11,582,169개였고, 지문은 바뀌지 않았다(15ba677…). 개발 DDXPlus 3,000명 모두에서 정답 질환의 Top-10 내 위치(lineage)가 근거 언급이 없는 빌드와 같았다. span 속성은 근거 언급의 LLM 구절과 사전 이름을 따로 검토할 수 있게 하지만, 그 검토는 하지 않았다.
+
+**간선 정밀도와 순위.** 4.3절의 오류 시뮬레이션에서 틀린 간선의 구성과 양은 측정값이 아니라 가정이다. 구성은 세 가지를 두었다. 같은 상위 질환을 둔 형제 질환의 소견(형제가 없으면 무작위 질환의 소견)을 넣은 형제 구성, v2 구절 표의 개념(빌더가 간선으로 받는 의미유형)에서 무작위로 뽑은 개념만 넣은 어휘 구성, 둘을 7:3으로 섞은 혼합 구성이다. 7:3의 비율도 가정이다. 틀린 간선의 양은 남긴 참 간선 1개당 후보 수 R로 정했다. R = 2.33과 1은 명목 정밀도 1/(1 + R) = 30%, 50%에 해당하는 격자값이며, 측정한 정밀도가 아니다. 이 밖에 형제·어휘 구성에서 혼합 구성과 실현 정밀도가 같아지는 R과, 재현율 30%·15%에서 실현 정밀도가 20%가 되는 R로도 돌려 모두 13개 조건을 비교했다(표 8c). 남긴 참 간선이 15%인 HPOA 그래프에서 실현 정밀도(참 간선 수/전체 간선 수) 20~53%(재현율 15% 점)를 100%로 올리면 Top-10은 +0.1~+2.7%p, Top-1은 −0.1~+1.2%p 바뀌었다. 같은 정밀도 수준에서 남긴 참 간선을 30%로 늘리면(재현율 30% 점의 실현 정밀도 20~54%) Top-10은 +8.0~+11.6%p, Top-1은 +2.3~+6.6%p 올랐다. 13개 조건 모두에서 재현율 효과의 95% CI 하한이 정밀도 효과의 CI 상한보다 높았다. 따라서 재현율이 정밀도보다 순위에 크게 작용한다는 결과는 특정 구성이나 R 값에 기대지 않고, 이 세 구성과 정밀도 범위 안에서 유지되었다. 이 CI는 증례 부트스트랩이며(시드 1개), 오류 실현에 따른 변동(같은 시드에서 재현율 100% 점의 Top-1 최대 약 1.5%p)은 반영하지 않는다. 재현율 15%는 S-D 그래프의 HPO 주석 쌍 재현율(10.9%)에 가깝고, 정밀도 20%는 S-D 그래프의 일치 하한(18.2%, HPO 부모 포함 22.1%) 근처다. S-mix의 일치율(12.6%, 부모 포함 16.2%)은 20%보다 낮다. 일치율은 하한이므로, S-mix의 실제 정밀도가 이 시뮬레이션 범위 안에 있는지는 알 수 없다. 근거 경로를 추적할 수 있다는 것이 간선이 정확하다는 뜻은 아니다.
