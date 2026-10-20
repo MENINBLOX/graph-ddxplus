@@ -1,0 +1,7 @@
+{
+ "source": "primekg",
+ "edges": 747705,
+ "true_edges": 747705,
+ "diseases_with_findings": 10898,
+ "concepts": 9063
+}

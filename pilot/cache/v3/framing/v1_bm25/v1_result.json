@@ -1,0 +1,2577 @@
+{
+ "note": "POST HOC on confirmation set E. diff = S-mix - BM25, lineage Top-k in percentage points; ci = patient-paired bootstrap 95% (2,000, seed 0); ci_cluster = gold-disease cluster bootstrap 95%; p = exact McNemar, p_holm = Holm over the two sets of one configuration at one k; macro = equal-weight over the two sets, set-stratified patient bootstrap. Dev macro values are the design E selection trail (D3 rule picked v3_joint_k1000_rrf).",
+ "s_mix": "pilot/cache/v2/confirmE/S-mix.json",
+ "frozen_S_bm25": "v3_joint_k1000_rrf",
+ "dev_macro_v3": {
+  "v3_joint_k100_max": [
+   19.55,
+   6.858
+  ],
+  "v3_joint_k100_sum": [
+   25.202,
+   10.849
+  ],
+  "v3_joint_k100_rrf": [
+   24.62,
+   11.147
+  ],
+  "v3_joint_k1000_max": [
+   19.55,
+   6.858
+  ],
+  "v3_joint_k1000_sum": [
+   25.557,
+   10.488
+  ],
+  "v3_joint_k1000_rrf": [
+   27.352,
+   11.039
+  ],
+  "v3_per_concept_k100_max": [
+   20.938,
+   6.987
+  ],
+  "v3_per_concept_k100_sum": [
+   13.259,
+   3.471
+  ],
+  "v3_per_concept_k100_rrf": [
+   13.307,
+   2.424
+  ],
+  "v3_per_concept_k1000_max": [
+   24.066,
+   8.259
+  ],
+  "v3_per_concept_k1000_sum": [
+   15.559,
+   5.276
+  ],
+  "v3_per_concept_k1000_rrf": [
+   13.803,
+   2.764
+  ]
+ },
+ "e_values": {
+  "v3_joint_k100_max": {
+   "ConfirmE-DDXPlus": {
+    "10": 16.47,
+    "1": 4.37
+   },
+   "ConfirmE-SymCat": {
+    "10": 7.2,
+    "1": 1.65
+   }
+  },
+  "v3_joint_k100_sum": {
+   "ConfirmE-DDXPlus": {
+    "10": 22.27,
+    "1": 8.7
+   },
+   "ConfirmE-SymCat": {
+    "10": 8.91,
+    "1": 1.8
+   }
+  },
+  "v3_joint_k100_rrf": {
+   "ConfirmE-DDXPlus": {
+    "10": 22.37,
+    "1": 8.6
+   },
+   "ConfirmE-SymCat": {
+    "10": 8.8,
+    "1": 1.8
+   }
+  },
+  "v3_joint_k1000_max": {
+   "ConfirmE-DDXPlus": {
+    "10": 16.47,
+    "1": 4.37
+   },
+   "ConfirmE-SymCat": {
+    "10": 7.2,
+    "1": 1.65
+   }
+  },
+  "v3_joint_k1000_sum": {
+   "ConfirmE-DDXPlus": {
+    "10": 23.03,
+    "1": 8.27
+   },
+   "ConfirmE-SymCat": {
+    "10": 10.69,
+    "1": 2.05
+   }
+  },
+  "v3_joint_k1000_rrf": {
+   "ConfirmE-DDXPlus": {
+    "10": 21.77,
+    "1": 8.57
+   },
+   "ConfirmE-SymCat": {
+    "10": 9.93,
+    "1": 2.09
+   }
+  },
+  "v3_per_concept_k100_max": {
+   "ConfirmE-DDXPlus": {
+    "10": 16.77,
+    "1": 3.87
+   },
+   "ConfirmE-SymCat": {
+    "10": 8.91,
+    "1": 1.84
+   }
+  },
+  "v3_per_concept_k100_sum": {
+   "ConfirmE-DDXPlus": {
+    "10": 14.6,
+    "1": 9.83
+   },
+   "ConfirmE-SymCat": {
+    "10": 9.43,
+    "1": 1.96
+   }
+  },
+  "v3_per_concept_k100_rrf": {
+   "ConfirmE-DDXPlus": {
+    "10": 13.87,
+    "1": 5.27
+   },
+   "ConfirmE-SymCat": {
+    "10": 8.92,
+    "1": 1.82
+   }
+  },
+  "v3_per_concept_k1000_max": {
+   "ConfirmE-DDXPlus": {
+    "10": 21.47,
+    "1": 3.7
+   },
+   "ConfirmE-SymCat": {
+    "10": 8.48,
+    "1": 1.62
+   }
+  },
+  "v3_per_concept_k1000_sum": {
+   "ConfirmE-DDXPlus": {
+    "10": 15.07,
+    "1": 7.37
+   },
+   "ConfirmE-SymCat": {
+    "10": 10.52,
+    "1": 1.63
+   }
+  },
+  "v3_per_concept_k1000_rrf": {
+   "ConfirmE-DDXPlus": {
+    "10": 13.6,
+    "1": 5.17
+   },
+   "ConfirmE-SymCat": {
+    "10": 9.82,
+    "1": 1.94
+   }
+  },
+  "v2_per_concept_k1000_max": {
+   "ConfirmE-DDXPlus": {
+    "10": 27.43,
+    "1": 11.4
+   },
+   "ConfirmE-SymCat": {
+    "10": 10.55,
+    "1": 2.04
+   }
+  }
+ },
+ "rule_V1_top10": {
+  "patient_ci": {
+   "holds": true,
+   "failures": [],
+   "min_lower": {
+    "ConfirmE-DDXPlus": [
+     16.3,
+     "v3_joint_k1000_sum"
+    ],
+    "ConfirmE-SymCat": [
+     1.47,
+     "v3_joint_k1000_sum"
+    ]
+   }
+  },
+  "cluster_ci": {
+   "holds": true,
+   "failures": [],
+   "min_lower": {
+    "ConfirmE-DDXPlus": [
+     6.33,
+     "v3_per_concept_k1000_max"
+    ],
+    "ConfirmE-SymCat": [
+     0.52,
+     "v3_per_concept_k1000_sum"
+    ]
+   }
+  },
+  "with_v2_index_patient_ci": {
+   "holds": true,
+   "failures": [],
+   "min_lower": {
+    "ConfirmE-DDXPlus": [
+     11.8,
+     "v2_per_concept_k1000_max"
+    ],
+    "ConfirmE-SymCat": [
+     1.47,
+     "v3_joint_k1000_sum"
+    ]
+   }
+  },
+  "with_v2_index_cluster_ci": {
+   "holds": true,
+   "failures": [],
+   "min_lower": {
+    "ConfirmE-DDXPlus": [
+     1.05,
+     "v2_per_concept_k1000_max"
+    ],
+    "ConfirmE-SymCat": [
+     0.52,
+     "v3_per_concept_k1000_sum"
+    ]
+   }
+  },
+  "verdict": "regardless of the BM25 configuration (patient and cluster CI)"
+ },
+ "rows": [
+  {
+   "bm25": "v3_joint_k100_max",
+   "cfg": {
+    "method": "bm25",
+    "mode": "joint",
+    "k": 100,
+    "agg": "max"
+   },
+   "k": 10,
+   "bench": "ConfirmE-DDXPlus",
+   "n": 3000,
+   "bm25_pct": 16.47,
+   "smix_pct": 41.07,
+   "diff": 24.6,
+   "ci": [
+    22.83,
+    26.47
+   ],
+   "ci_cluster": [
+    13.82,
+    35.98
+   ],
+   "diseases": 49,
+   "only_bm25": 102,
+   "only_smix": 840,
+   "p": 4.921574589286789e-145,
+   "p_holm": 9.843149178573577e-145,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "bm25": "v3_joint_k100_max",
+   "cfg": {
+    "method": "bm25",
+    "mode": "joint",
+    "k": 100,
+    "agg": "max"
+   },
+   "k": 10,
+   "bench": "ConfirmE-SymCat",
+   "n": 7463,
+   "bm25_pct": 7.2,
+   "smix_pct": 12.92,
+   "diff": 5.72,
+   "ci": [
+    4.96,
+    6.47
+   ],
+   "ci_cluster": [
+    4.37,
+    7.12
+   ],
+   "diseases": 760,
+   "only_bm25": 230,
+   "only_smix": 657,
+   "p": 2.6849380670723042e-48,
+   "p_holm": 2.6849380670723042e-48,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "bm25": "v3_joint_k100_max",
+   "cfg": {
+    "method": "bm25",
+    "mode": "joint",
+    "k": 100,
+    "agg": "max"
+   },
+   "k": 1,
+   "bench": "ConfirmE-DDXPlus",
+   "n": 3000,
+   "bm25_pct": 4.37,
+   "smix_pct": 12.43,
+   "diff": 8.07,
+   "ci": [
+    6.77,
+    9.4
+   ],
+   "ci_cluster": [
+    1.53,
+    16.25
+   ],
+   "diseases": 49,
+   "only_bm25": 88,
+   "only_smix": 330,
+   "p": 5.141459154589536e-34,
+   "p_holm": 1.0282918309179071e-33,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "bm25": "v3_joint_k100_max",
+   "cfg": {
+    "method": "bm25",
+    "mode": "joint",
+    "k": 100,
+    "agg": "max"
+   },
+   "k": 1,
+   "bench": "ConfirmE-SymCat",
+   "n": 7463,
+   "bm25_pct": 1.65,
+   "smix_pct": 2.45,
+   "diff": 0.8,
+   "ci": [
+    0.38,
+    1.22
+   ],
+   "ci_cluster": [
+    0.05,
+    1.64
+   ],
+   "diseases": 760,
+   "only_bm25": 102,
+   "only_smix": 162,
+   "p": 0.0002669516011157365,
+   "p_holm": 0.0002669516011157365,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "bm25": "v3_joint_k100_sum",
+   "cfg": {
+    "method": "bm25",
+    "mode": "joint",
+    "k": 100,
+    "agg": "sum"
+   },
+   "k": 10,
+   "bench": "ConfirmE-DDXPlus",
+   "n": 3000,
+   "bm25_pct": 22.27,
+   "smix_pct": 41.07,
+   "diff": 18.8,
+   "ci": [
+    17.07,
+    20.63
+   ],
+   "ci_cluster": [
+    8.17,
+    30.54
+   ],
+   "diseases": 49,
+   "only_bm25": 144,
+   "only_smix": 708,
+   "p": 3.893131206608575e-90,
+   "p_holm": 7.78626241321715e-90,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "bm25": "v3_joint_k100_sum",
+   "cfg": {
+    "method": "bm25",
+    "mode": "joint",
+    "k": 100,
+    "agg": "sum"
+   },
+   "k": 10,
+   "bench": "ConfirmE-SymCat",
+   "n": 7463,
+   "bm25_pct": 8.91,
+   "smix_pct": 12.92,
+   "diff": 4.01,
+   "ci": [
+    3.24,
+    4.76
+   ],
+   "ci_cluster": [
+    2.61,
+    5.45
+   ],
+   "diseases": 760,
+   "only_bm25": 296,
+   "only_smix": 595,
+   "p": 6.811490087204922e-24,
+   "p_holm": 6.811490087204922e-24,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "bm25": "v3_joint_k100_sum",
+   "cfg": {
+    "method": "bm25",
+    "mode": "joint",
+    "k": 100,
+    "agg": "sum"
+   },
+   "k": 1,
+   "bench": "ConfirmE-DDXPlus",
+   "n": 3000,
+   "bm25_pct": 8.7,
+   "smix_pct": 12.43,
+   "diff": 3.73,
+   "ci": [
+    2.4,
+    5.07
+   ],
+   "ci_cluster": [
+    -2.77,
+    10.51
+   ],
+   "diseases": 49,
+   "only_bm25": 138,
+   "only_smix": 250,
+   "p": 1.3987438915769643e-08,
+   "p_holm": 2.7974877831539286e-08,
+   "status": "S-mix higher: patient CI only"
+  },
+  {
+   "bm25": "v3_joint_k100_sum",
+   "cfg": {
+    "method": "bm25",
+    "mode": "joint",
+    "k": 100,
+    "agg": "sum"
+   },
+   "k": 1,
+   "bench": "ConfirmE-SymCat",
+   "n": 7463,
+   "bm25_pct": 1.8,
+   "smix_pct": 2.45,
+   "diff": 0.66,
+   "ci": [
+    0.24,
+    1.07
+   ],
+   "ci_cluster": [
+    -0.12,
+    1.49
+   ],
+   "diseases": 760,
+   "only_bm25": 108,
+   "only_smix": 157,
+   "p": 0.0031182377908683576,
+   "p_holm": 0.0031182377908683576,
+   "status": "S-mix higher: patient CI only"
+  },
+  {
+   "bm25": "v3_joint_k100_rrf",
+   "cfg": {
+    "method": "bm25",
+    "mode": "joint",
+    "k": 100,
+    "agg": "rrf"
+   },
+   "k": 10,
+   "bench": "ConfirmE-DDXPlus",
+   "n": 3000,
+   "bm25_pct": 22.37,
+   "smix_pct": 41.07,
+   "diff": 18.7,
+   "ci": [
+    17.03,
+    20.53
+   ],
+   "ci_cluster": [
+    7.99,
+    30.39
+   ],
+   "diseases": 49,
+   "only_bm25": 146,
+   "only_smix": 707,
+   "p": 5.574722377668905e-89,
+   "p_holm": 1.114944475533781e-88,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "bm25": "v3_joint_k100_rrf",
+   "cfg": {
+    "method": "bm25",
+    "mode": "joint",
+    "k": 100,
+    "agg": "rrf"
+   },
+   "k": 10,
+   "bench": "ConfirmE-SymCat",
+   "n": 7463,
+   "bm25_pct": 8.8,
+   "smix_pct": 12.92,
+   "diff": 4.11,
+   "ci": [
+    3.35,
+    4.89
+   ],
+   "ci_cluster": [
+    2.71,
+    5.53
+   ],
+   "diseases": 760,
+   "only_bm25": 290,
+   "only_smix": 597,
+   "p": 3.0573724891256164e-25,
+   "p_holm": 3.0573724891256164e-25,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "bm25": "v3_joint_k100_rrf",
+   "cfg": {
+    "method": "bm25",
+    "mode": "joint",
+    "k": 100,
+    "agg": "rrf"
+   },
+   "k": 1,
+   "bench": "ConfirmE-DDXPlus",
+   "n": 3000,
+   "bm25_pct": 8.6,
+   "smix_pct": 12.43,
+   "diff": 3.83,
+   "ci": [
+    2.5,
+    5.17
+   ],
+   "ci_cluster": [
+    -2.83,
+    11.13
+   ],
+   "diseases": 49,
+   "only_bm25": 143,
+   "only_smix": 258,
+   "p": 9.973538222909535e-09,
+   "p_holm": 1.994707644581907e-08,
+   "status": "S-mix higher: patient CI only"
+  },
+  {
+   "bm25": "v3_joint_k100_rrf",
+   "cfg": {
+    "method": "bm25",
+    "mode": "joint",
+    "k": 100,
+    "agg": "rrf"
+   },
+   "k": 1,
+   "bench": "ConfirmE-SymCat",
+   "n": 7463,
+   "bm25_pct": 1.8,
+   "smix_pct": 2.45,
+   "diff": 0.66,
+   "ci": [
+    0.23,
+    1.07
+   ],
+   "ci_cluster": [
+    -0.13,
+    1.48
+   ],
+   "diseases": 760,
+   "only_bm25": 107,
+   "only_smix": 156,
+   "p": 0.003005528412181556,
+   "p_holm": 0.003005528412181556,
+   "status": "S-mix higher: patient CI only"
+  },
+  {
+   "bm25": "v3_joint_k1000_max",
+   "cfg": {
+    "method": "bm25",
+    "mode": "joint",
+    "k": 1000,
+    "agg": "max"
+   },
+   "k": 10,
+   "bench": "ConfirmE-DDXPlus",
+   "n": 3000,
+   "bm25_pct": 16.47,
+   "smix_pct": 41.07,
+   "diff": 24.6,
+   "ci": [
+    22.83,
+    26.47
+   ],
+   "ci_cluster": [
+    13.82,
+    35.98
+   ],
+   "diseases": 49,
+   "only_bm25": 102,
+   "only_smix": 840,
+   "p": 4.921574589286789e-145,
+   "p_holm": 9.843149178573577e-145,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "bm25": "v3_joint_k1000_max",
+   "cfg": {
+    "method": "bm25",
+    "mode": "joint",
+    "k": 1000,
+    "agg": "max"
+   },
+   "k": 10,
+   "bench": "ConfirmE-SymCat",
+   "n": 7463,
+   "bm25_pct": 7.2,
+   "smix_pct": 12.92,
+   "diff": 5.72,
+   "ci": [
+    4.96,
+    6.47
+   ],
+   "ci_cluster": [
+    4.37,
+    7.12
+   ],
+   "diseases": 760,
+   "only_bm25": 230,
+   "only_smix": 657,
+   "p": 2.6849380670723042e-48,
+   "p_holm": 2.6849380670723042e-48,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "bm25": "v3_joint_k1000_max",
+   "cfg": {
+    "method": "bm25",
+    "mode": "joint",
+    "k": 1000,
+    "agg": "max"
+   },
+   "k": 1,
+   "bench": "ConfirmE-DDXPlus",
+   "n": 3000,
+   "bm25_pct": 4.37,
+   "smix_pct": 12.43,
+   "diff": 8.07,
+   "ci": [
+    6.77,
+    9.4
+   ],
+   "ci_cluster": [
+    1.53,
+    16.25
+   ],
+   "diseases": 49,
+   "only_bm25": 88,
+   "only_smix": 330,
+   "p": 5.141459154589536e-34,
+   "p_holm": 1.0282918309179071e-33,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "bm25": "v3_joint_k1000_max",
+   "cfg": {
+    "method": "bm25",
+    "mode": "joint",
+    "k": 1000,
+    "agg": "max"
+   },
+   "k": 1,
+   "bench": "ConfirmE-SymCat",
+   "n": 7463,
+   "bm25_pct": 1.65,
+   "smix_pct": 2.45,
+   "diff": 0.8,
+   "ci": [
+    0.38,
+    1.22
+   ],
+   "ci_cluster": [
+    0.05,
+    1.64
+   ],
+   "diseases": 760,
+   "only_bm25": 102,
+   "only_smix": 162,
+   "p": 0.0002669516011157365,
+   "p_holm": 0.0002669516011157365,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "bm25": "v3_joint_k1000_sum",
+   "cfg": {
+    "method": "bm25",
+    "mode": "joint",
+    "k": 1000,
+    "agg": "sum"
+   },
+   "k": 10,
+   "bench": "ConfirmE-DDXPlus",
+   "n": 3000,
+   "bm25_pct": 23.03,
+   "smix_pct": 41.07,
+   "diff": 18.03,
+   "ci": [
+    16.3,
+    19.77
+   ],
+   "ci_cluster": [
+    8.07,
+    27.98
+   ],
+   "diseases": 49,
+   "only_bm25": 119,
+   "only_smix": 660,
+   "p": 1.264951975916257e-91,
+   "p_holm": 2.529903951832514e-91,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "bm25": "v3_joint_k1000_sum",
+   "cfg": {
+    "method": "bm25",
+    "mode": "joint",
+    "k": 1000,
+    "agg": "sum"
+   },
+   "k": 10,
+   "bench": "ConfirmE-SymCat",
+   "n": 7463,
+   "bm25_pct": 10.69,
+   "smix_pct": 12.92,
+   "diff": 2.22,
+   "ci": [
+    1.47,
+    3.0
+   ],
+   "ci_cluster": [
+    0.6,
+    3.83
+   ],
+   "diseases": 760,
+   "only_bm25": 369,
+   "only_smix": 535,
+   "p": 3.739592085234341e-08,
+   "p_holm": 3.739592085234341e-08,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "bm25": "v3_joint_k1000_sum",
+   "cfg": {
+    "method": "bm25",
+    "mode": "joint",
+    "k": 1000,
+    "agg": "sum"
+   },
+   "k": 1,
+   "bench": "ConfirmE-DDXPlus",
+   "n": 3000,
+   "bm25_pct": 8.27,
+   "smix_pct": 12.43,
+   "diff": 4.17,
+   "ci": [
+    2.97,
+    5.47
+   ],
+   "ci_cluster": [
+    -1.62,
+    10.39
+   ],
+   "diseases": 49,
+   "only_bm25": 113,
+   "only_smix": 238,
+   "p": 2.2449863961099502e-11,
+   "p_holm": 4.4899727922199003e-11,
+   "status": "S-mix higher: patient CI only"
+  },
+  {
+   "bm25": "v3_joint_k1000_sum",
+   "cfg": {
+    "method": "bm25",
+    "mode": "joint",
+    "k": 1000,
+    "agg": "sum"
+   },
+   "k": 1,
+   "bench": "ConfirmE-SymCat",
+   "n": 7463,
+   "bm25_pct": 2.05,
+   "smix_pct": 2.45,
+   "diff": 0.4,
+   "ci": [
+    -0.03,
+    0.82
+   ],
+   "ci_cluster": [
+    -0.41,
+    1.25
+   ],
+   "diseases": 760,
+   "only_bm25": 124,
+   "only_smix": 154,
+   "p": 0.08179539514423984,
+   "p_holm": 0.08179539514423984,
+   "status": "both CIs include 0"
+  },
+  {
+   "bm25": "v3_joint_k1000_rrf",
+   "cfg": {
+    "method": "bm25",
+    "mode": "joint",
+    "k": 1000,
+    "agg": "rrf"
+   },
+   "k": 10,
+   "bench": "ConfirmE-DDXPlus",
+   "n": 3000,
+   "bm25_pct": 21.77,
+   "smix_pct": 41.07,
+   "diff": 19.3,
+   "ci": [
+    17.6,
+    21.03
+   ],
+   "ci_cluster": [
+    8.79,
+    30.74
+   ],
+   "diseases": 49,
+   "only_bm25": 116,
+   "only_smix": 695,
+   "p": 2.546465160389279e-101,
+   "p_holm": 5.092930320778558e-101,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "bm25": "v3_joint_k1000_rrf",
+   "cfg": {
+    "method": "bm25",
+    "mode": "joint",
+    "k": 1000,
+    "agg": "rrf"
+   },
+   "k": 10,
+   "bench": "ConfirmE-SymCat",
+   "n": 7463,
+   "bm25_pct": 9.93,
+   "smix_pct": 12.92,
+   "diff": 2.99,
+   "ci": [
+    2.22,
+    3.77
+   ],
+   "ci_cluster": [
+    1.43,
+    4.52
+   ],
+   "diseases": 760,
+   "only_bm25": 329,
+   "only_smix": 552,
+   "p": 5.5130047053559054e-14,
+   "p_holm": 5.5130047053559054e-14,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "bm25": "v3_joint_k1000_rrf",
+   "cfg": {
+    "method": "bm25",
+    "mode": "joint",
+    "k": 1000,
+    "agg": "rrf"
+   },
+   "k": 1,
+   "bench": "ConfirmE-DDXPlus",
+   "n": 3000,
+   "bm25_pct": 8.57,
+   "smix_pct": 12.43,
+   "diff": 3.87,
+   "ci": [
+    2.63,
+    5.13
+   ],
+   "ci_cluster": [
+    -2.36,
+    10.32
+   ],
+   "diseases": 49,
+   "only_bm25": 126,
+   "only_smix": 242,
+   "p": 1.5036023840598905e-09,
+   "p_holm": 3.007204768119781e-09,
+   "status": "S-mix higher: patient CI only"
+  },
+  {
+   "bm25": "v3_joint_k1000_rrf",
+   "cfg": {
+    "method": "bm25",
+    "mode": "joint",
+    "k": 1000,
+    "agg": "rrf"
+   },
+   "k": 1,
+   "bench": "ConfirmE-SymCat",
+   "n": 7463,
+   "bm25_pct": 2.09,
+   "smix_pct": 2.45,
+   "diff": 0.36,
+   "ci": [
+    -0.08,
+    0.78
+   ],
+   "ci_cluster": [
+    -0.46,
+    1.21
+   ],
+   "diseases": 760,
+   "only_bm25": 126,
+   "only_smix": 153,
+   "p": 0.11941327032672623,
+   "p_holm": 0.11941327032672623,
+   "status": "both CIs include 0"
+  },
+  {
+   "bm25": "v3_per_concept_k100_max",
+   "cfg": {
+    "method": "bm25",
+    "mode": "per_concept",
+    "k": 100,
+    "agg": "max"
+   },
+   "k": 10,
+   "bench": "ConfirmE-DDXPlus",
+   "n": 3000,
+   "bm25_pct": 16.77,
+   "smix_pct": 41.07,
+   "diff": 24.3,
+   "ci": [
+    22.4,
+    26.23
+   ],
+   "ci_cluster": [
+    13.04,
+    36.63
+   ],
+   "diseases": 49,
+   "only_bm25": 137,
+   "only_smix": 866,
+   "p": 4.901252224388015e-130,
+   "p_holm": 9.80250444877603e-130,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "bm25": "v3_per_concept_k100_max",
+   "cfg": {
+    "method": "bm25",
+    "mode": "per_concept",
+    "k": 100,
+    "agg": "max"
+   },
+   "k": 10,
+   "bench": "ConfirmE-SymCat",
+   "n": 7463,
+   "bm25_pct": 8.91,
+   "smix_pct": 12.92,
+   "diff": 4.01,
+   "ci": [
+    3.24,
+    4.8
+   ],
+   "ci_cluster": [
+    2.58,
+    5.59
+   ],
+   "diseases": 760,
+   "only_bm25": 316,
+   "only_smix": 615,
+   "p": 6.70080304862937e-23,
+   "p_holm": 6.70080304862937e-23,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "bm25": "v3_per_concept_k100_max",
+   "cfg": {
+    "method": "bm25",
+    "mode": "per_concept",
+    "k": 100,
+    "agg": "max"
+   },
+   "k": 1,
+   "bench": "ConfirmE-DDXPlus",
+   "n": 3000,
+   "bm25_pct": 3.87,
+   "smix_pct": 12.43,
+   "diff": 8.57,
+   "ci": [
+    7.33,
+    9.83
+   ],
+   "ci_cluster": [
+    2.46,
+    15.93
+   ],
+   "diseases": 49,
+   "only_bm25": 57,
+   "only_smix": 314,
+   "p": 3.8075582611713567e-44,
+   "p_holm": 7.615116522342713e-44,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "bm25": "v3_per_concept_k100_max",
+   "cfg": {
+    "method": "bm25",
+    "mode": "per_concept",
+    "k": 100,
+    "agg": "max"
+   },
+   "k": 1,
+   "bench": "ConfirmE-SymCat",
+   "n": 7463,
+   "bm25_pct": 1.84,
+   "smix_pct": 2.45,
+   "diff": 0.62,
+   "ci": [
+    0.17,
+    1.03
+   ],
+   "ci_cluster": [
+    -0.15,
+    1.46
+   ],
+   "diseases": 760,
+   "only_bm25": 114,
+   "only_smix": 160,
+   "p": 0.006451928990872362,
+   "p_holm": 0.006451928990872362,
+   "status": "S-mix higher: patient CI only"
+  },
+  {
+   "bm25": "v3_per_concept_k100_sum",
+   "cfg": {
+    "method": "bm25",
+    "mode": "per_concept",
+    "k": 100,
+    "agg": "sum"
+   },
+   "k": 10,
+   "bench": "ConfirmE-DDXPlus",
+   "n": 3000,
+   "bm25_pct": 14.6,
+   "smix_pct": 41.07,
+   "diff": 26.47,
+   "ci": [
+    24.57,
+    28.33
+   ],
+   "ci_cluster": [
+    13.52,
+    39.39
+   ],
+   "diseases": 49,
+   "only_bm25": 121,
+   "only_smix": 915,
+   "p": 1.8921164911868574e-151,
+   "p_holm": 3.784232982373715e-151,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "bm25": "v3_per_concept_k100_sum",
+   "cfg": {
+    "method": "bm25",
+    "mode": "per_concept",
+    "k": 100,
+    "agg": "sum"
+   },
+   "k": 10,
+   "bench": "ConfirmE-SymCat",
+   "n": 7463,
+   "bm25_pct": 9.43,
+   "smix_pct": 12.92,
+   "diff": 3.48,
+   "ci": [
+    2.68,
+    4.29
+   ],
+   "ci_cluster": [
+    1.61,
+    5.31
+   ],
+   "diseases": 760,
+   "only_bm25": 371,
+   "only_smix": 631,
+   "p": 1.901828439858701e-16,
+   "p_holm": 1.901828439858701e-16,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "bm25": "v3_per_concept_k100_sum",
+   "cfg": {
+    "method": "bm25",
+    "mode": "per_concept",
+    "k": 100,
+    "agg": "sum"
+   },
+   "k": 1,
+   "bench": "ConfirmE-DDXPlus",
+   "n": 3000,
+   "bm25_pct": 9.83,
+   "smix_pct": 12.43,
+   "diff": 2.6,
+   "ci": [
+    1.33,
+    3.97
+   ],
+   "ci_cluster": [
+    -4.76,
+    10.75
+   ],
+   "diseases": 49,
+   "only_bm25": 158,
+   "only_smix": 236,
+   "p": 9.987638068866488e-05,
+   "p_holm": 0.00019975276137732976,
+   "status": "S-mix higher: patient CI only"
+  },
+  {
+   "bm25": "v3_per_concept_k100_sum",
+   "cfg": {
+    "method": "bm25",
+    "mode": "per_concept",
+    "k": 100,
+    "agg": "sum"
+   },
+   "k": 1,
+   "bench": "ConfirmE-SymCat",
+   "n": 7463,
+   "bm25_pct": 1.96,
+   "smix_pct": 2.45,
+   "diff": 0.5,
+   "ci": [
+    0.07,
+    0.94
+   ],
+   "ci_cluster": [
+    -0.51,
+    1.57
+   ],
+   "diseases": 760,
+   "only_bm25": 130,
+   "only_smix": 167,
+   "p": 0.03653594817682872,
+   "p_holm": 0.03653594817682872,
+   "status": "S-mix higher: patient CI only"
+  },
+  {
+   "bm25": "v3_per_concept_k100_rrf",
+   "cfg": {
+    "method": "bm25",
+    "mode": "per_concept",
+    "k": 100,
+    "agg": "rrf"
+   },
+   "k": 10,
+   "bench": "ConfirmE-DDXPlus",
+   "n": 3000,
+   "bm25_pct": 13.87,
+   "smix_pct": 41.07,
+   "diff": 27.2,
+   "ci": [
+    25.27,
+    29.07
+   ],
+   "ci_cluster": [
+    14.12,
+    39.98
+   ],
+   "diseases": 49,
+   "only_bm25": 110,
+   "only_smix": 926,
+   "p": 2.3481453836471753e-161,
+   "p_holm": 4.696290767294351e-161,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "bm25": "v3_per_concept_k100_rrf",
+   "cfg": {
+    "method": "bm25",
+    "mode": "per_concept",
+    "k": 100,
+    "agg": "rrf"
+   },
+   "k": 10,
+   "bench": "ConfirmE-SymCat",
+   "n": 7463,
+   "bm25_pct": 8.92,
+   "smix_pct": 12.92,
+   "diff": 3.99,
+   "ci": [
+    3.22,
+    4.8
+   ],
+   "ci_cluster": [
+    2.23,
+    5.77
+   ],
+   "diseases": 760,
+   "only_bm25": 348,
+   "only_smix": 646,
+   "p": 2.2687099601829692e-21,
+   "p_holm": 2.2687099601829692e-21,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "bm25": "v3_per_concept_k100_rrf",
+   "cfg": {
+    "method": "bm25",
+    "mode": "per_concept",
+    "k": 100,
+    "agg": "rrf"
+   },
+   "k": 1,
+   "bench": "ConfirmE-DDXPlus",
+   "n": 3000,
+   "bm25_pct": 5.27,
+   "smix_pct": 12.43,
+   "diff": 7.17,
+   "ci": [
+    6.0,
+    8.37
+   ],
+   "ci_cluster": [
+    1.29,
+    14.64
+   ],
+   "diseases": 49,
+   "only_bm25": 63,
+   "only_smix": 278,
+   "p": 2.352768605483183e-33,
+   "p_holm": 4.705537210966366e-33,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "bm25": "v3_per_concept_k100_rrf",
+   "cfg": {
+    "method": "bm25",
+    "mode": "per_concept",
+    "k": 100,
+    "agg": "rrf"
+   },
+   "k": 1,
+   "bench": "ConfirmE-SymCat",
+   "n": 7463,
+   "bm25_pct": 1.82,
+   "smix_pct": 2.45,
+   "diff": 0.63,
+   "ci": [
+    0.2,
+    1.07
+   ],
+   "ci_cluster": [
+    -0.4,
+    1.7
+   ],
+   "diseases": 760,
+   "only_bm25": 122,
+   "only_smix": 169,
+   "p": 0.006903720236820283,
+   "p_holm": 0.006903720236820283,
+   "status": "S-mix higher: patient CI only"
+  },
+  {
+   "bm25": "v3_per_concept_k1000_max",
+   "cfg": {
+    "method": "bm25",
+    "mode": "per_concept",
+    "k": 1000,
+    "agg": "max"
+   },
+   "k": 10,
+   "bench": "ConfirmE-DDXPlus",
+   "n": 3000,
+   "bm25_pct": 21.47,
+   "smix_pct": 41.07,
+   "diff": 19.6,
+   "ci": [
+    17.63,
+    21.67
+   ],
+   "ci_cluster": [
+    6.33,
+    33.41
+   ],
+   "diseases": 49,
+   "only_bm25": 208,
+   "only_smix": 796,
+   "p": 1.4018743899614179e-81,
+   "p_holm": 2.8037487799228358e-81,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "bm25": "v3_per_concept_k1000_max",
+   "cfg": {
+    "method": "bm25",
+    "mode": "per_concept",
+    "k": 1000,
+    "agg": "max"
+   },
+   "k": 10,
+   "bench": "ConfirmE-SymCat",
+   "n": 7463,
+   "bm25_pct": 8.48,
+   "smix_pct": 12.92,
+   "diff": 4.44,
+   "ci": [
+    3.63,
+    5.19
+   ],
+   "ci_cluster": [
+    3.0,
+    5.94
+   ],
+   "diseases": 760,
+   "only_bm25": 309,
+   "only_smix": 640,
+   "p": 2.6432691157234185e-27,
+   "p_holm": 2.6432691157234185e-27,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "bm25": "v3_per_concept_k1000_max",
+   "cfg": {
+    "method": "bm25",
+    "mode": "per_concept",
+    "k": 1000,
+    "agg": "max"
+   },
+   "k": 1,
+   "bench": "ConfirmE-DDXPlus",
+   "n": 3000,
+   "bm25_pct": 3.7,
+   "smix_pct": 12.43,
+   "diff": 8.73,
+   "ci": [
+    7.37,
+    10.03
+   ],
+   "ci_cluster": [
+    2.04,
+    17.43
+   ],
+   "diseases": 49,
+   "only_bm25": 92,
+   "only_smix": 354,
+   "p": 2.6772558772909065e-37,
+   "p_holm": 5.354511754581813e-37,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "bm25": "v3_per_concept_k1000_max",
+   "cfg": {
+    "method": "bm25",
+    "mode": "per_concept",
+    "k": 1000,
+    "agg": "max"
+   },
+   "k": 1,
+   "bench": "ConfirmE-SymCat",
+   "n": 7463,
+   "bm25_pct": 1.62,
+   "smix_pct": 2.45,
+   "diff": 0.83,
+   "ci": [
+    0.42,
+    1.26
+   ],
+   "ci_cluster": [
+    0.11,
+    1.65
+   ],
+   "diseases": 760,
+   "only_bm25": 100,
+   "only_smix": 162,
+   "p": 0.00015387220377675854,
+   "p_holm": 0.00015387220377675854,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "bm25": "v3_per_concept_k1000_sum",
+   "cfg": {
+    "method": "bm25",
+    "mode": "per_concept",
+    "k": 1000,
+    "agg": "sum"
+   },
+   "k": 10,
+   "bench": "ConfirmE-DDXPlus",
+   "n": 3000,
+   "bm25_pct": 15.07,
+   "smix_pct": 41.07,
+   "diff": 26.0,
+   "ci": [
+    24.1,
+    27.87
+   ],
+   "ci_cluster": [
+    13.23,
+    38.56
+   ],
+   "diseases": 49,
+   "only_bm25": 105,
+   "only_smix": 885,
+   "p": 2.288325489517294e-154,
+   "p_holm": 4.576650979034588e-154,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "bm25": "v3_per_concept_k1000_sum",
+   "cfg": {
+    "method": "bm25",
+    "mode": "per_concept",
+    "k": 1000,
+    "agg": "sum"
+   },
+   "k": 10,
+   "bench": "ConfirmE-SymCat",
+   "n": 7463,
+   "bm25_pct": 10.52,
+   "smix_pct": 12.92,
+   "diff": 2.4,
+   "ci": [
+    1.58,
+    3.23
+   ],
+   "ci_cluster": [
+    0.52,
+    4.2
+   ],
+   "diseases": 760,
+   "only_bm25": 408,
+   "only_smix": 587,
+   "p": 1.5339049574029985e-08,
+   "p_holm": 1.5339049574029985e-08,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "bm25": "v3_per_concept_k1000_sum",
+   "cfg": {
+    "method": "bm25",
+    "mode": "per_concept",
+    "k": 1000,
+    "agg": "sum"
+   },
+   "k": 1,
+   "bench": "ConfirmE-DDXPlus",
+   "n": 3000,
+   "bm25_pct": 7.37,
+   "smix_pct": 12.43,
+   "diff": 5.07,
+   "ci": [
+    3.9,
+    6.23
+   ],
+   "ci_cluster": [
+    -0.79,
+    12.68
+   ],
+   "diseases": 49,
+   "only_bm25": 95,
+   "only_smix": 247,
+   "p": 9.89731667864248e-17,
+   "p_holm": 1.979463335728496e-16,
+   "status": "S-mix higher: patient CI only"
+  },
+  {
+   "bm25": "v3_per_concept_k1000_sum",
+   "cfg": {
+    "method": "bm25",
+    "mode": "per_concept",
+    "k": 1000,
+    "agg": "sum"
+   },
+   "k": 1,
+   "bench": "ConfirmE-SymCat",
+   "n": 7463,
+   "bm25_pct": 1.63,
+   "smix_pct": 2.45,
+   "diff": 0.82,
+   "ci": [
+    0.4,
+    1.22
+   ],
+   "ci_cluster": [
+    -0.05,
+    1.75
+   ],
+   "diseases": 760,
+   "only_bm25": 102,
+   "only_smix": 163,
+   "p": 0.00021506188797406573,
+   "p_holm": 0.00021506188797406573,
+   "status": "S-mix higher: patient CI only"
+  },
+  {
+   "bm25": "v3_per_concept_k1000_rrf",
+   "cfg": {
+    "method": "bm25",
+    "mode": "per_concept",
+    "k": 1000,
+    "agg": "rrf"
+   },
+   "k": 10,
+   "bench": "ConfirmE-DDXPlus",
+   "n": 3000,
+   "bm25_pct": 13.6,
+   "smix_pct": 41.07,
+   "diff": 27.47,
+   "ci": [
+    25.6,
+    29.37
+   ],
+   "ci_cluster": [
+    14.79,
+    40.19
+   ],
+   "diseases": 49,
+   "only_bm25": 103,
+   "only_smix": 927,
+   "p": 2.1152634751029443e-166,
+   "p_holm": 4.2305269502058886e-166,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "bm25": "v3_per_concept_k1000_rrf",
+   "cfg": {
+    "method": "bm25",
+    "mode": "per_concept",
+    "k": 1000,
+    "agg": "rrf"
+   },
+   "k": 10,
+   "bench": "ConfirmE-SymCat",
+   "n": 7463,
+   "bm25_pct": 9.82,
+   "smix_pct": 12.92,
+   "diff": 3.1,
+   "ci": [
+    2.32,
+    3.93
+   ],
+   "ci_cluster": [
+    1.19,
+    4.91
+   ],
+   "diseases": 760,
+   "only_bm25": 374,
+   "only_smix": 605,
+   "p": 1.528029065337888e-13,
+   "p_holm": 1.528029065337888e-13,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "bm25": "v3_per_concept_k1000_rrf",
+   "cfg": {
+    "method": "bm25",
+    "mode": "per_concept",
+    "k": 1000,
+    "agg": "rrf"
+   },
+   "k": 1,
+   "bench": "ConfirmE-DDXPlus",
+   "n": 3000,
+   "bm25_pct": 5.17,
+   "smix_pct": 12.43,
+   "diff": 7.27,
+   "ci": [
+    6.1,
+    8.47
+   ],
+   "ci_cluster": [
+    1.34,
+    14.71
+   ],
+   "diseases": 49,
+   "only_bm25": 60,
+   "only_smix": 278,
+   "p": 1.1255504777680627e-34,
+   "p_holm": 2.2511009555361255e-34,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "bm25": "v3_per_concept_k1000_rrf",
+   "cfg": {
+    "method": "bm25",
+    "mode": "per_concept",
+    "k": 1000,
+    "agg": "rrf"
+   },
+   "k": 1,
+   "bench": "ConfirmE-SymCat",
+   "n": 7463,
+   "bm25_pct": 1.94,
+   "smix_pct": 2.45,
+   "diff": 0.51,
+   "ci": [
+    0.09,
+    0.94
+   ],
+   "ci_cluster": [
+    -0.48,
+    1.5
+   ],
+   "diseases": 760,
+   "only_bm25": 120,
+   "only_smix": 158,
+   "p": 0.02630102847710033,
+   "p_holm": 0.02630102847710033,
+   "status": "S-mix higher: patient CI only"
+  },
+  {
+   "bm25": "v2_per_concept_k1000_max",
+   "cfg": {
+    "method": "bm25",
+    "mode": "per_concept",
+    "k": 1000,
+    "agg": "max"
+   },
+   "k": 10,
+   "bench": "ConfirmE-DDXPlus",
+   "n": 3000,
+   "bm25_pct": 27.43,
+   "smix_pct": 41.07,
+   "diff": 13.63,
+   "ci": [
+    11.8,
+    15.47
+   ],
+   "ci_cluster": [
+    1.05,
+    26.96
+   ],
+   "diseases": 49,
+   "only_bm25": 233,
+   "only_smix": 642,
+   "p": 6.372790164471112e-45,
+   "p_holm": 1.2745580328942224e-44,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "bm25": "v2_per_concept_k1000_max",
+   "cfg": {
+    "method": "bm25",
+    "mode": "per_concept",
+    "k": 1000,
+    "agg": "max"
+   },
+   "k": 10,
+   "bench": "ConfirmE-SymCat",
+   "n": 7463,
+   "bm25_pct": 10.55,
+   "smix_pct": 12.92,
+   "diff": 2.37,
+   "ci": [
+    1.59,
+    3.15
+   ],
+   "ci_cluster": [
+    1.02,
+    3.81
+   ],
+   "diseases": 760,
+   "only_bm25": 365,
+   "only_smix": 542,
+   "p": 4.572390039892958e-09,
+   "p_holm": 4.572390039892958e-09,
+   "status": "S-mix higher: disease CI excludes 0"
+  },
+  {
+   "bm25": "v2_per_concept_k1000_max",
+   "cfg": {
+    "method": "bm25",
+    "mode": "per_concept",
+    "k": 1000,
+    "agg": "max"
+   },
+   "k": 1,
+   "bench": "ConfirmE-DDXPlus",
+   "n": 3000,
+   "bm25_pct": 11.4,
+   "smix_pct": 12.43,
+   "diff": 1.03,
+   "ci": [
+    -0.33,
+    2.5
+   ],
+   "ci_cluster": [
+    -7.0,
+    10.34
+   ],
+   "diseases": 49,
+   "only_bm25": 215,
+   "only_smix": 246,
+   "p": 0.1622694164911259,
+   "p_holm": 0.1622694164911259,
+   "status": "both CIs include 0"
+  },
+  {
+   "bm25": "v2_per_concept_k1000_max",
+   "cfg": {
+    "method": "bm25",
+    "mode": "per_concept",
+    "k": 1000,
+    "agg": "max"
+   },
+   "k": 1,
+   "bench": "ConfirmE-SymCat",
+   "n": 7463,
+   "bm25_pct": 2.04,
+   "smix_pct": 2.45,
+   "diff": 0.42,
+   "ci": [
+    0.0,
+    0.84
+   ],
+   "ci_cluster": [
+    -0.23,
+    1.14
+   ],
+   "diseases": 760,
+   "only_bm25": 110,
+   "only_smix": 141,
+   "p": 0.058063969515125116,
+   "p_holm": 0.11612793903025023,
+   "status": "both CIs include 0"
+  }
+ ],
+ "macro": [
+  {
+   "bm25": "v3_joint_k100_max",
+   "k": 10,
+   "sets": [
+    "ConfirmE-DDXPlus",
+    "ConfirmE-SymCat"
+   ],
+   "bm25_pct": 11.83,
+   "smix_pct": 26.99,
+   "diff": 15.16,
+   "ci_patient_stratified": [
+    14.2,
+    16.17
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "bm25": "v3_joint_k100_max",
+   "k": 1,
+   "sets": [
+    "ConfirmE-DDXPlus",
+    "ConfirmE-SymCat"
+   ],
+   "bm25_pct": 3.01,
+   "smix_pct": 7.44,
+   "diff": 4.44,
+   "ci_patient_stratified": [
+    3.74,
+    5.13
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "bm25": "v3_joint_k100_sum",
+   "k": 10,
+   "sets": [
+    "ConfirmE-DDXPlus",
+    "ConfirmE-SymCat"
+   ],
+   "bm25_pct": 15.59,
+   "smix_pct": 26.99,
+   "diff": 11.4,
+   "ci_patient_stratified": [
+    10.47,
+    12.43
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "bm25": "v3_joint_k100_sum",
+   "k": 1,
+   "sets": [
+    "ConfirmE-DDXPlus",
+    "ConfirmE-SymCat"
+   ],
+   "bm25_pct": 5.25,
+   "smix_pct": 7.44,
+   "diff": 2.19,
+   "ci_patient_stratified": [
+    1.52,
+    2.86
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "bm25": "v3_joint_k100_rrf",
+   "k": 10,
+   "sets": [
+    "ConfirmE-DDXPlus",
+    "ConfirmE-SymCat"
+   ],
+   "bm25_pct": 15.59,
+   "smix_pct": 26.99,
+   "diff": 11.41,
+   "ci_patient_stratified": [
+    10.49,
+    12.41
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "bm25": "v3_joint_k100_rrf",
+   "k": 1,
+   "sets": [
+    "ConfirmE-DDXPlus",
+    "ConfirmE-SymCat"
+   ],
+   "bm25_pct": 5.2,
+   "smix_pct": 7.44,
+   "diff": 2.24,
+   "ci_patient_stratified": [
+    1.56,
+    2.92
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "bm25": "v3_joint_k1000_max",
+   "k": 10,
+   "sets": [
+    "ConfirmE-DDXPlus",
+    "ConfirmE-SymCat"
+   ],
+   "bm25_pct": 11.83,
+   "smix_pct": 26.99,
+   "diff": 15.16,
+   "ci_patient_stratified": [
+    14.2,
+    16.17
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "bm25": "v3_joint_k1000_max",
+   "k": 1,
+   "sets": [
+    "ConfirmE-DDXPlus",
+    "ConfirmE-SymCat"
+   ],
+   "bm25_pct": 3.01,
+   "smix_pct": 7.44,
+   "diff": 4.44,
+   "ci_patient_stratified": [
+    3.74,
+    5.13
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "bm25": "v3_joint_k1000_sum",
+   "k": 10,
+   "sets": [
+    "ConfirmE-DDXPlus",
+    "ConfirmE-SymCat"
+   ],
+   "bm25_pct": 16.86,
+   "smix_pct": 26.99,
+   "diff": 10.13,
+   "ci_patient_stratified": [
+    9.23,
+    11.11
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "bm25": "v3_joint_k1000_sum",
+   "k": 1,
+   "sets": [
+    "ConfirmE-DDXPlus",
+    "ConfirmE-SymCat"
+   ],
+   "bm25_pct": 5.16,
+   "smix_pct": 7.44,
+   "diff": 2.28,
+   "ci_patient_stratified": [
+    1.65,
+    2.93
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "bm25": "v3_joint_k1000_rrf",
+   "k": 10,
+   "sets": [
+    "ConfirmE-DDXPlus",
+    "ConfirmE-SymCat"
+   ],
+   "bm25_pct": 15.85,
+   "smix_pct": 26.99,
+   "diff": 11.14,
+   "ci_patient_stratified": [
+    10.24,
+    12.13
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "bm25": "v3_joint_k1000_rrf",
+   "k": 1,
+   "sets": [
+    "ConfirmE-DDXPlus",
+    "ConfirmE-SymCat"
+   ],
+   "bm25_pct": 5.33,
+   "smix_pct": 7.44,
+   "diff": 2.11,
+   "ci_patient_stratified": [
+    1.46,
+    2.75
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "bm25": "v3_per_concept_k100_max",
+   "k": 10,
+   "sets": [
+    "ConfirmE-DDXPlus",
+    "ConfirmE-SymCat"
+   ],
+   "bm25_pct": 12.84,
+   "smix_pct": 26.99,
+   "diff": 14.15,
+   "ci_patient_stratified": [
+    13.15,
+    15.21
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "bm25": "v3_per_concept_k100_max",
+   "k": 1,
+   "sets": [
+    "ConfirmE-DDXPlus",
+    "ConfirmE-SymCat"
+   ],
+   "bm25_pct": 2.85,
+   "smix_pct": 7.44,
+   "diff": 4.59,
+   "ci_patient_stratified": [
+    3.96,
+    5.24
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "bm25": "v3_per_concept_k100_sum",
+   "k": 10,
+   "sets": [
+    "ConfirmE-DDXPlus",
+    "ConfirmE-SymCat"
+   ],
+   "bm25_pct": 12.02,
+   "smix_pct": 26.99,
+   "diff": 14.98,
+   "ci_patient_stratified": [
+    13.96,
+    15.99
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "bm25": "v3_per_concept_k100_sum",
+   "k": 1,
+   "sets": [
+    "ConfirmE-DDXPlus",
+    "ConfirmE-SymCat"
+   ],
+   "bm25_pct": 5.89,
+   "smix_pct": 7.44,
+   "diff": 1.55,
+   "ci_patient_stratified": [
+    0.87,
+    2.24
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "bm25": "v3_per_concept_k100_rrf",
+   "k": 10,
+   "sets": [
+    "ConfirmE-DDXPlus",
+    "ConfirmE-SymCat"
+   ],
+   "bm25_pct": 11.4,
+   "smix_pct": 26.99,
+   "diff": 15.6,
+   "ci_patient_stratified": [
+    14.62,
+    16.61
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "bm25": "v3_per_concept_k100_rrf",
+   "k": 1,
+   "sets": [
+    "ConfirmE-DDXPlus",
+    "ConfirmE-SymCat"
+   ],
+   "bm25_pct": 3.54,
+   "smix_pct": 7.44,
+   "diff": 3.9,
+   "ci_patient_stratified": [
+    3.27,
+    4.52
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "bm25": "v3_per_concept_k1000_max",
+   "k": 10,
+   "sets": [
+    "ConfirmE-DDXPlus",
+    "ConfirmE-SymCat"
+   ],
+   "bm25_pct": 14.97,
+   "smix_pct": 26.99,
+   "diff": 12.02,
+   "ci_patient_stratified": [
+    11.02,
+    13.03
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "bm25": "v3_per_concept_k1000_max",
+   "k": 1,
+   "sets": [
+    "ConfirmE-DDXPlus",
+    "ConfirmE-SymCat"
+   ],
+   "bm25_pct": 2.66,
+   "smix_pct": 7.44,
+   "diff": 4.78,
+   "ci_patient_stratified": [
+    4.09,
+    5.47
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "bm25": "v3_per_concept_k1000_sum",
+   "k": 10,
+   "sets": [
+    "ConfirmE-DDXPlus",
+    "ConfirmE-SymCat"
+   ],
+   "bm25_pct": 12.79,
+   "smix_pct": 26.99,
+   "diff": 14.2,
+   "ci_patient_stratified": [
+    13.24,
+    15.22
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "bm25": "v3_per_concept_k1000_sum",
+   "k": 1,
+   "sets": [
+    "ConfirmE-DDXPlus",
+    "ConfirmE-SymCat"
+   ],
+   "bm25_pct": 4.5,
+   "smix_pct": 7.44,
+   "diff": 2.94,
+   "ci_patient_stratified": [
+    2.3,
+    3.56
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "bm25": "v3_per_concept_k1000_rrf",
+   "k": 10,
+   "sets": [
+    "ConfirmE-DDXPlus",
+    "ConfirmE-SymCat"
+   ],
+   "bm25_pct": 11.71,
+   "smix_pct": 26.99,
+   "diff": 15.28,
+   "ci_patient_stratified": [
+    14.31,
+    16.3
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "bm25": "v3_per_concept_k1000_rrf",
+   "k": 1,
+   "sets": [
+    "ConfirmE-DDXPlus",
+    "ConfirmE-SymCat"
+   ],
+   "bm25_pct": 3.55,
+   "smix_pct": 7.44,
+   "diff": 3.89,
+   "ci_patient_stratified": [
+    3.28,
+    4.51
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "bm25": "v2_per_concept_k1000_max",
+   "k": 10,
+   "sets": [
+    "ConfirmE-DDXPlus",
+    "ConfirmE-SymCat"
+   ],
+   "bm25_pct": 18.99,
+   "smix_pct": 26.99,
+   "diff": 8.0,
+   "ci_patient_stratified": [
+    6.96,
+    9.01
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "bm25": "v2_per_concept_k1000_max",
+   "k": 1,
+   "sets": [
+    "ConfirmE-DDXPlus",
+    "ConfirmE-SymCat"
+   ],
+   "bm25_pct": 6.72,
+   "smix_pct": 7.44,
+   "diff": 0.72,
+   "ci_patient_stratified": [
+    0.01,
+    1.45
+   ],
+   "p_bootstrap": 0.046
+  }
+ ],
+ "dilution": [
+  {
+   "bench": "ConfirmE-DDXPlus",
+   "k": 10,
+   "v2_designD": 27.43,
+   "v3_same_cfg": 21.47,
+   "v3_selected": 21.77,
+   "v3_best": 23.03,
+   "v3_best_cfg": "v3_joint_k1000_sum",
+   "same_cfg_change": -5.96,
+   "selected_minus_v2": -5.66,
+   "best_minus_v2": -4.4
+  },
+  {
+   "bench": "ConfirmE-DDXPlus",
+   "k": 1,
+   "v2_designD": 11.4,
+   "v3_same_cfg": 3.7,
+   "v3_selected": 8.57,
+   "v3_best": 9.83,
+   "v3_best_cfg": "v3_per_concept_k100_sum",
+   "same_cfg_change": -7.7,
+   "selected_minus_v2": -2.83,
+   "best_minus_v2": -1.57
+  },
+  {
+   "bench": "ConfirmE-SymCat",
+   "k": 10,
+   "v2_designD": 10.55,
+   "v3_same_cfg": 8.48,
+   "v3_selected": 9.93,
+   "v3_best": 10.69,
+   "v3_best_cfg": "v3_joint_k1000_sum",
+   "same_cfg_change": -2.07,
+   "selected_minus_v2": -0.62,
+   "best_minus_v2": 0.14
+  },
+  {
+   "bench": "ConfirmE-SymCat",
+   "k": 1,
+   "v2_designD": 2.04,
+   "v3_same_cfg": 1.62,
+   "v3_selected": 2.09,
+   "v3_best": 2.09,
+   "v3_best_cfg": "v3_joint_k1000_rrf",
+   "same_cfg_change": -0.42,
+   "selected_minus_v2": 0.05,
+   "best_minus_v2": 0.05
+  }
+ ],
+ "corpus_effect_same_cfg": {
+  "A": "v2_per_concept_k1000_max",
+  "B": "v3_per_concept_k1000_max",
+  "rows": [
+   {
+    "k": 10,
+    "bench": "ConfirmE-DDXPlus",
+    "v2": 27.43,
+    "v3": 21.47,
+    "diff": -5.97,
+    "ci": [
+     -7.63,
+     -4.37
+    ],
+    "ci_cluster": [
+     -18.57,
+     4.83
+    ],
+    "diseases": 49
+   },
+   {
+    "k": 10,
+    "bench": "ConfirmE-SymCat",
+    "v2": 10.55,
+    "v3": 8.48,
+    "diff": -2.06,
+    "ci": [
+     -2.77,
+     -1.34
+    ],
+    "ci_cluster": [
+     -3.28,
+     -0.88
+    ],
+    "diseases": 760
+   },
+   {
+    "k": 10,
+    "bench": "macro",
+    "v2": 18.99,
+    "v3": 14.97,
+    "diff": -4.02,
+    "ci": [
+     -4.93,
+     -3.13
+    ]
+   },
+   {
+    "k": 1,
+    "bench": "ConfirmE-DDXPlus",
+    "v2": 11.4,
+    "v3": 3.7,
+    "diff": -7.7,
+    "ci": [
+     -8.87,
+     -6.4
+    ],
+    "ci_cluster": [
+     -15.88,
+     -1.04
+    ],
+    "diseases": 49
+   },
+   {
+    "k": 1,
+    "bench": "ConfirmE-SymCat",
+    "v2": 2.04,
+    "v3": 1.62,
+    "diff": -0.42,
+    "ci": [
+     -0.79,
+     -0.04
+    ],
+    "ci_cluster": [
+     -1.01,
+     0.18
+    ],
+    "diseases": 760
+   },
+   {
+    "k": 1,
+    "bench": "macro",
+    "v2": 6.72,
+    "v3": 2.66,
+    "diff": -4.06,
+    "ci": [
+     -4.68,
+     -3.44
+    ]
+   }
+  ]
+ },
+ "decomposition_E_T3": {
+  "note": "S-mix - selected BM25 = sum of the steps (B - A) per set and k",
+  "steps": [
+   {
+    "step": "v3_per_concept_k1000_max - v3_joint_k1000_rrf",
+    "k": 10,
+    "bench": "ConfirmE-DDXPlus",
+    "A": 21.77,
+    "B": 21.47,
+    "diff": -0.3,
+    "ci": [
+     -1.87,
+     1.3
+    ],
+    "ci_cluster": [
+     -10.56,
+     9.27
+    ]
+   },
+   {
+    "step": "v3_per_concept_k1000_max - v3_joint_k1000_rrf",
+    "k": 10,
+    "bench": "ConfirmE-SymCat",
+    "A": 9.93,
+    "B": 8.48,
+    "diff": -1.45,
+    "ci": [
+     -2.13,
+     -0.78
+    ],
+    "ci_cluster": [
+     -2.66,
+     -0.27
+    ]
+   },
+   {
+    "step": "v3_per_concept_k1000_max - v3_joint_k1000_rrf",
+    "k": 1,
+    "bench": "ConfirmE-DDXPlus",
+    "A": 8.57,
+    "B": 3.7,
+    "diff": -4.87,
+    "ci": [
+     -6.0,
+     -3.7
+    ],
+    "ci_cluster": [
+     -11.5,
+     0.36
+    ]
+   },
+   {
+    "step": "v3_per_concept_k1000_max - v3_joint_k1000_rrf",
+    "k": 1,
+    "bench": "ConfirmE-SymCat",
+    "A": 2.09,
+    "B": 1.62,
+    "diff": -0.47,
+    "ci": [
+     -0.87,
+     -0.09
+    ],
+    "ci_cluster": [
+     -1.16,
+     0.19
+    ]
+   },
+   {
+    "step": "v2_per_concept_k1000_max - v3_per_concept_k1000_max",
+    "k": 10,
+    "bench": "ConfirmE-DDXPlus",
+    "A": 21.47,
+    "B": 27.43,
+    "diff": 5.97,
+    "ci": [
+     4.37,
+     7.63
+    ],
+    "ci_cluster": [
+     -4.83,
+     18.57
+    ]
+   },
+   {
+    "step": "v2_per_concept_k1000_max - v3_per_concept_k1000_max",
+    "k": 10,
+    "bench": "ConfirmE-SymCat",
+    "A": 8.48,
+    "B": 10.55,
+    "diff": 2.06,
+    "ci": [
+     1.34,
+     2.77
+    ],
+    "ci_cluster": [
+     0.88,
+     3.28
+    ]
+   },
+   {
+    "step": "v2_per_concept_k1000_max - v3_per_concept_k1000_max",
+    "k": 1,
+    "bench": "ConfirmE-DDXPlus",
+    "A": 3.7,
+    "B": 11.4,
+    "diff": 7.7,
+    "ci": [
+     6.4,
+     8.87
+    ],
+    "ci_cluster": [
+     1.04,
+     15.88
+    ]
+   },
+   {
+    "step": "v2_per_concept_k1000_max - v3_per_concept_k1000_max",
+    "k": 1,
+    "bench": "ConfirmE-SymCat",
+    "A": 1.62,
+    "B": 2.04,
+    "diff": 0.42,
+    "ci": [
+     0.04,
+     0.79
+    ],
+    "ci_cluster": [
+     -0.18,
+     1.01
+    ]
+   },
+   {
+    "step": "S-D - v2_per_concept_k1000_max",
+    "k": 10,
+    "bench": "ConfirmE-DDXPlus",
+    "A": 27.43,
+    "B": 34.53,
+    "diff": 7.1,
+    "ci": [
+     5.17,
+     9.07
+    ],
+    "ci_cluster": [
+     -7.77,
+     20.37
+    ]
+   },
+   {
+    "step": "S-D - v2_per_concept_k1000_max",
+    "k": 10,
+    "bench": "ConfirmE-SymCat",
+    "A": 10.55,
+    "B": 10.49,
+    "diff": -0.05,
+    "ci": [
+     -0.79,
+     0.72
+    ],
+    "ci_cluster": [
+     -1.47,
+     1.33
+    ]
+   },
+   {
+    "step": "S-D - v2_per_concept_k1000_max",
+    "k": 1,
+    "bench": "ConfirmE-DDXPlus",
+    "A": 11.4,
+    "B": 11.73,
+    "diff": 0.33,
+    "ci": [
+     -0.93,
+     1.67
+    ],
+    "ci_cluster": [
+     -7.52,
+     7.31
+    ]
+   },
+   {
+    "step": "S-D - v2_per_concept_k1000_max",
+    "k": 1,
+    "bench": "ConfirmE-SymCat",
+    "A": 2.04,
+    "B": 3.23,
+    "diff": 1.19,
+    "ci": [
+     0.72,
+     1.65
+    ],
+    "ci_cluster": [
+     0.34,
+     2.11
+    ]
+   },
+   {
+    "step": "S-mix - S-D",
+    "k": 10,
+    "bench": "ConfirmE-DDXPlus",
+    "A": 34.53,
+    "B": 41.07,
+    "diff": 6.53,
+    "ci": [
+     4.63,
+     8.47
+    ],
+    "ci_cluster": [
+     -6.07,
+     19.33
+    ]
+   },
+   {
+    "step": "S-mix - S-D",
+    "k": 10,
+    "bench": "ConfirmE-SymCat",
+    "A": 10.49,
+    "B": 12.92,
+    "diff": 2.43,
+    "ci": [
+     1.73,
+     3.12
+    ],
+    "ci_cluster": [
+     1.04,
+     3.87
+    ]
+   },
+   {
+    "step": "S-mix - S-D",
+    "k": 1,
+    "bench": "ConfirmE-DDXPlus",
+    "A": 11.73,
+    "B": 12.43,
+    "diff": 0.7,
+    "ci": [
+     -0.57,
+     2.0
+    ],
+    "ci_cluster": [
+     -6.13,
+     8.29
+    ]
+   },
+   {
+    "step": "S-mix - S-D",
+    "k": 1,
+    "bench": "ConfirmE-SymCat",
+    "A": 3.23,
+    "B": 2.45,
+    "diff": -0.78,
+    "ci": [
+     -1.22,
+     -0.36
+    ],
+    "ci_cluster": [
+     -1.7,
+     0.05
+    ]
+   }
+  ]
+ }
+}

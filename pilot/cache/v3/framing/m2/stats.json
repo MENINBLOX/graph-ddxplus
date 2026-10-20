@@ -1,0 +1,5784 @@
+{
+ "note": "POST HOC use of confirmation set E (\u00a79.33 M2). diff = S-mix (or the auxiliary graph) - comparator, percentage points of lineage Top-k. ci = patient-paired bootstrap 95% (2,000, seed 0); ci_cluster = gold-disease cluster bootstrap 95% of the patient-weighted difference; disease_equal = mean over gold clusters of the per-cluster difference, clusters resampled (2,000, seed 0). Gold cluster = sorted gold-key tuple (as dict_mix_stats.py). Strata: HPOA lineage coverage (gold or IS_A descendants to depth 3 has >= 1 HPOA edge) and HPOA profile thickness (max over gold keys of the gold's HPOA edges; 0, 1-9, 10-29, >=30). Comparator configuration: frozen_config_D.json comparators.<src>.onehop. Holm (p_holm) only on the overall E rows, across the two E sets.",
+ "runs": {
+  "E": {
+   "S-mix": "pilot/cache/v2/confirmE/S-mix.json",
+   "HPOA": "pilot/cache/v3/framing/m2/E_hpoa.json",
+   "PrimeKG": "pilot/cache/v3/framing/m2/E_primekg.json",
+   "S-dict": "pilot/cache/v2/confirmE/S-dict.json",
+   "S-D": "pilot/cache/v2/confirmE/S-D.json",
+   "pure-dict": "pilot/cache/v3/p0/pure_dict/E_v3umlsnt_ns_ot0.5.json"
+  },
+  "development": {
+   "S-mix": "pilot/cache/v2/devD/variants/dev_v3llmd_ns_ot0.5.json",
+   "HPOA": "pilot/cache/v2/devD/ref_hpoa/dev.json",
+   "PrimeKG": "pilot/cache/v2/devD/ref_primekg/dev.json"
+  }
+ },
+ "lineage_rule_check": {
+  "note": "patients whose HPOA lineage coverage differs between the development rule (all Disease IS_A pairs) and the IS_A loaded in Neo4j",
+  "differ": {
+   "DDXPlus-test": 0,
+   "SymCat": 0,
+   "ConfirmE-DDXPlus": 0,
+   "ConfirmE-SymCat": 0
+  }
+ },
+ "coverage": {
+  "confirmation E": {
+   "ConfirmE-DDXPlus": {
+    "patients": 3000,
+    "diseases": 49,
+    "HPOA_lineage_covered": {
+     "patients": 1212,
+     "diseases": 21
+    },
+    "HPOA_exact_covered": {
+     "patients": 232,
+     "diseases": 6
+    },
+    "PrimeKG_lineage_covered": {
+     "patients": 1470,
+     "diseases": 25
+    },
+    "thickness": {
+     "0": {
+      "patients": 2768,
+      "diseases": 43,
+      "lineage_covered_patients": 980
+     },
+     "1-9": {
+      "patients": 70,
+      "diseases": 1,
+      "lineage_covered_patients": 70
+     },
+     "10-29": {
+      "patients": 0,
+      "diseases": 0,
+      "lineage_covered_patients": 0
+     },
+     ">=30": {
+      "patients": 162,
+      "diseases": 5,
+      "lineage_covered_patients": 162
+     }
+    }
+   },
+   "ConfirmE-SymCat": {
+    "patients": 7463,
+    "diseases": 760,
+    "HPOA_lineage_covered": {
+     "patients": 2989,
+     "diseases": 321
+    },
+    "HPOA_exact_covered": {
+     "patients": 1142,
+     "diseases": 123
+    },
+    "PrimeKG_lineage_covered": {
+     "patients": 3384,
+     "diseases": 361
+    },
+    "thickness": {
+     "0": {
+      "patients": 6321,
+      "diseases": 637,
+      "lineage_covered_patients": 1847
+     },
+     "1-9": {
+      "patients": 470,
+      "diseases": 52,
+      "lineage_covered_patients": 470
+     },
+     "10-29": {
+      "patients": 242,
+      "diseases": 26,
+      "lineage_covered_patients": 242
+     },
+     ">=30": {
+      "patients": 430,
+      "diseases": 45,
+      "lineage_covered_patients": 430
+     }
+    }
+   }
+  },
+  "development": {
+   "DDXPlus-test": {
+    "patients": 3000,
+    "diseases": 48,
+    "HPOA_lineage_covered": {
+     "patients": 1221,
+     "diseases": 20
+    },
+    "HPOA_exact_covered": {
+     "patients": 257,
+     "diseases": 6
+    },
+    "PrimeKG_lineage_covered": {
+     "patients": 1458,
+     "diseases": 24
+    },
+    "thickness": {
+     "0": {
+      "patients": 2743,
+      "diseases": 42,
+      "lineage_covered_patients": 964
+     },
+     "1-9": {
+      "patients": 70,
+      "diseases": 1,
+      "lineage_covered_patients": 70
+     },
+     "10-29": {
+      "patients": 0,
+      "diseases": 0,
+      "lineage_covered_patients": 0
+     },
+     ">=30": {
+      "patients": 187,
+      "diseases": 5,
+      "lineage_covered_patients": 187
+     }
+    }
+   },
+   "SymCat": {
+    "patients": 7481,
+    "diseases": 760,
+    "HPOA_lineage_covered": {
+     "patients": 2996,
+     "diseases": 322
+    },
+    "HPOA_exact_covered": {
+     "patients": 1149,
+     "diseases": 123
+    },
+    "PrimeKG_lineage_covered": {
+     "patients": 3401,
+     "diseases": 362
+    },
+    "thickness": {
+     "0": {
+      "patients": 6332,
+      "diseases": 637,
+      "lineage_covered_patients": 1847
+     },
+     "1-9": {
+      "patients": 474,
+      "diseases": 52,
+      "lineage_covered_patients": 474
+     },
+     "10-29": {
+      "patients": 251,
+      "diseases": 26,
+      "lineage_covered_patients": 251
+     },
+     ">=30": {
+      "patients": 424,
+      "diseases": 45,
+      "lineage_covered_patients": 424
+     }
+    }
+   }
+  }
+ },
+ "decision_M2": {
+  "ConfirmE-DDXPlus": {
+   "S-mix - HPOA @10": 30.7,
+   "cluster_ci": [
+    18.29,
+    44.86
+   ],
+   "patient_ci": [
+    28.7,
+    32.67
+   ],
+   "disease_equal": {
+    "A": 10.43,
+    "B": 44.94,
+    "diff": 34.5,
+    "ci": [
+     22.53,
+     46.56
+    ],
+    "diseases": 49
+   },
+   "lower_bound_gt_0": true,
+   "action": "add the E value to this set's H2 sentence"
+  },
+  "ConfirmE-SymCat": {
+   "S-mix - HPOA @10": 9.14,
+   "cluster_ci": [
+    7.41,
+    10.88
+   ],
+   "patient_ci": [
+    8.36,
+    9.89
+   ],
+   "disease_equal": {
+    "A": 3.79,
+    "B": 12.88,
+    "diff": 9.08,
+    "ci": [
+     7.5,
+     10.82
+    ],
+    "diseases": 760
+   },
+   "lower_bound_gt_0": true,
+   "action": "add the E value to this set's H2 sentence"
+  },
+  "overall": "both E sets: lower bound > 0 -> H2 ('the curated annotations leave this space empty or thin') gains the [post hoc] sealed-set values"
+ },
+ "rows": [
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "ConfirmE-DDXPlus",
+   "k": 10,
+   "stratum": "all",
+   "n": 3000,
+   "diseases": 49,
+   "A_pct": 10.37,
+   "B_pct": 41.07,
+   "diff": 30.7,
+   "ci": [
+    28.7,
+    32.67
+   ],
+   "ci_cluster": [
+    18.29,
+    44.86
+   ],
+   "p_mcnemar": 1.7151575074740324e-189,
+   "only_A": 107,
+   "only_B": 1028,
+   "disease_equal": {
+    "A": 10.43,
+    "B": 44.94,
+    "diff": 34.5,
+    "ci": [
+     22.53,
+     46.56
+    ],
+    "diseases": 49
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher",
+   "p_holm": 3.430315014948065e-189
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "ConfirmE-DDXPlus",
+   "k": 10,
+   "stratum": "HPOA lineage covered",
+   "n": 1212,
+   "diseases": 21,
+   "A_pct": 25.66,
+   "B_pct": 47.36,
+   "diff": 21.7,
+   "ci": [
+    18.4,
+    24.83
+   ],
+   "ci_cluster": [
+    4.27,
+    41.47
+   ],
+   "p_mcnemar": 5.918754408105276e-35,
+   "only_A": 107,
+   "only_B": 370,
+   "disease_equal": {
+    "A": 24.35,
+    "B": 53.1,
+    "diff": 28.75,
+    "ci": [
+     9.51,
+     48.27
+    ],
+    "diseases": 21
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "ConfirmE-DDXPlus",
+   "k": 10,
+   "stratum": "HPOA lineage not covered",
+   "n": 1788,
+   "diseases": 28,
+   "A_pct": 0.0,
+   "B_pct": 36.8,
+   "diff": 36.8,
+   "ci": [
+    34.62,
+    38.93
+   ],
+   "ci_cluster": [
+    20.29,
+    54.13
+   ],
+   "p_mcnemar": 1.6722178260867333e-198,
+   "only_A": 0,
+   "only_B": 658,
+   "disease_equal": {
+    "A": 0.0,
+    "B": 38.81,
+    "diff": 38.81,
+    "ci": [
+     23.82,
+     54.03
+    ],
+    "diseases": 28
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "ConfirmE-DDXPlus",
+   "k": 10,
+   "stratum": "HPOA thickness 0",
+   "n": 2768,
+   "diseases": 43,
+   "A_pct": 8.67,
+   "B_pct": 41.0,
+   "diff": 32.33,
+   "ci": [
+    30.46,
+    34.28
+   ],
+   "ci_cluster": [
+    19.03,
+    47.35
+   ],
+   "p_mcnemar": 2.056520347455328e-197,
+   "only_A": 78,
+   "only_B": 973,
+   "disease_equal": {
+    "A": 8.32,
+    "B": 45.17,
+    "diff": 36.85,
+    "ci": [
+     24.7,
+     49.99
+    ],
+    "diseases": 43
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "ConfirmE-DDXPlus",
+   "k": 10,
+   "stratum": "HPOA thickness 1-9",
+   "n": 70,
+   "diseases": 1,
+   "A_pct": 25.71,
+   "B_pct": 67.14,
+   "diff": 41.43,
+   "ci": [
+    30.0,
+    52.86
+   ],
+   "ci_cluster": [
+    41.43,
+    41.43
+   ],
+   "p_mcnemar": 3.725290298461914e-09,
+   "only_A": 0,
+   "only_B": 29,
+   "disease_equal": {
+    "A": 25.71,
+    "B": 67.14,
+    "diff": 41.43,
+    "ci": [
+     41.43,
+     41.43
+    ],
+    "diseases": 1
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "ConfirmE-DDXPlus",
+   "k": 10,
+   "stratum": "HPOA thickness >=30",
+   "n": 162,
+   "diseases": 5,
+   "A_pct": 32.72,
+   "B_pct": 30.86,
+   "diff": -1.85,
+   "ci": [
+    -10.49,
+    6.79
+   ],
+   "ci_cluster": [
+    -46.15,
+    36.22
+   ],
+   "p_mcnemar": 0.7877061896700435,
+   "only_A": 29,
+   "only_B": 26,
+   "disease_equal": {
+    "A": 25.58,
+    "B": 38.46,
+    "diff": 12.88,
+    "ci": [
+     -32.38,
+     65.51
+    ],
+    "diseases": 5
+   },
+   "patient_ci": "includes 0",
+   "cluster_ci": "includes 0",
+   "disease_equal_ci": "includes 0"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "ConfirmE-DDXPlus",
+   "k": 1,
+   "stratum": "all",
+   "n": 3000,
+   "diseases": 49,
+   "A_pct": 1.9,
+   "B_pct": 12.43,
+   "diff": 10.53,
+   "ci": [
+    9.33,
+    11.83
+   ],
+   "ci_cluster": [
+    4.06,
+    18.78
+   ],
+   "p_mcnemar": 2.2191643324721736e-62,
+   "only_A": 45,
+   "only_B": 361,
+   "disease_equal": {
+    "A": 2.19,
+    "B": 19.76,
+    "diff": 17.58,
+    "ci": [
+     8.89,
+     27.82
+    ],
+    "diseases": 49
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher",
+   "p_holm": 4.438328664944347e-62
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "ConfirmE-DDXPlus",
+   "k": 1,
+   "stratum": "HPOA lineage covered",
+   "n": 1212,
+   "diseases": 21,
+   "A_pct": 4.7,
+   "B_pct": 12.95,
+   "diff": 8.25,
+   "ci": [
+    6.19,
+    10.4
+   ],
+   "ci_cluster": [
+    -1.87,
+    19.96
+   ],
+   "p_mcnemar": 1.8423533501610414e-13,
+   "only_A": 45,
+   "only_B": 145,
+   "disease_equal": {
+    "A": 5.1,
+    "B": 24.1,
+    "diff": 19.0,
+    "ci": [
+     2.78,
+     36.79
+    ],
+    "diseases": 21
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "includes 0",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "ConfirmE-DDXPlus",
+   "k": 1,
+   "stratum": "HPOA lineage not covered",
+   "n": 1788,
+   "diseases": 28,
+   "A_pct": 0.0,
+   "B_pct": 12.08,
+   "diff": 12.08,
+   "ci": [
+    10.68,
+    13.53
+   ],
+   "ci_cluster": [
+    3.86,
+    22.94
+   ],
+   "p_mcnemar": 1.8991135491519597e-65,
+   "only_A": 0,
+   "only_B": 216,
+   "disease_equal": {
+    "A": 0.0,
+    "B": 16.51,
+    "diff": 16.51,
+    "ci": [
+     6.77,
+     27.9
+    ],
+    "diseases": 28
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "ConfirmE-DDXPlus",
+   "k": 1,
+   "stratum": "HPOA thickness 0",
+   "n": 2768,
+   "diseases": 43,
+   "A_pct": 1.63,
+   "B_pct": 12.36,
+   "diff": 10.73,
+   "ci": [
+    9.43,
+    12.03
+   ],
+   "ci_cluster": [
+    4.15,
+    19.54
+   ],
+   "p_mcnemar": 9.106792516576843e-63,
+   "only_A": 33,
+   "only_B": 330,
+   "disease_equal": {
+    "A": 1.93,
+    "B": 18.9,
+    "diff": 16.97,
+    "ci": [
+     7.5,
+     27.64
+    ],
+    "diseases": 43
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "ConfirmE-DDXPlus",
+   "k": 1,
+   "stratum": "HPOA thickness 1-9",
+   "n": 70,
+   "diseases": 1,
+   "A_pct": 8.57,
+   "B_pct": 0.0,
+   "diff": -8.57,
+   "ci": [
+    -15.71,
+    -2.86
+   ],
+   "ci_cluster": [
+    -8.57,
+    -8.57
+   ],
+   "p_mcnemar": 0.03125,
+   "only_A": 6,
+   "only_B": 0,
+   "disease_equal": {
+    "A": 8.57,
+    "B": 0.0,
+    "diff": -8.57,
+    "ci": [
+     -8.57,
+     -8.57
+    ],
+    "diseases": 1
+   },
+   "patient_ci": "comparator higher",
+   "cluster_ci": "comparator higher",
+   "disease_equal_ci": "comparator higher"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "ConfirmE-DDXPlus",
+   "k": 1,
+   "stratum": "HPOA thickness >=30",
+   "n": 162,
+   "diseases": 5,
+   "A_pct": 3.7,
+   "B_pct": 19.14,
+   "diff": 15.43,
+   "ci": [
+    8.64,
+    22.22
+   ],
+   "ci_cluster": [
+    -9.78,
+    46.97
+   ],
+   "p_mcnemar": 4.12575900554657e-05,
+   "only_A": 6,
+   "only_B": 31,
+   "disease_equal": {
+    "A": 3.16,
+    "B": 31.15,
+    "diff": 28.0,
+    "ci": [
+     -6.32,
+     71.15
+    ],
+    "diseases": 5
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "includes 0",
+   "disease_equal_ci": "includes 0"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "ConfirmE-DDXPlus",
+   "k": 10,
+   "stratum": "all",
+   "n": 3000,
+   "diseases": 49,
+   "A_pct": 11.33,
+   "B_pct": 41.07,
+   "diff": 29.73,
+   "ci": [
+    27.77,
+    31.77
+   ],
+   "ci_cluster": [
+    16.42,
+    44.73
+   ],
+   "p_mcnemar": 2.4256834951013485e-176,
+   "only_A": 120,
+   "only_B": 1012,
+   "disease_equal": {
+    "A": 10.42,
+    "B": 44.94,
+    "diff": 34.52,
+    "ci": [
+     23.25,
+     46.51
+    ],
+    "diseases": 49
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher",
+   "p_holm": 4.851366990202697e-176
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "ConfirmE-DDXPlus",
+   "k": 10,
+   "stratum": "HPOA lineage covered",
+   "n": 1212,
+   "diseases": 21,
+   "A_pct": 23.68,
+   "B_pct": 47.36,
+   "diff": 23.68,
+   "ci": [
+    20.21,
+    27.06
+   ],
+   "ci_cluster": [
+    0.17,
+    49.75
+   ],
+   "p_mcnemar": 1.1489423050079818e-37,
+   "only_A": 119,
+   "only_B": 406,
+   "disease_equal": {
+    "A": 19.6,
+    "B": 53.1,
+    "diff": 33.5,
+    "ci": [
+     12.99,
+     53.63
+    ],
+    "diseases": 21
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "ConfirmE-DDXPlus",
+   "k": 10,
+   "stratum": "HPOA lineage not covered",
+   "n": 1788,
+   "diseases": 28,
+   "A_pct": 2.96,
+   "B_pct": 36.8,
+   "diff": 33.84,
+   "ci": [
+    31.71,
+    35.91
+   ],
+   "ci_cluster": [
+    18.46,
+    50.06
+   ],
+   "p_mcnemar": 2.28942387184774e-180,
+   "only_A": 1,
+   "only_B": 606,
+   "disease_equal": {
+    "A": 3.53,
+    "B": 38.81,
+    "diff": 35.28,
+    "ci": [
+     21.64,
+     49.33
+    ],
+    "diseases": 28
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "ConfirmE-DDXPlus",
+   "k": 10,
+   "stratum": "HPOA thickness 0",
+   "n": 2768,
+   "diseases": 43,
+   "A_pct": 11.13,
+   "B_pct": 41.0,
+   "diff": 29.88,
+   "ci": [
+    28.0,
+    31.79
+   ],
+   "ci_cluster": [
+    14.83,
+    45.33
+   ],
+   "p_mcnemar": 1.300848042185975e-167,
+   "only_A": 102,
+   "only_B": 929,
+   "disease_equal": {
+    "A": 10.36,
+    "B": 45.17,
+    "diff": 34.82,
+    "ci": [
+     22.49,
+     47.52
+    ],
+    "diseases": 43
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "ConfirmE-DDXPlus",
+   "k": 10,
+   "stratum": "HPOA thickness 1-9",
+   "n": 70,
+   "diseases": 1,
+   "A_pct": 27.14,
+   "B_pct": 67.14,
+   "diff": 40.0,
+   "ci": [
+    24.29,
+    54.29
+   ],
+   "ci_cluster": [
+    40.0,
+    40.0
+   ],
+   "p_mcnemar": 8.364584573428147e-06,
+   "only_A": 6,
+   "only_B": 34,
+   "disease_equal": {
+    "A": 27.14,
+    "B": 67.14,
+    "diff": 40.0,
+    "ci": [
+     40.0,
+     40.0
+    ],
+    "diseases": 1
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "ConfirmE-DDXPlus",
+   "k": 10,
+   "stratum": "HPOA thickness >=30",
+   "n": 162,
+   "diseases": 5,
+   "A_pct": 8.02,
+   "B_pct": 30.86,
+   "diff": 22.84,
+   "ci": [
+    14.2,
+    30.86
+   ],
+   "ci_cluster": [
+    -17.46,
+    74.02
+   ],
+   "p_mcnemar": 1.969878418086636e-06,
+   "only_A": 12,
+   "only_B": 49,
+   "disease_equal": {
+    "A": 7.62,
+    "B": 38.46,
+    "diff": 30.84,
+    "ci": [
+     -14.47,
+     76.15
+    ],
+    "diseases": 5
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "includes 0",
+   "disease_equal_ci": "includes 0"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "ConfirmE-DDXPlus",
+   "k": 10,
+   "stratum": "aux: PrimeKG lineage covered",
+   "n": 1470,
+   "diseases": 25,
+   "A_pct": 21.56,
+   "B_pct": 54.35,
+   "diff": 32.79,
+   "ci": [
+    29.73,
+    35.92
+   ],
+   "ci_cluster": [
+    10.64,
+    54.87
+   ],
+   "p_mcnemar": 2.770909672151611e-78,
+   "only_A": 119,
+   "only_B": 601,
+   "disease_equal": {
+    "A": 19.35,
+    "B": 58.75,
+    "diff": 39.39,
+    "ci": [
+     20.48,
+     56.94
+    ],
+    "diseases": 25
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "ConfirmE-DDXPlus",
+   "k": 10,
+   "stratum": "aux: PrimeKG lineage not covered",
+   "n": 1530,
+   "diseases": 24,
+   "A_pct": 1.5,
+   "B_pct": 28.3,
+   "diff": 26.8,
+   "ci": [
+    24.51,
+    29.02
+   ],
+   "ci_cluster": [
+    11.32,
+    43.68
+   ],
+   "p_mcnemar": 7.809474906410002e-122,
+   "only_A": 1,
+   "only_B": 411,
+   "disease_equal": {
+    "A": 1.11,
+    "B": 30.55,
+    "diff": 29.43,
+    "ci": [
+     15.53,
+     44.97
+    ],
+    "diseases": 24
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "ConfirmE-DDXPlus",
+   "k": 1,
+   "stratum": "all",
+   "n": 3000,
+   "diseases": 49,
+   "A_pct": 3.83,
+   "B_pct": 12.43,
+   "diff": 8.6,
+   "ci": [
+    7.27,
+    10.0
+   ],
+   "ci_cluster": [
+    1.34,
+    17.42
+   ],
+   "p_mcnemar": 2.783021426740631e-35,
+   "only_A": 99,
+   "only_B": 357,
+   "disease_equal": {
+    "A": 3.92,
+    "B": 19.76,
+    "diff": 15.85,
+    "ci": [
+     6.68,
+     26.56
+    ],
+    "diseases": 49
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher",
+   "p_holm": 5.566042853481262e-35
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "ConfirmE-DDXPlus",
+   "k": 1,
+   "stratum": "HPOA lineage covered",
+   "n": 1212,
+   "diseases": 21,
+   "A_pct": 8.33,
+   "B_pct": 12.95,
+   "diff": 4.62,
+   "ci": [
+    2.23,
+    7.1
+   ],
+   "ci_cluster": [
+    -6.6,
+    17.9
+   ],
+   "p_mcnemar": 0.0002695850855156324,
+   "only_A": 87,
+   "only_B": 143,
+   "disease_equal": {
+    "A": 7.55,
+    "B": 24.1,
+    "diff": 16.55,
+    "ci": [
+     -0.67,
+     35.46
+    ],
+    "diseases": 21
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "includes 0",
+   "disease_equal_ci": "includes 0"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "ConfirmE-DDXPlus",
+   "k": 1,
+   "stratum": "HPOA lineage not covered",
+   "n": 1788,
+   "diseases": 28,
+   "A_pct": 0.78,
+   "B_pct": 12.08,
+   "diff": 11.3,
+   "ci": [
+    9.79,
+    12.81
+   ],
+   "ci_cluster": [
+    3.02,
+    22.06
+   ],
+   "p_mcnemar": 5.407410800455461e-49,
+   "only_A": 12,
+   "only_B": 214,
+   "disease_equal": {
+    "A": 1.19,
+    "B": 16.51,
+    "diff": 15.32,
+    "ci": [
+     5.27,
+     26.85
+    ],
+    "diseases": 28
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "ConfirmE-DDXPlus",
+   "k": 1,
+   "stratum": "HPOA thickness 0",
+   "n": 2768,
+   "diseases": 43,
+   "A_pct": 3.54,
+   "B_pct": 12.36,
+   "diff": 8.82,
+   "ci": [
+    7.44,
+    10.26
+   ],
+   "ci_cluster": [
+    1.84,
+    18.25
+   ],
+   "p_mcnemar": 1.6046459890553888e-35,
+   "only_A": 82,
+   "only_B": 326,
+   "disease_equal": {
+    "A": 3.67,
+    "B": 18.9,
+    "diff": 15.23,
+    "ci": [
+     5.51,
+     26.03
+    ],
+    "diseases": 43
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "ConfirmE-DDXPlus",
+   "k": 1,
+   "stratum": "HPOA thickness 1-9",
+   "n": 70,
+   "diseases": 1,
+   "A_pct": 12.86,
+   "B_pct": 0.0,
+   "diff": -12.86,
+   "ci": [
+    -20.0,
+    -5.71
+   ],
+   "ci_cluster": [
+    -12.86,
+    -12.86
+   ],
+   "p_mcnemar": 0.00390625,
+   "only_A": 9,
+   "only_B": 0,
+   "disease_equal": {
+    "A": 12.86,
+    "B": 0.0,
+    "diff": -12.86,
+    "ci": [
+     -12.86,
+     -12.86
+    ],
+    "diseases": 1
+   },
+   "patient_ci": "comparator higher",
+   "cluster_ci": "comparator higher",
+   "disease_equal_ci": "comparator higher"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "ConfirmE-DDXPlus",
+   "k": 1,
+   "stratum": "HPOA thickness >=30",
+   "n": 162,
+   "diseases": 5,
+   "A_pct": 4.94,
+   "B_pct": 19.14,
+   "diff": 14.2,
+   "ci": [
+    6.79,
+    20.99
+   ],
+   "ci_cluster": [
+    -13.04,
+    46.97
+   ],
+   "p_mcnemar": 0.0002940768754342571,
+   "only_A": 8,
+   "only_B": 31,
+   "disease_equal": {
+    "A": 4.21,
+    "B": 31.15,
+    "diff": 26.94,
+    "ci": [
+     -8.42,
+     71.15
+    ],
+    "diseases": 5
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "includes 0",
+   "disease_equal_ci": "includes 0"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "ConfirmE-DDXPlus",
+   "k": 1,
+   "stratum": "aux: PrimeKG lineage covered",
+   "n": 1470,
+   "diseases": 25,
+   "A_pct": 7.82,
+   "B_pct": 14.49,
+   "diff": 6.67,
+   "ci": [
+    4.49,
+    8.98
+   ],
+   "ci_cluster": [
+    -4.18,
+    20.2
+   ],
+   "p_mcnemar": 1.2787216274867465e-08,
+   "only_A": 99,
+   "only_B": 197,
+   "disease_equal": {
+    "A": 7.68,
+    "B": 23.55,
+    "diff": 15.87,
+    "ci": [
+     1.59,
+     32.2
+    ],
+    "diseases": 25
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "includes 0",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "ConfirmE-DDXPlus",
+   "k": 1,
+   "stratum": "aux: PrimeKG lineage not covered",
+   "n": 1530,
+   "diseases": 24,
+   "A_pct": 0.0,
+   "B_pct": 10.46,
+   "diff": 10.46,
+   "ci": [
+    8.95,
+    12.03
+   ],
+   "ci_cluster": [
+    2.59,
+    22.34
+   ],
+   "p_mcnemar": 1.3684555315672042e-48,
+   "only_A": 0,
+   "only_B": 160,
+   "disease_equal": {
+    "A": 0.0,
+    "B": 15.82,
+    "diff": 15.82,
+    "ci": [
+     5.01,
+     28.35
+    ],
+    "diseases": 24
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "ConfirmE-SymCat",
+   "k": 10,
+   "stratum": "all",
+   "n": 7463,
+   "diseases": 760,
+   "A_pct": 3.78,
+   "B_pct": 12.92,
+   "diff": 9.14,
+   "ci": [
+    8.36,
+    9.89
+   ],
+   "ci_cluster": [
+    7.41,
+    10.88
+   ],
+   "p_mcnemar": 1.4100462381882587e-119,
+   "only_A": 135,
+   "only_B": 817,
+   "disease_equal": {
+    "A": 3.79,
+    "B": 12.88,
+    "diff": 9.08,
+    "ci": [
+     7.5,
+     10.82
+    ],
+    "diseases": 760
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher",
+   "p_holm": 1.4100462381882587e-119
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "ConfirmE-SymCat",
+   "k": 10,
+   "stratum": "HPOA lineage covered",
+   "n": 2989,
+   "diseases": 321,
+   "A_pct": 9.07,
+   "B_pct": 15.89,
+   "diff": 6.83,
+   "ci": [
+    5.42,
+    8.2
+   ],
+   "ci_cluster": [
+    4.32,
+    9.59
+   ],
+   "p_mcnemar": 1.155412328174716e-21,
+   "only_A": 131,
+   "only_B": 335,
+   "disease_equal": {
+    "A": 8.64,
+    "B": 15.38,
+    "diff": 6.74,
+    "ci": [
+     4.22,
+     9.47
+    ],
+    "diseases": 321
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "ConfirmE-SymCat",
+   "k": 10,
+   "stratum": "HPOA lineage not covered",
+   "n": 4474,
+   "diseases": 439,
+   "A_pct": 0.25,
+   "B_pct": 10.93,
+   "diff": 10.68,
+   "ci": [
+    9.81,
+    11.58
+   ],
+   "ci_cluster": [
+    8.62,
+    12.85
+   ],
+   "p_mcnemar": 2.317476787934344e-137,
+   "only_A": 4,
+   "only_B": 482,
+   "disease_equal": {
+    "A": 0.25,
+    "B": 11.05,
+    "diff": 10.8,
+    "ci": [
+     8.59,
+     12.91
+    ],
+    "diseases": 439
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "ConfirmE-SymCat",
+   "k": 10,
+   "stratum": "HPOA thickness 0",
+   "n": 6321,
+   "diseases": 637,
+   "A_pct": 3.83,
+   "B_pct": 13.54,
+   "diff": 9.71,
+   "ci": [
+    8.88,
+    10.55
+   ],
+   "ci_cluster": [
+    7.9,
+    11.53
+   ],
+   "p_mcnemar": 6.318412467545817e-113,
+   "only_A": 106,
+   "only_B": 720,
+   "disease_equal": {
+    "A": 3.85,
+    "B": 13.58,
+    "diff": 9.73,
+    "ci": [
+     7.96,
+     11.54
+    ],
+    "diseases": 637
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "ConfirmE-SymCat",
+   "k": 10,
+   "stratum": "HPOA thickness 1-9",
+   "n": 470,
+   "diseases": 52,
+   "A_pct": 5.74,
+   "B_pct": 15.11,
+   "diff": 9.36,
+   "ci": [
+    5.74,
+    13.19
+   ],
+   "ci_cluster": [
+    2.22,
+    16.95
+   ],
+   "p_mcnemar": 1.5849255649693016e-06,
+   "only_A": 20,
+   "only_B": 64,
+   "disease_equal": {
+    "A": 5.56,
+    "B": 14.7,
+    "diff": 9.13,
+    "ci": [
+     2.36,
+     16.66
+    ],
+    "diseases": 52
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "ConfirmE-SymCat",
+   "k": 10,
+   "stratum": "HPOA thickness 10-29",
+   "n": 242,
+   "diseases": 26,
+   "A_pct": 2.48,
+   "B_pct": 11.16,
+   "diff": 8.68,
+   "ci": [
+    4.55,
+    12.81
+   ],
+   "ci_cluster": [
+    0.39,
+    19.51
+   ],
+   "p_mcnemar": 0.00010371580719947815,
+   "only_A": 4,
+   "only_B": 25,
+   "disease_equal": {
+    "A": 2.35,
+    "B": 10.38,
+    "diff": 8.03,
+    "ci": [
+     -0.09,
+     17.99
+    ],
+    "diseases": 26
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "includes 0"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "ConfirmE-SymCat",
+   "k": 10,
+   "stratum": "HPOA thickness >=30",
+   "n": 430,
+   "diseases": 45,
+   "A_pct": 1.63,
+   "B_pct": 2.33,
+   "diff": 0.7,
+   "ci": [
+    -0.93,
+    2.33
+   ],
+   "ci_cluster": [
+    -2.05,
+    3.78
+   ],
+   "p_mcnemar": 0.5810546875,
+   "only_A": 5,
+   "only_B": 8,
+   "disease_equal": {
+    "A": 1.73,
+    "B": 2.22,
+    "diff": 0.49,
+    "ci": [
+     -2.17,
+     3.6
+    ],
+    "diseases": 45
+   },
+   "patient_ci": "includes 0",
+   "cluster_ci": "includes 0",
+   "disease_equal_ci": "includes 0"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "ConfirmE-SymCat",
+   "k": 1,
+   "stratum": "all",
+   "n": 7463,
+   "diseases": 760,
+   "A_pct": 0.75,
+   "B_pct": 2.45,
+   "diff": 1.7,
+   "ci": [
+    1.33,
+    2.09
+   ],
+   "ci_cluster": [
+    0.95,
+    2.5
+   ],
+   "p_mcnemar": 7.153891067713685e-19,
+   "only_A": 44,
+   "only_B": 171,
+   "disease_equal": {
+    "A": 0.75,
+    "B": 2.36,
+    "diff": 1.61,
+    "ci": [
+     0.95,
+     2.29
+    ],
+    "diseases": 760
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher",
+   "p_holm": 7.153891067713685e-19
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "ConfirmE-SymCat",
+   "k": 1,
+   "stratum": "HPOA lineage covered",
+   "n": 2989,
+   "diseases": 321,
+   "A_pct": 1.67,
+   "B_pct": 2.94,
+   "diff": 1.27,
+   "ci": [
+    0.57,
+    1.94
+   ],
+   "ci_cluster": [
+    0.1,
+    2.52
+   ],
+   "p_mcnemar": 0.000475185325941909,
+   "only_A": 38,
+   "only_B": 76,
+   "disease_equal": {
+    "A": 1.59,
+    "B": 2.85,
+    "diff": 1.25,
+    "ci": [
+     0.18,
+     2.43
+    ],
+    "diseases": 321
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "ConfirmE-SymCat",
+   "k": 1,
+   "stratum": "HPOA lineage not covered",
+   "n": 4474,
+   "diseases": 439,
+   "A_pct": 0.13,
+   "B_pct": 2.12,
+   "diff": 1.99,
+   "ci": [
+    1.56,
+    2.41
+   ],
+   "ci_cluster": [
+    1.15,
+    2.97
+   ],
+   "p_mcnemar": 1.0655959865887333e-21,
+   "only_A": 6,
+   "only_B": 95,
+   "disease_equal": {
+    "A": 0.14,
+    "B": 2.01,
+    "diff": 1.87,
+    "ci": [
+     1.01,
+     2.75
+    ],
+    "diseases": 439
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "ConfirmE-SymCat",
+   "k": 1,
+   "stratum": "HPOA thickness 0",
+   "n": 6321,
+   "diseases": 637,
+   "A_pct": 0.81,
+   "B_pct": 2.69,
+   "diff": 1.88,
+   "ci": [
+    1.47,
+    2.31
+   ],
+   "ci_cluster": [
+    1.06,
+    2.76
+   ],
+   "p_mcnemar": 3.481309852872316e-18,
+   "only_A": 39,
+   "only_B": 158,
+   "disease_equal": {
+    "A": 0.82,
+    "B": 2.61,
+    "diff": 1.8,
+    "ci": [
+     1.04,
+     2.62
+    ],
+    "diseases": 637
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "ConfirmE-SymCat",
+   "k": 1,
+   "stratum": "HPOA thickness 1-9",
+   "n": 470,
+   "diseases": 52,
+   "A_pct": 0.43,
+   "B_pct": 0.85,
+   "diff": 0.43,
+   "ci": [
+    -0.64,
+    1.49
+   ],
+   "ci_cluster": [
+    -0.65,
+    1.65
+   ],
+   "p_mcnemar": 0.6875,
+   "only_A": 2,
+   "only_B": 4,
+   "disease_equal": {
+    "A": 0.38,
+    "B": 0.77,
+    "diff": 0.38,
+    "ci": [
+     -0.77,
+     1.35
+    ],
+    "diseases": 52
+   },
+   "patient_ci": "includes 0",
+   "cluster_ci": "includes 0",
+   "disease_equal_ci": "includes 0"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "ConfirmE-SymCat",
+   "k": 1,
+   "stratum": "HPOA thickness 10-29",
+   "n": 242,
+   "diseases": 26,
+   "A_pct": 0.83,
+   "B_pct": 2.07,
+   "diff": 1.24,
+   "ci": [
+    -0.83,
+    3.31
+   ],
+   "ci_cluster": [
+    -1.59,
+    5.31
+   ],
+   "p_mcnemar": 0.453125,
+   "only_A": 2,
+   "only_B": 5,
+   "disease_equal": {
+    "A": 0.81,
+    "B": 1.92,
+    "diff": 1.11,
+    "ci": [
+     -1.62,
+     4.62
+    ],
+    "diseases": 26
+   },
+   "patient_ci": "includes 0",
+   "cluster_ci": "includes 0",
+   "disease_equal_ci": "includes 0"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "ConfirmE-SymCat",
+   "k": 1,
+   "stratum": "HPOA thickness >=30",
+   "n": 430,
+   "diseases": 45,
+   "A_pct": 0.23,
+   "B_pct": 0.93,
+   "diff": 0.7,
+   "ci": [
+    -0.23,
+    1.86
+   ],
+   "ci_cluster": [
+    -0.47,
+    2.31
+   ],
+   "p_mcnemar": 0.375,
+   "only_A": 1,
+   "only_B": 4,
+   "disease_equal": {
+    "A": 0.22,
+    "B": 0.89,
+    "diff": 0.67,
+    "ci": [
+     -0.44,
+     2.44
+    ],
+    "diseases": 45
+   },
+   "patient_ci": "includes 0",
+   "cluster_ci": "includes 0",
+   "disease_equal_ci": "includes 0"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "ConfirmE-SymCat",
+   "k": 10,
+   "stratum": "all",
+   "n": 7463,
+   "diseases": 760,
+   "A_pct": 5.82,
+   "B_pct": 12.92,
+   "diff": 7.1,
+   "ci": [
+    6.31,
+    7.87
+   ],
+   "ci_cluster": [
+    5.33,
+    8.88
+   ],
+   "p_mcnemar": 2.40929222932659e-69,
+   "only_A": 213,
+   "only_B": 743,
+   "disease_equal": {
+    "A": 5.8,
+    "B": 12.88,
+    "diff": 7.08,
+    "ci": [
+     5.4,
+     8.91
+    ],
+    "diseases": 760
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher",
+   "p_holm": 2.40929222932659e-69
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "ConfirmE-SymCat",
+   "k": 10,
+   "stratum": "HPOA lineage covered",
+   "n": 2989,
+   "diseases": 321,
+   "A_pct": 9.2,
+   "B_pct": 15.89,
+   "diff": 6.69,
+   "ci": [
+    5.39,
+    8.03
+   ],
+   "ci_cluster": [
+    4.13,
+    9.43
+   ],
+   "p_mcnemar": 2.794015069903414e-22,
+   "only_A": 118,
+   "only_B": 318,
+   "disease_equal": {
+    "A": 8.73,
+    "B": 15.38,
+    "diff": 6.65,
+    "ci": [
+     4.23,
+     9.26
+    ],
+    "diseases": 321
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "ConfirmE-SymCat",
+   "k": 10,
+   "stratum": "HPOA lineage not covered",
+   "n": 4474,
+   "diseases": 439,
+   "A_pct": 3.55,
+   "B_pct": 10.93,
+   "diff": 7.38,
+   "ci": [
+    6.41,
+    8.36
+   ],
+   "ci_cluster": [
+    5.12,
+    9.89
+   ],
+   "p_mcnemar": 7.993175744293815e-51,
+   "only_A": 95,
+   "only_B": 425,
+   "disease_equal": {
+    "A": 3.66,
+    "B": 11.05,
+    "diff": 7.39,
+    "ci": [
+     5.12,
+     9.69
+    ],
+    "diseases": 439
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "ConfirmE-SymCat",
+   "k": 10,
+   "stratum": "HPOA thickness 0",
+   "n": 6321,
+   "diseases": 637,
+   "A_pct": 6.39,
+   "B_pct": 13.54,
+   "diff": 7.15,
+   "ci": [
+    6.33,
+    8.07
+   ],
+   "ci_cluster": [
+    5.31,
+    9.06
+   ],
+   "p_mcnemar": 4.5209603740897104e-58,
+   "only_A": 190,
+   "only_B": 642,
+   "disease_equal": {
+    "A": 6.39,
+    "B": 13.58,
+    "diff": 7.19,
+    "ci": [
+     5.34,
+     9.01
+    ],
+    "diseases": 637
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "ConfirmE-SymCat",
+   "k": 10,
+   "stratum": "HPOA thickness 1-9",
+   "n": 470,
+   "diseases": 52,
+   "A_pct": 5.11,
+   "B_pct": 15.11,
+   "diff": 10.0,
+   "ci": [
+    6.38,
+    13.62
+   ],
+   "ci_cluster": [
+    2.99,
+    17.77
+   ],
+   "p_mcnemar": 2.1054542433593654e-07,
+   "only_A": 18,
+   "only_B": 65,
+   "disease_equal": {
+    "A": 5.32,
+    "B": 14.7,
+    "diff": 9.38,
+    "ci": [
+     2.23,
+     16.92
+    ],
+    "diseases": 52
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "ConfirmE-SymCat",
+   "k": 10,
+   "stratum": "HPOA thickness 10-29",
+   "n": 242,
+   "diseases": 26,
+   "A_pct": 1.65,
+   "B_pct": 11.16,
+   "diff": 9.5,
+   "ci": [
+    5.79,
+    14.05
+   ],
+   "ci_cluster": [
+    1.63,
+    20.0
+   ],
+   "p_mcnemar": 1.5236437320709229e-05,
+   "only_A": 3,
+   "only_B": 26,
+   "disease_equal": {
+    "A": 1.54,
+    "B": 10.38,
+    "diff": 8.85,
+    "ci": [
+     0.77,
+     18.08
+    ],
+    "diseases": 26
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "ConfirmE-SymCat",
+   "k": 10,
+   "stratum": "HPOA thickness >=30",
+   "n": 430,
+   "diseases": 45,
+   "A_pct": 0.47,
+   "B_pct": 2.33,
+   "diff": 1.86,
+   "ci": [
+    0.47,
+    3.72
+   ],
+   "ci_cluster": [
+    -0.47,
+    4.95
+   ],
+   "p_mcnemar": 0.03857421875,
+   "only_A": 2,
+   "only_B": 10,
+   "disease_equal": {
+    "A": 0.47,
+    "B": 2.22,
+    "diff": 1.75,
+    "ci": [
+     -0.3,
+     4.67
+    ],
+    "diseases": 45
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "includes 0",
+   "disease_equal_ci": "includes 0"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "ConfirmE-SymCat",
+   "k": 10,
+   "stratum": "aux: PrimeKG lineage covered",
+   "n": 3384,
+   "diseases": 361,
+   "A_pct": 8.63,
+   "B_pct": 17.38,
+   "diff": 8.75,
+   "ci": [
+    7.42,
+    10.05
+   ],
+   "ci_cluster": [
+    6.21,
+    11.46
+   ],
+   "p_mcnemar": 2.6286936866262417e-38,
+   "only_A": 126,
+   "only_B": 422,
+   "disease_equal": {
+    "A": 8.26,
+    "B": 16.83,
+    "diff": 8.57,
+    "ci": [
+     5.91,
+     11.18
+    ],
+    "diseases": 361
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "ConfirmE-SymCat",
+   "k": 10,
+   "stratum": "aux: PrimeKG lineage not covered",
+   "n": 4079,
+   "diseases": 399,
+   "A_pct": 3.48,
+   "B_pct": 9.22,
+   "diff": 5.74,
+   "ci": [
+    4.78,
+    6.67
+   ],
+   "ci_cluster": [
+    3.61,
+    8.1
+   ],
+   "p_mcnemar": 1.3260890879832576e-32,
+   "only_A": 87,
+   "only_B": 321,
+   "disease_equal": {
+    "A": 3.57,
+    "B": 9.3,
+    "diff": 5.73,
+    "ci": [
+     3.44,
+     7.99
+    ],
+    "diseases": 399
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "ConfirmE-SymCat",
+   "k": 1,
+   "stratum": "all",
+   "n": 7463,
+   "diseases": 760,
+   "A_pct": 2.17,
+   "B_pct": 2.45,
+   "diff": 0.28,
+   "ci": [
+    -0.17,
+    0.72
+   ],
+   "ci_cluster": [
+    -0.69,
+    1.27
+   ],
+   "p_mcnemar": 0.2551833358841221,
+   "only_A": 144,
+   "only_B": 165,
+   "disease_equal": {
+    "A": 2.17,
+    "B": 2.36,
+    "diff": 0.19,
+    "ci": [
+     -0.78,
+     1.11
+    ],
+    "diseases": 760
+   },
+   "patient_ci": "includes 0",
+   "cluster_ci": "includes 0",
+   "disease_equal_ci": "includes 0",
+   "p_holm": 0.2551833358841221
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "ConfirmE-SymCat",
+   "k": 1,
+   "stratum": "HPOA lineage covered",
+   "n": 2989,
+   "diseases": 321,
+   "A_pct": 2.74,
+   "B_pct": 2.94,
+   "diff": 0.2,
+   "ci": [
+    -0.57,
+    0.97
+   ],
+   "ci_cluster": [
+    -1.24,
+    1.76
+   ],
+   "p_mcnemar": 0.6727565036145104,
+   "only_A": 67,
+   "only_B": 73,
+   "disease_equal": {
+    "A": 2.66,
+    "B": 2.85,
+    "diff": 0.19,
+    "ci": [
+     -1.22,
+     1.61
+    ],
+    "diseases": 321
+   },
+   "patient_ci": "includes 0",
+   "cluster_ci": "includes 0",
+   "disease_equal_ci": "includes 0"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "ConfirmE-SymCat",
+   "k": 1,
+   "stratum": "HPOA lineage not covered",
+   "n": 4474,
+   "diseases": 439,
+   "A_pct": 1.79,
+   "B_pct": 2.12,
+   "diff": 0.34,
+   "ci": [
+    -0.22,
+    0.92
+   ],
+   "ci_cluster": [
+    -0.9,
+    1.69
+   ],
+   "p_mcnemar": 0.28147844170582365,
+   "only_A": 77,
+   "only_B": 92,
+   "disease_equal": {
+    "A": 1.82,
+    "B": 2.01,
+    "diff": 0.18,
+    "ci": [
+     -1.06,
+     1.46
+    ],
+    "diseases": 439
+   },
+   "patient_ci": "includes 0",
+   "cluster_ci": "includes 0",
+   "disease_equal_ci": "includes 0"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "ConfirmE-SymCat",
+   "k": 1,
+   "stratum": "HPOA thickness 0",
+   "n": 6321,
+   "diseases": 637,
+   "A_pct": 2.44,
+   "B_pct": 2.69,
+   "diff": 0.25,
+   "ci": [
+    -0.27,
+    0.76
+   ],
+   "ci_cluster": [
+    -0.85,
+    1.45
+   ],
+   "p_mcnemar": 0.37844103077758556,
+   "only_A": 137,
+   "only_B": 153,
+   "disease_equal": {
+    "A": 2.44,
+    "B": 2.61,
+    "diff": 0.18,
+    "ci": [
+     -0.94,
+     1.25
+    ],
+    "diseases": 637
+   },
+   "patient_ci": "includes 0",
+   "cluster_ci": "includes 0",
+   "disease_equal_ci": "includes 0"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "ConfirmE-SymCat",
+   "k": 1,
+   "stratum": "HPOA thickness 1-9",
+   "n": 470,
+   "diseases": 52,
+   "A_pct": 1.7,
+   "B_pct": 0.85,
+   "diff": -0.85,
+   "ci": [
+    -2.13,
+    0.43
+   ],
+   "ci_cluster": [
+    -3.26,
+    1.03
+   ],
+   "p_mcnemar": 0.34375,
+   "only_A": 7,
+   "only_B": 3,
+   "disease_equal": {
+    "A": 1.93,
+    "B": 0.77,
+    "diff": -1.16,
+    "ci": [
+     -4.19,
+     0.9
+    ],
+    "diseases": 52
+   },
+   "patient_ci": "includes 0",
+   "cluster_ci": "includes 0",
+   "disease_equal_ci": "includes 0"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "ConfirmE-SymCat",
+   "k": 1,
+   "stratum": "HPOA thickness 10-29",
+   "n": 242,
+   "diseases": 26,
+   "A_pct": 0.0,
+   "B_pct": 2.07,
+   "diff": 2.07,
+   "ci": [
+    0.41,
+    3.72
+   ],
+   "ci_cluster": [
+    0.0,
+    5.83
+   ],
+   "p_mcnemar": 0.0625,
+   "only_A": 0,
+   "only_B": 5,
+   "disease_equal": {
+    "A": 0.0,
+    "B": 1.92,
+    "diff": 1.92,
+    "ci": [
+     0.0,
+     5.0
+    ],
+    "diseases": 26
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "includes 0",
+   "disease_equal_ci": "includes 0"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "ConfirmE-SymCat",
+   "k": 1,
+   "stratum": "HPOA thickness >=30",
+   "n": 430,
+   "diseases": 45,
+   "A_pct": 0.0,
+   "B_pct": 0.93,
+   "diff": 0.93,
+   "ci": [
+    0.23,
+    1.86
+   ],
+   "ci_cluster": [
+    0.0,
+    2.52
+   ],
+   "p_mcnemar": 0.125,
+   "only_A": 0,
+   "only_B": 4,
+   "disease_equal": {
+    "A": 0.0,
+    "B": 0.89,
+    "diff": 0.89,
+    "ci": [
+     0.0,
+     2.67
+    ],
+    "diseases": 45
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "includes 0",
+   "disease_equal_ci": "includes 0"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "ConfirmE-SymCat",
+   "k": 1,
+   "stratum": "aux: PrimeKG lineage covered",
+   "n": 3384,
+   "diseases": 361,
+   "A_pct": 2.78,
+   "B_pct": 3.31,
+   "diff": 0.53,
+   "ci": [
+    -0.27,
+    1.33
+   ],
+   "ci_cluster": [
+    -0.94,
+    2.13
+   ],
+   "p_mcnemar": 0.19990936338335286,
+   "only_A": 79,
+   "only_B": 97,
+   "disease_equal": {
+    "A": 2.69,
+    "B": 3.2,
+    "diff": 0.51,
+    "ci": [
+     -0.95,
+     2.03
+    ],
+    "diseases": 361
+   },
+   "patient_ci": "includes 0",
+   "cluster_ci": "includes 0",
+   "disease_equal_ci": "includes 0"
+  },
+  {
+   "part": "confirmation E [post hoc]",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "ConfirmE-SymCat",
+   "k": 1,
+   "stratum": "aux: PrimeKG lineage not covered",
+   "n": 4079,
+   "diseases": 399,
+   "A_pct": 1.67,
+   "B_pct": 1.74,
+   "diff": 0.07,
+   "ci": [
+    -0.47,
+    0.61
+   ],
+   "ci_cluster": [
+    -1.23,
+    1.34
+   ],
+   "p_mcnemar": 0.8624034912671916,
+   "only_A": 65,
+   "only_B": 68,
+   "disease_equal": {
+    "A": 1.7,
+    "B": 1.6,
+    "diff": -0.1,
+    "ci": [
+     -1.36,
+     1.07
+    ],
+    "diseases": 399
+   },
+   "patient_ci": "includes 0",
+   "cluster_ci": "includes 0",
+   "disease_equal_ci": "includes 0"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "DDXPlus-test",
+   "k": 10,
+   "stratum": "all",
+   "n": 3000,
+   "diseases": 48,
+   "A_pct": 10.3,
+   "B_pct": 40.63,
+   "diff": 30.33,
+   "ci": [
+    28.43,
+    32.27
+   ],
+   "ci_cluster": [
+    18.39,
+    43.51
+   ],
+   "p_mcnemar": 4.716387401373019e-188,
+   "only_A": 104,
+   "only_B": 1014,
+   "disease_equal": {
+    "A": 10.88,
+    "B": 43.64,
+    "diff": 32.76,
+    "ci": [
+     21.17,
+     44.94
+    ],
+    "diseases": 48
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "DDXPlus-test",
+   "k": 10,
+   "stratum": "HPOA lineage covered",
+   "n": 1221,
+   "diseases": 20,
+   "A_pct": 25.31,
+   "B_pct": 46.52,
+   "diff": 21.21,
+   "ci": [
+    18.26,
+    24.49
+   ],
+   "ci_cluster": [
+    6.15,
+    37.31
+   ],
+   "p_mcnemar": 1.1626442536766128e-34,
+   "only_A": 104,
+   "only_B": 363,
+   "disease_equal": {
+    "A": 26.11,
+    "B": 50.16,
+    "diff": 24.05,
+    "ci": [
+     6.6,
+     43.17
+    ],
+    "diseases": 20
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "DDXPlus-test",
+   "k": 10,
+   "stratum": "HPOA lineage not covered",
+   "n": 1779,
+   "diseases": 28,
+   "A_pct": 0.0,
+   "B_pct": 36.59,
+   "diff": 36.59,
+   "ci": [
+    34.29,
+    38.9
+   ],
+   "ci_cluster": [
+    19.64,
+    54.37
+   ],
+   "p_mcnemar": 2.1404388173910186e-196,
+   "only_A": 0,
+   "only_B": 651,
+   "disease_equal": {
+    "A": 0.0,
+    "B": 38.98,
+    "diff": 38.98,
+    "ci": [
+     23.82,
+     54.91
+    ],
+    "diseases": 28
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "DDXPlus-test",
+   "k": 10,
+   "stratum": "HPOA thickness 0",
+   "n": 2743,
+   "diseases": 42,
+   "A_pct": 8.79,
+   "B_pct": 41.01,
+   "diff": 32.23,
+   "ci": [
+    30.33,
+    34.12
+   ],
+   "ci_cluster": [
+    18.97,
+    46.67
+   ],
+   "p_mcnemar": 2.266382575283862e-193,
+   "only_A": 80,
+   "only_B": 964,
+   "disease_equal": {
+    "A": 8.93,
+    "B": 44.08,
+    "diff": 35.15,
+    "ci": [
+     23.59,
+     47.23
+    ],
+    "diseases": 42
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "DDXPlus-test",
+   "k": 10,
+   "stratum": "HPOA thickness 1-9",
+   "n": 70,
+   "diseases": 1,
+   "A_pct": 32.86,
+   "B_pct": 65.71,
+   "diff": 32.86,
+   "ci": [
+    20.0,
+    45.71
+   ],
+   "ci_cluster": [
+    32.86,
+    32.86
+   ],
+   "p_mcnemar": 1.5236437320709229e-05,
+   "only_A": 3,
+   "only_B": 26,
+   "disease_equal": {
+    "A": 32.86,
+    "B": 65.71,
+    "diff": 32.86,
+    "ci": [
+     32.86,
+     32.86
+    ],
+    "diseases": 1
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "DDXPlus-test",
+   "k": 10,
+   "stratum": "HPOA thickness >=30",
+   "n": 187,
+   "diseases": 5,
+   "A_pct": 24.06,
+   "B_pct": 25.67,
+   "diff": 1.6,
+   "ci": [
+    -5.35,
+    8.56
+   ],
+   "ci_cluster": [
+    -35.56,
+    29.33
+   ],
+   "p_mcnemar": 0.765991824244793,
+   "only_A": 21,
+   "only_B": 24,
+   "disease_equal": {
+    "A": 22.91,
+    "B": 35.52,
+    "diff": 12.61,
+    "ci": [
+     -33.1,
+     58.57
+    ],
+    "diseases": 5
+   },
+   "patient_ci": "includes 0",
+   "cluster_ci": "includes 0",
+   "disease_equal_ci": "includes 0"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "DDXPlus-test",
+   "k": 1,
+   "stratum": "all",
+   "n": 3000,
+   "diseases": 48,
+   "A_pct": 1.8,
+   "B_pct": 11.77,
+   "diff": 9.97,
+   "ci": [
+    8.77,
+    11.23
+   ],
+   "ci_cluster": [
+    3.82,
+    17.0
+   ],
+   "p_mcnemar": 2.490422571451316e-59,
+   "only_A": 42,
+   "only_B": 341,
+   "disease_equal": {
+    "A": 2.03,
+    "B": 17.35,
+    "diff": 15.32,
+    "ci": [
+     6.71,
+     24.51
+    ],
+    "diseases": 48
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "DDXPlus-test",
+   "k": 1,
+   "stratum": "HPOA lineage covered",
+   "n": 1221,
+   "diseases": 20,
+   "A_pct": 4.42,
+   "B_pct": 13.02,
+   "diff": 8.6,
+   "ci": [
+    6.47,
+    10.81
+   ],
+   "ci_cluster": [
+    -1.25,
+    20.86
+   ],
+   "p_mcnemar": 7.43754976983152e-15,
+   "only_A": 42,
+   "only_B": 147,
+   "disease_equal": {
+    "A": 4.86,
+    "B": 20.67,
+    "diff": 15.81,
+    "ci": [
+     1.32,
+     33.17
+    ],
+    "diseases": 20
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "includes 0",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "DDXPlus-test",
+   "k": 1,
+   "stratum": "HPOA lineage not covered",
+   "n": 1779,
+   "diseases": 28,
+   "A_pct": 0.0,
+   "B_pct": 10.91,
+   "diff": 10.91,
+   "ci": [
+    9.56,
+    12.37
+   ],
+   "ci_cluster": [
+    3.65,
+    20.6
+   ],
+   "p_mcnemar": 7.965459555662261e-59,
+   "only_A": 0,
+   "only_B": 194,
+   "disease_equal": {
+    "A": 0.0,
+    "B": 14.97,
+    "diff": 14.97,
+    "ci": [
+     5.62,
+     25.92
+    ],
+    "diseases": 28
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "DDXPlus-test",
+   "k": 1,
+   "stratum": "HPOA thickness 0",
+   "n": 2743,
+   "diseases": 42,
+   "A_pct": 1.71,
+   "B_pct": 11.85,
+   "diff": 10.13,
+   "ci": [
+    8.86,
+    11.41
+   ],
+   "ci_cluster": [
+    3.64,
+    18.11
+   ],
+   "p_mcnemar": 5.839400572792772e-57,
+   "only_A": 35,
+   "only_B": 313,
+   "disease_equal": {
+    "A": 1.87,
+    "B": 16.42,
+    "diff": 14.54,
+    "ci": [
+     6.29,
+     24.24
+    ],
+    "diseases": 42
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "DDXPlus-test",
+   "k": 1,
+   "stratum": "HPOA thickness 1-9",
+   "n": 70,
+   "diseases": 1,
+   "A_pct": 4.29,
+   "B_pct": 0.0,
+   "diff": -4.29,
+   "ci": [
+    -10.0,
+    0.0
+   ],
+   "ci_cluster": [
+    -4.29,
+    -4.29
+   ],
+   "p_mcnemar": 0.25,
+   "only_A": 3,
+   "only_B": 0,
+   "disease_equal": {
+    "A": 4.29,
+    "B": 0.0,
+    "diff": -4.29,
+    "ci": [
+     -4.29,
+     -4.29
+    ],
+    "diseases": 1
+   },
+   "patient_ci": "includes 0",
+   "cluster_ci": "comparator higher",
+   "disease_equal_ci": "comparator higher"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "DDXPlus-test",
+   "k": 1,
+   "stratum": "HPOA thickness >=30",
+   "n": 187,
+   "diseases": 5,
+   "A_pct": 2.14,
+   "B_pct": 14.97,
+   "diff": 12.83,
+   "ci": [
+    7.49,
+    18.18
+   ],
+   "ci_cluster": [
+    -6.59,
+    37.33
+   ],
+   "p_mcnemar": 1.9301194697618484e-05,
+   "only_A": 4,
+   "only_B": 28,
+   "disease_equal": {
+    "A": 2.86,
+    "B": 28.62,
+    "diff": 25.76,
+    "ci": [
+     -5.71,
+     65.76
+    ],
+    "diseases": 5
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "includes 0",
+   "disease_equal_ci": "includes 0"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "DDXPlus-test",
+   "k": 10,
+   "stratum": "all",
+   "n": 3000,
+   "diseases": 48,
+   "A_pct": 11.27,
+   "B_pct": 40.63,
+   "diff": 29.37,
+   "ci": [
+    27.5,
+    31.3
+   ],
+   "ci_cluster": [
+    16.49,
+    43.43
+   ],
+   "p_mcnemar": 2.6441008922638533e-178,
+   "only_A": 109,
+   "only_B": 990,
+   "disease_equal": {
+    "A": 10.79,
+    "B": 43.64,
+    "diff": 32.85,
+    "ci": [
+     21.29,
+     44.65
+    ],
+    "diseases": 48
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "DDXPlus-test",
+   "k": 10,
+   "stratum": "HPOA lineage covered",
+   "n": 1221,
+   "diseases": 20,
+   "A_pct": 23.26,
+   "B_pct": 46.52,
+   "diff": 23.26,
+   "ci": [
+    20.15,
+    26.86
+   ],
+   "ci_cluster": [
+    2.1,
+    44.56
+   ],
+   "p_mcnemar": 1.0874220216834065e-38,
+   "only_A": 109,
+   "only_B": 393,
+   "disease_equal": {
+    "A": 20.26,
+    "B": 50.16,
+    "diff": 29.9,
+    "ci": [
+     10.61,
+     49.89
+    ],
+    "diseases": 20
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "DDXPlus-test",
+   "k": 10,
+   "stratum": "HPOA lineage not covered",
+   "n": 1779,
+   "diseases": 28,
+   "A_pct": 3.04,
+   "B_pct": 36.59,
+   "diff": 33.56,
+   "ci": [
+    31.31,
+    35.86
+   ],
+   "ci_cluster": [
+    17.32,
+    51.01
+   ],
+   "p_mcnemar": 3.855871784164615e-180,
+   "only_A": 0,
+   "only_B": 597,
+   "disease_equal": {
+    "A": 4.03,
+    "B": 38.98,
+    "diff": 34.95,
+    "ci": [
+     21.32,
+     49.02
+    ],
+    "diseases": 28
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "DDXPlus-test",
+   "k": 10,
+   "stratum": "HPOA thickness 0",
+   "n": 2743,
+   "diseases": 42,
+   "A_pct": 11.08,
+   "B_pct": 41.01,
+   "diff": 29.93,
+   "ci": [
+    28.03,
+    31.86
+   ],
+   "ci_cluster": [
+    14.79,
+    45.77
+   ],
+   "p_mcnemar": 3.346302726778956e-170,
+   "only_A": 93,
+   "only_B": 914,
+   "disease_equal": {
+    "A": 10.87,
+    "B": 44.08,
+    "diff": 33.21,
+    "ci": [
+     21.39,
+     45.2
+    ],
+    "diseases": 42
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "DDXPlus-test",
+   "k": 10,
+   "stratum": "HPOA thickness 1-9",
+   "n": 70,
+   "diseases": 1,
+   "A_pct": 40.0,
+   "B_pct": 65.71,
+   "diff": 25.71,
+   "ci": [
+    10.0,
+    41.43
+   ],
+   "ci_cluster": [
+    25.71,
+    25.71
+   ],
+   "p_mcnemar": 0.0050976432976312935,
+   "only_A": 10,
+   "only_B": 28,
+   "disease_equal": {
+    "A": 40.0,
+    "B": 65.71,
+    "diff": 25.71,
+    "ci": [
+     25.71,
+     25.71
+    ],
+    "diseases": 1
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "DDXPlus-test",
+   "k": 10,
+   "stratum": "HPOA thickness >=30",
+   "n": 187,
+   "diseases": 5,
+   "A_pct": 3.21,
+   "B_pct": 25.67,
+   "diff": 22.46,
+   "ci": [
+    15.51,
+    28.88
+   ],
+   "ci_cluster": [
+    -7.69,
+    65.37
+   ],
+   "p_mcnemar": 3.256530156647841e-09,
+   "only_A": 6,
+   "only_B": 48,
+   "disease_equal": {
+    "A": 4.29,
+    "B": 35.52,
+    "diff": 31.23,
+    "ci": [
+     -8.57,
+     72.66
+    ],
+    "diseases": 5
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "includes 0",
+   "disease_equal_ci": "includes 0"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "DDXPlus-test",
+   "k": 10,
+   "stratum": "aux: PrimeKG lineage covered",
+   "n": 1458,
+   "diseases": 24,
+   "A_pct": 21.95,
+   "B_pct": 53.36,
+   "diff": 31.41,
+   "ci": [
+    28.6,
+    34.36
+   ],
+   "ci_cluster": [
+    11.15,
+    51.79
+   ],
+   "p_mcnemar": 1.5846864109860078e-75,
+   "only_A": 109,
+   "only_B": 567,
+   "disease_equal": {
+    "A": 20.48,
+    "B": 56.7,
+    "diff": 36.22,
+    "ci": [
+     17.88,
+     53.39
+    ],
+    "diseases": 24
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "DDXPlus-test",
+   "k": 10,
+   "stratum": "aux: PrimeKG lineage not covered",
+   "n": 1542,
+   "diseases": 24,
+   "A_pct": 1.17,
+   "B_pct": 28.6,
+   "diff": 27.43,
+   "ci": [
+    25.16,
+    29.77
+   ],
+   "ci_cluster": [
+    10.64,
+    45.36
+   ],
+   "p_mcnemar": 9.232978617785736e-128,
+   "only_A": 0,
+   "only_B": 423,
+   "disease_equal": {
+    "A": 1.1,
+    "B": 30.58,
+    "diff": 29.47,
+    "ci": [
+     15.73,
+     44.87
+    ],
+    "diseases": 24
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "DDXPlus-test",
+   "k": 1,
+   "stratum": "all",
+   "n": 3000,
+   "diseases": 48,
+   "A_pct": 4.27,
+   "B_pct": 11.77,
+   "diff": 7.5,
+   "ci": [
+    6.2,
+    8.83
+   ],
+   "ci_cluster": [
+    0.43,
+    15.47
+   ],
+   "p_mcnemar": 5.410615881811692e-27,
+   "only_A": 114,
+   "only_B": 339,
+   "disease_equal": {
+    "A": 4.52,
+    "B": 17.35,
+    "diff": 12.82,
+    "ci": [
+     3.67,
+     22.37
+    ],
+    "diseases": 48
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "DDXPlus-test",
+   "k": 1,
+   "stratum": "HPOA lineage covered",
+   "n": 1221,
+   "diseases": 20,
+   "A_pct": 8.35,
+   "B_pct": 13.02,
+   "diff": 4.67,
+   "ci": [
+    2.13,
+    7.21
+   ],
+   "ci_cluster": [
+    -6.91,
+    18.62
+   ],
+   "p_mcnemar": 0.0002586297472221085,
+   "only_A": 90,
+   "only_B": 147,
+   "disease_equal": {
+    "A": 7.74,
+    "B": 20.67,
+    "diff": 12.93,
+    "ci": [
+     -2.89,
+     30.98
+    ],
+    "diseases": 20
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "includes 0",
+   "disease_equal_ci": "includes 0"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "DDXPlus-test",
+   "k": 1,
+   "stratum": "HPOA lineage not covered",
+   "n": 1779,
+   "diseases": 28,
+   "A_pct": 1.46,
+   "B_pct": 10.91,
+   "diff": 9.44,
+   "ci": [
+    7.98,
+    11.07
+   ],
+   "ci_cluster": [
+    1.28,
+    19.38
+   ],
+   "p_mcnemar": 9.857720246445132e-34,
+   "only_A": 24,
+   "only_B": 192,
+   "disease_equal": {
+    "A": 2.23,
+    "B": 14.97,
+    "diff": 12.74,
+    "ci": [
+     2.05,
+     25.07
+    ],
+    "diseases": 28
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "DDXPlus-test",
+   "k": 1,
+   "stratum": "HPOA thickness 0",
+   "n": 2743,
+   "diseases": 42,
+   "A_pct": 4.12,
+   "B_pct": 11.85,
+   "diff": 7.73,
+   "ci": [
+    6.34,
+    9.19
+   ],
+   "ci_cluster": [
+    0.12,
+    16.15
+   ],
+   "p_mcnemar": 1.352121583558798e-26,
+   "only_A": 99,
+   "only_B": 311,
+   "disease_equal": {
+    "A": 4.46,
+    "B": 16.42,
+    "diff": 11.96,
+    "ci": [
+     2.18,
+     22.21
+    ],
+    "diseases": 42
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "DDXPlus-test",
+   "k": 1,
+   "stratum": "HPOA thickness 1-9",
+   "n": 70,
+   "diseases": 1,
+   "A_pct": 15.71,
+   "B_pct": 0.0,
+   "diff": -15.71,
+   "ci": [
+    -24.29,
+    -7.14
+   ],
+   "ci_cluster": [
+    -15.71,
+    -15.71
+   ],
+   "p_mcnemar": 0.0009765625,
+   "only_A": 11,
+   "only_B": 0,
+   "disease_equal": {
+    "A": 15.71,
+    "B": 0.0,
+    "diff": -15.71,
+    "ci": [
+     -15.71,
+     -15.71
+    ],
+    "diseases": 1
+   },
+   "patient_ci": "comparator higher",
+   "cluster_ci": "comparator higher",
+   "disease_equal_ci": "comparator higher"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "DDXPlus-test",
+   "k": 1,
+   "stratum": "HPOA thickness >=30",
+   "n": 187,
+   "diseases": 5,
+   "A_pct": 2.14,
+   "B_pct": 14.97,
+   "diff": 12.83,
+   "ci": [
+    7.49,
+    18.18
+   ],
+   "ci_cluster": [
+    -6.59,
+    37.33
+   ],
+   "p_mcnemar": 1.9301194697618484e-05,
+   "only_A": 4,
+   "only_B": 28,
+   "disease_equal": {
+    "A": 2.86,
+    "B": 28.62,
+    "diff": 25.76,
+    "ci": [
+     -5.71,
+     65.76
+    ],
+    "diseases": 5
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "includes 0",
+   "disease_equal_ci": "includes 0"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "DDXPlus-test",
+   "k": 1,
+   "stratum": "aux: PrimeKG lineage covered",
+   "n": 1458,
+   "diseases": 24,
+   "A_pct": 8.78,
+   "B_pct": 14.33,
+   "diff": 5.56,
+   "ci": [
+    3.16,
+    7.89
+   ],
+   "ci_cluster": [
+    -5.95,
+    19.53
+   ],
+   "p_mcnemar": 4.743101273837759e-06,
+   "only_A": 114,
+   "only_B": 195,
+   "disease_equal": {
+    "A": 9.05,
+    "B": 20.63,
+    "diff": 11.58,
+    "ci": [
+     -3.28,
+     27.22
+    ],
+    "diseases": 24
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "includes 0",
+   "disease_equal_ci": "includes 0"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "DDXPlus-test",
+   "k": 1,
+   "stratum": "aux: PrimeKG lineage not covered",
+   "n": 1542,
+   "diseases": 24,
+   "A_pct": 0.0,
+   "B_pct": 9.34,
+   "diff": 9.34,
+   "ci": [
+    7.85,
+    10.83
+   ],
+   "ci_cluster": [
+    2.06,
+    19.13
+   ],
+   "p_mcnemar": 8.96831017167883e-44,
+   "only_A": 0,
+   "only_B": 144,
+   "disease_equal": {
+    "A": 0.0,
+    "B": 14.06,
+    "diff": 14.06,
+    "ci": [
+     3.9,
+     25.88
+    ],
+    "diseases": 24
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "SymCat",
+   "k": 10,
+   "stratum": "all",
+   "n": 7481,
+   "diseases": 760,
+   "A_pct": 3.6,
+   "B_pct": 13.34,
+   "diff": 9.74,
+   "ci": [
+    8.98,
+    10.52
+   ],
+   "ci_cluster": [
+    8.06,
+    11.51
+   ],
+   "p_mcnemar": 2.3607293956774275e-131,
+   "only_A": 133,
+   "only_B": 862,
+   "disease_equal": {
+    "A": 3.68,
+    "B": 13.39,
+    "diff": 9.7,
+    "ci": [
+     8.12,
+     11.39
+    ],
+    "diseases": 760
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "SymCat",
+   "k": 10,
+   "stratum": "HPOA lineage covered",
+   "n": 2996,
+   "diseases": 322,
+   "A_pct": 8.71,
+   "B_pct": 17.62,
+   "diff": 8.91,
+   "ci": [
+    7.51,
+    10.35
+   ],
+   "ci_cluster": [
+    6.11,
+    11.79
+   ],
+   "p_mcnemar": 1.976166594357146e-32,
+   "only_A": 130,
+   "only_B": 397,
+   "disease_equal": {
+    "A": 8.44,
+    "B": 17.0,
+    "diff": 8.56,
+    "ci": [
+     5.88,
+     11.33
+    ],
+    "diseases": 322
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "SymCat",
+   "k": 10,
+   "stratum": "HPOA lineage not covered",
+   "n": 4485,
+   "diseases": 438,
+   "A_pct": 0.18,
+   "B_pct": 10.48,
+   "diff": 10.3,
+   "ci": [
+    9.39,
+    11.22
+   ],
+   "ci_cluster": [
+    8.18,
+    12.47
+   ],
+   "p_mcnemar": 4.483201649339548e-134,
+   "only_A": 3,
+   "only_B": 465,
+   "disease_equal": {
+    "A": 0.18,
+    "B": 10.73,
+    "diff": 10.55,
+    "ci": [
+     8.59,
+     12.78
+    ],
+    "diseases": 438
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "SymCat",
+   "k": 10,
+   "stratum": "HPOA thickness 0",
+   "n": 6332,
+   "diseases": 637,
+   "A_pct": 3.43,
+   "B_pct": 13.64,
+   "diff": 10.22,
+   "ci": [
+    9.35,
+    11.09
+   ],
+   "ci_cluster": [
+    8.42,
+    12.05
+   ],
+   "p_mcnemar": 6.91925207478823e-126,
+   "only_A": 93,
+   "only_B": 740,
+   "disease_equal": {
+    "A": 3.52,
+    "B": 13.79,
+    "diff": 10.28,
+    "ci": [
+     8.41,
+     12.11
+    ],
+    "diseases": 637
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "SymCat",
+   "k": 10,
+   "stratum": "HPOA thickness 1-9",
+   "n": 474,
+   "diseases": 52,
+   "A_pct": 7.38,
+   "B_pct": 18.35,
+   "diff": 10.97,
+   "ci": [
+    6.96,
+    15.19
+   ],
+   "ci_cluster": [
+    2.29,
+    19.8
+   ],
+   "p_mcnemar": 3.277703497138629e-07,
+   "only_A": 26,
+   "only_B": 78,
+   "disease_equal": {
+    "A": 7.2,
+    "B": 17.58,
+    "diff": 10.38,
+    "ci": [
+     1.57,
+     19.21
+    ],
+    "diseases": 52
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "SymCat",
+   "k": 10,
+   "stratum": "HPOA thickness 10-29",
+   "n": 251,
+   "diseases": 26,
+   "A_pct": 2.39,
+   "B_pct": 10.76,
+   "diff": 8.37,
+   "ci": [
+    4.38,
+    12.35
+   ],
+   "ci_cluster": [
+    0.81,
+    17.27
+   ],
+   "p_mcnemar": 0.00010371580719947815,
+   "only_A": 4,
+   "only_B": 25,
+   "disease_equal": {
+    "A": 2.31,
+    "B": 10.51,
+    "diff": 8.21,
+    "ci": [
+     0.77,
+     16.24
+    ],
+    "diseases": 26
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "SymCat",
+   "k": 10,
+   "stratum": "HPOA thickness >=30",
+   "n": 424,
+   "diseases": 45,
+   "A_pct": 2.59,
+   "B_pct": 4.72,
+   "diff": 2.12,
+   "ci": [
+    -0.24,
+    4.48
+   ],
+   "ci_cluster": [
+    -2.68,
+    8.02
+   ],
+   "p_mcnemar": 0.13604594767093658,
+   "only_A": 10,
+   "only_B": 19,
+   "disease_equal": {
+    "A": 2.73,
+    "B": 4.44,
+    "diff": 1.71,
+    "ci": [
+     -3.3,
+     7.87
+    ],
+    "diseases": 45
+   },
+   "patient_ci": "includes 0",
+   "cluster_ci": "includes 0",
+   "disease_equal_ci": "includes 0"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "SymCat",
+   "k": 1,
+   "stratum": "all",
+   "n": 7481,
+   "diseases": 760,
+   "A_pct": 0.75,
+   "B_pct": 2.51,
+   "diff": 1.76,
+   "ci": [
+    1.4,
+    2.17
+   ],
+   "ci_cluster": [
+    1.09,
+    2.52
+   ],
+   "p_mcnemar": 6.5537649671086365e-21,
+   "only_A": 39,
+   "only_B": 171,
+   "disease_equal": {
+    "A": 0.74,
+    "B": 2.44,
+    "diff": 1.7,
+    "ci": [
+     1.07,
+     2.39
+    ],
+    "diseases": 760
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "SymCat",
+   "k": 1,
+   "stratum": "HPOA lineage covered",
+   "n": 2996,
+   "diseases": 322,
+   "A_pct": 1.74,
+   "B_pct": 3.44,
+   "diff": 1.7,
+   "ci": [
+    1.0,
+    2.44
+   ],
+   "ci_cluster": [
+    0.53,
+    3.07
+   ],
+   "p_mcnemar": 4.004113903707686e-06,
+   "only_A": 35,
+   "only_B": 86,
+   "disease_equal": {
+    "A": 1.63,
+    "B": 3.23,
+    "diff": 1.6,
+    "ci": [
+     0.51,
+     2.86
+    ],
+    "diseases": 322
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "SymCat",
+   "k": 1,
+   "stratum": "HPOA lineage not covered",
+   "n": 4485,
+   "diseases": 438,
+   "A_pct": 0.09,
+   "B_pct": 1.9,
+   "diff": 1.81,
+   "ci": [
+    1.43,
+    2.23
+   ],
+   "ci_cluster": [
+    1.02,
+    2.65
+   ],
+   "p_mcnemar": 8.269208261418977e-21,
+   "only_A": 4,
+   "only_B": 85,
+   "disease_equal": {
+    "A": 0.09,
+    "B": 1.87,
+    "diff": 1.78,
+    "ci": [
+     1.06,
+     2.62
+    ],
+    "diseases": 438
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "SymCat",
+   "k": 1,
+   "stratum": "HPOA thickness 0",
+   "n": 6332,
+   "diseases": 637,
+   "A_pct": 0.82,
+   "B_pct": 2.72,
+   "diff": 1.9,
+   "ci": [
+    1.48,
+    2.32
+   ],
+   "ci_cluster": [
+    1.11,
+    2.76
+   ],
+   "p_mcnemar": 3.205114070563495e-19,
+   "only_A": 35,
+   "only_B": 155,
+   "disease_equal": {
+    "A": 0.82,
+    "B": 2.66,
+    "diff": 1.84,
+    "ci": [
+     1.11,
+     2.65
+    ],
+    "diseases": 637
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "SymCat",
+   "k": 1,
+   "stratum": "HPOA thickness 1-9",
+   "n": 474,
+   "diseases": 52,
+   "A_pct": 0.63,
+   "B_pct": 1.9,
+   "diff": 1.27,
+   "ci": [
+    0.0,
+    2.74
+   ],
+   "ci_cluster": [
+    -0.82,
+    4.0
+   ],
+   "p_mcnemar": 0.14599609375,
+   "only_A": 3,
+   "only_B": 9,
+   "disease_equal": {
+    "A": 0.58,
+    "B": 1.73,
+    "diff": 1.15,
+    "ci": [
+     -0.77,
+     3.65
+    ],
+    "diseases": 52
+   },
+   "patient_ci": "includes 0",
+   "cluster_ci": "includes 0",
+   "disease_equal_ci": "includes 0"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "SymCat",
+   "k": 1,
+   "stratum": "HPOA thickness 10-29",
+   "n": 251,
+   "diseases": 26,
+   "A_pct": 0.0,
+   "B_pct": 1.59,
+   "diff": 1.59,
+   "ci": [
+    0.4,
+    3.59
+   ],
+   "ci_cluster": [
+    0.0,
+    4.33
+   ],
+   "p_mcnemar": 0.125,
+   "only_A": 0,
+   "only_B": 4,
+   "disease_equal": {
+    "A": 0.0,
+    "B": 1.54,
+    "diff": 1.54,
+    "ci": [
+     0.0,
+     4.23
+    ],
+    "diseases": 26
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "includes 0",
+   "disease_equal_ci": "includes 0"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - HPOA",
+   "A": "HPOA",
+   "B": "S-mix",
+   "bench": "SymCat",
+   "k": 1,
+   "stratum": "HPOA thickness >=30",
+   "n": 424,
+   "diseases": 45,
+   "A_pct": 0.24,
+   "B_pct": 0.71,
+   "diff": 0.47,
+   "ci": [
+    -0.47,
+    1.42
+   ],
+   "ci_cluster": [
+    -0.47,
+    1.65
+   ],
+   "p_mcnemar": 0.625,
+   "only_A": 1,
+   "only_B": 3,
+   "disease_equal": {
+    "A": 0.22,
+    "B": 0.67,
+    "diff": 0.44,
+    "ci": [
+     -0.44,
+     1.56
+    ],
+    "diseases": 45
+   },
+   "patient_ci": "includes 0",
+   "cluster_ci": "includes 0",
+   "disease_equal_ci": "includes 0"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "SymCat",
+   "k": 10,
+   "stratum": "all",
+   "n": 7481,
+   "diseases": 760,
+   "A_pct": 5.56,
+   "B_pct": 13.34,
+   "diff": 7.78,
+   "ci": [
+    6.99,
+    8.6
+   ],
+   "ci_cluster": [
+    5.97,
+    9.64
+   ],
+   "p_mcnemar": 1.8917012721005977e-78,
+   "only_A": 219,
+   "only_B": 801,
+   "disease_equal": {
+    "A": 5.71,
+    "B": 13.39,
+    "diff": 7.68,
+    "ci": [
+     5.94,
+     9.54
+    ],
+    "diseases": 760
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "SymCat",
+   "k": 10,
+   "stratum": "HPOA lineage covered",
+   "n": 2996,
+   "diseases": 322,
+   "A_pct": 8.88,
+   "B_pct": 17.62,
+   "diff": 8.74,
+   "ci": [
+    7.31,
+    10.15
+   ],
+   "ci_cluster": [
+    5.93,
+    11.77
+   ],
+   "p_mcnemar": 2.8239035450138183e-33,
+   "only_A": 117,
+   "only_B": 379,
+   "disease_equal": {
+    "A": 8.7,
+    "B": 17.0,
+    "diff": 8.3,
+    "ci": [
+     5.64,
+     11.14
+    ],
+    "diseases": 322
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "SymCat",
+   "k": 10,
+   "stratum": "HPOA lineage not covered",
+   "n": 4485,
+   "diseases": 438,
+   "A_pct": 3.34,
+   "B_pct": 10.48,
+   "diff": 7.13,
+   "ci": [
+    6.13,
+    8.12
+   ],
+   "ci_cluster": [
+    4.89,
+    9.55
+   ],
+   "p_mcnemar": 3.121706868828435e-47,
+   "only_A": 102,
+   "only_B": 422,
+   "disease_equal": {
+    "A": 3.51,
+    "B": 10.73,
+    "diff": 7.22,
+    "ci": [
+     4.93,
+     9.56
+    ],
+    "diseases": 438
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "SymCat",
+   "k": 10,
+   "stratum": "HPOA thickness 0",
+   "n": 6332,
+   "diseases": 637,
+   "A_pct": 6.03,
+   "B_pct": 13.64,
+   "diff": 7.61,
+   "ci": [
+    6.71,
+    8.51
+   ],
+   "ci_cluster": [
+    5.63,
+    9.62
+   ],
+   "p_mcnemar": 5.314346785809405e-63,
+   "only_A": 195,
+   "only_B": 677,
+   "disease_equal": {
+    "A": 6.2,
+    "B": 13.79,
+    "diff": 7.6,
+    "ci": [
+     5.61,
+     9.56
+    ],
+    "diseases": 637
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "SymCat",
+   "k": 10,
+   "stratum": "HPOA thickness 1-9",
+   "n": 474,
+   "diseases": 52,
+   "A_pct": 5.91,
+   "B_pct": 18.35,
+   "diff": 12.45,
+   "ci": [
+    8.65,
+    16.24
+   ],
+   "ci_cluster": [
+    4.27,
+    21.17
+   ],
+   "p_mcnemar": 1.7924150285414482e-09,
+   "only_A": 20,
+   "only_B": 79,
+   "disease_equal": {
+    "A": 6.36,
+    "B": 17.58,
+    "diff": 11.22,
+    "ci": [
+     2.12,
+     20.46
+    ],
+    "diseases": 52
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "SymCat",
+   "k": 10,
+   "stratum": "HPOA thickness 10-29",
+   "n": 251,
+   "diseases": 26,
+   "A_pct": 1.99,
+   "B_pct": 10.76,
+   "diff": 8.76,
+   "ci": [
+    4.78,
+    12.75
+   ],
+   "ci_cluster": [
+    1.2,
+    17.93
+   ],
+   "p_mcnemar": 2.744048833847046e-05,
+   "only_A": 3,
+   "only_B": 25,
+   "disease_equal": {
+    "A": 1.92,
+    "B": 10.51,
+    "diff": 8.59,
+    "ci": [
+     0.85,
+     17.09
+    ],
+    "diseases": 26
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "SymCat",
+   "k": 10,
+   "stratum": "HPOA thickness >=30",
+   "n": 424,
+   "diseases": 45,
+   "A_pct": 0.24,
+   "B_pct": 4.72,
+   "diff": 4.48,
+   "ci": [
+    2.59,
+    6.6
+   ],
+   "ci_cluster": [
+    0.48,
+    9.98
+   ],
+   "p_mcnemar": 2.09808349609375e-05,
+   "only_A": 1,
+   "only_B": 20,
+   "disease_equal": {
+    "A": 0.22,
+    "B": 4.44,
+    "diff": 4.22,
+    "ci": [
+     0.44,
+     9.56
+    ],
+    "diseases": 45
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "SymCat",
+   "k": 10,
+   "stratum": "aux: PrimeKG lineage covered",
+   "n": 3401,
+   "diseases": 362,
+   "A_pct": 8.26,
+   "B_pct": 18.79,
+   "diff": 10.53,
+   "ci": [
+    9.2,
+    11.94
+   ],
+   "ci_cluster": [
+    7.85,
+    13.38
+   ],
+   "p_mcnemar": 1.4431429292446807e-50,
+   "only_A": 125,
+   "only_B": 483,
+   "disease_equal": {
+    "A": 8.15,
+    "B": 18.22,
+    "diff": 10.07,
+    "ci": [
+     7.36,
+     12.92
+    ],
+    "diseases": 362
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "SymCat",
+   "k": 10,
+   "stratum": "aux: PrimeKG lineage not covered",
+   "n": 4080,
+   "diseases": 398,
+   "A_pct": 3.31,
+   "B_pct": 8.8,
+   "diff": 5.49,
+   "ci": [
+    4.51,
+    6.47
+   ],
+   "ci_cluster": [
+    3.22,
+    7.87
+   ],
+   "p_mcnemar": 1.546109175053018e-29,
+   "only_A": 94,
+   "only_B": 318,
+   "disease_equal": {
+    "A": 3.49,
+    "B": 8.99,
+    "diff": 5.5,
+    "ci": [
+     3.3,
+     7.73
+    ],
+    "diseases": 398
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "SymCat",
+   "k": 1,
+   "stratum": "all",
+   "n": 7481,
+   "diseases": 760,
+   "A_pct": 2.02,
+   "B_pct": 2.51,
+   "diff": 0.49,
+   "ci": [
+    0.05,
+    0.96
+   ],
+   "ci_cluster": [
+    -0.39,
+    1.43
+   ],
+   "p_mcnemar": 0.03717136190072113,
+   "only_A": 131,
+   "only_B": 168,
+   "disease_equal": {
+    "A": 2.1,
+    "B": 2.44,
+    "diff": 0.35,
+    "ci": [
+     -0.57,
+     1.28
+    ],
+    "diseases": 760
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "includes 0",
+   "disease_equal_ci": "includes 0"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "SymCat",
+   "k": 1,
+   "stratum": "HPOA lineage covered",
+   "n": 2996,
+   "diseases": 322,
+   "A_pct": 2.74,
+   "B_pct": 3.44,
+   "diff": 0.7,
+   "ci": [
+    -0.1,
+    1.54
+   ],
+   "ci_cluster": [
+    -0.88,
+    2.35
+   ],
+   "p_mcnemar": 0.10559187713001073,
+   "only_A": 66,
+   "only_B": 87,
+   "disease_equal": {
+    "A": 2.74,
+    "B": 3.23,
+    "diff": 0.49,
+    "ci": [
+     -1.06,
+     1.98
+    ],
+    "diseases": 322
+   },
+   "patient_ci": "includes 0",
+   "cluster_ci": "includes 0",
+   "disease_equal_ci": "includes 0"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "SymCat",
+   "k": 1,
+   "stratum": "HPOA lineage not covered",
+   "n": 4485,
+   "diseases": 438,
+   "A_pct": 1.54,
+   "B_pct": 1.9,
+   "diff": 0.36,
+   "ci": [
+    -0.16,
+    0.91
+   ],
+   "ci_cluster": [
+    -0.69,
+    1.42
+   ],
+   "p_mcnemar": 0.21431491737771186,
+   "only_A": 65,
+   "only_B": 81,
+   "disease_equal": {
+    "A": 1.62,
+    "B": 1.87,
+    "diff": 0.25,
+    "ci": [
+     -0.81,
+     1.32
+    ],
+    "diseases": 438
+   },
+   "patient_ci": "includes 0",
+   "cluster_ci": "includes 0",
+   "disease_equal_ci": "includes 0"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "SymCat",
+   "k": 1,
+   "stratum": "HPOA thickness 0",
+   "n": 6332,
+   "diseases": 637,
+   "A_pct": 2.26,
+   "B_pct": 2.72,
+   "diff": 0.46,
+   "ci": [
+    -0.06,
+    0.96
+   ],
+   "ci_cluster": [
+    -0.54,
+    1.51
+   ],
+   "p_mcnemar": 0.09114048688971822,
+   "only_A": 123,
+   "only_B": 152,
+   "disease_equal": {
+    "A": 2.33,
+    "B": 2.66,
+    "diff": 0.33,
+    "ci": [
+     -0.67,
+     1.35
+    ],
+    "diseases": 637
+   },
+   "patient_ci": "includes 0",
+   "cluster_ci": "includes 0",
+   "disease_equal_ci": "includes 0"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "SymCat",
+   "k": 1,
+   "stratum": "HPOA thickness 1-9",
+   "n": 474,
+   "diseases": 52,
+   "A_pct": 1.69,
+   "B_pct": 1.9,
+   "diff": 0.21,
+   "ci": [
+    -1.48,
+    1.9
+   ],
+   "ci_cluster": [
+    -3.31,
+    3.46
+   ],
+   "p_mcnemar": 1.0,
+   "only_A": 8,
+   "only_B": 9,
+   "disease_equal": {
+    "A": 2.03,
+    "B": 1.73,
+    "diff": -0.3,
+    "ci": [
+     -4.75,
+     3.08
+    ],
+    "diseases": 52
+   },
+   "patient_ci": "includes 0",
+   "cluster_ci": "includes 0",
+   "disease_equal_ci": "includes 0"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "SymCat",
+   "k": 1,
+   "stratum": "HPOA thickness 10-29",
+   "n": 251,
+   "diseases": 26,
+   "A_pct": 0.0,
+   "B_pct": 1.59,
+   "diff": 1.59,
+   "ci": [
+    0.4,
+    3.59
+   ],
+   "ci_cluster": [
+    0.0,
+    4.33
+   ],
+   "p_mcnemar": 0.125,
+   "only_A": 0,
+   "only_B": 4,
+   "disease_equal": {
+    "A": 0.0,
+    "B": 1.54,
+    "diff": 1.54,
+    "ci": [
+     0.0,
+     4.23
+    ],
+    "diseases": 26
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "includes 0",
+   "disease_equal_ci": "includes 0"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "SymCat",
+   "k": 1,
+   "stratum": "HPOA thickness >=30",
+   "n": 424,
+   "diseases": 45,
+   "A_pct": 0.0,
+   "B_pct": 0.71,
+   "diff": 0.71,
+   "ci": [
+    0.0,
+    1.65
+   ],
+   "ci_cluster": [
+    0.0,
+    1.86
+   ],
+   "p_mcnemar": 0.25,
+   "only_A": 0,
+   "only_B": 3,
+   "disease_equal": {
+    "A": 0.0,
+    "B": 0.67,
+    "diff": 0.67,
+    "ci": [
+     0.0,
+     2.0
+    ],
+    "diseases": 45
+   },
+   "patient_ci": "includes 0",
+   "cluster_ci": "includes 0",
+   "disease_equal_ci": "includes 0"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "SymCat",
+   "k": 1,
+   "stratum": "aux: PrimeKG lineage covered",
+   "n": 3401,
+   "diseases": 362,
+   "A_pct": 2.68,
+   "B_pct": 3.59,
+   "diff": 0.91,
+   "ci": [
+    0.15,
+    1.65
+   ],
+   "ci_cluster": [
+    -0.68,
+    2.49
+   ],
+   "p_mcnemar": 0.025483292434829635,
+   "only_A": 75,
+   "only_B": 106,
+   "disease_equal": {
+    "A": 2.69,
+    "B": 3.41,
+    "diff": 0.72,
+    "ci": [
+     -0.77,
+     2.24
+    ],
+    "diseases": 362
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "includes 0",
+   "disease_equal_ci": "includes 0"
+  },
+  {
+   "part": "development (reference)",
+   "comparison": "S-mix - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-mix",
+   "bench": "SymCat",
+   "k": 1,
+   "stratum": "aux: PrimeKG lineage not covered",
+   "n": 4080,
+   "diseases": 398,
+   "A_pct": 1.47,
+   "B_pct": 1.62,
+   "diff": 0.15,
+   "ci": [
+    -0.39,
+    0.69
+   ],
+   "ci_cluster": [
+    -0.9,
+    1.22
+   ],
+   "p_mcnemar": 0.6454967635578217,
+   "only_A": 56,
+   "only_B": 62,
+   "disease_equal": {
+    "A": 1.56,
+    "B": 1.56,
+    "diff": 0.01,
+    "ci": [
+     -1.08,
+     1.07
+    ],
+    "diseases": 398
+   },
+   "patient_ci": "includes 0",
+   "cluster_ci": "includes 0",
+   "disease_equal_ci": "includes 0"
+  }
+ ],
+ "macro_E": [
+  {
+   "comparison": "S-mix - HPOA",
+   "k": 10,
+   "sets": [
+    "ConfirmE-DDXPlus",
+    "ConfirmE-SymCat"
+   ],
+   "A": 7.07,
+   "B": 26.99,
+   "diff": 19.92,
+   "ci_patient_stratified": [
+    18.87,
+    20.97
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "S-mix - HPOA",
+   "k": 1,
+   "sets": [
+    "ConfirmE-DDXPlus",
+    "ConfirmE-SymCat"
+   ],
+   "A": 1.33,
+   "B": 7.44,
+   "diff": 6.12,
+   "ci_patient_stratified": [
+    5.45,
+    6.78
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "S-mix - PrimeKG",
+   "k": 10,
+   "sets": [
+    "ConfirmE-DDXPlus",
+    "ConfirmE-SymCat"
+   ],
+   "A": 8.57,
+   "B": 26.99,
+   "diff": 18.42,
+   "ci_patient_stratified": [
+    17.36,
+    19.49
+   ],
+   "p_bootstrap": 0.0
+  },
+  {
+   "comparison": "S-mix - PrimeKG",
+   "k": 1,
+   "sets": [
+    "ConfirmE-DDXPlus",
+    "ConfirmE-SymCat"
+   ],
+   "A": 3.0,
+   "B": 7.44,
+   "diff": 4.44,
+   "ci_patient_stratified": [
+    3.69,
+    5.17
+   ],
+   "p_bootstrap": 0.0
+  }
+ ],
+ "auxiliary": [
+  {
+   "part": "confirmation E [post hoc] auxiliary",
+   "comparison": "S-dict - HPOA",
+   "A": "HPOA",
+   "B": "S-dict",
+   "bench": "ConfirmE-DDXPlus",
+   "k": 10,
+   "stratum": "all",
+   "n": 3000,
+   "diseases": 49,
+   "A_pct": 10.37,
+   "B_pct": 43.5,
+   "diff": 33.13,
+   "ci": [
+    31.17,
+    35.1
+   ],
+   "ci_cluster": [
+    20.37,
+    46.14
+   ],
+   "p_mcnemar": 2.0416459757835963e-210,
+   "only_A": 103,
+   "only_B": 1097,
+   "disease_equal": {
+    "A": 10.43,
+    "B": 45.67,
+    "diff": 35.24,
+    "ci": [
+     23.44,
+     47.09
+    ],
+    "diseases": 49
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc] auxiliary",
+   "comparison": "S-dict - HPOA",
+   "A": "HPOA",
+   "B": "S-dict",
+   "bench": "ConfirmE-SymCat",
+   "k": 10,
+   "stratum": "all",
+   "n": 7463,
+   "diseases": 760,
+   "A_pct": 3.78,
+   "B_pct": 14.08,
+   "diff": 10.3,
+   "ci": [
+    9.47,
+    11.08
+   ],
+   "ci_cluster": [
+    8.42,
+    12.2
+   ],
+   "p_mcnemar": 6.290092197562689e-137,
+   "only_A": 145,
+   "only_B": 914,
+   "disease_equal": {
+    "A": 3.79,
+    "B": 13.87,
+    "diff": 10.08,
+    "ci": [
+     8.4,
+     11.94
+    ],
+    "diseases": 760
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc] auxiliary",
+   "comparison": "S-dict - HPOA",
+   "A": "HPOA",
+   "B": "S-dict",
+   "bench": "ConfirmE-DDXPlus",
+   "k": 1,
+   "stratum": "all",
+   "n": 3000,
+   "diseases": 49,
+   "A_pct": 1.9,
+   "B_pct": 17.63,
+   "diff": 15.73,
+   "ci": [
+    14.33,
+    17.2
+   ],
+   "ci_cluster": [
+    7.98,
+    24.6
+   ],
+   "p_mcnemar": 1.4843817456864214e-111,
+   "only_A": 30,
+   "only_B": 502,
+   "disease_equal": {
+    "A": 2.19,
+    "B": 19.83,
+    "diff": 17.65,
+    "ci": [
+     9.62,
+     26.61
+    ],
+    "diseases": 49
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc] auxiliary",
+   "comparison": "S-dict - HPOA",
+   "A": "HPOA",
+   "B": "S-dict",
+   "bench": "ConfirmE-SymCat",
+   "k": 1,
+   "stratum": "all",
+   "n": 7463,
+   "diseases": 760,
+   "A_pct": 0.75,
+   "B_pct": 3.12,
+   "diff": 2.37,
+   "ci": [
+    1.96,
+    2.77
+   ],
+   "ci_cluster": [
+    1.63,
+    3.18
+   ],
+   "p_mcnemar": 2.2700137413451268e-33,
+   "only_A": 31,
+   "only_B": 208,
+   "disease_equal": {
+    "A": 0.75,
+    "B": 3.02,
+    "diff": 2.27,
+    "ci": [
+     1.57,
+     3.02
+    ],
+    "diseases": 760
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc] auxiliary",
+   "comparison": "S-dict - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-dict",
+   "bench": "ConfirmE-DDXPlus",
+   "k": 10,
+   "stratum": "all",
+   "n": 3000,
+   "diseases": 49,
+   "A_pct": 11.33,
+   "B_pct": 43.5,
+   "diff": 32.17,
+   "ci": [
+    30.37,
+    34.03
+   ],
+   "ci_cluster": [
+    19.78,
+    45.18
+   ],
+   "p_mcnemar": 8.26656328874393e-217,
+   "only_A": 77,
+   "only_B": 1042,
+   "disease_equal": {
+    "A": 10.42,
+    "B": 45.67,
+    "diff": 35.26,
+    "ci": [
+     24.02,
+     46.8
+    ],
+    "diseases": 49
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc] auxiliary",
+   "comparison": "S-dict - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-dict",
+   "bench": "ConfirmE-SymCat",
+   "k": 10,
+   "stratum": "all",
+   "n": 7463,
+   "diseases": 760,
+   "A_pct": 5.82,
+   "B_pct": 14.08,
+   "diff": 8.27,
+   "ci": [
+    7.46,
+    9.02
+   ],
+   "ci_cluster": [
+    6.41,
+    10.09
+   ],
+   "p_mcnemar": 2.636285606645189e-94,
+   "only_A": 175,
+   "only_B": 792,
+   "disease_equal": {
+    "A": 5.8,
+    "B": 13.87,
+    "diff": 8.07,
+    "ci": [
+     6.4,
+     9.91
+    ],
+    "diseases": 760
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc] auxiliary",
+   "comparison": "S-dict - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-dict",
+   "bench": "ConfirmE-DDXPlus",
+   "k": 1,
+   "stratum": "all",
+   "n": 3000,
+   "diseases": 49,
+   "A_pct": 3.83,
+   "B_pct": 17.63,
+   "diff": 13.8,
+   "ci": [
+    12.33,
+    15.3
+   ],
+   "ci_cluster": [
+    6.06,
+    22.53
+   ],
+   "p_mcnemar": 1.3886966344450899e-78,
+   "only_A": 66,
+   "only_B": 480,
+   "disease_equal": {
+    "A": 3.92,
+    "B": 19.83,
+    "diff": 15.92,
+    "ci": [
+     7.98,
+     24.52
+    ],
+    "diseases": 49
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc] auxiliary",
+   "comparison": "S-dict - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-dict",
+   "bench": "ConfirmE-SymCat",
+   "k": 1,
+   "stratum": "all",
+   "n": 7463,
+   "diseases": 760,
+   "A_pct": 2.17,
+   "B_pct": 3.12,
+   "diff": 0.95,
+   "ci": [
+    0.52,
+    1.37
+   ],
+   "ci_cluster": [
+    0.07,
+    1.86
+   ],
+   "p_mcnemar": 2.5310921823717863e-05,
+   "only_A": 104,
+   "only_B": 175,
+   "disease_equal": {
+    "A": 2.17,
+    "B": 3.02,
+    "diff": 0.85,
+    "ci": [
+     -0.03,
+     1.74
+    ],
+    "diseases": 760
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "includes 0"
+  },
+  {
+   "part": "confirmation E [post hoc] auxiliary",
+   "comparison": "S-D - HPOA",
+   "A": "HPOA",
+   "B": "S-D",
+   "bench": "ConfirmE-DDXPlus",
+   "k": 10,
+   "stratum": "all",
+   "n": 3000,
+   "diseases": 49,
+   "A_pct": 10.37,
+   "B_pct": 34.53,
+   "diff": 24.17,
+   "ci": [
+    22.33,
+    26.13
+   ],
+   "ci_cluster": [
+    14.2,
+    35.09
+   ],
+   "p_mcnemar": 6.861866063674108e-135,
+   "only_A": 120,
+   "only_B": 845,
+   "disease_equal": {
+    "A": 10.43,
+    "B": 40.01,
+    "diff": 29.58,
+    "ci": [
+     18.37,
+     40.77
+    ],
+    "diseases": 49
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc] auxiliary",
+   "comparison": "S-D - HPOA",
+   "A": "HPOA",
+   "B": "S-D",
+   "bench": "ConfirmE-SymCat",
+   "k": 10,
+   "stratum": "all",
+   "n": 7463,
+   "diseases": 760,
+   "A_pct": 3.78,
+   "B_pct": 10.49,
+   "diff": 6.71,
+   "ci": [
+    6.02,
+    7.42
+   ],
+   "ci_cluster": [
+    5.18,
+    8.29
+   ],
+   "p_mcnemar": 3.229761967693489e-76,
+   "only_A": 145,
+   "only_B": 646,
+   "disease_equal": {
+    "A": 3.79,
+    "B": 10.39,
+    "diff": 6.59,
+    "ci": [
+     5.1,
+     8.15
+    ],
+    "diseases": 760
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc] auxiliary",
+   "comparison": "S-D - HPOA",
+   "A": "HPOA",
+   "B": "S-D",
+   "bench": "ConfirmE-DDXPlus",
+   "k": 1,
+   "stratum": "all",
+   "n": 3000,
+   "diseases": 49,
+   "A_pct": 1.9,
+   "B_pct": 11.73,
+   "diff": 9.83,
+   "ci": [
+    8.7,
+    11.0
+   ],
+   "ci_cluster": [
+    3.43,
+    17.57
+   ],
+   "p_mcnemar": 2.3570037199431434e-74,
+   "only_A": 13,
+   "only_B": 308,
+   "disease_equal": {
+    "A": 2.19,
+    "B": 15.39,
+    "diff": 13.2,
+    "ci": [
+     5.57,
+     22.11
+    ],
+    "diseases": 49
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc] auxiliary",
+   "comparison": "S-D - HPOA",
+   "A": "HPOA",
+   "B": "S-D",
+   "bench": "ConfirmE-SymCat",
+   "k": 1,
+   "stratum": "all",
+   "n": 7463,
+   "diseases": 760,
+   "A_pct": 0.75,
+   "B_pct": 3.23,
+   "diff": 2.48,
+   "ci": [
+    2.08,
+    2.89
+   ],
+   "ci_cluster": [
+    1.61,
+    3.43
+   ],
+   "p_mcnemar": 2.75573847849879e-34,
+   "only_A": 34,
+   "only_B": 219,
+   "disease_equal": {
+    "A": 0.75,
+    "B": 3.04,
+    "diff": 2.29,
+    "ci": [
+     1.53,
+     3.11
+    ],
+    "diseases": 760
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc] auxiliary",
+   "comparison": "S-D - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-D",
+   "bench": "ConfirmE-DDXPlus",
+   "k": 10,
+   "stratum": "all",
+   "n": 3000,
+   "diseases": 49,
+   "A_pct": 11.33,
+   "B_pct": 34.53,
+   "diff": 23.2,
+   "ci": [
+    21.4,
+    25.07
+   ],
+   "ci_cluster": [
+    13.37,
+    34.23
+   ],
+   "p_mcnemar": 7.792767559574776e-132,
+   "only_A": 109,
+   "only_B": 805,
+   "disease_equal": {
+    "A": 10.42,
+    "B": 40.01,
+    "diff": 29.59,
+    "ci": [
+     18.69,
+     40.63
+    ],
+    "diseases": 49
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc] auxiliary",
+   "comparison": "S-D - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-D",
+   "bench": "ConfirmE-SymCat",
+   "k": 10,
+   "stratum": "all",
+   "n": 7463,
+   "diseases": 760,
+   "A_pct": 5.82,
+   "B_pct": 10.49,
+   "diff": 4.68,
+   "ci": [
+    4.01,
+    5.39
+   ],
+   "ci_cluster": [
+    3.28,
+    6.19
+   ],
+   "p_mcnemar": 5.571898297803602e-40,
+   "only_A": 186,
+   "only_B": 535,
+   "disease_equal": {
+    "A": 5.8,
+    "B": 10.39,
+    "diff": 4.58,
+    "ci": [
+     3.17,
+     6.04
+    ],
+    "diseases": 760
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc] auxiliary",
+   "comparison": "S-D - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-D",
+   "bench": "ConfirmE-DDXPlus",
+   "k": 1,
+   "stratum": "all",
+   "n": 3000,
+   "diseases": 49,
+   "A_pct": 3.83,
+   "B_pct": 11.73,
+   "diff": 7.9,
+   "ci": [
+    6.63,
+    9.07
+   ],
+   "ci_cluster": [
+    1.58,
+    15.48
+   ],
+   "p_mcnemar": 1.0788129823545553e-40,
+   "only_A": 53,
+   "only_B": 290,
+   "disease_equal": {
+    "A": 3.92,
+    "B": 15.39,
+    "diff": 11.47,
+    "ci": [
+     3.6,
+     20.35
+    ],
+    "diseases": 49
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc] auxiliary",
+   "comparison": "S-D - PrimeKG",
+   "A": "PrimeKG",
+   "B": "S-D",
+   "bench": "ConfirmE-SymCat",
+   "k": 1,
+   "stratum": "all",
+   "n": 7463,
+   "diseases": 760,
+   "A_pct": 2.17,
+   "B_pct": 3.23,
+   "diff": 1.06,
+   "ci": [
+    0.64,
+    1.46
+   ],
+   "ci_cluster": [
+    0.26,
+    1.94
+   ],
+   "p_mcnemar": 1.045042924695378e-06,
+   "only_A": 90,
+   "only_B": 169,
+   "disease_equal": {
+    "A": 2.17,
+    "B": 3.04,
+    "diff": 0.86,
+    "ci": [
+     0.1,
+     1.62
+    ],
+    "diseases": 760
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc] auxiliary",
+   "comparison": "pure-dict - HPOA",
+   "A": "HPOA",
+   "B": "pure-dict",
+   "bench": "ConfirmE-DDXPlus",
+   "k": 10,
+   "stratum": "all",
+   "n": 3000,
+   "diseases": 49,
+   "A_pct": 10.37,
+   "B_pct": 40.4,
+   "diff": 30.03,
+   "ci": [
+    28.03,
+    32.07
+   ],
+   "ci_cluster": [
+    17.53,
+    43.55
+   ],
+   "p_mcnemar": 8.957979642787346e-178,
+   "only_A": 122,
+   "only_B": 1023,
+   "disease_equal": {
+    "A": 10.43,
+    "B": 43.73,
+    "diff": 33.29,
+    "ci": [
+     21.71,
+     44.99
+    ],
+    "diseases": 49
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc] auxiliary",
+   "comparison": "pure-dict - HPOA",
+   "A": "HPOA",
+   "B": "pure-dict",
+   "bench": "ConfirmE-SymCat",
+   "k": 10,
+   "stratum": "all",
+   "n": 7463,
+   "diseases": 760,
+   "A_pct": 3.78,
+   "B_pct": 14.0,
+   "diff": 10.22,
+   "ci": [
+    9.41,
+    11.01
+   ],
+   "ci_cluster": [
+    8.27,
+    12.13
+   ],
+   "p_mcnemar": 1.5139206665601172e-134,
+   "only_A": 148,
+   "only_B": 911,
+   "disease_equal": {
+    "A": 3.79,
+    "B": 13.78,
+    "diff": 9.99,
+    "ci": [
+     8.32,
+     11.85
+    ],
+    "diseases": 760
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc] auxiliary",
+   "comparison": "pure-dict - HPOA",
+   "A": "HPOA",
+   "B": "pure-dict",
+   "bench": "ConfirmE-DDXPlus",
+   "k": 1,
+   "stratum": "all",
+   "n": 3000,
+   "diseases": 49,
+   "A_pct": 1.9,
+   "B_pct": 16.1,
+   "diff": 14.2,
+   "ci": [
+    12.83,
+    15.63
+   ],
+   "ci_cluster": [
+    6.81,
+    23.3
+   ],
+   "p_mcnemar": 6.433684566404458e-99,
+   "only_A": 30,
+   "only_B": 456,
+   "disease_equal": {
+    "A": 2.19,
+    "B": 21.28,
+    "diff": 19.09,
+    "ci": [
+     10.5,
+     28.65
+    ],
+    "diseases": 49
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc] auxiliary",
+   "comparison": "pure-dict - HPOA",
+   "A": "HPOA",
+   "B": "pure-dict",
+   "bench": "ConfirmE-SymCat",
+   "k": 1,
+   "stratum": "all",
+   "n": 7463,
+   "diseases": 760,
+   "A_pct": 0.75,
+   "B_pct": 3.22,
+   "diff": 2.47,
+   "ci": [
+    2.06,
+    2.88
+   ],
+   "ci_cluster": [
+    1.71,
+    3.28
+   ],
+   "p_mcnemar": 4.5849682377567176e-35,
+   "only_A": 31,
+   "only_B": 215,
+   "disease_equal": {
+    "A": 0.75,
+    "B": 3.14,
+    "diff": 2.39,
+    "ci": [
+     1.67,
+     3.16
+    ],
+    "diseases": 760
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc] auxiliary",
+   "comparison": "pure-dict - PrimeKG",
+   "A": "PrimeKG",
+   "B": "pure-dict",
+   "bench": "ConfirmE-DDXPlus",
+   "k": 10,
+   "stratum": "all",
+   "n": 3000,
+   "diseases": 49,
+   "A_pct": 11.33,
+   "B_pct": 40.4,
+   "diff": 29.07,
+   "ci": [
+    27.13,
+    30.97
+   ],
+   "ci_cluster": [
+    16.3,
+    43.04
+   ],
+   "p_mcnemar": 3.9927102038362544e-175,
+   "only_A": 111,
+   "only_B": 983,
+   "disease_equal": {
+    "A": 10.42,
+    "B": 43.73,
+    "diff": 33.31,
+    "ci": [
+     22.23,
+     44.93
+    ],
+    "diseases": 49
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc] auxiliary",
+   "comparison": "pure-dict - PrimeKG",
+   "A": "PrimeKG",
+   "B": "pure-dict",
+   "bench": "ConfirmE-SymCat",
+   "k": 10,
+   "stratum": "all",
+   "n": 7463,
+   "diseases": 760,
+   "A_pct": 5.82,
+   "B_pct": 14.0,
+   "diff": 8.19,
+   "ci": [
+    7.37,
+    8.95
+   ],
+   "ci_cluster": [
+    6.32,
+    10.07
+   ],
+   "p_mcnemar": 3.0295543379387644e-93,
+   "only_A": 174,
+   "only_B": 785,
+   "disease_equal": {
+    "A": 5.8,
+    "B": 13.78,
+    "diff": 7.98,
+    "ci": [
+     6.27,
+     9.84
+    ],
+    "diseases": 760
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc] auxiliary",
+   "comparison": "pure-dict - PrimeKG",
+   "A": "PrimeKG",
+   "B": "pure-dict",
+   "bench": "ConfirmE-DDXPlus",
+   "k": 1,
+   "stratum": "all",
+   "n": 3000,
+   "diseases": 49,
+   "A_pct": 3.83,
+   "B_pct": 16.1,
+   "diff": 12.27,
+   "ci": [
+    10.9,
+    13.7
+   ],
+   "ci_cluster": [
+    4.69,
+    21.47
+   ],
+   "p_mcnemar": 1.977053733020702e-66,
+   "only_A": 69,
+   "only_B": 437,
+   "disease_equal": {
+    "A": 3.92,
+    "B": 21.28,
+    "diff": 17.36,
+    "ci": [
+     8.96,
+     26.77
+    ],
+    "diseases": 49
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  },
+  {
+   "part": "confirmation E [post hoc] auxiliary",
+   "comparison": "pure-dict - PrimeKG",
+   "A": "PrimeKG",
+   "B": "pure-dict",
+   "bench": "ConfirmE-SymCat",
+   "k": 1,
+   "stratum": "all",
+   "n": 7463,
+   "diseases": 760,
+   "A_pct": 2.17,
+   "B_pct": 3.22,
+   "diff": 1.05,
+   "ci": [
+    0.62,
+    1.5
+   ],
+   "ci_cluster": [
+    0.18,
+    1.92
+   ],
+   "p_mcnemar": 4.649907034736601e-06,
+   "only_A": 104,
+   "only_B": 182,
+   "disease_equal": {
+    "A": 2.17,
+    "B": 3.14,
+    "diff": 0.97,
+    "ci": [
+     0.07,
+     1.85
+    ],
+    "diseases": 760
+   },
+   "patient_ci": "S-mix higher",
+   "cluster_ci": "S-mix higher",
+   "disease_equal_ci": "S-mix higher"
+  }
+ ]
+}
