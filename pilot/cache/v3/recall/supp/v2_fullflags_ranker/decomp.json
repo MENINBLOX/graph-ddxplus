@@ -1,0 +1,178 @@
+{
+ "args": {
+  "ie": "pilot/cache/v2/ie_gemma_full.jsonl",
+  "table": "pilot/cache/v2/phrase2cui_gemma.json",
+  "sources": "pilot/cache/v2/sources",
+  "link": "full",
+  "topic_genes": true,
+  "no_self": true,
+  "phrases": "",
+  "feature_cui": "ranker",
+  "offtopic_w": 0.0,
+  "out": "/tmp/claude-1000/-home-max-thesis/edda7dda-7b76-45bb-a79a-ce62d7e31a1b/scratchpad/rk/v2_fullflags_ranker/decomp.json"
+ },
+ "triples": 82751,
+ "pairs": 22626,
+ "diseases": 878,
+ "by_triple": {
+  "no_cui": [
+   393,
+   0.5
+  ],
+  "no_docs": [
+   17978,
+   21.7
+  ],
+  "not_in_text": [
+   35262,
+   42.6
+  ],
+  "not_extracted": [
+   1690,
+   2.0
+  ],
+  "not_linked": [
+   1546,
+   1.9
+  ],
+  "filtered": [
+   3897,
+   4.7
+  ],
+  "near_child": [
+   591,
+   0.7
+  ],
+  "near_offtopic": [
+   756,
+   0.9
+  ],
+  "offtopic_only": [
+   3772,
+   4.6
+  ],
+  "near": [
+   1865,
+   2.3
+  ],
+  "edge": [
+   15001,
+   18.1
+  ]
+ },
+ "by_pair": {
+  "no_cui": [
+   155,
+   0.7
+  ],
+  "no_docs": [
+   7036,
+   31.1
+  ],
+  "not_in_text": [
+   10829,
+   47.9
+  ],
+  "not_extracted": [
+   350,
+   1.5
+  ],
+  "not_linked": [
+   285,
+   1.3
+  ],
+  "filtered": [
+   889,
+   3.9
+  ],
+  "near_child": [
+   91,
+   0.4
+  ],
+  "near_offtopic": [
+   190,
+   0.8
+  ],
+  "offtopic_only": [
+   629,
+   2.8
+  ],
+  "near": [
+   341,
+   1.5
+  ],
+  "edge": [
+   1831,
+   8.1
+  ]
+ },
+ "graph": {
+  "diseases_with_findings": 27473,
+  "edges": 1144472,
+  "concepts": 46529,
+  "concept_is_a": 33298
+ },
+ "scored": [
+  16866,
+  20.4
+ ],
+ "scored_by_stage": {
+  "no_cui": 0,
+  "no_docs": 0,
+  "not_in_text": 0,
+  "not_extracted": 0,
+  "not_linked": 0,
+  "filtered": 0,
+  "near_child": 0,
+  "near_offtopic": 0,
+  "offtopic_only": 0,
+  "near": 1865,
+  "edge": 15001
+ },
+ "hpo_near_by_stage": {
+  "no_cui": {
+   "parent": 7,
+   "child_only": 0
+  },
+  "no_docs": {
+   "parent": 0,
+   "child_only": 0
+  },
+  "not_in_text": {
+   "parent": 694,
+   "child_only": 113
+  },
+  "not_extracted": {
+   "parent": 24,
+   "child_only": 6
+  },
+  "not_linked": {
+   "parent": 67,
+   "child_only": 89
+  },
+  "filtered": {
+   "parent": 37,
+   "child_only": 2
+  },
+  "near_child": {
+   "parent": 16,
+   "child_only": 361
+  },
+  "near_offtopic": {
+   "parent": 0,
+   "child_only": 5
+  },
+  "offtopic_only": {
+   "parent": 4,
+   "child_only": 22
+  },
+  "near": {
+   "parent": 1221,
+   "child_only": 25
+  },
+  "edge": {
+   "parent": 2077,
+   "child_only": 1763
+  }
+ }
+}
