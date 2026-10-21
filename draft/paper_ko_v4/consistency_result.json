@@ -1,0 +1,2171 @@
+{
+ "rounds": [
+  {
+   "round": 1,
+   "revisions": [
+    {
+     "id": "ABS-CON",
+     "applied": [
+      {
+       "issue": "#1 초록: 전역 삭제를 'HPOA에 불리 → 순환 효과의 상한'으로 단정",
+       "before": "이 삭제는 Phenopacket-store에서만 완전했고, HPOA에 불리한 전역 삭제이므로 순환 효과의 상한이다.",
+       "after": "이 삭제는 Phenopacket-store에서만 완전했고, 삭제 뒤 HPOA 설정은 다시 고르지 않았다. 증례별 삭제에 더 가까운 10겹 판에서도 +5.4%p [4.6, 6.3]로 거의 같았다(개발).",
+       "source": "pilot/scripts/hpoa_lopo.py 머리말('not a lower bound for HPOA … competing diseases'), pilot/cache/v3/p0/hpoa_lopo/summary.md('증례별 LOPO의 하한은 아니다', 10겹 25.60 대 전역 25.45), stats.log의 HPOA-lopo10 − S-mix −5.43 [−6.34, −4.58]. research_design §9.34의 '상한' 문구는 이 기록과 어긋나며, 고칠지는 저자가 정할 일로 남겼다"
+      },
+      {
+       "issue": "#2 6장: '상한으로 읽는다' 해석",
+       "before": "또 HPOA에 불리한 전역 삭제였고 삭제 뒤 HPOA 설정을 다시 고르지 않았으므로, 이 결과는 순환 효과의 상한으로 읽는다.",
+       "after": "또 이 삭제는 증례별 LOPO가 아닌 전역 삭제였고, 삭제 뒤 HPOA 설정을 다시 고르지 않았다. 증례별 LOPO에 더 가까운 10겹 판에서도 S-mix − HPOA는 +5.4%p [4.6, 6.3]로 거의 같았다(개발).",
+       "source": "#1과 같음(hpoa_lopo.py 머리말, p0/hpoa_lopo/summary.md, stats.log의 lopo10 행)"
+      },
+      {
+       "issue": "#3 간선 판정 문구 통일(교정된 형태에 맞춤)",
+       "before": "간선의 정확성은 어느 그래프에서도 검증하지 않았다.",
+       "after": "간선의 정확성은 사람이나 LLM의 판정으로 검증하지 않았다.",
+       "source": "research_design §9.14(v2.0 LLM 판정), §9.17·§9.25 정정(둘 다 철회). 교정된 공통 문구를 그대로 썼다"
+      },
+      {
+       "issue": "#4 PPR 결과의 근거 지위 [확증] → [봉인 기술]",
+       "before": "설계 D에서 개인화 PageRank는 1-홉 집계보다 Top-10이 낮거나 차이가 없었다(확증).",
+       "after": "설계 D 봉인 세트에서 개인화 PageRank는 1-홉 집계보다 Top-10이 낮거나 차이가 없었다(봉인 기술, 판정 기준 없이 한 번 비교).",
+       "source": "research_design D10(판정은 개발 매크로 부호검정 + Holm만 적었고, 확증에 대해서는 'PPR 시스템을 함께 넣는다'고만 적음), MET-B 3.6·3.8의 [봉인 기술] 정의"
+      },
+      {
+       "issue": "#7 0.45시간은 CPU 시간이 아니라 벽시계(초록 결과·결론, 6장)",
+       "before": "추출부터 적재까지 S-dict는 CPU 약 0.45시간(사전 매칭 일부는 추정) … / … 추출부터 적재까지 CPU 약 0.45시간이었다(S-dict 빌드 기준, 문헌 수집 제외). [6장]",
+       "after": "추출부터 적재까지 벽시계로 S-dict는 GPU 없이 약 0.45시간(사전 매칭 일부는 추정) … / … 추출부터 적재까지 GPU 없이 벽시계 약 0.45시간이었다(S-dict 빌드 기준, 문헌 수집 제외). [6장]",
+       "source": "pilot/cache/v3/review/cost.md 3절 '추출~그래프 벽시계' 열(S-dict 약 0.45 h). 사전 매칭은 CPU 6–8 프로세스로 돌았다"
+      },
+      {
+       "issue": "#11 초록 결론에 H3 단서(UMLS 라이선스, HPO 유전자–질환 연결)가 빠짐",
+       "before": "LLM 없는 사전 경로의 구축 비용은 추출부터 적재까지 CPU 약 0.45시간이었다(S-dict 빌드 기준, 문헌 수집 제외).",
+       "after": "LLM 없는 사전 경로의 구축 비용은 추출부터 적재까지 GPU 없이 벽시계 약 0.45시간이었다(S-dict 빌드 기준, 문헌 수집 제외. UMLS 라이선스와, 수집 검색어에 쓰는 HPO 유전자–질환 연결이 필요하다).",
+       "source": "docs/positive_framing_review_2026-10-20.md H3 단서 1–2, 2.4('1 CPU-h 안에 공개 문헌만으로' 금지 문장)"
+      },
+      {
+       "issue": "#18 초록: 29%(5.7%p)가 설정 변경과 희석을 섞음",
+       "before": "DDXPlus-E 격차의 29%(5.7%p)는 문헌을 늘리면서 BM25가 낮아진 몫이었다(사후).",
+       "after": "DDXPlus-E 격차의 29%(5.7%p)는 BM25 쪽 하락(문헌 확장과 설정 변경)이었다(사후).",
+       "source": "pilot/cache/v3/framing/v1/summary.md 분해(설정 재선택 −0.30 + 같은 설정 희석 5.97 = 5.66, 29%). 6장 해당 문장은 이미 'D 설정 v2 BM25 → E-T3 v2+v3 BM25'로 정확해 그대로 두었다"
+      },
+      {
+       "issue": "#20 초록: 8.8%를 LLM 구절 표의 몫으로 씀",
+       "before": "S-dict는 CUI가 없는 사전 항목 일부를 LLM 구절 표로 연결했으므로(근거 언급의 8.8%),",
+       "after": "S-dict는 CUI가 없는 사전 항목을 HPO 이름과 LLM 구절 표로 연결했으므로(근거 언급의 8.8%, 구절 표에만 기댄 몫 5.9%),",
+       "source": "pilot/cache/v3/p0/pure_dict/summary.md('언급의 8.8%가 이 경로를 거쳤고, 5.9%는 LLM 구절 표가 있어야만 생깁니다', 언급 차이 3,554,992 = 5.95%)"
+      },
+      {
+       "issue": "#21 S-dict 우세에 [확증]을 붙여 판정 내용을 넘음(6장의 같은 문장)",
+       "before": "흔한 질환 봉인 세트에서 S-dict는 S-mix보다 Top-10이 높았다(S-mix − S-dict 두 세트 평균 −1.8%p [−2.4, −1.1], 확증).",
+       "after": "흔한 질환 봉인 세트의 lineage 판정에서 S-dict는 S-mix보다 Top-10이 높았고(S-mix − S-dict 두 세트 평균 −1.8%p [−2.4, −1.1]), E-T2의 S-dict 대비 비열등 판정은 미달했다(확증).",
+       "source": "research_design E4(E-T2는 비열등 판정), E7(E-T2 S-dict 미달, 매크로 −1.80 [−2.44, −1.12])"
+      },
+      {
+       "issue": "#27 '같은 튜닝 예산의 SemMedDB'(초록, 6장)",
+       "before": "같은 튜닝 예산의 SemMedDB가 S-mix보다 …",
+       "after": "HPOA·PrimeKG와 같은 튜닝 예산으로 고른 SemMedDB가 S-mix보다 …",
+       "source": "research_design §9.32 P0-5 수정(HPOA·PrimeKG와 같은 설정 탐색), §9.34. S-mix는 변형 그래프 × γ에서 따로 골랐다"
+      },
+      {
+       "issue": "#30 6장: '상위 질환' → '직속 상위 질환'(두 곳)",
+       "before": "입력에 정답 질환이나 그 상위 질환이 적히지 않은 환자에서 … / DDXPlus-E 환자의 23.9%는 입력에 정답 질환이나 그 상위 질환이 이미 적혀 있다.",
+       "after": "입력에 정답 질환이나 그 직속 상위 질환이 적히지 않은 환자에서 … / DDXPlus-E 환자의 23.9%는 입력에 정답 질환이나 그 직속 상위 질환이 이미 적혀 있다.",
+       "source": "pilot/cache/v3/framing/input_gold/stats.json flag('a direct parent of a gold key (v2_ids.disease_isa)'), MET-B 3.6"
+      },
+      {
+       "issue": "#9(#8의 단서 포함) 6장 부분 반사실: 지위 (탐색)→(개발), S-dict 승리 잔존 추가",
+       "before": "희귀질환 개발 세트에서 S-mix의 우세는 정답 질환의 S-mix 전용 간선을 빼도 대부분 남았다(부분 반사실, 탐색). 그래서 LLM 구절의 역할은",
+       "after": "희귀질환 개발 세트에서 S-mix만 정답을 Top-10에 넣은 환자는 정답 질환의 S-mix 전용 간선을 빼도 대부분 남았고(RAMEDIS 92.6%, LIRICAL 76.9%, Phenopacket-store 88.7%), S-dict만 넣은 환자도 S-dict 전용 간선을 빼고 상당 부분 남았다(9/10명, 3/5명, 49.3%, 개발). 정답 질환 쪽만 바꾼 부분 반사실이며, 경쟁 질환 쪽 반사실은 하지 않았다. 이 범위에서 LLM 구절의 역할은",
+       "source": "pilot/cache/v3/review/dict_mix_overlap.log 15–20행(S-mix 승리 63/68, 20/26, 448/505; S-dict 승리 9/10, 3/5, 99/201), research_design §9.31. 개발 세트 값이므로 INT의 정의에 따라 [개발]"
+      }
+     ],
+     "rejected": [
+      {
+       "issue": "#37 초록 길이(약 3,570자, 목표 1,300–1,600자)",
+       "why": "수정안 자체가 '저자 결정: 6장으로 내릴 문장을 고른다'이다. 목표 길이에 맞추려면 확증 결과 가운데 무엇을 초록에서 뺄지 골라야 하므로 저자가 정할 일로 남겼다. 이번 수정(#1, #11, #20)으로 초록은 조금 더 길어졌다"
+      },
+      {
+       "issue": "#19 누수 잔존 비율 0.68 대 0.69",
+       "why": "이 파일은 이미 교정된 형태인 '0.68배 이상'을 쓴다(초록, 6장). p0/leakage/result.log의 최소 비율 0.686과 맞으므로 바꿀 것이 없다"
+      },
+      {
+       "issue": "#31 HPOA 결합 'S-mix보다 높다고 확인되지 않았다'",
+       "why": "초록과 6장 모두 이미 교정된 문구를 쓴다. CI가 0을 포함한다(RRF −4.07 [−10.08, +1.83], 합집합 +0.14 [−2.26, +2.40], framing/m1)"
+      },
+      {
+       "issue": "#29 프로필 두께 단위",
+       "why": "이 파일은 '소견 30개 이상'으로 쓰는데, 이는 m2_curated_e.py가 세는 단위(정답 질환의 HPOA 소견 간선 수, 정답 키 가운데 최댓값)와 맞는다. 문제의 정의 불일치는 INT·MET-B 3.8·표 9에 있고, 주석 행 수를 쓰는 표현은 이 파일에 없다"
+      },
+      {
+       "issue": "#8 S-mix 승리 쪽만 인용한 부분 반사실",
+       "why": "인용된 문장은 DIS에 있다. 6장의 같은 내용은 #9로 고쳤고, #8이 요구한 단서(S-dict 승리 잔존, 경쟁 질환 쪽 반사실 없음)를 그 수정에 넣었다. 6장은 희귀 세트로만 한정해 말하므로 흔한 질환 세트 값은 넣지 않았다"
+      }
+     ]
+    },
+    {
+     "id": "INT",
+     "applied": [
+      {
+       "issue": "20 (8.8% is HPO-name + phrase-table share; phrase-table-only share is 5.9%)",
+       "before": "그래프에 들어간 근거 언급(간선을 지지하는 원문 언급)의 8.8%가 이 경로로 들어왔다.",
+       "after": "그래프에 들어간 근거 언급(간선을 지지하는 원문 언급)의 8.8%가 이 경로로 들어왔고, 그 가운데 구절 표에만 기댄 몫은 근거 언급의 5.9%다.",
+       "source": "pilot/cache/v3/p0/pure_dict/summary.md (mentions_T 5,272,330 / 59,796,310 = 8.8%; pure-dict build loses 3,554,992 mentions = 5.95%)"
+      },
+      {
+       "issue": "26 (check was gold position within Top-10, not full rank)",
+       "before": "개발 DDXPlus 3,000명에서 두 적재의 정답 순위가 같았다.",
+       "after": "개발 DDXPlus 3,000명 모두에서 정답의 Top-10 내 위치가 두 적재에서 같았다.",
+       "source": "MET-A 3.4 동결 검증; RES-B 4.7 and Table 15a ('gold position within Top-10 ... identical for all 3,000 patients')"
+      },
+      {
+       "issue": "29 (profile-thickness unit)",
+       "before": "프로필 두께는 한 지식원이 한 질환에 붙인 소견 개념의 수다. / HPOA가 소견 30개 이상을 붙인 질환(프로필 두께 ≥ 30)에서는",
+       "after": "프로필 두께는 한 지식원이 한 질환 키에 붙인 소견 간선의 수, 곧 CUI로 사상한 서로 다른 소견 개념의 수다. / HPOA의 프로필 두께가 30 이상인 질환에서는",
+       "source": "pilot/scripts/m2_curated_e.py (prof = Counter of (disease, concept) edges from graph.npz; max over gold keys); MET-B 3.8 current definition"
+      },
+      {
+       "issue": "22 (scope of 'dilution' definition)",
+       "before": "이처럼 같은 BM25가 더 큰 코퍼스에서 낮아지는 현상을 희석이라 부른다.",
+       "after": "이처럼 흔한 질환 세트에서 같은 설정의 BM25가 더 큰 코퍼스에서 낮아진 현상을 희석이라 부른다.",
+       "source": "pilot/cache/v3/framing/v1_bm25/stats.log (design-D config v3−v2: DDXPlus-E −5.97, SymCat-E −2.06; both common sets drop)"
+      },
+      {
+       "issue": "16 (uncited limitation sentence in the introduction)",
+       "before": "격차가 약 6%p와 3%p 줄어든다 [개발]. 또 DDXPlus의 지식 베이스 자체가 문헌에서 만들어졌다. 같은 문헌 BM25 대비는",
+       "after": "격차가 약 6%p와 3%p 줄어든다 [개발]. 같은 문헌 BM25 대비는",
+       "source": "Task rule (no limitations in introduction); positive_framing_review §4.2 puts DDXPlus construct validity in the limitations section; RES-A 4.3 and DIS 5.7 keep it with citation"
+      },
+      {
+       "issue": "36 (limitations inside contributions 1–4)",
+       "before": "C1: '비교한 검색은 어휘 검색인 BM25뿐이다.' / C2: '9개 개발 세트 매크로 Top-10은 HPOA 52.45%, S-mix 46.11%, SemMedDB 23.20%였다 [개발]. SemMedDB는 UMLS CUI 키를 가진 후보 질환 35,281개에만 닿으므로, 이 차이에는 키 공간 차이가 섞여 있다.' / C3: '이 시간은 구절 표를 쓴 S-dict 빌드에서 쟀고, 순수 사전 빌드의 시간은 따로 기록하지 않았다. ... 이 비용에는 문헌 수집 시간이 빠져 있다. 사전 경로에도 UMLS 라이선스와, 수집 질의와 주제 문서 규칙에 쓰는 HPO 유전자–질환 연결(genes_to_disease)이 필요하다.' / C4: 'LOPO는 Phenopacket-store에서만 완전하고, LIRICAL에서는 부분적이며, MME처럼 증례 PMID가 없는 세트는 검사하지 못했다.' and 'M1 결정 규칙에는 k가 적혀 있지 않아 ... Top-1에서는 간선 합집합이 ... 보완의 근거로 쓰지 않는다.'",
+       "after": "Removed the BM25-only, SemMedDB key-space (and the 9-set macro sentence it qualified; C4 keeps the 9-set S-mix − HPOA −6.33), LOPO-coverage, M1-k and M1 Top-1 sentences. C3's caveats compressed into the claim's own parenthetical: '(S-dict 빌드 기준, 문헌 수집 제외, v3 사전 매칭 3.9분은 추정. 사전 경로에도 UMLS 라이선스와 HPO 유전자–질환 연결이 필요하다)'. E-T3-is-secondary and the D T1 failure/dilution kept (outcome-switching guards).",
+       "source": "positive_framing_review §2.3 (H1 caveats 1–3 and H3 caveats 1–2 are required in the same paragraph, so kept in compressed form; H1 caveat 4 is satisfied by saying 'BM25'); removed items present in RES-A 4.2 '비교 범위', RES-A 4.4 '단서', RES-B 4.5 (LOPO coverage, M1 k, Top-1), DIS 5.7 (BM25 only, SemMedDB key space)"
+      },
+      {
+       "issue": "7 and 11 (0.45 h is wall-clock; H3 required caveats with the cost claim)",
+       "before": "사전 매칭부터 그래프 적재까지는 GPU 없이 약 0.45시간이 걸렸다(사전 매칭은 CPU 6–8 프로세스, v3 사전 매칭 3.9분은 추정) [측정]. ... 혼합 경로(S-mix)는 약 136시간이 걸렸고,",
+       "after": "사전 매칭부터 그래프 적재까지는 GPU 없이 벽시계 약 0.45시간이 걸렸다(S-dict 빌드 기준, 문헌 수집 제외, v3 사전 매칭 3.9분은 추정. 사전 경로에도 UMLS 라이선스와 HPO 유전자–질환 연결이 필요하다) [측정]. 혼합 경로(S-mix)는 추출부터 적재까지 약 136시간이 걸렸고,",
+       "source": "pilot/cache/v3/review/cost.md §3 ('추출~그래프 벽시계' S-dict ≈0.45 h, S-mix ≈136.2 h; v3 dict matching 3.9 min estimated)"
+      },
+      {
+       "issue": "12 (contribution 4 heading mixed profile thickness with circularity)",
+       "before": "4. **큐레이션 주석이 두꺼운 곳에서는 높지 않았다(RQ2).**",
+       "after": "4. **HPOA 프로필이 두꺼운 질환에서는 차이를 확인하지 못했고, 출판 증례 세트의 HPOA 우세는 Phenopacket-store에서 순환을 걷어내면 작아졌다(RQ2).**",
+       "source": "RES-B 4.5 (LOPO: −42.66 → +5.58, 10-fold +5.43, random −41.19; interpretation rule outcome 'gap shrank'); pilot/cache/v3/p0/hpoa_lopo/stats.log; v3/framing/m2/summary.md (≥30 stratum +0.70, CI includes 0)"
+      },
+      {
+       "issue": "31 (M1 CIs include 0)",
+       "before": "HPOA와 S-mix를 결합해도 비출판 병원 증례의 Top-10은 S-mix보다 높지 않았다",
+       "after": "HPOA와 S-mix를 결합해도 비출판 병원 증례의 Top-10은 S-mix보다 높다고 확인되지 않았다",
+       "source": "RES-B 4.5 M1 (RRF −4.07 [−10.08, +1.83], union +0.14 [−2.26, +2.40])"
+      },
+      {
+       "issue": "19 (minimum retained ratio is 0.686)",
+       "before": "모든 쌍에서 효과의 0.69배 이상이 남았다 [개발].",
+       "after": "모든 쌍에서 효과의 0.68배 이상이 남았다 [개발].",
+       "source": "pilot/cache/v3/p0/leakage/result.log (v3umls − v2umls ratio 0.686)"
+      },
+      {
+       "issue": "21 ('사전' used for S-dict while MET-A 3.3 reserves the LLM-free dictionary path for the pure dictionary graph)",
+       "before": "Top-10에서 사전(S-dict)의 이 우세는 / 이 층(23.9%)을 빼면 사전의 우세는 사라졌다 / 희귀질환 개발 세트 7개에서는 혼합이 사전보다 높았다",
+       "after": "Top-10에서 S-dict의 이 우세는 / 이 층(23.9%)을 빼면 S-dict의 우세는 사라졌다 / 희귀질환 개발 세트 7개에서는 S-mix가 S-dict보다 높았다",
+       "source": "p0/pure_dict/summary.md (S-dict uses the LLM phrase table; pure dict is the LLM-free path); E-T2 S-dict non-inferiority judged not met [확증] already worded as such in INT"
+      },
+      {
+       "issue": "42 (roadmap section titles for 4.5–4.7)",
+       "before": "경계와 확증된 음성 결과(4.5절), 재현율 손실 단계와 정확도 요인(4.6절), 출처 검사(4.7절)",
+       "after": "출판 증례 희귀 세트의 경계, 순환과 미달 판정(4.5절), 재현율 손실 단계와 정확도 요인(4.6절), 출처의 추적 가능성(4.7절)",
+       "source": "Issue 12's new 4.5 heading ('경계: 출판 증례 희귀 세트, 순환과 미달 판정'), issue 42's choice of the INT wording for 4.6, RES-B 4.7 actual heading '출처: 추적 가능성'. The dilution term is now defined only here in INT (narrowed per issue 22)"
+      }
+     ],
+     "rejected": [
+      {
+       "issue": "4 (PPR evidence status)",
+       "why": "No change needed in INT. INT already uses the corrected form [봉인 기술] and says no sealed-set criterion was set. The other sections still need fixing."
+      },
+      {
+       "issue": "18 (29% vs 31% dilution share)",
+       "why": "No change needed. INT already keeps the two shares apart: 31% (5.97%p, same configuration) and 29% (5.66%p, which includes the configuration change). This matches v1_bm25/stats.log and RES-A 4.2. Only the abstract mixes them."
+      },
+      {
+       "issue": "33 (H1–H4 never defined)",
+       "why": "Not applied in INT. The issue's main fix is to replace the H labels in the results headings and Table 6 with RQ numbers. INT already organizes everything by RQ1–RQ4 and contributions 1–5. Defining H1–H4 in INT would add a second numbering scheme."
+      },
+      {
+       "issue": "1, 2 (reading the LOPO deletion as an upper bound)",
+       "why": "No change needed. INT does not use the upper-bound reading. It already gives the corrected content: global deletion, HPOA settings not re-tuned afterwards, and the 10-fold version almost identical (+5.43 vs +5.58)."
+      }
+     ]
+    },
+    {
+     "id": "REL",
+     "applied": [
+      {
+       "issue": "#35 PPR 부가 가설을 봉인 세트 판정 기준이 있었던 것처럼 서술 (REL 2.5)",
+       "before": "대신 HippoRAG의 이점이 의료 열린 집합 감별진단으로 옮겨지는지를, 설계 D에서 판정 기준을 실행 전에 커밋한 부가 가설로 시험한다(3.7).",
+       "after": "대신 HippoRAG의 이점이 의료 열린 집합 감별진단으로 옮겨지는지를 설계 D에서 실행 전에 적은 부가 가설로 시험하고, 봉인 세트 값은 판정 기준 없이 보고한다(3.6).",
+       "source": "docs/research_design.md E-H1(개발 매크로 Top-10 부호검정+Holm), E-H4(판정 방법 없음); MET-B 3.6 'PPR-H4에는 판정 방법을 적지 않았다. 봉인 세트에서의 판정 기준은 두 가설 모두 적지 않았다'; MET-B 3.8 [봉인 기술]"
+      },
+      {
+       "issue": "#21 '사전 경로'가 두 뜻(순수 사전 그래프 / 구절 표를 쓴 S-dict)으로 쓰이고, S-dict 우세 자체에 [확증]을 붙여 비열등 판정 내용을 넘어섬 (REL 2.4). 같은 문단의 후속 문장도 S-dict를 가리키므로 함께 고침",
+       "before": "흔한 질환 봉인 세트의 lineage 판정에서는 사전 경로가 혼합 경로보다 높았다 [확증]. 이 두 세트 평균은 strict 판정에서 부호가 바뀌었다 [사후]. 입력에 정답 질환이 이미 명시된 환자를 빼면, DDXPlus-E에서는 사전 경로의 우세가 사라졌다 [사후]. 희귀질환 개발 세트에서는 혼합 경로가 사전 경로보다 높았다 [개발].",
+       "after": "흔한 질환 봉인 세트 두 곳의 평균에서 S-dict(LLM 구절 표를 일부 쓴 사전 그래프, 3.3)는 lineage 판정으로 혼합 그래프 S-mix보다 Top-10이 높았고, E-T2의 S-dict 비열등 판정은 미달했다 [확증]. 같은 평균 차이는 strict 판정에서 부호가 바뀌었다 [사후]. 입력에 정답 질환이나 그 직속 상위 질환이 이미 명시된 환자를 빼면, DDXPlus-E에서는 S-dict의 우세가 사라졌다 [사후]. 희귀질환 개발 세트에서는 S-mix가 S-dict보다 높았다 [개발].",
+       "source": "research_design E-T2 기준(S-mix − S-dict CI 하한 > −1%p, 비열등) 및 결과 −1.80 [−2.44, −1.12] 미달; P0-3 strict +1.04 [+0.39, +1.72] [사후]; 입력 명시 층 제외 S-dict − S-mix −1.27 [−2.54, −0.09]; 희귀 S-mix − S-dict +4.55 (p0/leakage/result.log); P0-2 'S-dict는 LLM 없는 그래프가 아니었다(언급의 8.8%가 LLM 구절 표 경로)'"
+      },
+      {
+       "issue": "#30 (교차 절 용어) 입력 내 정답 명시 층의 정의는 '직속 상위 질환'까지 포함 — REL 2.4는 상위 질환을 빠뜨려 층을 좁게 적음",
+       "before": "입력에 정답 질환이 이미 명시된 환자를 빼면",
+       "after": "입력에 정답 질환이나 그 직속 상위 질환이 이미 명시된 환자를 빼면",
+       "source": "MET-B 3.6 '정답 키의 직속 상위 질환 키까지 세면'; RES-B 4.6 '정답 질환 키나 그 직속 상위 질환 키가 이미 들어 있는 환자(입력 내 정답 명시 층)'"
+      },
+      {
+       "issue": "#15 HPOA 자기 인용률 값(72.8%)이 미커밋이라 RES-B 4.5에서 지워졌는데 REL 2.3이 그 측정을 했다고 씀. 저장소에 결과 파일이 없으므로(pilot/cache 아래 *circ* 없음) 측정 문장을 지우고 LOPO만 남기는 쪽을 택함. 그 뒤 REL에서 쓰이지 않게 된 용어 정의 문장도 지움",
+       "before": "본 연구는 이 비율을 자기 인용률이라고 부른다. … 큐레이션 쪽에서는 비교 지식원 HPOA의 자기 인용률을 재고, LOPO를 적용했다(3.9).",
+       "after": "(용어 정의 문장 삭제) … 큐레이션 쪽에서는 비교 지식원 HPOA에 LOPO를 적용했다(3.9).",
+       "source": "RES-B 메모 1 '자기 인용률 72.8%(스크래치패드 SP/adv/hpoa_circ.json, 미커밋)는 본문에서 지웠다'; ABS-CON·INT 메모가 이 값을 [커밋 필요]로 쓰지 않음; find pilot/cache -iname '*circ*' 결과 없음"
+      },
+      {
+       "issue": "#28 '출판 증례'의 두 가지 뜻 — REL 2.2의 M1 세 번째 층은 다섯 세트(RAMEDIS·HMS 포함)이고, RAMEDIS·HMS의 출판 여부는 확인되지 않음",
+       "before": "흔한 질환, 비출판 병원 증례, 출판 증례의 세 층에서 시험했다(3.10).",
+       "after": "흔한 질환, 비출판 병원 증례, 공개 희귀질환 증례(RAMEDIS, LIRICAL, HMS, MME, Phenopacket-store)의 세 층에서 시험했다(3.10).",
+       "source": "pilot/cache/v3/framing/m1/summary.md 층 구성; RES-B 3행 정의(출판 증례 세트 = LIRICAL, MME, Phenopacket-store) 및 메모 7(RAMEDIS·HMS 출판 여부 미확인)"
+      },
+      {
+       "issue": "#19 누수 의심 환자 제외 후 수집 깊이 효과의 최소 잔존비는 0.686이므로 '0.69배 이상'은 틀림 → '0.68배 이상'으로 통일 (본문과 작성 메모 9)",
+       "before": "수집 확장의 효과는 누수 의심 환자를 빼도 모든 비교 쌍에서 원래의 0.69배 이상 남았다(4.6) [개발]. / 메모 (9): 수집 깊이 효과 0.69배 이상(research_design §9.34 P0-1).",
+       "after": "수집 확장의 효과는 누수 의심 환자를 빼도 모든 비교 쌍에서 원래의 0.68배 이상 남았다(4.6) [개발]. / 메모 (9): 수집 깊이 효과 0.68배 이상(최소 비 0.686, pilot/cache/v3/p0/leakage/result.log; research_design §9.34 P0-1).",
+       "source": "pilot/cache/v3/p0/leakage/result.log: v3umls − v2umls ratio 0.686 (최솟값)"
+      },
+      {
+       "issue": "#39 근거 지위 표기 규칙: 폐기 비율은 [측정], 원문 위치 확인 절차는 [구조 검사]",
+       "before": "본 연구는 원문에서 위치가 확인된 구절만 남긴다(3.3).",
+       "after": "본 연구는 원문에서 위치가 확인된 구절만 남긴다(3.3) [구조 검사].",
+       "source": "MET-B 3.8 [구조 검사] 정의; RES-B 4.7 'LLM 추출은 원문 창에서 위치가 확인된 구절만 남겼다(3.3절) [구조 검사]'; 폐기 비율 약 5%·7%(560만 중 533만, 1,323만 중 1,232만 유지)는 [측정] 그대로 둠"
+      }
+     ],
+     "rejected": [
+      {
+       "issue": "#1 전역 삭제를 'HPOA에 불리 → 순환 효과의 상한'으로 단정 (교차 절)",
+       "why": "REL 2.3은 이미 바로잡힌 형태다. 방향을 단정할 수 없다고 쓰고 10겹 판 25.60% 대 전역 25.45%를 함께 적는다(hpoa_lopo stats.log, MET-B 3.9와 같음). 그래서 REL은 고치지 않았다."
+      },
+      {
+       "issue": "#31 결합의 병원층 Top-10이 'S-mix보다 높지 않았다'는 단정 (교차 절)",
+       "why": "REL 2.2는 이미 'CI가 0을 포함해 규칙을 충족하지 못했다'로 쓰고 값(−4.07 [−10.08, +1.83], +0.14 [−2.26, +2.40])도 함께 적는다. m1/summary.md와 같고 단정 문구가 없으므로 고칠 것이 없다."
+      },
+      {
+       "issue": "#24 M1의 세 가지 CI 요구와 k를 측정 전에 커밋한 규칙처럼 쓴 문제 (교차 절)",
+       "why": "REL 2.2가 측정 전 규칙으로 적은 내용은 research_design §9.33의 문구 그대로다('비출판 병원층에서 결합 − HPOA와 결합 − S-mix의 매크로 CI 하한이 둘 다 0보다 클 때'). 세 CI 요구는 언급하지 않고, k가 규칙에 없다는 점도 이미 밝힌다. 고칠 문장이 없다."
+      }
+     ]
+    },
+    {
+     "id": "MET-A",
+     "applied": [
+      {
+       "issue": "27 [imprecise] 'same tuning budget' for SemMedDB vs S-mix (cross-section term: tuning budget)",
+       "before": "채점 설정은 지식원마다 개발 세트에서 같은 규칙으로 다시 골랐다(3.7절).",
+       "after": "채점 설정은 지식원마다 개발 세트에서 같은 선택 규칙으로 다시 골랐으나, 조정 예산은 시스템마다 다르다(3.7절).",
+       "source": "MET-B 3.7 'Tuning budget' paragraph and Table 4: S-mix was chosen from 32 graphs x 4 gamma values, while HPOA, PrimeKG, MeSH and SemMedDB each got a coordinate search of 38–39 evaluations. positive_framing_review_2026-10-20.md line 310 gives the same per-source budgets (S-mix 32 graphs + ot, HPOA·PrimeKG 38, SemMedDB 38, BM25 12). The MET-A 3.1 sentence first introduces the same-ranker comparison, and it now says only the selection rule (D3) is shared, not the budget. That matches the corrected form of issue 27."
+      }
+     ],
+     "rejected": [
+      {
+       "issue": "21 [imprecise] 'LLM 없는 사전 경로' used with two meanings",
+       "why": "No change needed in MET-A. MET-A 3.3 holds the reference definition: the pure dictionary graph v3umlsnt_ns, built with an empty phrase table. research_design §9 P0-2 (lines 1192–1193) agrees: the term is used for the cost comparison, and accuracy takes the pure-dictionary values. The sentence that uses the term for S-dict is in another section (RES/DIS/ABS)."
+      },
+      {
+       "issue": "39 [style] [측정] vs [구조 검사] on the ~5%/~7% discard rate",
+       "why": "No change needed. Under the corrected rule, the discard ratio is [측정] and the location-check procedure is [구조 검사]. MET-A 3.3 tags only the discard ratio ('v2 약 5%(560만 개 중 27만 개), v3 약 7%(1,323만 개 중 90만 개)를 버렸다 [측정]'), and describes the procedure as method with no result tag. That already matches. The counts agree with research_design line 837 (533만 kept of 560만) and RES-B 4.7 (1,232만 kept of 1,323만)."
+      },
+      {
+       "issue": "26 [imprecise] 'two loads had the same gold rank' on DDXPlus 3,000",
+       "why": "No change needed. MET-A 3.4 already says '정답 질환의 Top-10 내 위치가 Mention 없는 빌드와 같은지'. That is the corrected form. The quoted text is in INT."
+      },
+      {
+       "issue": "23 [imprecise] gamma vs 'ot'/'offtopic_w' notation, gamma 1 for 2022 cut",
+       "why": "No change needed. MET-A uses only gamma (3.2, 3.3) and makes no claim about which gamma values the 2022 cut was evaluated at. The quoted text and the gamma-1 reporting gap are in RES-B 4.5/Table 11b and MET-B 3.9."
+      },
+      {
+       "issue": "41 [style] mixed run-record and public-history hashes; §9.32/§9.33 references",
+       "why": "No change needed. The one hash in MET-A, 3.4 49901bc, is already labelled as the attempts.log run-record hash, with public 780f684 and a pointer to the 3.6 correspondence table. MET-B line 104 maps 49901bc → 780f684. MET-A has no § references. The quoted row is RES-A Table 6a and Table 6b."
+      },
+      {
+       "issue": "20 / 6 [imprecise/wrong] 8.8% attributed to the LLM phrase table (5.9% phrase-table-only)",
+       "why": "No change needed. MET-A states no 8.8% or 5.9% figure. Its 3.3 text says S-dict links CUI-less items 'HPO 이름 색인과 v2 구절 표로', which matches the corrected form. The 8.6% in MET-A is a different quantity: CUI-less dictionary items, 6,481,048/75,180,381, not mentions."
+      },
+      {
+       "issue": "1–5, 7–19, 22, 24, 25, 28–38, 40, 42",
+       "why": "Neither the quoted text nor the affected text is in MET-A.md. It is in ABS-CON, INT, REL, MET-B, RES-A, RES-B or DIS. A check of MET-A for the terms involved (출판 증례, 프로필 두께, 상한 as circularity bound, CPU/벽시계 0.45, H1–H4, 희석, 직속 상위 질환, 0.68/0.69, 86.5, 보완, 사전 등록) found no conflicting use. '상한' in MET-A means only the collection cap and the string-match upper bound. '상위 질환' appears only as '직접 상위 질환' in the self-edge rule."
+      }
+     ]
+    },
+    {
+     "id": "MET-B",
+     "applied": [
+      {
+       "issue": "#15 [unsupported] 자기 인용률을 HPOA에서 쟀다는 문장 (MET-B 3.9)",
+       "before": "그래서 문헌 그래프 쪽(누수 점검)과 큐레이션 쪽(자기 인용률과 LOPO)을 함께 점검한다. … Phenomizer의 R@1이 0.4481에서 0.1217로 내려간다고 보고했다. 본 연구는 같은 비율을 비교군 HPOA(2026-02-16판)에서도 쟀다(4.5절).",
+       "after": "그래서 문헌 그래프 쪽(누수 점검)과 큐레이션 쪽(LOPO)을 함께 점검한다. … Phenomizer의 R@1이 0.4481에서 0.1217로 내려간다고 보고했다. (마지막 문장 삭제)",
+       "source": "이 수치(72.8%)는 positive_framing_review 표 207행에 '[이번 계산] SP/adv/hpoa_circ.json'(스크래치패드)으로만 있고, Phenopacket-new 값은 결과 파일이 없다. pilot/cache/v3 안의 review·p0·framing·recall과 research_design에는 자기 인용률 결과가 없다. RES-B 메모 1에 따르면 RES-B 4.5에서도 지웠다. 그래서 커밋 없이 택할 수 있는 저자 결정 옵션(MET-B에서 삭제하고 LOPO만 남김)을 적용했다. Jiang 등의 74.6%를 설명하는 자기 인용률 정의는 남겼다. 저자가 계산을 커밋하면 이 문장을 되살릴 수 있다."
+      },
+      {
+       "issue": "#22 (#42의 희석 정의 부분 포함) 희석 정의의 범위",
+       "before": "v2 BM25는 희석의 크기를 봉인 환자에서 재는 데 쓴다. 희석은 같은 BM25가 더 큰 코퍼스에서 낮아지는 현상이다.",
+       "after": "v2 BM25는 희석의 크기를 봉인 환자에서 재는 데 쓴다. 이 원고는 흔한 질환 세트에서 같은 설정의 BM25가 더 큰 코퍼스에서 낮아진 현상을 희석이라 부른다.",
+       "source": "framing/v1/summary.md와 research_design §9.35에 따르면 희석은 DDXPlus-E(27.43→21.47)와 SymCat-E(10.55→8.48)에서 설계 D 설정을 고정하고 잰 값이다. 두 세트 모두 흔한 질환 세트다. RES-A 4.2와 RES-A 메모 11은 희석 정의 위치로 3.10을 가리키므로 정의는 여기 한 곳에 두고 범위만 좁혔다."
+      },
+      {
+       "issue": "#23 2022 절단 그래프의 γ 1 평가와 결과 보고의 불일치",
+       "before": "…γ = 0과 γ = 1에서 모두 평가한다. 차이의 CI는 환자 대응 부트스트랩(2,000회, 시드 0)이다.",
+       "after": "…γ = 0과 γ = 1에서 모두 평가한다. 본문은 γ = 0의 값을 보고하고, γ = 1의 값은 보충자료에 둔다. 차이의 CI는 환자 대응 부트스트랩(2,000회, 시드 0)이다.",
+       "source": "pilot/cache/v2/devD/variants/에 절단 그래프 11개 각각의 temporal_*_y2022_ot0.0.json과 _ot1.0.json이 모두 있다. research_design §9.30 발견 5의 표는 ot 0을 쓰고, ot 1.0 값(v3llm_ns 과거·신규 11.0)은 본문에 언급한다. γ 1은 실제로 평가했으므로 방법에서 지우지 않고 '보충 표로 보고' 옵션을 택했다. 결과 절과 표 11b의 γ 표기 통일은 해당 절의 몫이다."
+      },
+      {
+       "issue": "#24 M1의 세 CI 요구가 측정 전 규칙인지",
+       "before": "M1은 이 선택을 측정 스크립트에 적었다. 이 스크립트도 결과와 같은 커밋(dfa9541)에 처음 들어갔으므로, 이 선택은 측정 전 커밋으로 확인되지 않는다.",
+       "after": "M1은 이 선택과, 환자 층화 CI·군집 CI·질환 등가중 CI가 모두 조건을 만족해야 한다는 요구를 측정 스크립트에 적었다. 이 스크립트도 결과와 같은 커밋(dfa9541)에 처음 들어갔으므로, 이 둘은 측정 전 커밋으로 확인되지 않는다.",
+       "source": "research_design §9.33의 M1 규칙에는 '매크로 CI 하한이 둘 다 0보다 클 때'만 적혀 있다. 세 CI 요구는 pilot/scripts/m1_combine.py 머리말에만 있다('it is required here of the patient-stratified CI, the cluster CI and the disease-equal CI alike'). §9.35도 스크립트 docstring의 고정이 측정 전 커밋으로 확인되지 않는다고 적는다. 그래서 MET-B가 표 6b의 수정 각주 c와 같은 말을 하도록 명시했다."
+      },
+      {
+       "issue": "#28 '출판 증례'가 M1 층에서 두 뜻으로 쓰임",
+       "before": "층은 흔한 질환(DDXPlus, SymCat), 비출판 병원 증례(PUMCH_L, PUMCH-ADM), 출판 증례(LOPO판과 함께)다.",
+       "after": "층은 흔한 질환(DDXPlus, SymCat), 비출판 병원 증례(PUMCH_L, PUMCH-ADM), 공개 희귀질환 증례(RAMEDIS, LIRICAL, HMS, MME, Phenopacket-store; HPOA-LOPO판과 함께)다.",
+       "source": "m1_combine.py의 STRATA['published']는 Phenopacket-store, HMS, LIRICAL, MME, RAMEDIS 다섯 세트다. RES-B 메모 7에 따르면 RAMEDIS·HMS의 출판 여부는 확인되지 않았다. 이슈가 제안한 층 이름을 쓰고 세트를 명시했다. 3.9절의 'LIRICAL은 출판 증례 모음'과 'PUMCH는 비출판 병원 증례'는 그대로 두었다."
+      },
+      {
+       "issue": "#29 프로필 두께의 단위",
+       "before": "프로필 두께는 한 지식원이 한 질환 키에 붙인 소견 간선의 수다. 정답 키가 여럿이면 그 최댓값을 쓴다.",
+       "after": "프로필 두께는 한 지식원의 같은 랭커 그래프에서 한 질환 키가 가진 소견 간선(HAS_FINDING)의 수, 곧 CUI로 사상한 서로 다른 소견 개념의 수다. 원 지식원의 주석 행 수와는 다르다. 정답 키가 여럿이면 그 최댓값을 쓴다.",
+       "source": "m2_curated_e.py는 prof[src] = Counter(d for d, _ in edges)로 두께를 센다. edges는 devD/ref_<src>/graph.npz에서 읽은 (질환, 개념) 쌍의 set이고, 두께는 max(prof['HPOA'].get(x, 0) for x in gold keys)다. 따라서 실제 단위는 중복 없는 간선 수이고, 이는 서로 다른 CUI 소견 개념 수와 같다(INT의 표현과 일치). HPOA 주석 행 수와는 다르다(표 9 문구는 해당 절이 맞춰야 한다)."
+      },
+      {
+       "issue": "#40 부호 규약 (S-mix − 비교 대상)",
+       "before": "Phenopacket-store의 질환 등가중 HPOA − S-mix는 LOPO 전과 후 모두 M1의 참조 비교에서 계산되었다",
+       "after": "Phenopacket-store의 질환 등가중 S-mix − HPOA는 LOPO 전과 후 모두 M1의 참조 비교에서 계산되었다",
+       "source": "MET-B 3.8의 부호 규약('모두 S-mix − 비교 대상, 설계 기록의 반대 방향 값은 부호를 바꿔 옮긴다')에 맞췄다. 이슈 5의 수정 형태(−55.73 → +3.28)와 같은 방향이다. 규칙 문장 'HPOA의 우위가 …'는 설계 기록 규칙의 문구라 그대로 두었다."
+      }
+     ],
+     "rejected": [
+      {
+       "issue": "#1/#2 전역 삭제를 'HPOA에 불리 → 상한'으로 해석",
+       "why": "MET-B 3.9는 이미 '증례별 LOPO와 견준 치우침의 방향은 정해지지 않는다. 하한이나 상한으로 읽지 않는다'로 쓴다. 이는 수정된 형태와 hpoa_lopo.py 머리말에 맞는다. 10겹 값(25.60 대 25.45)은 결과 수치라 방법 절에 넣지 않는다. 고칠 것이 없다."
+      },
+      {
+       "issue": "#4 PPR 결과의 근거 지위",
+       "why": "MET-B 3.6(PPR-H1의 판정은 개발 매크로 부호검정만, PPR-H4는 판정 방법 없음, 봉인 세트 기준 없음)과 3.8은 이미 [봉인 기술]로 쓴다. 표 3 각주 b도 그렇다. 바꿀 것은 RES-A·RES-B·DIS·6장이다."
+      },
+      {
+       "issue": "#5 표 6b P0-4 행",
+       "why": "MET-B 3.10 P0-4는 이미 이슈의 수정 내용과 같다. M1 참조 비교(dfa9541)의 질환 등가중 값으로 규칙의 첫 조건을 읽고, 무작위 삭제 대조는 환자 가중으로만 판단한다고 적는다. 표 6b(RES-A)만 고치면 된다."
+      },
+      {
+       "issue": "#10 선택 낙관이 작다는 [확증] 결론",
+       "why": "MET-B 3.6은 이미 단서를 적는다(D 확증 세트에서 입력이 개발 환자와 같은 비율 26.4%·15.4%, E에서는 재지 않음). 고칠 문장이 DIS 5.7과 RES-B 4.6에 있다."
+      },
+      {
+       "issue": "#21 '사전 경로'의 두 뜻",
+       "why": "MET-B 3.10 P0-2는 'LLM 없는 사전 경로'를 순수 사전 그래프 쪽 규칙 문구로만 쓴다. 이는 MET-A 3.3의 정의와 같다. 문제의 문장은 다른 절에 있다."
+      },
+      {
+       "issue": "#30 '상위 질환' 대 '직속 상위 질환'",
+       "why": "MET-B 3.6은 이미 입력 내 정답 명시 층을 '직속 상위 질환 키'로 정의한다. 고칠 곳은 6장이다."
+      },
+      {
+       "issue": "#34 PPR 가설 이름",
+       "why": "MET-B 본문은 이미 PPR-H1·PPR-H4만 쓴다. E-H1은 투고 전에 지울 작성 메모 (9)에만 있다."
+      },
+      {
+       "issue": "#41 표 6a·6b의 해시 혼용과 §9.32·§9.33 참조",
+       "why": "고칠 대상은 RES-A의 표 6a·6b다. MET-B 3.6 '커밋 기록'에는 실행 기록 해시와 공개 이력 해시의 대응표와 종류 구분이 이미 있다. 본문은 공개 해시(3fbd29a, 50a64db)에 '공개 이력 커밋'이라고 표시한다."
+      },
+      {
+       "issue": "#42 '희석은 한 곳에서만 정의'",
+       "why": "MET-B 쪽은 #22로 처리했다. RES-A 4.2와 메모 11이 3.10을 정의 위치로 가리키므로 정의는 3.10에 남겼다. INT·RES-A의 중복 정의 제거와 4.5–4.7 제목 맞추기는 해당 절의 몫이다."
+      }
+     ]
+    },
+    {
+     "id": "RES-A",
+     "applied": [
+      {
+       "issue": "#4 PPR evidence status ([확증] → [봉인 기술]); Table 6a '판정 13개'",
+       "before": "4.1: '…Phenopacket-new에서는 차이가 유의하지 않았다(행 5) [확증]. …(행 6) [확증]. …(−4.8%p, Holm 유의) [확증].' / '표 6a는 두 설계에서 실행 전에 커밋한 판정 13개를 시간순으로 보인다.' / Table 6a rows 5–6 verdict 'PPR lower (2 of 3 sets Holm-significant)' etc.",
+       "after": "Added '두 PPR 부가 가설(PPR-H1, PPR-H4)은 실행 전에 커밋했지만 봉인 세트의 판정 기준은 적지 않았다(3.6절). 그래서 봉인 세트 값은 판정 없이 보고한다.' and changed the three tags to [봉인 기술]; '판정 11개와 PPR 부가 가설 2행'; panel a subtitle 'Pre-committed judgments (rows 1–4 and 7–13) and the secondary PPR hypotheses (rows 5–6, sealed descriptive)'; Verdict cells prefixed 'No sealed-set criterion;'; footnote b says no sealed-set criterion, so the values are sealed descriptive and the column gives the observed direction, not a verdict.",
+       "source": "MET-B 3.6 (D protocol: PPR-H1 judged only by dev sign test, PPR-H4 has no method, no sealed-set criterion) and 3.8 ([봉인 기술] definition); MET-B writing memo 9"
+      },
+      {
+       "issue": "#5 Table 6b P0-4 row: disease-equal basis exists in the M1 run",
+       "before": "'Phenopacket-store −42.66 → +5.58 [+4.75, +6.42]; random deletion −41.19 (…). Patient-weighted: the committed outputs hold no disease-equal value, so the rule's basis was not used' | 'Reported (Section 4.5)'",
+       "after": "'Patient-weighted S-mix − HPOA, Phenopacket-store: −42.66 → +5.58 […]; random deletion −41.19 (…). Disease-equal values from the M1 run: −55.73 → +3.28 [+0.76, +5.79]. The first condition was met on the rule's basis; random deletion was computed patient-weighted only' | '\"The gap shrank once circularity was removed\" [exploratory] (Section 4.5)'. Writing memo 12 and decision (나) updated to match.",
+       "source": "pilot/cache/v3/framing/m1/stats.json reference rows (Phenopacket-store, k 10: HPOA − S-mix disease_equal 55.73 [52.32, 58.89]; HPOA-LOPO − S-mix −3.28 [−5.79, −0.76]); MET-B 3.10 P0-4; RES-B 4.5"
+      },
+      {
+       "issue": "#6 Table 10 phrase-table mention share (8.8% vs 5.9%)",
+       "before": "'Phrase table for 4.6% of dictionary items (8.8% of mentions)^b^'; footnote b 'the mention share is from the full builds with and without the phrase table.'",
+       "after": "'Phrase table needed for 4.6% of dictionary items and 5.9% of mentions^b^'; footnote b: 'Mentions: the difference between the full builds with and without the phrase table (3,554,992 of 59,796,310). Counting every mention from CUI-less items linked by HPO names or the phrase table gives 8.8%.'",
+       "source": "pilot/cache/v3/p0/pure_dict/diff.json (mentions 59,796,310 vs 56,241,318; mentions_T 5,272,330) and summary.md"
+      },
+      {
+       "issue": "#20 8.8% wrongly attributed to the LLM phrase table (RES-A 4.4)",
+       "before": "'CUI가 없는 사전 항목을 LLM 구절로 만든 구절 표로도 연결했기 때문이다(3.3절). 1/20 표본에서 사전 항목의 4.6%는 이 표로만 개념을 얻었다 [측정]. 전체 빌드에서는 근거 언급의 8.8%가 이 경로로 들어왔다 [측정].'",
+       "after": "'CUI가 없는 사전 항목을 HPO 이름과, LLM 구절로 만든 구절 표로 연결했기 때문이다(3.3절). 1/20 표본에서 사전 항목의 4.6%는 구절 표로만 개념을 얻었다 [측정]. 전체 빌드에서 CUI 없는 항목이 HPO 이름이나 구절 표로 연결된 언급은 근거 언급의 8.8%였고, 그중 구절 표가 있어야만 생기는 언급은 근거 언급의 5.9%였다 [측정].'",
+       "source": "pilot/cache/v3/p0/pure_dict/diff.json, summary.md; pilot/cache/v3/review/cost.md line 80"
+      },
+      {
+       "issue": "#7 0.45 h is wall clock (cross-section quantity)",
+       "before": "'S-dict는 약 0.45시간이 걸렸다.'; Table 10 column 'Extraction to load'",
+       "after": "'S-dict는 GPU 없이 벽시계로 약 0.45시간이 걸렸다.'; column 'Extraction to load, wall clock'",
+       "source": "pilot/cache/v3/review/cost.md (table column '추출~그래프 벽시계', S-dict 약 0.45 h)"
+      },
+      {
+       "issue": "#17 uncited IR mechanism sentence in 4.2",
+       "before": "'정보검색에서는 질의와 관련 없는 청크가 늘어 상위 결과를 차지하는 것으로 설명하지만, 이 연구는 그 기전을 따로 재지 않았다.'",
+       "after": "Sentence deleted; the interpretation stays in DIS 5.2.",
+       "source": "consistency_issues #17; academic_writing_guide (results report measurements)"
+      },
+      {
+       "issue": "#22/#42 dilution redefined in 4.2 and stated as general",
+       "before": "'같은 BM25 설정에서 색인 문헌을 늘리면 Top-10이 내려갔다 [사후]. 같은 BM25가 더 큰 코퍼스에서 낮아지는 이 현상을 희석이라 부른다(3.10절).'",
+       "after": "'흔한 질환 두 봉인 세트에서는 같은 BM25 설정으로 색인 문헌을 늘리면 Top-10이 내려갔다 [사후]. 이 하락이 3.10절의 희석이다.' (refers to the single definition instead of redefining it, scoped to the common-disease sets measured)",
+       "source": "Table 7b step 2 (DDXPlus-E 27.43→21.47, SymCat-E 10.55→8.48); MET-B 3.10 V1"
+      },
+      {
+       "issue": "#18 29% vs 31% (BM25-side drop vs dilution only)",
+       "before": "'BM25 쪽 하락(v2 색인·설계 D 설정 27.43% → v2+v3 색인·선택 설정 21.77%)은 5.66%p로, 격차의 29%다 [사후].'",
+       "after": "'문헌 확장과 설정 변경을 합친 BM25 쪽 하락(…)은 5.66%p로, 격차의 29%다 [사후]. 같은 설정에서 문헌 확장만의 몫(희석, 2단계)은 5.97%p로, 격차의 31%다 [사후].'",
+       "source": "Table 7b (step 1 −0.30, step 2 +5.97, gap +19.30); INT contribution 1"
+      },
+      {
+       "issue": "#19 minimum retained share is 0.686 (Table 6b P0-1)",
+       "before": "'Remaining share 0.69–0.93 in the 7 pairs'",
+       "after": "'Remaining share 0.686–0.925 in the 7 pairs'",
+       "source": "pilot/cache/v3/p0/leakage/result.log (ratios 0.686–0.925)"
+      },
+      {
+       "issue": "#21 '사전 그래프/사전 경로' ambiguity and [확증] beyond the non-inferiority verdict",
+       "before": "'E-T2의 S-dict 비교는 미달이었다(표 6 행 9) [확증]. S-mix − S-dict 매크로 Top-10은 −1.80%p [−2.44, −1.12]로, lineage 판정에서는 사전 그래프가 높았다 [확증].'",
+       "after": "'S-dict(구절 표를 쓴 사전 그래프)는 lineage 판정에서 S-mix보다 Top-10이 높았고(S-mix − S-dict 매크로 −1.80%p [−2.44, −1.12]), E-T2의 S-dict 비열등 판정은 미달했다(표 6 행 9) [확증].'",
+       "source": "Table 6a row 9; MET-A 3.3 / MET-B 3.10 P0-2 (pure dictionary = LLM-free path)"
+      },
+      {
+       "issue": "#24 Table 6b M1 rule column holds script-set CI requirement; header hides V1·P1-3 missing disease-equal values",
+       "before": "M1 rule '…both have macro CI lower bounds > 0 (patient-stratified, cluster and disease-equal CIs)^c^'; footnote c 'The M1 script names Top-10, but it is not confirmed…'; header with no note on V1·P1-3; Korean 'M1 스크립트는 Top-10을 적었지만, 그 선택이 측정 전에 커밋되었는지는 확인되지 않는다.'",
+       "after": "Parenthetical removed from the rule column; footnote c: 'The M1 script names Top-10 and requires the patient-stratified, cluster and disease-equal CIs all to meet the rule; both were set in the measurement script, not confirmed as pre-committed.'; new footnote d on the panel b header: V1 and P1-3 fall under the f676539 rule to report disease-equal values but none were computed (Section 3.8); Korean body: 'M1 스크립트는 Top-10과, 세 CI(…)가 모두 규칙을 만족해야 한다는 요구를 적었다. 둘 다 측정 전에 커밋되었는지는 확인되지 않는다. V1과 P1-3은 질환 등가중 값을 내지 않았다(3.8절).'",
+       "source": "MET-B 3.8 (질환 등가중 paragraph), 3.10 M1 and last paragraph; RES-B 4.5"
+      },
+      {
+       "issue": "#29 profile-thickness unit",
+       "before": "4.3 '프로필 두께는 정답 키마다 HPOA가 붙인 소견 수의 최댓값으로 정했다.' / 'SymCat-E의 소견 30개 이상 층' / 'HPOA가 소견 30개 이상을 붙인 질환'; Table 9 caption 'number of HPOA finding annotations (exact key)'",
+       "after": "'…HPOA가 붙인 소견 간선 수의 최댓값으로 정했다(3.8절).' / 'SymCat-E의 두께 30 이상 층' / 'HPOA 소견 간선이 30개 이상인 질환'; caption 'number of HPOA finding edges (HAS_FINDING) on the key itself (exact key; Section 3.8)'",
+       "source": "pilot/scripts/m2_curated_e.py (prof = Counter of HPOA HAS_FINDING edges per disease key; thickness = max over gold keys); MET-B 3.8"
+      },
+      {
+       "issue": "#33 H1–H4 undefined in the manuscript",
+       "before": "'…H1–H3 순서로 다시 묶고… H4와 확증된 음성 결과는 4.5절…'; headings '(H1)', '(H2)', '(H3)'; 'H1은 \"시험한 BM25 설정 12개 모두에 대해\"로 쓴다'; 'H2와 독립된 두 번째 증거'; Table 6b M2 rule 'add the E values to H2'; footnote b 'renamed here to avoid confusion with claims H1–H4'",
+       "after": "'RQ1–RQ3 순서로'; headings '(RQ1)', '(RQ2)', '(RQ3)'; '같은 문헌 BM25 대비 결과는 \"…\"로 쓴다'; 'HPOA가 비우거나 얇게 둔 질환 공간에 관한 결과(RQ2)의 독립된 두 번째 증거'; M2 rule 'add the E values to the statement on the disease space that curated annotations leave thin'; footnote b without the H1–H4 rationale",
+       "source": "INT RQ1–RQ4 (4.2→RQ1, 4.3/4.5→RQ2, 4.4→RQ3, 4.6→RQ4); MET-B 3.10 M2"
+      },
+      {
+       "issue": "#42/#12 chapter guide to 4.5–4.7 does not match section titles",
+       "before": "'H4와 확증된 음성 결과는 4.5절, 제한 요인과 레버는 4.6절, 출처는 4.7절에서 다룬다.'",
+       "after": "'출판 증례 희귀 세트의 경계와 순환, 미달 판정은 4.5절, 재현율 손실 단계와 정확도 요인(RQ4)은 4.6절, 출처는 4.7절에서 다룬다.' (follows the proposed 4.5 title and the INT wording for 4.6)",
+       "source": "consistency_issues #12, #42; INT RQ4 and contribution 5"
+      },
+      {
+       "issue": "#34 PPR hypothesis naming",
+       "before": "Footnote b '…renamed here to avoid confusion with claims H1–H4.'",
+       "after": "Names stay PPR-H1/PPR-H4 in text and table; the design-record names E-H1/E-H4 appear only in Table 6 footnote b, without the H1–H4 rationale",
+       "source": "MET-B 3.6, 3.8"
+      },
+      {
+       "issue": "#41 mixed hash kinds and design-document section numbers in Table 6",
+       "before": "'Criteria at 3fbd29a and sets sealed at 31122e2 (2026-10-12); systems frozen at cd130e7 and run once at 2ecb064 (2026-10-13)'; '**Rules of §9.32 at 400d4cf…**'; '**Rules of §9.33 and of the framing review at f676539…**'",
+       "after": "'Criteria at 3fbd29a (public history) and sets sealed at 31122e2 (run record) (2026-10-12); systems frozen at cd130e7 and run once at 2ecb064 (run records; 2026-10-13)'; caption adds 'Hashes in panel a are run-record hashes unless marked \"public history\"; Section 3.6 maps them to the public history. Hashes in panel b are public-history hashes.'; panel b headers 'P0 rules at 400d4cf … Section 3.10' and 'M1, M2, V1, P1-3 rules, the P0-5 revision and the P0-4 interpretation rule at f676539 … Section 3.10'",
+       "source": "MET-B 3.6 '커밋 기록' (run-record → public mapping; 3fbd29a, 50a64db public; post-confirmation hashes public) and 3.10"
+      }
+     ],
+     "rejected": [
+      {
+       "issue": "#13 S-bm25 per-set development values from an untracked directory",
+       "why": "Nothing to change in RES-A. Table 8a already shows these values as n.r. and keeps only the committed macro (27.35/11.04) and the E4 development differences. Whether to commit pilot/cache/v3/retrieval is an author decision that applies to DIS (writing memo 4 and decision (가) already record this)."
+      },
+      {
+       "issue": "#25 SymCat-E Top-1 +0.36 status and example",
+       "why": "The quoted text is in another section. RES-A 4.2 already tags SymCat-E Top-1 +0.4%p [−0.1, +0.8] as [확증-보조] and already uses the v2 BM25 DDXPlus-E Top-1 +1.03%p [−0.33, +2.50] [사후] as the configuration example, so it already matches the corrected form."
+      },
+      {
+       "issue": "#40 sign convention HPOA − S-mix (+41.19 vs −5.58)",
+       "why": "The quoted sentence is not in RES-A. In Table 6b P0-4, the results already use S-mix − HPOA (−42.66 → +5.58; random −41.19). 'HPOA − S-mix' appears only where the row quotes the committed interpretation rule's own metric (MET-B 3.10, f676539), so it stays."
+      },
+      {
+       "issue": "#28 '출판 증례' with two meanings",
+       "why": "The RES-A M1 row names only the unpublished hospital stratum (PUMCH_L, PUMCH-ADM), and RES-A has no 'published case' stratum text. Nothing in this file is affected. The stratum name is for RES-B and REL to decide."
+      },
+      {
+       "issue": "#1/#2 'upper bound' reading of the global LOPO deletion",
+       "why": "RES-A makes no bound claim. Table 8 footnote a says only that the deletion is complete for Phenopacket-store, partial for LIRICAL, and that settings were not re-selected, which agrees with MET-B 3.9. No change."
+      }
+     ]
+    },
+    {
+     "id": "RES-B",
+     "applied": [
+      {
+       "issue": "#3 Edge judgment claim (4.7 body + Table 15b caption)",
+       "before": "어느 그래프의 간선도 사람이나 LLM이 판정하지 않았다. / No graph's edges were judged by people or by an LLM.",
+       "after": "간선 정확성은 사람이나 LLM의 판정으로 검증하지 않았다. / Edge correctness was not verified by human or LLM judgment.",
+       "source": "docs/research_design.md §9.14 (v2.0 LLM judgment), §9.17 (v2.1 LLM judgment, withdrawn 10-20), §9.25 (informal human judgment, withdrawn); the old Qwen3 v2.1 graph is a column of Table 15b"
+      },
+      {
+       "issue": "#4 PPR evidence status [확증] -> [봉인 기술] (4.5 미달 paragraph), plus the matching scope sentence in the 4.5 opening",
+       "before": "...Phenopacket-new의 −1.5%p [−4.6, +1.5]는 유의하지 않았다 [확증]. ... 이 다섯 차이는 모두 Holm 보정 후 유의했다 [확증]. / 설계 D 봉인 세트 Phenopacket-new의 비교군 값만 [봉인 기술]이다. 실행 전에 커밋한 기준으로 판정한 결과는 표 6의 판정을 그대로 옮긴다.",
+       "after": "설계 D의 PPR 부가 가설 두 개(PPR-H1, PPR-H4; 표 6 행 5–6)는 실행 전에 적었지만, 봉인 세트에 적용할 판정 기준은 적지 않았다. 그래서 봉인 세트의 PPR 값은 판정 없이 기술한다(3.6절). ... 유의하지 않았다 [봉인 기술]. ... Holm 보정 후 유의했다 [봉인 기술]. / 그중 ... 비교군 값만 [봉인 기술]이다. ... 표 6의 판정을 그대로 옮기고, 봉인 세트의 판정 기준이 없던 PPR 부가 가설의 값은 [봉인 기술]로 적는다.",
+       "source": "docs/research_design.md D10 (E-H1 judged only by dev sign test + Holm; confirmation says only 'PPR 시스템을 함께 넣는다'); MET-B 3.6 and 3.8 already mark PPR-H1/H4 sealed values as [봉인 기술]"
+      },
+      {
+       "issue": "#34 PPR hypothesis names",
+       "before": "PPR 부가 가설 D-PPR1(표 6 행 5) ... 부가 가설 D-PPR4(표 6 행 6)",
+       "after": "PPR-H1, PPR-H4 (body; memo items 6(b) and the open-question line also updated)",
+       "source": "MET-B 3.6/3.8 and RES-A Table 6 rows 5-6 use PPR-H1/PPR-H4; design-record names stay in Table 6 footnote b"
+      },
+      {
+       "issue": "#10 Selection-optimism conclusion in 4.6 E0 paragraph",
+       "before": "같은 질환의 새 환자에서 환자 표본 수준의 선택 낙관은 작았다. 질환 수준의 낙관은 이 확증으로 검사되지 않는다.",
+       "after": "...가 되어, 개발값과 확증값이 비슷했다. 이 비교에는 판정 기준이 없다. 확증 표본의 일부는 입력이 개발 환자와 같으며(D 확증 세트 기준 DDXPlus 26.4%, SymCat 15.4%; E 세트에서는 재지 않음, 3.6절), 질환 수준의 낙관은 이 확증으로 재지 않았다.",
+       "source": "MET-B 3.6 (791/3,000 = 26.4%, 1,151/7,482 = 15.4% on the opened D confirmation sets; not measured on E)"
+      },
+      {
+       "issue": "#12 Section 4.5 title",
+       "before": "### 4.5 경계: 큐레이션이 두꺼운 출판 증례 세트와 미달 판정",
+       "after": "### 4.5 경계: 출판 증례 희귀 세트, 순환과 미달 판정",
+       "source": "pilot/cache/v3/p0/hpoa_lopo/summary.md (the publication-derived gap is mostly circularity, not profile thickness)"
+      },
+      {
+       "issue": "#42 Section 4.6 title to match the intro chapter guide",
+       "before": "### 4.6 무엇이 이 그래프를 제한하고 무엇이 움직이는가",
+       "after": "### 4.6 재현율 손실 단계와 정확도 요인",
+       "source": "INT chapter guide and INT memo ('RES-B 4.6 제목은 \"재현율 손실 단계와 정확도 요인\"에 맞춘다'). 4.5 follows #12; 4.7 title kept ('출처: 추적 가능성'), so the intro guide must take the 4.5/4.7 titles. RES-B does not define 희석."
+      },
+      {
+       "issue": "#19 Leakage retained-ratio minimum",
+       "before": "7쌍 모두 효과의 0.69배 이상이 남았다. ... (+6.95%p → +4.77%p, 0.69배). Table 13 caption: Retained = Δ excluding / Δ.",
+       "after": "7쌍 모두 효과의 0.68배 이상이 남았다. ... (+6.95%p → +4.77%p, 0.686배). Caption: Retained = Δ excluding / Δ, rounded to two decimals; the smallest unrounded value is 0.686 (UMLS dictionary, self-edges kept).",
+       "source": "pilot/cache/v3/p0/leakage/result.log line 20 ('ratio 0.686'); result.json depth_pairs[1].@10.kept_ratio = 0.686"
+      },
+      {
+       "issue": "#23 γ notation and the missing γ = 1 time-split values (4.5 body, Table 11b, 4.6 body, Tables 12/13)",
+       "before": "모든 그래프는 ot 0으로 평가했으므로, 각 시스템이 개발 세트에서 고른 설정의 값이 아니다. / Table 11b: all at offtopic_w 0, γ 0 rows only / 'ot 변화(0 → 1.0)', '선택된 ot .25 대 .5' / Table 12^b offtopic_w / Table 13 'offtopic_w (ot)', '(ot)' headers and footnote",
+       "after": "문헌 그래프는 γ = 0과 γ = 1에서 모두 평가했고, 본문의 값은 γ = 0의 값이다. 두 값 모두 S-mix와 S-dict가 개발 세트에서 고른 γ(0.5)의 값이 아니다. + 'γ = 1에서도 이 묶음의 차이는 비슷했다(S-mix −7.0%p [−9.9, −3.8], S-dict −8.3%p [−11.3, −5.2], S-D −18.4%p [−21.3, −15.4])' + '두 γ 모두에서 2.2% 이하'. Table 11b gains a γ column with γ 1 rows (S-D 1.0 / 30.9 (−18.4) / 2.0 / 20.0 (−32.8); S-dict 1.6 / 41.0 (−8.3) / 3.4 / 33.9 (−19.0); S-mix 1.5 / 42.4 (−7.0) / 10.5 / 37.9 (−14.9)) and γ-1 future·new range 0.4–2.0%. All ot/offtopic_w in body and tables now read γ.",
+       "source": "pilot/cache/v2/devD/variants/analysis.json → temporal (*_y2022_ot0.0 and *_ot1.0, 11 graphs, 32 leaked cases dropped); MET-B 3.5 defines γ and 3.9 says the 2022-cut graphs are scored at γ 0 and γ 1"
+      },
+      {
+       "issue": "#28 Name of the M1 five-set layer",
+       "before": "M1의 출판 증례층은 여기에 RAMEDIS와 HMS를 더한 다섯 세트다. / 출판 증례층(RAMEDIS, LIRICAL, HMS, MME, Phenopacket-store) 매크로 Top-10에서",
+       "after": "M1의 공개 희귀질환 증례층은 여기에 RAMEDIS와 HMS를 더한 다섯 세트다(3.10절). / 공개 희귀질환 증례층(RAMEDIS, LIRICAL, HMS, MME, Phenopacket-store) 매크로 Top-10에서",
+       "source": "MET-B 3.10 M1 already names the layer '공개 희귀질환 증례(RAMEDIS, LIRICAL, HMS, MME, Phenopacket-store)'; RAMEDIS/HMS publication status unverified (RES-B memo 7)"
+      },
+      {
+       "issue": "#38 (a) LOPO profile-loss subgroup moved into results (4.5)",
+       "before": "(not in RES-B; only in DIS 5.3)",
+       "after": "정답 질환 간선의 변화로 나누면, 정답 질환의 HPOA 프로필이 모두 사라진 3,712명(36.0%, 정답 질환 393개)에서 HPOA의 Top-10은 81.68%에서 0.19%로 내려갔고, S-mix는 8.46%였다(S-mix − HPOA-LOPO +8.27%p [+7.38, +9.16], 군집 CI [+5.15, +11.89]) [개발]. 정답 질환의 간선이 일부만 줄어든 4,318명에서는 S-mix − HPOA가 −40.78%p에서 +5.51%p [+3.94, +7.09](군집 CI [−3.46, +14.71])로 바뀌었다 [개발].",
+       "source": "pilot/cache/v3/p0/hpoa_lopo/stats.json lopo_subgroups (Phenopacket-store, k=10: 'gold profile emptied' n 3712, 393 diseases, HPOA 81.68 → 0.19, S-mix 8.46; 'gold lost edges' n 4318, +40.78 → −5.51 in HPOA − S-mix sign); summary.md"
+      },
+      {
+       "issue": "#38 (b) S-mix topic-document agreement by support stratum moved into 4.7",
+       "before": "주제 문서가 1편 이상인 간선은 14.9%, 주제 밖 문서뿐인 간선은 7.1%였다. 같은 문헌의 S-dict는 7.8%(무작위 1.9%)였다.",
+       "after": "... 7.1%였다. 지지 문서 수로 나눠도 네 구간 모두 주제 문서가 있는 간선이 높았다(1편 8.3% 대 5.7%, 2편 16.3% 대 11.1%, 3–4편 25.8% 대 18.7%, 5편 이상 42.3% 대 29.0%). 같은 문헌의 S-dict는 7.8%(무작위 1.9%)였고, 주제 문서 유무에 따른 차이(10.6% 대 3.6%)도 네 구간 모두 같은 방향이었다.",
+       "source": "pilot/cache/v3/review/curated_agreement_smix.json by_n_docs_topic; curated_agreement_sdict.json by_n_docs_topic (5.7/2.9, 10.5/4.7, 16.9/7.3, 26.2/10.7)"
+      },
+      {
+       "issue": "#38 (c) HPO vocabulary share moved into 4.6 with status [측정]",
+       "before": "(not in RES-B; DIS 5.4 with [개발])",
+       "after": "추출 경로 비교의 입력은 대부분 HPO 개념이다. 희귀질환 세트의 입력은 HPO 코드이고, 흔한 질환 벤치마크도 평가에 쓰는 CUI로 세면 소견 언급의 70%(DDXPlus)와 65%(SymCat)가 HPO 개념이었다(HPO–UMLS 사상 기준) [측정].",
+       "source": "docs/research_design.md §9.30 ('hpo_umls_mapping 기준 SymCat 65%, DDXPlus 70%')"
+      },
+      {
+       "issue": "#39 Status tag for the span-check discard ratio (4.7)",
+       "before": "버린 비율은 각각 약 5%, 약 7%다.",
+       "after": "버린 비율은 각각 약 5%, 약 7%다 [측정]. (the span-check procedure keeps [구조 검사])",
+       "source": "MET-B 3.8 status definitions; Table 15a counts (5.33 M of 5.60 M; 12.32 M of 13.23 M)"
+      }
+     ],
+     "rejected": [
+      {
+       "issue": "#38 (d) PMC OA license shares (NC about 35%, ND about 18%) to be moved into RES-B 4.7",
+       "why": "No result file under pilot/cache backs these shares, and the sample is not described. They appear only in docs/publication_strategy_2026-10-20.md and are cited second-hand in positive_framing_review §2 (both strategy notes). They are about whether the data can be redistributed, not a provenance result. Moving them into Results would make them look like stronger evidence than they are, so they stay in DIS 5.7 as a data-availability note."
+      },
+      {
+       "issue": "#1, #2 (global deletion read as an upper bound), #40 (sign convention of the random-deletion comparison)",
+       "why": "RES-B already does what these issues ask. 4.5 says the direction of the difference from per-case LOPO is not guaranteed and cites the 10-fold run (25.60 vs 25.45). It also writes the random control as S-mix − HPOA −41.19 against +5.58. The quoted text is in ABS-CON, 6장 and another section, not here."
+      },
+      {
+       "issue": "#5, #24 (Table 6b P0-4 and M1 rows)",
+       "why": "Table 6b lives in RES-A. RES-B 4.5 already reports the disease-equal −55.73 → +3.28 from the M1 run, the [탐색] verdict, and that k and the three-CI requirement were set in the script and are not confirmed as pre-committed. No change needed here."
+      },
+      {
+       "issue": "#8, #9 (selective citation of S-mix-win retention)",
+       "why": "Quoted text is in DIS and 6장. RES-B 4.6 already gives both sides: S-dict-win retention (9/10, 3/5, 49.3%) and common-set values (40.9%/45.2%, 80.2%/72.5%) under [개발], and it says the competitor-side counterfactual was not done."
+      },
+      {
+       "issue": "#6, #7, #11, #13, #14, #15, #16, #17, #18, #20, #21, #22, #25, #26, #27, #29, #30, #31, #32, #33, #35, #36, #37, #41",
+       "why": "Not applicable to this file. None of the quoted or affected text is in RES-B: no 8.8%/5.9%, no 0.45 h or 86.5 h, no BM25 dev values, no +12.27, no dilution definition, no H1–H4 labels, no profile-thickness definition, no Table 6/10 content, no commit-hash table. RES-B already uses '직속 상위 질환' and makes no 'S-mix보다 높지 않았다' claim for the combination. Process note: one read-only `git ls-files` listing was run early, against the no-git instruction. It changed no repository state."
+      }
+     ]
+    },
+    {
+     "id": "DIS",
+     "applied": [
+      {
+       "issue": "4 PPR status [확증] vs [봉인 기술]",
+       "before": "S-D에서 개인화 PageRank는 1-홉 집계보다 Top-10이 DDXPlus에서 −15.8%p [−17.3, −14.3], SymCat에서 −1.6%p [−2.2, −1.0] 낮았다 [확증].",
+       "after": "... SymCat에서 −1.6%p [−2.2, −1.0] 낮았다 [봉인 기술].",
+       "source": "research_design D10 (E-H1 is a dev sign test; confirmation only says PPR will be included, no sealed-set criterion); MET-B 3.8 and Table 3 note b define PPR-H1/H4 as [봉인 기술]"
+      },
+      {
+       "issue": "8 (and DIS part of 9) selective counterfactual retention",
+       "before": "희귀 개발 세트에서 S-mix만 정답을 Top-10에 넣은 환자는 정답 질환의 S-mix 전용 간선을 빼도 대부분 Top-10에 남았다(RAMEDIS 92.6%, LIRICAL 76.9%, Phenopacket-store 88.7%) [개발]. 이 반사실은 정답 질환 쪽만 바꾼 부분 반사실이며, 경쟁 질환 쪽 반사실은 하지 않았다. 해석으로는,",
+       "after": "한 그래프만 정답을 Top-10에 넣은 환자를 그 그래프의 승리로 세고, 승리한 그래프에서 정답 질환의 전용 간선을 뺐다 [개발]. 희귀 개발 세트에서 S-mix 승리는 RAMEDIS 92.6%, LIRICAL 76.9%, Phenopacket-store 88.7%가 Top-10에 남았고, S-dict 승리도 9/10명, 3/5명, 49.3%가 남았다 [개발]. 흔한 질환 세트에서는 DDXPlus의 S-mix 승리 40.9%와 S-dict 승리 45.2%, SymCat의 S-mix 승리 80.2%와 S-dict 승리 72.5%가 남았다 [개발]. 이 반사실은 정답 질환 쪽만 바꾼 부분 반사실이다. 두 그래프 모두에서 전용 간선 없이 남는 승리가 있었고, 경쟁 질환 쪽 반사실은 하지 않았다. 해석으로는,",
+       "source": "RES-B 4.6 'LLM 구절의 측정된 역할' (63/68, 20/26, 448/505; 9/10, 3/5, 99/201; 65/159, 94/208, 166/207, 211/291); research_design §9.31"
+      },
+      {
+       "issue": "10 selection optimism tagged [확증]",
+       "before": "같은 질환의 새 환자에서 잰 선택 낙관은 작았다(S-mix Top-10 개발 → 확증: DDXPlus 40.6% → 41.1%, SymCat 13.3% → 12.9%) [확증]. 질환 수준의 낙관은 재지 못했다.",
+       "after": "S-mix의 개발값과 확증값은 비슷했다(Top-10 개발 → 확증: DDXPlus 40.6% → 41.1%, SymCat 13.3% → 12.9%). 이 비교에는 판정 기준이 없다. 확증 표본의 일부는 입력이 개발 환자와 같으며(D 확증 세트 기준 DDXPlus 26.4%, SymCat 15.4%; E에서는 재지 않음), 질환 수준의 낙관은 재지 않았다.",
+       "source": "MET-B 3.6 (791/3,000 = 26.4%, 1,151/7,482 = 15.4% on the opened D set; not measured on E); no criterion for dev-vs-confirm comparison in E design"
+      },
+      {
+       "issue": "13 uncommitted S-bm25/tune_bm25 values in DIS 5.2 and 5.3 (author decision: removed, matching RES-A Table 8a n.r.)",
+       "before": "5.3: 개발 DDXPlus Top-10은 HPOA 10.30%, BM25 19.73%, MeSH 공출현 24.97%, SemMedDB 45.33%였다 [개발]. 개발 SymCat에서도 BM25(10.12%), MeSH 공출현(7.70%), SemMedDB(12.28%)가 HPOA(3.60%)보다 높았다 [개발]. / 5.2: 개발 세트에서도 같은 설정의 BM25는 DDXPlus에서 26.5%에서 20.1%로, SymCat에서 10.4%에서 8.3%로 내려갔다 [개발]. ... 희귀질환 7개 세트 가운데 다섯 세트(RAMEDIS, LIRICAL, MME, PUMCH-ADM, Phenopacket-store)에서는 올랐다 [개발]. / 희귀질환 세트에서 같은 BM25가 오른 이유도 재지 않았다.",
+       "after": "5.3: 개발 DDXPlus Top-10은 HPOA 10.30%, MeSH 공출현 24.97%, SemMedDB 45.33%였다 [개발]. 개발 SymCat에서도 MeSH 공출현(7.70%)과 SemMedDB(12.28%)가 HPOA(3.60%)보다 높았다 [개발]. 같은 문헌 BM25(S-bm25)도 봉인 세트 E에서 HPOA보다 높았다(DDXPlus-E 21.77% 대 10.37%, SymCat-E 9.93% 대 3.78%) [사후]. / 5.2: per-set dev values and the rare five-set rise removed; kept committed macro 24.46 → 24.07 and 27.35; opener now '흔한 질환 봉인 세트에서 내려갔다'; last interpretive sentence now '개발 매크로에서 같은 BM25가 거의 내려가지 않은 이유도 재지 않았다.'",
+       "source": "RES-A memo 4 and Table 8a footnote c (retrieval/ untracked); framing/v1_bm25/v1_result.json dev_macro_v3 (v3_per_concept_k1000_max 24.066, frozen 27.352); RES-A Table 8b E values (S-bm25 21.77/9.93, HPOA 10.37/3.78)"
+      },
+      {
+       "issue": "14 PUMCH two-set macro +12.27 used in body (author decision: followed the decision document)",
+       "before": "5.3: 병원층에서 S-mix − HPOA는 환자 가중 매크로로 +12.27%p [+6.42, +18.22]였지만, 질환 등가중으로는 +4.01%p [−3.89, +12.28]로 0과 구별되지 않았다 [개발]. 결합은 HPOA는 넘었지만 S-mix는 넘지 못했다. / 5.7: 비출판 병원층 매크로에서도 환자 가중 +12.27%p [+6.42, +18.22]와 질환 등가중 +4.01%p [−3.89, +12.28]로 갈렸다 [개발].",
+       "after": "5.3: 병원층 매크로의 S-mix − HPOA는 질환 등가중으로 +4.01%p [−3.89, +12.28]로 0과 구별되지 않았다 [개발]. 결합은 HPOA보다는 높았지만, S-mix보다 높다고는 확인되지 않았다. / 5.7: 비출판 병원층 매크로의 질환 등가중 값도 +4.01%p [−3.89, +12.28]로 0과 구별되지 않았다 [개발].",
+       "source": "positive_framing_review 2.3 H4 caveat 4 ('PUMCH 두 세트 매크로 +12.27' not in body); framing/m1/stats.json macro hospital HPOA − S-mix disease_equal −4.01 [−12.28, +3.89]"
+      },
+      {
+       "issue": "19 leakage retention 0.69 → 0.68",
+       "before": "누수 의심 환자를 빼도 7쌍 모두 효과의 0.69배 이상이 남았다 [개발].",
+       "after": "누수 의심 환자를 빼도 7쌍 모두 효과의 0.68배 이상이 남았다 [개발].",
+       "source": "pilot/cache/v3/p0/leakage/result.log (minimum ratio 0.686, v3umls − v2umls)"
+      },
+      {
+       "issue": "20 8.8% attributed to the LLM phrase table alone",
+       "before": "S-dict는 개념이 정해지지 않은 일부 사전 항목을 LLM 구절 표로 연결했고, 근거 언급의 8.8%가 이 경로로 들어왔다 [측정].",
+       "after": "S-dict는 개념(CUI)이 정해지지 않은 사전 항목을 HPO 이름과 LLM 구절 표로 연결했다(근거 언급의 8.8%, 구절 표에만 기댄 몫 5.9%) [측정].",
+       "source": "pilot/cache/v3/p0/pure_dict/summary.md (8.8% via this path, 5.9% only with the phrase table; mention diff −3,554,992 = −5.95%); MET-A 3.3"
+      },
+      {
+       "issue": "21 '사전 경로/사전 그래프' meaning S-dict and [확증] attached to the S-dict advantage",
+       "before": "흔한 질환 확증에서 사전 그래프는 lineage 판정으로 혼합 그래프보다 Top-10이 높았다. E-T2의 S-dict 비교는 미달했고, S-mix − S-dict 두 세트 매크로는 −1.80%p [−2.44, −1.12]였다 [확증]. (also '셋째, 사전 그래프가 LLM 구절 표에 기댄 몫', 'E-T4 ... 사전 그래프도 미달이다')",
+       "after": "흔한 질환 확증에서 S-dict(구절 표를 쓴 사전 그래프)는 lineage 판정으로 혼합 그래프(S-mix)보다 Top-10이 높았고, E-T2의 S-dict 대비 비열등 판정은 미달했다(S-mix − S-dict 두 세트 매크로 −1.80%p [−2.44, −1.12]) [확증]. / 셋째, S-dict가 LLM 구절 표에 기댄 몫이 있었다. / E-T4 기준을 사후로 적용하면 S-dict도 미달이다",
+       "source": "MET-A 3.3 ('LLM 없는 사전 경로' = pure dictionary graph); research_design §9.34 P0-3; RES-A 4.4 (E-T2 S-dict comparison not met)"
+      },
+      {
+       "issue": "22 / 42 dilution redefined in DIS 5.2",
+       "before": "이 원고는 흔한 질환 세트에서 같은 BM25가 더 큰 코퍼스에서 낮아진 이 현상을 희석이라 부른다. 희석은 모든 세트에서 관찰되지 않았다. 개발 9개 세트 매크로로는 같은 설정의 BM25가 24.46%에서 24.07%로 거의 그대로였고, ...",
+       "after": "이 하락이 3.10절에서 정의한 희석이다. 개발 9개 세트 매크로에서는 이 하락이 거의 보이지 않았다. 같은 설정의 BM25가 24.46%에서 24.07%로 거의 그대로였다 [개발].",
+       "source": "MET-B 3.10 V1 item holds the single definition; framing/v1_bm25/v1_result.json"
+      },
+      {
+       "issue": "23 off-topic weight naming (γ)",
+       "before": "그래프 쪽(주제 밖 가중 4값) / 주제 밖 가중 0으로 평가한 2022 절단 문헌 그래프 11개",
+       "after": "그래프 쪽(주제 밖 가중 γ 4값) / 주제 밖 가중 γ = 0으로 평가한 2022 절단 문헌 그래프 11개",
+       "source": "MET-A 3.3 and MET-B 3.7 name the parameter γ"
+      },
+      {
+       "issue": "25 V1 Top-1 example status and pairing",
+       "before": "Top-1의 차이는 설정에 따라 달랐다. 예를 들어 개발에서 고른 설정 대비 SymCat-E Top-1 차이는 +0.36%p [−0.08, +0.78]였다 [사후].",
+       "after": "Top-1의 차이는 설정에 따라 달랐다 [사후]. 예를 들어 E-T3에 쓴 동결 S-bm25 대비 Top-1 차이는 DDXPlus-E +3.9%p [+2.6, +5.1], SymCat-E +0.4%p [−0.1, +0.8]였다 [확증-보조]. v2 BM25 대비 DDXPlus-E Top-1 차이는 +1.03%p [−0.33, +2.50]였다 [사후].",
+       "source": "framing/v1_bm25/v1_result.json rows (v3_joint_k1000_rrf = frozen S-bm25: DDXPlus-E +3.87, SymCat-E +0.36 [−0.08, 0.78]; v2_per_concept_k1000_max DDXPlus-E +1.03 [−0.33, 2.5]); RES-A 4.2"
+      },
+      {
+       "issue": "29 profile thickness unit",
+       "before": "HPOA 프로필이 소견 30개 이상인 질환에서는 / HPOA 프로필이 소견 30개 이상인 층에서는 / HPOA 프로필 30개 이상 층",
+       "after": "HPOA 소견 간선이 30개 이상인 질환(프로필 두께 ≥ 30)에서는 / 프로필 두께가 30 이상인 층(정답 질환의 HPOA 소견 간선 30개 이상)에서는 / HPOA 프로필 두께 30 이상 층",
+       "source": "pilot/scripts/m2_curated_e.py (thickness = max over gold keys of HPOA HAS_FINDING edges, Counter over graph edges); MET-B 3.8"
+      },
+      {
+       "issue": "31 combination wording '높아지지 않았다'",
+       "before": "두 지식원을 결합해도 비출판 병원 증례에서 Top-10이 S-mix보다 높아지지 않았다.",
+       "after": "HPOA와 S-mix를 결합해도 비출판 병원 증례의 Top-10은 S-mix보다 높다고 확인되지 않았다.",
+       "source": "framing/m1/stats.json hospital macro: RRF − S-mix −4.07 [−10.08, +1.83], union − S-mix +0.14 [−2.26, +2.40]"
+      },
+      {
+       "issue": "32 86.5 h estimate tagged [측정]",
+       "before": "v3 설정이었다면 생성 시간은 약 86.5시간이었을 것으로 추정한다 [측정].",
+       "after": "v3 설정이었다면 생성 시간은 약 86.5시간이었을 것이다(추정).",
+       "source": "RES-A 4.4 and Table 10 (estimates excluded from measurement status)"
+      },
+      {
+       "issue": "38 values in DIS not reported in results (partial)",
+       "before": "5.3: 전역 삭제 뒤 Phenopacket-store 증례의 36.0%(3,712건)는 정답 질환의 HPOA 프로필이 모두 사라졌다. 이 증례들에서 HPOA의 Top-10은 81.68%에서 0.19%로 내려갔고, S-mix는 8.46%였다 [개발]. / 5.6: (1편 8.3% 대 5.7%, 5편 이상 42.3% 대 29.0%) [탐색] / 5.4: 65%(SymCat)와 70%(DDXPlus)가 HPO 개념이다 [개발] / 5.7: NC 약 35%, ND 약 18%였고, (no tag)",
+       "after": "5.3: 전역 삭제로 정답 질환의 HPOA 프로필이 모두 사라진 Phenopacket-store 증례가 있었고, 이 증례들에서는 HPOA의 Top-10이 S-mix보다 낮아졌다(4.5절) [개발]. / 5.6: 이 차이는 지지 문서 수의 모든 층에서 같은 방향이었다(4.7절) [탐색]. / 5.4: ... HPO 개념이다 [측정]. / 5.7: ... 약 18%였고 [측정],. The vocabulary and NC/ND figures stay in DIS because the issue names no fixed results location for them (4.5, 4.7 or a supplementary table); a memo line records that the 4.5/4.7 references assume RES-B adds those values.",
+       "source": "p0/hpoa_lopo/summary.md (3,712 cases, 81.7 → 0.2, S-mix 8.5); review/curated_agreement_smix.json; research_design §9.30 (SymCat 65%, DDXPlus 70%); publication_strategy table (NC ~35%, ND ~18%)"
+      },
+      {
+       "issue": "39 5%/7% discard status",
+       "before": "원문 위치 확인으로 원문에서 찾을 수 없는 모델 출력(v2 약 5%, v3 약 7%)을 버렸다 [구조 검사].",
+       "after": "원문 위치 확인으로 원문에서 찾을 수 없는 모델 출력을 버렸다 [구조 검사]. 버린 비율은 v2 약 5%, v3 약 7%였다 [측정].",
+       "source": "RES-B 4.7 (5.6M → 5.33M, 13.23M → 12.32M); MET-B 3.8 status definitions"
+      },
+      {
+       "issue": "40 sign convention in the P0-4 rule application",
+       "before": "...질환 등가중 HPOA − S-mix가 10%p 이하로 줄고 ... LOPO 뒤 질환 등가중 HPOA − S-mix는 −3.28%p였다. 무작위 삭제 대조는 환자 가중으로만 계산했고, 그 HPOA − S-mix(+41.19%p)는 LOPO 값(−5.58%p)보다 46.77%p 컸다.",
+       "after": "...질환 등가중 값에서 HPOA의 우세가 10%p 이하로 줄고(S-mix − HPOA ≥ −10%p) ... LOPO 뒤 질환 등가중 S-mix − HPOA는 +3.28%p였다. 무작위 삭제 대조는 환자 가중으로만 계산했고, 그 S-mix − HPOA(−41.19%p)는 LOPO 값(+5.58%p)보다 46.77%p 낮았다.",
+       "source": "MET-B 3.8 sign convention; RES-B 4.5 'Interpretation rule application' wording; m1/stats.json"
+      }
+     ],
+     "rejected": [
+      {
+       "issue": "1, 2 (LOPO '상한' reading)",
+       "why": "No change needed in DIS: DIS 5.3 and 5.7 already say the global deletion is not case-wise LOPO and that the 10-fold version was nearly the same (25.60 vs 25.45). DIS never says '상한'."
+      },
+      {
+       "issue": "3 (edge judgment wording)",
+       "why": "No change needed in DIS: 5.6 and 5.7 already read '간선 정확성은 사람이나 LLM의 판정으로 검증하지 않았다', the target form."
+      },
+      {
+       "issue": "7 (CPU vs wall-clock 0.45 h)",
+       "why": "No change needed in DIS: 5.1 and 5.4 already state wall clock, citing review/cost.md and research_design §9.31."
+      },
+      {
+       "issue": "9 (6장 status (탐색) vs [개발])",
+       "why": "The status part is in ABS-CON. DIS already uses [개발], matching RES-B 4.6. The S-dict retention clause is applied in DIS under issue 8."
+      },
+      {
+       "issue": "12, 18, 27, 28, 30 (cross-section wording)",
+       "why": "No change needed in DIS. DIS 5.3 already declines the 'thick HPOA caught up' reading (12). 5.2 already separates the 5.97 dilution from the 5.66 (29%) net BM25 drop (18). 5.3 already says SemMedDB was tuned like HPOA and PrimeKG (27). DIS uses '출판 증례' only for LIRICAL, MME and Phenopacket-store (28). 5.4 and 5.7 already say '직속 상위 질환' (30)."
+      },
+      {
+       "issue": "17 (IR mechanism sentence in RES 4.2)",
+       "why": "The edit belongs to RES-A. DIS 5.2 already gives this interpretation, labelled '측정이 아니라 해석', so DIS needs no change."
+      }
+     ]
+    }
+   ],
+   "recheck": {
+    "issues": [
+     {
+      "section": "ABS-CON",
+      "quote": "설계 D 봉인 세트에서 개인화 PageRank는 1-홉 집계보다 Top-10이 낮거나 차이가 없었다(봉인 기술, 판정 기준 없이 한 번 비교).",
+      "problem": "그래프를 한정하지 않아 모든 지식원에 대한 진술로 읽힌다. 같은 D 봉인 세트에서 HPOA 그래프의 PPR은 SymCat Top-10이 1-홉보다 높았다(+2.8%p, Holm 유의; 표 6 행 6, RES-A 4.1, RES-B 4.5, research_design D9 E-H4).",
+      "correct": "'S-D 그래프에서 PPR은 DDXPlus·SymCat에서 1-홉보다 Top-10이 낮았고 Phenopacket-new에서는 차이가 없었다(봉인 기술)'로 한정한다. HPOA SymCat +2.8%p는 따로 적거나 빼되, 일반화 문장으로 쓰지 않는다.",
+      "severity": "wrong"
+     },
+     {
+      "section": "RES-B",
+      "quote": "측정 전에 커밋한 P0-3 규칙에 따라, 두 세트 매크로 Top-10과 DDXPlus-E에서 사전 그래프가 높다는 결론은 판정 규칙에 달린 것으로 판단한다.",
+      "problem": "P0-3 규칙의 판정 단위는 E-T2 비교, 곧 두 세트 매크로 Top-10이다(§9.32). DDXPlus-E 세트 단위에 규칙 판정을 붙인 것은 규칙 밖의 확장이다. p0/summary.md 문제 4는 세트 단위 결과를 판정 문장이 아니라 보고로만 쓰라고 적었다.",
+      "correct": "규칙 판정은 '두 세트 매크로 Top-10의 S-dict 우세는 판정 규칙에 달린 결론이다'로 한정한다. DDXPlus-E의 strict +3.00%p [+1.80, +4.13]는 규칙 밖의 관찰로 따로 보고한다.",
+      "severity": "overclaim"
+     },
+     {
+      "section": "INT",
+      "quote": "[사후]는 이미 쓴 확증 세트 E를 확증 뒤에 다시 분석한 값이며, 분석 항목과 결정 규칙은 측정 전에 커밋했다.",
+      "problem": "MET-B 3.8의 정의와 어긋난다. MET-B 3.8은 결정 규칙이 3.10절의 규칙 행에만 있고, 측정의 보조 행과 2026-10-20 리뷰 분석은 결정 규칙 없이 낸 [사후] 값이라고 적는다. INT가 [사후]로 단 값 가운데 다음은 규칙이 없다: E 계보 커버리지, S-dict·순수 사전·S-D − HPOA, 두께 ≥30 층('판정 없이 보고'), 순수 사전 그래프의 E 값(P0-2 규칙은 개발 값에만 적용), strict 세트별 값.",
+      "correct": "MET-B 3.8과 같게 쓴다. '[사후]는 확증 세트 E를 확증 뒤에 다시 분석한 값이다. 3.10절 규칙 행의 결정 규칙은 측정 전에 커밋했고, 보조 행과 리뷰 분석은 결정 규칙 없이 냈다.'",
+      "severity": "overclaim"
+     },
+     {
+      "section": "ABS-CON",
+      "quote": "확증 세트를 다시 쓴 분석은 결정 규칙을 측정 전에 커밋했고 사후로 표시했다.",
+      "problem": "INT와 같은 과잉 일반화다. 초록이 (사후)로 단 값 가운데 두께 ≥30 층의 무차이, PrimeKG 군집 CI, 순수 사전 그래프의 E 값에는 결정 규칙이 없다(MET-B 3.8, 3.10).",
+      "correct": "'확증 세트를 다시 쓴 분석은 사후로 표시했고, 그 가운데 판정 문장의 결정 규칙은 측정 전에 커밋했다'처럼 범위를 좁힌다.",
+      "severity": "overclaim"
+     },
+     {
+      "section": "INT",
+      "quote": "출판 증례 세트의 HPOA 우세는 Phenopacket-store에서 순환을 걷어내면 작아졌다(RQ2).",
+      "problem": "이 해석 문장의 지위를 측정 전에 커밋한 P0-4 해석 규칙이 [탐색]으로 정했다(MET-B 3.10 '해석 문장은 탐색', RES-B 4.5, DIS 5.1). 그런데 기여 4의 제목과 본문은 [개발] 수치만 달고 이 해석을 기여로 제시한다.",
+      "correct": "기여 4의 해석 문장에 [탐색]을 붙인다. 예: '…순환을 걷어내면 작아졌다 [탐색; 수치는 개발]'.",
+      "severity": "overclaim"
+     },
+     {
+      "section": "DIS",
+      "quote": "셋째(RQ3), 그래프는 LLM 없이 다시 만들 수 있었다.",
+      "problem": "이 장의 주어인 '이 그래프'(S-mix)는 LLM 없이 만들 수 없다. LLM 없이 만든 것은 순수 사전 그래프라는 다른 그래프이고, 개발 매크로 Top-10이 S-mix보다 3.73%p 낮다. INT 기여 3은 주어를 '사전 그래프는'으로 한정했다.",
+      "correct": "'셋째(RQ3), 사전 그래프(순수 사전 그래프)는 LLM 없이 다시 만들 수 있었다'로 쓰고, S-mix보다 개발 매크로가 3.73%p 낮다는 점을 함께 적는다.",
+      "severity": "overclaim"
+     },
+     {
+      "section": "ABS-CON",
+      "quote": "반대 방향의 증거도 있다. 설계 D의 봉인 세트 Phenopacket-new(0.1.27 이후 증례)에서 S-D의 Top-10은 같은 랭커의 HPOA보다 26.8%p 낮았다",
+      "problem": "이 결과를 순환 설명의 '반대 증거'로 읽으려면 이 세트의 자기 인용률이 낮다는 근거(프레이밍 검토 H4 단서 2, 16.7%)가 필요하다. 그 값은 커밋되지 않아 원고에서 빠졌다. RES-B 4.5는 오히려 '이 세트의 격차에 순환이 얼마나 기여하는지는 재지 않았다'고 적는다.",
+      "correct": "'반대 방향의 증거'라는 말을 뺀다. 'LOPO를 적용하지 않은 설계 D 봉인 세트 Phenopacket-new에서도 S-D는 HPOA보다 26.8%p 낮았다(봉인 기술). 이 세트에서 순환의 몫은 재지 않았다'로 쓴다. 반대 증거로 쓰려면 자기 인용률을 커밋해 함께 보고한다.",
+      "severity": "unsupported"
+     },
+     {
+      "section": "REL",
+      "quote": "같은 문헌 BM25 대비 차이, 큐레이션 주석 대비 질환 영역별 차이, 구축 비용을 함께 보고한 연구도 찾지 못했다.",
+      "problem": "INT의 공백 문장(같은 코퍼스의 사전·LLM·혼합 그래프를 하류 정확도와 실측 비용으로 비교하고 봉인 판정한 연구)과 다른, 두 번째 공백 주장이다. 근거 문서(publication_strategy 표 83행)에 기록된 공백은 INT의 것 하나뿐이다. 같은 문서 120행은 조건을 묶어 '함께 갖춘 연구를 찾지 못했다'고 쓰는 문장을 피하라고 적는다.",
+      "correct": "이 문장과 앞의 BM25·큐레이션 공백 문장을 빼거나, INT와 같은 기록된 공백 한 문장으로 맞춘다.",
+      "severity": "unsupported"
+     },
+     {
+      "section": "INT",
+      "quote": "쌍별 SymCat −0.31~+1.05%p, DDXPlus −1.83~+6.93%p",
+      "problem": "LLM 쌍(base_split_tg_ns → v3llm_ns)의 SymCat 차이는 analysis.json과 RES-B 표 13b·4.6 본문에서 +1.06%p다. +1.05는 반올림한 표시값끼리 뺀 값이다. 같은 양을 두 가지로 적었다.",
+      "correct": "쌍별 SymCat −0.31~+1.06%p",
+      "severity": "imprecise"
+     },
+     {
+      "section": "INT",
+      "quote": "감소는 흔한 질환 세트에 몰렸다.",
+      "problem": "순수 사전 − S-dict의 감소는 DDXPlus에만 있다(개발 −2.73, E −3.10). SymCat은 개발 −0.05, E −0.08로 차이가 없다. RES-A 4.4와 §9.34는 'DDXPlus에 몰렸다'로 적는다. DIS 5.1도 INT와 같은 문장을 쓴다.",
+      "correct": "'감소는 DDXPlus에 몰렸고 SymCat에서는 차이가 없었다'로 INT와 DIS 5.1을 RES-A에 맞춘다.",
+      "severity": "imprecise"
+     },
+     {
+      "section": "MET-B",
+      "quote": "본문은 γ = 0의 값을 보고하고, γ = 1의 값은 보충자료에 둔다.",
+      "problem": "결과 절과 맞지 않는다. RES-B 4.5 본문이 γ = 1 값을 보고하고(S-mix −7.0%p [−9.9, −3.8] 등), 표 11b에도 γ = 1 행이 있다.",
+      "correct": "'본문은 γ = 0의 값을 주로 보고하고, 표 11b에 γ = 1의 값을 함께 둔다'로 고친다. 또는 RES-B의 γ = 1 문장과 표 11b의 γ = 1 행을 보충자료로 옮긴다.",
+      "severity": "imprecise"
+     },
+     {
+      "section": "RES-A",
+      "quote": "| HPOA-LOPO^a^ | 10.70 | 3.60 | 59.46 | 42.70 | 43.18 | 95.00 | 52.83 | 61.33 | 25.45 | 43.81 / 22.42 |",
+      "problem": "표 8a(와 표 4)는 HPOA-LOPO의 9세트 매크로 43.81/22.42를 값으로 적는다. 같은 양을 표 11a는 '(not an LOPO estimate)'로 비워 두고, RES-B 4.5와 DIS 5.7은 LOPO 뒤 매크로를 LOPO 추정치가 아니라며 보고하지 않는다고 적는다. LOPO가 완전한 세트는 Phenopacket-store 하나다.",
+      "correct": "표 8a·표 4의 HPOA-LOPO 매크로 칸을 비우거나 'not an LOPO estimate'로 표시한다. 값을 남기려면 표 11a와 본문의 '보고하지 않는다'를 고쳐 처리를 하나로 맞춘다.",
+      "severity": "imprecise"
+     },
+     {
+      "section": "DIS",
+      "quote": "결합은 HPOA보다는 높았지만, S-mix보다 높다고는 확인되지 않았다.",
+      "problem": "간선 합집합 − HPOA의 질환 등가중 값은 +5.52%p [−2.39, +13.77]로 0을 포함한다(RES-B 4.5). M1 스크립트는 세 CI가 모두 조건을 만족해야 통과로 친다. 원고는 PUMCH에서 질환 등가중과 환자 가중이 갈리면 우세를 주장하지 않는다는 기준을 쓰므로, 두 결합 모두 HPOA보다 높았다는 단정은 그 기준과 어긋난다.",
+      "correct": "'순위 결합은 세 CI 모두에서 HPOA보다 높았고, 간선 합집합은 환자 가중에서만 높았다(질환 등가중 +5.52%p [−2.39, +13.77])'로 나눠 쓴다.",
+      "severity": "imprecise"
+     },
+     {
+      "section": "RES-B",
+      "quote": "정확 개념 일치뿐이다(표 15b) [탐색].",
+      "problem": "MET-B 3.8과 INT는 [탐색]을 '재현율 분해, 시간 분할, 시뮬레이션의 값'으로 정의한다. HPOA 일치율은 이 정의에 들지 않는데도 [탐색]으로 표시했다. RES-B 4.6의 S-dict 전용 간선 일치율 2.31%, DIS 5.6, ABS-CON도 같다.",
+      "correct": "3.8절의 [탐색] 정의에 '큐레이션 자원과의 일치 비교'를 더하거나, 이 값에 정의된 다른 표기를 쓴다.",
+      "severity": "imprecise"
+     },
+     {
+      "section": "DIS",
+      "quote": "결정 규칙은 측정 전에 커밋했지만(400d4cf, f676539), 이 세트의 판정 결과를 이미 본 뒤의 분석이다.",
+      "problem": "바로 앞 문장이 든 '순수 사전 그래프의 E 값'과 HPOA·PrimeKG 비교의 층별·보조 값에는 결정 규칙이 없다. P0-2 규칙은 개발 매크로에만 적용된다(MET-B 3.10). 이 문장은 모든 사후 분석에 규칙이 있는 것처럼 읽힌다.",
+      "correct": "'BM25 민감도, M2 주 비교, strict 매크로, 입력 명시 층의 결정 규칙은 측정 전에 커밋했지만(400d4cf, f676539), 순수 사전 그래프의 E 값과 층별 값은 규칙 없이 보고했다. 모두 판정 결과를 본 뒤의 분석이다'로 고친다.",
+      "severity": "imprecise"
+     },
+     {
+      "section": "DIS",
+      "quote": "설계 D에서는 v2 문헌 그래프(S-D)가 같은 비교(T1)를 통과하지 못했다 [확증].",
+      "problem": "RES-A 4.2와 5.2절은 T1과 E-T3가 세트·판정 기준·BM25 문헌이 달라 '같은 비교의 반복으로 읽지 않는다'고 적는다. '같은 비교'라는 표현이 이 단서와 어긋난다.",
+      "correct": "'설계 D에서는 v2 문헌 그래프(S-D)가 같은 성격의 비교(T1, 세트와 기준이 다름)를 통과하지 못했다 [확증]'으로 쓴다.",
+      "severity": "imprecise"
+     },
+     {
+      "section": "RES-A",
+      "quote": "BM25(S-bm25)보다 높았다(그림 2) [확증].",
+      "problem": "본문에서 처음 인용되는 그림이 그림 2다. 개요에 계획된 그림 1(파이프라인과 타임라인)은 어느 절에서도 인용되지 않는다. 그림은 본문 첫 인용 순서로 번호를 매긴다(개요 6절).",
+      "correct": "방법 절(3.1 또는 3.4)이나 서론에서 그림 1을 먼저 인용한다. 그림 1을 빼면 그림 2·3을 그림 1·2로 다시 번호 매긴다.",
+      "severity": "style"
+     },
+     {
+      "section": "MET-A",
+      "quote": "시스템별 설정은 표 4에 있다.",
+      "problem": "표 첫 인용 순서가 번호와 맞지 않는다. MET-A 3.2의 '(표 5)'와 3.3의 '표 4'가 표 3(MET-B 3.6)보다 먼저 나온다. INT도 표 1보다 앞서 '표 4'와 '표 6'을 인용한다.",
+      "correct": "표 번호를 첫 인용 순서로 다시 매기거나, 앞선 교차 참조를 표가 처음 나오는 절 뒤로 옮긴다(예: 3.2의 표 5 참조를 4.1로 미룬다).",
+      "severity": "style"
+     },
+     {
+      "section": "INT",
+      "quote": "HPOA의 값은 9개 세트 매크로로 고른 단일 설정의 값이다. 세트별 최선 설정이면 HPOA의 개발 Top-10은 DDXPlus 16.07%, SymCat 6.50%로, 격차가 약 6%p와 3%p 줄어든다 [개발].",
+      "problem": "서론에 한계 서술이 남아 있다(규칙: 서론에 한계를 두지 않는다). 같은 내용이 RES-A 4.3, DIS 5.7, 결론에 이미 있다.",
+      "correct": "서론에서는 지운다. RES-A 4.3과 DIS 5.7(선택 낙관)에 남긴다.",
+      "severity": "style"
+     },
+     {
+      "section": "INT",
+      "quote": "LOPO 뒤에 HPOA의 채점 설정은 다시 고르지 않았다.",
+      "problem": "기여 4 안에 한계 서술이 남아 있다. 이 문장과 함께 '두께 층의 경계(0, 1–9, 10–29, ≥ 30)는 개발 결과를 본 뒤 정했고…', '증례마다 그래프를 다시 만들 수 없어 … 전역 삭제판을 썼다'도 방법상의 한계다. 모두 RES-B 4.5·MET-B 3.9·DIS 5.7에 이미 있다.",
+      "correct": "기여 4에서는 비교 대상, 수치, 지위만 남기고, 이 단서들은 4.5절과 5.7절로 넘긴다.",
+      "severity": "style"
+     },
+     {
+      "section": "INT",
+      "quote": "실행 전에 커밋한 판정 가운데 미달한 결과도 표 6에 함께 두고 4.5절에서 보고한다.",
+      "problem": "이 문단(T2·T3·E-T4·E-T5 미달과 PPR의 판정 기준 부재)과 이어지는 '이는 추적 가능성이며, 간선이 맞다는 증거는 아니다.'가 서론에 한계와 음성 결과의 목록으로 남아 있다(규칙: 서론에 한계를 두지 않는다). 같은 내용이 4.1, 4.5, 5.6, 5.7에 있다.",
+      "correct": "서론에는 '실행 전에 커밋한 판정은 충족과 미달을 모두 표 6에 보고한다'는 한 문장만 둔다. 미달 목록과 추적 가능성 단서는 결과·논의 절로 옮긴다.",
+      "severity": "style"
+     },
+     {
+      "section": "DIS",
+      "quote": "병원층 매크로의 S-mix − HPOA는 질환 등가중으로 +4.01%p [−3.89, +12.28]로 0과 구별되지 않았다 [개발].",
+      "problem": "결과 절(RES-A 4.3, RES-B 4.5, 표 11a)에 없는 수치가 논의에서 처음 나온다. 5.7 '환자 가중과 질환 등가중'에서도 같은 값을 다시 쓴다.",
+      "correct": "이 값을 RES-A 4.3의 비출판 병원 증례 단락이나 RES-B 4.5의 M1 단락에 먼저 보고하고, 논의에서는 그 값을 인용만 한다.",
+      "severity": "style"
+     }
+    ]
+   }
+  },
+  {
+   "round": 2,
+   "revisions": [
+    {
+     "id": "ABS-CON",
+     "applied": [
+      {
+       "issue": "1 [wrong] ABS-CON: PPR sentence not restricted to a graph",
+       "before": "설계 D 봉인 세트에서 개인화 PageRank는 1-홉 집계보다 Top-10이 낮거나 차이가 없었다(봉인 기술, 판정 기준 없이 한 번 비교).",
+       "after": "설계 D 봉인 세트에서 S-D 그래프의 개인화 PageRank는 1-홉 집계보다 Top-10이 DDXPlus와 SymCat에서 낮았고, Phenopacket-new에서는 차이가 유의하지 않았다(봉인 기술, 판정 기준 없이 한 번 비교).",
+       "source": "docs/research_design.md D9 확증 E-H1 (DDXPlus −15.8, SymCat −1.6 Holm 유의, Phenopacket-new −1.5 n.s.) and E-H4 (HPOA SymCat +2.8 유의); RES-A 4.1 and table 6 rows 5–6 ('차이가 유의하지 않았다'); RES-B 4.5. The HPOA +2.8%p was left out, not generalised."
+      },
+      {
+       "issue": "4 [overclaim] ABS-CON: every post hoc analysis described as having a pre-committed decision rule",
+       "before": "확증 세트를 다시 쓴 분석은 결정 규칙을 측정 전에 커밋했고 사후로 표시했다.",
+       "after": "확증 세트를 다시 쓴 분석은 사후로 표시했고, 그 가운데 결정 규칙이 있는 비교는 규칙을 측정 전에 커밋했다.",
+       "source": "MET-B 3.8 [사후] definition (rule rows of 3.10 committed before measurement; review analyses and auxiliary rows have no rule); MET-B 3.10 M2 ('두께 30 이상 층은 판정 없이 보고'), P0-2 (rule on development macro only). Also makes the abstract match the corrected [사후] form of issue 3."
+      },
+      {
+       "issue": "7 [unsupported] ABS-CON: Phenopacket-new gap presented as counter-evidence to circularity",
+       "before": "반대 방향의 증거도 있다. 설계 D의 봉인 세트 Phenopacket-new(0.1.27 이후 증례)에서 S-D의 Top-10은 같은 랭커의 HPOA보다 26.8%p 낮았다(9.2% 대 36.0%, 판정 기준 없이 한 번 비교). 이 세트에서 정답 질환에 S-D 소견 간선이 있는 비율은 59.1%였다.",
+       "after": "LOPO를 적용하지 않은 설계 D의 봉인 세트 Phenopacket-new(0.1.27 이후 증례)에서도 S-D의 Top-10은 같은 랭커의 HPOA보다 26.8%p 낮았다(9.2% 대 36.0%, 봉인 기술, 판정 기준 없이 한 번 비교). 이 세트에서 정답 질환에 S-D 소견 간선이 있는 비율은 59.1%였다. 이 세트의 격차에서 순환의 몫은 재지 않았다.",
+       "source": "RES-B 4.5 ('LOPO는 개발 세트에만 적용했으므로, 이 세트의 격차에 순환이 얼마나 기여하는지는 재지 않았다'); RES-B author memo 1 (self-citation rate 16.7% has no result file and is not in the manuscript); research_design D9 (9.2 vs 36.0, 59.1%)."
+      }
+     ],
+     "rejected": [
+      {
+       "issue": "14 [imprecise] [탐색] on the HPOA agreement rate (ABS-CON conclusion: 'HPOA와의 개념 정확 일치율은 S-mix 12.6% ... (탐색)')",
+       "why": "I made no change in ABS-CON. The issue's first fix adds '큐레이션 자원과의 일치 비교' to the [탐색] definition in MET-B 3.8. That edit belongs to the MET-B file, and once it is made, ABS-CON's (탐색) is correct as written. ABS-CON, RES-B 4.6/4.7 and DIS 5.6 all use [탐색] for this value, so relabelling it only here would make the sections disagree. If MET-B takes the other option and gives the value a different label, this sentence must be relabelled to match."
+      },
+      {
+       "issue": "2, 3, 5, 6, 8, 9, 10, 11, 12, 13, 15, 16, 17, 18, 19, 20, 21, 22 (other sections)",
+       "why": "I checked each one for ABS-CON text that carries the same quantity or term, and none needed a change. ABS-CON reports DDXPlus-E strict +3.0%p as an observation, with no P0-3 rule verdict attached (2). The [사후] wording is covered by issue 4 (3, 15). The LOPO values carry (개발) and there is no circularity-interpretation sentence (5). The pure dictionary graph is already the subject, together with its −3.7%p versus S-mix (6). There is no novelty-gap sentence (8), no SymCat pair range (9), no 'decline concentrated in common-disease sets' (10), no γ statement (11), no HPOA-LOPO macro (12), and no M1-versus-HPOA claim, because ABS-CON compares M1 with S-mix (13). T1 and E-T3 are already described as differing in sets and criteria (16). ABS-CON has no figure or table cross-references (17, 18). Limitations in the conclusion are allowed, so the per-set best HPOA setting stays (19). Introduction-only issues are outside this file (20, 21). The hospital-stratum +4.01%p does not appear in ABS-CON (22)."
+      }
+     ]
+    },
+    {
+     "id": "INT",
+     "applied": [
+      {
+       "issue": "3 [overclaim] INT: the [사후] definition said every analysis had a decision rule committed before measurement",
+       "before": "[사후]는 이미 쓴 확증 세트 E를 확증 뒤에 다시 분석한 값이며, 분석 항목과 결정 규칙은 측정 전에 커밋했다.",
+       "after": "[사후]는 확증 세트 E를 확증 뒤에 다시 분석한 값이다. 3.10절 측정의 규칙 행은 결정 규칙을 측정 전에 커밋했고, 측정의 층별 값과 보조 행, 2026-10-20 리뷰 분석은 결정 규칙 없이 냈다.",
+       "source": "MET-B 3.8 [사후] definition as currently on disk (already revised to include '측정의 층별 값과 보조 행'); MET-B 3.10 (rules only for P0-1–P0-5, M1, M2, V1, P1-3; the M2 ≥30 stratum is 'reported without judgment')"
+      },
+      {
+       "issue": "5 [overclaim] INT: the interpretation in contribution 4 was presented as a contribution without its [탐색] status",
+       "before": "…출판 증례 세트의 HPOA 우세는 Phenopacket-store에서 순환을 걷어내면 작아졌다(RQ2).**",
+       "after": "…출판 증례 세트의 HPOA 우세는 Phenopacket-store에서 순환을 걷어내면 작아졌다 [탐색; 수치는 개발] (RQ2).**",
+       "source": "MET-B 3.10 P0-4 '[개발; 해석 문장은 탐색]'; RES-B 4.5 '해석 규칙의 적용' paragraph ends with '[탐색]'"
+      },
+      {
+       "issue": "9 [imprecise] INT: the SymCat pairwise range used +1.05 instead of +1.06",
+       "before": "쌍별 SymCat −0.31~+1.05%p, DDXPlus −1.83~+6.93%p",
+       "after": "쌍별 SymCat −0.31~+1.06%p, DDXPlus −1.83~+6.93%p",
+       "source": "pilot/cache/v2/devD/variants/analysis.json pairs 'v3llm_ns vs base_split_tg_ns' @10 SymCat diff 1.06; other 6 pairs: 0.15, 0.95, −0.31, 0.41, 0.88, 0.52 (DDXPlus range −1.83..6.93 confirmed)"
+      },
+      {
+       "issue": "10 [imprecise] INT: the pure-dictionary decrease was attributed to both common-disease sets",
+       "before": "감소는 흔한 질환 세트에 몰렸다.",
+       "after": "감소는 DDXPlus에 몰렸고 SymCat에서는 차이가 없었다.",
+       "source": "pilot/cache/v3/p0/pure_dict/stats.json: pure − S-dict DDXPlus dev −2.73 [−3.40, −2.00], E −3.10; SymCat dev −0.05 [−0.32, 0.20], E −0.08 [−0.32, 0.16]; RES-A 4.4 wording"
+      },
+      {
+       "issue": "19 [style] INT: a limitation on HPOA's per-set best configuration remained in the introduction",
+       "before": "HPOA의 값은 9개 세트 매크로로 고른 단일 설정의 값이다. 세트별 최선 설정이면 HPOA의 개발 Top-10은 DDXPlus 16.07%, SymCat 6.50%로, 격차가 약 6%p와 3%p 줄어든다 [개발].",
+       "after": "(deleted from contribution 2)",
+       "source": "Task rule: no limitations in the introduction; the same caveat is present in RES-A 4.3 ('설정과 데이터 구성') and DIS 5.7 ('선택 낙관')"
+      },
+      {
+       "issue": "20 [style] INT: method caveats remained in contribution 4",
+       "before": "두께 층의 경계(0, 1–9, 10–29, ≥ 30)는 개발 결과를 본 뒤 정했고, 봉인 세트 E를 측정하기 전에 고정했다. … 증례마다 그래프를 다시 만들 수 없어, Phenopacket-store 증례의 원논문 PMID 1,745개 … 전역 삭제판을 썼다. … LOPO 뒤에 HPOA의 채점 설정은 다시 고르지 않았다.",
+       "after": "Deleted the stratum-boundary sentence and the sentence saying the configuration was not reselected. The deletion sentence now only defines the comparator: 'HPOA의 LOPO 그래프로는 Phenopacket-store 증례의 원논문 PMID 1,745개 가운데 하나라도 근거로 단 HPOA 주석 22,261행을 모두 지운 전역 삭제판을 썼다.'",
+       "source": "MET-B 3.9 (per-case rebuild not possible), MET-B 3.10 M2 (boundaries fixed after development), DIS 5.7 / DIS line 43 (HPOA configuration not reselected)"
+      },
+      {
+       "issue": "21 [style] INT: the list of missed judgments, the PPR result and the traceability caveat sat in the introduction",
+       "before": "Paragraph '실행 전에 커밋한 판정 가운데 미달한 결과도 표 6에 함께 두고 4.5절에서 보고한다. … (T2, T3, E-T4, E-T5, PPR) …' and the sentence '이는 추적 가능성이며, 간선이 맞다는 증거는 아니다.'",
+       "after": "Both deleted. The one-sentence statement already in the E0 paragraph remains: '실행 전에 커밋한 모든 판정은 충족과 미달을 함께 4.1절에 시간순으로 정리했다.'",
+       "source": "Task rule: no limitations in the introduction; the content is in RES-A 4.1 (table 6), RES-B 4.5, and DIS 5.6 line 71 (traceability)"
+      },
+      {
+       "issue": "18 [style] INT: INT cited tables 4 and 6 before table 1",
+       "before": "조정 예산은 시스템마다 다르다(표 4). / …충족과 미달을 함께 표 6에 시간순으로 정리했다(4.1절).",
+       "after": "조정 예산은 시스템마다 다르다(3.7절). / …충족과 미달을 함께 4.1절에 시간순으로 정리했다.",
+       "source": "outline 6절 (numbering by first citation); MET-B 3.7 holds the tuning-budget paragraph and table 4; table 6 is in RES-A 4.1"
+      },
+      {
+       "issue": "2 [overclaim] (RES-B; same conclusion in INT contribution 5): the P0-3 rule judgment was applied at the DDXPlus-E set level",
+       "before": "Top-10에서 S-dict의 이 우세는 DDXPlus-E에서는 판정 규칙과 입력 구조에 따라, SymCat-E에서는 입력 구조에 따라 달라졌다. … 부호가 바뀐 것은 DDXPlus-E였다(strict +3.00%p [+1.80, +4.13]) [사후].",
+       "after": "Top-10에서 S-dict의 이 우세는 판정 규칙과 입력 구조에 따라 달라졌다. strict 판정에서는 … (+1.04%p [+0.39, +1.72]) [사후]. 측정 전에 커밋한 P0-3 규칙에 따라, 두 세트 매크로 Top-10의 S-dict 우세는 판정 규칙에 달린 결론이다. 세트별로는 DDXPlus-E에서 부호가 바뀌었다(strict +3.00%p [+1.80, +4.13]) [사후]. 이 세트 값은 규칙의 판정 단위 밖에서 본 관찰이다.",
+       "source": "pilot/cache/v3/p0/strict/stats.json rule_check (e_t2_judged_unit true only for the macro; DDXPlus-E row is false); p0/summary.md problem 4"
+      },
+      {
+       "issue": "14 [imprecise] (RES-B/MET-B): the [탐색] definition must be the same across sections",
+       "before": "[탐색]은 재현율 분해, 시간 분할, 시뮬레이션의 값이다.",
+       "after": "[탐색]은 재현율 분해, 시간 분할, 시뮬레이션, 큐레이션 자원(HPOA)과의 간선 일치 비교의 값이다.",
+       "source": "MET-B 3.8 as now revised on disk: '[탐색]: 재현율 분해, 시간 분할, 시뮬레이션, 큐레이션 자원(HPOA)과의 간선 일치 비교의 값이다.' INT's summary definition now matches it"
+      }
+     ],
+     "rejected": [
+      {
+       "issue": "17 [style] RES-A: figure 1 is never cited (fix could be a citation in INT)",
+       "why": "The quoted text is in RES-A, not INT. The fix is either a figure 1 citation in MET-A or INT, or renumbering figures 2 and 3 in RES-A. If I added 그림 1 to INT and the RES-A editor renumbers, the two sections would contradict each other. I left INT unchanged and recorded the open coordination point in INT's authoring memo."
+      },
+      {
+       "issue": "7 [unsupported] ABS-CON: Phenopacket-new −26.8%p presented as 'counter-evidence'",
+       "why": "INT reports the same value only as a fact ('설계 D 봉인 세트의 Phenopacket-new에서도 S-D는 HPOA보다 26.8%p 낮았다 [봉인 기술]'). It does not call it counter-evidence to circularity, so the overclaim is not in INT. Adding '순환의 몫은 재지 않았다' would put a limitation in the introduction."
+      },
+      {
+       "issue": "6 [overclaim] DIS: '그래프는 LLM 없이 다시 만들 수 있었다' (whether INT should match)",
+       "why": "No change needed in INT. Its contribution 3 already names the subject as '사전 그래프는'. The body gives the pure dictionary graph's values, including S-mix − 순수 사전 +3.73%p. This is the wording the P0-2 rule allows ('LLM 없는 사전 경로')."
+      },
+      {
+       "issue": "1, 13, 16 (ABS-CON/DIS) checked against INT",
+       "why": "No change needed in INT. The PPR sentence in INT was limited to DDXPlus and was removed under issue 21. INT's M1 sentence compares only against S-mix and makes no claim that either combination beats HPOA. INT already says T1 and E-T3 '세트, 판정 기준, BM25의 문헌이 달라 하나의 변화로 잇지 않는다'."
+      }
+     ]
+    },
+    {
+     "id": "REL",
+     "applied": [
+      {
+       "issue": "8 [unsupported] REL: second gap claim (BM25·큐레이션 공백, 'BM25 대비 차이, 질환 영역별 차이, 구축 비용을 함께 보고한 연구도 찾지 못했다')",
+       "before": "반면 같은 공개 문헌으로 그래프를 만들어 같은 문헌의 BM25와 비교하고, 같은 랭커 코드에서 큐레이션 주석과도 견준 연구는 찾지 못했다. 같은 문헌 BM25 대비 차이, 큐레이션 주석 대비 질환 영역별 차이, 구축 비용을 함께 보고한 연구도 찾지 못했다. 이 셋 가운데 판정 기준을 실행 전에 커밋해 봉인 세트에서 확증한 것은 BM25 비교다(4.2). 질환 영역별 차이는 봉인 세트의 사후 분석과 개발 세트의 결과이고(4.3, 4.5), 구축 비용은 직접 측정이다(4.4).",
+       "after": "반면 조사한 범위에서는 같은 코퍼스에서 사전·LLM·혼합 추출로 만든 그래프를 하류 진단 정확도와 실측 구축 비용으로 비교하고, 봉인 세트에서 판정한 연구를 찾지 못했다. 본 연구에서 추출 경로 사이의 Top-10 차이는 실행 전에 커밋한 E-T2로 봉인 세트 E에서 판정했고(4.4, 4.6), 구축 비용은 직접 측정이다(4.4).",
+       "source": "docs/publication_strategy_2026-10-20.md 2.3 표 83행(기록된 공백은 '같은 코퍼스 사전·LLM·혼합·합집합 그래프를 하류 정확도와 실측 비용으로 비교, 봉인 확증' 하나뿐), 3.2 표 120행(조건을 묶은 '찾지 못했다' 문장 회피); INT.md 1장 마지막 공백 문장과 같은 문구로 맞춤; E-T2 위치는 RES-B 4.5 첫 문단('E-T2의 S-dict·S-union 비교는 4.4절과 4.6절에서 보고')과 RES-A 표 6 행 8–10. 'BM25 비교만 확증' 문장은 지칭 대상('이 셋')이 사라져 같이 고침"
+      },
+      {
+       "issue": "13 (cross-section, DIS issue applied to the same quantity in REL 2.2): 병원층 결합 − HPOA를 두 결합 모두 HPOA보다 높은 것처럼 읽히게 적음",
+       "before": "이 층에서 결합 − HPOA Top-10은 순위 결합 +8.19%p, 간선 합집합 +12.41%p로, PubCaseFinder와 같은 방향이었다 [개발].",
+       "after": "이 층에서 결합 − HPOA Top-10의 점추정은 순위 결합 +8.19%p, 간선 합집합 +12.41%p로 PubCaseFinder와 같은 방향이었다. 순위 결합은 세 CI(환자 층화, 질환 군집, 질환 등가중) 모두에서 HPOA보다 높았고, 간선 합집합은 환자 가중에서만 높았다(질환 등가중 +5.52%p [−2.39, +13.77]) [개발].",
+       "source": "pilot/cache/v3/framing/m1/summary.md 결과 표 병원(비출판) 행: RRF − HPOA +8.19 [+5.48, +11.36] / [+3.55, +13.10] / 질환 등가중 +5.69 [+2.21, +9.80]; 합집합 − HPOA +12.41 [+6.98, +17.95] / [+2.70, +21.40] / 질환 등가중 +5.52 [−2.39, +13.77]; '판정 단위: 세 가지 모두 0보다 커야 통과'"
+      }
+     ],
+     "rejected": [
+      {
+       "issue": "1, 2, 3, 4, 5, 6, 7, 9, 10, 11, 12, 14, 15, 16, 17, 18, 19, 20, 21, 22",
+       "why": "인용문과 영향받는 문장이 REL.md에 없다(ABS-CON, INT, MET-A, MET-B, RES-A, RES-B, DIS 소관). REL에서 같은 양이나 용어를 쓰는 자리를 확인했고 고칠 것이 없었다. 2.5 PPR 문단은 이미 '봉인 세트 값은 판정 기준 없이 보고한다'로만 적고 일반화하지 않는다(1). 2.4의 [사후] 값(strict 부호 반전, 입력 명시 층)은 두 세트 매크로와 커밋된 규칙이 있는 층에 한정되어 있다(2·3·15). 2.2 Yates 문단의 Phenopacket-store 문장은 방향의 [개발] 수치만 보고하고 순환 해석을 기여로 내세우지 않는다(5). 2.3은 Phenopacket-store LOPO 값만 쓰고 9세트 HPOA-LOPO 매크로는 쓰지 않는다(12). REL에는 순수 사전 감소 위치, +1.05/+1.06, γ 보고 위치, HPOA 일치율 [탐색], 표·그림 번호, 병원층 S-mix − HPOA 질환 등가중 +4.01이 없다(9·10·11·14·17·18·22)."
+      }
+     ]
+    },
+    {
+     "id": "MET-A",
+     "applied": [
+      {
+       "issue": "18 [style] 표 첫 인용 순서: MET-A 3.2·3.3·3.4가 표 4·표 5를 MET-B 3.6의 표 3보다 먼저 인용함 (3.2 줄 53)",
+       "before": "v3에서 새 문서를 얻은 질환은 43,575개 중 35,006개다(표 5).",
+       "after": "v3에서 새 문서를 얻은 질환은 43,575개 중 35,006개다(4.1절).",
+       "source": "grep 결과: 표 3은 MET-B 3.6(Table 3)에서 처음 인용되고, 표 4는 MET-B 3.7, 표 5는 RES-A 4.1에 있음. outline.md 6절이 표 번호를 '본문 참조 순서'로 정함. 35,006은 Table 5a 'v3 (new documents)' 칸과 같음"
+      },
+      {
+       "issue": "18 [style] 표 첫 인용 순서 (3.3 줄 59)",
+       "before": "시스템별 설정은 표 4에 있다.",
+       "after": "시스템별 설정은 3.7절에 있다.",
+       "source": "Table 4(Systems, knowledge sources and tuning budget, Configuration 열)는 MET-B 3.7에 있음. outline.md 6절"
+      },
+      {
+       "issue": "18 [style] 표 첫 인용 순서 (3.4 비교용 빌드 단락 줄 93)",
+       "before": "그래프별 규모는 표 4와 표 5에 있다.",
+       "after": "그래프별 규모는 3.7절과 4.1절에 있다.",
+       "source": "간선 수·소견 있는 질환 수는 Table 4(MET-B 3.7)와 Table 5b(RES-A 4.1)에 있음"
+      },
+      {
+       "issue": "18 [style] 같은 문제가 다시 생기지 않게 작성 메모 (4) 수정 (투고 전 삭제되는 메모)",
+       "before": "그 표 번호가 정해지면 \"검사 값은 4.7절에 있다\"에 표 번호를 붙인다. v3 원고의 표 15는 시간 분할 표였다.",
+       "after": "3.4절에서 그 표 번호를 붙이면 표 3보다 먼저 인용되므로, 3.1–3.4절에서 뒤쪽 표는 절 번호로만 가리킨다.",
+       "source": "이전 메모는 3.4절에 표 15 번호를 달라고 지시했는데, 그러면 표 3보다 먼저 인용하게 됨(issue 18과 같은 문제). 표 15(Provenance checks)는 RES-B 4.7에 있음"
+      },
+      {
+       "issue": "17 [style] 그림 1(파이프라인과 타임라인)을 어느 절에서도 인용하지 않아 본문에서 처음 인용되는 그림이 그림 2가 됨. 수정안이 방법 절을 인용 위치로 지목함",
+       "before": "이 장에서 수치 뒤에 붙인 대괄호(예: [측정], [탐색], [개발], [구조 검사], [사후])는 근거 지위다.",
+       "after": "그림 1은 문헌 수집에서 LLM·사전·혼합 추출, 근거 언급을 담은 그래프, 1-홉 랭커로 이어지는 흐름과 같은 랭커에 넣은 비교 지식원, 그리고 설계 D·E와 확증 이후 측정의 커밋 순서를 보인다. 이 장에서 수치 뒤에 붙인 대괄호(예: [측정], [탐색], [개발], [구조 검사], [사후])는 근거 지위다.",
+       "source": "outline.md 6절의 Figure 1 계획: '수집 → 세 추출 경로 → 그래프(근거 언급) → 1-홉 랭커. 같은 랭커에 넣은 비교 지식원. 커밋 해시 타임라인(D, E, P0, framing)'. 원고 어느 절에도 '그림 1' 인용이 없었음(grep으로 확인). 그림 2는 RES-A, 그림 3은 RES-B에서 인용함. 이 문장이 들어가면 그림 번호를 다시 매기지 않아도 됨. 따라서 RES-A는 그림 2·3을 그대로 두어야 함"
+      }
+     ],
+     "rejected": [
+      {
+       "issue": "14 [imprecise] [탐색] 표기가 3.8절의 정의(재현율 분해, 시간 분할, 시뮬레이션) 밖의 값에 붙음",
+       "why": "인용 문장(HPOA 일치율)이 MET-A에 없음. MET-A에서 [탐색]을 붙인 값은 두 가지임. 하나는 재현율 손실 분해 67.0%로 정의에 들어감. 다른 하나는 수집 재현율 사전테스트(18.4%→58.1%, 표 58.6%)로, 큐레이션 소견이 수집 텍스트에 나오는지 비교한 값임. MET-B가 정의에 '큐레이션 자원과의 일치 비교'를 더하면 이 값도 그 안에 들어감. 그래서 MET-A 문장은 바꾸지 않음"
+      },
+      {
+       "issue": "1–13, 15, 16, 19–22 (ABS-CON, INT, REL, RES-A, RES-B, DIS, MET-B 대상)",
+       "why": "인용 문장이나 해당 수치·용어가 MET-A에 없음. 관련 표현도 점검함. MET-A 3.1의 '[사후]로 표시하고 3.10절에 모았다'는 결정 규칙이 있다고 주장하지 않음(issue 3·4·15와 충돌 없음). 3.3의 'LLM 없는 사전 경로'는 순수 사전 그래프로 한정되어 있음(issue 6과 맞음). MET-A에는 PPR, γ 보고, HPOA-LOPO 매크로, '같은 비교', 'DDXPlus에 몰렸다' 문장이 없음. 그래서 고치지 않음"
+      }
+     ]
+    },
+    {
+     "id": "MET-B",
+     "applied": [
+      {
+       "issue": "11 [imprecise] MET-B 3.9: γ = 1 values said to be in the supplement, but RES-B 4.5 reports them in the text and Table 11b has γ = 1 rows",
+       "before": "본문은 γ = 0의 값을 보고하고, γ = 1의 값은 보충자료에 둔다.",
+       "after": "본문은 γ = 0의 값을 주로 보고하고, γ = 1의 값은 4.5절의 표에 함께 둔다.",
+       "source": "RES-B 4.5 시간 경계 단락 (S-mix −7.0%p [−9.9, −3.8] 등 γ = 1 값), 표 11b γ = 1 행. 이 절에서 표 11b를 앞당겨 인용하면 issue 18의 첫 인용 순서와 어긋나므로 표 번호 대신 4.5절로 참조했다."
+      },
+      {
+       "issue": "12 [imprecise] Table 4 (MET-B 3.7) listed the HPOA-LOPO nine-set macro 43.81/22.42, but Table 11a, RES-B 4.5 and DIS 5.7 treat that macro as not an LOPO estimate and do not report it",
+       "before": "| HPOA setting | 363,488 | 11,841 | None | 43.81 / 22.42 | ... ^c^ Deletion is complete only for Phenopacket-store (Section 3.9). Three same-size random deletions ...",
+       "after": "| HPOA setting | 363,488 | 11,841 | None | (not an LOPO estimate) | ... ^c^ Deletion is complete only for Phenopacket-store (Section 3.9), so the nine-set macro is not an LOPO estimate and is not reported; the Phenopacket-store values are in Section 4.5. Three same-size random deletions ...",
+       "source": "RES-B 표 11a 마지막 행 '(not an LOPO estimate)'; RES-B 4.5 'LOPO가 완전한 세트는 Phenopacket-store 하나다 … 매크로 값은 LOPO 추정치가 아니므로 보고하지 않는다'; MET-B 3.9 'LOPO가 완전한 세트는 Phenopacket-store뿐이다'"
+      },
+      {
+       "issue": "14 [imprecise] the [탐색] definition in MET-B 3.8 did not cover the HPOA agreement rate that RES-B 4.6, DIS 5.6 and ABS-CON label [탐색]",
+       "before": "- [탐색]: 재현율 분해, 시간 분할, 시뮬레이션의 값이다.",
+       "after": "- [탐색]: 재현율 분해, 시간 분할, 시뮬레이션, 큐레이션 자원(HPOA)과의 간선 일치 비교의 값이다.",
+       "source": "research_design §9.16, §9.30 HPO 주석 일치(curated_agreement.py); E를 쓰지 않으므로 [사후]가 아니다. RES-B 4.6 표 15b와 DIS 메모 5)는 [탐색]을 쓴다"
+      },
+      {
+       "issue": "3/4/15 (cross-section term [사후]): the scope of the decision rules must match the corrected wording, which is that only the rule rows have pre-committed rules and the strata, auxiliary rows and the pure dictionary graph's E values have none",
+       "before": "(a) Table 3 fn d: 'in the post hoc measurements of Section 3.10 (decision rules committed before measurement).' (b) 3.8 [사후]: '그 밖의 값(2026-10-20 리뷰 분석, 측정의 보조 행)은 결정 규칙 없이 낸 값이다.' (c) 3.10 첫 단락: '…측정 아홉 가지를 더 했다. 결정 규칙은 측정 전에 저장소에 커밋했다.' (d) P0-2: '…\"구축한 그대로의 S-dict\"로 쓰는 것이다.'",
+       "after": "(a) '…(decision rules committed before measurement for the rule rows only; strata and auxiliary values have no rule).' (b) '그 밖의 값(2026-10-20 리뷰 분석, 측정의 층별 값과 보조 행)은 결정 규칙 없이 낸 값이다.' (c) '…측정 아홉 가지를 더 했다. 각 측정의 결정 규칙은 측정 전에 저장소에 커밋했다. 규칙이 판정하지 않는 층별 값과 보조 값은 결정 규칙 없이 보고한다.' (d) '…\"구축한 그대로의 S-dict\"로 쓰는 것이다. 이 규칙은 개발 값에만 적용되며, E 값은 결정 규칙 없이 보고한다.'",
+       "source": "research_design §9.32 P0-2 판단(개발 매크로 Top-10만), §9.33 M2 판단(세트 전체 S-mix − HPOA 군집 CI; 층별 값은 규칙 없음), positive_framing_review 5.1 행 2, MET-B 3.10 M2 '두께 30 이상 층은 판정 없이 보고한다'"
+      },
+      {
+       "issue": "2 (cross-section rule unit): the P0-3 rule's judgment unit is the E-T2 comparison, i.e. the two-set macro Top-10; set-level strict values are reported only",
+       "before": "규칙은 strict에서 부호가 바뀌고 CI가 0을 배제하는 비교가 있으면 그 결론을 판정 규칙에 달린 것으로 쓰는 것이다. lineage와 strict는 함께 보고한다.",
+       "after": "규칙은 strict에서 부호가 바뀌고 CI가 0을 배제하는 비교가 있으면 그 결론을 판정 규칙에 달린 것으로 쓰는 것이다. 규칙의 판정 단위는 E-T2와 같은 두 세트 매크로 Top-10이며, 세트별 strict 값은 규칙 없이 보고한다. lineage와 strict는 함께 보고한다.",
+       "source": "research_design §9.32 P0-3, §9.34 P0-3(매크로 Top-10 판정); pilot/cache/v3/p0/summary.md 문제 4 '규칙의 판정 단위는 E-T2 비교, 즉 매크로 Top-10 … 세트에 붙인 것은 규칙 밖의 확장, 보고로만 씁니다'"
+      },
+      {
+       "issue": "18 [style] (MET-B part): Table 6 was cited in 3.6 and 3.10, before the first citations of Tables 4 and 5, which breaks first-citation numbering order",
+       "before": "(a) 'D 확증에서 T1과 T2는 미달이었다(표 6).' (b) '판정 결과는 표 6 패널 b에 모았다.'",
+       "after": "(a) 'D 확증에서 T1과 T2는 미달이었다(4.1절).' (b) '판정 결과는 4.1절의 판정 일람에 모았다.'",
+       "source": "outline.md 6절(그림·표는 본문 첫 인용 순서로 번호), 표 5 첫 인용 RES-A 4.1, 표 6 첫 인용은 4.1 판정 일람이어야 함. MET-A 쪽의 표 4·표 5 조기 인용은 MET-A 소관"
+      }
+     ],
+     "rejected": [
+      {
+       "issue": "1 [wrong] ABS-CON PPR sentence not limited to the S-D graph",
+       "why": "The quoted text is in ABS-CON, not MET-B. MET-B 3.6 defines PPR-H1 and PPR-H4 and their [봉인 기술] status without stating any result, so nothing in MET-B needs to change."
+      },
+      {
+       "issue": "5 [overclaim] INT contribution 4 interpretation sentence lacks [탐색]",
+       "why": "The quoted text is in INT. MET-B 3.10 P0-4 already says '[개발; 해석 문장은 탐색]', so MET-B is already in the corrected form."
+      },
+      {
+       "issue": "6 [overclaim] DIS 'RQ3, 그래프는 LLM 없이 다시 만들 수 있었다'",
+       "why": "The quoted text is in DIS. MET-B 3.6 and 3.10 P0-2 already name the subject 'pure dictionary graph' and keep it separate from S-mix."
+      },
+      {
+       "issue": "7 [unsupported] ABS-CON 'Phenopacket-new is counter-evidence'",
+       "why": "The quoted text is in ABS-CON. MET-B mentions Phenopacket-new only as a set definition and as [봉인 기술] status, and makes no counter-evidence claim."
+      },
+      {
+       "issue": "8 [unsupported] REL second gap claim",
+       "why": "The quoted text is in REL. MET-B makes no gap claim."
+      },
+      {
+       "issue": "9 [imprecise] INT SymCat pair difference +1.05 vs +1.06",
+       "why": "The quoted text is in INT. MET-B does not report this value."
+      },
+      {
+       "issue": "10 [imprecise] INT/DIS '감소는 흔한 질환 세트에 몰렸다'",
+       "why": "The quoted text is in INT and DIS. MET-B 3.10 P0-2 states only the rule and does not describe where the decrease is concentrated."
+      },
+      {
+       "issue": "13 [imprecise] DIS combination judgment versus HPOA",
+       "why": "The quoted text is in DIS. MET-B 3.10 M1 already states that the script passes a result only when all three CIs (patient-stratified, cluster, disease-equal) meet the condition, which is consistent with the fix."
+      },
+      {
+       "issue": "16 [imprecise] DIS 'S-D가 같은 비교(T1)'",
+       "why": "The quoted text is in DIS. MET-B does not use the phrase 'same comparison' for T1 and E-T3. 3.6 defines the two as separate judgments with different sets and criteria."
+      },
+      {
+       "issue": "17 [style] Figure 1 never cited",
+       "why": "The fix asks for a citation in Section 3.1 or 3.4 (MET-A) or in INT, and neither is in this file. Adding a Figure 1 citation in MET-B could also conflict with the other fix option, which renumbers Figures 2 and 3 to 1 and 2, so none was added."
+      },
+      {
+       "issue": "19 [style] INT limitation on HPOA per-set best setting",
+       "why": "The quoted text is in INT and concerns only the introduction."
+      },
+      {
+       "issue": "20 [style] INT contribution 4 limitations",
+       "why": "The quoted text is in INT. The fix sends these caveats to MET-B 3.9 and RES-B 4.5, where MET-B already has them (LOPO setting not re-tuned, global deletion, thickness-boundary timing in 3.10 M2), so MET-B needs no change."
+      },
+      {
+       "issue": "21 [style] INT list of unmet judgments",
+       "why": "The quoted text is in INT and concerns only the introduction."
+      },
+      {
+       "issue": "22 [style] DIS hospital-stratum disease-equal value first appears in Discussion",
+       "why": "The quoted text is in DIS, and the fix is to report the value first in RES-A 4.3 or RES-B 4.5. MET-B reports no results."
+      }
+     ]
+    },
+    {
+     "id": "RES-A",
+     "applied": [
+      {
+       "issue": "12. [imprecise] RES-A: Table 8a gives HPOA-LOPO nine-set macro 43.81 / 22.42, while Table 11a, RES-B 4.5 and DIS 5.7 treat it as not an LOPO estimate",
+       "before": "| HPOA-LOPO^a^ | 10.70 | 3.60 | 59.46 | 42.70 | 43.18 | 95.00 | 52.83 | 61.33 | 25.45 | 43.81 / 22.42 |  (footnote a ended: \"... Scoring settings were not re-selected after the deletion.\")",
+       "after": "| HPOA-LOPO^a^ | ... | 25.45 | (not an LOPO estimate) |  (footnote a now adds: \"No nine-set macro is given: with LOPO complete only for Phenopacket-store, the macro is not an LOPO estimate (Table 11a).\")",
+       "source": "docs/research_design.md line ~1203 (LOPO is complete only for Phenopacket; partial for LIRICAL; sets without PMIDs not tested; so the post-LOPO macro is not an LOPO estimate); RES-B Table 11a macro row '(not an LOPO estimate)'; DIS 5.7 '희귀 세트 매크로의 LOPO 후 값은 LOPO 추정치가 아니므로 쓰지 않았다'. Table 4 (MET-B line 151) still shows 43.81 / 22.42 and is outside this file."
+      },
+      {
+       "issue": "22. [style] DIS cites the hospital-stratum disease-equal S-mix − HPOA value +4.01 [−3.89, +12.28], which no results section reported",
+       "before": "군집 CI는 [−4.69, +26.67], 질환 등가중 차이는 +6.51%p [−6.46, +20.26]였다 [개발]. 설계 D의 T3에서는 ...",
+       "after": "군집 CI는 [−4.69, +26.67], 질환 등가중 차이는 +6.51%p [−6.46, +20.26]였다 [개발]. 두 세트를 묶은 병원층 매크로의 S-mix − HPOA는 +12.27%p [+6.42, +18.22](군집 CI [+2.01, +21.74])였고, 질환 등가중으로는 +4.01%p [−3.89, +12.28]로 0과 구별되지 않았다 [개발]. 설계 D의 T3에서는 ...",
+       "source": "pilot/cache/v3/framing/m1/stats.json macro[22] (stratum hospital, 'HPOA - S-mix', k 10): diff −12.27, ci_patient [−18.22, −6.42], ci_cluster [−21.74, −2.01], disease_equal −4.01 [−12.28, +3.89]. The signs are flipped to S-mix − HPOA."
+      },
+      {
+       "issue": "17. [style] The first figure cited in the text is Figure 2 (RES-A 4.2), and Figure 1 (pipeline and timeline) is cited nowhere",
+       "before": "**판정 일람.** 표 6a는 두 설계에서 실행 전에 커밋한 판정 11개와 PPR 부가 가설 2행을 시간순으로 보인다. 설계 D에서는 ...",
+       "after": "**판정 일람.** 표 6a는 두 설계에서 실행 전에 커밋한 판정 11개와 PPR 부가 가설 2행을 시간순으로 보인다. 커밋과 실행의 시간 순서는 그림 1의 타임라인에 있다. 설계 D에서는 ...",
+       "source": "outline.md Figure 1 row: 'Pipeline and development–confirmation timeline … 커밋 해시 타임라인(D, E, P0, framing)'. Figure 1 is now cited in 4.1, before Figure 2 in 4.2, so citation order and numbering agree within the results chapter. A citation of the pipeline part in methods 3.1 or 3.4 would fall outside this file."
+      },
+      {
+       "issue": "13. [imprecise] (cross-section quantity) Edge union − HPOA in the hospital stratum is above zero only when patient-weighted; the disease-equal CI includes 0",
+       "before": "RRF − S-mix −4.07 [−10.08, +1.83]; edge union − S-mix +0.14 [−2.26, +2.40]; combination − HPOA +8.19 (RRF), +12.41 (union) | Not met (Section 4.5) |",
+       "after": "RRF − S-mix −4.07 [−10.08, +1.83]; edge union − S-mix +0.14 [−2.26, +2.40]; combination − HPOA +8.19 (RRF), +12.41 (union; disease-equal +5.52 [−2.39, +13.77]) | Not met (Section 4.5) |",
+       "source": "pilot/cache/v3/framing/m1/stats.json macro[16] ('union - HPOA', hospital, k 10): disease_equal +5.52 [−2.39, +13.77]; decision.union.hospital.vs HPOA.lower_bounds.disease_equal −2.39. Table 6b now shows the quantity in the corrected DIS form, so the bare +12.41 no longer reads as a three-CI result."
+      }
+     ],
+     "rejected": [
+      {
+       "issue": "1. [wrong] ABS-CON: D-set PPR not tied to a graph",
+       "why": "The quoted text is not in RES-A. RES-A 4.1 already ties the PPR result to S-D (lower in DDXPlus and SymCat, not significant in Phenopacket-new) and reports HPOA SymCat +2.8 separately, so it already matches the corrected form. No change."
+      },
+      {
+       "issue": "2. [overclaim] RES-B: P0-3 rule extended to DDXPlus-E",
+       "why": "The quoted text is not in RES-A. Table 6b's P0-3 row already applies the rule only to the E-T2 two-set macro values (strict +1.04 [+0.39, +1.72]) and has no DDXPlus-E set-level verdict. No change."
+      },
+      {
+       "issue": "3. [overclaim] INT: [사후] definition",
+       "why": "Not in RES-A. RES-A says only that the Table 6b rules were committed before measurement (3.10). Its other [사후] values (E coverage, ≥30 stratum, pure-dictionary E values) carry no rule claim. No change."
+      },
+      {
+       "issue": "4. [overclaim] ABS-CON: the post hoc analysis claims pre-committed rules",
+       "why": "Not in RES-A. RES-A's rule statements are already scoped to the Table 6b rule rows."
+      },
+      {
+       "issue": "5. [overclaim] INT: contribution 4 interpretation lacks [탐색]",
+       "why": "Not in RES-A. In RES-A the P0-4 interpretation already carries [exploratory] (Table 6b row P0-4)."
+      },
+      {
+       "issue": "6. [overclaim] DIS: 'graph rebuilt without LLM' subject",
+       "why": "Not in RES-A. RES-A 4.4 already names the pure dictionary graph as the LLM-free path."
+      },
+      {
+       "issue": "7. [unsupported] ABS-CON: Phenopacket-new as 'opposite evidence'",
+       "why": "Not in RES-A. RES-A has no 'reverse/opposite evidence' framing."
+      },
+      {
+       "issue": "8. [unsupported] REL: second gap claim",
+       "why": "Not in RES-A."
+      },
+      {
+       "issue": "9. [imprecise] INT: SymCat pair +1.05 vs +1.06",
+       "why": "Not in RES-A. RES-A does not report the LLM pair difference. Its only +1.06 is the unrelated SemMedDB value."
+      },
+      {
+       "issue": "10. [imprecise] INT/DIS: 'decline concentrated in common-disease sets'",
+       "why": "RES-A 4.4 is the reference form ('감소는 DDXPlus에 몰렸다 … SymCat에서는 차이가 없었다') and matches the ground truth (dev −2.73/−0.05, E −3.10/−0.08). No change needed in RES-A."
+      },
+      {
+       "issue": "11. [imprecise] MET-B: γ = 0 vs γ = 1 reporting",
+       "why": "Not in RES-A. RES-A does not report time-split γ values."
+      },
+      {
+       "issue": "14. [imprecise] RES-B: [탐색] on HPOA agreement",
+       "why": "Not in RES-A. RES-A gives no HPOA agreement rate with a [탐색] label."
+      },
+      {
+       "issue": "15. [imprecise] DIS: decision rules over-generalized",
+       "why": "Not in RES-A. RES-A ties the P0-2 rule to the dev macro and reports the pure-dictionary E values as [사후] without a rule."
+      },
+      {
+       "issue": "16. [imprecise] DIS: 'same comparison (T1)'",
+       "why": "Not in RES-A. RES-A 4.2 already says '같은 성격의 비교인 T1' and '두 판정을 같은 비교의 반복으로 읽지 않는다'."
+      },
+      {
+       "issue": "18. [style] MET-A/INT: table first-citation order",
+       "why": "The quoted text is in MET-A and INT. Within RES-A, tables are first cited in order 5 → 6 → 7 → 8 → 9 → 10, and Table 4 (MET-B) is cited only after the methods. The suggested fix of moving 3.2's Table 5 reference to 4.1 needs no RES-A change, since 4.1 already cites Table 5a. If another section renumbers the tables instead, RES-A's numbers would have to follow."
+      },
+      {
+       "issue": "19. [style] INT: limitation (HPOA per-set best setting) in the introduction",
+       "why": "Not in RES-A. RES-A 4.3 is where the caveat should stay, and it is already there."
+      },
+      {
+       "issue": "20. [style] INT: limitations in contribution 4",
+       "why": "Not in RES-A."
+      },
+      {
+       "issue": "21. [style] INT: list of unmet judgments in the introduction",
+       "why": "Not in RES-A. RES-A 4.1 is one of the places the list should stay, and it is already there."
+      }
+     ]
+    },
+    {
+     "id": "RES-B",
+     "applied": [
+      {
+       "issue": "2. [overclaim] RES-B: P0-3 규칙 판정을 DDXPlus-E 세트 단위까지 넓힘",
+       "before": "strict에서 S-mix − S-dict는 매크로 +1.04%p [+0.39, +1.72], DDXPlus-E +3.00%p [+1.80, +4.13]로 부호가 바뀌었고 CI도 0을 배제했다. 측정 전에 커밋한 P0-3 규칙에 따라, 두 세트 매크로 Top-10과 DDXPlus-E에서 사전 그래프가 높다는 결론은 판정 규칙에 달린 것으로 판단한다.",
+       "after": "strict에서 S-mix − S-dict의 두 세트 매크로는 +1.04%p [+0.39, +1.72]로 부호가 바뀌었고 CI도 0을 배제했다. 측정 전에 커밋한 P0-3 규칙의 판정 단위는 E-T2 비교, 곧 두 세트 매크로 Top-10이다. 이 규칙에 따라, 두 세트 매크로 Top-10의 S-dict 우세는 판정 규칙에 달린 결론이다. 규칙 밖의 관찰로, DDXPlus-E에서도 strict 차이는 +3.00%p [+1.80, +4.13]로 부호가 바뀌고 CI가 0을 배제했다.",
+       "source": "docs/research_design.md §9.32 P0-3('E-T2 세 비교의 strict 대응 검정'), pilot/cache/v3/p0/summary.md 문제 4('규칙의 판정 단위는 E-T2 비교, 즉 매크로 Top-10 … 세트 단위 적용은 규칙 밖의 확장, 보고로만 쓴다'), MET-B 3.10 P0-3 행"
+      },
+      {
+       "issue": "22. [style] DIS: 병원층 매크로 S-mix − HPOA 질환 등가중 +4.01이 결과 절에 없음 (RES-B 4.5 M1 단락에 먼저 보고)",
+       "before": "결합 − HPOA는 RRF +8.19%p [+5.48, +11.36](질환 등가중 +5.69%p [+2.21, +9.80]), 간선 합집합 +12.41%p [+6.98, +17.95](질환 등가중 +5.52%p [−2.39, +13.77])였다. 두 결합 모두",
+       "after": "… RRF는 세 CI 모두에서 HPOA보다 높았고, 간선 합집합은 환자 가중 값(환자·군집 CI)에서만 높았다. 참조 비교로, 같은 병원층 매크로의 S-mix − HPOA는 질환 등가중으로 +4.01%p [−3.89, +12.28]였고 0과 구별되지 않았다. 두 결합 모두",
+       "source": "pilot/cache/v3/framing/m1/stats.json macro, stratum hospital, 'HPOA - S-mix' k=10 disease_equal −4.01 [−12.28, +3.89] (부호 반전). 환자 가중 +12.27은 positive_framing_review H4 단서 4에 따라 넣지 않음"
+      },
+      {
+       "issue": "13. [imprecise] DIS: 결합 − HPOA를 세 CI별로 나눠 쓰는 교정형을 결과 절이 받치도록 맞춤",
+       "before": "결합 − HPOA는 RRF +8.19%p [+5.48, +11.36](질환 등가중 +5.69%p [+2.21, +9.80]), 간선 합집합 +12.41%p [+6.98, +17.95](질환 등가중 +5.52%p [−2.39, +13.77])였다.",
+       "after": "결합 − HPOA는 RRF +8.19%p [+5.48, +11.36](군집 [+3.55, +13.10], 질환 등가중 +5.69%p [+2.21, +9.80]), 간선 합집합 +12.41%p [+6.98, +17.95](군집 [+2.70, +21.40], 질환 등가중 +5.52%p [−2.39, +13.77])였다. RRF는 세 CI 모두에서 HPOA보다 높았고, 간선 합집합은 환자 가중 값(환자·군집 CI)에서만 높았다.",
+       "source": "pilot/cache/v3/framing/m1/stats.json macro hospital k=10: 'RRF - HPOA' ci_cluster [3.55, 13.1], 'union - HPOA' ci_cluster [2.7, 21.4], disease_equal 5.52 [−2.39, 13.77]"
+      },
+      {
+       "issue": "1. [wrong] ABS-CON: PPR 진술의 그래프 한정 (같은 진술을 쓰는 RES-B 4.5를 교정형에 맞춤)",
+       "before": "PPR-H1의 비교에서 PPR은 같은 그래프의 1-홉보다 Top-10이 낮았다. 차이는 DDXPlus −15.8%p [−17.3, −14.3], SymCat −1.6%p [−2.2, −1.0]였고, Phenopacket-new의 −1.5%p [−4.6, +1.5]는 유의하지 않았다 [봉인 기술].",
+       "after": "PPR-H1의 비교에서 S-D 그래프의 PPR은 DDXPlus와 SymCat에서 같은 그래프의 1-홉보다 Top-10이 낮았고, Phenopacket-new에서는 1-홉과 구별되지 않았다. 차이는 DDXPlus −15.8%p [−17.3, −14.3], SymCat −1.6%p [−2.2, −1.0], Phenopacket-new −1.5%p [−4.6, +1.5]였다 [봉인 기술].",
+       "source": "docs/research_design.md D9 279행(E-H1: @10 DDXPlus −15.8, SymCat −1.6 Holm 유의, Phenopacket-new −1.5 n.s.), 234행(PPR은 gemma 그래프 = S-D). HPOA의 SymCat +2.8%p는 이미 다음 문장에 따로 있어 일반화 문장 없음"
+      },
+      {
+       "issue": "11. [imprecise] MET-B: γ 보고 위치 (RES-B 4.5의 같은 문장을 교정형에 맞춤)",
+       "before": "문헌 그래프는 γ = 0과 γ = 1에서 모두 평가했고, 본문의 값은 γ = 0의 값이다.",
+       "after": "문헌 그래프는 γ = 0과 γ = 1에서 모두 평가했다. 본문은 γ = 0의 값을 주로 보고하고, 표 11b에 γ = 1의 값을 함께 둔다.",
+       "source": "같은 단락이 γ = 1 값(S-mix −7.0%p [−9.9, −3.8] 등)을 본문에 보고하고 표 11b에 γ = 1 행이 있음. MET-B 교정형 '본문은 γ = 0의 값을 주로 보고하고, 표 11b에 γ = 1의 값을 함께 둔다'"
+      }
+     ],
+     "rejected": [
+      {
+       "issue": "14. [imprecise] RES-B: HPOA 일치율(표 15b, S-dict 전용 간선 2.31%)의 [탐색] 표시",
+       "why": "RES-B에서는 바꾸지 않았다. 지적이 제시한 첫째 수정은 MET-B 3.8의 [탐색] 정의에 '큐레이션 자원과의 일치 비교'를 더하는 것이다. 이 수정은 한 곳에서 끝나고, RES-B 4.6·4.7, DIS 5.6, ABS-CON의 [탐색]을 그대로 맞게 만든다. 지금 3.8의 다른 표기 가운데 이 값에 맞는 것은 없다. [측정]은 비용·규모 값이고 [구조 검사]는 불변식 검사다. 그래서 RES-B만 다른 표기로 바꾸면 정의 밖의 표기를 쓰거나 다른 절과 어긋난다. 남은 일: MET-B 3.8의 [탐색] 정의를 넓혀야 한다. 확인 시점에는 MET-B 190행이 아직 '재현율 분해, 시간 분할, 시뮬레이션의 값'이었다."
+      },
+      {
+       "issue": "7. [unsupported] ABS-CON: Phenopacket-new를 '반대 증거'로 씀",
+       "why": "RES-B에는 고칠 곳이 없다. 4.5절은 이미 교정형으로 쓴다. Phenopacket-new −26.8%p를 [봉인 기술]로 달고, '이 세트의 격차에 순환이 얼마나 기여하는지는 재지 않았다'고 적으며, '반대 증거'라는 말은 쓰지 않는다."
+      },
+      {
+       "issue": "12. [imprecise] RES-A: HPOA-LOPO 9세트 매크로를 값으로 적음",
+       "why": "RES-B에는 고칠 곳이 없다. 표 11a는 '(not an LOPO estimate)'로 적고, 본문은 매크로를 보고하지 않는다고 적는다. 이 처리를 맞출 곳은 RES-A 표 8a와 표 4다."
+      },
+      {
+       "issue": "9·10·16·17·18 (INT·DIS·RES-A·MET-A의 SymCat +1.06, 'DDXPlus에 몰렸다', T1 '같은 비교', 그림·표 번호)",
+       "why": "RES-B는 이미 교정형과 맞다. RES-B 4.6과 표 13b는 SymCat +1.06%p를 쓴다. 감소가 흔한 질환 세트에 몰렸다는 문장은 RES-B에 없다. T1은 '4.2절에서 보고한다'고만 적는다. RES-B 안에서 표 11–15와 그림 3의 첫 인용 순서는 번호 순서와 맞다. 그림 1을 빼서 그림 번호를 다시 매기면 RES-B의 '그림 3'도 함께 바꿔야 한다."
+      }
+     ]
+    },
+    {
+     "id": "DIS",
+     "applied": [
+      {
+       "issue": "6. [overclaim] DIS: RQ3 서술의 주어를 LLM 없이 만들 수 없는 S-mix에서 순수 사전 그래프로 바꿈",
+       "before": "셋째(RQ3), 그래프는 LLM 없이 다시 만들 수 있었다.",
+       "after": "셋째(RQ3), 사전 그래프(순수 사전 그래프)는 LLM 없이 다시 만들 수 있었다. … (42.38% 문장 뒤에 추가) S-mix(46.11%)보다는 3.73%p 낮았다(S-mix − 순수 사전 +3.73%p [+2.07, +5.37]) [개발].",
+       "source": "pilot/cache/v3/p0/pure_dict/stats.log line 100 (development S-mix - pure @10 all nine 42.38 46.11 +3.73 [+2.07, +5.37]); pure_dict/summary.md; INT 기여 3"
+      },
+      {
+       "issue": "10. [imprecise] INT·DIS 5.1: 감소가 흔한 질환 세트 전체가 아니라 DDXPlus에 몰렸음",
+       "before": "감소는 흔한 질환 세트에 몰렸다.",
+       "after": "감소는 DDXPlus에 몰렸고(개발 −2.73%p [−3.40, −2.00], DDXPlus-E −3.10%p [−3.77, −2.40]), SymCat에서는 차이가 없었다(개발 −0.05%p [−0.32, +0.20], SymCat-E −0.08%p [−0.32, +0.16]) [개발; 사후].",
+       "source": "pilot/cache/v3/p0/pure_dict/stats.log lines 12, 20, 84, 85; RES-A 4.4; research_design §9.34 P0-2"
+      },
+      {
+       "issue": "13. [imprecise] DIS 5.3: 간선 합집합 − HPOA는 질환 등가중 CI가 0을 포함하므로 두 결합이 모두 HPOA보다 높다고 단정할 수 없음",
+       "before": "HPOA와 S-mix의 순위 결합(RRF, w .75)과 간선 합집합은 비출판 병원층(PUMCH_L, PUMCH-ADM) 매크로 Top-10에서 HPOA보다 높았다(+8.19%p [+5.48, +11.36], +12.41%p [+6.98, +17.95]) [개발]. … 결합은 HPOA보다는 높았지만, S-mix보다 높다고는 확인되지 않았다.",
+       "after": "비출판 병원층(PUMCH_L, PUMCH-ADM) 매크로 Top-10에서 HPOA와 S-mix의 순위 결합(RRF, w .75)은 HPOA보다 높았다(+8.19%p [+5.48, +11.36], 질환 등가중 +5.69%p [+2.21, +9.80]) [개발]. 간선 합집합은 환자 가중으로만 HPOA보다 높았다(+12.41%p [+6.98, +17.95], 질환 등가중 +5.52%p [−2.39, +13.77]) [개발]. … 순위 결합은 세 CI(환자 층화, 질환 군집, 질환 등가중) 모두에서 HPOA보다 높았고 간선 합집합은 환자 가중에서만 높았지만, 두 결합 모두 S-mix보다 높다고는 확인되지 않았다.",
+       "source": "pilot/cache/v3/framing/m1/stats.json macro (hospital, k 10): RRF − HPOA lower bounds 5.48/3.55/2.21; union − HPOA 6.98/2.7/−2.39, disease_equal +5.52 [−2.39, +13.77]; RES-B 4.5 M1 단락"
+      },
+      {
+       "issue": "15. [imprecise] DIS 5.7 사후 분석: 모든 사후 분석에 결정 규칙이 있는 것처럼 읽힘",
+       "before": "결정 규칙은 측정 전에 커밋했지만(400d4cf, f676539), 이 세트의 판정 결과를 이미 본 뒤의 분석이다.",
+       "after": "BM25 설정 민감도, S-mix − HPOA 주 비교, strict 판정의 두 세트 매크로, DDXPlus-E의 입력 내 정답 명시 층화에는 측정 전에 커밋한 결정 규칙이 있다(400d4cf, f676539). 순수 사전 그래프의 E 값, PrimeKG 비교, 커버리지·두께 층별 값, strict의 세트별 값, 5.2절의 격차 분해는 결정 규칙 없이 보고했다. 모두 이 세트의 판정 결과를 이미 본 뒤의 분석이다.",
+       "source": "MET-B 3.8 [사후] 정의, MET-B 3.10 (P0-2 규칙은 개발 매크로에만, P0-3 규칙 단위는 E-T2 비교, M2 규칙은 S-mix − HPOA 군집 CI, ≥30 층은 판정 없이 보고, P1-3은 DDXPlus-E 없음 층); research_design §9.32–§9.33"
+      },
+      {
+       "issue": "16. [imprecise] DIS 5.1: T1과 E-T3를 '같은 비교'라고 쓴 표현",
+       "before": "설계 D에서는 v2 문헌 그래프(S-D)가 같은 비교(T1)를 통과하지 못했다 [확증].",
+       "after": "설계 D에서는 v2 문헌 그래프(S-D)가 같은 성격의 비교(T1, 세트와 기준이 다름)를 통과하지 못했다 [확증].",
+       "source": "RES-A 4.2; DIS 5.2 첫 문단(두 판정은 세트, 판정 기준, BM25 값이 모두 다름)"
+      },
+      {
+       "issue": "22. [style] DIS: 결과 절에 없는 병원층 매크로 질환 등가중 +4.01%p [−3.89, +12.28]가 논의에서 처음 나옴",
+       "before": "(5.3) 병원층 매크로의 S-mix − HPOA는 질환 등가중으로 +4.01%p [−3.89, +12.28]로 0과 구별되지 않았다 [개발]. / (5.7) 비출판 병원층 매크로의 질환 등가중 값도 +4.01%p [−3.89, +12.28]로 0과 구별되지 않았다 [개발].",
+       "after": "두 문장을 본문에서 뺐다. 5.7 가중 항목에는 RES-A 4.3에 보고된 PUMCH_L 값만 남겼다. 작성 메모 2)d에 'RES-B 4.5에 먼저 보고하면 5.3·5.7에서 인용만 되살린다'고 적었다.",
+       "source": "grep 결과 RES-A·RES-B 본문과 표 11a에 병원층 매크로 질환 등가중 값이 없음; 값 자체는 m1/stats.json macro hospital 'HPOA - S-mix' disease_equal −4.01 [−12.28, +3.89]에 있음. DIS만 편집할 수 있어서 결과 절에 추가하는 부분은 하지 못했다."
+      }
+     ],
+     "rejected": [
+      {
+       "issue": "14. [imprecise] HPOA 일치율에 붙은 [탐색] 표기(DIS 5.6에도 적용됨)",
+       "why": "DIS 쪽에서는 표기를 바꾸지 않았다. MET-B 3.8에 정의된 표기 가운데 HPOA 일치율에 맞는 다른 것이 없다. [측정]은 '비용과 규모를 직접 잰 값'이고 [사후]·[개발]·[구조 검사]도 맞지 않는다. 그래서 맞는 수정은 이슈에 적힌 첫째 선택지, 곧 MET-B 3.8의 [탐색] 정의에 '큐레이션 자원과의 일치 비교'를 더하는 것이다. 그 수정이 들어가면 DIS 5.6의 [탐색] 표기는 고칠 것 없이 맞게 된다. 지금 DIS만 다른 표기로 바꾸면 RES-B 4.6과 ABS-CON의 같은 값과 어긋난다."
+      }
+     ]
+    }
+   ],
+   "recheck": {
+    "issues": [
+     {
+      "section": "RES-A",
+      "quote": "두 세트를 묶은 병원층 매크로의 S-mix − HPOA는 +12.27%p [+6.42, +18.22](군집 CI [+2.01, +21.74])였고",
+      "problem": "'PUMCH 두 세트 매크로 +12.27'은 positive_framing_review H4 단서 4와 outline §7 금지 목록에 명시된 문장이다(두 세트가 같은 질환 군집을 공유해 독립 확인이 아님). DIS는 메모 2d에 따라 이미 지웠지만 RES-A 4.3 본문에 남아 있다.",
+      "correct": "환자 가중 매크로 +12.27 문장을 지운다. 세트별 값(PUMCH_L +13.87, 질환 등가중 +1.51 [−7.60, +10.95]; PUMCH-ADM +10.67)과, 필요하면 병원층 질환 등가중 +4.01 [−3.89, +12.28]만 남긴다.",
+      "severity": "style"
+     },
+     {
+      "section": "RES-B",
+      "quote": "표 13b의 두 쌍에서 이득이 가장 작은 세트는 SymCat이었다(UMLS 사전 쌍 +0.41%p [−0.27, +1.03], LLM 쌍 +1.06%p [+0.43, +1.71]).",
+      "problem": "같은 표 13b에서 UMLS 사전 쌍의 PUMCH_L Δ는 0.00(64.78 → 64.78)으로 SymCat +0.41보다 작다. 바로 다음 문장도 PUMCH_L 0.00을 따로 언급한다. UMLS 쌍에서는 이 문장이 틀렸다.",
+      "correct": "'LLM 쌍에서 이득이 가장 작은 세트는 SymCat(+1.06)이었고, UMLS 사전 쌍에서는 PUMCH_L(0.00)과 SymCat(+0.41)이 가장 작았다'처럼 쌍별로 나눠 쓴다.",
+      "severity": "wrong"
+     },
+     {
+      "section": "INT",
+      "quote": "이득은 희귀질환 세트에서 컸고, 흔한 질환 세트에서는 작았다(쌍별 SymCat −0.31~+1.06%p, DDXPlus −1.83~+6.93%p) [개발].",
+      "problem": "(1) p0/leakage/result.json의 7쌍 세트별 Δ를 보면 희귀질환 세트 PUMCH_L이 7쌍 중 4쌍에서 내려가고(−5.16, −3.24, −1.82, −0.51) 1쌍은 0.00이다. 그래서 '희귀질환 세트에서 컸다'는 일반화가 맞지 않는다. (2) 7쌍 범위(−0.31~+1.06, −1.83~+6.93)는 결과 절에 없다. RES-B 표 13b는 두 쌍만 보인다.",
+      "correct": "PUMCH_L을 예외로 적는다(예: '출판·공개 희귀 세트에서 컸고, PUMCH_L은 7쌍 중 4쌍에서 내려갔다'). 7쌍 세트별 범위는 RES-B 4.6이나 표 13에 먼저 보고한 뒤 인용한다.",
+      "severity": "overclaim"
+     },
+     {
+      "section": "DIS",
+      "quote": "개발 DDXPlus에서는 7쌍 가운데 6쌍이 올랐고(−1.8~+6.9%p), 개발 SymCat에서는 −0.3~+1.1%p였다 [개발].",
+      "problem": "5.2와 5.5('이 이득은 희귀질환 세트에서 컸고 … 쌍별 SymCat −0.3~+1.1%p, DDXPlus −1.8~+6.9%p')의 7쌍 세트별 값은 결과 절(4.6, 표 13b는 두 쌍뿐)에 보고되지 않았다. 5.5의 '희귀질환 세트에서 컸다'에는 INT와 같은 PUMCH_L 예외 문제가 있다(4/7쌍 하락).",
+      "correct": "7쌍 세트별 Δ를 RES-B 4.6에 먼저 보고하고 DIS는 그것을 인용한다. 5.5 문장에는 PUMCH_L 예외를 단다.",
+      "severity": "unsupported"
+     },
+     {
+      "section": "MET-B",
+      "quote": "이 원고의 차이는 모두 \"S-mix(또는 해당 문헌 그래프) − 비교 대상\"으로 쓴다.",
+      "problem": "원고에는 이 규약을 따르지 않는 차이가 많다: 순수 사전 − S-dict, v2+v3 − v2(BM25), PPR − 1-hop, 결합 − HPOA·결합 − S-mix, S-dict − SemMedDB, 표 7b 단계 차이. INT 3.8 요약은 '결합, 랭커, 그래프 판본끼리의 비교는 문장에 뺄셈 방향을 적는다'는 예외를 두는데 MET-B 3.8에는 그 예외가 없다. RES-B 4.5 첫 문단의 '차이는 모두 \"S-mix(또는 해당 문헌 그래프) − 비교 대상\"으로 쓴다'도 같은 절의 M1 '결합 − S-mix', PPR '1-홉 대비' 서술과 어긋난다.",
+      "correct": "MET-B 3.8과 RES-B 4.5에 INT와 같은 예외 문장을 넣는다: 문헌 그래프 대 비교 대상이 아닌 비교(결합, 랭커, 판본, 비교 지식원끼리)는 뺄셈 방향을 문장에 적는다.",
+      "severity": "imprecise"
+     },
+     {
+      "section": "INT",
+      "quote": "흔한 질환 두 세트에서는 차이를 확인하지 못했다(개발 +0.02%p [−0.64, +0.66], 봉인 세트 E −0.21%p [−0.84, +0.45]) [개발; 사후].",
+      "problem": "두 세트 매크로에서만 맞다. SymCat-E에서는 순수 사전 그래프가 유의하게 높았다(S-mix − 순수 사전 −1.09 [−1.65, −0.48], 군집 [−2.09, −0.09]). 개발 SymCat에서도 순수 사전이 높았다(14.41 대 13.34). P0 요약 문제 6이 같은 과장을 지적했고, RES-A 4.4·DIS 5.4·ABS-CON은 세트별 값을 붙였지만 INT는 붙이지 않았다. 이 문장의 개발 매크로(+0.02)와 희귀 7세트 +4.80 [+2.70, +7.07]도 결과 절(4.4)에 보고되지 않았다.",
+      "correct": "'두 세트 매크로로는 차이를 확인하지 못했으나 SymCat-E에서는 순수 사전 그래프가 높았다(−1.09 [−1.65, −0.48])'로 쓴다. 개발 흔한·희귀 매크로 값(+0.02, +4.80)은 RES-A 4.4에 먼저 보고한다.",
+      "severity": "overclaim"
+     },
+     {
+      "section": "INT",
+      "quote": "SymCat에서는 S-mix가 높았고(+1.06%p [+0.25, +1.87]), 흔한 질환 두 세트 매크로로는 SemMedDB가 높았다(−1.82%p [−2.92, −0.78]) [개발].",
+      "problem": "(1) SymCat에서 S-mix가 높다는 결과는 SemMedDB 설정에 따라 바뀐다. 동결 채점 SemMedDB는 SymCat 14.52로 S-mix 13.34보다 높다(S-mix − SemMedDB −1.18 [−1.99, −0.29], Holm p .009; p0/semmeddb/stats.log). 원고는 동결 채점의 DDXPlus 값(35.13)만 각주와 DIS 5.3에 적고 SymCat 값은 적지 않는다. 같은 문장이 ABS-CON 6장('SymCat에서는 S-mix가 높았고(13.3% 대 12.3%)')과 RES-A·DIS에도 있다. (2) 흔한 질환 매크로 −1.82 [−2.92, −0.78]은 RES-A 4.3에 보고되지 않았다.",
+      "correct": "SymCat 우세 문장에 '재선택 설정 기준; 동결 채점 SemMedDB(14.52)는 S-mix보다 높았다'를 붙이거나 SymCat 우세 문장을 뺀다. −1.82 매크로는 RES-A 4.3에 먼저 보고한다.",
+      "severity": "overclaim"
+     },
+     {
+      "section": "DIS",
+      "quote": "해석으로는, LLM 구절의 역할이 사전이 이름 붙이지 못하는 소견을 찾는 것보다 어떤 텍스트가 그 질환의 소견인지 고르는 선택에 가깝다.",
+      "problem": "이 해석의 근거(전용 간선을 빼도 S-mix 승리가 남는 비율)는 희귀 세트에서만 높다(76.9–92.6%). 같은 문단이 적듯 DDXPlus에서는 S-mix 승리의 40.9%만 남아 59%가 S-mix 전용 간선에 기댔다. 해석이 범위 한정 없이 일반화되어 있다. ABS-CON 6장은 '이 범위에서'로 한정한다.",
+      "correct": "'희귀 개발 세트에 한해' 같은 범위를 붙이고, DDXPlus에서는 반대 방향(전용 간선 의존이 큼)이었다는 점을 같은 문장에 둔다.",
+      "severity": "overclaim"
+     },
+     {
+      "section": "DIS",
+      "quote": "따라서 이 세트에서 HPOA의 우세는 지운 주석의 양이 아니라 증례 원논문을 인용한 주석에 기대고 있었다.",
+      "problem": "무작위 대조는 자원 전체에서 같은 수를 지운 것이다. RES-B 4.5가 적듯 지운 주석은 정답 질환에 몰려 있었고, 같은 질환 안 무작위 삭제는 22,261행 중 2,631행만 가능했다. 그래서 '양이 아니라 순환'과 '정답 질환 프로필 자체의 소멸(커버리지, 36.0% 환자 프로필 전부 소멸)'을 이 대조로 가를 수 없다. 다음 문단의 커버리지 단서보다 '따라서'가 앞서 결론을 낸다.",
+      "correct": "'같은 수를 자원 전체에서 무작위로 지운 대조와는 크게 달랐다. 다만 지운 주석이 정답 질환에 몰려 있어 순환과 커버리지 소멸을 이 대조로 가르지는 못했다'로 쓴다.",
+      "severity": "overclaim"
+     },
+     {
+      "section": "RES-B",
+      "quote": "Every knowledge source is scored by the same frozen 1-hop Cypher ranker code; HPOA keeps its design-D setting and is not re-tuned after deletion.",
+      "problem": "표 11 캡션의 'same frozen … ranker'는 outline §7이 금지한 '같은 동결 랭커' 표현이다. 실제 조건(같은 랭커 코드, 지식원별로 조정한 설정; 문헌 그래프는 γ 0/1)과도 어긋난다. 표 8 캡션은 올바른 표현을 쓴다.",
+      "correct": "'Every knowledge source is scored by the same 1-hop Cypher ranker code with settings tuned per source; …'로 바꾼다.",
+      "severity": "style"
+     },
+     {
+      "section": "RES-B",
+      "quote": "| | 1 | 1.5 | 42.4 (−7.0 [−9.9, −3.8]) | 10.5 | 37.9 (−14.9 [−16.4, −13.5]) |",
+      "problem": "outline §7과 positive_framing_review 4.2는 시간 분할의 'ot 1.0 칸'(특히 과거·신규 S-mix γ=1 10.5 대 HPOA 0.6, +9.9)을 결과를 본 뒤 고른 유리한 칸으로 보고 본문에서 빼라고 정했다. 표 11b는 모든 그래프의 γ=1 행을 본문 표에 둔다.",
+      "correct": "γ=1 행을 보충 표로 옮기고 본문 표 11b는 γ=0만 둔다. 남긴다면 과거·신규 γ=1 칸에 '결과를 본 뒤 고른 설정, 긍정 근거로 쓰지 않음' 단서를 붙인다.",
+      "severity": "style"
+     },
+     {
+      "section": "RES-B",
+      "quote": "어느 지식원도 새로 기술된 질환을 거의 맞히지 못했다.",
+      "problem": "MET-B 3.9의 '신규'는 HPOA에서 2022-12-31 뒤에 처음 주석되었거나 2026-09까지 주석되지 않은 질환이다. 오래전에 기술되었지만 HPOA에 늦게 오른 질환도 들어가므로 '새로 기술된 질환'과 같지 않다. DIS 5.7의 '이 그래프는 새로 기술된 질환을 거의 다루지 못한다'도 같은 문제다. RES-B는 문헌 부재와도 가르지 못했다고 적는다.",
+      "correct": "'2022년 말 HPOA에 아직 주석되지 않은 질환(미래·신규 묶음)'으로 정의대로 쓴다.",
+      "severity": "imprecise"
+     },
+     {
+      "section": "REL",
+      "quote": "본 연구의 출판 증례 희귀 세트에서는 순환을 통제하기 전에 같은 랭커의 HPOA가 높아, 방향이 Yates 등과 달랐다(4.3) [개발].",
+      "problem": "출판 증례 희귀 세트(LIRICAL, MME, Phenopacket-store)의 HPOA 우세는 4.5절에 보고되고, 4.3절 본문은 이를 다루지 않는다(표 8a 값뿐). 2.3 끝의 10겹 LOPO 값(25.60 대 25.45)도 '(3.9)'를 가리키지만 수치는 4.5절과 표 11a에 있다.",
+      "correct": "참조를 (4.5)로 고친다. 2.3의 10겹 값 참조도 (4.5)로 바꾼다.",
+      "severity": "imprecise"
+     },
+     {
+      "section": "RES-B",
+      "quote": "같은 세트에서 S-dict(17.63%)와 S-union(17.93%)의 Top-1도 18%보다 낮았다 [확증-보조].",
+      "problem": "E-T4 기준(18%)은 S-mix에만 실행 전에 걸렸다. S-dict·S-union에 적용한 것은 사후 적용이다. RES-A 4.4와 DIS 5.4는 '(기준을 사후에 적용)'을 붙이는데 RES-B 4.5에는 그 단서가 없다. 단일 시스템 Top-1을 기준과 견주는 일은 MET-B 3.8이 정의한 [확증-보조](대응 비교의 Top-1 차이, 군집 CI)에도 들지 않는다.",
+      "correct": "'(E-T4 기준을 사후에 적용)'을 붙이고, 지위를 '값은 확증 실행, 기준 적용은 사후'로 밝힌다.",
+      "severity": "imprecise"
+     },
+     {
+      "section": "INT",
+      "quote": "(S-dict 빌드 기준, 문헌 수집 제외, v3 사전 매칭 3.9분은 추정. 사전 경로에도 UMLS 라이선스와 HPO 유전자–질환 연결이 필요하다)",
+      "problem": "서론에 한계 서술을 두지 않는다는 규칙(outline 5.2)에 어긋나는 한계 문장이 남아 있다. 같은 종류로 1장 셋째 문단의 '조정 예산은 시스템마다 다르다(3.7절)'와 '(증빙은 로컬 커밋 시각, 3.6절)', 기여 1의 '두 판정은 세트, 판정 기준, BM25의 문헌이 달라 하나의 변화로 잇지 않는다'가 있다.",
+      "correct": "이 단서들을 4.4·5.4·5.7(비용·라이선스), 3.6·5.7(증빙), 4.2·5.2(D 대 E)로 옮기고, 서론에는 비교 대상과 지위 표기만 남긴다.",
+      "severity": "style"
+     },
+     {
+      "section": "MET-A",
+      "quote": "> 작성 메모(투고 전 삭제): (1) 간선 표 TSV는 아직 만들지 않았다.",
+      "problem": "MET-A(3.4 끝), MET-B(3.10 끝), REL(2.6 끝)의 작성 메모는 HTML 주석이 아니라 인용 블록(>)이어서 조립하면 본문에 렌더링된다. 메모에 '투고' 같은 원고 밖 표현과 미커밋 사항이 들어 있다. 다른 절(INT, ABS-CON, DIS, RES-A, RES-B)은 <!-- --> 주석을 쓴다.",
+      "correct": "세 절의 메모를 <!-- --> 주석으로 바꾸거나 지운다.",
+      "severity": "style"
+     },
+     {
+      "section": "MET-B",
+      "quote": "**벤치마크.** 개발 세트는 9개다(Table 3).",
+      "problem": "국문 본문에서 표를 가리키는 말이 두 가지다. MET-B 3.6·3.7 본문은 'Table 3', 'Table 4'로 쓰고(4곳), MET-A·RES-A·RES-B·INT 본문은 '표 1', '표 4', '표 6'으로 쓴다.",
+      "correct": "국문 본문의 표 참조는 '표 N'으로 통일한다. 캡션만 영어로 둔다.",
+      "severity": "style"
+     },
+     {
+      "section": "INT",
+      "quote": "LOPO(leave-one-publication-out)는 평가 증례가 실린 논문에서 나온 지식을 지식원에서 빼고 채점하는 누설 통제다.",
+      "problem": "같은 개념(leakage)을 두 용어로 쓴다. '누설 통제', '누설에 민감'(INT, REL, MET-B 3.9·3.10, RES-B)과 '누수 점검', '누수 의심 환자', 절 제목 '3.9 누수와 순환'(MET-B)이 섞여 있다.",
+      "correct": "한 용어(예: 누수)로 통일하고, 처음 나올 때 한 줄 정의를 붙인다.",
+      "severity": "style"
+     }
+    ]
+   }
+  },
+  {
+   "round": 3,
+   "revisions": [
+    {
+     "id": "ABS-CON",
+     "applied": [
+      {
+       "issue": "7 [overclaim] SymCat에서 S-mix가 SemMedDB보다 높다는 문장(ABS-CON 6장)",
+       "before": "SymCat에서는 S-mix가 높았고(13.3% 대 12.3%), SemMedDB의 9세트 평균은 23.2%로 S-mix(46.1%)보다 낮았다(개발).",
+       "after": "SymCat에서는 설정을 다시 고른 SemMedDB보다 S-mix가 높았으나(13.3% 대 12.3%), 설계 D의 동결 채점을 쓴 SemMedDB는 14.5%로 S-mix보다 높았다(S-mix − SemMedDB −1.2%p [−2.0, −0.3], 개발). SemMedDB의 9세트 평균은 23.2%로 S-mix(46.1%)보다 낮았다(개발).",
+       "source": "pilot/cache/v3/p0/semmeddb/stats.log: SymCat @10 frozen 14.52 vs S-mix 13.34, S-mix − SemMedDB semantic_drop frozen −1.18 [−1.99, −0.29], Holm p 0.009; tuned 12.28, +1.06 [+0.25, +1.87]"
+      },
+      {
+       "issue": "9 [overclaim] 무작위 삭제 대조로 순환과 커버리지 소멸을 가를 수 없음(DIS와 같은 대조를 쓰는 ABS-CON 초록 문장)",
+       "before": "같은 수를 무작위로 지웠을 때는 거의 그대로였다(환자 가중, 개발). 이 삭제는 Phenopacket-store에서만 완전했고,",
+       "after": "같은 수를 자원 전체에서 무작위로 지웠을 때는 거의 그대로였다(환자 가중, 개발). 다만 지운 주석이 정답 질환에 몰려 있어, 이 대조로 순환과 정답 질환 프로필의 소멸을 가르지는 못했다. 이 삭제는 Phenopacket-store에서만 완전했고,",
+       "source": "pilot/cache/v3/p0/hpoa_lopo/summary.md(22,261행 삭제, 같은 질환 대조는 2,631행만 가능), prepare.log(rand_s0 rows −22261, losing 7930 diseases vs LOPO 699); RES-B 4.5"
+      },
+      {
+       "issue": "9 [overclaim] 같은 대조를 6장 본문에서도 한정",
+       "before": "같은 수를 무작위로 지운 세 시드에서는 −41.0%p에서 −41.4%p 사이로 거의 그대로였다.",
+       "after": "같은 수를 자원 전체에서 무작위로 지운 세 시드에서는 −41.0%p에서 −41.4%p 사이로 거의 그대로였다. 다만 지운 주석은 정답 질환에 몰려 있었다. 같은 질환 안에서 같은 수를 지우는 대조는 22,261행 가운데 2,631행만 지울 수 있었고, Phenopacket-store 환자의 36.0%에서는 정답 질환의 HPOA 프로필이 모두 사라졌다. 그래서 이 대조로 순환과 정답 질환 프로필의 소멸을 가르지는 못했다.",
+       "source": "pilot/cache/v3/p0/hpoa_lopo/summary.md 24·33·34행; stats.log 232–233행(gold profile emptied n 3712 / 10,310 = 36.0%, HPOA 81.68 → 0.19)"
+      },
+      {
+       "issue": "8 [overclaim] LLM 구절 역할 해석의 범위(ABS-CON 6장도 같은 해석을 씀)",
+       "before": "이 범위에서 LLM 구절의 역할은 새 소견의 명명보다 어떤 텍스트를 그 질환의 소견으로 볼지 고르는 쪽에 가깝다고 해석한다.",
+       "after": "희귀질환 개발 세트에 한해, LLM 구절의 역할은 새 소견의 명명보다 어떤 텍스트를 그 질환의 소견으로 볼지 고르는 쪽에 가깝다고 해석한다. 개발 DDXPlus에서는 반대로 S-mix만 정답을 넣은 환자의 40.9%만 남았고, 나머지는 정답 질환의 S-mix 전용 간선을 빼면 Top-10 밖으로 밀려났다(개발).",
+       "source": "RES-B 4.4 'LLM 구절의 측정된 역할'(DDXPlus S-mix 승리 65/159 = 40.9%); docs/research_design.md §9.31(RAMEDIS 92.6%, LIRICAL 76.9%, Phenopacket 88.7%)"
+      }
+     ],
+     "rejected": [
+      {
+       "issue": "1 [style] RES-A PUMCH 두 세트 매크로 +12.27",
+       "why": "ABS-CON에는 이 수치가 없다. ABS-CON의 병원층 값은 M1 결합 − S-mix(−4.1, +0.1)다. 이 값은 실행 전에 커밋한 M1 규칙이 정한 층의 판정값이고, 금지 목록의 S-mix − HPOA 매크로가 아니다."
+      },
+      {
+       "issue": "2 [wrong] RES-B 표 13b 최소 이득 세트",
+       "why": "ABS-CON에 해당 문장이 없다."
+      },
+      {
+       "issue": "3 [overclaim] INT v3 이득 '희귀질환 세트에서 컸다'",
+       "why": "ABS-CON은 v3 이득을 9세트 평균(7.0–13.0%p)과 누수 제외 비(0.68배)로만 쓰고 세트별 일반화를 하지 않는다. 고칠 문장이 없다."
+      },
+      {
+       "issue": "4 [unsupported] DIS 7쌍 세트별 Δ",
+       "why": "ABS-CON에 7쌍 세트별 범위나 '희귀질환 세트에서 컸다'는 v3 이득 문장이 없다."
+      },
+      {
+       "issue": "5 [imprecise] MET-B·RES-B 차이 방향 규약",
+       "why": "ABS-CON에는 규약 문장이 없고, 차이마다 뺄셈 방향을 이미 적었다(S-mix − 순수 사전, S-mix − SemMedDB, S-mix − HPOA 등)."
+      },
+      {
+       "issue": "6 [overclaim] INT 순수 사전 무차이",
+       "why": "ABS-CON은 이미 바로잡힌 형태다. 두 세트 평균 −0.2%p [−0.8, 0.5], SymCat-E −1.1%p [−1.7, −0.5], 개발 희귀 7세트 +4.8%p [2.7, 7.1]이 p0/pure_dict/stats.log 102행 등과 일치한다."
+      },
+      {
+       "issue": "10 [style] RES-B 표 11 캡션 'same frozen ranker'",
+       "why": "ABS-CON에는 '같은 동결 랭커' 표현이 없다(grep 확인). 초록은 '같은 랭커 코드 … 설정은 지식원별로 조정'으로 쓴다."
+      },
+      {
+       "issue": "11 [style] RES-B 표 11b γ=1 행",
+       "why": "ABS-CON에는 시간 분할 결과가 없다."
+      },
+      {
+       "issue": "12 [imprecise] '새로 기술된 질환'",
+       "why": "ABS-CON에는 이 표현이 없다(grep 확인)."
+      },
+      {
+       "issue": "13 [imprecise] REL 절 참조 (4.3)→(4.5)",
+       "why": "ABS-CON에 해당 참조가 없다."
+      },
+      {
+       "issue": "14 [imprecise] RES-B S-dict·S-union Top-1에 E-T4 기준 적용",
+       "why": "ABS-CON은 E-T4를 S-mix(DDXPlus-E 12.4%)에만 적용한다. 고칠 문장이 없다."
+      },
+      {
+       "issue": "15 [style] INT 한계 문장",
+       "why": "서론에만 해당하는 규칙이다. ABS-CON의 비용 단서(수집 제외, UMLS 라이선스, HPO 유전자–질환 연결)는 결론과 6장에 있어야 할 내용이다."
+      },
+      {
+       "issue": "16 [style] MET-A·MET-B·REL 작성 메모의 인용 블록",
+       "why": "ABS-CON 메모는 이미 <!-- --> 주석이고, '투고' 같은 표현도 없다."
+      },
+      {
+       "issue": "17 [style] 'Table N'과 '표 N' 혼용",
+       "why": "ABS-CON에는 표 참조가 없다(grep 확인)."
+      },
+      {
+       "issue": "18 [style] 누설/누수 혼용",
+       "why": "ABS-CON은 이미 '누수'(누수 의심 환자)만 쓴다. RES-B 4.6의 정의와도 같은 용어이고, '누설'은 없다(grep 확인)."
+      }
+     ]
+    },
+    {
+     "id": "INT",
+     "applied": [
+      {
+       "issue": "3. [overclaim] INT: 수집 깊이 이득이 '희귀질환 세트에서 컸다'는 일반화에 PUMCH_L 예외가 빠짐",
+       "before": "이득은 희귀질환 세트에서 컸고, 흔한 질환 세트에서는 작았다(쌍별 SymCat −0.31~+1.06%p, DDXPlus −1.83~+6.93%p) [개발].",
+       "after": "희귀질환 세트 가운데 PUMCH_L을 뺀 6개 세트는 7쌍 모두에서 올랐고(+2.27~+27.50%p), 흔한 질환 세트의 이득은 작았다(쌍별 SymCat −0.31~+1.06%p, DDXPlus −1.83~+6.93%p) [개발]. PUMCH_L은 7쌍 가운데 4쌍에서 내려갔다 [개발].",
+       "source": "pilot/cache/v3/p0/leakage/result.json depth_pairs @10 per_set_diff: PUMCH_L −5.16, −3.24, −1.82, 0.00, +6.17, +0.91, −0.51; the other six rare sets are positive in all 7 pairs (min HMS +2.27, max MME +27.50); SymCat −0.31~+1.06, DDXPlus −1.83~+6.93. RES-B 4.6 (current) now reports these 7-pair per-set values, so the ranges are cited from the results section."
+      },
+      {
+       "issue": "6. [overclaim] INT: 순수 사전 그래프와 차이를 확인하지 못했다는 결과는 두 세트 매크로에서만 성립",
+       "before": "흔한 질환 두 세트에서는 차이를 확인하지 못했다(개발 +0.02%p [−0.64, +0.66], 봉인 세트 E −0.21%p [−0.84, +0.45]) [개발; 사후].",
+       "after": "흔한 질환 두 세트 매크로로는 차이를 확인하지 못했다(개발 +0.02%p [−0.64, +0.66], 봉인 세트 E −0.21%p [−0.84, +0.45]) [개발; 사후]. SymCat에서는 순수 사전 그래프가 높았다(개발 −1.07%p [−1.67, −0.45], SymCat-E −1.09%p [−1.65, −0.48]) [개발; 사후].",
+       "source": "pilot/cache/v3/p0/pure_dict/stats.log: S-mix − pure dev common macro +0.02 [−0.64, +0.66], rare +4.80 [+2.70, +7.07], dev SymCat −1.07 [−1.67, −0.45] (14.41 vs 13.34), ConfirmE-SymCat −1.09 [−1.65, −0.48] cluster [−2.09, −0.09], E macro −0.21 [−0.84, +0.45]. RES-A 4.4 (current) now reports +0.02, +4.80, −1.07 and −1.09."
+      },
+      {
+       "issue": "7. [overclaim] INT: SymCat에서 S-mix가 SemMedDB보다 높다는 결과는 SemMedDB 설정에 따라 뒤집힘",
+       "before": "같은 랭커의 SemMedDB는 개발 DDXPlus에서 S-mix보다 높았다(S-mix − SemMedDB −4.70%p [−6.63, −2.73], 질환 군집 CI [−15.27, +7.15]) [개발]. SymCat에서는 S-mix가 높았고(+1.06%p [+0.25, +1.87]), 흔한 질환 두 세트 매크로로는 SemMedDB가 높았다(−1.82%p [−2.92, −0.78]) [개발].",
+       "after": "설정을 다시 고른 같은 랭커의 SemMedDB는 개발 DDXPlus에서 S-mix보다 높았고(S-mix − SemMedDB −4.70%p [−6.63, −2.73], 질환 군집 CI [−15.27, +7.15]), 흔한 질환 두 세트 매크로로도 높았다(−1.82%p [−2.92, −0.78]) [개발]. SymCat에서는 이 설정에서 S-mix가 높았으나(+1.06%p [+0.25, +1.87]), 설계 D의 동결 채점을 쓴 SemMedDB(14.52%)는 S-mix(13.34%)보다 높았다 [개발].",
+       "source": "pilot/cache/v3/p0/semmeddb/stats.log: tuned SymCat +1.06 [+0.25, +1.87]; frozen SymCat 14.52 vs 13.34, S-mix − SemMedDB −1.18 [−1.99, −0.29], Holm p 0.009; tuned common macro −1.82 [−2.92, −0.78]. RES-A 4.3 (current) now reports −1.82 and the frozen values, and RES-A Table 8 footnote b gives SymCat 14.52."
+      },
+      {
+       "issue": "15. [style] INT: 서론의 한계 단서(조정 예산)",
+       "before": "비교 대상의 설정도 같은 기준으로 골랐고, 조정 예산은 시스템마다 다르다(3.7절).",
+       "after": "비교 대상의 설정도 같은 기준으로 골랐다(3.7절).",
+       "source": "outline 5.2 ('한계 서술은 넣지 않는다'). The tuning budget is in MET-B 3.7 (HPOA 38 evaluations, PrimeKG 38, MeSH 39, SemMedDB 39) and Table 4."
+      },
+      {
+       "issue": "15. [style] INT: 서론의 한계 단서(커밋 증빙)",
+       "before": "동결 시스템을 한 번 평가했다(증빙은 로컬 커밋 시각, 3.6절).",
+       "after": "동결 시스템을 한 번 평가했다(3.6절).",
+       "source": "The evidence scope ('로컬 커밋 시각이며, 공개 등록부와 실행 전 원격 기록은 없다') is stated in RES-A 4.1 and ABS-CON; MET-B 3.10 also has '증빙은 로컬 커밋 시각이다'."
+      },
+      {
+       "issue": "15. [style] INT: 서론의 한계 단서(D 대 E 판정)",
+       "before": "... SymCat +0.2%p [−0.6, +1.0]) [확증]. 두 판정은 세트, 판정 기준, BM25의 문헌이 달라 하나의 변화로 잇지 않는다.",
+       "after": "... SymCat +0.2%p [−0.6, +1.0]) [확증].",
+       "source": "RES-A 4.2 already says '두 판정을 같은 비교의 반복으로 읽지 않는다' and gives the set, criterion and BM25 differences. INT still puts the two verdicts side by side and does not claim a transition, so the H1 forbidden sentence is not triggered."
+      },
+      {
+       "issue": "15. [style] INT: 서론의 한계 단서(비용 괄호)",
+       "before": "사전 매칭부터 그래프 적재까지는 GPU 없이 벽시계 약 0.45시간이 걸렸다(S-dict 빌드 기준, 문헌 수집 제외, v3 사전 매칭 3.9분은 추정. 사전 경로에도 UMLS 라이선스와 HPO 유전자–질환 연결이 필요하다) [측정].",
+       "after": "S-dict의 사전 매칭부터 그래프 적재까지는 GPU 없이 벽시계 약 0.45시간이 걸렸다 [측정].",
+       "source": "RES-A 4.4 'S-dict는 ... 약 0.45시간 ... v3 사전 매칭 3.9분은 ... 추정' and the 단서 paragraph (collection time, UMLS license, genes_to_disease); Table 10 footnote a. The measured object (S-dict) and scope (from dictionary matching on) stay in the sentence, and genes_to_disease is already a method fact in INT paragraph 3."
+      },
+      {
+       "issue": "18. [style] 누설/누수 용어 혼용",
+       "before": "순환은 평가 증례가 이미 지식원에 들어가 있는 상태를 말한다. / ... 지식원에서 빼고 채점하는 누설 통제다.",
+       "after": "순환은 평가 증례가 이미 지식원에 들어가 있는 상태를 말하고, 평가 증례의 정보가 지식원에 들어가는 경로를 누수라 부른다. / ... 지식원에서 빼고 채점하는 누수 통제다.",
+       "source": "MET-B 3.9 (current): '평가 증례의 정보가 지식원에 들어가는 경로를 누수(leakage)라 부른다' and 'LOPO는 ... 누수 통제다'. The definition now sits at the first mention in INT (paragraph 2), before '누수 점검' in paragraph 4."
+      },
+      {
+       "issue": "5. [imprecise] 부호 규약 예외 문구 (cross-section consistency)",
+       "before": "결합, 랭커, 그래프 판본끼리의 비교는 문장에 뺄셈 방향을 적고, strict 판정 값에는 strict를 밝힌다.",
+       "after": "문헌 그래프 대 비교 대상이 아닌 비교(결합, 랭커, 그래프 판본, 비교 지식원끼리)는 문장에 뺄셈 방향을 적고, strict 판정 값에는 strict를 밝힌다.",
+       "source": "MET-B 3.8 부호 규약 (current) uses this exact exception wording. INT now matches it."
+      }
+     ],
+     "rejected": [
+      {
+       "issue": "1, 2, 4, 8, 9, 10, 11, 12, 13, 14 (RES-A/RES-B/DIS/REL/MET-B sentences)",
+       "why": "None of the quoted or affected sentences is in INT.md. INT has no '+12.27', no table-13b 'smallest gain' sentence, no '새로 기술된 질환', no time-split γ=1 cell, no 17.63 Top-1, and no '(4.3)' Yates reference. Its LOPO random-control sentence is factual and does not draw the '따라서 … 양이 아니라' inference, so I left it unchanged. Where one of these issues shared a quantity with INT (issues 2 and 4 on the 7-pair values), I aligned INT under issue 3."
+      },
+      {
+       "issue": "16. [style] 작성 메모 형식",
+       "why": "INT's working memo is already an HTML comment (<!-- -->), so it does not render in the assembled draft. No change needed."
+      },
+      {
+       "issue": "17. [style] 'Table N' vs '표 N'",
+       "why": "INT body text has no 'Table N' references. It refers only to sections (e.g. 3.7절), so no change needed."
+      }
+     ]
+    },
+    {
+     "id": "REL",
+     "applied": [
+      {
+       "issue": "13. [imprecise] REL: section refs for the published-case HPOA superiority and the 10-fold LOPO value",
+       "before": "본 연구의 출판 증례 희귀 세트에서는 순환을 통제하기 전에 같은 랭커의 HPOA가 높아, 방향이 Yates 등과 달랐다(4.3) [개발].",
+       "after": "본 연구의 출판 증례 희귀 세트에서는 순환을 통제하기 전에 같은 랭커의 HPOA가 높아, 방향이 Yates 등과 달랐다(4.5) [개발].",
+       "source": "RES-B 4.5 '출판 증례 희귀 세트' paragraph (LIRICAL −36.22, MME −40.00, Phenopacket-store −42.66; Table 11a). RES-A 4.3 has only the Table 8a values and its prose covers PUMCH_L, so the PUMCH_L reference (4.3) in the same paragraph was left unchanged."
+      },
+      {
+       "issue": "13. [imprecise] REL 2.3: the 10-fold LOPO value pointed to 3.9 instead of the section that reports it",
+       "before": "증례별 LOPO에 가까운 10겹 판에서 Phenopacket-store의 HPOA Top-10은 25.60%로, 전역 삭제판(25.45%)과 거의 같았다(3.9) [개발].",
+       "after": "증례별 LOPO에 가까운 10겹 판에서 Phenopacket-store의 HPOA Top-10은 25.60%로, 전역 삭제판(25.45%)과 거의 같았다(4.5) [개발].",
+       "source": "pilot/cache/v3/p0/hpoa_lopo/stats.log (HPOA-lopo10 25.60, HPOA-lopo 25.45 at @10 on Phenopacket-store). RES-B 4.5 reports these numbers, and MET-B 3.9 describes only the method."
+      },
+      {
+       "issue": "18. [style] Two Korean terms for leakage (누설 / 누수); unify on 누수",
+       "before": "\"One Score, Two Decisions\"도 출처 단위로 누설을 걸러내는 leave-source-out 평가를 썼다",
+       "after": "\"One Score, Two Decisions\"도 출처 단위로 누수를 걸러내는 leave-source-out 평가를 썼다",
+       "source": "MET-B 3.9 title '누수와 순환', and '누수 점검' and '누수 의심' throughout. REL already used '누수 의심' at 2.3 and 2.6. The one-line definition belongs at the term's first appearance, which is in INT, so nothing was added in REL."
+      },
+      {
+       "issue": "16. [style] REL 2.6 end: drafting memo was a blockquote (>) that renders as body text and contained '투고'",
+       "before": "> 작성 메모(투고 전 삭제)\n>\n> (1) 원문과 대조한 외부 수치: ... \n> ...\n> (10) 다른 절과 맞출 것: ...",
+       "after": "<!-- 작성 메모(본문 아님):\n\n(1) 원문과 대조한 외부 수치: ...\n...\n(10) 다른 절과 맞출 것: ...\n-->",
+       "source": "Uses the same <!-- --> comment form as INT, DIS and RES-A. The memo contents (1)–(10) are unchanged, the '투고' wording is gone from the header, and the memo contains no '--' that would break the comment."
+      }
+     ],
+     "rejected": [
+      {
+       "issue": "1, 2, 10, 11, 12, 14 (RES-A / RES-B) and 15 (INT), 17 (MET-B table refs)",
+       "why": "None of the quoted text is in REL.md. Cross-checks: REL's PUMCH_L sentence (S-mix higher patient-weighted, disease-equal not confirmed) already matches the per-set form issue 1 asks for, and REL never cites the +12.27 macro. REL has no SymCat-smallest claim, no 'same frozen ranker' wording (2.3 already says '랭커 코드를 고정하되, 채점 설정은 지식원마다 … 다시 골랐다'), no γ=1 time-split cell, no '새로 기술된 질환' (2.6 speaks of diseases without curated annotation), no S-dict/S-union 18% Top-1 claim, no introduction-style limitation, and no 'Table N' references."
+      },
+      {
+       "issue": "3, 4, 6, 7, 8, 9 (INT / DIS overclaims)",
+       "why": "The quoted sentences are in INT and DIS. The related REL sentences already match the sources. REL 2.6's '누수 의심 환자를 빼도 모든 비교 쌍에서 원래의 0.68배 이상' matches RES-B 4.6 (7 pairs, minimum 0.686) and makes no claim that the gain is larger in rare sets. REL never says SymCat favours S-mix over SemMedDB, nor that the pure dictionary graph and S-mix do not differ on the common sets. REL 2.4 only says the LLM picks the phrases and makes no interpretive claim about its role. REL 2.2 says only that the Phenopacket-store direction after LOPO matched Yates, with no circularity-vs-quantity causal claim."
+      },
+      {
+       "issue": "5. [imprecise] MET-B 3.8 / RES-B 4.5: subtraction-direction convention",
+       "why": "The quoted sentence is not in REL. REL's only non-literature-graph differences ('결합 − HPOA', '결합 − S-mix') already state the subtraction direction in the sentence, which is the exception the issue asks the other sections to add."
+      }
+     ]
+    },
+    {
+     "id": "MET-A",
+     "applied": [
+      {
+       "issue": "16 [style] MET-A: the 3.4 writing memo is a blockquote (>), so it would render in the assembled paper",
+       "before": "> 작성 메모(투고 전 삭제): (1) 간선 표 TSV는 아직 만들지 않았다. … (2) build_graph_v2.py는 --no-mentions 빌드에서도 … 뒤쪽 표는 절 번호로만 가리킨다.",
+       "after": "<!-- 작성 메모(본문 아님): (1) 간선 표 TSV는 아직 만들지 않았다. … (2) build_graph_v2.py는 no-mentions 옵션 빌드에서도 … 뒤쪽 표는 절 번호로만 가리킨다. -->",
+       "source": "Issue 16 and the comment convention the other sections already use (ABS-CON, RES-A and RES-B each start with '<!-- 작성 메모(본문 아님):'). I dropped the off-manuscript '투고' label. I rewrote '--no-mentions' as 'no-mentions 옵션' so the memo no longer contains '--', which could end or break an HTML comment. The memo's content is otherwise unchanged."
+      }
+     ],
+     "rejected": [
+      {
+       "issue": "17 [style] mixed 'Table N' / '표 N' references in Korean body text",
+       "why": "Checked MET-A: its body text already uses '표 1' and '표 2'. 'Table 1.' and 'Table 2.' appear only in English captions and table notes, which the fix allows. Nothing to change here; the four 'Table 3/4' cases are in MET-B."
+      },
+      {
+       "issue": "18 [style] 누설 vs 누수 terminology",
+       "why": "MET-A uses neither term. 3.1 describes the check as '데이터 기반으로 따로 점검한다' and points to 3.9, so nothing here has to match whichever term is chosen."
+      },
+      {
+       "issue": "15 [style] INT limitation clauses (조정 예산은 시스템마다 다르다, 증빙, D 대 E)",
+       "why": "The rule applies only to the introduction. MET-A 3.1's '조정 예산은 시스템마다 다르다(3.7절)' is in the methods, which is where the fix itself moves such caveats. It stays."
+      },
+      {
+       "issue": "12 [imprecise] '새로 기술된 질환'",
+       "why": "The phrase is not in MET-A. It appears in RES-B and DIS."
+      },
+      {
+       "issue": "10 [style] 'same frozen ranker' in Table 11 caption",
+       "why": "This is in RES-B. MET-A already uses the correct wording ('같은 랭커 코드', and in Table 1 note a 'scored by the same ranker code with settings tuned per source')."
+      },
+      {
+       "issue": "5 [imprecise] sign-convention sentence",
+       "why": "This is in MET-B 3.8 and RES-B 4.5. MET-A does not state the sign convention."
+      },
+      {
+       "issue": "1, 11, 14 (RES-A/RES-B wording and tables)",
+       "why": "The quoted text is in RES-A or RES-B, not MET-A."
+      },
+      {
+       "issue": "2 [wrong] RES-B smallest-gain sentence",
+       "why": "The quoted text is in RES-B, not MET-A."
+      },
+      {
+       "issue": "3, 6, 7 [overclaim] INT sentences",
+       "why": "The quoted text is in INT. MET-A reports none of these quantities: 7-pair per-set ranges, pure dictionary vs S-mix macros, SemMedDB SymCat values."
+      },
+      {
+       "issue": "4, 8, 9 [unsupported/overclaim] DIS sentences",
+       "why": "The quoted text is in DIS, not MET-A."
+      },
+      {
+       "issue": "13 [imprecise] REL section references",
+       "why": "The quoted text is in REL, not MET-A."
+      }
+     ]
+    },
+    {
+     "id": "MET-B",
+     "applied": [
+      {
+       "issue": "5. [imprecise] MET-B 3.8 부호 규약의 '모두'에 예외가 없음",
+       "before": "**부호 규약.** 이 원고의 차이는 모두 \"S-mix(또는 해당 문헌 그래프) − 비교 대상\"으로 쓴다. 양수는 문헌 그래프가 높다는 뜻이다. 설계 기록에 \"비교 대상 − S-mix\"로 적힌 값은 부호를 바꿔 옮긴다.",
+       "after": "**부호 규약.** 문헌 그래프와 비교 대상의 차이는 \"S-mix(또는 해당 문헌 그래프) − 비교 대상\"으로 쓴다. 양수는 문헌 그래프가 높다는 뜻이다. 설계 기록에 \"비교 대상 − S-mix\"로 적힌 값은 부호를 바꿔 옮긴다. 문헌 그래프 대 비교 대상이 아닌 비교(결합, 랭커, 그래프 판본, 비교 지식원끼리)는 문장에 뺄셈 방향을 적는다.",
+       "source": "INT.md 20행 근거 지위 문단의 예외 문장('결합, 랭커, 그래프 판본끼리의 비교는 문장에 뺄셈 방향을 적고'), INT.md 44행 작성 메모('MET-B 3.8 부호 규약의 \"모두\"에 결합·랭커·판본 비교의 예외를 적는다'). MET-B 안에서도 '결합 − 그래프'(3.8 매크로 비교), 'S-comb − S-mix'(3.6), '결합 − HPOA·결합 − S-mix'(3.10 M1), 'S-union − S-dict'(3.10)이 규약 밖의 비교였다."
+      },
+      {
+       "issue": "17. [style] 국문 본문의 표 참조 'Table N' → '표 N'",
+       "before": "(Table 3) [3.6 벤치마크]; (Table 4) [3.6 동결 시스템, 3.7 비교 지식원, 3.7 튜닝 예산]",
+       "after": "(표 3); (표 4) ×3. 캡션 'Table 3. Benchmarks and their roles', 'Table 4. Systems, knowledge sources and tuning budget'은 영어 그대로 둠",
+       "source": "MET-A·RES-A·RES-B·INT 본문의 '표 N' 관례(grep으로 확인)"
+      },
+      {
+       "issue": "18. [style] leakage 용어를 누수로 통일하고 처음 나올 때 정의",
+       "before": "3.9: '이 상태를 순환(circularity)이라 부른다.' / 'LOPO는 … 누설 통제다.' / 3.10 P0-1: '아니면 누설에 민감한 결과로 적는다.'",
+       "after": "3.9: '이 상태를 순환(circularity)이라 부르고, 평가 증례의 정보가 지식원에 들어가는 경로를 누수(leakage)라 부른다.' / 'LOPO는 … 누수 통제다.' / P0-1: '아니면 누수에 민감한 결과로 적는다.' (절 제목 '3.9 누수와 순환', '누수 점검', 'P0-1 누수 제외 재계산'은 그대로)",
+       "source": "이슈가 예로 든 '누수'. 원고 다수 용례(누수 점검, 누수 의심 환자, 누수 제외)와 outline 3.9 행 제목·표 13 'leakage exclusion'에 맞춤. MET-B에 '누설'은 더 남아 있지 않음"
+      },
+      {
+       "issue": "16. [style] MET-B 3.10 끝 작성 메모가 인용 블록이라 본문에 렌더링됨",
+       "before": "> 작성 메모(투고 전 삭제): (1) 커밋 해시. … (3) … 다른 절에 이 표기가 남아 있으면 투고 전에 모두 해소해야 한다. … (11) … 저자가 정한다.",
+       "after": "<!-- 작성 메모(본문 아님): (1) 커밋 해시. … (3) … 다른 절에 이 표기가 남아 있으면 원고를 마치기 전에 모두 해소해야 한다. … (11) … 저자가 정한다. -->",
+       "source": "INT·ABS-CON·DIS·RES-A·RES-B와 이미 고쳐진 MET-A의 '<!-- 작성 메모(본문 아님): … -->' 형식. '투고' 두 곳도 함께 지움(학술지 이야기 금지 규칙)"
+      },
+      {
+       "issue": "11. [style] 시간 분할 γ=1 칸 (여러 절에 걸친 서술을 MET-B에서 맞춤)",
+       "before": "본문은 γ = 0의 값을 주로 보고하고, γ = 1의 값은 4.5절의 표에 함께 둔다.",
+       "after": "본문은 γ = 0의 값을 보고하고, γ = 1의 값은 보충자료에 둔다.",
+       "source": "positive_framing_review 4.2 표 251행과 314행('시간 분할의 유리한 칸(… ot 1.0)은 본문에서 뺀다. 넣는다면 보충자료에'), outline 246행('¶4(ot 1.0 과거·신규)는 결과를 본 뒤 고른 칸이므로 보충으로'), outline 349행 금지 목록. RES-B 표 11b의 γ=1 행을 보충 표로 옮기는 수정과 맞춤"
+      }
+     ],
+     "rejected": [
+      {
+       "issue": "10. [style] RES-B 표 11 캡션 'same frozen … ranker'",
+       "why": "MET-B에는 고칠 곳이 없다. MET-B의 표 4 캡션은 이미 'scored by the same ranker code with settings re-selected per source by rule D3'로 쓰고, 3.7 본문도 '같은 랭커 코드, 지식원별로 조정한 설정'으로 정의한다. 고칠 문장은 RES-B에 있다."
+      },
+      {
+       "issue": "12. [imprecise] '새로 기술된 질환' vs '신규' 정의",
+       "why": "MET-B에는 고칠 곳이 없다. MET-B 3.9의 정의('2022-12-31보다 뒤에 처음 주석되었거나 2026-09 릴리스까지 주석되지 않았으면 신규')는 이미 정의 그대로다. 고칠 문장은 RES-B와 DIS에 있다."
+      },
+      {
+       "issue": "14. [imprecise] RES-B의 S-dict·S-union 18% 기준 사후 적용",
+       "why": "MET-B에는 고칠 곳이 없다. MET-B 3.8은 E-T4를 S-mix 단독 판정으로, [확증-보조]를 대응 비교 보조 지표로 이미 정의한다. 단서를 붙일 문장은 RES-B 4.5에 있다."
+      }
+     ]
+    },
+    {
+     "id": "RES-A",
+     "applied": [
+      {
+       "issue": "1. [style] 4.3 '두 세트를 묶은 병원층 매크로 +12.27' 금지 문장 삭제",
+       "before": "두 세트를 묶은 병원층 매크로의 S-mix − HPOA는 +12.27%p [+6.42, +18.22](군집 CI [+2.01, +21.74])였고, 질환 등가중으로는 +4.01%p [−3.89, +12.28]로 0과 구별되지 않았다 [개발].",
+       "after": "두 세트를 묶은 병원층 매크로의 질환 등가중 S-mix − HPOA는 +4.01%p [−3.89, +12.28]로 0과 구별되지 않았다 [개발].",
+       "source": "positive_framing_review_2026-10-20.md H4 단서 4 및 outline.md 349행 금지 목록; pilot/cache/v3/framing/m1/stats.log 26행(hospital HPOA − S-mix @10 −12.27, 질환 등가중 −4.01 [−12.28, +3.89]), 130–131행(PUMCH_L +13.87, 등가중 +1.51; PUMCH-ADM +10.67)"
+      },
+      {
+       "issue": "5. [imprecise] 부호 규약 예외(결합·랭커·판본·비교 지식원끼리) — RES-A 4장 머리 문단을 INT와 같은 형태로 맞춤",
+       "before": "차이는 따로 적지 않으면 \"S-mix(또는 해당 문헌 그래프) − 비교 대상\"의 %p다. 대괄호 안의 구간은",
+       "after": "차이는 따로 적지 않으면 \"S-mix(또는 해당 문헌 그래프) − 비교 대상\"의 %p다. 문헌 그래프 대 비교 대상이 아닌 비교(결합, 랭커, 그래프 판본, 비교 지식원끼리)는 문장에 뺄셈 방향을 적는다. 대괄호 안의 구간은",
+       "source": "INT.md 20행의 예외 문장; RES-A 안의 순수 사전 − S-dict, PPR − 1-홉, 결합 − S-D, S-dict − SemMedDB 등 비규약 차이"
+      },
+      {
+       "issue": "6. [overclaim, INT] 개발 흔한·희귀 매크로 S-mix − 순수 사전(+0.02, +4.80)과 개발 SymCat 순수 사전 우세를 RES-A 4.4에 먼저 보고",
+       "before": "확증 세트 E에서 순수 사전 그래프의 Top-10은 DDXPlus-E 40.40%, SymCat-E 14.00%였다 [사후].",
+       "after": "S-mix와 견주면, 개발 세트에서 S-mix − 순수 사전 그래프는 희귀질환 7개 세트 매크로 +4.80%p [+2.70, +7.07]였고, 흔한 질환 두 세트 매크로 +0.02%p [−0.64, +0.66]로 차이를 확인하지 못했다 [개발]. 개발 SymCat에서는 순수 사전 그래프가 높았다(14.41% 대 13.34%, S-mix − 순수 사전 그래프 −1.07%p [−1.67, −0.45], 군집 CI [−2.29, +0.07]) [개발]. 확증 세트 E에서 순수 사전 그래프의 Top-10은 DDXPlus-E 40.40%, SymCat-E 14.00%였다 [사후].",
+       "source": "pilot/cache/v3/p0/pure_dict/stats.log 38행(SymCat −1.07 [−1.67, −0.45] [−2.29, +0.07]), 101–102행(common +0.02 [−0.64, +0.66], rare 7 sets +4.80 [+2.70, +7.07]); summary.md 문제 6"
+      },
+      {
+       "issue": "7. [overclaim, INT] SemMedDB: 흔한 질환 매크로 −1.82를 RES-A 4.3에 보고하고, SymCat S-mix 우세가 재선택 설정에서만 성립함(동결 채점 14.52 > 13.34)을 명시",
+       "before": "그래서 그 문장은 쓰지 않는다. 그러나 흔한 질환 세트의 결과는 달랐다. 개발 DDXPlus에서 SemMedDB는 45.33%로, … 개발 SymCat에서 S-mix − SemMedDB는 +1.06%p(군집 CI [−0.65, +2.71])였다 [개발]. 같은 세트에서 S-dict − SemMedDB는 +2.18%p(군집 CI [+0.55, +3.87])였다 [개발].",
+       "after": "그래서 그 문장은 쓰지 않는다. 그러나 흔한 질환 세트의 결과는 달랐다. 재선택 설정에서 흔한 질환 두 세트 매크로의 S-mix − SemMedDB는 −1.82%p [−2.92, −0.78]로, SemMedDB가 높았다 [개발]. 개발 DDXPlus에서 SemMedDB는 45.33%로, … 개발 SymCat에서 S-mix − SemMedDB는 +1.06%p [+0.25, +1.87](군집 CI [−0.65, +2.71])였다 [개발]. 같은 세트에서 S-dict − SemMedDB는 +2.18%p(군집 CI [+0.55, +3.87])였다 [개발]. 세트별 우열은 SemMedDB의 채점 설정에 따라 바뀌었다. 설계 D의 동결 채점을 쓴 SemMedDB는 개발 DDXPlus 35.13%, SymCat 14.52%였다 [개발]. 이 설정에서 S-mix − SemMedDB는 DDXPlus +5.50%p [+3.67, +7.33](군집 CI [−4.42, +15.56]), SymCat −1.18%p [−1.99, −0.29](군집 CI [−3.08, +0.79]), 흔한 질환 두 세트 매크로 +2.16%p [+1.19, +3.12]였다 [개발]. 따라서 SymCat에서 S-mix가 SemMedDB보다 높았다는 결과는 재선택 설정에서만 성립했다.",
+       "source": "pilot/cache/v3/p0/semmeddb/stats.log 44행(tuned SymCat +1.06 [+0.25, +1.87] [−0.65, +2.71]), 72·80행(frozen DDXPlus +5.50, SymCat −1.18 [−1.99, −0.29] [−3.08, +0.79], Holm .009), 111행(tuned common −1.82 [−2.92, −0.78]), 123행(frozen common +2.16 [+1.19, +3.12]); p0/summary.md P0-5 행"
+      },
+      {
+       "issue": "14. [imprecise, RES-B와 같은 양] S-dict Top-1 대 E-T4 기준(18%)의 사후 적용 지위를 교정 형태로 맞춤",
+       "before": "S-dict의 DDXPlus-E Top-1(17.63%)도 E-T4 기준인 18%보다 낮았다(기준을 사후에 적용) [확증-보조].",
+       "after": "S-dict의 DDXPlus-E Top-1(17.63%) [확증-보조]도 E-T4 기준인 18%보다 낮았다. E-T4 기준은 실행 전에 S-mix에만 걸었고, S-dict에는 사후에 적용했다(값은 확증 실행, 기준 적용은 사후).",
+       "source": "표 6 행 12(E-T4는 S-mix Top-10 ≥ 40%, Top-1 ≥ 18%); MET-B 3.8 186행 [확증-보조] 정의(보조 지표 Top-1 값은 해당, 기준 대조는 해당 없음)"
+      }
+     ],
+     "rejected": [
+      {
+       "issue": "15. [style, INT] 서론의 비용·라이선스·증빙·D 대 E 단서를 4.2·4.4로 옮김",
+       "why": "RES-A에는 고칠 문장이 없다. 옮겨 갈 단서는 이미 모두 RES-A에 있다. 4.4에는 문헌 수집 제외, v3 사전 매칭 3.9분 추정, UMLS 라이선스, HPO genes_to_disease, 순수 사전 빌드 시간 미측정(빌더는 S-dict와 같음)이 있다. 4.2에는 D 대 E를 하나의 변화로 잇지 않는 이유(세트·기준·BM25 문헌이 다름)와 조정 예산이 있고, 4.1에는 로컬 커밋 시각 증빙이 있다. INT에서는 지우기만 하면 된다."
+      },
+      {
+       "issue": "17. [style] 국문 본문의 'Table N' → '표 N' 통일",
+       "why": "RES-A 국문 본문은 이미 '표 N'만 쓴다. 'Table N'은 영어 캡션과 각주에만 있으므로 바꿀 것이 없다."
+      },
+      {
+       "issue": "18. [style] 누설/누수 용어 통일",
+       "why": "RES-A 국문 본문에는 '누설'과 '누수'가 모두 나오지 않는다. 영어 표 6b의 'leakage'뿐이라 바꿀 것이 없다."
+      }
+     ]
+    },
+    {
+     "id": "RES-B",
+     "applied": [
+      {
+       "issue": "2. [wrong] RES-B: 표 13b 'SymCat 최소' 문장이 UMLS 쌍에서 틀림",
+       "before": "표 13b의 두 쌍에서 이득이 가장 작은 세트는 SymCat이었다(UMLS 사전 쌍 +0.41%p [−0.27, +1.03], LLM 쌍 +1.06%p [+0.43, +1.71]).",
+       "after": "표 13b의 LLM 쌍에서 이득이 가장 작은 세트는 SymCat(+1.06%p [+0.43, +1.71])이었고, UMLS 사전 쌍에서는 PUMCH_L(0.00%p [−2.13, +2.23])과 SymCat(+0.41%p [−0.27, +1.03])이 가장 작았다.",
+       "source": "RES-B 표 13b (PUMCH_L UMLS 64.78 → 64.78, 0.00 [−2.13, 2.23]); pilot/cache/v3/p0/leakage/result.json depth_pairs v3umls_ns − v2umls_ns per_set_diff"
+      },
+      {
+       "issue": "3·4. 7쌍 세트별 Δ가 결과 절에 없음, 희귀 세트의 PUMCH_L 예외(INT·DIS가 인용할 값을 RES-B 4.6에 먼저 보고)",
+       "before": "(4.6 수집 깊이 문단에 7쌍 세트별 범위 없음)",
+       "after": "7쌍 전체의 세트별 차이(점추정, 누수 의심 환자 제외 전)는 DDXPlus −1.83~+6.93%p(7쌍 중 6쌍 상승), SymCat −0.31~+1.06%p(6쌍 상승)였다. 희귀질환 세트 가운데 PUMCH_L은 7쌍 중 4쌍에서 내려갔고(−5.16, −3.24, −1.82, −0.51%p), 1쌍에서 0.00%p였으며, 2쌍에서 올랐다(+0.91, +6.17%p). 나머지 희귀질환 6개 세트는 7쌍 모두에서 올랐다(+2.27~+27.50%p).",
+       "source": "pilot/cache/v3/p0/leakage/result.json depth_pairs[*]['@10']['all']['per_set_diff'] (DDXPlus −1.83/3.63/1.67/4.43/3.63/4.47/6.93; SymCat 0.15/0.95/−0.31/0.41/1.06/0.88/0.52; PUMCH_L −5.16/−3.24/−1.82/0.00/6.17/0.91/−0.51; 나머지 희귀 6세트 최소 HMS +2.27, 최대 MME +27.50)"
+      },
+      {
+       "issue": "5. [imprecise] RES-B 4.5의 '차이는 모두 S-mix − 비교 대상' 규약에 INT와 같은 예외가 없음",
+       "before": "차이는 모두 \"S-mix(또는 해당 문헌 그래프) − 비교 대상\"으로 쓴다. … 차이는 DDXPlus −15.8%p",
+       "after": "문헌 그래프와 비교 대상의 차이는 \"S-mix(또는 해당 문헌 그래프) − 비교 대상\"으로 쓴다. 문헌 그래프 대 비교 대상이 아닌 비교(결합, 랭커, 그래프 판본, 비교 지식원끼리)는 문장에 뺄셈 방향을 적는다(예: 결합 − S-mix, PPR − 1-홉). … PPR − 1-홉 차이는 DDXPlus −15.8%p",
+       "source": "INT.md 3.8 요약 문단의 예외 문장; RES-B 4.5 M1 '결합 − S-mix'·PPR '1-홉 대비' 서술"
+      },
+      {
+       "issue": "10. [style] 표 11 캡션의 'same frozen … ranker' (outline §7 금지 표현)",
+       "before": "Every knowledge source is scored by the same frozen 1-hop Cypher ranker code; HPOA keeps its design-D setting and is not re-tuned after deletion.",
+       "after": "Every knowledge source is scored by the same 1-hop Cypher ranker code with settings tuned per source; HPOA keeps its design-D setting and is not re-tuned after deletion, and panel (b) scores the literature graphs at a fixed γ.",
+       "source": "draft/paper_ko_v4/outline.md §7 금지 목록('같은 동결 랭커' → '같은 랭커 코드, 지식원별로 조정한 설정'), 표 8 캡션 초안"
+      },
+      {
+       "issue": "11. [style] 표 11b 본문 표에 γ=1 행(과거·신규 10.5 대 0.6 등 결과를 본 뒤 고른 칸)",
+       "before": "본문은 γ = 0의 값을 주로 보고하고, 표 11b에 γ = 1의 값을 함께 둔다. / 표 11b에 γ 열과 그래프별 γ = 1 행(S-mix 과거·신규 10.5 포함)",
+       "after": "본문과 표 11b는 γ = 0의 값을 보고하고, γ = 1의 값은 보충 표에 둔다. / γ = 1 미래·기주석 강건성 문장에 '(보충 표; …)' 표기. 표 11b는 γ = 0 행만 두고 γ 열 제거, 캡션에 'the γ = 1 rows are in the supplementary table'과 'Past · new cells are not used as evidence for the literature graphs, because HPOA is near 0 there by the group definition.' 추가",
+       "source": "outline.md §7('시간 분할의 Top-1 +7.5와 ot 1.0 칸' 본문 제외), 375행(시간 분할의 유리한 칸 → 보충); docs/positive_framing_review_2026-10-20.md 4.2(과거·신규 +4.2, ot 1.0이면 +9.9: 긍정 근거에서 뺌)"
+      },
+      {
+       "issue": "12. [imprecise] '새로 기술된 질환'은 MET-B 3.9의 '신규' 정의와 다름",
+       "before": "어느 지식원도 새로 기술된 질환을 거의 맞히지 못했다. / 캡션: \"New\" = disease first annotated in HPOA after 2022-12-31",
+       "after": "어느 지식원도 미래·신규 묶음, 곧 2022년 말 HPOA에 아직 주석되지 않은 질환의 미래 증례를 거의 맞히지 못했다. / 캡션: \"New\" = disease first annotated in HPOA after 2022-12-31 or not annotated up to the 2026-09 release, so it includes diseases described earlier but annotated late",
+       "source": "MET-B.md 3.9 시간 분할 정의(2022-12-31 뒤 첫 주석 또는 2026-09 릴리스까지 미주석이면 '신규')"
+      },
+      {
+       "issue": "14. [imprecise] S-dict·S-union Top-1을 E-T4 기준과 견준 문장에 사후 적용 단서 없음, 지위 [확증-보조] 부적합",
+       "before": "같은 세트에서 S-dict(17.63%)와 S-union(17.93%)의 Top-1도 18%보다 낮았다 [확증-보조].",
+       "after": "같은 세트에서 S-dict(17.63%)와 S-union(17.93%)의 Top-1도 18%보다 낮았다(E-T4 기준을 사후에 적용). 두 값은 확증 실행에서 나왔지만, E-T4 기준은 실행 전에 S-mix에만 걸었으므로 이 두 그래프에 대한 기준 적용은 사후다 [사후].",
+       "source": "pilot/cache/v2/confirmE/S-dict.json, S-union.json (lineage@1 17.63, 17.93); MET-B 3.6 E-T4 정의(S-mix 단독), 3.8 [확증-보조]·[사후] 정의; RES-A 4.4 '(기준을 사후에 적용)'"
+      }
+     ],
+     "rejected": [
+      {
+       "issue": "17. [style] 국문 본문의 'Table N' 표기",
+       "why": "RES-B 국문 본문은 이미 모두 '표 N'(표 6, 표 11a, 표 13b, 표 14c 등)으로 쓴다. 'Table'은 영어 캡션에만 있어 바꿀 것이 없다."
+      },
+      {
+       "issue": "18. [style] 누설/누수 용어 혼용",
+       "why": "RES-B는 국문 본문에서 '누수'만 쓴다(누수 의심 환자, 누수에 민감, 작성 메모의 누수 제외). '누설'은 없다. 첫 등장 정의는 INT/MET-B 몫이므로 RES-B에서는 바꿀 것이 없다."
+      },
+      {
+       "issue": "1, 6, 7, 8, 9, 13, 15, 16 (RES-A, INT, DIS, REL, MET-A, MET-B 대상)",
+       "why": "인용문이나 영향받는 문장이 RES-B에 없다. 확인 결과: RES-B에는 '+12.27'이나 SemMedDB 문장이 없고, 병원층 S-mix − HPOA는 허용된 질환 등가중 +4.01 [−3.89, +12.28]만 인용한다. 4.5의 무작위 삭제 대조 문단은 이미 '지운 주석은 정답 질환에 몰려 있었고 … 2,631행만 지울 수 있었다'는 단서를 담고 있다(이슈 9가 근거로 인용한 문장). 작성 메모는 이미 <!-- --> 주석이다."
+      }
+     ]
+    },
+    {
+     "id": "DIS",
+     "applied": [
+      {
+       "issue": "4 [unsupported] DIS 5.2/5.5 7-pair per-set ranges; 3 [overclaim] same PUMCH_L exception in DIS 5.5",
+       "before": "이 이득은 희귀질환 세트에서 컸고, 흔한 질환 세트에서는 작았다(쌍별 SymCat −0.3~+1.1%p, DDXPlus −1.8~+6.9%p) [개발]. / (5.2) …개발 SymCat에서는 −0.3~+1.1%p였다 [개발].",
+       "after": "세트별로 보면, PUMCH_L을 뺀 희귀질환 세트 여섯 개는 7쌍 모두에서 올랐다(+2.3~+27.5%p). PUMCH_L은 7쌍 가운데 4쌍에서 내려갔다(−5.2~−0.5%p). 흔한 질환 세트에서는 변화가 작았다(쌍별 SymCat −0.3~+1.1%p, DDXPlus −1.8~+6.9%p; 4.6절) [개발]. / (5.2) …개발 SymCat에서는 −0.3~+1.1%p였다(4.6절) [개발].",
+       "source": "pilot/cache/v3/p0/leakage/result.json depth_pairs[*]['@10']['all']['per_set_diff']: DDXPlus −1.83,3.63,1.67,4.43,3.63,4.47,6.93 (6/7 up); SymCat 0.15,0.95,−0.31,0.41,1.06,0.88,0.52; PUMCH_L −5.16,−3.24,−1.82,0.00,+6.17,+0.91,−0.51 (4/7 down); other six rare sets min +2.27 (HMS), max +27.5 (MME). DIS now cites 4.6; the per-set values still have to be reported in RES-B 4.6/Table 13 (not my file) for the citation to resolve."
+      },
+      {
+       "issue": "7 [overclaim] SymCat S-mix > SemMedDB depends on SemMedDB setting (DIS 5.3 carries the same sentence)",
+       "before": "…S-dict − SemMedDB는 +2.18%p [+1.35, +2.99](질환 군집 CI [+0.55, +3.87])였다 [개발].",
+       "after": "…S-dict − SemMedDB는 +2.18%p [+1.35, +2.99](질환 군집 CI [+0.55, +3.87])였다 [개발]. 이 SymCat 값은 다시 고른 설정 기준이다. 설계 D의 동결 채점을 그대로 쓴 SemMedDB는 SymCat Top-10이 14.52%로 S-mix(13.34%)보다 높았다(S-mix − SemMedDB −1.18%p [−1.99, −0.29]) [개발].",
+       "source": "pilot/cache/v3/p0/semmeddb/stats.log: 'S-mix - SemMedDB semantic_drop frozen @10 SymCat 14.52 13.34 −1.18 [−1.99, −0.29] Holm p 0.009'; RES-A Table footnote b also lists frozen SymCat 14.52. The common-set macro −1.82 is not used in DIS."
+      },
+      {
+       "issue": "9 [overclaim] DIS 5.3 '따라서 … 양이 아니라 증례 원논문을 인용한 주석에 기대고 있었다'",
+       "before": "같은 수의 주석을 무작위로 지운 대조에서는 HPOA가 72.22%로 거의 그대로였다(S-mix − HPOA −41.19%p) [개발]. 따라서 이 세트에서 HPOA의 우세는 지운 주석의 양이 아니라 증례 원논문을 인용한 주석에 기대고 있었다.",
+       "after": "같은 수의 주석을 자원 전체에서 무작위로 지운 대조에서는 HPOA가 72.22%로 거의 그대로였다(S-mix − HPOA −41.19%p) [개발]. LOPO의 결과는 이 대조와 크게 달랐다. 다만 지운 주석은 정답 질환에 몰려 있었고, 같은 질환 안에서 같은 수를 무작위로 지우려 한 대조는 22,261행 가운데 2,631행만 지울 수 있었다(4.5절). 그래서 이 대조로는 순환의 효과와 정답 질환 프로필의 소멸(커버리지)을 가르지 못했다.",
+       "source": "RES-B 4.5; pilot/cache/v3/p0/hpoa_lopo/summary.md line 34 and prepare.log (rand_dz_s0 rows 2631); deletions.json rows_removed 2631."
+      },
+      {
+       "issue": "8 [overclaim] DIS 5.4 LLM-phrase 'selection' interpretation not scoped",
+       "before": "해석으로는, LLM 구절의 역할이 사전이 이름 붙이지 못하는 소견을 찾는 것보다 어떤 텍스트가 그 질환의 소견인지 고르는 선택에 가깝다.",
+       "after": "해석으로는, 희귀 세 세트와 SymCat에 한해 LLM 구절의 역할이 사전이 이름 붙이지 못하는 소견을 찾는 것보다 어떤 텍스트가 그 질환의 소견인지 고르는 선택에 가깝고, DDXPlus에서는 반대로 S-mix 승리의 59.1%가 전용 간선에 기댔다.",
+       "source": "RES-B 4.6 'LLM 구절의 측정된 역할': S-mix wins retained RAMEDIS 92.6%, LIRICAL 76.9%, Phenopacket-store 88.7%, SymCat 80.2%, DDXPlus 65/159 = 40.9% (so 59.1% depended on exclusive edges). The issue said the high retention was rare-only, but SymCat is also high (80.2%), so the scope names the rare sets and SymCat."
+      },
+      {
+       "issue": "14 [imprecise] E-T4 criterion applied post hoc to S-dict (DIS 5.4 used the label [확증-보조])",
+       "before": "E-T4 기준을 사후로 적용하면 S-dict도 미달이다(DDXPlus-E Top-1 17.63%, 기준 18%) [확증-보조].",
+       "after": "E-T4 기준을 사후에 적용하면 S-dict도 미달이다(DDXPlus-E Top-1 17.63%, 기준 18%; 값은 확증 실행, 기준 적용은 사후) [사후].",
+       "source": "MET-B 3.8: [확증-보조] covers only paired Top-1/Top-3 differences and cluster CIs; E-T4 was committed for S-mix alone. Matched to the corrected form required for RES-B 4.5."
+      },
+      {
+       "issue": "12 [imprecise] '새로 기술된 질환' vs. the definition of the future·new group (DIS 5.7 and the matching 5.3 phrase)",
+       "before": "(5.7) 2022년 말 HPOA에 없던 질환의 미래 증례에서 문헌 그래프는 Top-10이 모두 2.2% 이하였다 [탐색]. 이 그래프는 새로 기술된 질환을 거의 다루지 못한다. / (5.3) 2022년 말 HPOA에 없던 질환의 2023년 이후 증례(2,381건, 263질환)는",
+       "after": "(5.7) 2022 절단 문헌 그래프는 2022년 말 HPOA에 아직 주석되지 않은 질환의 미래 증례(미래·신규 묶음)를 거의 맞히지 못했다(Top-10 모두 2.2% 이하) [탐색]. 이 묶음을 문헌 유무로 층화하지 않아, 낮은 값이 문헌의 부재에서 오는지는 가르지 못했다. / (5.3) 2022년 말 HPOA에 아직 주석되지 않은 질환의 2023년 이후 증례(미래·신규 묶음, 2,381건, 263질환)는",
+       "source": "MET-B 3.9 definition of '신규' (first annotated after 2022-12-31 or not annotated by 2026-09); RES-B 4.5 and Table 11b note that the group was not stratified by whether any literature existed."
+      },
+      {
+       "issue": "18 [style] mixed terms 누설/누수 for leakage",
+       "before": "그 일부는 누설을 막으려고 증례 원논문을 수집에서 뺀 데서 생겼을 수 있다.",
+       "after": "그 일부는 누수를 막으려고 증례 원논문을 수집에서 뺀 데서 생겼을 수 있다.",
+       "source": "The issue suggests 누수; the MET-B 3.9 title and most uses (RES-B, positive_framing_review) are 누수. DIS's other uses ('누수 의심 환자') already match. The one-line definition belongs at first use (INT/MET-B), not in DIS."
+      }
+     ],
+     "rejected": [
+      {
+       "issue": "1 [style] RES-A PUMCH two-set macro +12.27",
+       "why": "Not in DIS. DIS already removed +12.27 (memo 2d), and its body keeps only the PUMCH_L per-set values."
+      },
+      {
+       "issue": "2 [wrong] RES-B 'smallest gain was SymCat' in Table 13b",
+       "why": "Not in DIS. DIS has no 'smallest set' sentence. Its 7-pair statements are now set-specific (issue 4)."
+      },
+      {
+       "issue": "3 [overclaim] INT 'gain large in rare sets'",
+       "why": "The INT sentence is not in my file. The same claim in DIS 5.5 was fixed under issue 4 (PUMCH_L exception added)."
+      },
+      {
+       "issue": "5 [imprecise] MET-B/RES-B subtraction-sign convention",
+       "why": "DIS states no global sign convention. Every non-'S-mix − comparator' difference in DIS already names its direction in the sentence (순수 사전 − S-dict, S-comb − S-mix, 결합 − HPOA/S-mix, PPR vs 1-홉, S-D − HPOA). No change needed."
+      },
+      {
+       "issue": "6 [overclaim] INT 'no difference on the two common sets' for S-mix − pure dictionary",
+       "why": "Not in DIS. DIS 5.4 already gives the per-set values (DDXPlus-E +0.67 [−0.47, +1.87], SymCat-E −1.09 [−1.65, −0.48]) next to the macro, and it does not use the unreported dev macros +0.02/+4.80."
+      },
+      {
+       "issue": "10 [style] Table 11 caption 'same frozen ranker'",
+       "why": "Not in DIS. DIS uses '같은 1-홉 랭커' and says in 5.3 that the ranker code is shared and settings are tuned per source. The '동결 Cypher 질의' in 5.7 refers to the released query, not to the same-ranker condition."
+      },
+      {
+       "issue": "11 [style] Table 11b γ=1 rows",
+       "why": "Not in DIS. DIS cites only γ=0 time-split values (≤2.2%) and never the past·new γ=1 cell."
+      },
+      {
+       "issue": "13 [imprecise] REL section references (4.3) → (4.5)",
+       "why": "Not in DIS. The DIS references to the LOPO/coverage results already point to 4.5."
+      },
+      {
+       "issue": "15 [style] INT caveats on cost/license, evidence, D vs E",
+       "why": "Not in DIS. DIS is one of the receiving sections and already carries each caveat: S-dict build basis, collection excluded and the 3.9-minute estimate (5.1/5.4), UMLS license and HPO gene–disease links (5.4, 5.7), local commit time as the only evidence (5.7), tuning budget (5.2), and D vs E not comparable (5.2). The 5.2 wording ('세트, 판정 기준, BM25 값') already matches outline §7."
+      },
+      {
+       "issue": "16 [style] MET-A/MET-B/REL memos as blockquotes",
+       "why": "Not in DIS. The DIS memo is already an HTML comment (<!-- -->)."
+      },
+      {
+       "issue": "17 [style] 'Table N' in Korean body text",
+       "why": "Not in DIS. DIS body already uses '표 N' (e.g., 표 6)."
+      }
+     ]
+    }
+   ],
+   "recheck": {
+    "issues": [
+     {
+      "section": "INT",
+      "quote": "출판 증례 세트의 HPOA 우세는 Phenopacket-store에서 순환을 걷어내면 작아졌다 [탐색; 수치는 개발] (RQ2)",
+      "problem": "기여 4는 전역 삭제 뒤의 부호 반전(+5.58%p)과 무작위 삭제 대조(−41.19%p)를 나란히 놓아, 차이가 순환 때문에 생긴 것처럼 읽힌다. 같은 수치를 다룬 ABS-CON(결과 문단과 6장), RES-B 4.5, DIS 5.3에는 있는 단서가 여기에는 빠졌다. 지운 주석은 정답 질환에 몰려 있었다. Phenopacket-store 환자의 36.0%는 정답 질환 프로필을 통째로 잃었고, 같은 질환 안에서 무작위로 지우는 대조는 22,261행 가운데 2,631행만 지울 수 있었다. 그래서 이 대조로는 순환의 효과와 정답 프로필 소멸을 가를 수 없다. 해석 규칙의 둘째 조건도 환자 가중 값으로만 확인했다. 또 제목에 붙은 지위 [탐색; 수치는 개발]은 두께 30 이상 층에 관한 앞 절까지 덮는데, 그 값(SymCat-E +0.70)은 [사후]다. [탐색; 수치는 개발]이라는 복합 표기는 3.8절에 정의되어 있지도 않다.",
+      "correct": "규칙이 정한 문장은 그대로 두고, 같은 기여 항목 안에 단서를 붙인다: \"다만 지운 주석이 정답 질환에 몰려 있어(환자 36.0%에서 정답 프로필 소멸, 같은 질환 대조는 2,631행만 삭제 가능) 이 대조로 순환과 정답 프로필 소멸을 가르지 못했고, 무작위 대조는 환자 가중으로만 계산했다.\" 두께 30 이상 층 절에는 [사후]를 따로 붙인다.",
+      "severity": "overclaim"
+     },
+     {
+      "section": "RES-B",
+      "quote": "이 선택은 출판 증례 세트에서 HPOA가 얻은 순환 이득을 반영한다.",
+      "problem": "M1에서 w = .75가 선택된 원인을 '순환 이득'으로 단정한다. 근거는 HPOA-LOPO 목록으로 다시 고르면 w = .25가 선택된다는 것뿐이다. 그런데 이 LOPO는 전역 삭제판이어서 순환과 정답 프로필 소멸을 가르지 못한다(DIS 5.3, ABS-CON). M1 요약(framing/m1/summary.md)도 이 관찰을 '규칙 밖의 사후 관찰'로 분류했다.",
+      "correct": "\"이 선택은 증례 원논문을 인용한 HPOA 주석이 출판 증례 세트에서 낸 이득에 좌우되었다(HPOA-LOPO 목록으로 같은 규칙을 적용하면 w = .25 선택; 규칙 밖의 사후 관찰).\"",
+      "severity": "overclaim"
+     },
+     {
+      "section": "RES-B",
+      "quote": "이 범위에서, Phenopacket-store에서 순환을 걷어내면 같은 1-홉 랭커의 HPOA와의 격차가 작아졌다고 판단한다 [탐색].",
+      "problem": "4.5절은 앞 문단에서 지운 주석이 정답 질환에 몰렸다는 사실과 같은 질환 대조가 2,631행만 지울 수 있었다는 사실을 적는다. 그러나 결론은 \"격차의 감소는 지운 행의 수로 설명되지 않는다\"에서 멈춘다. 같은 사실에서 ABS-CON과 DIS 5.3은 \"이 대조로 순환과 정답 질환 프로필의 소멸을 가르지 못했다\"는 결론을 명시적으로 낸다. 결과 절과 논의·초록이 같은 측정에서 서로 다른 강도의 결론을 낸다.",
+      "correct": "해석 규칙을 적용한 문단 끝에 ABS-CON·DIS와 같은 문장을 넣는다: \"다만 이 대조로는 순환의 효과와 정답 질환 프로필의 소멸(커버리지)을 가르지 못했다.\"",
+      "severity": "imprecise"
+     },
+     {
+      "section": "DIS",
+      "quote": "해석으로는, 희귀 세 세트와 SymCat에 한해 LLM 구절의 역할이 사전이 이름 붙이지 못하는 소견을 찾는 것보다 어떤 텍스트가 그 질환의 소견인지 고르는 선택에 가깝고",
+      "problem": "해석의 범위를 SymCat까지 넓혔다. ABS-CON 6장(\"희귀질환 개발 세트에 한해\")과 근거 문서 §9.31(희귀질환 개발 세트의 부분 반사실)은 희귀 개발 세트로만 한정한다. SymCat에서는 S-dict 승리도 전용 간선 없이 72.5% 남아(S-mix 80.2%) 두 그래프가 구별되지 않는다. 그래서 이 반사실은 SymCat에서 '선택' 해석을 받치지 않는다.",
+      "correct": "\"해석으로는, 희귀질환 개발 세트(RAMEDIS, LIRICAL, Phenopacket-store)에 한해 ... 선택에 가깝다.\" SymCat 값은 측정값으로만 보고하고 해석에서는 뺀다.",
+      "severity": "overclaim"
+     },
+     {
+      "section": "DIS",
+      "quote": "이 우세는 세 조건에 달려 있었다.",
+      "problem": "S-dict의 lineage 우세가 세 조건(strict 판정, 입력 내 정답 명시, LLM 구절 표)에 '달려 있었다'고 일반화했다. 그러나 SymCat-E에서는 strict에서도 S-dict가 높았고(−0.91%p [−1.38, −0.43]), 구절 표를 뺀 순수 사전 그래프도 S-mix보다 높았다(−1.09%p [−1.65, −0.48]). SymCat-E의 우세를 없앤 조건은 입력 구조 하나뿐이다. 바로 뒤 문장들이 이 세트별 값을 적고 있어, 첫 문장과 맞지 않는다.",
+      "correct": "\"두 세트 매크로와 DDXPlus-E에서 이 우세는 세 조건에 달려 있었다. SymCat-E에서는 입력 내 정답 명시 층만 우세를 설명했고, strict 판정과 순수 사전 그래프 비교에서도 사전 쪽이 높았다.\"",
+      "severity": "imprecise"
+     },
+     {
+      "section": "ABS-CON",
+      "quote": "이 경로의 순수 사전 그래프는 개발 9세트 평균 Top-10이 S-mix보다 3.7%p 낮았다(개발).",
+      "problem": "초록 결론(과 결과 문단)은 순수 사전 그래프와 S-mix의 차이를 개발값으로만 적는다. S-mix는 이 9개 개발 세트에서 그래프 32개 가운데 고른 것이라 개발값에는 S-mix 쪽 선택 낙관이 들어 있다. 봉인 세트 E의 사후 값은 방향이 다르다. 두 세트 매크로 S-mix − 순수 사전은 −0.21%p [−0.84, +0.45]이고, SymCat-E에서는 순수 사전 그래프가 더 높았다(−1.09%p). 6장 본문에는 두 값이 다 있는데 초록에는 한쪽만 있다.",
+      "correct": "초록에 사후 값을 함께 둔다: \"... S-mix보다 3.7%p 낮았으나(개발), 봉인 세트 E의 두 세트 평균에서는 차이를 확인하지 못했다(−0.2%p [−0.8, 0.5], 사후).\"",
+      "severity": "imprecise"
+     },
+     {
+      "section": "INT",
+      "quote": "사전 그래프는 LLM 없이 적은 비용으로 다시 만들 수 있었다(RQ3).",
+      "problem": "'사전 그래프'가 절마다 다른 그래프를 가리킨다. 여기와 DIS 5.1(\"사전 그래프(순수 사전 그래프)는 LLM 없이...\")에서는 순수 사전 그래프를 뜻한다. RES-B 4.6(\"사전 그래프 우세가 입력 구조에서 온다\"), DIS 5.4, REL 2.4(\"S-dict(LLM 구절 표를 일부 쓴 사전 그래프)\")에서는 S-dict를 뜻한다. 이 제목은 '적은 비용'의 근거인 0.45시간이 LLM 구절 표를 쓴 S-dict에서 잰 값이라는 점도 흐린다. 순수 사전 그래프의 빌드 시간은 재지 않았다(RES-A 4.4).",
+      "correct": "용어를 하나로 고정한다. 예: S-dict는 \"S-dict\" 또는 \"구절 표를 쓴 사전 그래프\"로, LLM 산출물이 없는 그래프는 늘 \"순수 사전 그래프\"로 쓴다. 기여 3 제목은 \"순수 사전 그래프는 LLM 없이 다시 만들 수 있었고, 사전 경로의 구축 비용은 S-dict로 잰 값이 약 0.45시간이었다(S-mix 약 136시간)\"처럼 측정 대상을 밝힌다.",
+      "severity": "imprecise"
+     },
+     {
+      "section": "MET-B",
+      "quote": "소견 점수는 질환 프로파일 크기로 길이를 정규화한다.",
+      "problem": "같은 개념을 두 가지로 쓴다. 이 문장만 '프로파일'이고, MET-B 3.8의 정의를 포함한 다른 모든 절은 '프로필'(프로필 두께, HPOA 프로필)이다.",
+      "correct": "\"소견 점수는 질환 프로필 크기로 길이를 정규화한다.\"",
+      "severity": "style"
+     }
+    ]
+   }
+  }
+ ],
+ "recheck": {
+  "issues": [
+   {
+    "section": "INT",
+    "quote": "출판 증례 세트의 HPOA 우세는 Phenopacket-store에서 순환을 걷어내면 작아졌다 [탐색; 수치는 개발] (RQ2)",
+    "problem": "기여 4는 전역 삭제 뒤의 부호 반전(+5.58%p)과 무작위 삭제 대조(−41.19%p)를 나란히 놓아, 차이가 순환 때문에 생긴 것처럼 읽힌다. 같은 수치를 다룬 ABS-CON(결과 문단과 6장), RES-B 4.5, DIS 5.3에는 있는 단서가 여기에는 빠졌다. 지운 주석은 정답 질환에 몰려 있었다. Phenopacket-store 환자의 36.0%는 정답 질환 프로필을 통째로 잃었고, 같은 질환 안에서 무작위로 지우는 대조는 22,261행 가운데 2,631행만 지울 수 있었다. 그래서 이 대조로는 순환의 효과와 정답 프로필 소멸을 가를 수 없다. 해석 규칙의 둘째 조건도 환자 가중 값으로만 확인했다. 또 제목에 붙은 지위 [탐색; 수치는 개발]은 두께 30 이상 층에 관한 앞 절까지 덮는데, 그 값(SymCat-E +0.70)은 [사후]다. [탐색; 수치는 개발]이라는 복합 표기는 3.8절에 정의되어 있지도 않다.",
+    "correct": "규칙이 정한 문장은 그대로 두고, 같은 기여 항목 안에 단서를 붙인다: \"다만 지운 주석이 정답 질환에 몰려 있어(환자 36.0%에서 정답 프로필 소멸, 같은 질환 대조는 2,631행만 삭제 가능) 이 대조로 순환과 정답 프로필 소멸을 가르지 못했고, 무작위 대조는 환자 가중으로만 계산했다.\" 두께 30 이상 층 절에는 [사후]를 따로 붙인다.",
+    "severity": "overclaim"
+   },
+   {
+    "section": "RES-B",
+    "quote": "이 선택은 출판 증례 세트에서 HPOA가 얻은 순환 이득을 반영한다.",
+    "problem": "M1에서 w = .75가 선택된 원인을 '순환 이득'으로 단정한다. 근거는 HPOA-LOPO 목록으로 다시 고르면 w = .25가 선택된다는 것뿐이다. 그런데 이 LOPO는 전역 삭제판이어서 순환과 정답 프로필 소멸을 가르지 못한다(DIS 5.3, ABS-CON). M1 요약(framing/m1/summary.md)도 이 관찰을 '규칙 밖의 사후 관찰'로 분류했다.",
+    "correct": "\"이 선택은 증례 원논문을 인용한 HPOA 주석이 출판 증례 세트에서 낸 이득에 좌우되었다(HPOA-LOPO 목록으로 같은 규칙을 적용하면 w = .25 선택; 규칙 밖의 사후 관찰).\"",
+    "severity": "overclaim"
+   },
+   {
+    "section": "RES-B",
+    "quote": "이 범위에서, Phenopacket-store에서 순환을 걷어내면 같은 1-홉 랭커의 HPOA와의 격차가 작아졌다고 판단한다 [탐색].",
+    "problem": "4.5절은 앞 문단에서 지운 주석이 정답 질환에 몰렸다는 사실과 같은 질환 대조가 2,631행만 지울 수 있었다는 사실을 적는다. 그러나 결론은 \"격차의 감소는 지운 행의 수로 설명되지 않는다\"에서 멈춘다. 같은 사실에서 ABS-CON과 DIS 5.3은 \"이 대조로 순환과 정답 질환 프로필의 소멸을 가르지 못했다\"는 결론을 명시적으로 낸다. 결과 절과 논의·초록이 같은 측정에서 서로 다른 강도의 결론을 낸다.",
+    "correct": "해석 규칙을 적용한 문단 끝에 ABS-CON·DIS와 같은 문장을 넣는다: \"다만 이 대조로는 순환의 효과와 정답 질환 프로필의 소멸(커버리지)을 가르지 못했다.\"",
+    "severity": "imprecise"
+   },
+   {
+    "section": "DIS",
+    "quote": "해석으로는, 희귀 세 세트와 SymCat에 한해 LLM 구절의 역할이 사전이 이름 붙이지 못하는 소견을 찾는 것보다 어떤 텍스트가 그 질환의 소견인지 고르는 선택에 가깝고",
+    "problem": "해석의 범위를 SymCat까지 넓혔다. ABS-CON 6장(\"희귀질환 개발 세트에 한해\")과 근거 문서 §9.31(희귀질환 개발 세트의 부분 반사실)은 희귀 개발 세트로만 한정한다. SymCat에서는 S-dict 승리도 전용 간선 없이 72.5% 남아(S-mix 80.2%) 두 그래프가 구별되지 않는다. 그래서 이 반사실은 SymCat에서 '선택' 해석을 받치지 않는다.",
+    "correct": "\"해석으로는, 희귀질환 개발 세트(RAMEDIS, LIRICAL, Phenopacket-store)에 한해 ... 선택에 가깝다.\" SymCat 값은 측정값으로만 보고하고 해석에서는 뺀다.",
+    "severity": "overclaim"
+   },
+   {
+    "section": "DIS",
+    "quote": "이 우세는 세 조건에 달려 있었다.",
+    "problem": "S-dict의 lineage 우세가 세 조건(strict 판정, 입력 내 정답 명시, LLM 구절 표)에 '달려 있었다'고 일반화했다. 그러나 SymCat-E에서는 strict에서도 S-dict가 높았고(−0.91%p [−1.38, −0.43]), 구절 표를 뺀 순수 사전 그래프도 S-mix보다 높았다(−1.09%p [−1.65, −0.48]). SymCat-E의 우세를 없앤 조건은 입력 구조 하나뿐이다. 바로 뒤 문장들이 이 세트별 값을 적고 있어, 첫 문장과 맞지 않는다.",
+    "correct": "\"두 세트 매크로와 DDXPlus-E에서 이 우세는 세 조건에 달려 있었다. SymCat-E에서는 입력 내 정답 명시 층만 우세를 설명했고, strict 판정과 순수 사전 그래프 비교에서도 사전 쪽이 높았다.\"",
+    "severity": "imprecise"
+   },
+   {
+    "section": "ABS-CON",
+    "quote": "이 경로의 순수 사전 그래프는 개발 9세트 평균 Top-10이 S-mix보다 3.7%p 낮았다(개발).",
+    "problem": "초록 결론(과 결과 문단)은 순수 사전 그래프와 S-mix의 차이를 개발값으로만 적는다. S-mix는 이 9개 개발 세트에서 그래프 32개 가운데 고른 것이라 개발값에는 S-mix 쪽 선택 낙관이 들어 있다. 봉인 세트 E의 사후 값은 방향이 다르다. 두 세트 매크로 S-mix − 순수 사전은 −0.21%p [−0.84, +0.45]이고, SymCat-E에서는 순수 사전 그래프가 더 높았다(−1.09%p). 6장 본문에는 두 값이 다 있는데 초록에는 한쪽만 있다.",
+    "correct": "초록에 사후 값을 함께 둔다: \"... S-mix보다 3.7%p 낮았으나(개발), 봉인 세트 E의 두 세트 평균에서는 차이를 확인하지 못했다(−0.2%p [−0.8, 0.5], 사후).\"",
+    "severity": "imprecise"
+   },
+   {
+    "section": "INT",
+    "quote": "사전 그래프는 LLM 없이 적은 비용으로 다시 만들 수 있었다(RQ3).",
+    "problem": "'사전 그래프'가 절마다 다른 그래프를 가리킨다. 여기와 DIS 5.1(\"사전 그래프(순수 사전 그래프)는 LLM 없이...\")에서는 순수 사전 그래프를 뜻한다. RES-B 4.6(\"사전 그래프 우세가 입력 구조에서 온다\"), DIS 5.4, REL 2.4(\"S-dict(LLM 구절 표를 일부 쓴 사전 그래프)\")에서는 S-dict를 뜻한다. 이 제목은 '적은 비용'의 근거인 0.45시간이 LLM 구절 표를 쓴 S-dict에서 잰 값이라는 점도 흐린다. 순수 사전 그래프의 빌드 시간은 재지 않았다(RES-A 4.4).",
+    "correct": "용어를 하나로 고정한다. 예: S-dict는 \"S-dict\" 또는 \"구절 표를 쓴 사전 그래프\"로, LLM 산출물이 없는 그래프는 늘 \"순수 사전 그래프\"로 쓴다. 기여 3 제목은 \"순수 사전 그래프는 LLM 없이 다시 만들 수 있었고, 사전 경로의 구축 비용은 S-dict로 잰 값이 약 0.45시간이었다(S-mix 약 136시간)\"처럼 측정 대상을 밝힌다.",
+    "severity": "imprecise"
+   },
+   {
+    "section": "MET-B",
+    "quote": "소견 점수는 질환 프로파일 크기로 길이를 정규화한다.",
+    "problem": "같은 개념을 두 가지로 쓴다. 이 문장만 '프로파일'이고, MET-B 3.8의 정의를 포함한 다른 모든 절은 '프로필'(프로필 두께, HPOA 프로필)이다.",
+    "correct": "\"소견 점수는 질환 프로필 크기로 길이를 정규화한다.\"",
+    "severity": "style"
+   }
+  ]
+ }
+}
