@@ -1,0 +1,427 @@
+# 문장별 근거 (v4)
+
+## ABS-CON
+
+- v2에서는 PMC 오픈액세스 리뷰 15편·증례 10편과 StatPearls·GeneReviews 장을 모았다. v3에서는 리뷰·증례 각 30편(표 포함), PubMed 초록 50편, 원인 유전자 검색 문헌(유전자당 초록 50편·PMC 20편)을 더 모았다.
+  - 근거: docs/research_design.md §9.6, §9.9 (D17: 리뷰 15·증례 10), §9.29 (v3 상한); pilot/scripts/v3_sources.py·collect_v3.py에 StatPearls/GeneReviews/LitArch 없음; draft/paper_ko_v4/sections/MET-A.md 3.2
+- 혼합 추출은 LLM이 고른 구절을 구절 표로 개념에 연결하고, 연결되지 않은 구절에는 그 구절 안의 UMLS 사전 문자열로 개념을 붙인다.
+  - 근거: docs/research_design.md E0, §9.30 'v3llmd_ns'; §9.31 (S-mix 전용 간선 97.3%가 구절 표 경로)
+- S-dict는 CUI가 없는 사전 항목 일부를 LLM 구절 표로 연결했으므로(근거 언급의 8.8%)
+  - 근거: docs/research_design.md §9.34 P0-2; pilot/cache/v3/p0/pure_dict/summary.md ('S-dict 언급의 8.8%가 이 경로를 거쳤고')
+- S-mix − S-D가 DDXPlus-E +6.5%p [4.6, 8.5](군집 [−6.1, 19.3]), SymCat-E +2.4%p [1.7, 3.1]; S-mix − S-llm 두 세트 평균 +1.6%p [1.2, 2.2]
+  - 근거: pilot/cache/v2/confirmE/paired.txt (E-T1, E-T2 macro +1.64 [+1.17, +2.18]); pilot/cache/v2/confirmE/aux_cluster.json (ci_cluster [−6.07, 19.33])
+- S-dict와 S-union 대비 비열등은 실행 전 예상대로 미달했다(두 세트 평균 −1.8%p [−2.4, −1.1], −2.7%p [−3.3, −2.1], 확증).
+  - 근거: pilot/cache/v2/confirmE/paired.txt (macro −1.80 [−2.44, −1.12], −2.66 [−3.27, −2.07]); docs/research_design.md E4 예상 '미달 예상', E7
+- E-T3: DDXPlus-E +19.3%p [17.6, 21.0], SymCat-E +3.0%p [2.2, 3.8]; 시험한 BM25 설정 12개 모두에 대해서도 CI 하한 > 0(사후)
+  - 근거: pilot/cache/v2/confirmE/paired.txt; pilot/cache/v3/framing/v1_bm25/stats.log; docs/research_design.md §9.35 V1
+- 설계 D 설정의 v2 문헌 BM25(27.4%)에서 E-T3에 쓴 v2+v3 문헌 BM25(21.8%)까지의 하락 5.7%p는 DDXPlus-E 격차 19.3%p의 29%였다. 희석 전 v2 BM25 대비 +13.6%p [11.8, 15.5], +2.4%p [1.6, 3.2]
+  - 근거: pilot/cache/v3/framing/v1/summary.md (분해 −0.30 + 5.97 + 7.10 + 6.53 = 19.30; 'BM25 하락 5.66으로 격차의 29%'); v1_bm25/stats.log v2_per_concept_k1000_max 행
+- 설계 D에서는 S-D가 T1에 미달했다(Phenopacket-new +0.0%p [−4.2, 3.8], SymCat +0.2%p [−0.6, 1.0]); T1은 세 세트 비열등과 두 세트 이상 우세, E-T3는 두 세트 비열등과 한 세트 이상 우세
+  - 근거: docs/research_design.md D4, D9 확증 결과; E4 E-T3 판정 기준
+- 같은 랭커의 HPOA 대비 S-mix Top-10 DDXPlus-E +30.7%p(군집 [18.3, 44.9]), SymCat-E +9.1%p(군집 [7.4, 10.9]); PrimeKG 대비 +29.7%p(군집 [16.4, 44.7]), +7.1%p(군집 [5.3, 8.9])
+  - 근거: pilot/cache/v3/framing/m2/stats.log (E S-mix − HPOA/PrimeKG all 행); docs/research_design.md §9.35 M2
+- HPOA가 소견 30개 이상을 단 층은 SymCat-E 45개 질환(430명), DDXPlus-E 5개 질환(162명); SymCat-E 이 층 HPOA 1.6%, S-mix 2.3%
+  - 근거: pilot/cache/v3/framing/m2/stats.log ('HPOA thickness >=30' 행: 430 45 1.63 2.33 +0.70 군집 [−2.05, +3.78]; 162 5 −1.85 군집 [−46.15, +36.22])
+- 이 공간에서는 LLM 없는 MeSH 공출현도 HPOA보다 높았다(개발); 세트별 최선 설정이면 HPOA 개발 Top-10은 DDXPlus 16.1%, SymCat 6.5%(선택 10.3%, 3.6%)
+  - 근거: pilot/cache/v2/devD/ref_cooc/dev.json (lineage@10 DDXPlus 24.97, SymCat 7.7); pilot/cache/v2/devD/ref_hpoa/tune.json (trail 최댓값 16.07, 6.5); docs/research_design.md D9 HPOA dev 10.3/3.6; positive_framing_review H2 단서 1–3
+- 개발 DDXPlus에서는 같은 튜닝 예산의 SemMedDB가 S-mix보다 Top-10이 4.7%p [2.7, 6.6] 높았다(군집 CI는 0 포함); SemMedDB 9세트 평균 23.2%
+  - 근거: pilot/cache/v3/p0/semmeddb/stats.log (S-mix − SemMedDB DDXPlus −4.70 [−6.63, −2.73] 군집 [−15.27, +7.15]; SymCat +1.06; tuned macro 23.20); docs/research_design.md §9.34 P0-5
+- LIRICAL, MME, Phenopacket-store에서 S-mix − HPOA −36.2%p, −40.0%p, −42.7%p; LOPO 뒤 Phenopacket-store +5.6%p [4.8, 6.4](군집 [1.2, 9.9]); 무작위 세 시드 −41.0~−41.4%p; LIRICAL 삭제 뒤 −4.3%p [−9.7, 1.4]; MME −40.0%p 그대로
+  - 근거: pilot/cache/v3/p0/hpoa_lopo/stats.log (HPOA-base/lopo/rand_s0 − S-mix 행); dev_rand_s0/s1/s2.json Phenopacket HPOA 72.22/72.00/72.47 대 S-mix 31.03; docs/research_design.md §9.34 P0-4
+- 설계 D의 봉인 Phenopacket-new에서 S-D의 Top-10은 같은 랭커의 HPOA보다 26.8%p 낮았다(9.2% 대 36.0%); 정답 질환에 S-D 소견 간선이 있는 비율 59.1%
+  - 근거: docs/research_design.md D9 확증 표와 'Phenopacket-new 해석 단서'; positive_framing_review H4 단서 2
+- 추출부터 적재까지 S-dict는 CPU 약 0.45시간(사전 매칭 6.1분, 그중 v3 3.9분은 1/20 표본 추정; 빌드 20.6분), S-mix는 약 136시간(GPU 생성 127.4시간); v3 설정이었다면 약 86.5시간
+  - 근거: pilot/cache/v3/review/cost.md 요약·§2·§3·§5; docs/research_design.md §9.31 비용
+- 순수 사전 그래프의 개발 9세트 평균 Top-10은 42.4%로 S-dict(42.9%)보다 0.5%p [0.1, 1.0], S-mix(46.1%)보다 3.7%p [2.1, 5.4] 낮았다; 희귀 7세트 +4.8%p [2.7, 7.1]; E 두 세트 평균 −0.2%p [−0.8, 0.5], SymCat-E −1.1%p [−1.7, −0.5]
+  - 근거: pilot/cache/v3/p0/pure_dict/stats.log (macro rows: pure − S-dict −0.50 [−0.96, −0.07]; S-mix − pure +3.73 [+2.07, +5.37]; rare +4.80 [+2.70, +7.07]; E −0.21 [−0.84, +0.45]; SymCat-E −1.09 [−1.65, −0.48])
+- 순수 사전 그래프도 같은 랭커의 HPOA보다 Top-10이 높았다(DDXPlus-E +30.0%p, SymCat-E +10.2%p, 사후)
+  - 근거: pilot/cache/v3/framing/m2/stats.log (E pure-dict − HPOA +30.03, +10.22)
+- DDXPlus-E Top-1은 12.4%로 목표 18%에 미달했다(E-T4); BM25와의 결합은 두 세트 평균 +0.1%p [−0.4, 0.6]; SymCat-E +1.0%p [0.5, 1.5], DDXPlus-E −0.8%p [−1.6, 0.1]
+  - 근거: docs/research_design.md E7; pilot/cache/v2/confirmE/paired.txt (E-T5 S-comb vs S-mix)
+- HPOA와 결합한 그래프도 비출판 병원 증례 두 세트 평균 Top-10에서 S-mix보다 높다고 확인되지 않았다(순위 결합 −4.1%p [−10.1, 1.8], 간선 합집합 +0.1%p [−2.3, 2.4])
+  - 근거: pilot/cache/v3/framing/m1/stats.log (hospital RRF − S-mix @10 −4.07 [−10.08, +1.83]; union − S-mix +0.14 [−2.26, +2.40]); docs/research_design.md §9.35 M1
+- Phenopacket-store 증례의 정답 질환에 HPOA가 단 소견 82,751건(증례×정답×소견, 878개 질환)에서 수집 단계 손실은 S-D 67.0%, S-mix 37.3%
+  - 근거: pilot/cache/v3/recall/decomp_smix.json (triples 82751, diseases 878, no_docs 0.3 + not_in_text 37.0); docs/research_design.md §9.27, §9.31
+- 같은 추출에 v3 문헌을 더하면 개발 9세트 평균 Top-10이 7.0–13.0%p 올랐고, 누수 의심 환자를 빼도 7쌍 모두 효과의 0.68배 이상이 남았다
+  - 근거: pilot/cache/v3/p0/leakage/result.log (+6.95 ~ +12.96; 최소 ratio 0.686, v3umls − v2umls)
+- 같은 v2 문헌에서 추출·연결 방식이나 빌더 규칙을 바꾼 변형은 S-D보다 최대 4.1%p 높았다(개발)
+  - 근거: docs/research_design.md §9.30 표 (v2unionu_ns 34.66 대 base_nm 30.56)
+- S-D와의 비교에서는 문헌과 추출이 함께 바뀌었고, Top-1은 SymCat-E에서 S-D보다 0.8%p [0.4, 1.2] 낮았다
+  - 근거: docs/research_design.md E3 (S-D = v2 문헌 gemma 그래프), E7 Top-1 보조; pilot/cache/v2/confirmE/paired.txt (E-T1 Top-1 SymCat −0.8 [−1.2, −0.4])
+- strict 판정에서 +1.0%p [0.4, 1.7]로 뒤집혔다; DDXPlus-E +3.0%p [1.8, 4.1]; SymCat-E의 Top-10과 두 세트의 Top-1에서는 strict에서도 S-dict가 높았다
+  - 근거: pilot/cache/v3/p0/strict/stats.log (macro strict @10 +1.04 [+0.39, +1.72]; DDXPlus-E +3.00; SymCat-E −0.91 [−1.38, −0.43]; @1 macro −1.14 [−1.55, −0.77])
+- 입력에 정답 질환이나 그 상위 질환이 적히지 않은 환자에서 S-mix − S-dict는 DDXPlus-E +1.3%p [0.1, 2.5](군집 [−4.3, 6.2], Holm p 0.11), SymCat-E −0.1%p [−0.7, 0.4]; DDXPlus-E 명시 23.9%
+  - 근거: pilot/cache/v3/framing/input_gold/stats.log (conf neither 행; ConfirmE-DDXPlus named 717 (23.9%))
+- 희귀질환 개발 세트에서는 S-mix가 S-dict보다 높았다(누수 의심 환자 제외 후 +4.8%p [2.2, 7.6]); S-mix 전용 간선을 빼도 우세가 대부분 남았다
+  - 근거: pilot/cache/v3/p0/leakage/result.log (b) +4.79 [+2.21, +7.57]; docs/research_design.md §9.31 기전 (RAMEDIS 92.6%, LIRICAL 76.9%, Phenopacket 88.7%)
+- HPOA와의 개념 정확 일치율은 S-mix 12.6%(질환 무작위 대응 2.5%)로 하한일 뿐이며, 지지 문서 수의 모든 구간에서 S-D보다 낮았다
+  - 근거: docs/research_design.md §9.31 HPO 주석 일치 (S-mix 7.4/15.2/24.9/41.7% 대 S-D 15.0/34.0/48.7/62.8%)
+- 간선의 정확성은 어느 그래프에서도 검증하지 않았다.
+  - 근거: docs/research_design.md §9.14 (LLM 판정), §9.25 (비공식 사람 판정, 논문에서 철회), §9.31 (저자 판독 30개) — 판정 기록이 있으므로 '판정하지 않았다' 대신 '검증하지 않았다'; docs/publication_strategy_2026-10-20.md 3.2
+- 설계 D에서 개인화 PageRank는 1-홉 집계보다 Top-10이 낮거나 차이가 없었다(확증)
+  - 근거: docs/research_design.md D9 E-H1 확증 (DDXPlus −15.8, SymCat −1.6 Holm 유의, Phenopacket-new −1.5 n.s.)
+- 판정 기준(설계 E는 예상까지)을 실행 전에 커밋하고(로컬 커밋 기록, 공개 등록부 없음)
+  - 근거: git log: 31122e2 (D 봉인), cd130e7·2ecb064 (D 동결), 5ce9c3d (E 판정), 61e3118·0cb1c59 (E 예상), 3b10c36 (E 봉인), 49901bc (E 동결), 400d4cf·f676539 (사후 규칙)
+
+## INT
+
+- 조사한 범위에서는 같은 코퍼스에서 사전·LLM·혼합 추출로 만든 그래프를 하류 진단 정확도와 실측 구축 비용으로 비교하고, 봉인 세트에서 판정한 연구를 찾지 못했다.
+  - 근거: docs/publication_strategy_2026-10-20.md §2.3 첫 행('같은 코퍼스에서 사전·LLM·혼합·합집합 그래프를 하류 진단 정확도와 실측 비용으로 비교, 봉인 확증' = 찾지 못함); §3.2('조건을 좁힌 문장은 회피로 읽힌다')
+- 설계 D는 2026년 10월 13일에 S-D를, 설계 E는 10월 19–20일에 S-mix를 각각 한 번 평가했다.
+  - 근거: docs/research_design.md D9(10-13 확증 1회, T1·T2 미달), E7(10-19 23:13–10-20 01:34, 1회)
+- 판정 기준(설계 E는 예상까지)을 실행 전에 저장소에 커밋한 뒤 … (증빙은 로컬 커밋 시각, 3.6절).
+  - 근거: docs/research_design.md D4(판정 열만 있음), E4('개발값으로 본 예상' 열); docs/publication_strategy_2026-10-20.md §3.2 사전 등록 행
+- 확증 뒤에는 주장의 범위를 정하려고 측정 아홉 가지를 더 했고, 그 결정 규칙을 측정 전에 커밋했다 … 재현율 분해, 수집 깊이 비교, 구축 비용 측정은 결정 규칙 없이 했다.
+  - 근거: docs/research_design.md §9.32(P0-1–P0-5, 측정 전 커밋), §9.33(M2, M1, V1, 입력 내 정답 명시 층화), §9.30·§9.31(확증 이후 탐색, 규칙 없음)
+- 주 시스템 S-mix는 근거 언급까지 넣어 따로 적재했고 … 평가에는 근거 언급 없이 적재한 같은 그래프를 썼으며, 개발 DDXPlus 3,000명에서 두 적재의 정답 순위가 같았다.
+  - 근거: docs/research_design.md E3 출처 불변식, E5 3번(7689 Mention 빌드 검사 통과, 11,582,169개, 순위 동일); pilot/scripts/build_graph_v2.py 464–469행(--no-mentions이면 orphan=0으로 두고 같은 'graph check' 문구 출력); pilot/cache/v3/review/cost.md '그래프 빌드(Mention 없음, 7688)'
+- 혼합 추출(S-mix, 주 시스템)에서는 LLM이 고른 구절을 구절 표로 개념에 연결하고, 구절 표가 연결하지 못한 구절에만 그 구절 안의 UMLS 사전 문자열로 이름을 붙인다. … 합집합 추출(S-union)은 LLM 항목에 모든 문장의 UMLS 사전 결과를 더한다.
+  - 근거: docs/research_design.md E0, E3 표(S-mix: 구절 표 미연결분의 구절 안 UMLS 사전 재연결; S-union: LLM 항목 + 모든 문장의 UMLS 사전)
+- 다시 모은 v3 문헌에서는 리뷰와 증례보고의 상한을 각 30편으로 올렸다. 여기에 PubMed 초록 50편을 더하고, 원인 유전자(질환당 최대 2개)마다 초록 50편과 PMC 오픈액세스 논문 20편을 더했다.
+  - 근거: docs/research_design.md §9.29; draft/paper_ko_v4/sections/MET-A.md 3.2 'v3 수집' 문단
+- 두 수집 모두 Phenopacket-store 증례의 원논문을 모든 검색 경로에서 뺐다(v2 1,733편, v3 1,834편).
+  - 근거: docs/research_design.md 435행(1,733편 제외), §9.29(1,834 PMID 제외); MET-B.md 3.9
+- 같은 BM25 설정(설계 D 설정)에서 문헌만 v2에서 v2+v3로 늘리면, DDXPlus-E의 BM25 Top-10은 27.43%에서 21.47%로 내려갔다(v2+v3 − v2 −5.97%p [−7.63, −4.37], 질환 군집 CI [−18.57, +4.83]) … 격차 19.30%p의 31%다. 확증에 쓴 BM25 설정(21.77%)과 견주면 하락은 5.66%p이고, 격차의 29%다.
+  - 근거: pilot/cache/v3/framing/v1_bm25/v1_result.json corpus_effect_same_cfg, decomposition_E_T3(설정 변경 −0.30), dilution(selected_minus_v2 −5.66)
+- 시험한 BM25 설정 12개(질의 방식·검색 깊이·집계; k1·b 고정) 모두에서 … Top-1의 차이는 BM25 설정에 따라 달랐다.
+  - 근거: pilot/cache/v3/framing/summary.md V1 행과 '원고에 주는 함의'; v1_result.json rule_V1_top10
+- 세트별 최선 설정이면 HPOA의 개발 Top-10은 DDXPlus 16.07%, SymCat 6.50%로, 격차가 약 6%p와 3%p 줄어든다 [개발]. 또 DDXPlus의 지식 베이스 자체가 문헌에서 만들어졌다.
+  - 근거: pilot/cache/v2/devD/ref_hpoa/tune.json(38설정 trail의 세트별 최댓값 DDXPlus 16.07, SymCat 6.5; 선택 설정 10.3, 3.6); docs/positive_framing_review_2026-10-20.md H2 단서 3·4
+- 봉인 세트 E에서는 S-dict, 순수 사전 그래프, S-D도 HPOA보다 높았다 [사후].
+  - 근거: pilot/cache/v3/framing/m2/stats.log 128–149행(S-dict − HPOA +33.13/+10.30, S-D − HPOA +24.17/+6.71, pure-dict − HPOA +30.03/+10.22)
+- 같은 랭커의 SemMedDB는 개발 DDXPlus에서 S-mix보다 높았다(… −4.70%p …). SymCat에서는 S-mix가 높았고(+1.06%p [+0.25, +1.87]), 흔한 질환 두 세트 매크로로는 SemMedDB가 높았다(−1.82%p [−2.92, −0.78]).
+  - 근거: pilot/cache/v3/p0/semmeddb/stats.log 36·44·111행
+- 9개 개발 세트 매크로 Top-10은 HPOA 52.45%, S-mix 46.11%, SemMedDB 23.20%였다 [개발]. … 9개 개발 세트 전체로도 S-mix는 HPOA보다 낮았다(S-mix − HPOA −6.33%p [−8.90, −3.69]).
+  - 근거: pilot/cache/v3/p0/semmeddb/stats.log 18·110행; pilot/cache/v3/p0/hpoa_lopo/stats.log 116행(HPOA-base − S-mix +6.33 [+3.69, +8.90]); positive_framing H4 단서 6
+- 사전 그래프는 LLM 없이 적은 비용으로 다시 만들 수 있었다(RQ3). … 이 값은 S-dict와 같은 γ(.5)에서 쟀다. D3 규칙이 순수 사전 그래프에 고른 γ(.25)에서는 −0.44%p [−1.02, +0.14]였다.
+  - 근거: pilot/cache/v3/p0/pure_dict/stats.log 1–8행('D3 pick for pure: 0.25'), macro 'pure at D3 pick' 행
+- 주 시스템과 견주면 S-mix − 순수 사전은 개발 매크로 +3.73%p [+2.07, +5.37], 희귀질환 7세트 매크로 +4.80%p [+2.70, +7.07]였다 … (개발 +0.02%p [−0.64, +0.66], 봉인 세트 E −0.21%p [−0.84, +0.45]).
+  - 근거: pilot/cache/v3/p0/pure_dict/stats.log macro 블록
+- 사전 매칭부터 그래프 적재까지는 GPU 없이 약 0.45시간이 걸렸다(… v3 사전 매칭 3.9분은 추정) [측정]. 이 시간은 구절 표를 쓴 S-dict 빌드에서 쟀고, 순수 사전 빌드의 시간은 따로 기록하지 않았다.
+  - 근거: pilot/cache/v3/review/cost.md §2–§3, §5(S-dict가 phrase2cui_gemma.json에 기댐); pilot/cache/v3/p0/pure_dict/build_v3umlsnt_ns.log(시간 기록 없음)
+- 사전 경로에도 UMLS 라이선스와, 수집 질의와 주제 문서 규칙에 쓰는 HPO 유전자–질환 연결(genes_to_disease)이 필요하다.
+  - 근거: draft/paper_ko_v4/sections/MET-A.md 15·45행(검색어와 주제 문서 표시); positive_framing H3 단서 2
+- Phenopacket-store 증례의 원논문 PMID 1,745개 가운데 하나라도 근거로 단 HPOA 주석 22,261행을 모두 지운 전역 삭제판을 썼다. 이 삭제로 질환 410개의 HPOA 프로필이 통째로 사라졌다. … 10겹 판에서도 +5.43%p [+4.58, +6.34]였다.
+  - 근거: pilot/cache/v3/p0/hpoa_lopo/summary.md 설정 절; stats.log 29·101행
+- (거부) '전역 삭제는 HPOA에 불리하므로 순환 효과의 상한'은 쓰지 않았다.
+  - 근거: pilot/scripts/hpoa_lopo.py 머리말('That is not a lower bound for HPOA: the other papers' rows also thin competing diseases'); hpoa_lopo/summary.md('증례별 LOPO의 하한은 아니다', 10겹 25.60 대 전역 25.45) — research_design §9.34의 '상한' 문장과 충돌
+- 이 측정의 결정 규칙에는 k가 적혀 있지 않아, 설계 D의 주 지표인 Top-10으로 판정했다. Top-1에서는 간선 합집합이 두 비교 대상보다 높았다(간선 합집합 − S-mix +3.82%p [+1.05, +6.89], 간선 합집합 − HPOA +14.39%p [+8.91, +19.79]).
+  - 근거: pilot/cache/v3/framing/m1/stats.log 18–23행; docs/research_design.md §9.35 M1
+- 질환 군집 CI는 SymCat-E에서 0보다 컸으나(S-D 비교 [+1.0, +3.9], S-llm 비교 [+0.8, +2.6]), DDXPlus-E에서는 0을 포함했다(S-D 비교 [−6.1, +19.3], S-llm 비교 [−1.3, +4.3]) [확증-보조].
+  - 근거: pilot/cache/v2/confirmE/aux_cluster.json; docs/research_design.md E7 '정답 질환 군집 CI'
+- 설계 D의 T3(병원 희귀질환에서 같은 랭커의 HPOA 이상)는 개발 세트에서 판정했고, 미달했다(S-D − HPOA: PUMCH_L −2.5%p [−5.6, +0.5], PUMCH-ADM −1.3%p [−13.3, +10.7]) [개발].
+  - 근거: docs/research_design.md D4 T3, D9 'T3 재판정(개발)'; MET-B.md 3.8([개발]로 표시)
+- 설계 D 봉인 세트에 사전 지정으로 함께 넣은 개인화 PageRank(PPR)는 … [봉인 기술]. 이 비교의 가설은 실행 전에 적었으나, 봉인 세트에 적용할 판정 기준은 정하지 않았다.
+  - 근거: docs/research_design.md D10(E-H1은 개발 매크로 양측 가설, '확증 실행에 함께 넣는다(사전 지정)'만 있음), D9 E-H1 확증 행
+- DDXPlus-E에서 이 층(23.9%)을 빼면 사전의 우세는 사라졌다(S-mix − S-dict +1.27%p [+0.09, +2.54], Holm 보정 p 0.11, 질환 군집 CI [−4.29, +6.21]).
+  - 근거: pilot/cache/v3/framing/input_gold/stats.log 4·52행
+- 이득은 … 흔한 질환 세트에서는 작았다(쌍별 SymCat −0.31~+1.05%p, DDXPlus −1.83~+6.93%p). … 모든 쌍에서 효과의 0.69배 이상이 남았다.
+  - 근거: pilot/cache/v2/devD/variants/dev_*_ot*.json 7쌍(D3 선택 γ) 재계산; pilot/cache/v3/p0/leakage/result.log (a) ratio 최소 0.686
+- [개발]은 9개 개발 세트에서 잰 값이다. 설정 선택과 확증 이후 분석을 모두 포함하며 … [탐색]은 재현율 분해, 시간 분할, 시뮬레이션의 값이다.
+  - 근거: draft/paper_ko_v4/sections/MET-B.md 3.8 근거 지위 표기([개발]: 9개 개발 세트의 값, [탐색]: 재현율 분해·시간 분할·시뮬레이션)
+- ChronoMedKG는 … triple의 99.9%에 PMID와 원문 인용을 보관했다.
+  - 근거: docs/publication_strategy_2026-10-20.md §2.1 ChronoMedKG 행('triple마다 PMID와 300자 이하 원문 인용(99.9%)')
+- PubCaseFinder는 PubMed 증례보고 약 108만 건에 사전 기반 개념 인식과 문장 내 공출현을 적용해 질환–표현형 연관을 만들고, 이를 진단 후보 순위화기의 지식으로 썼다.
+  - 근거: docs/publication_strategy_2026-10-20.md §2.1 PubCaseFinder 행
+- 또 LLM의 근거는 모델이 생성한 텍스트이므로, 결론을 뒷받침한 원 문헌을 결정론적으로 확인하기 어렵다 [ref: LLM diagnosis].
+  - 근거: draft/paper_ko_v3/sections/INT.md 3행(v3에서 이 문장에 [ref: LLM diagnosis]가 붙어 있었음)
+
+## REL
+
+- Written to /home/max/thesis/draft/paper_ko_v4/sections/REL.md (overwrote an earlier v4 file of the same step). All 23 issues were checked against the sources and accepted. Six were applied with corrections to the issue's own wording: HEG-TKG, the S-mix description, the DDXPlus-E input-gold sentence, the leakage-robustness sentence, the missing citation, and the Yates unit. One addition went beyond the issues: the Doc2HPO 0.62 value. PhenoRank/BiRW were not re-added.
+  - 근거: draft/paper_ko_v4/sections/REL.md
+- Issue 1 (overclaim): only the BM25 comparison (E-T3) was confirmed on sealed sets with criteria committed before the run. The disease-area differences are [사후] M2 or [개발]/[탐색], and the build cost is [측정]. The gap sentence was rewritten with an explicit status split.
+  - 근거: docs/research_design.md §9.35 (M2 [사후]), §9.34; docs/positive_framing_review_2026-10-20.md H2/H4 status lines
+- Issue 2 (unsupported): the claim that global deletion is unfavourable to HPOA was removed. The script header says global deletion is 'not a lower bound for HPOA'. The 10-fold LOPO puts Phenopacket-store HPOA Top-10 at 25.60, against 25.45 for the global deletion. §9.34's 'HPOA에 불리… 상한' conflicts with this measurement.
+  - 근거: pilot/scripts/hpoa_lopo.py docstring; pilot/cache/v3/p0/hpoa_lopo/stats.log line 101 (HPOA-lopo10 @10 Phenopacket-store 25.60) and line 29 (HPOA-lopo 25.45); pilot/cache/v3/p0/hpoa_lopo/summary.md
+- Issue 3: LOPO is complete only for Phenopacket-store and covers 1,745 PMIDs. It is partial for LIRICAL and was not checked for MME/HMS/RAMEDIS, which have no PMIDs. HPOA settings were not re-selected after LOPO.
+  - 근거: pilot/cache/v3/p0/hpoa_lopo/summary.md (설정, LIRICAL); draft/paper_ko_v4/sections/MET-B.md 3.9; docs/research_design.md §9.34 P0-4
+- Issue 4: the graph-side exclusion covers only Phenopacket-store source PMIDs (v2 1,733; v3 1,834). The other rare sets were handled only by the data-based leakage flag (one document supports ≥50% and ≥5 of the patient's concepts).
+  - 근거: draft/paper_ko_v4/sections/MET-A.md 3.1; MET-B.md 3.9; docs/research_design.md §9.32 P0-1
+- Issues 5 and 22: Yates 2022 used full-text papers (Cadmus + MetaMap) and evaluated on prospectively gathered DDD data. The abstract gives the AUC gain only as '5-10%' and does not state the unit, so the body now says '초록은 그 차이를 5–10%로 적었다' and the memo flags Fig 5C.
+  - 근거: Europe PMC abstract, DOI 10.1093/database/baac038 (fetched 2026-10-21)
+- Issue 6: Phenopacket-store HPOA − S-mix goes from +42.66 to −5.58 [−6.42, −4.75] after LOPO, while the random-deletion control gives +41.19. So the post-LOPO direction matches Yates. PUMCH_L is patient-weighted +13.87 [+10.83, +16.90] and disease-equal +1.51 [−7.60, +10.95].
+  - 근거: pilot/cache/v3/p0/hpoa_lopo/summary.md; draft/paper_ko_v4/sections/RES-A.md 4.3 line 149; docs/research_design.md §9.34
+- Issues 7 and 8: the replacement claim is limited to Groza 2015, Kafkas 2021 and PubCaseFinder. M1 was tested in three strata, with the decision made in the PUMCH stratum. The rule had no k, so Top-10 was used. Combination − HPOA was +8.19 (RRF) and +12.41 (union). Combination − S-mix was −4.07 [−10.08, +1.83] and +0.14 [−2.26, +2.40]. At Top-1 the union passed both conditions, but that is not the decision metric.
+  - 근거: pilot/cache/v3/framing/m1/summary.md; docs/research_design.md §9.33 M1, §9.35 M1; MET-B.md 3.10 last paragraph
+- Issues 9 and 10: only SemMedDB has all three elements (sentence provenance, CUI normalization, open disease range). ChronoMedKG does not normalize phenotypes, and PubCaseFinder normalizes to HPO/ORDO. BM25 is not scored by the same ranker (12 configurations). PubCaseFinder already compared literature associations with curated annotations under the same ranker.
+  - 근거: docs/publication_strategy_2026-10-20.md §2.1 table (ChronoMedKG, PubCaseFinder rows), §2.3; MET-B.md 3.7 (BM25 12 configurations)
+- Issue 11: per the HEG-TKG abstract, the graph is built from 4,512 PubMed records and curated sources. The 36 scenarios and 5 LLMs measured the provenance gap (best model 15.3% relevant PMIDs). The controlled comparison showed 100% verifiability against a guideline-based RAG baseline, and clinicians confirmed the verifiability advantage. The text follows the abstract, not the issue's 'compared with 5 LLMs' wording.
+  - 근거: arXiv 2604.17114 abstract (fetched 2026-10-21)
+- Issue 12: the Groza 2026 abstract says LLM-derived profiles in LIRICAL performed close to gold-standard profiles, and that LLMs cannot replace curation but may complement it. A sentence giving this side was added.
+  - 근거: Europe PMC abstract, DOI 10.1016/j.xhgg.2025.100558 (fetched 2026-10-21)
+- Issue 13 (with correction): RAG-HPO works in three steps. The LLM extracts phrases, semantic-similarity matching finds candidates in a phrase→HPO vector database, and the LLM makes the final assignment (F1 0.78). The issue said S-mix names spans only by dictionary exact match. In fact S-mix keeps the phrase-table (scispaCy linker) concept for linked spans and uses the in-span UMLS exact match only for unlinked spans; no LLM is involved in naming.
+  - 근거: RAG-HPO abstract PMC12359922 (fetched 2026-10-21); draft/paper_ko_v4/sections/MET-A.md 3.3 혼합 추출; INT.md S-mix description
+- Issues 14 and 15: PhenoTagger is a dictionary + BioBERT hybrid (0.72). Doc2HPO scored 0.62 and GPT-4 in-context 0.43. Chen 2025 compared LLMs with fine-tuned models, not dictionaries. RAG-HPO beat FastHPOCR, Doc2HPO and ClinPhen. In this study the order of extraction paths depends on judging rule and input: lineage −1.80 [−2.44, −1.12], strict +1.04 [+0.39, +1.72], DDXPlus-E without input-gold patients S-mix − S-dict +1.27 [+0.09, +2.54] (cluster CI includes 0, so the text says 'dictionary lead disappeared'), rare dev +4.79 [+2.21, +7.57].
+  - 근거: PMC10829255 Table 3 (fetched); docs/research_design.md §9.34 P0-3, §9.35 입력 내 정답 명시 층화; INT.md contribution 5
+- Issue 16: the collection-depth comparison is now marked [개발]. Instead of the issue's 'comparison maintained', the text uses the measured P0-1 result: all 7 pairs keep ≥0.69× of their effect after excluding flagged patients.
+  - 근거: docs/research_design.md §9.34 P0-1; RES-A.md table row P0-1 (0.69–0.93)
+- Issue 17: the empty citation was replaced with this study's own measurement. Outputs whose position could not be found in the source text were about 5% in v2 (0.27M of 5.6M) and about 7% in v3 (0.9M of 13.23M).
+  - 근거: draft/paper_ko_v4/sections/MET-A.md 3.3 (원문 위치 확인)
+- Issues 18–21 and 23 were applied as proposed: the dictionary path is 13 finding semantic types with normalized exact match; PrimeKG is separated from iKraph/PubTator3; PubCaseFinder is added as a same-ranker precedent; ranking is removed from the loss stages (the score-giving rate is reported separately; scope is Phenopacket HPOA findings); the cross-reference now reads (3.7, 4.4, 4.6).
+  - 근거: MET-A.md 3.3 사전 추출; docs/research_design.md §9.31 재현율 분해; INT.md section outline (4.4 비용, 4.6 재현율·정확도 요인)
+- Two things are left for other sections. DIS 5.3 still says global deletion is unfavourable to HPOA and an upper bound, and still says Yates's direction is simply opposite to ours. research_design §9.34 has the same wording. Both are recorded in memo (10).
+  - 근거: draft/paper_ko_v4/sections/DIS.md line 41, line 45; docs/research_design.md §9.34
+
+## MET-A
+
+- Issue 1 applied: E was re-analysed post hoc (P0-2 E, P0-3, M2, V1, P1-3), so '확증 세트는 동결 후 한 번만 평가한다' was replaced by 'judgement from one run per design; D sets later used only as development evidence; post hoc E analyses marked [사후] in 3.10', and [사후] was added to the status list.
+  - 근거: docs/research_design.md §9.32–§9.35 ('확증 세트 E를 쓰는 분석은 [사후]'); E2 table ('열람된 D 확증 세트 … 개발 근거로만 보고'); pilot/scripts/run_pure_dict.sh confirm() 'POST HOC: E was judged once'
+- Issue 2 applied: invariant (i) is skipped on --no-mentions builds, and only S-D (design D build: Mention 1,201,064, Doc 86,276) and the pre-freeze S-mix build (Mention 11,582,169, Doc 711,350) loaded mentions and passed; every variant and confirmation rebuild used --no-mentions.
+  - 근거: pilot/scripts/build_graph_v2.py lines 464-470 ('orphan = 0 if a.no_mentions'); pilot/cache/v2/devD/build_gemma_main.log; pilot/cache/v2/devD/e/build_smix_mentions.log; run_graph_variants.sh and run_pure_dict.sh pass --no-mentions
+- The builder counts each edge in the same loop iteration that creates the Mention row; a no-mentions build skips only the row.
+  - 근거: pilot/scripts/build_graph_v2.py main(): 'if not a.no_mentions: … mentions.append(row)' followed by 'e = edge[(d, c)]; e[0] += 1'
+- Issue 3 applied: _y2022 builds pass --gene-cut data/external_kg/hpoa_history/v2022-12-15.hpoa, which restricts gene-retrieved documents and gene-title topic marks to HPOA-annotated diseases; M1 is a separate HPOA+S-mix system.
+  - 근거: pilot/scripts/run_graph_variants.sh (CUT=--gene-cut …); build_graph_v2.py usable()/gene_ok/curated_by(); research_design.md §9.33, §9.35 M1
+- Issue 4 applied: --topic-genes uses genes_to_disease (outside the corpus) and was adopted after the pilot (154 cases @10 29.9 → 44.2, '채택 후보') and the dev comparison base_split 32.21 → base_split_tg 32.59.
+  - 근거: docs/research_design.md §9.28 ('원인 유전자 제목을 주제로 인정'), §9.30 table rows base_split / base_split_tg; build_graph_v2.py causal_gene_forms()
+- Issue 5 applied: no edge-table TSV export exists yet; P1-7 (export, reload, E rank identity) is a plan, so the sentence now says the table will be released.
+  - 근거: docs/publication_strategy_2026-10-20.md P1-7 row and line 267; no exported TSV tracked in git
+- Issue 6 applied: 49901bc exists only on local feat/design-e and feat/review-dict-audit; 780f684 is on origin/main; both have identical timestamps and message and differ only in docs/audit/provenance_audit_v21_user.csv; attempts.log records 49901bc.
+  - 근거: git branch -a --contains 49901bc / 780f684; git diff --name-only 49901bc 780f684; pilot/cache/v2/confirmE/attempts.log line 1; MET-B v4 3.6 '커밋 기록' table
+- Issue 7 applied: both recollection measurements are [탐색] (the pretest used random OMIM diseases, not a dev set), and §9.28 says the pilot result must be confirmed by full-scale same-cap recollection, so the pilot's role in the decision is now stated.
+  - 근거: docs/research_design.md §9.27 (pretest: 300 random HPOA OMIM diseases, seed 7), §9.28 ('전 질환 동일 상한 재수집으로 확인해야 한다'), §9.31 (D 67.0%)
+- Issue 8 applied: recenter() runs only for mention builds (by_dz filled under 'if not a.no_mentions'), and it cuts 600 characters around the first occurrence in the whole document (text.lower().find), not a sentence.
+  - 근거: pilot/scripts/build_graph_v2.py recenter() and by_dz logic
+- Issue 9 applied: --max-year drops documents whose year is not a digit, and every StatPearls (4,702) and GeneReviews (951) disease–chapter link in v2 sources has an empty year.
+  - 근거: build_graph_v2.py lines 325-326; pilot/scripts/fetch_v2.py lines 182-183 (books: pmid '', pmcid '', year ''); scan of pilot/cache/v2/sources
+- Issue 10 applied: book chapters are stored with empty PMID, PMCID and year, with title and licence; Table 2 footnote a now covers book chapters.
+  - 근거: pilot/scripts/fetch_v2.py lines 182-183
+- Issue 11 applied: base_nm (LLM 33.9%) is built with FLAGS="" while v2dict and v2umls get --split-coord --hpo-names --topic-genes; HPO dictionary items link through HPO names by construction.
+  - 근거: pilot/scripts/run_graph_variants.sh case table (base_nm FLAGS=""; ALL flags default); research_design.md §9.30 method bullets (LLM(base_nm) 33.9%, base_split_tg 27.7%)
+- Issue 12 applied: VALID_TUI has 28 types; the 15 beyond FINDING_TUI are T005, T007, T031, T054, T055, T056, T060, T061, T097, T098, T109, T121, T195, T200, T204, including procedures T060/T061 that the builder later drops (--exclude-tuis T058–T061).
+  - 근거: pilot/scripts/v154_prod_normalize.py EVIDENCE_TUI; v152_normalize_pipeline.py FINDING_TUI; normalize_v2.py VALID_TUI; build_graph_v2.py --exclude-tuis default
+- Issue 13 applied: fingerprint() hashes round(ln(n_dz/df), 9) where n_dz is reassigned to the Disease node count, not the stored IDF ln(len(prof)/df).
+  - 근거: pilot/scripts/build_graph_v2.py: 'n_dz = s.run("MATCH (d:Disease) …")' before fingerprint(); stored idf uses n_dz = max(1, len(prof))
+- Issue 14 applied: the D confirmation set excluded 36 new Phenopacket cases whose source PMID was in the corpus.
+  - 근거: docs/research_design.md D2 table ('원출처 PMID가 코퍼스에 있는 36증례 제외'); MET-B v4 3.9
+- Issue 15 applied: v3 collection first drops the non-human list and collects the 43,575 candidate diseases; 51,894 is the v2 target.
+  - 근거: pilot/scripts/collect_v3.py main() (uni.pop for exclude_nonhuman_diseases.json); pilot/cache/v3/collect.log ('43567 diseases to fetch' after 8 already present)
+- Issue 16 applied: Concept.tui comes only from the phrase table; it is blank in the pure dictionary graph, and graph_dx.py never reads it. The ranker-read list is now explicit (n_findings, src_chars, idf, n_docs, n_topic_docs, IS_A, IS_DISEASE).
+  - 근거: build_graph_v2.py 'tui = {v["cui"]: … for v in table.values()}'; run_pure_dict.sh header; pilot/scripts/graph_dx.py Cypher lines 30-45
+- Issue 17 applied: ranker settings were re-selected per knowledge source by the D3 rule, so the body now says 'same ranker code', with settings retuned per source.
+  - 근거: MET-B v4 3.7 ('랭커 코드는 같지만 채점 설정은 지식원마다 D3 규칙으로 다시 골랐다'); research_design.md §9.32 P0-5 수정
+- Issue 18 applied: '추론' now refers only to diagnosis time; LLM generation is called 'LLM 추출 … vLLM 배치 생성'.
+  - 근거: docs/academic_writing_guide.md 1.3 (용어 일관)
+- Issue 19 applied: the section-drop list and the negation list are now complete (author contribution, competing interest, data availability; absence of, rule out, denies). The coordination degree-word list was also completed, with no '등'.
+  - 근거: pilot/scripts/deep_fetch.py DROP_SEC; pilot/scripts/normalize_v2.py NEG; build_graph_v2.py DEGREE and linked_forms(); academic_writing_guide.md 2.2 (etc.)
+- No issue was rejected. Every one was confirmed against code, logs or the design record. The unverifiable '표 15' reference was also removed, because RES-B v4 is not written yet and in v3 Table 15 was the time-split table.
+  - 근거: draft/paper_ko_v3/sections/RES-B.md Table 15 caption; draft/paper_ko_v4/sections lacks RES-B.md
+
+## MET-B
+
+- [적용] PPR-H1·PPR-H4를 [확증]에서 [봉인 기술]로 옮겼다. D10은 E-H1을 '개발 매크로 Top-10이 높은가 (양측, 부호검정 + Holm)'로만 적었고, 확증은 '10-16 확증 실행에 PPR 시스템을 함께 넣는다(사전 지정)'라고만 적었다. 봉인 세트의 판정 기준은 없다. HPOA·PrimeKG의 PPR은 비교군 실행 스크립트에서 돌렸다. 3.6절, 3.8절, Table 3 각주 b에 반영했다.
+  - 근거: docs/research_design.md:195,198,211 (D10, commit 50a64db); pilot/scripts/run_confirm_D_ref.sh:4,19-21
+- [적용] 확증 세트 E는 3.10절 측정만이 아니라 2026-10-20 리뷰 분석에서도 다시 분석되었다. dict_mix_stats.py는 CONFIRM_E_UNSEAL=1로 E를 읽었고, 머리말에 'every other row here was not pre-registered'라고 적혀 있다. 이를 Table 3 각주 d, 3.10절 도입부, 봉인 장치 문장에 반영했다.
+  - 근거: pilot/scripts/dict_mix_stats.py:8-12,103 (commit 5800581, 2026-10-20 12:31:28 +0900)
+- [적용] [사후]의 정의를 규칙 행과 규칙 없는 값(리뷰 분석, 보조 행)으로 나눴다. 프레이밍 검토는 [사후]를 '계획 없이 다시 분석한 값'으로 정의한다. m2_curated_e.py는 PrimeKG·S-dict·S-D 행을 auxiliary rows로 표시한다.
+  - 근거: docs/positive_framing_review_2026-10-20.md:24; pilot/scripts/m2_curated_e.py:17-19
+- [적용] T4의 커밋된 문구는 '확증 매크로 평균에서'이고 k가 없다. Top-1로 판정해도 결과는 같았다(결합−그래프 @1 +1.0 [+0.4, +1.5], 결합−BM25 @1 +1.8 [+1.1, +2.6]).
+  - 근거: docs/research_design.md:161 (D4), :277 (D9 T4 결과)
+- [부분 적용, 일부 기각] 설계 D 판정 기준에 로컬 커밋 시각이라는 단서를 붙였다. 다만 '3fbd29a가 공개 이력에서 재작성되었다'는 지적은 틀렸다. 3fbd29a는 origin/main에 있는 공개 해시이고, 재작성 전 해시는 a167a9a다(부모 31122e2, 차이는 provenance_audit_v21_user.csv 하나). PPR 설계 커밋도 공개 해시는 50a64db, 재작성 전 해시는 19fc7df다. 원격 기록이 없다는 점은 직접 확인했다. GitHub activity API에서 2026-07-13 뒤 첫 원격 활동은 2026-10-19T07:22:15Z(feat/ie-noise-sensitivity)다.
+  - 근거: git branch -r --contains 3fbd29a/a167a9a/50a64db/19fc7df; git diff --name-only a167a9a 3fbd29a; gh api repos/MENINBLOX/graph-ddxplus/activity
+- [적용] γ를 D3로 다시 고른 시스템은 S-mix, S-llm, S-dict, S-union과 개발 변형뿐이다. S-D의 γ 0은 동결 좌표 탐색의 값(frozen gemma_1hop offtopic_w 0.0)이다. 2022 절단 그래프는 γ 0과 1에서 모두 평가했다. 순수 사전 그래프는 S-dict의 γ를 썼다. 본문과 Table 4 캡션을 이에 맞게 고쳤다.
+  - 근거: pilot/scripts/run_graph_variants.sh:3-5,101-105; pilot/cache/v2/devD/frozen_config_D.json (gemma_1hop.offtopic_w 0.0); docs/research_design.md:831
+- [적용] 튜닝 예산 문장을 고쳤다. BM25(12개 조합)의 예산이 더 많은 것은 채점 매개변수만 볼 때다. 시스템 선택까지 세면 S-mix(그래프 32개 × γ 4값)의 탐색이 더 크다. '선택 낙관이 가장 크다'는 '가장 클 수 있다'로 낮췄다. 시스템별 낙관은 재지 않았다.
+  - 근거: draft/paper_ko_v4/sections/MET-B.md Table 4 (tuning budget column)
+- [적용] V1 규칙의 커밋된 문구는 'BM25 설정과 무관하게'다. 환자 CI와 군집 CI를 따로 읽는 방식은 bm25_sensitivity_e.py 머리말에만 있다. 이 스크립트는 결과와 같은 커밋 dfa9541에 처음 들어갔다. M1의 k 선택(m1_combine.py)도 첫 커밋이 dfa9541이어서 같은 문구로 고쳤다.
+  - 근거: docs/research_design.md:1182-1183 (§9.33, commit f676539); pilot/scripts/bm25_sensitivity_e.py:10-15; git log --diff-filter=A (m1_combine.py, bm25_sensitivity_e.py → dfa9541)
+- [적용, 표현 수정] 저장소에는 LIRICAL 증례의 PMID도 없다. LIRICAL 환자의 68.1%에서 정답 질환이 행을 잃었다. 그러나 지운 행이 LIRICAL 증례 자신의 원논문인지는 확인할 수 없다. 그래서 '원논문이 Phenopacket-store 논문과 많이 겹친다'는 제안 문구는 확인되지 않아 쓰지 않았다.
+  - 근거: pilot/scripts/hpoa_lopo.py:12-13; pilot/cache/v3/p0/hpoa_lopo/summary.md (LIRICAL 항목)
+- [적용] 전역 삭제는 경쟁 질환의 주석도 얇게 만든다. 그래서 HPOA의 하한이 아니며, 10겹 판이 증례별 LOPO에 더 가깝다. Phenopacket-store HPOA Top-10은 전역 25.45, 10겹 25.60이다. 이에 따라 3.9절에는 치우침의 방향이 정해지지 않는다고 적었다. §9.34·§9.35의 '상한' 해석과 어긋나는 점은 작성 메모에 남겼다.
+  - 근거: pilot/scripts/hpoa_lopo.py:9-11; pilot/cache/v3/p0/hpoa_lopo/summary.md (10겹 근사); docs/research_design.md:1204-1205
+- [적용] M1과 S-comb의 그래프 목록은 GraphDx.rank(ev, 200, window=40)으로 만든다. 그래서 목록은 창 안의 40개 질환과 통합 근거를 받은 질환으로 이루어지며, 200개가 아니다.
+  - 근거: pilot/scripts/graph_dx.py:72-90; pilot/scripts/m1_combine.py:11,142; pilot/scripts/retrieval_baseline.py:236
+- [적용] SemMedDB에서 세 술어 행은 8,389,567개다. 그 가운데 질환–소견 쌍이 될 수 있는 행 2,524,982개를 썼고, 일반 개념이 낀 333,537행을 뺐다.
+  - 근거: pilot/cache/v3/p0/semmeddb/summary.md:22-31; pilot/cache/v3/p0/semmeddb/graph_semantic_drop.json (dropped_generic 333537)
+- [부분 기각] P0-4의 질환 등가중 값이 '커밋되지 않았다'는 전제는 틀렸다. Phenopacket-store의 HPOA − S-mix 질환 등가중 값은 M1 참조 행으로 이미 커밋되어 있다(LOPO 전 +55.73 [+52.32, +58.89], LOPO 후 −3.28 [−5.79, −0.76], 772개 질환, gold_clusters 키). 커밋되지 않은 것은 무작위 삭제 대조의 질환 등가중 값(+53.66)뿐이다. 그래서 편차 문장을 '무작위 대조 비교에만 환자 가중을 썼다'로 좁혔다. 미커밋 값은 인용하지 않았다.
+  - 근거: pilot/cache/v3/framing/m1/stats.json rows {stratum: published/published LOPO, comparison: 'HPOA - S-mix'/'HPOA-LOPO - S-mix', role: reference, k: 10} (commit dfa9541); docs/positive_framing_review_2026-10-20.md:270 (커밋하지 않은 수치는 원고에 인용하지 않는다)
+- [적용] §9.33에는 '모든 비교는 환자 가중과 질환 등가중(정답 질환 군집)을 함께 보고한다'고 적혀 있다. 그러나 V1과 P1-3의 산출물에는 disease_equal 값이 없다. 3.8절에 이 편차를 명시했다.
+  - 근거: docs/research_design.md:1176-1177 (§9.33); grep disease_equal → 0건 in pilot/cache/v3/framing/v1_bm25/*, pilot/cache/v3/framing/input_gold/*
+- [적용] '수집 비용 측정을 하지 않았다'를 'V5 수집 비용 기록(수집 로그의 벽시계·CPU 시간)을 하지 않았다'로 고쳤다. 4.4절의 v3 수집 25.2 h는 §9.31 비용 표의 벽시계 구간이다.
+  - 근거: docs/positive_framing_review_2026-10-20.md:279 (5.1 행 9 V5); pilot/cache/v3/review/cost.md:30; draft/paper_ko_v4/sections/RES-A.md:215
+- [적용] 누수 재현 문장을 두 문장으로 나눴다. 수치는 맞다(pairs_mirror 21,054, pairs_differing 0).
+  - 근거: pilot/cache/v3/p0/leakage/result.json (mention_check)
+- [적용] 그 밖의 문체 수정은 세 가지다. '이 연구는'을 '본 연구는'으로 바꿨다. 자기 간선 제거 뒤에는 그 CUI에서 오는 기여만 사라진다고 명시했다. 'PUMCH_L 20명에서 100% 일치'는 '20명 모두에서 같았다'로 바꿨다. E를 다시 읽는 사후 스크립트(dict_mix_stats, p0_strict_stats, pure_dict_stats, input_gold_strata_e, bm25_sensitivity_e, m2_curated_e)는 모두 load_confirm_e를 거치는 것을 확인했다.
+  - 근거: pilot/scripts/opendx_eval.py:389-398; grep load_confirm_e pilot/scripts/*.py
+- 산출 파일은 /home/max/thesis/draft/paper_ko_v4/sections/MET-B.md다(235행, md5 fdac974634f0244798c39b284576912d, 커밋하지 않음). 저자가 정할 일은 작성 메모 (5)·(9)·(11)에 적었다. RES-A 표 6a의 PPR 행을 어떻게 처리할지, 무작위 대조와 V1·P1-3의 질환 등가중 값을 계산해 커밋할지를 정해야 한다.
+  - 근거: draft/paper_ko_v4/sections/MET-B.md
+
+## RES-A
+
+- 그래프 지식원(...)은 같은 1-홉 Cypher 랭커 코드로 같은 43,575개 후보를 채점했다. ... 표의 BM25 두 줄은 같은 후보 위의 텍스트 검색 기준선이며, 랭커가 다르다(3.7절). [issue 1 applied]
+  - 근거: draft/paper_ko_v4/sections/MET-B.md 3.7 (line 108: comparators loaded into Neo4j and scored with the same Cypher 1-hop ranker; line 121: BM25 is bm25s chunk retrieval aggregated to diseases)
+- HPOA의 SymCat에서는 PPR이 높았고(+2.8%p, Holm 유의), PrimeKG의 DDXPlus에서는 낮았다(−4.8%p, Holm 유의) [확증]; Phenopacket-new on S-D not significant. [issue 2 applied]
+  - 근거: docs/research_design.md D9: 'E-H1 확증 ... Phenopacket-new −1.5(n.s.)'; 'E-H4 확증: HPO 주석은 PPR이 흔한 질환에서 소폭 상승(SymCat @10 +2.8, DDXPlus @1 +1.8, 유의)했으나 Phenopacket-new −12.3(유의); PrimeKG는 DDXPlus −4.8, Phenopacket-new −22.6(유의)'
+- At Top-1 the M1 edge union met the rule: union − HPOA +14.39 [+8.91, +19.79] (cluster [+6.86, +21.62]; disease-equal +12.11 [+3.87, +20.34]); union − S-mix +3.82 [+1.05, +6.89] (cluster [+0.16, +9.04]; disease-equal +5.02 [+1.12, +10.15]). [issue 3 applied; disease-equal of union − HPOA is +12.11, not reported in the issue]
+  - 근거: pilot/cache/v3/framing/m1/stats.json macro rows (stratum hospital, k 1); docs/research_design.md §9.35 M1 ('스크립트 docstring의 고정은 측정 전 커밋으로 확인되지 않는다')
+- M2 gives the same verdict at Top-1 (cluster CI lower bounds +4.06 and +0.95).
+  - 근거: pilot/cache/v3/framing/m2/stats.json rows (S-mix − HPOA, k 1, all: ci_cluster [4.06, 18.78] and [0.95, 2.5]); framing/summary.md M2 'k에 대한 견고성'
+- S-bm25 per-set development values replaced by n.r.; the '9/9, p = .0039' sentence removed; committed macro 27.35/11.04 and E4 dev differences kept. [issue 4 applied]
+  - 근거: git status: '?? pilot/cache/v3/retrieval/' (dev_bm25.json untracked); pilot/cache/v2/devD/frozen_config_E.json S-bm25 dev_macro [27.352, 11.039]; docs/research_design.md E4 E-T3 row; docs/positive_framing_review_2026-10-20.md 5.1 #0 '커밋하지 않은 수치는 원고에 인용하지 않는다'
+- DDXPlus의 지식 베이스는 역학 연구, 질환별 논문, 메타분석을 포함한 의학 논문 2만 편 이상을 모아 만들었다[ref: DDXPlus, 3.1절]. [issue 5 resolved by verification]
+  - 근거: Fansi Tchango et al. 2022, arXiv 2205.09148, Section 3.1: 'a proprietary medical knowledge base (KB) which was constructed by compiling over 20,000 medical papers including epidemiological studies, disease specific articles and meta-analysis papers'
+- 같은 BM25가 더 큰 코퍼스에서 낮아지는 이 현상을 희석이라 부른다(3.10절). ... 이 연구는 그 기전을 따로 재지 않았다. ... 이 하락은 설계 D의 설정 하나에서 잰 것이다. [issue 6 applied]
+  - 근거: draft/paper_ko_v4/sections/MET-B.md 3.10 V1 ('희석은 같은 BM25가 더 큰 코퍼스에서 낮아지는 현상이다'); pilot/cache/v3/framing/v1_bm25/v1_result.json corpus_effect_same_cfg (DDXPlus-E −5.97 [−7.63, −4.37], ci_cluster [−18.57, 4.83])
+- 일반 문헌 규칙 때문에 938개 질환은 쓸 수 있는 문헌을 모두 잃었다 ... 34,370개(78.9%) ... v2 ... 29,882개(68.6%). [issue 7 applied]
+  - 근거: pilot/cache/v3/maint/generic/audit_v3.json (diseases_with_documents 35308, diseases_emptied 938); audit_v2.json (32545, 2663); pilot/scripts/generic_doc_audit.py line 58 (with_docs counted before the generic set is removed)
+- 이 두 수(882,014편, 4,122편)는 그래프 빌더와 같이 비인간 질환의 문헌 파일까지 넣어 센 값이다; Table 5a footnote a now covers 136,373, 882,014, 1,119, 4,122. [issue 8 applied]
+  - 근거: pilot/scripts/generic_doc_audit.py line 42 comment 'counted as build_graph_v2.py does, excluded diseases included' (use counter built before 'if dz not in uni')
+- P0-4 row now states the interpretation rule (Phenopacket-store disease-equal, ≤10 / ≥30 pp) and that the reported values are patient-weighted. [issue 9 applied]
+  - 근거: docs/positive_framing_review_2026-10-20.md 5.1 row 3; draft/paper_ko_v4/sections/MET-B.md 3.10 P0-4; pilot/cache/v3/p0/hpoa_lopo/stats.json has no disease_equal key; dev_rand_s0/s1/s2 Phenopacket-store 72.22/72.00/72.47 vs S-mix 31.03
+- SymCat-E 격차(+2.99%p)를 같은 방식으로 나누면 대부분 S-D 대비 S-mix의 몫이었다 [사후]. 그 몫은 E-T1의 +2.43%p [+1.73, +3.12]이고 [확증], 군집 CI는 [+1.04, +3.87]이었다 [확증-보조]. [issue 10 applied]
+  - 근거: pilot/cache/v3/framing/v1_bm25/v1_result.json decomposition_E_T3; docs/research_design.md E4 (군집 CI는 보조 지표) and E7
+- v3 설정이었다면 LLM 생성 시간은 약 86.5시간이었을 것이다. 이 값은 v2 출력 토큰 수를 v3의 평균 처리 속도로 나눠 낸 추정이다; v3 사전 매칭 3.9분은 추정. [issue 11 applied]
+  - 근거: pilot/cache/v3/review/cost.md §5 ('약 25.9 h가 걸린다(추정: v2 출력 토큰 ÷ v3 평균 속도) ... 약 86.5 h') and §2 UMLS v3 row ('추정(1/20 표본 벤치마크)')
+- 감소는 DDXPlus에 몰렸다 (개발 −2.73 [−3.40, −2.00], DDXPlus-E −3.10 [−3.77, −2.40]; SymCat −0.05, −0.08). [issue 12 applied]
+  - 근거: pilot/cache/v3/p0/pure_dict/stats.json rows (pure − S-dict, k 10, DDXPlus-test, SymCat, ConfirmE-DDXPlus, ConfirmE-SymCat)
+- 세트별로 보면 DDXPlus-E에서는 +0.67%p [−0.47, +1.87](군집 CI [−3.94, +5.16])로 차이가 없었다 [사후]. [issue 13 applied]
+  - 근거: pilot/cache/v3/p0/pure_dict/stats.json row 'confirmation E (post hoc)', S-mix − pure, k 10, ConfirmE-DDXPlus
+- 합계는 모델 적재를 포함한 GPU 프로세스 시간 129.3시간에 구절 정규화 6.7 CPU-시간 이하, 구절 안 사전 재연결 3.5분, 그래프 빌드 9.2분을 더한 값이다 [측정]. [issue 14 applied]
+  - 근거: pilot/cache/v3/review/cost.md §3 ('GPU는 프로세스 시간(129.3 h)을, 정규화 2차는 상한값을 넣었고')
+- 두 최솟값은 v2+v3 색인의 12개 설정 가운데 확증 세트 E에서 BM25가 가장 높았던 설정(질의 전체, 깊이 1,000, 합산 집계)에서 나왔다. [issue 15 applied]
+  - 근거: pilot/cache/v3/framing/v1_bm25/v1_result.json e_values (v3_joint_k1000_sum 23.03 / 10.69 vs v2_per_concept_k1000_max 27.43 / 10.55) and rule_V1_top10.min_lower
+- SymCat-E의 같은 층(질환 45개)은 군집 CI 상한(+3.78%p)이 세트 전체 차이(+9.14%p)보다 작았다 [사후]. 층 사이의 차이를 검정하지는 않았고, 동등성을 보인 것도 아니다. [issue 16 applied in part: 'smaller than other strata' not written because no heterogeneity test was run]
+  - 근거: pilot/cache/v3/framing/m2/stats.json rows (ConfirmE-SymCat, k 10, thickness >=30: ci_cluster [-2.05, 3.78]; all: 9.14)
+- PUMCH-ADM ... 군집 CI는 [−4.69, +26.67], 질환 등가중 차이는 +6.51%p [−6.46, +20.26]였다 [개발]. [issue 17 applied]
+  - 근거: pilot/cache/v3/framing/m1/stats.json rows (HPOA − S-mix, PUMCH-ADM, k 10: diff −10.67, ci_cluster [−26.67, 4.69], disease_equal −6.51 [−20.26, 6.46]); docs/research_design.md §9.33 (환자 가중과 질환 등가중을 함께 보고)
+- D-T3 criterion: 53.6 / 53.3 at commit; re-judged against 53.2 / 57.3; against the committed values PUMCH-ADM met (56.0 ≥ 53.3), PUMCH_L did not (50.7 < 53.6). [issue 18 applied]
+  - 근거: docs/research_design.md D4 T3 row '(53.6 / 53.3)'; D9 'T3(dev): PUMCH-ADM 56.0 ≥ 53.3 충족, PUMCH_L 50.7 < 53.6 미달' and 'T3 재판정(개발): gemma PUMCH_L 50.7 < 53.2, PUMCH-ADM 56.0 < 57.3'
+- 따라서 DDXPlus에서 설계 D와 E 사이의 BM25 하락은 환자 표본의 차이로는 설명되지 않았고, 같은 환자에서 색인 문헌을 바꿨을 때 나타났다 [사후]. 다만 이 하락의 군집 CI는 0을 포함했다. [issue 19 applied]
+  - 근거: pilot/cache/v3/framing/v1_bm25/v1_result.json dilution (SymCat-E v3_best 10.69 vs v2 10.55) and corpus_effect_same_cfg ci_cluster [−18.57, 4.83]; docs/research_design.md D9 confirm table (BM25 DDXPlus 28.0)
+- Holm-adjusted p < 3.8 × 10⁻⁸ in every row (largest 3.74 × 10⁻⁸). [issue 20 applied]
+  - 근거: pilot/cache/v3/framing/v1_bm25/v1_result.json rows, k 10: max p_holm 3.7396e-08 (v3_joint_k1000_sum, ConfirmE-SymCat)
+- PPR-H1^b^, PPR-H4^b^ ... (called E-H1 and E-H4 in the design D record; Section 3.6). [issue 21 applied]
+  - 근거: draft/paper_ko_v4/sections/MET-B.md line 70 (in 3.6: 'PPR-H1은 ... PPR-H4는 ...') and 3.8 status list
+- CIs added: S-mix − PrimeKG, S-dict/pure/S-D − HPOA, non-covered and covered strata, ≥30 strata, dev S-mix − HPOA, v2 BM25 differences, decomposition steps 1–2. [issue 22 applied]
+  - 근거: pilot/cache/v3/framing/m2/stats.json rows and auxiliary; pilot/cache/v3/framing/v1_bm25/v1_result.json rows and decomposition_E_T3
+- 12개 설정 가운데 질의 전체·최댓값 집계의 두 깊이(100, 1,000)는 Top-10 결과가 같았다 [사후]. 따라서 Top-10에서 서로 다른 결과는 11개다. [issue 23 applied]
+  - 근거: pilot/cache/v3/framing/v1_bm25/v1_result.json e_values: v3_joint_k100_max and v3_joint_k1000_max both 16.47 / 7.20 (Top-10) and 4.37 / 1.65 (Top-1)
+- Additional consistency fixes: SemMedDB '39 evaluations, 28 distinct configurations'; second P0-5 rule added to Table 6b; γ instead of offtopic_w; HPOA β/γ wording aligned with MET-B 3.7; P1-3 rule sign flipped to S-mix − S-dict.
+  - 근거: pilot/cache/v3/p0/semmeddb/tune_semantic_drop.json (trail 39 entries, 28 distinct cfg); pilot/cache/v3/p0/semmeddb/stats.json (S-dict − SemMedDB ci_cluster DDXPlus [−14.53, 9.16], SymCat [0.55, 3.87]); draft/paper_ko_v4/sections/MET-B.md 3.7 caption and 3.10 P0-5, P1-3
+
+## RES-B
+
+- 4.5절의 M1 출판 증례층에서 간선 합집합 − HPOA는 −6.08%p [−9.28, −3.04](군집 [−10.10, −1.84], 질환 등가중 −6.92 [−10.92, −3.13])로 HPOA보다 낮았고, 이 값을 본문에 추가했다.
+  - 근거: pilot/cache/v3/framing/m1/stats.log (published union - HPOA @10)
+- HPOA-LOPO판에서 RRF-LOPO − HPOA-LOPO는 +4.30 [+2.27, +6.41], 간선 합집합-LOPO − HPOA-LOPO는 +2.96 [−0.23, +5.96]이다. RRF w = .25에서는 출판 증례층 RRF − HPOA가 −14.84 [−18.68, −11.29]였다.
+  - 근거: pilot/cache/v3/framing/m1/stats.log (published LOPO rows; RRF w=0.25 - HPOA)
+- M1 출판 증례층은 RAMEDIS, LIRICAL, HMS, MME, Phenopacket-store 다섯 세트다.
+  - 근거: pilot/cache/v3/framing/m1/stats.log (published stratum per-set rows)
+- Top-1에서는 병원층 간선 합집합이 결합 − S-mix +3.82 [+1.05, +6.89] / [+0.16, +9.04] / +5.02 [+1.12, +10.15], 결합 − HPOA +14.39 [+8.91, +19.79] / [+6.86, +21.62] / +12.11 [+3.87, +20.34]로 세 하한이 모두 0보다 크다. 다만 판정 지표가 아니다.
+  - 근거: pilot/cache/v3/framing/m1/summary.md (규칙 밖의 사후 관찰); docs/research_design.md §9.35
+- §9.33의 커밋된 규칙 문구에는 k와 세 CI 요구가 없다. Top-10 고정이 측정 전에 커밋되었는지는 확인되지 않는다.
+  - 근거: docs/research_design.md §9.33, §9.35; draft/paper_ko_v4/sections/MET-B.md 3.10 마지막 문단
+- w = .75가 선택된 것은 출판 증례 세트의 HPOA 순환 이득 때문이다. HPOA-LOPO로 고르면 .25가 선택되고, 병원층 결합 − S-mix는 w = .25에서 +0.29 [−3.40, +3.88], w = .5에서 −5.59 [−10.65, −0.05]다.
+  - 근거: pilot/cache/v3/framing/m1/summary.md; m1/stats.log (hospital RRF w=0.25/0.5 - S-mix)
+- 병원층 간선 합집합 − HPOA의 질환 등가중 값은 +5.52 [−2.39, +13.77]이고, RRF − HPOA는 +5.69 [+2.21, +9.80]이다.
+  - 근거: pilot/cache/v3/framing/m1/stats.log (hospital union/RRF - HPOA @10 dz-equal)
+- strict 판정에서도 SymCat-E의 S-mix − S-dict는 −0.91 [−1.38, −0.43]으로 depends_on_rule False였다. DDXPlus-E의 S-mix − S-union은 strict에서 +1.30 [+0.20, +2.40]으로 depends_on_rule True였다.
+  - 근거: pilot/cache/v3/p0/strict/stats.log (§9.32 rule block)
+- DDXPlus-E 없음 층에서 S-mix − S-dict는 +1.27 [+0.09, +2.54]로 Holm p = 0.11, 군집 CI [−4.29, +6.21]이다. S-mix − S-union은 −1.23으로 Holm p = 0.083이다.
+  - 근거: pilot/cache/v3/framing/input_gold/stats.log (conf lineage neither rows)
+- 전용 간선을 뺀 뒤 Top-10에 남은 비율: DDXPlus S-mix 승리 65/159(40.88%), S-dict 승리 94/208(45.19%); SymCat S-mix 166/207(80.19%), S-dict 211/291(72.51%); Phenopacket-store S-dict 99/201(49.25%).
+  - 근거: pilot/cache/v3/review/dict_mix_overlap.json (ranking.still_top10_without_winner_only_edges)
+- 자기 인용률 72.8%(7,266/9,987)는 스크래치패드 결과(SP/adv/hpoa_circ.json)뿐이고 저장소에 커밋되지 않았다. 커밋하지 않은 수치는 원고에 인용하지 않는다.
+  - 근거: docs/positive_framing_review_2026-10-20.md 3절 표(H4 순환 크기), 5.1 0번; git ls-files 확인
+- 전역 삭제는 경쟁 질환도 함께 얇게 만들므로 증례별 LOPO의 하한이 아니다. 10겹 판의 Phenopacket-store HPOA Top-10은 25.60이고, 전역 삭제는 25.45다.
+  - 근거: pilot/cache/v3/p0/hpoa_lopo/summary.md (설정, 10겹 근사); MET-B.md 작성 메모 (6)
+- 같은 질환 무작위 대조는 2,631행만 지울 수 있었다(rand_dz_s0 rows_removed 2631). LOPO는 질환 410개의 프로필을 통째로 비웠다.
+  - 근거: pilot/cache/v3/p0/hpoa_lopo/deletions.json (variants.rand_dz_s0, variants.lopo.diseases_emptied)
+- Phenopacket-store 질환 등가중 HPOA − S-mix는 LOPO 전 +55.73 [+52.32, +58.89], LOPO 후 −3.28 [−5.79, −0.76]이다. 이 값은 커밋된 M1 산출물에 있다.
+  - 근거: pilot/cache/v3/framing/m1/stats.log lines 188, 248; git ls-files pilot/cache/v3/framing/m1/stats.json
+- 누수 제외 LOPO 값 −4.03(n 9,198)은 커밋된 파일에 CI 없이 점추정만 있다.
+  - 근거: pilot/cache/v3/p0/summary.md line 51
+- SymCat-E에서 S-mix − S-D의 Top-1은 −0.8 [−1.2, −0.4], Holm p = 0.00121이다.
+  - 근거: pilot/cache/v2/confirmE/paired.txt (E-T1 Top-1)
+- 본문 전체를 읽은 UMLS 그래프(v3umlsfull_ns)는 ot .25에서 43.08이고, 12k 판 대비 UMLS @10이 벤치별 4/5, 부호검정 p 1이다.
+  - 근거: docs/research_design.md §9.30 v3 문헌 사전 그래프 표와 본문 전체(*full) 항목
+- 표 13b에서 DDXPlus는 두 쌍 모두 Holm 유의하게 올랐다(+4.43*, +3.63*). PUMCH_L의 UMLS 사전 쌍은 0.00이고, SymCat이 가장 작다.
+  - 근거: Table 13b in the input section; docs/research_design.md §9.30 (Holm 유의 @10 DDXPlus +4.4)
+- 큐레이터 쌍 재현율의 분모: S-mix 368,429쌍/11,207질환, S-dict 372,112/11,385, S-D 281,825/8,132, 구 Qwen3 283,146/8,199.
+  - 근거: pilot/cache/v3/review/curated_agreement_{smix,sdict}.json; pilot/cache/v2/curated_agreement_{gemma,qwen3}_v21.json
+- [구조 검사]는 3.8절의 정의된 근거 지위 표기이므로, 이 표기가 정의되지 않았다는 지적은 반려했다.
+  - 근거: draft/paper_ko_v4/sections/MET-B.md line 192; MET-A.md line 3
+- RES-A는 PPR 부가 가설을 D-PPR1·D-PPR4로 이름을 바꿨으므로(H1–H4와의 혼동 회피) 제안된 'E-H1' 대신 그 이름을 썼다. D-PPR4의 CI는 커밋된 파일에서 찾지 못했다.
+  - 근거: draft/paper_ko_v4/sections/RES-A.md Table 6 rows 5–6, footnote b, 작성 메모 5; pilot/cache/v2/confirmD/ (paired_EH1만 존재)
+- E-H4 확증: HPOA SymCat @10 +2.8, DDXPlus @1 +1.8, Phenopacket-new −12.3, PrimeKG DDXPlus −4.8, Phenopacket-new −22.6이 모두 유의했다.
+  - 근거: docs/research_design.md D9 lines 279–281
+- 결과 절에서는 해석을 빼고 논의에 둔다. LLM 구절 역할의 해석은 이미 DIS 55행에 있다.
+  - 근거: docs/academic_writing_guide.md 5.5; draft/paper_ko_v4/sections/DIS.md line 55
+- 시간 분할의 미래·신규 묶음은 절단 전 문헌 유무로 층화해야 한다. 층화하지 않으면 값이 동어반복일 수 있다(P1-5 미실시).
+  - 근거: docs/publication_strategy_2026-10-20.md K9 단서 ②, P1-5
+- LOPO 커버리지: LIRICAL은 PMID가 없지만 Phenopacket-store와 겹치는 논문이 지워져 partial이다. MME, HMS, RAMEDIS는 검사하지 못했다.
+  - 근거: pilot/cache/v3/p0/hpoa_lopo/summary.md (LIRICAL 항목); MET-B.md 3.9
+
+## DIS
+
+- S-mix − S-D의 Top-1은 DDXPlus-E +0.7%p [−0.6, +2.0], SymCat-E −0.8%p [−1.2, −0.4]였다 [확증-보조].
+  - 근거: pilot/cache/v2/confirmE/paired.txt (E-T1 Top-1 rows); docs/positive_framing_review_2026-10-20.md 4.1
+- 개발에서 고른 설정 대비 SymCat-E Top-1 차이는 +0.36%p [−0.08, +0.78]였다 [사후].
+  - 근거: pilot/cache/v3/framing/v1_bm25/stats.log (v3_joint_k1000_rrf @1 ConfirmE-SymCat); research_design §9.35 V1 'Top-1은 설정에 달림'
+- 질환 등가중으로는 +34.50%p [+22.53, +46.56]와 +9.08%p [+7.50, +10.82]였다 [사후].
+  - 근거: pilot/cache/v3/framing/m2/stats.log (E S-mix − HPOA @10 all, dz-equal)
+- 순수 사전 − S-dict는 −0.50%p [−0.96, −0.07]; 흔한 질환 매크로 개발 −1.39 [−1.78, −1.03], E −1.59 [−1.96, −1.24]; DDXPlus-E 40.40%.
+  - 근거: pilot/cache/v3/p0/pure_dict/stats.log; research_design §9.34 P0-2
+- 순수 사전 그래프도 같은 랭커의 HPOA보다 Top-10이 높았다(DDXPlus-E +30.03%p, SymCat-E +10.22%p, 질환 군집 CI 하한 > 0).
+  - 근거: pilot/cache/v3/framing/m2/stats.log (pure-dict − HPOA rows, cluster CI [+17.53,+43.55], [+8.27,+12.13])
+- 약 0.45시간(S-dict로 잰 벽시계 값; 사전 매칭은 CPU 6–8 프로세스, v3 사전 매칭 3.9분은 추정); S-mix 약 136시간, GPU 생성 127.4시간.
+  - 근거: pilot/cache/v3/review/cost.md §2–3
+- S-mix − HPOA Top-10은 LIRICAL −36.22%p [−42.16, −30.27], MME −40.00%p [−55.00, −25.00], Phenopacket-store −42.66%p [−43.74, −41.55].
+  - 근거: pilot/cache/v3/p0/hpoa_lopo/stats.log (HPOA-base − S-mix, sign flipped)
+- 10겹 판에서도 +5.43%p [+4.58, +6.34]였다; HPOA Top-10 25.60%.
+  - 근거: pilot/cache/v3/p0/hpoa_lopo/stats.log (HPOA-lopo10 − S-mix Phenopacket-store); summary.md
+- 질환 등가중으로는 −55.73%p [−58.89, −52.32]에서 +3.28%p [+0.76, +5.79]로 바뀌었다.
+  - 근거: pilot/cache/v3/framing/m1/stats.json (committed dfa9541; rows published/published LOPO, Phenopacket-store, k 10, disease_equal)
+- 측정 전에 커밋한 해석 규칙은 질환 등가중 HPOA − S-mix ≤ 10%p이고 무작위 삭제보다 크게 줄면 '순환을 걷어내면 격차가 작아졌다'를 [탐색]으로 쓰게 한다.
+  - 근거: docs/positive_framing_review_2026-10-20.md 표 5 #3 (commit f676539); draft/paper_ko_v4/sections/MET-B.md 3.10
+- 전역 삭제는 다른 증례 논문의 주석도 지워 경쟁 질환을 얇게 하므로 HPOA의 하한이 아니다(상한 문구 삭제).
+  - 근거: pilot/scripts/hpoa_lopo.py docstring ('That is not a lower bound for HPOA')
+- 전역 삭제 뒤 Phenopacket-store 증례의 36.0%(3,712건)는 정답 질환의 HPOA 프로필이 모두 사라졌고, HPOA Top-10은 81.68%에서 0.19%, S-mix 8.46%였다.
+  - 근거: pilot/cache/v3/p0/hpoa_lopo/stats.log (LOPO subgroups, gold profile emptied n 3712)
+- 같은 설정의 BM25 DDXPlus-E −5.97%p [−7.63, −4.37], 군집 CI [−18.57, +4.83]; SymCat-E −2.06 [−2.77, −1.34], 군집 CI [−3.28, −0.88].
+  - 근거: pilot/cache/v3/framing/v1_bm25/v1_result.json corpus_effect_same_cfg
+- 개발 9개 세트 매크로로는 같은 설정의 BM25가 24.46%에서 24.07%로 거의 그대로였고, 다섯 세트에서는 올랐다; 재선택 v2+v3 BM25 27.35%.
+  - 근거: pilot/cache/v2/devD/tune_bm25.log & .json (24.464); pilot/cache/v3/retrieval/tune_bm25.log (per-set, uncommitted); v1_result.json dev_macro_v3 (24.066, 27.352)
+- 개발 DDXPlus에서는 7쌍 가운데 6쌍이 올랐고(−1.8~+6.9%p), 개발 SymCat에서는 −0.3~+1.1%p였다.
+  - 근거: pilot/cache/v2/devD/variants/analysis.json pairs (v3* vs v2* @10)
+- S-mix 그래프 자체는 같은 개발 세트에서 그래프 32개 가운데 골랐다.
+  - 근거: draft/paper_ko_v4/sections/MET-B.md 3.6, 3.7 튜닝 예산; RES-A 4.2
+- SymCat-E 두께 층 0/1–9/10–29: +9.71/+9.36/+8.68; ≥30층 S-mix 2.33%, HPOA 1.63%; 1–9층 HPOA 5.74%; DDXPlus-E ≥30층 HPOA 32.72%, S-mix 30.86%.
+  - 근거: pilot/cache/v3/framing/m2/stats.log
+- S-dict − SemMedDB DDXPlus −3.07 [−4.97, −1.10] (군집 [−14.53, +9.16]); S-mix − SemMedDB SymCat +1.06 [+0.25, +1.87] (군집 [−0.65, +2.71]); 규칙상 'SemMedDB와 구별되지 않았다'.
+  - 근거: pilot/cache/v3/p0/semmeddb/stats.log; MET-B 3.10 P0-5 second rule
+- 평가 39회, 서로 다른 설정 28개.
+  - 근거: draft/paper_ko_v4/sections/MET-B.md 3.7 튜닝 예산
+- 결합 − HPOA +8.19 [+5.48, +11.36], +12.41 [+6.98, +17.95]; Top-1 합집합 − S-mix +3.82 [+1.05, +6.89], 합집합 − HPOA +14.39 [+8.91, +19.79].
+  - 근거: pilot/cache/v3/framing/m1/stats.json macro hospital rows; framing/summary.md
+- 병원층 S-mix − HPOA 환자 가중 +12.27 [+6.42, +18.22], 질환 등가중 +4.01 [−3.89, +12.28]; PUMCH_L 질환 등가중 +1.51 [−7.60, +10.95].
+  - 근거: pilot/cache/v3/framing/m1/stats.json (committed; macro hospital HPOA − S-mix; rows PUMCH_L disease_equal)
+- strict: 매크로 +1.04 [+0.39, +1.72], DDXPlus-E +3.00 [+1.80, +4.13], SymCat-E −0.91 [−1.38, −0.43], Top-1 매크로 −1.14 [−1.55, −0.77].
+  - 근거: pilot/cache/v3/p0/strict/stats.log
+- S-mix − 순수 사전 매크로 −0.21 [−0.84, +0.45], DDXPlus-E +0.67 [−0.47, +1.87], SymCat-E −1.09 [−1.65, −0.48].
+  - 근거: pilot/cache/v3/p0/pure_dict/stats.log (confirmation E post hoc)
+- 명시 층 기여: DDXPlus-E Top-10 140%, SymCat-E 88%, Top-1 89%; 없음 층 +1.27 [+0.09, +2.54], Holm 0.11, 군집 [−4.29, +6.21].
+  - 근거: pilot/cache/v3/framing/input_gold/stats.log; research_design §9.35
+- 사전 어휘 밖 개념은 주로 소견이 아닌 의미유형(의약품, 유기화합물, 인구집단 등)이었다; 경쟁 질환 쪽 반사실은 하지 않았다.
+  - 근거: pilot/cache/v3/review/dict_mix_overlap.json (T121 97,787 / T109 78,127 / T098 46,455 of 332,817; finding-type 55,503); research_design §9.31
+- 본문 전체 판: Top-10 43.08 대 42.88, Top-1 19.41 대 18.11, RAMEDIS Top-1 +5.61 [+3.69, +7.53], 세트별 Top-10 방향 4/5.
+  - 근거: pilot/cache/v2/devD/variants/analysis.json (v3umlsfull_ns vs v3umls_ns)
+- PPR은 S-D에서 DDXPlus −15.8 [−17.3, −14.3], SymCat −1.6 [−2.2, −1.0].
+  - 근거: pilot/cache/v2/confirmD/paired.txt (E-H1 1-hop vs PPR)
+- 주제 문서 층별: 1편 8.3 대 5.7, ≥5편 42.3 대 29.0; S-dict 10.6 대 3.6.
+  - 근거: pilot/cache/v3/review/curated_agreement_smix.json, curated_agreement_sdict.json (by_n_docs_topic, by_topic)
+- [사후]는 확증 세트 E 재분석에만 쓰고, 간선 중첩은 [측정], HPOA 일치는 [탐색]으로 표기.
+  - 근거: draft/paper_ko_v4/sections/MET-B.md 3.8 근거 지위 표기
+- 간선 정확성은 사람이나 LLM의 판정으로 검증하지 않았다.
+  - 근거: docs/publication_strategy_2026-10-20.md 표(사람 판정 행 '간선 정확도는 사람 판정으로 검증하지 않았다'); research_design §9.17, §9.25 정정 기록
+- Phenopacket-store에는 설계 D 확증에 쓴 스냅샷(main@85ffd78) 이후 새 증례가 없었다.
+  - 근거: docs/research_design.md line 27; MET-B 3.6
+- '텍스트에 이름 없음'은 상한이며 일부는 증례 원논문을 수집에서 뺀 데서 생겼을 수 있다.
+  - 근거: docs/publication_strategy_2026-10-20.md K4 단서 ①③
+- Yates 등은 DDD 전향 환자로 평가했고, 초록은 그 차이를 5–10%로 적었다; LOPO 후 Phenopacket-store에서 방향이 같아졌다.
+  - 근거: draft/paper_ko_v4/sections/REL.md ¶2.1 Yates 문장과 메모 (2), (6), (10)
+- 자기 간선은 질환에서 자기 개념과 직속 상위 질환의 개념으로 가는 간선이며, 제거 시 v3 UMLS 사전 Top-1 10.55 → 18.11.
+  - 근거: draft/paper_ko_v4/sections/MET-A.md 3.4; pilot/cache/v2/devD/variants/analysis.json (v3umls vs v3umls_ns)
+- v3 설정이었다면 생성 시간은 약 86.5시간으로 추정한다.
+  - 근거: draft/paper_ko_v4/sections/RES-A.md 4.4 구축 비용, 표 10 각주 c
