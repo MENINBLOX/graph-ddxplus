@@ -1,0 +1,36 @@
+{
+ "J1": {
+  "rule": "Wilson low of P1 tie-aware GTPA@1 >= 0.95 on H1 and H2",
+  "wilson_low": {
+   "H1": 0.9830208110374659,
+   "H2": 0.9832622987888615
+  },
+  "met": true
+ },
+ "J2": {
+  "rule": "|P2-binary - P1 tie-aware GTPA@1| < 0.01 and the upper paired-bootstrap bound of P2-binary - P1 mean IL < 0, on H1 and H2",
+  "per_set": {
+   "H1": {
+    "gtpa1_diff": 0.005008138889552747,
+    "il_diff_high": -1.6649447538019104
+   },
+   "H2": {
+    "gtpa1_diff": 0.004909598178335774,
+    "il_diff_high": -1.6600496918879943
+   }
+  },
+  "met": true
+ },
+ "J3": {
+  "rule": "P2-value-agesex on H1 within 0.01 of BED's GTPA@1 0.9947 and within 1.5 of its IL 5.47",
+  "gtpa1": 0.9953317560085717,
+  "il_mean": 5.660460929347003,
+  "met": true
+ },
+ "provenance": {
+  "design": "docs/design/ddxplus_kb_redo.md §6",
+  "protocol_sha256": "af411239a9d9043b8b60d02a456882520b2ce45eb8d2198b143a04a9763b2de8",
+  "protocol_freeze_commit": "a06db1ea3d7ec2d4532eb00f7240b2a95bec689e",
+  "protocol_commit": "a06db1ea3d7ec2d4532eb00f7240b2a95bec689e"
+ }
+}

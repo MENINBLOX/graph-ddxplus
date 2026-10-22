@@ -1,0 +1,174 @@
+{
+ "set": "H2",
+ "n": 134529,
+ "outside_support": 0,
+ "unique": {
+  "count": 124670,
+  "share": 0.9267146860528214
+ },
+ "unique_recorded": {
+  "count": 124736,
+  "share": 0.9272052865924819
+ },
+ "definitions": {
+  "outside_support": "patients with a positive evidence off their disease's list (default values absent)",
+  "unique": "the gold disease is the only one whose list holds every positive evidence (main figure)",
+  "unique_recorded": "the same over every recorded code whatever its value"
+ },
+ "provenance": {
+  "design": "docs/design/ddxplus_kb_redo.md",
+  "stage": "eval H2",
+  "split": "H2",
+  "n_patients": 134529,
+  "commit": "a06db1ea3d7ec2d4532eb00f7240b2a95bec689e",
+  "paper1_changes": [
+   "?? paper1/outputs/eval/H1/baselines.json",
+   "?? paper1/outputs/eval/H1/main.json",
+   "?? paper1/outputs/eval/H1/patients/P1.jsonl.gz",
+   "?? paper1/outputs/eval/H1/patients/P2-binary-agesex.jsonl.gz",
+   "?? paper1/outputs/eval/H1/patients/P2-binary.jsonl.gz",
+   "?? paper1/outputs/eval/H1/patients/P2-value-agesex.jsonl.gz",
+   "?? paper1/outputs/eval/H1/patients/P2-value.jsonl.gz",
+   "?? paper1/outputs/eval/H1/properties.json",
+   "?? paper1/outputs/eval/H2/patients/P1.jsonl.gz",
+   "?? paper1/outputs/eval/H2/patients/P2-binary-agesex.jsonl.gz",
+   "?? paper1/outputs/eval/H2/patients/P2-binary.jsonl.gz",
+   "?? paper1/outputs/eval/H2/patients/P2-value-agesex.jsonl.gz",
+   "?? paper1/outputs/eval/H2/patients/P2-value.jsonl.gz"
+  ],
+  "inputs": {
+   "data/ddxplus/20043374.zip": "d6c1779714955da1cf073907996cca506677fb38219999fe3b7a521e17be7796",
+   "data/ddxplus/release_train_patients.csv": "1bb2376feefa2d703123c4b29ce80f9ebab12211d0422490d1015c85ae4388f9",
+   "paper1/manifests/H2.json": "7117e67e27b22e672ace350494164336b8342277a9b1eefb5c6ce5998fccc8a1"
+  },
+  "train_minus_h2_rows": 891073,
+  "environment": {
+   "python": "3.12.3",
+   "numpy": "2.5.4",
+   "pandas": "3.0.6"
+  },
+  "workers": 16,
+  "started_utc": "2026-10-22T04:52:30+00:00",
+  "elapsed_s": 544.3,
+  "timings": [
+   {
+    "run": "P1",
+    "seconds": 21.86,
+    "failures": 0
+   },
+   {
+    "run": "P2-binary",
+    "seconds": 21.77,
+    "failures": 0
+   },
+   {
+    "run": "P2-binary-agesex",
+    "seconds": 21.46,
+    "failures": 0
+   },
+   {
+    "run": "P2-value",
+    "seconds": 31.58,
+    "failures": 0
+   },
+   {
+    "run": "P2-value-agesex",
+    "seconds": 31.78,
+    "failures": 0
+   },
+   {
+    "run": "B0 most frequent",
+    "seconds": 1.69,
+    "failures": 0
+   },
+   {
+    "run": "B0 initial only",
+    "seconds": 1.76,
+    "failures": 0
+   },
+   {
+    "run": "B1 set inclusion",
+    "seconds": 1.57,
+    "failures": 0
+   },
+   {
+    "run": "B1 KB-Bayes",
+    "seconds": 4.44,
+    "failures": 0
+   },
+   {
+    "run": "B1 naive Bayes P2-binary",
+    "seconds": 4.5,
+    "failures": 0
+   },
+   {
+    "run": "B1 naive Bayes P2-binary-agesex",
+    "seconds": 4.56,
+    "failures": 0
+   },
+   {
+    "run": "B1 naive Bayes P2-value",
+    "seconds": 6.59,
+    "failures": 0
+   },
+   {
+    "run": "B1 naive Bayes P2-value-agesex",
+    "seconds": 6.51,
+    "failures": 0
+   },
+   {
+    "run": "B2 seed 0",
+    "seconds": 25.12,
+    "failures": 0
+   },
+   {
+    "run": "B2 seed 1",
+    "seconds": 25.01,
+    "failures": 0
+   },
+   {
+    "run": "B2 seed 2",
+    "seconds": 25.45,
+    "failures": 0
+   },
+   {
+    "run": "B2 seed 3",
+    "seconds": 25.42,
+    "failures": 0
+   },
+   {
+    "run": "B2 seed 4",
+    "seconds": 25.33,
+    "failures": 0
+   },
+   {
+    "run": "B6 P1",
+    "seconds": 20.41,
+    "failures": 0
+   },
+   {
+    "run": "B6 P2-binary",
+    "seconds": 20.47,
+    "failures": 0
+   },
+   {
+    "run": "B6 P2-binary-agesex",
+    "seconds": 20.33,
+    "failures": 0
+   },
+   {
+    "run": "B6 P2-value",
+    "seconds": 31.5,
+    "failures": 0
+   },
+   {
+    "run": "B6 P2-value-agesex",
+    "seconds": 31.83,
+    "failures": 0
+   }
+  ],
+  "protocol_sha256": "af411239a9d9043b8b60d02a456882520b2ce45eb8d2198b143a04a9763b2de8",
+  "protocol_freeze_commit": "a06db1ea3d7ec2d4532eb00f7240b2a95bec689e",
+  "protocol_commit": "a06db1ea3d7ec2d4532eb00f7240b2a95bec689e"
+ }
+}

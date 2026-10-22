@@ -1,0 +1,67 @@
+{
+ "limit": null,
+ "n": 132448,
+ "outside_support": 0,
+ "unique": {
+  "count": 122321,
+  "share": 0.9235398043005557
+ },
+ "unique_recorded": {
+  "count": 122408,
+  "share": 0.9241966658613192
+ },
+ "definitions": {
+  "outside_support": "patients with a positive evidence off their disease's list (default values absent)",
+  "unique": "the gold disease is the only one whose list holds every positive evidence (main figure)",
+  "unique_recorded": "the same over every recorded code whatever its value"
+ },
+ "kb_folded_to_cuis": {
+  "edges": 586,
+  "v1_graph_edges": 581,
+  "shared": 580
+ },
+ "provenance": {
+  "design": "docs/design/ddxplus_kb_redo.md",
+  "stage": "properties",
+  "split": "validate",
+  "n_patients": 132448,
+  "commit": "10e96ab4d5c6e09d519a375c7f262459b93d3bc4",
+  "paper1_changes": [
+   "?? paper1/outputs/dev/ablations.json",
+   "?? paper1/outputs/dev/baselines.json",
+   "?? paper1/outputs/dev/configs_tried.jsonl",
+   "?? paper1/outputs/dev/main.json",
+   "?? paper1/outputs/dev/patients/P1.jsonl.gz",
+   "?? paper1/outputs/dev/patients/P2-binary-agesex.jsonl.gz",
+   "?? paper1/outputs/dev/patients/P2-binary.jsonl.gz",
+   "?? paper1/outputs/dev/patients/P2-value-agesex.jsonl.gz",
+   "?? paper1/outputs/dev/patients/P2-value.jsonl.gz",
+   "?? paper1/outputs/dev/selected.json",
+   "?? paper1/outputs/dev/v1_replay.json"
+  ],
+  "inputs": {
+   "data/ddxplus/20043374.zip": "d6c1779714955da1cf073907996cca506677fb38219999fe3b7a521e17be7796",
+   "data/ddxplus/disease_umls_mapping.json": "746772fb4cab5aa5e8ab8355a5fcabcb54ca9b13d91723569761cb85abd9f961",
+   "data/ddxplus/kg_edges.json": "1411ee4325a6a0a6a1b9dea804c7f718457bb607c89e175164e0c3dbec2cff47",
+   "data/ddxplus/release_train_patients.csv": "1bb2376feefa2d703123c4b29ce80f9ebab12211d0422490d1015c85ae4388f9",
+   "data/ddxplus/release_validate_patients.csv": "000e632bc5216b3cbd98d89d3976de1342906a887029f4049db4bbac8907b3bd",
+   "data/ddxplus/umls_mapping.json": "3558ebf909c53f213d1ee8585ff8f933fb5a514d91e261dae972fcb7046a954e",
+   "paper1/manifests/H2.json": "7117e67e27b22e672ace350494164336b8342277a9b1eefb5c6ce5998fccc8a1"
+  },
+  "train_minus_h2_rows": 891073,
+  "environment": {
+   "python": "3.12.3",
+   "numpy": "2.5.4",
+   "pandas": "3.0.6"
+  },
+  "workers": 16,
+  "started_utc": "2026-10-22T04:41:48+00:00",
+  "elapsed_s": 3.9,
+  "timings": [
+   {
+    "run": "support audit",
+    "seconds": 3.89
+   }
+  ]
+ }
+}
