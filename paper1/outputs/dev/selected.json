@@ -1,0 +1,232 @@
+{
+ "objective": "validation tie-aware GTPA@1 (|T| <= 30), highest at two decimals of a percent; then the smaller mean IL; then the earlier candidate in listed order (design §5)",
+ "n": 132448,
+ "limit": null,
+ "P1": {
+  "config": {
+   "alpha": 0.5,
+   "eps": 0.0001,
+   "tau": 0.99
+  },
+  "order": 17,
+  "gtpa1": 0.9833957477651593,
+  "il_mean": 10.357257187726503,
+  "selection_key": [
+   -98.34,
+   10.357257187726503,
+   17
+  ]
+ },
+ "P2": {
+  "P2-binary": {
+   "config": {
+    "mode": "binary",
+    "age_sex": false,
+    "lam": 0.5,
+    "tau": 0.999
+   },
+   "order": 3,
+   "gtpa1": 0.9884860473544335,
+   "il_mean": 8.660198719497464,
+   "selection_key": [
+    -98.85,
+    8.660198719497464,
+    3
+   ]
+  },
+  "P2-binary-agesex": {
+   "config": {
+    "mode": "binary",
+    "age_sex": true,
+    "lam": 0.5,
+    "tau": 0.999
+   },
+   "order": 3,
+   "gtpa1": 0.9889315051944915,
+   "il_mean": 8.46123006764919,
+   "selection_key": [
+    -98.89,
+    8.46123006764919,
+    3
+   ]
+  },
+  "P2-value": {
+   "config": {
+    "mode": "value",
+    "age_sex": false,
+    "lam": 1.0,
+    "tau": 0.999
+   },
+   "order": 7,
+   "gtpa1": 0.9950773133607151,
+   "il_mean": 6.074142304904567,
+   "selection_key": [
+    -99.51,
+    6.074142304904567,
+    7
+   ]
+  },
+  "P2-value-agesex": {
+   "config": {
+    "mode": "value",
+    "age_sex": true,
+    "lam": 0.5,
+    "tau": 0.999
+   },
+   "order": 3,
+   "gtpa1": 0.9950622130949505,
+   "il_mean": 5.663045119594105,
+   "selection_key": [
+    -99.51,
+    5.663045119594105,
+    3
+   ]
+  }
+ },
+ "provenance": {
+  "design": "docs/design/ddxplus_kb_redo.md",
+  "stage": "grid",
+  "split": "validate",
+  "n_patients": 132448,
+  "commit": "10e96ab4d5c6e09d519a375c7f262459b93d3bc4",
+  "paper1_changes": [
+   "?? paper1/outputs/dev/configs_tried.jsonl",
+   "?? paper1/outputs/dev/patients/P1.jsonl.gz",
+   "?? paper1/outputs/dev/patients/P2-binary-agesex.jsonl.gz",
+   "?? paper1/outputs/dev/patients/P2-binary.jsonl.gz",
+   "?? paper1/outputs/dev/patients/P2-value-agesex.jsonl.gz",
+   "?? paper1/outputs/dev/patients/P2-value.jsonl.gz"
+  ],
+  "inputs": {
+   "data/ddxplus/20043374.zip": "d6c1779714955da1cf073907996cca506677fb38219999fe3b7a521e17be7796",
+   "data/ddxplus/release_train_patients.csv": "1bb2376feefa2d703123c4b29ce80f9ebab12211d0422490d1015c85ae4388f9",
+   "data/ddxplus/release_validate_patients.csv": "000e632bc5216b3cbd98d89d3976de1342906a887029f4049db4bbac8907b3bd",
+   "paper1/manifests/H2.json": "7117e67e27b22e672ace350494164336b8342277a9b1eefb5c6ce5998fccc8a1"
+  },
+  "train_minus_h2_rows": 891073,
+  "environment": {
+   "python": "3.12.3",
+   "numpy": "2.5.4",
+   "pandas": "3.0.6"
+  },
+  "workers": 16,
+  "started_utc": "2026-10-22T04:11:58+00:00",
+  "elapsed_s": 624.3,
+  "timings": [
+   {
+    "run": "grid P1 alpha=0.3 eps=0.01",
+    "seconds": 21.61,
+    "failures": 0
+   },
+   {
+    "run": "grid P1 alpha=0.3 eps=0.001",
+    "seconds": 21.44,
+    "failures": 0
+   },
+   {
+    "run": "grid P1 alpha=0.3 eps=0.0001",
+    "seconds": 21.22,
+    "failures": 0
+   },
+   {
+    "run": "grid P1 alpha=0.5 eps=0.01",
+    "seconds": 21.83,
+    "failures": 0
+   },
+   {
+    "run": "grid P1 alpha=0.5 eps=0.001",
+    "seconds": 21.74,
+    "failures": 0
+   },
+   {
+    "run": "grid P1 alpha=0.5 eps=0.0001",
+    "seconds": 21.21,
+    "failures": 0
+   },
+   {
+    "run": "grid P1 alpha=0.7 eps=0.01",
+    "seconds": 21.59,
+    "failures": 0
+   },
+   {
+    "run": "grid P1 alpha=0.7 eps=0.001",
+    "seconds": 21.14,
+    "failures": 0
+   },
+   {
+    "run": "grid P1 alpha=0.7 eps=0.0001",
+    "seconds": 21.02,
+    "failures": 0
+   },
+   {
+    "run": "train minus H2 counts",
+    "seconds": 31.76
+   },
+   {
+    "run": "grid P2-binary lambda=0.5",
+    "seconds": 21.32,
+    "failures": 0
+   },
+   {
+    "run": "grid P2-binary lambda=1.0",
+    "seconds": 22.03,
+    "failures": 0
+   },
+   {
+    "run": "grid P2-binary-agesex lambda=0.5",
+    "seconds": 21.52,
+    "failures": 0
+   },
+   {
+    "run": "grid P2-binary-agesex lambda=1.0",
+    "seconds": 21.92,
+    "failures": 0
+   },
+   {
+    "run": "grid P2-value lambda=0.5",
+    "seconds": 32.45,
+    "failures": 0
+   },
+   {
+    "run": "grid P2-value lambda=1.0",
+    "seconds": 32.33,
+    "failures": 0
+   },
+   {
+    "run": "grid P2-value-agesex lambda=0.5",
+    "seconds": 32.26,
+    "failures": 0
+   },
+   {
+    "run": "grid P2-value-agesex lambda=1.0",
+    "seconds": 32.1,
+    "failures": 0
+   },
+   {
+    "run": "P1",
+    "seconds": 21.54,
+    "failures": 0
+   },
+   {
+    "run": "P2-binary",
+    "seconds": 21.36,
+    "failures": 0
+   },
+   {
+    "run": "P2-binary-agesex",
+    "seconds": 21.13,
+    "failures": 0
+   },
+   {
+    "run": "P2-value",
+    "seconds": 32.13,
+    "failures": 0
+   },
+   {
+    "run": "P2-value-agesex",
+    "seconds": 32.17,
+    "failures": 0
+   }
+  ]
+ }
+}
