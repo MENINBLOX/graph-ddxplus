@@ -1,4 +1,5 @@
-"""Dataset properties reported for validation, H1 and H2 (design §Goals): KB violations and set-inclusion uniqueness."""
+"""Dataset properties reported for validation and each evaluation set (design §Goals): KB violations and
+set-inclusion uniqueness."""
 
 from __future__ import annotations
 

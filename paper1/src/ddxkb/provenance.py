@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import importlib
 import os
 import platform
 import subprocess
@@ -52,4 +53,20 @@ def git_changes(root: Path, *paths: str, untracked: bool = True) -> list[str] | 
 
 
 def environment() -> dict[str, Any]:
-    return {"python": platform.python_version(), "numpy": version("numpy"), "pandas": version("pandas")}
+    return {
+        "python": platform.python_version(),
+        "numpy": version("numpy"),
+        "pandas": version("pandas"),
+        "numpy_simd": numpy_simd(),
+    }
+
+
+def numpy_simd() -> list[str]:
+    """The SIMD targets numpy dispatches to on this CPU (`np.show_runtime`'s "found").
+
+    np.argsort orders exact ties by its sort kernel, and the official GTPA@1 reads that order.
+    """
+    umath = importlib.import_module("numpy._core._multiarray_umath")
+    features: dict[str, bool] = getattr(umath, "__cpu_features__", {})
+    dispatch: list[str] = getattr(umath, "__cpu_dispatch__", [])
+    return sorted(f for f in dispatch if features.get(f, False))

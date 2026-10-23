@@ -12,10 +12,11 @@ from typing import Any
 import numpy as np
 import pytest
 
-from ddxkb.data import KB_ZIP, REPO_ROOT, VALIDATION_CSV, Patient
+from ddxkb.data import KB_ZIP, REPO_ROOT, TEST_CSV, TRAIN_CSV, VALIDATION_CSV, Patient, iter_train, load_kb
 from ddxkb.freeze import SELECTED
-from ddxkb.frequencies import N_AGE_BINS, FrequencyCounts, age_bin, sex_index
+from ddxkb.frequencies import FrequencyCounts, sex_index
 from ddxkb.kb import KB
+from ddxkb.policies.bed import BED_STATS, BedKnowledge, count_knowledge, text_default_codes
 from ddxkb.protocol import P2_VARIANTS, P1Config, P2Config
 from ddxkb.provenance import environment
 
@@ -86,14 +87,14 @@ def binary_kb(diseases: dict[str, list[str]], evidences: list[str]) -> KB:
 
 
 def toy_counts() -> FrequencyCounts:
-    """Counts for the toy KB: Alpha 10 rows, Beta 8, Gamma 2; positive columns fievre ... atcd, value columns
-    douleur_intens 1-3, douleur_lieu tete/dos/ventre, trav1 AfriqN/Asie."""
+    """Counts for the toy KB: Alpha 10 rows, Beta 8, Gamma 2, aged 40 but two of Beta's aged 1; positive columns
+    fievre ... atcd, value columns douleur_intens 1-3, douleur_lieu tete/dos/ventre, trav1 AfriqN/Asie."""
     rows = np.array([10, 8, 2])
-    by_age_sex = np.zeros((3, N_AGE_BINS, 2), dtype=np.int64)
-    by_age_sex[0, age_bin(40), sex_index("F")] = 10
-    by_age_sex[1, age_bin(40), sex_index("F")] = 6
-    by_age_sex[1, age_bin(1), sex_index("M")] = 2
-    by_age_sex[2, age_bin(40), sex_index("M")] = 2
+    by_age_sex = np.zeros((3, 41, 2), dtype=np.int64)
+    by_age_sex[0, 40, sex_index("F")] = 10
+    by_age_sex[1, 40, sex_index("F")] = 6
+    by_age_sex[1, 1, sex_index("M")] = 2
+    by_age_sex[2, 40, sex_index("M")] = 2
     positive = np.array([[9, 7, 0, 0, 0, 1, 0], [0, 0, 8, 8, 6, 0, 3], [2, 0, 2, 2, 2, 0, 0]])
     value = np.array([[0, 0, 0, 0, 0, 0, 0, 1], [1, 3, 4, 4, 3, 1, 0, 0], [0, 2, 0, 2, 0, 0, 0, 0]])
     return FrequencyCounts(rows=rows, by_age_sex=by_age_sex, positive=positive, value=value)
@@ -127,9 +128,14 @@ def write_csv(path: Path, rows: list[dict[str, Any]]) -> None:
 
 
 def write_manifest(root: Path, name: str, csv_rel: str, n_rows: int, indices: list[int]) -> None:
+    """A manifest in the seal's format; the CSV, when it exists, gives its sha256."""
     d = root / "paper1/manifests"
     d.mkdir(parents=True, exist_ok=True)
-    m = {"set": name, "csv": csv_rel, "csv_data_rows": n_rows, "n": len(indices), "row_indices": indices}
+    m: dict[str, Any] = {"set": name, "csv": csv_rel, "csv_data_rows": n_rows, "n": len(indices)}
+    m["selection"] = {"rule": f"synthetic {name}"}
+    m["row_indices"] = indices
+    if (root / csv_rel).exists():
+        m["csv_sha256"] = hashlib.sha256((root / csv_rel).read_bytes()).hexdigest()
     (d / f"{name}.json").write_text(json.dumps(m))
 
 
@@ -164,7 +170,7 @@ def _synth_lists() -> dict[str, list[str]]:
 
 
 def synth_kb_json() -> tuple[dict[str, Any], dict[str, Any]]:
-    """A KB of 38 evidences (enough for |T| = 30), 5 diseases, a categorical antecedent and pain subattributes."""
+    """A KB of 38 evidences (enough for IL <= 31), 5 diseases, a categorical antecedent and pain subattributes."""
     evidences: dict[str, Any] = {code: _binary(code, antecedent=code >= "e30") for code in SYNTH_SYMPTOMS}
     evidences["douleur"] = _binary("douleur")
     evidences["douleur_intens"] = _valued("douleur_intens", "C", [0, 1, 2, 3], 0, "douleur")
@@ -208,8 +214,31 @@ def synth_rows(n: int, seed: int) -> list[dict[str, Any]]:
     return rows
 
 
+def bed_stats_json(kb: KB, k: BedKnowledge) -> dict[str, Any]:
+    """`k` in the format of BED's stats file, diseases in name order as pandas groups them."""
+    out: dict[str, Any] = {}
+    for d in sorted(kb.diseases):
+        i = kb.disease_index[d]
+        findings: dict[str, Any] = {}
+        for j in map(int, np.flatnonzero(k.known[i])):
+            e = kb.evidences[j]
+            if e.is_binary:
+                findings[e.code] = float(k.binary[i, j])
+            else:
+                findings[e.code] = {o: float(p) for o, p in zip(k.options[j], k.option_probs[j][i], strict=True)}
+        out[d] = {"prior": float(k.prior[i]), "findings": findings}
+    return out
+
+
+def bed_stats_sha256(root: Path) -> str:
+    """The digest of the synthetic BED stats file `make_repo` writes, which tests put in place of BED's."""
+    return hashlib.sha256((root / BED_STATS).read_bytes()).hexdigest()
+
+
 def make_repo(root: Path, n_validation: int = 45, n_train: int = 150, n_test: int = 60) -> None:
-    """A repository root with the synthetic KB zip, the three CSVs, sealed H1/H2 manifests and v1's CUI files."""
+    """A repository root with the synthetic KB zip, the three CSVs, v1's CUI files, a BED stats file counted from
+    the synthetic train rows, and the manifests: H2 (every sixth train row), T (every test row), and its reporting
+    subsets H1 (rows 3 on), T-dedup (the even rows) and T-streambench (rows 10-29)."""
     conditions, evidences = synth_kb_json()
     data = root / "data/ddxplus"
     data.mkdir(parents=True, exist_ok=True)
@@ -217,23 +246,17 @@ def make_repo(root: Path, n_validation: int = 45, n_train: int = 150, n_test: in
         z.writestr("release_conditions.json", json.dumps(conditions))
         z.writestr("release_evidences.json", json.dumps(evidences))
     write_csv(root / VALIDATION_CSV, synth_rows(n_validation, seed=1))
-    sets = {
-        "H2": ("data/ddxplus/release_train_patients.csv", synth_rows(n_train, seed=2), list(range(0, n_train, 6))),
-        "H1": ("data/ddxplus/release_test_patients.csv", synth_rows(n_test, seed=3), list(range(3, n_test))),
+    write_csv(root / TRAIN_CSV, synth_rows(n_train, seed=2))
+    write_csv(root / TEST_CSV, synth_rows(n_test, seed=3))
+    sealed = {
+        "H2": (TRAIN_CSV, n_train, list(range(0, n_train, 6))),
+        "T": (TEST_CSV, n_test, list(range(n_test))),
+        "H1": (TEST_CSV, n_test, list(range(3, n_test))),
+        "T-dedup": (TEST_CSV, n_test, list(range(0, n_test, 2))),
+        "T-streambench": (TEST_CSV, n_test, list(range(10, 30))),
     }
-    manifests = root / "paper1/manifests"
-    manifests.mkdir(parents=True, exist_ok=True)
-    for name, (csv_rel, rows, sealed) in sets.items():
-        write_csv(root / csv_rel, rows)
-        manifest = {
-            "set": name,
-            "csv": csv_rel,
-            "csv_sha256": hashlib.sha256((root / csv_rel).read_bytes()).hexdigest(),
-            "csv_data_rows": len(rows),
-            "n": len(sealed),
-            "row_indices": sealed,
-        }
-        (manifests / f"{name}.json").write_text(json.dumps(manifest))
+    for name, (csv_rel, n_rows, rows) in sealed.items():
+        write_manifest(root, name, csv_rel, n_rows, rows)
     (data / "umls_mapping.json").write_text(json.dumps({"mapping": {c: {"cui": u} for c, u in SYNTH_CODE_CUI.items()}}))
     diseases = {name: {"name_fr": name, "umls_cui": f"D{k:03d}"} for k, name in enumerate(SYNTH_DISEASES)}
     (data / "disease_umls_mapping.json").write_text(json.dumps({"mapping": diseases}))
@@ -246,9 +269,16 @@ def make_repo(root: Path, n_validation: int = 45, n_train: int = 150, n_test: in
         }
     )
     (data / "kg_edges.json").write_text(json.dumps({"edges": edges}))
+    kb = load_kb(root)
+    knowledge = count_knowledge(kb, iter_train(root), text_default_codes(evidences))
+    (root / BED_STATS).parent.mkdir(parents=True, exist_ok=True)
+    (root / BED_STATS).write_text(json.dumps(bed_stats_json(kb, knowledge)))
 
 
 SELECTED_P1 = P1Config(0.5, 1e-3, 0.99)
+
+
+SELECTION_COMMIT = "5e1ec7" + "0" * 34
 
 
 def write_selected(
@@ -256,17 +286,28 @@ def write_selected(
     p1: P1Config = SELECTED_P1,
     p2: dict[str, dict[str, Any]] | None = None,
     limit: int | None = None,
+    paper1_changes: list[str] | None = None,
 ) -> None:
-    """A development selection in the format of run_dev's selected.json, made in this environment."""
+    """A development selection in the format of run_dev's selected.json, made in this environment from the
+    KB and train files under `root`, by the code of SELECTION_COMMIT with `paper1_changes` uncommitted (default:
+    the development outputs only)."""
     if p2 is None:
         p2 = {v.name: P2Config(v, 1.0, 0.99).as_dict() for v in P2_VARIANTS}
+    if paper1_changes is None:
+        paper1_changes = ["?? paper1/outputs/v2/dev/configs_tried.jsonl"]
+    inputs = {f: hashlib.sha256((root / f).read_bytes()).hexdigest() for f in (KB_ZIP, TRAIN_CSV)}
     selected = {
         "objective": "test",
         "n": 45,
         "limit": limit,
         "P1": {"config": p1.as_dict()},
         "P2": {name: {"config": config} for name, config in p2.items()},
-        "provenance": {"environment": environment()},
+        "provenance": {
+            "environment": environment(),
+            "inputs": inputs,
+            "commit": SELECTION_COMMIT,
+            "paper1_changes": paper1_changes,
+        },
     }
     path = root / SELECTED
     path.parent.mkdir(parents=True, exist_ok=True)

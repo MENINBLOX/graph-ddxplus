@@ -7,6 +7,7 @@ dependencies = ["numpy>=2.0", "pandas>=2.2", "pyyaml>=6.0"]
 
 [dependency-groups]
 dev = ["pytest>=8.0", "ruff>=0.6", "mypy>=1.11", "pandas-stubs", "types-PyYAML"]
+seal = ["pyarrow>=26.0.0"]
 
 [build-system]
 requires = ["hatchling"]

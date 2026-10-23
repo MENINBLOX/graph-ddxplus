@@ -1,26 +1,35 @@
-"""The single evaluation run on H1 and H2 (design §5), from the frozen protocol only.
+"""The single evaluation run on T, the whole official test split (design 보완 2), from the frozen protocol only.
 
     DDXKB_UNSEAL=1 uv run python -m ddxkb.run_eval --config-sha256 <digest> --workers N
 
 It refuses to start unless all of these hold:
 
 - DDXKB_UNSEAL=1 is set;
-- the work tree has no uncommitted change: no modified tracked file anywhere and no untracked file under
-  paper1/ (other directories hold untracked caches of other projects that this run never reads);
-- paper1/configs/protocol_frozen.yaml (written by `ddxkb.freeze`, which describes its keys) exists, its
+- the output directory is not one of the first run's (paper1/outputs/dev, paper1/outputs/eval) or inside one;
+- nothing under GATED_PATHS (paper1/ and the design documents) is modified, deleted or untracked. Other directories
+  hold files of other projects that this run never reads, and the data files it reads are checked by sha256;
+- paper1/configs/protocol_v2_frozen.yaml (written by `ddxkb.freeze`, which describes its keys) exists, its
   recorded `config_sha256` is the digest of its content, and that digest is the one given on the command line;
 - exactly one commit in HEAD's history changes the protocol file: the freeze commit;
 - the protocol's P1 and P2 configurations are those of the selection file it names, whose sha256 it records,
   and each P2 configuration is the variant it is listed under;
-- the code holds the protocol's constants, and Python, numpy and pandas are those of the development run;
-- the H1 and H2 manifests on disk are the ones the protocol names, and each CSV is the file its manifest
-  was made from.
+- the manifests on disk (T, its reporting subsets and H2) are the ones the protocol names, the test CSV is the file
+  T was sealed from, the KB and train files are those the development run read, and BED's stats file is the one
+  the protocol names;
+- the code holds the protocol's constants, and Python, numpy (with its SIMD dispatch) and pandas are those of
+  the development run.
 
-The run writes, for each set, main.json (P1 and the P2 variants with curves and comparisons), baselines.json
-(B0, B1, B2, B6), properties.json (KB violations and set-inclusion uniqueness) and patient-level files, and then
-judgments.json with J1-J3 of design §6; each records the protocol digest, the freeze commit, the commit run
-and the input sha256s. An existing result is never overwritten: a rerun after a fix goes to a new --out, and
-both are reported.
+The run writes under <out>/T/: main.json (P1 and the P2 variants with curves, each P2 against P1, and each with its
+changes from the first protocol, `experiment.first_protocol_changes`), baselines.json
+(B0, B1, B2, B6 and B-BED, B-BED also against P2-value), hierarchy.json (the main policies under CASANDE's implicit
+answers, against their main runs), properties.json (KB violations and set-inclusion uniqueness) and patient-level
+files under patients/; and <out>/judgments.json with J1, J2 and J3' of 보완 2 §8. Every summary also holds the
+report of each reporting subset of T (H1, T-dedup, T-streambench when its row list was available) cut from the
+same run. Each output records the protocol digest, the freeze commit, the commit run and the input sha256s. An
+existing result is never overwritten: a rerun after a fix goes to a new --out, and both are reported.
+
+The first evaluation (H1 and H2 under paper1/configs/protocol_frozen.yaml) is never rerun; `ddxkb.first_run`
+verifies what it left.
 """
 
 from __future__ import annotations
@@ -31,26 +40,50 @@ import logging
 import time
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from typing import Any
 
 import yaml
 
 from ddxkb.audit import support_audit
-from ddxkb.data import MANIFEST_DIR, REPO_ROOT, Heldout, load_heldout, load_kb, read_manifest, unseal_requested
+from ddxkb.data import (
+    MANIFEST_DIR,
+    REPO_ROOT,
+    SUBSETS,
+    load_heldout,
+    load_kb,
+    read_manifest,
+    subset_rows,
+    unseal_requested,
+)
 from ddxkb.evaluation import write_json
-from ddxkb.experiment import DESIGN_DOC, Context, baseline_suite, main_suite, provenance, utc_now
-from ddxkb.freeze import FROZEN_CONFIG, config_digest, protocol_constants
-from ddxkb.frequencies import FrequencyCounts
+from ddxkb.experiment import (
+    BED_DEFINITIONS,
+    DESIGN_DOC,
+    Context,
+    baseline_suite,
+    bed_suite,
+    hierarchy_suite,
+    main_suite,
+    provenance,
+    utc_now,
+)
+from ddxkb.first_run import first_run_outputs
+from ddxkb.freeze import EVALUATION_SET, FROZEN_CONFIG, FROZEN_DATA, MANIFESTS, config_digest, protocol_constants
+from ddxkb.policies.bed import BED_STATS, BED_STATS_SHA256
 from ddxkb.protocol import (
     CURVE,
+    J1_METRICS,
     J1_MIN_WILSON_LOW,
+    J2_IL_DIFF_HIGH_BELOW,
     J2_MAX_GTPA1_DIFF,
     J2_POLICY,
     J3_BED_GTPA1,
     J3_BED_IL,
     J3_GTPA1_TOLERANCE,
     J3_IL_TOLERANCE,
+    J3_METRICS,
+    J3_PAIRED,
     J3_POLICY,
     P2_VARIANTS,
     P1Config,
@@ -59,8 +92,8 @@ from ddxkb.protocol import (
 from ddxkb.provenance import environment, file_sha256, git_changes, git_commits_touching, git_head
 from ddxkb.runner import worker_pool
 
-OUTPUT_DIR = "paper1/outputs/eval"
-SETS: tuple[Heldout, ...] = ("H1", "H2")
+OUTPUT_DIR = "paper1/outputs/v2/eval"
+GATED_PATHS = ("paper1", str(PurePosixPath(DESIGN_DOC).parent))
 
 logger = logging.getLogger(__name__)
 
@@ -78,12 +111,11 @@ class FrozenProtocol:
 
 
 def uncommitted(root: Path) -> list[str]:
-    """Modified tracked files anywhere and untracked files under paper1/, as `git status --porcelain` lines."""
-    tracked = git_changes(root, untracked=False)
-    under_paper1 = git_changes(root, "paper1")
-    if tracked is None or under_paper1 is None:
+    """Modified, deleted and untracked files under GATED_PATHS, as `git status --porcelain` lines."""
+    changes = git_changes(root, *GATED_PATHS)
+    if changes is None:
         raise GateError(f"{root} is not a git work tree")
-    return list(dict.fromkeys([*tracked, *under_paper1]))
+    return changes
 
 
 def freeze_commit(root: Path) -> str:
@@ -117,16 +149,23 @@ def check_gates(root: Path, expected_sha256: str) -> FrozenProtocol:
     frozen_at = freeze_commit(root)
     _check_selection(root, config)
     policies(config)
-    if config["constants"] != protocol_constants():
+    if config["evaluation_set"] != EVALUATION_SET:
+        raise GateError(f"the protocol evaluates {config['evaluation_set']}, this runner {EVALUATION_SET}")
+    for name in MANIFESTS:
+        if file_sha256(root / MANIFEST_DIR / f"{name}.json") != config["manifests"][name]:
+            raise GateError(f"the {name} manifest is not the one the protocol names")
+    manifest = read_manifest(EVALUATION_SET, root)
+    if file_sha256(root / str(manifest["csv"])) != manifest["csv_sha256"]:
+        raise GateError(f"{manifest['csv']} is not the file the {EVALUATION_SET} manifest was made from")
+    for relative in FROZEN_DATA:
+        if file_sha256(root / relative) != config["data"][relative]:
+            raise GateError(f"{relative} is not the file the development run read")
+    if not (root / BED_STATS).exists() or file_sha256(root / BED_STATS) != BED_STATS_SHA256:
+        raise GateError(f"{BED_STATS} is not BED's stats file")
+    if config["constants"] != protocol_constants(load_kb(root)):
         raise GateError("the code no longer holds the constants of the frozen protocol")
     if config["environment"] != environment():
         raise GateError(f"this environment {environment()} is not the development run's {config['environment']}")
-    for name in SETS:
-        if file_sha256(root / MANIFEST_DIR / f"{name}.json") != config["manifests"][name]:
-            raise GateError(f"the {name} manifest is not the one the protocol names")
-        manifest = read_manifest(name, root)
-        if file_sha256(root / str(manifest["csv"])) != manifest["csv_sha256"]:
-            raise GateError(f"{manifest['csv']} is not the file the {name} manifest was made from")
     commit = git_head(root)
     if commit is None:
         raise GateError("no commit checked out")
@@ -159,83 +198,109 @@ def policies(config: Mapping[str, Any]) -> tuple[P1Config, list[P2Config], tuple
     return p1, p2, budgets
 
 
-def judgments(mains: Mapping[str, Mapping[str, Any]]) -> dict[str, Any]:
-    """J1-J3 of design §6 from the main.json summaries of H1 and H2; every quantity is read at the stop."""
-    j1 = {name: mains[name]["P1"]["stop"]["gtpa1"]["low"] for name in SETS}
-    j2 = {
-        name: {
-            "gtpa1_diff": mains[name][J2_POLICY]["against"]["P1"]["stop"]["gtpa1_diff"],
-            "il_diff_high": mains[name][J2_POLICY]["against"]["P1"]["stop"]["il_diff"]["high"],
-        }
-        for name in SETS
-    }
-    h1 = mains["H1"][J3_POLICY]["stop"]
-    gtpa1, il = h1["gtpa1"]["estimate"], h1["il"]["mean"]
+def judgments(main: Mapping[str, Any], baselines: Mapping[str, Any]) -> dict[str, Any]:
+    """J1, J2 and J3' of 보완 2 §8 from the main.json and baselines.json summaries of T, all read at the stop."""
+    lows = {metric: main["P1"]["stop"][metric]["low"] for metric in J1_METRICS}
+    j2 = main[J2_POLICY]["against"]["P1"]["stop"]
+    gtpa1_diff, il_diff_high = j2["gtpa1_diff"], j2["il_diff"]["high"]
+    bed = baselines[J3_POLICY]["stats_file"]
+    bed_gtpa1 = {metric: bed["stop"][metric]["estimate"] for metric in J3_METRICS}
+    bed_il = bed["stop"]["il"]["mean"]
+    paired = bed["against"][J3_PAIRED]["stop"]
     return {
         "J1": {
-            "rule": f"Wilson low of P1 tie-aware GTPA@1 >= {J1_MIN_WILSON_LOW} on H1 and H2",
-            "wilson_low": j1,
-            "met": all(low >= J1_MIN_WILSON_LOW for low in j1.values()),
+            "rule": f"Wilson low of P1 GTPA@1 >= {J1_MIN_WILSON_LOW} on T for each of {list(J1_METRICS)}",
+            "wilson_low": lows,
+            "met": all(low >= J1_MIN_WILSON_LOW for low in lows.values()),
         },
         "J2": {
             "rule": (
                 f"|{J2_POLICY} - P1 tie-aware GTPA@1| < {J2_MAX_GTPA1_DIFF} and the upper paired-bootstrap bound of"
-                f" {J2_POLICY} - P1 mean IL < 0, on H1 and H2"
+                f" {J2_POLICY} - P1 mean IL < {J2_IL_DIFF_HIGH_BELOW}, on T"
             ),
-            "per_set": j2,
-            "met": all(abs(v["gtpa1_diff"]) < J2_MAX_GTPA1_DIFF and v["il_diff_high"] < 0 for v in j2.values()),
+            "gtpa1_diff": gtpa1_diff,
+            "il_diff_high": il_diff_high,
+            "met": abs(gtpa1_diff) < J2_MAX_GTPA1_DIFF and il_diff_high < J2_IL_DIFF_HIGH_BELOW,
         },
-        "J3": {
+        "J3'": {
             "rule": (
-                f"{J3_POLICY} on H1 within {J3_GTPA1_TOLERANCE} of BED's GTPA@1 {J3_BED_GTPA1} and within"
-                f" {J3_IL_TOLERANCE} of its IL {J3_BED_IL}"
+                f"{J3_POLICY} with BED's stats file on T within {J3_GTPA1_TOLERANCE} of BED's GTPA@1 {J3_BED_GTPA1}"
+                f" for each of {list(J3_METRICS)}, and its mean IL within {J3_IL_TOLERANCE} of BED's {J3_BED_IL}"
             ),
-            "gtpa1": gtpa1,
-            "il_mean": il,
-            "met": abs(gtpa1 - J3_BED_GTPA1) <= J3_GTPA1_TOLERANCE and abs(il - J3_BED_IL) <= J3_IL_TOLERANCE,
+            "gtpa1": bed_gtpa1,
+            "il_mean": bed_il,
+            "met": all(abs(g - J3_BED_GTPA1) <= J3_GTPA1_TOLERANCE for g in bed_gtpa1.values())
+            and abs(bed_il - J3_BED_IL) <= J3_IL_TOLERANCE,
+            "paired": {
+                "comparison": f"{J3_POLICY} - {J3_PAIRED} on the same rows, reported, not judged",
+                "answers": BED_DEFINITIONS["answers"],
+                **paired,
+            },
         },
     }
 
 
+def reporting_subsets(root: Path) -> tuple[dict[str, frozenset[int]], dict[str, Any]]:
+    """The subsets with a row list, and what every subset manifest says (n, or why there is no list)."""
+    rows: dict[str, frozenset[int]] = {}
+    described: dict[str, Any] = {}
+    for name in SUBSETS:
+        found = subset_rows(name, root)
+        if found is None:
+            described[name] = {"available": False, "reason": read_manifest(name, root)["reason"]}
+        else:
+            rows[name] = found
+            described[name] = {"available": True, "n": len(found)}
+    return rows, described
+
+
 def evaluate(protocol: FrozenProtocol, root: Path, out: Path, workers: int) -> None:
-    """Every policy, baseline, budget curve and dataset property of the protocol on H1, then on H2, in one run."""
-    existing = [path for path in (*(out / name for name in SETS), out / "judgments.json") if path.exists()]
+    """Every policy, baseline, budget curve and dataset property of the protocol on T in one run, with the
+    reporting subsets cut from it."""
+    name = EVALUATION_SET
+    kept = first_run_outputs(root, out)
+    if kept is not None:
+        raise GateError(f"{out} is inside {kept}, the first run's outputs, which are never written")
+    existing = [path for path in (out / name, out / "judgments.json") if path.exists()]
     if existing:
         raise GateError(f"results exist at {existing}; a rerun goes to a new --out")
     p1, p2, budgets = policies(protocol.config)
     kb = load_kb(root)
-    counts: FrequencyCounts | None = None
-    mains: dict[str, dict[str, Any]] = {}
+    subsets, described = reporting_subsets(root)
     stamp = {
         "protocol_sha256": protocol.sha256,
         "protocol_freeze_commit": protocol.freeze_commit,
         "protocol_commit": protocol.commit,
     }
     with worker_pool(workers) as pool:
-        for name in SETS:
-            started_utc, started = utc_now(), time.perf_counter()
-            patients = load_heldout(name, root)
-            ctx = Context(root, kb, patients, name, out / name, pool, workers, train_counts=counts)
-            manifest = read_manifest(name, root)
-            for relative in ("data/ddxplus/20043374.zip", f"{MANIFEST_DIR}/{name}.json", str(manifest["csv"])):
-                ctx.record_input(relative)
-            audit = support_audit(kb, patients)
-            main, runs = main_suite(ctx, p1, p2, budgets, patients_dir=ctx.out / "patients")
-            baselines = baseline_suite(ctx, p1, p2, runs, budgets)
-            counts = ctx.counts()
-            meta = {**provenance(ctx, f"eval {name}", started_utc, started, 0), **stamp}
-            write_json(ctx.out / "main.json", {"set": name, **main, "provenance": meta})
-            write_json(ctx.out / "baselines.json", {"set": name, **baselines, "provenance": meta})
-            write_json(ctx.out / "properties.json", {"set": name, **audit.summary(), "provenance": meta})
-            mains[name] = main
-    write_json(out / "judgments.json", {**judgments(mains), "provenance": {"design": f"{DESIGN_DOC} §6", **stamp}})
+        started_utc, started = utc_now(), time.perf_counter()
+        patients = load_heldout(name, root)
+        ctx = Context(root, kb, patients, name, out / name, pool, workers)
+        manifest = read_manifest(name, root)
+        for relative in ("data/ddxplus/20043374.zip", str(manifest["csv"])):
+            ctx.record_input(relative)
+        for subset in MANIFESTS:
+            ctx.record_input(f"{MANIFEST_DIR}/{subset}.json")
+        audit = support_audit(kb, patients)
+        patients_dir = ctx.out / "patients"
+        main, runs = main_suite(ctx, p1, p2, budgets, patients_dir=patients_dir, subsets=subsets, first_protocol=True)
+        baselines = baseline_suite(ctx, p1, p2, runs, budgets, subsets=subsets)
+        baselines["B-BED"] = bed_suite(ctx, runs, budgets, patients_dir=patients_dir, subsets=subsets)
+        hierarchy = hierarchy_suite(ctx, p1, p2, runs, budgets, subsets=subsets)
+        meta = {**provenance(ctx, f"eval {name}", started_utc, started, 0), **stamp, "subsets": described}
+        write_json(ctx.out / "main.json", {"set": name, **main, "provenance": meta})
+        write_json(ctx.out / "baselines.json", {"set": name, **baselines, "provenance": meta})
+        write_json(ctx.out / "hierarchy.json", {"set": name, **hierarchy, "provenance": meta})
+        write_json(ctx.out / "properties.json", {"set": name, **audit.summary(), "provenance": meta})
+    design = f"{DESIGN_DOC} 보완 2 §8"
+    write_json(out / "judgments.json", {**judgments(main, baselines), "provenance": {"design": design, **stamp}})
 
 
 def main(argv: Sequence[str] | None = None) -> None:
-    ap = argparse.ArgumentParser(prog="python -m ddxkb.run_eval", description="The single evaluation run on H1 and H2.")
+    ap = argparse.ArgumentParser(prog="python -m ddxkb.run_eval", description="The single evaluation run on T.")
     ap.add_argument("--config-sha256", required=True, help="the protocol digest printed at the freeze")
     ap.add_argument("--workers", type=int, default=1)
-    ap.add_argument("--out", type=Path, default=None, help="output directory (default paper1/outputs/eval)")
+    ap.add_argument("--out", type=Path, default=None, help=f"output directory (default {OUTPUT_DIR})")
     ap.add_argument("--root", type=Path, default=REPO_ROOT, help="repository root")
     args = ap.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
