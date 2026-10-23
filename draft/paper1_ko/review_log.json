@@ -1,0 +1,264 @@
+{
+ "evidence": [
+  {
+   "claim": "KB: 49 diseases, 223 evidences (binary 208, categorical 10, multi-choice 5)",
+   "source": "data/ddxplus/20043374.zip: release_conditions.json (49 keys), release_evidences.json (223 keys, data_type B=208/C=10/M=5); docs/design/ddxplus_kb_redo.md 용어; paper1/outputs/dev/ablations.json A4.n_units.code=223"
+  },
+  {
+   "claim": "Subset pairs in KB (stable ⊂ unstable angina, chronic ⊂ acute sinusitis); MIN_GAIN stop rule 1e-6 nats",
+   "source": "docs/design/ddxplus_kb_redo.md 개발 전 보완 §1; paper1/configs/protocol_frozen.yaml constants.min_gain"
+  },
+  {
+   "claim": "DDXPlus ~1.3M synthetic patients, Fansi Tchango et al. NeurIPS 2022",
+   "source": "docs/design/ddxplus_kb_redo.md Context and Scope"
+  },
+  {
+   "claim": "validation n = 132,448; train − H2 = 891,073",
+   "source": "paper1/outputs/dev/selected.json n, provenance.train_minus_h2_rows"
+  },
+  {
+   "claim": "H2 = 134,529 of train 1,025,602; H1 = 125,529 of official test 134,529",
+   "source": "paper1/manifests/H2.json n, csv_data_rows; paper1/manifests/H1.json n, csv_data_rows"
+  },
+  {
+   "claim": "9,000 test rows removed (used by prior study v2); H1 exposure to earlier work",
+   "source": "docs/design/ddxplus_kb_redo.md §1 데이터 역할, 개발 전 보완 §11"
+  },
+  {
+   "claim": "Outside-support positive patients = 0 in validation, H1, H2",
+   "source": "paper1/outputs/dev/properties.json outside_support; paper1/outputs/eval/H1/properties.json outside_support; paper1/outputs/eval/H2/properties.json outside_support"
+  },
+  {
+   "claim": "Set-inclusion uniqueness 92.35/92.39/92.67% (recorded 92.42/92.46/92.72%)",
+   "source": "dev/properties.json unique.share=0.92354, unique_recorded.share=0.92420; eval/H1/properties.json unique.share=0.92387, unique_recorded.share=0.92456; eval/H2/properties.json unique.share=0.92671, unique_recorded.share=0.92721"
+  },
+  {
+   "claim": "Candidate grid P1 27, P2 8 per variant; 59 configs tried",
+   "source": "docs/design/ddxplus_kb_redo.md §5; paper1/outputs/dev/configs_tried.jsonl (59 lines: policy P1 27, each P2 variant 8)"
+  },
+  {
+   "claim": "P1 candidate validation GTPA@1 range 95.04–98.34%",
+   "source": "paper1/outputs/dev/configs_tried.jsonl rows with policy=P1, stop.gtpa1.estimate (min 0.9504, max 0.9834)"
+  },
+  {
+   "claim": "Selected P1 α 0.5, ε 1e-4, τ 0.99; all P2 τ 0.999",
+   "source": "paper1/outputs/dev/selected.json P1.config, P2.*.config; paper1/configs/protocol_frozen.yaml P1, P2"
+  },
+  {
+   "claim": "Judgment rules J1–J3 and BED reference 99.47%/5.47 with tolerances 0.01/1.5",
+   "source": "paper1/outputs/eval/judgments.json J1.rule, J2.rule, J3.rule; paper1/configs/protocol_frozen.yaml constants.judgments"
+  },
+  {
+   "claim": "Bootstrap B = 2,000",
+   "source": "paper1/configs/protocol_frozen.yaml constants.bootstrap.b"
+  },
+  {
+   "claim": "0 failed patients in all policies and sets",
+   "source": "paper1/outputs/eval/H1/main.json <policy>.failures; eval/H2/main.json <policy>.failures; eval/H*/properties.json provenance.timings[].failures"
+  },
+  {
+   "claim": "Table 1 P1: H1 98.37 [98.30, 98.44], @3 99.32, IL 10.32 [10.28, 10.36], median 9, p95 26; H2 98.39 [98.33, 98.46], @3 99.33, IL 10.20 [10.16, 10.24]",
+   "source": "paper1/outputs/eval/H1/main.json P1.stop.gtpa1.{estimate,low,high}, P1.stop.gtpa3.estimate, P1.stop.il.{mean,low,high,median,p95}; same keys in eval/H2/main.json"
+  },
+  {
+   "claim": "Table 1 P2 rows (binary, binary+agesex, value, value+agesex) GTPA@1 CI, GTPA@3, IL CI, median/p95",
+   "source": "paper1/outputs/eval/H1/main.json and eval/H2/main.json keys P2-binary, P2-binary-agesex, P2-value, P2-value-agesex → stop.gtpa1, stop.gtpa3.estimate, stop.il"
+  },
+  {
+   "claim": "P1 share at cap 3.56% (H1), 3.50% (H2)",
+   "source": "eval/H1/main.json P1.stop.il.share_at_cap=0.03563; eval/H2/main.json P1.stop.il.share_at_cap=0.03500"
+  },
+  {
+   "claim": "P2 binary − P1: +0.50/+0.49%p; McNemar 1,083 vs 451 (H1), 1,132 vs 462 (H2); IL diff −1.70 [−1.73, −1.66] / −1.69 [−1.73, −1.66]",
+   "source": "eval/H1/main.json P2-binary.against.P1.stop.{gtpa1_diff, mcnemar, il_diff}; eval/H2/main.json same keys; eval/judgments.json J2.per_set"
+  },
+  {
+   "claim": "J1 Wilson lows 98.30%, 98.33%; J2 IL upper bound −1.66 both; J3 99.53%, IL 5.66; all met",
+   "source": "paper1/outputs/eval/judgments.json J1.wilson_low, J2.per_set.*.il_diff_high, J3.gtpa1, J3.il_mean, *.met"
+  },
+  {
+   "claim": "J4 met: v1 replay 81.13% (target 81.13 ± 0.5)",
+   "source": "paper1/outputs/dev/v1_replay.json J4.observed=81.132, J4.met=true"
+  },
+  {
+   "claim": "Table 2 P1, P2 binary, P2 value+agesex at budgets 0/5/10/15/20/29",
+   "source": "eval/H1/main.json and eval/H2/main.json <policy>.curve.gtpa1 at curve.budgets indices 0,5,10,15,20,29"
+  },
+  {
+   "claim": "Table 2 B2 random means and SD ≤ 0.11%p",
+   "source": "eval/H1/baselines.json and eval/H2/baselines.json B2.over_seeds.{5,10,15,20,29}.gtpa1.mean and .sd (max sd 0.00104 at H2 budget 20)"
+  },
+  {
+   "claim": "Table 2 B6 global-frequency order with P1 ranking",
+   "source": "eval/H1/baselines.json and eval/H2/baselines.json B6.P1.curve.gtpa1"
+  },
+  {
+   "claim": "P2 binary − P1 at budget 5: 17.02/17.05%p; at 29: 0.49/0.47%p; P2 value+agesex − P1 at 5: 27.31/27.13%p",
+   "source": "eval/H1/main.json P2-binary.against.P1.5.gtpa1_diff, .29.gtpa1_diff, P2-value-agesex.against.P1.5.gtpa1_diff; same in eval/H2/main.json"
+  },
+  {
+   "claim": "Table 3 P1 validation 98.34 [98.27, 98.41], IL 10.36, budget-5 64.78",
+   "source": "paper1/outputs/dev/main.json P1.stop.gtpa1, P1.stop.il.mean, P1.budgets.5.gtpa1.estimate"
+  },
+  {
+   "claim": "A1 positive-only 86.18 [85.99, 86.37], IL 14.07, b5 44.63; negative-only 16.48 [16.29, 16.69], IL 30.00, b5 3.91",
+   "source": "paper1/outputs/dev/ablations.json A1.positive_only.stop, .budgets.5; A1.negative_only.stop, .budgets.5"
+  },
+  {
+   "claim": "Negative answers add 12.16%p and shorten IL by 3.71",
+   "source": "dev/ablations.json A1.positive_only.against.P1.stop.gtpa1_diff=−0.1216, il_diff.estimate=3.709"
+  },
+  {
+   "claim": "A3 ε rows (0.1: 95.24, IL 22.77; 1e-2: 98.02, 13.41; 1e-3: 98.33, 11.67; 1e-6: 98.33, 10.34; 1e-9: 98.28, 9.88) and budget-5 values",
+   "source": "dev/ablations.json A3.{0.1,0.01,0.001,1e-06,1e-09}.stop.gtpa1, .stop.il.mean, .budgets.5.gtpa1.estimate"
+  },
+  {
+   "claim": "ε = 0.1 vs P1: −3.10%p, IL +12.41",
+   "source": "dev/ablations.json A3.0.1.against.P1.stop.gtpa1_diff=−0.0310, il_diff.estimate=12.414"
+  },
+  {
+   "claim": "A5 coverage 89.89 [89.73, 90.05], IL 20.03, b5 32.70",
+   "source": "dev/ablations.json A5.coverage.stop.gtpa1, .stop.il.mean, .budgets.5.gtpa1.estimate"
+  },
+  {
+   "claim": "B2 validation 87.86 ± 0.07, IL 14.63, b5 50.72",
+   "source": "paper1/outputs/dev/baselines.json B2.over_seeds.stop.gtpa1.{mean,sd}, B2.over_seeds.stop.il_mean.mean, B2.over_seeds.5.gtpa1.mean"
+  },
+  {
+   "claim": "B6 validation 82.52 [82.31, 82.72], IL 21.87, b5 30.53",
+   "source": "dev/baselines.json B6.P1.stop.gtpa1, B6.P1.stop.il.mean, B6.P1.budgets.5.gtpa1.estimate"
+  },
+  {
+   "claim": "A4 question units 188/207/209 and results 98.59/98.30/98.44, IL 10.72/10.78/10.33; 14 subattributes",
+   "source": "dev/ablations.json A4.n_units, A4.cui_v1/cui_merged/no_subattributes.stop, .budgets.5, A4.definitions.no_subattributes"
+  },
+  {
+   "claim": "A2 train prior 98.20 [98.13, 98.27], IL 10.14, b5 66.93; −0.13%p vs P1",
+   "source": "dev/ablations.json A2.train_prior.stop, .budgets.5.gtpa1.estimate, .against.P1.stop.gtpa1_diff=−0.00135"
+  },
+  {
+   "claim": "A6 P2 binary in value mode 99.49 [99.45, 99.53], IL 5.82, b5 92.22; +0.64%p and IL −2.84 vs P2 binary",
+   "source": "dev/ablations.json A6['P2-binary in value mode'].stop, .budgets.5, .against['P2-binary'].stop.gtpa1_diff=0.00645, il_diff.estimate=−2.840"
+  },
+  {
+   "claim": "P2 binary validation 98.85 [98.79, 98.90], IL 8.66, b5 81.74",
+   "source": "dev/main.json P2-binary.stop.gtpa1, .stop.il.mean, .curve.gtpa1[5]"
+  },
+  {
+   "claim": "B0 most frequent 6.54 [6.40, 6.67]; initial only 25.22 [24.98, 25.45]",
+   "source": "dev/baselines.json B0.most_frequent.stop.gtpa1, B0.initial_only.stop.gtpa1"
+  },
+  {
+   "claim": "B1 set inclusion 95.90, KB-Bayes 99.16, NB binary 99.28, NB value+agesex 99.67 (validation)",
+   "source": "dev/baselines.json B1.set_inclusion / kb_bayes / naive_bayes/P2-binary / naive_bayes/P2-value-agesex .stop.gtpa1"
+  },
+  {
+   "claim": "B1 KB-Bayes full profile H1 99.20%",
+   "source": "eval/H1/baselines.json B1.kb_bayes.stop.gtpa1.estimate=0.9920"
+  },
+  {
+   "claim": "P2 variants improve GTPA@1 over P1 by 0.49–1.16%p (0.5–1.2%p)",
+   "source": "eval/H1/main.json and eval/H2/main.json P2-*.against.P1.stop.gtpa1_diff"
+  },
+  {
+   "claim": "P2 value+agesex vs P1 IL −4.66 [−4.70, −4.62] on H1",
+   "source": "eval/H1/main.json P2-value-agesex.against.P1.stop.il_diff"
+  },
+  {
+   "claim": "Age/sex effect: |ΔGTPA@1| ≤ 0.03%p, IL −0.20 to −0.44",
+   "source": "differences of eval/H1/main.json and eval/H2/main.json stop.gtpa1.estimate and stop.il.mean between P2-binary↔P2-binary-agesex and P2-value↔P2-value-agesex (computed: +0.018/−0.197, −0.005/−0.418, +0.030/−0.220, +0.001/−0.440)"
+  },
+  {
+   "claim": "Likelihood ratio ε/α = 2×10⁻⁴; negative ratio (1−α)/(1−ε) ≈ 0.5",
+   "source": "derived from paper1/outputs/dev/selected.json P1.config (alpha 0.5, eps 1e-4)"
+  },
+  {
+   "claim": "Negative-only ablation also ignores the initial evidence",
+   "source": "docs/design/ddxplus_kb_redo.md 개발 전 보완 §6"
+  },
+  {
+   "claim": "DDF1 30.84–31.35% across policies on H1/H2",
+   "source": "eval/H1/main.json and eval/H2/main.json <policy>.stop.ddf1.estimate (min P1 H1 0.3084, max P2-binary-agesex H2 0.3135)"
+  },
+  {
+   "claim": "Literature: AARLC Diff ✓ 75.39% (IL 25.75), Diff ✗ 99.21% (IL 6.73); BASD 67.71% / 97.15%; BED 99.47% (IL 5.47); IL definitions unconfirmed",
+   "source": "docs/v1_ddxplus_review_2026-10-21.md §4.1 table (status [문헌]; IL column marked 미확인)"
+  },
+  {
+   "claim": "COTCAgent (preprint): BED-IG fixed KB 60.4% (5.65 questions, test 1,000); KB full-evidence 71.9%",
+   "source": "docs/v1_ddxplus_review_2026-10-21.md §4.1 and §4.2 tables (status [문헌], 사전공개)"
+  },
+  {
+   "claim": "DDXPlus authors: GTPA@1 meaningful only for Diff ✗",
+   "source": "docs/v1_ddxplus_review_2026-10-21.md 용어 (Diff ✓ / Diff ✗)"
+  },
+  {
+   "claim": "Earlier version reported validation 90.60% (IL 23.1 excl. initial) and test 91.05%; settings tuned on test; result files missing",
+   "source": "docs/v1_ddxplus_review_2026-10-21.md §1, §2.6, §2.7, §2.8 ([v1 보고])"
+  },
+  {
+   "claim": "v1 replay (CUI, bug on): v1-order 81.13% [80.92, 81.34], tie-aware 80.10%, GTPA@10 99.73%, IL 18.15",
+   "source": "paper1/outputs/dev/v1_replay.json runs['cui/trav1_bug'].top1.{estimate,low,high}, .gtpa1.estimate, .top10.estimate, .il.mean"
+  },
+  {
+   "claim": "v1 tie-seed range 73.41–83.21%, IL 16.68–19.51",
+   "source": "dev/v1_replay.json tie_seeds.range.top1, tie_seeds.range.il_mean (run cui/trav1_bug, 10 seeds)"
+  },
+  {
+   "claim": "v1 bug off 84.92% (IL 17.86); code unit 31.90% (IL 7.08); code without subattributes 81.55% (IL 17.94)",
+   "source": "dev/v1_replay.json runs.cui.top1/.il.mean; runs.code.top1/.il.mean; runs.code_no_subattributes.top1/.il.mean"
+  },
+  {
+   "claim": "v1 graph 581 edges, 580 shared with KB folded to CUIs (586 edges)",
+   "source": "paper1/outputs/dev/properties.json kb_folded_to_cuis.{edges, v1_graph_edges, shared}"
+  },
+  {
+   "claim": "Single frozen evaluation at commit a06db1e",
+   "source": "paper1/outputs/eval/judgments.json provenance.protocol_freeze_commit; eval/H1/main.json provenance.commit"
+  }
+ ],
+ "applied": [
+  "COTCAgent 비교(지적 2건, 같은 내용): 대화형 60.4%(IL 5.65)를 질문 5개 뒤 P1 64.82%(H1)와 견주도록 바꿨다. '어긋난다'는 말은 전체 프로필 쌍(71.9% 대 KB-Bayes 99.20%, 27.3%p)에만 쓴다. 확인: eval/H1/main.json curve와 baselines.json B1.kb_bayes 0.99195.",
+  "나이·성별의 몫과 λ 교란: 나이·성별 효과는 λ가 같은 이진 판 쌍에서만 보고한다(+0.02/+0.03%p, IL −0.20/−0.22개). 값 단위 쌍은 λ가 달라(1.0 대 0.5) 효과를 떼어 낼 수 없다고 적었다. λ를 같게 둔 validation 값(−0.16개)도 넣었다. 확인: configs_tried.jsonl의 6.074/5.820/5.663.",
+  "선택 규칙: 소수 둘째 자리 비교, IL 동점 규칙, 나열 순서 규칙을 적었다. 선택된 λ(값 단위 판만 1.0)와 동점 규칙으로 정해진 사례(두 λ 모두 99.51%, IL 5.92개 대 5.66개)도 넣었다. 확인: selected.json selection_key.",
+  "81.13%: '이전 판 순서' 값으로 표시하고 동점 반영 80.10%를 함께 적었다. J4 정의에도 같은 표시를 했다. 확인: v1_replay.json top1 0.8113, gtpa1 0.8010.",
+  "예산 곡선의 모양: P2 이진 − P1 차이가 가장 큰 곳은 질문 4개다(H1 17.93%p, H2 17.65%p). 질문 5개는 17.02/17.05%p, 29개는 0.49/0.47%p다. 값 단위 판의 최대(H1 29.84%p, H2 29.43%p)도 적었다.",
+  "초록의 H1 설명(지적 2건): '공식 test 134,529명에서 다른 연구가 쓴 9,000명을 뺀 125,529명'으로 고쳤다. 확인: manifests/H1.json csv_data_rows 134529.",
+  "다중선택 EIG: 값 단위 P2는 선택지별 EIG의 최댓값을 효용으로 쓴다고 적었다(CASANDE B.3). 확인: policies/bayes.py maximum.reduceat.",
+  "B2 seed 간 SD를 '최대 0.10%p'로 고쳤다. 실제 최댓값은 H2 예산 20의 0.104다.",
+  "값 단위 + 나이·성별 P2가 P1보다 1.16/1.11%p 높아 1%p를 넘는 점을 적었다. McNemar 1,670 대 211, 1,720 대 213, 오답률 1.63%→0.47%다. '정확도는 같고 질문 수만 바뀐다'는 해석은 이진 응답 P2에만 해당한다고 밝혔다. 결론의 수치도 판별로 나눴다.",
+  "P2는 사전확률·우도·τ가 모두 다르다는 점을 적었다. 초록·서론의 '우도표만' 표현을 지웠다. 같은 τ 0.99에서의 비교(+0.24%p, IL −3.09개, 검정하지 않음)를 넣고, 예산 곡선은 τ와 무관하다고 밝혔다.",
+  "생성 KB 서술: DDXPlus README의 문장('proprietary medical knowledge base and a commercial rule-based AD system')과 release_conditions.json 항목 값이 모두 {}라는 점을 근거로 고쳤다. README로 확인되어 [ref 확인 필요]는 붙이지 않았다. 결론의 '공개 생성 KB' 표현도 지웠다.",
+  "H2 노출: '어떤 이전 작업도 읽지 않았다'를 지웠다. H2는 평가 사례나 설정 선택에는 쓰이지 않았다고 고쳤다. 검토 단계 스크립트가 빈도(앞 200k–300k행)와 동시출현(train 전체)을 집계했고, 앞 200k행에 H2 26,284행, 앞 300k행에 39,427행이 든다는 점을 적었다. 확인: manifests/H2.json row_indices, reference/adv_bayes.py·nb_complete.py, 검토 §2.1.",
+  "J4는 검토 단계 재구현값(81.13%)과 같은지 보는 구현 점검이며, 이전 판 보고값 90.60%의 재현 여부는 판정하지 않는다고 명시했다.",
+  "문헌 보고값 표(표 4)를 넣었다. AARLC·BASD의 Diff ✓/✗, CASANDE Diff ✗, BED, COTCAgent 두 행이 있고 조건 열을 두었다. '직접 비교가 아니다'라는 문장을 붙이고, BASD Diff ✗(97.15%)가 P1보다 낮다는 점도 적었다.",
+  "'환자 데이터 학습 없이'에 한정어를 붙였다. α·ε·τ만 validation에서 골랐고, 후보 27개의 GTPA@1은 95.04–98.34%였다.",
+  "격자 경계를 밝혔다. P1의 ε·τ와 P2의 τ가 경계값이고, P2 이진은 τ가 커질수록 96.68→98.85%로 계속 올랐다. 방법과 한계 절에 넣었다.",
+  "절제 정의(A1–A6, A4 단위 3종, A5 coverage), 나이 구간 경계, 다중선택 우도, 0.01 후처리 적용 지표를 3절에 넣었다. 확인: 설계 '개발 전 보완' 3–6, metrics.py.",
+  "절제 통계: 표 3에 ΔIL과 그 95% CI, McNemar의 한쪽만 맞힌 환자 수 열을 더했다. 확인: ablations.json·baselines.json의 against 값.",
+  "양성만·음성만 비교를 고쳤다. 깨끗한 비교(양성만 → 둘 다, +12.16%p)를 앞에 두었다. 음성만 판은 초기 evidence도 빠지므로 극성만의 효과로 읽을 수 없다고 적었다.",
+  "DDXPlus 보조 지표를 부록 B 표로 넣었다(고정 순서 GTPA@1, GTPA@5, GTPA, DDR, DDP, DDF1, PER, 상한 도달 비율의 H1/H2 값). DDR·DDF1이 낮은 이유도 한 문장으로 적었다.",
+  "이전 판 공개를 방법 절에 넣었다('이전 판이 공식 test를 개발에 썼으므로 H2를 따로 두었다'). 투고 이력 문구는 아래 기각 목록과 작성 메모를 보라.",
+  "deny 임계값은 test에서 고른 뒤 validation에서 사후 확인했다고 정정했다(검토 §2.6).",
+  "설계 보완을 공개했다. 전체 개발 실행 전에 EIG 하한 종료 규칙을 더하고 J2를 양방향으로 바꿨다.",
+  "동결 커밋 a06db1e와 프로토콜 sha256 af411239…를 적고, 자료와 코드 문단을 더했다(공개 위치는 [작성 필요]).",
+  "동점 반영 GTPA@1의 Wilson 구간은 평균 점수를 비율로 본 근사라고 밝혔다. 평가 세트에서 고정 순서값과의 차이는 0.01%p 이하였다.",
+  "B1이 상한이 아닌 이유를 고쳤다. Bayes 판은 조건부 독립을 가정하고, 일부 판은 나이·성별·값을 쓰지 않는다. 집합 포함 검사에는 조건부 독립 가정을 적용하지 않았다.",
+  "인용 표시를 달았다. DDXPlus(Fansi Tchango 외, 2022)와 MEDDxAgent(Rose 외, 2025)는 저자·연도를 적었다. 나머지는 [인용] 자리표시로 두었다(일부만 적용, 기각 목록 참조).",
+  "'학습'의 뜻을 정의했다. BED는 '경사 기반 학습 없이 환자 빈도를 쓰는' 탐문으로 고쳤다.",
+  "소제목을 '확률 정보는 주로 질문 수를 줄인다(이진 응답)'와 'BED 보고값과의 대조'로 바꿨다. BED 허용 범위가 넓다는 점(IL ±1.5개는 BED IL의 약 27%)도 적었다.",
+  "초록의 인과 표현('정확도를 공개 목록이 정한다')을 지우고 측정값으로 바꿔 썼다.",
+  "BED와의 차이를 서론에 한 문단으로 넣었다. '이 양'은 '이 목록만으로 도달하는 정확도와 질문 수'로 바꿨다.",
+  "IL에 단위 '개'를 붙이고, 초록의 IL에 95% CI를 붙였다. '짧다'는 '적다'로 고쳤다.",
+  "표 2 캡션에 '본문의 차이는 반올림 전 값으로 계산했다'를 넣었다.",
+  "판정 규칙 J1–J4를 한 줄에 하나씩 나눴다. J2는 'paired bootstrap 95% CI 상한 < 0'으로 바꿔 썼다.",
+  "분량: RQ 목록을 빼고, 표 3에서 ε 10⁻³·10⁻⁶ 행과 NB 이진 행을 캡션 한 문장으로 옮기고, 논의·한계·부록 A의 중복을 줄였다(일부만 적용, 기각 목록 참조)."
+ ],
+ "rejected": [
+  "'짧은 초안' 지적에서 요약본과 전체 원고를 나누라는 부분은 적용하지 않았다. 이 단계는 draft/paper1_ko/draft.md 파일 하나만 쓰게 되어 있다. 더 큰 문제도 있다. 확인된 수정(절제 정의, 판정 규칙, 문헌 표, 보조 지표, 통계 열)을 넣으면서 표를 뺀 서술이 공백 제외 약 9,000자가 되었다(초록–결론 약 7,800자). 이전 초안이 스스로 적은 약 7,000자보다 길어서, 요청한 '짧은 초안'을 이 판은 채우지 못했다. 더 줄이려면 부록 B와 표 3의 기준선 행을 빼는 방법이 있다.",
+  "이전 판 공개 지적 가운데 투고 이력에 따라 문구를 바꾸라는 부분은 적용하지 않았다. 저장소 자료로는 이전 판이 투고된 적이 있는지 확인할 수 없다(검토 §8 E8은 사용자만 안다고 적는다). 설계 문서의 '출판된 적 없는'과 맞는 지금 문구를 두고, 작성 메모에 결정할 사항으로 남겼다.",
+  "생성 KB 지적이 제안한 '[ref 확인 필요: DDXPlus 원문의 KB 공개 범위]' 표시는 붙이지 않았다. 데이터 zip 안의 DDXPlus README와 release_conditions.json(항목 값이 모두 {})으로 직접 확인했다. 내용 수정은 적용했다.",
+  "인용 지적에서 AARLC, BASD, CASANDE, BED, COTCAgent에 실제 서지 정보를 다는 부분은 하지 않았다. 저장소에 이 문헌들의 서지 정보가 없고, 지어내지 않으려고 [인용] 자리표시로 두었다. 지적이 예로 든 MEDDxAgent에는 v1 원고 참고문헌의 저자·연도를 달았다.",
+  "동결 정보 지적의 코드 공개 위치는 정해진 것이 없어 [작성 필요]로 두었다. 커밋 해시와 프로토콜 해시는 적용했다."
+ ]
+}
