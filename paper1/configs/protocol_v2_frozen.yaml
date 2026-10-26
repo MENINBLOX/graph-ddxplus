@@ -1,0 +1,207 @@
+# The frozen protocol of design §5 and 보완 2, written by `python -m ddxkb.freeze`. Never edit it by hand.
+design: docs/design/ddxplus_kb_redo.md
+selected:
+  path: paper1/outputs/v2/dev/selected.json
+  sha256: db4658a02b16ee01b54882ba1c4878fc3e6dcb8493cecbfeca628d4b65157fb2
+  commit: f54bc18649d8a896faee7d8bfa50cadb4820f567
+evaluation_set: T
+manifests:
+  T: 88359a7e5904e9dd2e8121400986af0a9924929f8f3d546cc856c75ea25bdf10
+  H1: cca3ce4fc09e0b29771f8b5a9773c20aa72f80c059e622cde4d5ee0c9e967d79
+  T-dedup: dd85873358857d335023585d367e1efed8cb7877618e99ca03254dffae3a083f
+  T-streambench: 3977ce1c248daa40046e71c2effe11bb7774551b1c5bf14239150b140ccd4113
+  H2: 7117e67e27b22e672ace350494164336b8342277a9b1eefb5c6ce5998fccc8a1
+subsets:
+  H1:
+    available: true
+    n: 125529
+    rule: official test minus earlier-study rows
+  T-dedup:
+    available: true
+    n: 132540
+    rule: T rows whose (age, sex, initial evidence, set of evidence items) is in no
+      train row
+  T-streambench:
+    available: true
+    n: 1764
+    rule: the T row equal to each StreamBench test row in input, pathology and differential
+data:
+  data/ddxplus/20043374.zip: d6c1779714955da1cf073907996cca506677fb38219999fe3b7a521e17be7796
+  data/ddxplus/release_train_patients.csv: 1bb2376feefa2d703123c4b29ce80f9ebab12211d0422490d1015c85ae4388f9
+budgets:
+- 5
+- 10
+- 15
+- 20
+- 30
+constants:
+  max_il: 31
+  hierarchy: none
+  sensitivity_hierarchy: implicit
+  min_gain: 1.0e-06
+  eig_tie_atol: 1.0e-12
+  tie_rtol: 1.0e-09
+  postprocess_mass: 0.01
+  severe_below: 3
+  official_disease_order:
+  - Anaphylaxie
+  - Angine instable
+  - Angine stable
+  - Anémie
+  - Asthme exacerbé ou bronchospasme
+  - Attaque de panique
+  - Bronchiectasies
+  - Bronchiolite
+  - Bronchite
+  - Chagas
+  - Coqueluche
+  - Céphalée en grappe
+  - Ebola
+  - Embolie pulmonaire
+  - Exacerbation aigue de MPOC et/ou surinfection associée
+  - Fibrillation auriculaire/Flutter auriculaire
+  - Fracture de côte spontanée
+  - Hernie inguinale
+  - IVRS ou virémie
+  - Laryngite aigue
+  - Laryngo-trachéo-bronchite (Croup)
+  - Laryngospasme
+  - Lupus érythémateux disséminé (LED)
+  - Myasthénie grave
+  - Myocardite
+  - Néoplasie du pancréas
+  - OAP/Surcharge pulmonaire
+  - Oedème localisé ou généralisé sans atteinte pulmonaire associée
+  - Otite moyenne aigue (OMA)
+  - Pharyngite virale
+  - Pneumonie
+  - Pneumothorax spontané
+  - Possible NSTEMI / STEMI
+  - Possible influenza ou syndrome virémique typique
+  - Péricardite
+  - RGO
+  - Rhinite allergique
+  - Rhinosinusite aigue
+  - Rhinosinusite chronique
+  - Réaction dystonique aïgue
+  - Sarcoïdose
+  - Scombroïde
+  - Syndrome de Boerhaave
+  - Syndrome de Guillain-Barré
+  - TSVP
+  - Tuberculose
+  - VIH (Primo-infection)
+  - néoplasie pulmonaire
+  - Épiglottite
+  age_bin_edges:
+  - 1
+  - 5
+  - 15
+  - 30
+  - 45
+  - 60
+  - 75
+  bootstrap:
+    b: 2000
+    seed: 0
+  p1_wider:
+    alpha:
+    - 0.1
+    - 0.9
+    eps:
+    - 0.1
+    - 1.0e-05
+    tau:
+    - 0.8
+    - 0.999
+  a2_prior_lambda: 1.0
+  a3_epsilons:
+  - 0.1
+  - 0.01
+  - 0.001
+  - 0.0001
+  - 1.0e-06
+  - 1.0e-09
+  a4_hierarchies:
+  - implicit
+  - parent_first
+  - no_children
+  b2_seeds:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  bed:
+    stats: paper1/reference/casande_bed/ddxplus_bed_stats_4.json
+    stats_sha256: 84e781b350800eb8a2087c5749e0d1eb07d81a4e8a50ddffcab3e06e70df533c
+    unseen: 1.0e-07
+    stop_utility: 0.01
+    max_questions: 30
+    utility_tie_atol: 1.0e-14
+  first_protocol:
+    max_il: 30
+    frequencies_without: H2
+    age_bin_edges:
+    - 2
+    - 5
+    - 8
+    - 10
+    - 18
+    - 30
+    - 33
+    - 45
+    - 60
+    - 75
+  judgments:
+    J1:
+      min_wilson_low: 0.95
+      metrics:
+      - gtpa1
+      - gtpa1_official
+    J2:
+      policy: P2-binary
+      max_gtpa1_diff: 0.01
+      il_diff_high_below: 0.0
+    J3':
+      policy: B-BED
+      bed_gtpa1: 0.9947
+      bed_il: 5.47
+      gtpa1_tolerance: 0.003
+      il_tolerance: 0.5
+      metrics:
+      - gtpa1
+      - gtpa1_official
+      paired: P2-value
+environment:
+  python: 3.12.3
+  numpy: 2.5.4
+  pandas: 3.0.6
+  numpy_simd:
+  - X86_V3
+P1:
+  alpha: 0.5
+  eps: 0.0001
+  tau: 0.99
+P2:
+  P2-binary:
+    mode: binary
+    age_sex: false
+    lam: 0.5
+    tau: 0.999
+  P2-binary-agesex:
+    mode: binary
+    age_sex: true
+    lam: 0.5
+    tau: 0.999
+  P2-value:
+    mode: value
+    age_sex: false
+    lam: 1.0
+    tau: 0.999
+  P2-value-agesex:
+    mode: value
+    age_sex: true
+    lam: 0.5
+    tau: 0.999
+config_sha256: 0c59a81a5d33c597cfb562efcd75aff9cc6dfb6fb55585583cc5e925964aed73
