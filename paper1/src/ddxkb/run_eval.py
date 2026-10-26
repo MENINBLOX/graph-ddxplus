@@ -11,6 +11,8 @@ It refuses to start unless all of these hold:
 - paper1/configs/protocol_v2_frozen.yaml (written by `ddxkb.freeze`, which describes its keys) exists, its
   recorded `config_sha256` is the digest of its content, and that digest is the one given on the command line;
 - exactly one commit in HEAD's history changes the protocol file: the freeze commit;
+- nothing under paper1/src differs between the selection run's commit and HEAD, so the evaluation runs the code
+  that made the selection;
 - the protocol's P1 and P2 configurations are those of the selection file it names, whose sha256 it records,
   and each P2 configuration is the variant it is listed under;
 - the manifests on disk (T, its reporting subsets and H2) are the ones the protocol names, the test CSV is the file
@@ -89,11 +91,19 @@ from ddxkb.protocol import (
     P1Config,
     P2Config,
 )
-from ddxkb.provenance import environment, file_sha256, git_changes, git_commits_touching, git_head
+from ddxkb.provenance import (
+    environment,
+    file_sha256,
+    git_changed_since,
+    git_changes,
+    git_commits_touching,
+    git_head,
+)
 from ddxkb.runner import worker_pool
 
 OUTPUT_DIR = "paper1/outputs/v2/eval"
 GATED_PATHS = ("paper1", str(PurePosixPath(DESIGN_DOC).parent))
+CODE = "paper1/src"
 
 logger = logging.getLogger(__name__)
 
@@ -116,6 +126,14 @@ def uncommitted(root: Path) -> list[str]:
     if changes is None:
         raise GateError(f"{root} is not a git work tree")
     return changes
+
+
+def code_changes(root: Path, commit: str) -> list[str]:
+    """Files under CODE that differ between `commit` and HEAD."""
+    changed = git_changed_since(root, commit, CODE)
+    if changed is None:
+        raise GateError(f"cannot compare {CODE} at {commit} with HEAD")
+    return changed
 
 
 def freeze_commit(root: Path) -> str:
@@ -148,6 +166,9 @@ def check_gates(root: Path, expected_sha256: str) -> FrozenProtocol:
         raise GateError(f"{FROZEN_CONFIG} has digest {digest}, not the frozen {expected_sha256}")
     frozen_at = freeze_commit(root)
     _check_selection(root, config)
+    changed = code_changes(root, str(config["selected"]["commit"]))
+    if changed:
+        raise GateError(f"{CODE} changed after the selection run's commit: {changed[:10]}")
     policies(config)
     if config["evaluation_set"] != EVALUATION_SET:
         raise GateError(f"the protocol evaluates {config['evaluation_set']}, this runner {EVALUATION_SET}")

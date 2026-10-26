@@ -54,6 +54,7 @@ def repo(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     monkeypatch.setattr(run_eval, "uncommitted", lambda root: [])
     monkeypatch.setattr(run_eval, "git_head", lambda root: "c0ffee")
     monkeypatch.setattr(run_eval, "git_commits_touching", lambda root, path: ["f00d"])
+    monkeypatch.setattr(run_eval, "git_changed_since", lambda root, commit, *paths: [])
     return tmp_path
 
 
@@ -154,6 +155,7 @@ def test_refuses_other_constants_or_another_environment(repo: Path, monkeypatch:
     monkeypatch.setattr(run_eval, "unseal_requested", lambda: True)
     monkeypatch.setattr(run_eval, "uncommitted", lambda root: [])
     monkeypatch.setattr(run_eval, "git_commits_touching", lambda root, path: ["f00d"])
+    monkeypatch.setattr(run_eval, "git_changed_since", lambda root, commit, *paths: [])
     monkeypatch.setattr(run_eval, "BED_STATS_SHA256", bed_stats_sha256(repo))
     monkeypatch.setattr(run_eval, "environment", lambda: {"python": "3.99.0", "numpy": "0", "pandas": "0"})
     with pytest.raises(GateError, match="environment"):
@@ -254,6 +256,42 @@ def test_freeze_commit_reads_the_history_of_the_protocol_file(tmp_path: Path) ->
     _git(tmp_path, "commit", "-q", "-am", "edit the protocol")
     with pytest.raises(GateError, match="found 2"):
         freeze_commit(tmp_path)
+
+
+def test_refuses_code_changed_after_the_selection_run(repo: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    asked: list[tuple[str, tuple[str, ...]]] = []
+
+    def changed(root: Path, commit: str, *paths: str) -> list[str]:
+        asked.append((commit, paths))
+        return ["paper1/src/ddxkb/metrics.py"]
+
+    monkeypatch.setattr(run_eval, "git_changed_since", changed)
+    with pytest.raises(GateError, match=r"paper1/src changed after the selection run's commit"):
+        check_gates(repo, _digest(repo))
+    assert asked == [(_config(repo)["selected"]["commit"], ("paper1/src",))]
+    monkeypatch.setattr(run_eval, "git_changed_since", lambda root, commit, *paths: None)
+    with pytest.raises(GateError, match="cannot compare"):
+        check_gates(repo, _digest(repo))
+
+
+@pytest.mark.skipif(shutil.which("git") is None, reason="git not installed")
+def test_code_changes_reads_paper1_src_between_the_selection_commit_and_head(tmp_path: Path) -> None:
+    for relative in ("paper1/src/a.py", "paper1/outputs/v2/dev/selected.json", "docs/design/d.md"):
+        (tmp_path / relative).parent.mkdir(parents=True, exist_ok=True)
+        (tmp_path / relative).write_text("x\n")
+    _git(tmp_path, "init", "-q")
+    _git(tmp_path, "add", ".")
+    _git(tmp_path, "commit", "-q", "-m", "selection run")
+    selected = _git(tmp_path, "rev-parse", "HEAD")
+    for relative in ("paper1/outputs/v2/dev/selected.json", "docs/design/d.md"):
+        (tmp_path / relative).write_text("y\n")
+    _git(tmp_path, "commit", "-q", "-am", "outputs and results")
+    assert run_eval.code_changes(tmp_path, selected) == []
+    (tmp_path / "paper1/src/a.py").write_text("y\n")
+    _git(tmp_path, "commit", "-q", "-am", "a fix")
+    assert run_eval.code_changes(tmp_path, selected) == ["paper1/src/a.py"]
+    with pytest.raises(GateError, match="cannot compare"):
+        run_eval.code_changes(tmp_path, "0" * 40)
 
 
 def test_budgets_must_lie_on_the_curve(repo: Path) -> None:

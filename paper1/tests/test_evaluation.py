@@ -127,7 +127,11 @@ def test_a_failed_patient_scores_zero_at_the_cap(toy_kb: KB) -> None:
     assert (s.il[1], s.stop[1].sum(), s.at_budget[1].sum(), s.peak[1].sum()) == (FAILED_IL, 0, 0, 0)
     assert s.questions[1] == ()
     trajectory = ScoreTask(_p1(toy_kb, None), toy_kb, CURVE)(patients)
-    assert trajectory.with_stop(0.5, 1e-6, cap=CAP).il[1] == FAILED_IL
+    assert trajectory.with_stop(0.5, 1e-6, cap=CAP).il[1] == CAP
+    shorter = CAP - 2
+    capped = trajectory.restricted(tuple(range(shorter))).with_stop(0.5, 1e-6, cap=shorter)
+    assert capped.il[1] == shorter
+    assert report(capped, cap=shorter, bootstrap=False)["failures"] == 1
 
 
 def test_concat_and_restricted(toy_kb: KB) -> None:

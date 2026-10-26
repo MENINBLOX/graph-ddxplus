@@ -128,11 +128,26 @@ def test_refuses_a_selection_made_with_uncommitted_code(tmp_path: Path, changes:
 
 def test_refuses_a_selection_without_its_commit_or_work_tree_state(repo: Path) -> None:
     selected = json.loads((repo / SELECTED).read_text())
-    for key, value in (("commit", None), ("paper1_changes", None)):
+    for key, value in (("commit", None), ("paper1_changes", None), ("design_changes", None)):
         meta = {**selected["provenance"], key: value}
         (repo / SELECTED).write_text(json.dumps({**selected, "provenance": meta}))
-        with pytest.raises(FreezeError, match="commit and the state of paper1/"):
+        with pytest.raises(FreezeError, match="commit and the state of paper1/ and docs/design/"):
             frozen_config(repo)
+
+
+def test_refuses_a_selection_made_while_head_moved(repo: Path) -> None:
+    selected = json.loads((repo / SELECTED).read_text())
+    meta = {**selected["provenance"], "commit_at_end": "0" * 40}
+    (repo / SELECTED).write_text(json.dumps({**selected, "provenance": meta}))
+    with pytest.raises(FreezeError, match="while HEAD moved"):
+        frozen_config(repo)
+
+
+def test_refuses_a_selection_made_before_its_design_was_committed(tmp_path: Path) -> None:
+    make_repo(tmp_path)
+    write_selected(tmp_path, design_changes=[" M docs/design/ddxplus_kb_redo.md"])
+    with pytest.raises(FreezeError, match="uncommitted changes under docs/design/"):
+        frozen_config(tmp_path)
 
 
 def test_porcelain_paths() -> None:

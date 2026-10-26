@@ -12,7 +12,7 @@ from typing import Any
 
 from ddxkb.seal import file_sha256
 
-__all__ = ["environment", "file_sha256", "git_changes", "git_commits_touching", "git_head"]
+__all__ = ["environment", "file_sha256", "git_changed_since", "git_changes", "git_commits_touching", "git_head"]
 
 
 def _git(root: Path, *args: str) -> str | None:
@@ -49,6 +49,12 @@ def git_changes(root: Path, *paths: str, untracked: bool = True) -> list[str] | 
     """
     mode = "--untracked-files=all" if untracked else "--untracked-files=no"
     out = _git(root, "status", "--porcelain=v1", mode, "--", *paths)
+    return None if out is None else out.splitlines()
+
+
+def git_changed_since(root: Path, commit: str, *paths: str) -> list[str] | None:
+    """Files under `paths` that differ between `commit` and HEAD, or None when either cannot be read."""
+    out = _git(root, "diff", "--name-only", commit, "HEAD", "--", *paths)
     return None if out is None else out.splitlines()
 
 

@@ -8,10 +8,11 @@ from typing import Any
 
 import pytest
 
-from ddxkb import run_dev
+from ddxkb import experiment, run_dev
 from ddxkb.data import TEST_CSV, iter_train, load_kb, load_validation
 from ddxkb.evaluation import ScoreTask
 from ddxkb.frequencies import AGE_BIN_EDGES, count_frequencies
+from ddxkb.kb import KB
 from ddxkb.policies import bed
 from ddxkb.protocol import (
     FIRST_AGE_BIN_EDGES,
@@ -366,3 +367,16 @@ def test_development_refuses_an_unsealed_environment(
     monkeypatch.setattr(run_dev, "unseal_requested", lambda: True)
     with pytest.raises(RuntimeError, match="DDXKB_UNSEAL"):
         run_dev.run_dev(STAGES, repo, tmp_path, workers=1)
+
+
+def test_provenance_records_the_git_state_at_the_start_of_the_run(
+    toy_kb: KB, tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setattr(experiment, "git_head", lambda root: "start")
+    monkeypatch.setattr(experiment, "git_changes", lambda root, *paths: [f"?? {paths[0]}/x"])
+    ctx = experiment.Context(root=tmp_path, kb=toy_kb, patients=[], split="validate", out=tmp_path)
+    monkeypatch.setattr(experiment, "git_head", lambda root: "end")
+    monkeypatch.setattr(experiment, "git_changes", lambda root, *paths: [])
+    meta = experiment.provenance(ctx, "grid", "t", 0.0, 0)
+    assert (meta["commit"], meta["commit_at_end"]) == ("start", "end")
+    assert (meta["paper1_changes"], meta["design_changes"]) == (["?? paper1/x"], ["?? docs/design/x"])

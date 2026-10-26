@@ -42,7 +42,7 @@ from typing import Any
 import yaml
 
 from ddxkb.data import KB_ZIP, MANIFEST_DIR, REPO_ROOT, SUBSETS, TRAIN_CSV, Heldout, load_kb, read_manifest
-from ddxkb.experiment import DESIGN_DOC
+from ddxkb.experiment import DESIGN_DIR, DESIGN_DOC
 from ddxkb.frequencies import AGE_BIN_EDGES
 from ddxkb.kb import KB
 from ddxkb.metrics import POSTPROCESS_MASS, SEVERE_BELOW, TIE_RTOL
@@ -190,12 +190,19 @@ def frozen_config(root: Path, selected_path: str = SELECTED) -> dict[str, Any]:
         if cfg.name != name:
             raise FreezeError(f"{selected_path} lists a {cfg.name} configuration under {name}")
     meta = selected["provenance"]
-    commit, changes = meta.get("commit"), meta.get("paper1_changes")
-    if not commit or changes is None:
-        raise FreezeError(f"{selected_path} does not record the commit and the state of paper1/ it was made from")
+    commit, changes, design = meta.get("commit"), meta.get("paper1_changes"), meta.get("design_changes")
+    if not commit or changes is None or design is None:
+        raise FreezeError(
+            f"{selected_path} does not record the commit and the state of paper1/ and {DESIGN_DIR}/ it was made from"
+        )
+    if meta.get("commit_at_end") != commit:
+        raise FreezeError(f"{selected_path} was made while HEAD moved from {commit} to {meta.get('commit_at_end')}")
     stray = [line for line in changes if not porcelain_path(line).startswith(DEV_OUTPUTS)]
     if stray:
         raise FreezeError(f"{selected_path} was made with uncommitted changes under paper1/: {stray[:10]}")
+    if design:
+        # Design first: what the selection ran must already be in a committed design document.
+        raise FreezeError(f"{selected_path} was made with uncommitted changes under {DESIGN_DIR}/: {design[:10]}")
     inputs = meta["inputs"]
     missing = [f for f in FROZEN_DATA if f not in inputs]
     if missing:

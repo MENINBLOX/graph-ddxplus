@@ -116,7 +116,8 @@ class Scored:
 
         `cap` is that policy's length cap, and the run must record every budget from 0 to cap - 1. The stop is
         the first budget whose posterior reaches tau or whose unasked evidences all have an EIG below
-        min_gain, else the last: question choice never depends on the stop. A failed patient keeps FAILED_IL.
+        min_gain, else the last: question choice never depends on the stop. A failed patient's IL is `cap`, as a
+        failed run's is FAILED_IL under the main cap.
         """
         if self.budgets != tuple(range(cap)):
             raise ValueError(f"deriving a stop needs every budget from 0 to the length cap - 1 = {cap - 1}")
@@ -126,7 +127,7 @@ class Scored:
         index = np.where(reached.any(axis=1), reached.argmax(axis=1), cap - 1)
         return dataclasses.replace(
             self,
-            il=np.where(self.failed, FAILED_IL, index + 1).astype(np.int64),
+            il=np.where(self.failed, cap, index + 1).astype(np.int64),
             stop=np.asarray(self.at_budget[np.arange(self.n), index]),
             top=None,
             top_p=None,

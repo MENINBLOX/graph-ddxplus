@@ -287,10 +287,11 @@ def write_selected(
     p2: dict[str, dict[str, Any]] | None = None,
     limit: int | None = None,
     paper1_changes: list[str] | None = None,
+    design_changes: list[str] | None = None,
 ) -> None:
     """A development selection in the format of run_dev's selected.json, made in this environment from the
     KB and train files under `root`, by the code of SELECTION_COMMIT with `paper1_changes` uncommitted (default:
-    the development outputs only)."""
+    the development outputs only) and `design_changes` uncommitted under docs/design (default: none)."""
     if p2 is None:
         p2 = {v.name: P2Config(v, 1.0, 0.99).as_dict() for v in P2_VARIANTS}
     if paper1_changes is None:
@@ -306,7 +307,9 @@ def write_selected(
             "environment": environment(),
             "inputs": inputs,
             "commit": SELECTION_COMMIT,
+            "commit_at_end": SELECTION_COMMIT,
             "paper1_changes": paper1_changes,
+            "design_changes": [] if design_changes is None else design_changes,
         },
     }
     path = root / SELECTED

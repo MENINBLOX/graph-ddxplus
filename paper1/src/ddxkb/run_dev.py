@@ -81,7 +81,6 @@ from ddxkb.protocol import (
     p2_grid,
     selection_key,
 )
-from ddxkb.provenance import git_head
 from ddxkb.runner import worker_pool
 from ddxkb.simulator import AnswerMode, Hierarchy
 
@@ -104,7 +103,7 @@ Config = P1Config | P2Config
 
 def stage_grid(ctx: Context, limit: int | None) -> None:
     started_utc, started, first = utc_now(), time.perf_counter(), len(ctx.timings)
-    run = {"run": started_utc, "commit": git_head(ctx.root)}
+    run = {"run": started_utc, "commit": ctx.git_state["commit"]}
     tried = ctx.out / TRIED
     p1_entries: list[tuple[P1Config, dict[str, Any]]] = []
     # Lines for the wider tau values of every original (alpha, eps) trajectory, kept until the selection shows

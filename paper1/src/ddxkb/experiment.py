@@ -11,7 +11,7 @@ from collections.abc import Collection, Mapping, Sequence
 from dataclasses import dataclass, field
 from datetime import UTC, datetime
 from multiprocessing.pool import Pool
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from typing import Any, Protocol
 
 import numpy as np
@@ -51,6 +51,7 @@ from ddxkb.runner import chunks, map_items
 from ddxkb.simulator import MAX_IL, AnswerMode, Hierarchy, StartInput
 
 DESIGN_DOC = "docs/design/ddxplus_kb_redo.md"
+DESIGN_DIR = str(PurePosixPath(DESIGN_DOC).parent)
 CHUNKS_PER_WORKER = 4
 
 logger = logging.getLogger(__name__)
@@ -60,7 +61,8 @@ logger = logging.getLogger(__name__)
 class Context:
     """One run over one patient set: KB, patients, worker pool and output directory.
 
-    Every input file read is recorded with its sha256, and every policy run with its wall time.
+    Every input file read is recorded with its sha256, and every policy run with its wall time. `git_state` is
+    the commit and the uncommitted files under paper1/ and the design documents when the run starts.
     """
 
     root: Path
@@ -75,6 +77,14 @@ class Context:
     train_counts: FrequencyCounts | None = None
     first_train_counts: FrequencyCounts | None = None
     bed_train_knowledge: BedKnowledge | None = None
+    git_state: dict[str, Any] = field(init=False)
+
+    def __post_init__(self) -> None:
+        self.git_state = {
+            "commit": git_head(self.root),
+            "paper1_changes": git_changes(self.root, "paper1"),
+            "design_changes": git_changes(self.root, DESIGN_DIR),
+        }
 
     def record_input(self, relative: str) -> str:
         if relative not in self.inputs:
@@ -146,7 +156,8 @@ def provenance(ctx: Context, stage: str, started_utc: str, started: float, first
     `inputs` lists every file the run has read by then, so a later stage of one run also lists the earlier
     stages' inputs, and `train_rows` the train rows the frequencies were counted from (None before any count),
     `first_protocol_train_rows` those of the first protocol's frequencies. `first_timing` is the index of the
-    stage's first entry in `ctx.timings`.
+    stage's first entry in `ctx.timings`. The commit and uncommitted files are those at the start of the run;
+    `commit_at_end` is HEAD when the output is written, which differs when a commit landed during the run.
     """
     first = ctx.first_train_counts
     return {
@@ -154,8 +165,8 @@ def provenance(ctx: Context, stage: str, started_utc: str, started: float, first
         "stage": stage,
         "split": ctx.split,
         "n_patients": len(ctx.patients),
-        "commit": git_head(ctx.root),
-        "paper1_changes": git_changes(ctx.root, "paper1"),
+        **ctx.git_state,
+        "commit_at_end": git_head(ctx.root),
         "inputs": dict(sorted(ctx.inputs.items())),
         "train_rows": None if ctx.train_counts is None else int(ctx.train_counts.rows.sum()),
         "first_protocol_train_rows": None if first is None else int(first.rows.sum()),
@@ -369,7 +380,8 @@ def bed_suite(
         name = "B-BED" if source == "stats_file" else f"B-BED-{source}"
         policy = BedPolicy(k, budgets=CURVE)
         scored = ctx.score(name, policy, CURVE)
-        summary[source] = {**protocol_of(policy), **summarize(scored, budgets, against, subsets or {})}
+        protocol = {**protocol_of(policy), "answers": "BED simulator (definitions.answers)"}
+        summary[source] = {**protocol, **summarize(scored, budgets, against, subsets or {})}
         if patients_dir is not None:
             write_patients(patients_dir / f"{name}.jsonl.gz", scored, ctx.kb)
     return summary
