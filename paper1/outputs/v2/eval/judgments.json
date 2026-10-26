@@ -1,0 +1,48 @@
+{
+ "J1": {
+  "rule": "Wilson low of P1 GTPA@1 >= 0.95 on T for each of ['gtpa1', 'gtpa1_official']",
+  "wilson_low": {
+   "gtpa1": 0.9837620061343108,
+   "gtpa1_official": 0.9838502046001129
+  },
+  "met": true
+ },
+ "J2": {
+  "rule": "|P2-binary - P1 tie-aware GTPA@1| < 0.01 and the upper paired-bootstrap bound of P2-binary - P1 mean IL < 0.0, on T",
+  "gtpa1_diff": 0.004301096583058094,
+  "il_diff_high": -1.7397206178593463,
+  "met": true
+ },
+ "J3'": {
+  "rule": "B-BED with BED's stats file on T within 0.003 of BED's GTPA@1 0.9947 for each of ['gtpa1', 'gtpa1_official'], and its mean IL within 0.5 of BED's 5.47",
+  "gtpa1": {
+   "gtpa1": 0.9946925941618536,
+   "gtpa1_official": 0.9946925941618536
+  },
+  "il_mean": 5.475897390153796,
+  "met": true,
+  "paired": {
+   "comparison": "B-BED - P2-value on the same rows, reported, not judged",
+   "answers": "BED's own simulator (`bed.record_findings`), not the protocol's oracle: a categorical or multi-choice question is answered positive whenever the evidence is on the true disease's list, its default value included, so the answer reveals list membership; comparisons with the main policies include this",
+   "gtpa1_diff": -0.0006095340038207376,
+   "gtpa1_fixed_diff": -0.0006095340038207376,
+   "gtpa1_official_diff": -0.0006095340038207376,
+   "mcnemar": {
+    "only_this": 240,
+    "only_other": 322,
+    "p_value": 0.0006211030910731512
+   },
+   "il_diff": {
+    "estimate": -0.5339146206394161,
+    "low": -0.5558065547205435,
+    "high": -0.5132789212734801
+   }
+  }
+ },
+ "provenance": {
+  "design": "docs/design/ddxplus_kb_redo.md 보완 2 §8",
+  "protocol_sha256": "0c59a81a5d33c597cfb562efcd75aff9cc6dfb6fb55585583cc5e925964aed73",
+  "protocol_freeze_commit": "f63321a04737c904f2758e4f1ad44f130e86c66d",
+  "protocol_commit": "f63321a04737c904f2758e4f1ad44f130e86c66d"
+ }
+}

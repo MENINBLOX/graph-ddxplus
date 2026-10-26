@@ -1,0 +1,278 @@
+{
+ "set": "T",
+ "n": 134529,
+ "outside_support": 0,
+ "unique": {
+  "count": 124307,
+  "share": 0.924016383084688
+ },
+ "unique_recorded": {
+  "count": 124397,
+  "share": 0.9246853838205888
+ },
+ "definitions": {
+  "outside_support": "patients with a positive evidence off their disease's list (default values absent)",
+  "unique": "the gold disease is the only one whose list holds every positive evidence (main figure)",
+  "unique_recorded": "the same over every recorded code whatever its value"
+ },
+ "provenance": {
+  "design": "docs/design/ddxplus_kb_redo.md",
+  "stage": "eval T",
+  "split": "T",
+  "n_patients": 134529,
+  "commit": "f63321a04737c904f2758e4f1ad44f130e86c66d",
+  "paper1_changes": [],
+  "design_changes": [],
+  "commit_at_end": "f63321a04737c904f2758e4f1ad44f130e86c66d",
+  "inputs": {
+   "data/ddxplus/20043374.zip": "d6c1779714955da1cf073907996cca506677fb38219999fe3b7a521e17be7796",
+   "data/ddxplus/release_test_patients.csv": "c44c346ed6af1e097c36957b1145aaae8ba3f8f7e94a221f511b76d676a111ef",
+   "data/ddxplus/release_train_patients.csv": "1bb2376feefa2d703123c4b29ce80f9ebab12211d0422490d1015c85ae4388f9",
+   "paper1/manifests/H1.json": "cca3ce4fc09e0b29771f8b5a9773c20aa72f80c059e622cde4d5ee0c9e967d79",
+   "paper1/manifests/H2.json": "7117e67e27b22e672ace350494164336b8342277a9b1eefb5c6ce5998fccc8a1",
+   "paper1/manifests/T-dedup.json": "dd85873358857d335023585d367e1efed8cb7877618e99ca03254dffae3a083f",
+   "paper1/manifests/T-streambench.json": "3977ce1c248daa40046e71c2effe11bb7774551b1c5bf14239150b140ccd4113",
+   "paper1/manifests/T.json": "88359a7e5904e9dd2e8121400986af0a9924929f8f3d546cc856c75ea25bdf10",
+   "paper1/reference/casande_bed/ddxplus_bed_stats_4.json": "84e781b350800eb8a2087c5749e0d1eb07d81a4e8a50ddffcab3e06e70df533c"
+  },
+  "train_rows": 1025602,
+  "first_protocol_train_rows": 891073,
+  "environment": {
+   "python": "3.12.3",
+   "numpy": "2.5.4",
+   "pandas": "3.0.6",
+   "numpy_simd": [
+    "X86_V3"
+   ]
+  },
+  "workers": 20,
+  "started_utc": "2026-10-26T10:15:15+00:00",
+  "elapsed_s": 2351.2,
+  "timings": [
+   {
+    "run": "P1",
+    "seconds": 29.86,
+    "failures": 0
+   },
+   {
+    "run": "train counts",
+    "seconds": 38.35
+   },
+   {
+    "run": "P2-binary",
+    "seconds": 30.2,
+    "failures": 0
+   },
+   {
+    "run": "train minus H2 counts",
+    "seconds": 34.04
+   },
+   {
+    "run": "P2-binary train_minus_h2",
+    "seconds": 30.2,
+    "failures": 0
+   },
+   {
+    "run": "P2-binary-agesex",
+    "seconds": 30.22,
+    "failures": 0
+   },
+   {
+    "run": "P2-binary-agesex train_minus_h2",
+    "seconds": 30.48,
+    "failures": 0
+   },
+   {
+    "run": "P2-binary-agesex first_age_groups",
+    "seconds": 30.5,
+    "failures": 0
+   },
+   {
+    "run": "P2-binary-agesex first_knowledge",
+    "seconds": 30.41,
+    "failures": 0
+   },
+   {
+    "run": "P2-value",
+    "seconds": 40.81,
+    "failures": 0
+   },
+   {
+    "run": "P2-value train_minus_h2",
+    "seconds": 40.96,
+    "failures": 0
+   },
+   {
+    "run": "P2-value-agesex",
+    "seconds": 40.83,
+    "failures": 0
+   },
+   {
+    "run": "P2-value-agesex train_minus_h2",
+    "seconds": 41.21,
+    "failures": 0
+   },
+   {
+    "run": "P2-value-agesex first_age_groups",
+    "seconds": 40.92,
+    "failures": 0
+   },
+   {
+    "run": "P2-value-agesex first_knowledge",
+    "seconds": 40.82,
+    "failures": 0
+   },
+   {
+    "run": "B0 most frequent",
+    "seconds": 1.78,
+    "failures": 0
+   },
+   {
+    "run": "B0 initial only",
+    "seconds": 2.05,
+    "failures": 0
+   },
+   {
+    "run": "B1 set inclusion",
+    "seconds": 1.7,
+    "failures": 0
+   },
+   {
+    "run": "B1 KB-Bayes",
+    "seconds": 4.47,
+    "failures": 0
+   },
+   {
+    "run": "B1 binary-profile majority",
+    "seconds": 15.05,
+    "failures": 0
+   },
+   {
+    "run": "B1 naive Bayes P2-binary",
+    "seconds": 4.62,
+    "failures": 0
+   },
+   {
+    "run": "B1 naive Bayes P2-binary-agesex",
+    "seconds": 4.52,
+    "failures": 0
+   },
+   {
+    "run": "B1 naive Bayes P2-value",
+    "seconds": 6.54,
+    "failures": 0
+   },
+   {
+    "run": "B1 naive Bayes P2-value-agesex",
+    "seconds": 6.52,
+    "failures": 0
+   },
+   {
+    "run": "B2 seed 0",
+    "seconds": 34.02,
+    "failures": 0
+   },
+   {
+    "run": "B2 seed 1",
+    "seconds": 34.09,
+    "failures": 0
+   },
+   {
+    "run": "B2 seed 2",
+    "seconds": 34.07,
+    "failures": 0
+   },
+   {
+    "run": "B2 seed 3",
+    "seconds": 34.08,
+    "failures": 0
+   },
+   {
+    "run": "B2 seed 4",
+    "seconds": 34.09,
+    "failures": 0
+   },
+   {
+    "run": "B6 P1",
+    "seconds": 28.81,
+    "failures": 0
+   },
+   {
+    "run": "B6 P2-binary",
+    "seconds": 28.78,
+    "failures": 0
+   },
+   {
+    "run": "B6 P2-binary-agesex",
+    "seconds": 29.34,
+    "failures": 0
+   },
+   {
+    "run": "B6 P2-value",
+    "seconds": 39.85,
+    "failures": 0
+   },
+   {
+    "run": "B6 P2-value-agesex",
+    "seconds": 39.98,
+    "failures": 0
+   },
+   {
+    "run": "BED train counts",
+    "seconds": 24.71
+   },
+   {
+    "run": "B-BED",
+    "seconds": 80.47,
+    "failures": 0
+   },
+   {
+    "run": "B-BED-counted",
+    "seconds": 86.63,
+    "failures": 0
+   },
+   {
+    "run": "P1 implicit",
+    "seconds": 31.42,
+    "failures": 0
+   },
+   {
+    "run": "P2-binary implicit",
+    "seconds": 31.88,
+    "failures": 0
+   },
+   {
+    "run": "P2-binary-agesex implicit",
+    "seconds": 31.86,
+    "failures": 0
+   },
+   {
+    "run": "P2-value implicit",
+    "seconds": 43.56,
+    "failures": 0
+   },
+   {
+    "run": "P2-value-agesex implicit",
+    "seconds": 43.26,
+    "failures": 0
+   }
+  ],
+  "protocol_sha256": "0c59a81a5d33c597cfb562efcd75aff9cc6dfb6fb55585583cc5e925964aed73",
+  "protocol_freeze_commit": "f63321a04737c904f2758e4f1ad44f130e86c66d",
+  "protocol_commit": "f63321a04737c904f2758e4f1ad44f130e86c66d",
+  "subsets": {
+   "H1": {
+    "available": true,
+    "n": 125529
+   },
+   "T-dedup": {
+    "available": true,
+    "n": 132540
+   },
+   "T-streambench": {
+    "available": true,
+    "n": 1764
+   }
+  }
+ }
+}
