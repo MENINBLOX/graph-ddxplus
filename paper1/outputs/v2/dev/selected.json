@@ -1,0 +1,335 @@
+{
+ "objective": "validation tie-aware GTPA@1 (IL <= 31: 30 questions after the initial evidence), highest at two decimals of a percent; then the smaller mean IL; then the earlier candidate in listed order (design §5, 보완 2)",
+ "n": 132448,
+ "limit": null,
+ "P1": {
+  "config": {
+   "alpha": 0.5,
+   "eps": 0.0001,
+   "tau": 0.99
+  },
+  "order": 17,
+  "gtpa1": 0.984218418633056,
+  "il_mean": 10.390266368688089,
+  "selection_key": [
+   -98.42,
+   10.390266368688089,
+   17
+  ],
+  "boundary": {
+   "ends": {
+    "eps": "last",
+    "tau": "last"
+   },
+   "wider_grid": {
+    "values": {
+     "alpha": [
+      0.3,
+      0.5,
+      0.7
+     ],
+     "eps": [
+      0.01,
+      0.001,
+      0.0001,
+      1e-05
+     ],
+     "tau": [
+      0.9,
+      0.95,
+      0.99,
+      0.999
+     ]
+    },
+    "n": 48,
+    "new": 21,
+    "best": {
+     "config": {
+      "alpha": 0.5,
+      "eps": 0.0001,
+      "tau": 0.999
+     },
+     "order": 27,
+     "gtpa1": 0.9847582531341432,
+     "il_mean": 13.271555629379078,
+     "selection_key": [
+      -98.48,
+      13.271555629379078,
+      27
+     ]
+    },
+    "best_is_selected": false
+   }
+  }
+ },
+ "P2": {
+  "P2-binary": {
+   "config": {
+    "mode": "binary",
+    "age_sex": false,
+    "lam": 0.5,
+    "tau": 0.999
+   },
+   "order": 3,
+   "gtpa1": 0.9885766489490215,
+   "il_mean": 8.611417310944672,
+   "selection_key": [
+    -98.86,
+    8.611417310944672,
+    3
+   ]
+  },
+  "P2-binary-agesex": {
+   "config": {
+    "mode": "binary",
+    "age_sex": true,
+    "lam": 0.5,
+    "tau": 0.999
+   },
+   "order": 3,
+   "gtpa1": 0.9889466054602561,
+   "il_mean": 8.43107483691713,
+   "selection_key": [
+    -98.89,
+    8.43107483691713,
+    3
+   ]
+  },
+  "P2-value": {
+   "config": {
+    "mode": "value",
+    "age_sex": false,
+    "lam": 1.0,
+    "tau": 0.999
+   },
+   "order": 7,
+   "gtpa1": 0.9950999637593622,
+   "il_mean": 5.999969799468471,
+   "selection_key": [
+    -99.51,
+    5.999969799468471,
+    7
+   ]
+  },
+  "P2-value-agesex": {
+   "config": {
+    "mode": "value",
+    "age_sex": true,
+    "lam": 0.5,
+    "tau": 0.999
+   },
+   "order": 3,
+   "gtpa1": 0.9950169122976564,
+   "il_mean": 5.630292643150519,
+   "selection_key": [
+    -99.5,
+    5.630292643150519,
+    3
+   ]
+  }
+ },
+ "provenance": {
+  "design": "docs/design/ddxplus_kb_redo.md",
+  "stage": "grid",
+  "split": "validate",
+  "n_patients": 132448,
+  "commit": "f54bc18649d8a896faee7d8bfa50cadb4820f567",
+  "paper1_changes": [],
+  "design_changes": [],
+  "commit_at_end": "f54bc18649d8a896faee7d8bfa50cadb4820f567",
+  "inputs": {
+   "data/ddxplus/20043374.zip": "d6c1779714955da1cf073907996cca506677fb38219999fe3b7a521e17be7796",
+   "data/ddxplus/release_train_patients.csv": "1bb2376feefa2d703123c4b29ce80f9ebab12211d0422490d1015c85ae4388f9",
+   "data/ddxplus/release_validate_patients.csv": "000e632bc5216b3cbd98d89d3976de1342906a887029f4049db4bbac8907b3bd",
+   "paper1/manifests/H2.json": "7117e67e27b22e672ace350494164336b8342277a9b1eefb5c6ce5998fccc8a1"
+  },
+  "train_rows": 1025602,
+  "first_protocol_train_rows": 891073,
+  "environment": {
+   "python": "3.12.3",
+   "numpy": "2.5.4",
+   "pandas": "3.0.6",
+   "numpy_simd": [
+    "X86_V3"
+   ]
+  },
+  "workers": 20,
+  "started_utc": "2026-10-26T09:20:54+00:00",
+  "elapsed_s": 1302.4,
+  "timings": [
+   {
+    "run": "grid P1 alpha=0.3 eps=0.01",
+    "seconds": 29.71,
+    "failures": 0
+   },
+   {
+    "run": "grid P1 alpha=0.3 eps=0.001",
+    "seconds": 30.0,
+    "failures": 0
+   },
+   {
+    "run": "grid P1 alpha=0.3 eps=0.0001",
+    "seconds": 30.25,
+    "failures": 0
+   },
+   {
+    "run": "grid P1 alpha=0.5 eps=0.01",
+    "seconds": 29.81,
+    "failures": 0
+   },
+   {
+    "run": "grid P1 alpha=0.5 eps=0.001",
+    "seconds": 29.8,
+    "failures": 0
+   },
+   {
+    "run": "grid P1 alpha=0.5 eps=0.0001",
+    "seconds": 29.88,
+    "failures": 0
+   },
+   {
+    "run": "grid P1 alpha=0.7 eps=0.01",
+    "seconds": 29.74,
+    "failures": 0
+   },
+   {
+    "run": "grid P1 alpha=0.7 eps=0.001",
+    "seconds": 29.68,
+    "failures": 0
+   },
+   {
+    "run": "grid P1 alpha=0.7 eps=0.0001",
+    "seconds": 29.61,
+    "failures": 0
+   },
+   {
+    "run": "train counts",
+    "seconds": 38.41
+   },
+   {
+    "run": "grid P2-binary lambda=0.5",
+    "seconds": 29.98,
+    "failures": 0
+   },
+   {
+    "run": "grid P2-binary lambda=1.0",
+    "seconds": 29.88,
+    "failures": 0
+   },
+   {
+    "run": "grid P2-binary-agesex lambda=0.5",
+    "seconds": 29.95,
+    "failures": 0
+   },
+   {
+    "run": "grid P2-binary-agesex lambda=1.0",
+    "seconds": 30.03,
+    "failures": 0
+   },
+   {
+    "run": "grid P2-value lambda=0.5",
+    "seconds": 40.35,
+    "failures": 0
+   },
+   {
+    "run": "grid P2-value lambda=1.0",
+    "seconds": 40.32,
+    "failures": 0
+   },
+   {
+    "run": "grid P2-value-agesex lambda=0.5",
+    "seconds": 40.58,
+    "failures": 0
+   },
+   {
+    "run": "grid P2-value-agesex lambda=1.0",
+    "seconds": 40.52,
+    "failures": 0
+   },
+   {
+    "run": "wider grid P1 alpha=0.3 eps=1e-05",
+    "seconds": 29.64,
+    "failures": 0
+   },
+   {
+    "run": "wider grid P1 alpha=0.5 eps=1e-05",
+    "seconds": 29.31,
+    "failures": 0
+   },
+   {
+    "run": "wider grid P1 alpha=0.7 eps=1e-05",
+    "seconds": 29.7,
+    "failures": 0
+   },
+   {
+    "run": "P1",
+    "seconds": 29.44,
+    "failures": 0
+   },
+   {
+    "run": "P2-binary",
+    "seconds": 29.66,
+    "failures": 0
+   },
+   {
+    "run": "train minus H2 counts",
+    "seconds": 34.23
+   },
+   {
+    "run": "P2-binary train_minus_h2",
+    "seconds": 29.53,
+    "failures": 0
+   },
+   {
+    "run": "P2-binary-agesex",
+    "seconds": 29.9,
+    "failures": 0
+   },
+   {
+    "run": "P2-binary-agesex train_minus_h2",
+    "seconds": 29.68,
+    "failures": 0
+   },
+   {
+    "run": "P2-binary-agesex first_age_groups",
+    "seconds": 29.95,
+    "failures": 0
+   },
+   {
+    "run": "P2-binary-agesex first_knowledge",
+    "seconds": 29.9,
+    "failures": 0
+   },
+   {
+    "run": "P2-value",
+    "seconds": 40.39,
+    "failures": 0
+   },
+   {
+    "run": "P2-value train_minus_h2",
+    "seconds": 40.52,
+    "failures": 0
+   },
+   {
+    "run": "P2-value-agesex",
+    "seconds": 40.42,
+    "failures": 0
+   },
+   {
+    "run": "P2-value-agesex train_minus_h2",
+    "seconds": 40.32,
+    "failures": 0
+   },
+   {
+    "run": "P2-value-agesex first_age_groups",
+    "seconds": 40.33,
+    "failures": 0
+   },
+   {
+    "run": "P2-value-agesex first_knowledge",
+    "seconds": 40.93,
+    "failures": 0
+   }
+  ]
+ }
+}

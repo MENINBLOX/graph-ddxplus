@@ -1,0 +1,62 @@
+{
+ "limit": null,
+ "n": 132448,
+ "outside_support": 0,
+ "unique": {
+  "count": 122321,
+  "share": 0.9235398043005557
+ },
+ "unique_recorded": {
+  "count": 122408,
+  "share": 0.9241966658613192
+ },
+ "definitions": {
+  "outside_support": "patients with a positive evidence off their disease's list (default values absent)",
+  "unique": "the gold disease is the only one whose list holds every positive evidence (main figure)",
+  "unique_recorded": "the same over every recorded code whatever its value"
+ },
+ "kb_folded_to_cuis": {
+  "edges": 586,
+  "v1_graph_edges": 581,
+  "shared": 580
+ },
+ "provenance": {
+  "design": "docs/design/ddxplus_kb_redo.md",
+  "stage": "properties",
+  "split": "validate",
+  "n_patients": 132448,
+  "commit": "f54bc18649d8a896faee7d8bfa50cadb4820f567",
+  "paper1_changes": [],
+  "design_changes": [],
+  "commit_at_end": "f54bc18649d8a896faee7d8bfa50cadb4820f567",
+  "inputs": {
+   "data/ddxplus/20043374.zip": "d6c1779714955da1cf073907996cca506677fb38219999fe3b7a521e17be7796",
+   "data/ddxplus/disease_umls_mapping.json": "746772fb4cab5aa5e8ab8355a5fcabcb54ca9b13d91723569761cb85abd9f961",
+   "data/ddxplus/kg_edges.json": "1411ee4325a6a0a6a1b9dea804c7f718457bb607c89e175164e0c3dbec2cff47",
+   "data/ddxplus/release_train_patients.csv": "1bb2376feefa2d703123c4b29ce80f9ebab12211d0422490d1015c85ae4388f9",
+   "data/ddxplus/release_validate_patients.csv": "000e632bc5216b3cbd98d89d3976de1342906a887029f4049db4bbac8907b3bd",
+   "data/ddxplus/umls_mapping.json": "3558ebf909c53f213d1ee8585ff8f933fb5a514d91e261dae972fcb7046a954e",
+   "paper1/manifests/H2.json": "7117e67e27b22e672ace350494164336b8342277a9b1eefb5c6ce5998fccc8a1",
+   "paper1/reference/casande_bed/ddxplus_bed_stats_4.json": "84e781b350800eb8a2087c5749e0d1eb07d81a4e8a50ddffcab3e06e70df533c"
+  },
+  "train_rows": 1025602,
+  "first_protocol_train_rows": 891073,
+  "environment": {
+   "python": "3.12.3",
+   "numpy": "2.5.4",
+   "pandas": "3.0.6",
+   "numpy_simd": [
+    "X86_V3"
+   ]
+  },
+  "workers": 20,
+  "started_utc": "2026-10-26T10:14:15+00:00",
+  "elapsed_s": 4.3,
+  "timings": [
+   {
+    "run": "support audit",
+    "seconds": 4.26
+   }
+  ]
+ }
+}
