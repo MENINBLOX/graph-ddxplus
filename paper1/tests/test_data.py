@@ -13,15 +13,20 @@ import pytest
 from ddxkb import data
 from ddxkb.data import (
     REPO_ROOT,
+    TEST_CSV,
+    TRAIN_CSV,
     UNSEAL_ENV,
     Patient,
     SealedError,
-    iter_train_minus_h2,
+    input_key,
+    iter_input_keys,
+    iter_train,
     load_heldout,
     load_validation,
     parse_differential,
     parse_evidences,
     read_manifest,
+    subset_rows,
 )
 from ddxkb.kb import KB
 from helpers import requires_data, write_csv, write_manifest
@@ -71,10 +76,11 @@ def _row(i: int) -> dict[str, Any]:
 def sealed_root(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     monkeypatch.delenv(UNSEAL_ENV, raising=False)
     write_csv(tmp_path / data.VALIDATION_CSV, [_row(i) for i in range(5)])
-    write_csv(tmp_path / "data/ddxplus/release_train_patients.csv", [_row(100 + i) for i in range(10)])
-    write_csv(tmp_path / "data/ddxplus/release_test_patients.csv", [_row(200 + i) for i in range(6)])
-    write_manifest(tmp_path, "H2", "data/ddxplus/release_train_patients.csv", 10, [7, 0, 4])
-    write_manifest(tmp_path, "H1", "data/ddxplus/release_test_patients.csv", 6, [1, 2, 5])
+    write_csv(tmp_path / TRAIN_CSV, [_row(100 + i) for i in range(10)])
+    write_csv(tmp_path / TEST_CSV, [_row(200 + i) for i in range(6)])
+    write_manifest(tmp_path, "H2", TRAIN_CSV, 10, [7, 0, 4])
+    write_manifest(tmp_path, "H1", TEST_CSV, 6, [1, 2, 5])
+    write_manifest(tmp_path, "T", TEST_CSV, 6, list(range(6)))
     return tmp_path
 
 
@@ -95,32 +101,75 @@ def test_validation_loader_reads_every_row(sealed_root: Path) -> None:
     assert [p.row for p in load_validation(sealed_root, limit=2)] == [0, 1]
 
 
-def test_train_iterator_never_yields_h2_rows(sealed_root: Path) -> None:
-    rows = list(iter_train_minus_h2(sealed_root, chunk_rows=3))
-    assert [p.row for p in rows] == [1, 2, 3, 5, 6, 8, 9]
-    assert [p.age for p in rows] == [120 + r for r in (1, 2, 3, 5, 6, 8, 9)]
+def test_train_iterator_reads_every_row(sealed_root: Path) -> None:
+    rows = list(iter_train(sealed_root, chunk_rows=3))
+    assert [p.row for p in rows] == list(range(10))
+    assert [p.age for p in rows] == [120 + r for r in range(10)]
     assert {p.split for p in rows} == {"train"}
 
 
-def test_train_iterator_detects_a_csv_that_disagrees_with_the_manifest(sealed_root: Path) -> None:
-    write_csv(sealed_root / "data/ddxplus/release_train_patients.csv", [_row(100 + i) for i in range(11)])
-    with pytest.raises(ValueError, match="manifest"):
-        list(iter_train_minus_h2(sealed_root))
+def test_train_iterator_without_h2_skips_its_rows(sealed_root: Path) -> None:
+    rows = list(iter_train(sealed_root, chunk_rows=3, without="H2"))
+    kept = [1, 2, 3, 5, 6, 8, 9]
+    assert [p.row for p in rows] == kept
+    assert [p.age for p in rows] == [120 + r for r in kept]
+    with pytest.raises(ValueError, match="does not list train rows"):
+        list(iter_train(sealed_root, without="H1"))
 
 
 def test_heldout_is_refused_without_the_flag(sealed_root: Path) -> None:
-    for name in ("H1", "H2"):
+    for name in ("H1", "H2", "T"):
         with pytest.raises(SealedError):
             load_heldout(name, sealed_root)
 
 
 def test_heldout_reads_exactly_the_manifest_rows(sealed_root: Path, monkeypatch: pytest.MonkeyPatch) -> None:
-    # The unseal switch is stubbed rather than set in the environment, so no test can open the real H1/H2.
+    # The unseal switch is stubbed rather than set in the environment, so no test can open the real sealed sets.
     monkeypatch.setattr(data, "unseal_requested", lambda: True)
     h1 = load_heldout("H1", sealed_root)
     assert [(p.split, p.row, p.age) for p in h1] == [("test", 1, 221), ("test", 2, 222), ("test", 5, 225)]
     h2 = load_heldout("H2", sealed_root)
     assert [(p.split, p.row, p.age) for p in h2] == [("train", 0, 120), ("train", 4, 124), ("train", 7, 127)]
+    t = load_heldout("T", sealed_root)
+    assert [(p.split, p.row, p.age) for p in t] == [("test", r, 220 + r) for r in range(6)]
+
+
+def test_subset_rows_are_rows_of_t(sealed_root: Path) -> None:
+    assert subset_rows("H1", sealed_root) == frozenset({1, 2, 5})
+    write_manifest(sealed_root, "T-dedup", TEST_CSV, 6, [0, 3])
+    assert subset_rows("T-dedup", sealed_root) == frozenset({0, 3})
+    write_manifest(sealed_root, "T-dedup", TEST_CSV, 6, [0, 7])
+    with pytest.raises(ValueError, match="outside T"):
+        subset_rows("T-dedup", sealed_root)
+    write_manifest(sealed_root, "T-dedup", TRAIN_CSV, 10, [0])
+    with pytest.raises(ValueError, match="CSV that T seals"):
+        subset_rows("T-dedup", sealed_root)
+    (sealed_root / "paper1/manifests/T-streambench.json").write_text(
+        '{"set": "T-streambench", "available": false, "reason": "no list"}'
+    )
+    assert subset_rows("T-streambench", sealed_root) is None
+
+
+def test_input_key_is_the_input_with_the_evidences_as_a_set() -> None:
+    key = input_key("40", "F", "toux", ["toux", "fievre", "douleur_lieu_@_dos"])
+    assert key == input_key("40", "F", "toux", ["douleur_lieu_@_dos", "toux", "fievre", "toux"])
+    others = [
+        input_key("41", "F", "toux", ["toux", "fievre", "douleur_lieu_@_dos"]),
+        input_key("40", "M", "toux", ["toux", "fievre", "douleur_lieu_@_dos"]),
+        input_key("40", "F", "fievre", ["toux", "fievre", "douleur_lieu_@_dos"]),
+        input_key("40", "F", "toux", ["toux", "fievre", "douleur_lieu_@_tete"]),
+        input_key("40", "F", "toux", ["toux", "fievre"]),
+    ]
+    assert len({key, *others}) == 6
+
+
+def test_input_keys_of_a_csv(sealed_root: Path) -> None:
+    keys = list(iter_input_keys(sealed_root / TEST_CSV, chunk_rows=4))
+    expected = []
+    for i in range(6):
+        r = _row(200 + i)
+        expected.append(input_key(str(r["age"]), r["sex"], r["initial"], r["evidences"]))
+    assert keys == expected
 
 
 def test_manifest_set_name_is_checked(sealed_root: Path) -> None:
@@ -131,7 +180,7 @@ def test_manifest_set_name_is_checked(sealed_root: Path) -> None:
 
 def test_real_heldout_is_refused_without_the_flag(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.delenv(UNSEAL_ENV, raising=False)
-    for name in ("H1", "H2"):
+    for name in ("H1", "H2", "T"):
         with pytest.raises(SealedError):
             load_heldout(name, REPO_ROOT)
 
@@ -187,26 +236,23 @@ def test_open_lines_reads_rows_by_offset(sealed_root: Path) -> None:
 
 
 @requires_data
-def test_real_train_minus_h2_rows_are_the_raw_rows_they_claim() -> None:
-    manifest = read_manifest("H2")
-    path = REPO_ROOT / str(manifest["csv"])
+def test_real_train_rows_are_the_raw_rows_they_claim() -> None:
+    path = REPO_ROOT / TRAIN_CSV
     if not path.exists():
         pytest.skip("DDXPlus train CSV not present")
-    n_rows = int(manifest["csv_data_rows"])
-    sealed = frozenset(int(r) for r in manifest["row_indices"])
+    n_rows = int(read_manifest("H2")["csv_data_rows"])
     head: list[Patient] = []
     tail: collections.deque[Patient] = collections.deque(maxlen=50)
     n = 0
-    for p in iter_train_minus_h2():
+    for p in iter_train():
         if len(head) < 50:
             head.append(p)
         tail.append(p)
         n += 1
-    assert n == 1_025_602 - 134_529 == 891_073
-    open_rows = [r for r in range(n_rows) if r not in sealed]
+    assert n == n_rows == 1_025_602
     sample = [*head, *tail]
-    assert [p.row for p in sample] == open_rows[:50] + open_rows[-50:]
-    raw = _open_lines(path, [p.row for p in sample], n_rows, sealed)
+    assert [p.row for p in sample] == [*range(50), *range(n_rows - 50, n_rows)]
+    raw = _open_lines(path, [p.row for p in sample], n_rows, frozenset())
     for p in sample:
         [(age, diff, sex, pathology, evidences, initial)] = csv.reader([raw[p.row]])
         assert (p.age, p.sex, p.pathology, p.initial) == (int(age), sex, pathology, initial), p.row

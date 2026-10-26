@@ -8,7 +8,6 @@ from ddxkb.audit import support_audit
 from ddxkb.data import REPO_ROOT, Patient
 from ddxkb.kb import KB
 from ddxkb.policies.v1_replay import V1_DATA_DIR, folded_cui_edges, load_cui_mappings, load_v1_edges
-from ddxkb.units import cui_units
 
 
 def _require_v1_files() -> None:
@@ -29,8 +28,9 @@ def test_real_cui_question_spaces(real_kb: KB) -> None:
     # Review §2.1: 204 codes map to 188 CUIs; the 19 others (14 subattributes, 5 comorbidities) have none.
     _require_v1_files()
     code_cui, _ = load_cui_mappings()
-    assert cui_units(real_kb, code_cui).kb.n_evidences == 188
-    assert cui_units(real_kb, code_cui, keep_unmapped=True).kb.n_evidences == 188 + 19
+    mapped = [e.code for e in real_kb.evidences if e.code in code_cui]
+    assert (len(mapped), len({code_cui[c] for c in mapped})) == (204, 188)
+    assert real_kb.n_evidences - len(mapped) == 19
 
 
 def test_validation_support_audit(real_kb: KB, validation: list[Patient]) -> None:

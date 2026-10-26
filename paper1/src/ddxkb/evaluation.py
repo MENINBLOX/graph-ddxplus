@@ -1,8 +1,10 @@
-"""Per-patient scores of policy runs and their summaries (design §4).
+"""Per-patient scores of policy runs and their summaries (design §4 and 보완 2).
 
-Every policy is scored the same way, at its stop and after each recorded budget: GTPA@1 tie-aware and in
-fixed order, GTPA@3, GTPA@5, GTPA, DDR, DDP, DDF1 and PER. A patient whose episode raises scores 0 on all
-of them and counts as reaching |T| = MAX_IL: design §2 scores a failure as a wrong answer and reports the count.
+Every policy is scored the same way, at its stop and after each recorded budget: GTPA@1 tie-aware, in fixed
+order and as the official code computes it, GTPA@3 and GTPA@5 tie-aware and as the official code computes them,
+GTPA, DDR, DDP, DDF1, DSHM, and PER without and with the initial evidence. A patient whose episode raises scores 0
+on all of them and counts as reaching |T| = MAX_IL: design §2 scores a failure as a wrong answer and reports the
+count.
 """
 
 from __future__ import annotations
@@ -12,7 +14,7 @@ import gzip
 import hashlib
 import json
 import logging
-from collections.abc import Mapping, Sequence
+from collections.abc import Collection, Mapping, Sequence
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -22,17 +24,40 @@ import numpy.typing as npt
 
 from ddxkb.data import Patient
 from ddxkb.kb import KB, BoolArray, FloatArray
-from ddxkb.metrics import gtpa, gtpa_at_k, il_summary, positive_evidence_recall, ranking, score_patient
+from ddxkb.metrics import (
+    SEVERE_BELOW,
+    PatientScores,
+    class_means,
+    gtpa,
+    gtpa_at_k,
+    il_summary,
+    positive_evidence_recall,
+    positive_evidence_recall_official,
+    ranking,
+    score_patient,
+)
 from ddxkb.policies.episode import Policy
 from ddxkb.policies.v1_replay import V1Replay
 from ddxkb.simulator import MAX_IL, positive_codes
 from ddxkb.stats import Interval, bootstrap_intervals, mcnemar_exact, wilson_interval
-from ddxkb.units import QuestionUnits
 
 IntArray = npt.NDArray[np.int64]
 
-METRICS = ("gtpa1", "gtpa1_fixed", "gtpa3", "gtpa5", "gtpa", "ddr", "ddp", "ddf1", "per")
-PROPORTIONS = ("gtpa1", "gtpa1_fixed", "gtpa3", "gtpa5", "gtpa")
+SCORED = tuple(f.name for f in dataclasses.fields(PatientScores))
+RECALLS = ("per", "per_official")
+METRICS = (*SCORED, *RECALLS)
+PROPORTIONS = (
+    "gtpa1",
+    "gtpa1_fixed",
+    "gtpa1_official",
+    "gtpa3",
+    "gtpa3_official",
+    "gtpa5",
+    "gtpa5_official",
+    "gtpa",
+)
+BY_DISEASE = ("gtpa1", "gtpa1_official")
+MEANS = ("ddr", "ddp", "ddf1", "dshm")
 COLUMN = {m: i for i, m in enumerate(METRICS)}
 TOP_K = 5
 FAILED_IL = MAX_IL
@@ -43,7 +68,7 @@ logger = logging.getLogger(__name__)
 
 @dataclass(frozen=True, eq=False)
 class Scored:
-    """One policy over many patients, patients in run order; diseases are KB indices.
+    """One policy over many patients, patients in run order; diseases are indices into `diseases` (KB order).
 
     `stop[i]` holds METRICS at patient i's stop and `il[i]` its |T|. `at_budget[i, k]` holds METRICS after
     exactly budgets[k] questions, reached without stopping early, `peak[i, k]` the largest posterior there and
@@ -52,6 +77,7 @@ class Scored:
     patient has gold -1 only if its pathology is not in the KB.
     """
 
+    diseases: tuple[str, ...]
     rows: IntArray
     gold: IntArray
     il: IntArray
@@ -90,7 +116,8 @@ class Scored:
 
         `cap` is that policy's length cap, and the run must record every budget from 0 to cap - 1. The stop is
         the first budget whose posterior reaches tau or whose unasked evidences all have an EIG below
-        min_gain, else the last: question choice never depends on the stop. A failed patient keeps FAILED_IL.
+        min_gain, else the last: question choice never depends on the stop. A failed patient's IL is `cap`, as a
+        failed run's is FAILED_IL under the main cap.
         """
         if self.budgets != tuple(range(cap)):
             raise ValueError(f"deriving a stop needs every budget from 0 to the length cap - 1 = {cap - 1}")
@@ -100,10 +127,31 @@ class Scored:
         index = np.where(reached.any(axis=1), reached.argmax(axis=1), cap - 1)
         return dataclasses.replace(
             self,
-            il=np.where(self.failed, FAILED_IL, index + 1).astype(np.int64),
+            il=np.where(self.failed, cap, index + 1).astype(np.int64),
             stop=np.asarray(self.at_budget[np.arange(self.n), index]),
             top=None,
             top_p=None,
+        )
+
+    def select(self, rows: Collection[int]) -> Scored:
+        """The same run over the patients whose row is in `rows`, in run order."""
+        keep = np.isin(self.rows, np.fromiter(rows, dtype=np.int64, count=len(rows)))
+        index = np.flatnonzero(keep)
+        kept = frozenset(int(r) for r in self.rows[index])
+        return dataclasses.replace(
+            self,
+            rows=self.rows[index],
+            gold=self.gold[index],
+            il=self.il[index],
+            stop=self.stop[index],
+            at_budget=self.at_budget[index],
+            peak=self.peak[index],
+            max_gain=self.max_gain[index],
+            questions=tuple(self.questions[i] for i in index),
+            failed=self.failed[index],
+            errors=tuple(e for e in self.errors if e[0] in kept),
+            top=None if self.top is None else self.top[index],
+            top_p=None if self.top_p is None else self.top_p[index],
         )
 
     def restricted(self, budgets: Sequence[int]) -> Scored:
@@ -124,9 +172,12 @@ class Scored:
         budgets = parts[0].budgets
         if any(p.budgets != budgets for p in parts):
             raise ValueError("parts record different budgets")
+        if any(p.diseases != parts[0].diseases for p in parts):
+            raise ValueError("parts score different diseases")
         tops = [p.top for p in parts]
         top_ps = [p.top_p for p in parts]
         return cls(
+            diseases=parts[0].diseases,
             rows=np.concatenate([p.rows for p in parts]),
             gold=np.concatenate([p.gold for p in parts]),
             il=np.concatenate([p.il for p in parts]),
@@ -144,32 +195,33 @@ class Scored:
 
 
 def _scores(
-    probs: FloatArray, gold: int, truth: FloatArray, asked: Sequence[str], positives: frozenset[str], initial: str
+    kb: KB,
+    probs: FloatArray,
+    gold: int,
+    truth: FloatArray,
+    severe: BoolArray,
+    asked: Sequence[str],
+    positives: frozenset[str],
+    initial: str,
 ) -> list[float]:
-    s = score_patient(probs, gold, truth)
+    """METRICS in their order."""
+    s = score_patient(probs, gold, truth, severe, kb.official_order)
     per = positive_evidence_recall(asked, positives, initial)
-    return [s.gtpa1, s.gtpa1_fixed, s.gtpa3, s.gtpa5, s.gtpa, s.ddr, s.ddp, s.ddf1, per]
+    per_official = positive_evidence_recall_official(asked, positives, initial)
+    return [*(getattr(s, name) for name in SCORED), per, per_official]
 
 
 @dataclass(frozen=True, eq=False)
 class ScoreTask:
-    """Runs `policy` over a chunk of patients and scores every episode; picklable for worker processes.
-
-    With `units` each patient is first translated to the unit record (inside the patient's error handling,
-    so a patient whose initial evidence has no unit is a failure), and `kb` must be `units.kb`.
-    """
+    """Runs `policy` over a chunk of patients and scores every episode; picklable for worker processes."""
 
     policy: Policy
     kb: KB
     budgets: tuple[int, ...]
-    units: QuestionUnits | None = None
-
-    def __post_init__(self) -> None:
-        if self.units is not None and self.units.kb is not self.kb:
-            raise ValueError("a run over question units is scored against the units' KB")
 
     def __call__(self, patients: Sequence[Patient]) -> Scored:
         n, nb, m = len(patients), len(self.budgets), len(METRICS)
+        severe = np.array(self.kb.severity) < SEVERE_BELOW
         gold = np.array([self.kb.disease_index.get(p.pathology, -1) for p in patients], dtype=np.int64)
         il = np.full(n, FAILED_IL, dtype=np.int64)
         stop = np.zeros((n, m))
@@ -181,18 +233,19 @@ class ScoreTask:
         failed = np.zeros(n, dtype=np.bool_)
         questions: list[tuple[str, ...]] = []
         errors: list[tuple[int, str]] = []
-        for i, patient in enumerate(patients):
+        for i, p in enumerate(patients):
             try:
-                p = patient if self.units is None else self.units.translate(patient)
                 ep = self.policy.run(p)
                 if ep.budgets != self.budgets:
                     raise ValueError(f"episode records budgets {ep.budgets}, the task expects {self.budgets}")
                 truth = self.kb.disease_vector(p.differential)
                 positives = positive_codes(self.kb, p)
-                stop[i] = _scores(ep.posterior, ep.gold, truth, ep.asked, positives, p.initial)
+                stop[i] = _scores(self.kb, ep.posterior, ep.gold, truth, severe, ep.asked, positives, p.initial)
                 for k, b in enumerate(self.budgets):
                     q = ep.budget_posteriors[k]
-                    at_budget[i, k] = _scores(q, ep.gold, truth, ep.questions[:b], positives, p.initial)
+                    at_budget[i, k] = _scores(
+                        self.kb, q, ep.gold, truth, severe, ep.questions[:b], positives, p.initial
+                    )
                     peak[i, k] = q.max()
                 max_gain[i] = ep.budget_gains
                 order = ranking(ep.posterior)[:TOP_K]
@@ -201,14 +254,15 @@ class ScoreTask:
                 il[i] = ep.il
                 questions.append(ep.questions)
             except Exception as e:
-                logger.exception("episode failed for patient row %d", patient.row)
+                logger.exception("episode failed for patient row %d", p.row)
                 stop[i] = at_budget[i] = peak[i] = max_gain[i] = top_p[i] = 0.0
                 top[i] = -1
                 il[i] = FAILED_IL
                 failed[i] = True
                 questions.append(())
-                errors.append((patient.row, f"{type(e).__name__}: {e}"))
+                errors.append((p.row, f"{type(e).__name__}: {e}"))
         return Scored(
+            diseases=self.kb.diseases,
             rows=np.array([p.row for p in patients], dtype=np.int64),
             gold=gold,
             il=il,
@@ -229,8 +283,12 @@ def _interval(i: Interval) -> dict[str, float]:
     return {"estimate": i.estimate, "low": i.low, "high": i.high}
 
 
-def point_summary(scores: FloatArray, il: IntArray | None, asks: bool = True) -> dict[str, Any]:
-    """Means of METRICS over patients, with Wilson intervals for the proportions, and the summary of `il`.
+def point_summary(
+    scores: FloatArray, il: IntArray | None, gold: IntArray, n_diseases: int, asks: bool = True, cap: int = MAX_IL
+) -> dict[str, Any]:
+    """Means of METRICS over patients, with Wilson intervals for the proportions, the macro GTPA@1 (the mean
+    over the diseases present of each disease's mean, gold index `gold`), and the summary of `il` under the
+    length cap `cap`.
 
     `asks` False leaves PER out: a reference that asks no question has nothing to recall.
     """
@@ -239,19 +297,38 @@ def point_summary(scores: FloatArray, il: IntArray | None, asks: bool = True) ->
     out: dict[str, Any] = {}
     for metric in PROPORTIONS:
         out[metric] = _interval(wilson_interval(min(1.0, float(means[COLUMN[metric]])), n))
-    for metric in ("ddr", "ddp", "ddf1", "per") if asks else ("ddr", "ddp", "ddf1"):
+    for metric in (*MEANS, *RECALLS) if asks else MEANS:
         out[metric] = {"estimate": float(means[COLUMN[metric]])}
+    present = np.bincount(gold[gold >= 0], minlength=n_diseases) > 0
+    out["macro"] = {
+        metric: float(class_means(scores[:, COLUMN[metric]], gold, n_diseases)[0][present].mean())
+        for metric in BY_DISEASE
+    }
+    out["macro"]["diseases"] = int(present.sum())
     if il is not None:
-        out["il"] = dataclasses.asdict(il_summary(il, cap=MAX_IL))
+        out["il"] = dataclasses.asdict(il_summary(il, cap=cap))
     return out
 
 
+def by_disease(s: Scored) -> dict[str, Any]:
+    """Patients and BY_DISEASE means at the stop per gold disease present, in KB order."""
+    n_diseases = len(s.diseases)
+    columns = {metric: class_means(s.column(metric), s.gold, n_diseases) for metric in BY_DISEASE}
+    counts = columns[BY_DISEASE[0]][1]
+    return {
+        name: {"n": int(counts[d]), **{metric: float(columns[metric][0][d]) for metric in BY_DISEASE}}
+        for d, name in enumerate(s.diseases)
+        if counts[d] > 0
+    }
+
+
 def _paired(a: FloatArray, b: FloatArray) -> dict[str, Any]:
-    g1, fixed = COLUMN["gtpa1"], COLUMN["gtpa1_fixed"]
+    g1, fixed, official = COLUMN["gtpa1"], COLUMN["gtpa1_fixed"], COLUMN["gtpa1_official"]
     test = mcnemar_exact(a[:, fixed], b[:, fixed])
     return {
         "gtpa1_diff": float(np.mean(a[:, g1] - b[:, g1])),
         "gtpa1_fixed_diff": float(np.mean(a[:, fixed] - b[:, fixed])),
+        "gtpa1_official_diff": float(np.mean(a[:, official] - b[:, official])),
         "mcnemar": {"only_this": test.only_a, "only_other": test.only_b, "p_value": test.p_value},
     }
 
@@ -263,26 +340,30 @@ def report(
     against: Mapping[str, Scored] | None = None,
     bootstrap: bool = True,
     asks: bool = True,
+    cap: int = MAX_IL,
 ) -> dict[str, Any]:
-    """The JSON summary of one run.
+    """The JSON summary of one run, whose length cap is `cap`.
 
     `points` are budgets summarized like the stop; every recorded budget also enters the curve as point
-    estimates. `against` names runs over the same patients to compare with: McNemar on fixed-order GTPA@1
-    at the stop and at the points both runs recorded, and with `asks`, the mean IL difference at the stop.
-    `bootstrap` adds patient-bootstrap intervals (design §4) to DDF1, PER and mean IL and to IL differences.
-    `asks` False marks a reference without questions, whose IL and PER mean nothing.
+    estimates, and "by_disease" holds the per-disease GTPA@1 at the stop. `against` names runs over the same
+    patients to compare with: McNemar on fixed-order GTPA@1 at the stop and at the points both runs recorded,
+    and with `asks`, the mean IL difference at the stop. `bootstrap` adds patient-bootstrap intervals
+    (design §4) to DDF1, DSHM, both PERs and mean IL and to IL differences. `asks` False marks a reference
+    without questions, whose IL and PER mean nothing.
     """
     others = dict(against or {})
     for name, other in others.items():
         if not np.array_equal(s.rows, other.rows):
             raise ValueError(f"{name} was run on other patients")
+    n_diseases = len(s.diseases)
     out: dict[str, Any] = {
         "n": s.n,
         "failures": int(s.failed.sum()),
         "errors": [{"row": r, "error": e} for r, e in s.errors[:ERRORS_SHOWN]],
-        "stop": point_summary(s.stop, s.il if asks else None, asks),
+        "stop": point_summary(s.stop, s.il if asks else None, s.gold, n_diseases, asks, cap),
     }
-    out["budgets"] = {str(b): point_summary(s.at(b), None, asks) for b in points}
+    out["budgets"] = {str(b): point_summary(s.at(b), None, s.gold, n_diseases, asks) for b in points}
+    out["by_disease"] = by_disease(s)
     if s.budgets:
         curve: dict[str, Any] = {"budgets": list(s.budgets)}
         means = s.at_budget.mean(axis=0)
@@ -319,7 +400,7 @@ def _add_bootstrap(
         targets.append(target)
         columns.append(np.asarray(column, dtype=np.float64))
 
-    metrics = ("ddf1", "per") if asks else ("ddf1",)
+    metrics = ("ddf1", "dshm", "per", "per_official") if asks else ("ddf1", "dshm")
     for metric in metrics:
         add(out["stop"][metric], s.column(metric))
         for b in points:

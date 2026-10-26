@@ -13,6 +13,8 @@ from ddxkb.evaluation import (
     COLUMN,
     FAILED_IL,
     METRICS,
+    PROPORTIONS,
+    SCORED,
     Scored,
     ScoreTask,
     V1Scored,
@@ -22,13 +24,19 @@ from ddxkb.evaluation import (
     write_patients,
 )
 from ddxkb.kb import KB
-from ddxkb.metrics import gtpa_at_k, positive_evidence_recall, score_patient
+from ddxkb.metrics import (
+    SEVERE_BELOW,
+    PatientScores,
+    gtpa_at_k,
+    positive_evidence_recall,
+    positive_evidence_recall_official,
+    score_patient,
+)
 from ddxkb.policies.baselines import SetInclusion
 from ddxkb.policies.bayes import BayesPolicy, membership_table, uniform_prior
 from ddxkb.policies.v1_replay import V1Replay, code_graph
 from ddxkb.simulator import MAX_IL, positive_codes
 from ddxkb.stats import BOOTSTRAP_B, BOOTSTRAP_SEED, bootstrap_interval, mcnemar_exact
-from ddxkb.units import code_units
 from helpers import make_repo, toy_patient
 
 RECORDS = [
@@ -60,11 +68,13 @@ def test_scores_are_the_metric_functions(toy_kb: KB) -> None:
     for i, p in enumerate(patients):
         ep = policy.run(p)
         truth = toy_kb.disease_vector(p.differential)
-        expected = score_patient(ep.posterior, ep.gold, truth)
-        assert s.stop[i, COLUMN["gtpa1"]] == expected.gtpa1
-        assert s.stop[i, COLUMN["ddf1"]] == expected.ddf1
-        per = positive_evidence_recall(ep.asked, positive_codes(toy_kb, p), p.initial)
-        assert s.stop[i, COLUMN["per"]] == per
+        severe = np.array(toy_kb.severity) < SEVERE_BELOW
+        expected = score_patient(ep.posterior, ep.gold, truth, severe, toy_kb.official_order)
+        for metric in SCORED:
+            assert s.stop[i, COLUMN[metric]] == getattr(expected, metric)
+        positives = positive_codes(toy_kb, p)
+        assert s.stop[i, COLUMN["per"]] == positive_evidence_recall(ep.asked, positives, p.initial)
+        assert s.stop[i, COLUMN["per_official"]] == positive_evidence_recall_official(ep.asked, positives, p.initial)
         assert s.il[i] == ep.il
         assert s.questions[i] == ep.questions
         for k in range(len(CURVE)):
@@ -102,7 +112,7 @@ def test_a_stop_is_derived_only_from_a_run_to_the_length_cap(toy_kb: KB) -> None
     for bad in (trajectory.restricted((0, 3)), trajectory.restricted(CURVE[:-1])):
         with pytest.raises(ValueError, match="length cap"):
             bad.with_stop(0.9, None, cap=CAP)
-    # The default cap is the protocol's |T| = 30, which this 7-evidence run never reaches.
+    # The default cap is the protocol's IL = 31, which this 7-evidence run never reaches.
     with pytest.raises(ValueError, match="length cap"):
         trajectory.with_stop(0.9, None)
     assert CAP < MAX_IL
@@ -117,17 +127,11 @@ def test_a_failed_patient_scores_zero_at_the_cap(toy_kb: KB) -> None:
     assert (s.il[1], s.stop[1].sum(), s.at_budget[1].sum(), s.peak[1].sum()) == (FAILED_IL, 0, 0, 0)
     assert s.questions[1] == ()
     trajectory = ScoreTask(_p1(toy_kb, None), toy_kb, CURVE)(patients)
-    assert trajectory.with_stop(0.5, 1e-6, cap=CAP).il[1] == FAILED_IL
-
-
-def test_a_unit_run_translates_inside_the_patient_guard(toy_kb: KB) -> None:
-    units = code_units(toy_kb, drop=frozenset({"fievre"}))
-    policy = BayesPolicy(membership_table(units.kb, 0.5, 1e-2), uniform_prior(units.kb), 0.95, CURVE[:6])
-    s = ScoreTask(policy, units.kb, CURVE[:6], units)(_patients(2))
-    assert s.failed.tolist() == [False, True]
-    assert "no question unit" in s.errors[0][1]
-    with pytest.raises(ValueError, match="units' KB"):
-        ScoreTask(policy, toy_kb, CURVE[:6], units)
+    assert trajectory.with_stop(0.5, 1e-6, cap=CAP).il[1] == CAP
+    shorter = CAP - 2
+    capped = trajectory.restricted(tuple(range(shorter))).with_stop(0.5, 1e-6, cap=shorter)
+    assert capped.il[1] == shorter
+    assert report(capped, cap=shorter, bootstrap=False)["failures"] == 1
 
 
 def test_concat_and_restricted(toy_kb: KB) -> None:
@@ -147,6 +151,44 @@ def test_concat_and_restricted(toy_kb: KB) -> None:
         Scored.concat([task(patients[:2]), ScoreTask(short, toy_kb, (0, 1))(patients[:2])])
     with pytest.raises(ValueError, match="nothing"):
         Scored.concat([])
+
+
+def test_select_keeps_the_patients_of_the_given_rows(toy_kb: KB) -> None:
+    patients = _patients(10)
+    patients[5] = dataclasses.replace(patients[5], initial="atcd")
+    whole = ScoreTask(_p1(toy_kb, 0.9), toy_kb, CURVE)(patients)
+    part = whole.select({102, 105, 107, 999})
+    assert part.rows.tolist() == [102, 105, 107]
+    index = [2, 5, 7]
+    for field in ("gold", "il", "stop", "at_budget", "peak", "max_gain", "failed", "top", "top_p"):
+        assert np.array_equal(getattr(part, field), getattr(whole, field)[index]), field
+    assert part.questions == tuple(whole.questions[i] for i in index)
+    assert [r for r, _ in part.errors] == [105]
+    assert part.diseases == whole.diseases == toy_kb.diseases
+    assert whole.select(set()).n == 0
+
+
+def test_report_gives_macro_and_per_disease_gtpa1(toy_kb: KB) -> None:
+    patients = _patients(12)
+    s = ScoreTask(_p1(toy_kb, 0.9), toy_kb, CURVE)(patients)
+    r = report(s, points=(2,), bootstrap=False)
+    per = r["by_disease"]
+    assert list(per) == ["Alpha", "Beta", "Gamma"]
+    for name in per:
+        mine = s.gold == toy_kb.disease_index[name]
+        assert per[name]["n"] == int(mine.sum())
+        assert per[name]["gtpa1"] == pytest.approx(s.column("gtpa1")[mine].mean())
+        assert per[name]["gtpa1_official"] == pytest.approx(s.column("gtpa1_official")[mine].mean())
+    macro = r["stop"]["macro"]
+    assert macro["diseases"] == 3
+    assert macro["gtpa1"] == pytest.approx(np.mean([v["gtpa1"] for v in per.values()]))
+    beta_only = report(s.select({p.row for p in patients if p.pathology == "Beta"}), bootstrap=False)
+    assert beta_only["stop"]["macro"]["diseases"] == 1 and list(beta_only["by_disease"]) == ["Beta"]
+    assert r["budgets"]["2"]["macro"]["gtpa1"] == pytest.approx(
+        np.mean([s.column("gtpa1", 2)[s.gold == d].mean() for d in range(3)])
+    )
+    assert r["stop"]["il"]["questions_mean"] == pytest.approx(s.il.mean() - 1)
+    assert set(r["stop"]) >= {"gtpa1_official", "dshm", "per_official"}
 
 
 def test_report_summarizes_and_compares(toy_kb: KB) -> None:
@@ -244,13 +286,19 @@ def test_a_failed_v1_patient_counts_at_the_longest_interaction(toy_kb: KB) -> No
     assert (v.hits[1].any(), v.tie_aware[1], v.gtpa[1]) == (False, 0.0, 0.0)
 
 
+def test_metric_columns_are_the_patient_scores_then_both_recalls() -> None:
+    assert (*(f.name for f in dataclasses.fields(PatientScores)), "per", "per_official") == METRICS
+    assert {"gtpa1_official", "gtpa3_official", "gtpa5_official"} <= set(PROPORTIONS) <= set(SCORED)
+
+
 def test_scoring_on_the_synthetic_repository(tmp_path: Path) -> None:
     from ddxkb.data import load_kb, load_validation
+    from ddxkb.protocol import CURVE as FULL_CURVE
 
     make_repo(tmp_path, n_validation=20)
     kb = load_kb(tmp_path)
     patients = load_validation(tmp_path)
-    budgets = tuple(range(30))
-    s = ScoreTask(BayesPolicy(membership_table(kb, 0.5, 1e-3), uniform_prior(kb), 0.99, budgets), kb, budgets)(patients)
+    policy = BayesPolicy(membership_table(kb, 0.5, 1e-3), uniform_prior(kb), 0.99, FULL_CURVE)
+    s = ScoreTask(policy, kb, FULL_CURVE)(patients)
     assert s.n == 20 and not s.failed.any()
-    assert (s.il >= 1).all() and (s.il <= 30).all()
+    assert (s.il >= 1).all() and (s.il <= MAX_IL).all()

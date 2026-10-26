@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import importlib
 import os
 import platform
 import subprocess
@@ -11,7 +12,7 @@ from typing import Any
 
 from ddxkb.seal import file_sha256
 
-__all__ = ["environment", "file_sha256", "git_changes", "git_commits_touching", "git_head"]
+__all__ = ["environment", "file_sha256", "git_changed_since", "git_changes", "git_commits_touching", "git_head"]
 
 
 def _git(root: Path, *args: str) -> str | None:
@@ -51,5 +52,27 @@ def git_changes(root: Path, *paths: str, untracked: bool = True) -> list[str] | 
     return None if out is None else out.splitlines()
 
 
+def git_changed_since(root: Path, commit: str, *paths: str) -> list[str] | None:
+    """Files under `paths` that differ between `commit` and HEAD, or None when either cannot be read."""
+    out = _git(root, "diff", "--name-only", commit, "HEAD", "--", *paths)
+    return None if out is None else out.splitlines()
+
+
 def environment() -> dict[str, Any]:
-    return {"python": platform.python_version(), "numpy": version("numpy"), "pandas": version("pandas")}
+    return {
+        "python": platform.python_version(),
+        "numpy": version("numpy"),
+        "pandas": version("pandas"),
+        "numpy_simd": numpy_simd(),
+    }
+
+
+def numpy_simd() -> list[str]:
+    """The SIMD targets numpy dispatches to on this CPU (`np.show_runtime`'s "found").
+
+    np.argsort orders exact ties by its sort kernel, and the official GTPA@1 reads that order.
+    """
+    umath = importlib.import_module("numpy._core._multiarray_umath")
+    features: dict[str, bool] = getattr(umath, "__cpu_features__", {})
+    dispatch: list[str] = getattr(umath, "__cpu_dispatch__", [])
+    return sorted(f for f in dispatch if features.get(f, False))

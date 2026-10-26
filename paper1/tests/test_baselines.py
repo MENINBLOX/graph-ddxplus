@@ -8,12 +8,14 @@ import pytest
 
 from ddxkb.data import Patient
 from ddxkb.evaluation import Scored, ScoreTask
+from ddxkb.experiment import Referenced
 from ddxkb.kb import KB
 from ddxkb.metrics import gtpa_at_k
 from ddxkb.policies.baselines import (
     FixedOrder,
     FullProfile,
     MostFrequentDisease,
+    ProfileMajority,
     RandomInKBCandidates,
     SetInclusion,
     initial_only,
@@ -23,7 +25,7 @@ from ddxkb.policies.baselines import (
 from ddxkb.policies.bayes import BayesPolicy, frequency_prior, frequency_table, membership_table, uniform_prior
 from ddxkb.policies.episode import Policy
 from ddxkb.runner import chunks, map_items, worker_pool
-from ddxkb.simulator import Answer, AnswerMode, Oracle
+from ddxkb.simulator import Answer, AnswerMode, Oracle, Start, StartInput
 from helpers import binary_kb, toy_counts, toy_patient
 
 # A and B share e0; C lists neither e0 nor anything of A or B.
@@ -113,8 +115,9 @@ def test_full_profile_naive_bayes_reads_values_in_value_mode(toy_kb: KB) -> None
     table = frequency_table(toy_kb, counts, 1.0, AnswerMode.VALUE)
     prior = frequency_prior(counts, 1.0, by_age_sex=True)
     patient = _beta()
-    oracle = Oracle(toy_kb, patient, AnswerMode.VALUE)
-    log_post = prior(patient) + sum(table.log_likelihood(oracle.answer(e.code)) for e in toy_kb.evidences)
+    oracle = Oracle(toy_kb, patient)
+    start = Start(oracle.answer(patient.initial), patient.age, patient.sex)
+    log_post = prior(start) + sum(table.log_likelihood(oracle.answer(e.code)) for e in toy_kb.evidences)
     expected = np.exp(log_post - log_post.max())
     ep = FullProfile(table, prior).run(patient)
     assert ep.posterior == pytest.approx(expected / expected.sum(), rel=1e-12)
@@ -122,6 +125,25 @@ def test_full_profile_naive_bayes_reads_values_in_value_mode(toy_kb: KB) -> None
         toy_patient(["douleur", "douleur_intens_@_3", "douleur_lieu_@_tete", "atcd", "trav1_@_N"], "douleur")
     )
     assert not np.allclose(other.posterior, ep.posterior)
+
+
+def test_profile_majority_shares_the_diseases_of_identical_positive_sets(toy_kb: KB) -> None:
+    # The default values of douleur_intens and trav1 are negative, so the first three records share one profile.
+    patients = [
+        toy_patient(["douleur", "atcd"], "douleur", "Beta", row=0),
+        toy_patient(["douleur", "atcd", "douleur_intens_@_0", "trav1_@_N"], "douleur", "Beta", row=1),
+        toy_patient(["douleur", "atcd"], "douleur", "Gamma", row=2),
+        toy_patient(["fievre"], "fievre", "Alpha", row=3),
+    ]
+    majority = ProfileMajority.from_patients(toy_kb, patients)
+    shared = majority.run(patients[2])
+    assert shared.posterior.tolist() == pytest.approx([0.0, 2 / 3, 1 / 3])
+    assert (shared.il, shared.questions) == (1, ())
+    assert gtpa_at_k(shared.posterior, shared.gold, 1) == 0.0
+    assert gtpa_at_k(majority.run(patients[0]).posterior, 1, 1) == 1.0
+    assert majority.run(patients[3]).posterior.tolist() == [1.0, 0.0, 0.0]
+    with pytest.raises(KeyError):
+        majority.run(toy_patient(["toux"], "toux", "Alpha"))
 
 
 def test_random_questions_come_from_the_candidate_lists(trio: KB) -> None:
@@ -196,7 +218,7 @@ def test_frequency_order_ranks_and_stops_like_the_given_policy(toy_kb: KB) -> No
     assert (b6.table, b6.prior, b6.tau) == (p2.table, p2.prior, p2.tau)
     ep = b6.run(_beta())
     assert ep.posterior.max() >= 0.9 or ep.il == toy_kb.n_evidences
-    log_post = p2.prior(_beta()) + p2.table.log_likelihood(Answer("douleur", True))
+    log_post = p2.prior(Start(Answer("douleur", True))) + p2.table.log_likelihood(Answer("douleur", True))
     oracle = Oracle(toy_kb, _beta())
     for code in ep.asked:
         log_post = log_post + p2.table.log_likelihood(oracle.answer(code))
@@ -226,3 +248,21 @@ def test_no_question_and_full_profile_references_on_the_review_sample(real_kb: K
 
 def test_set_inclusion_on_validation(real_kb: KB, validation: list[Patient]) -> None:
     assert round(_mean_gtpa1(SetInclusion(real_kb), real_kb, validation), 2) == 95.90
+
+
+def test_reference_points_declare_what_they_read(toy_kb: KB) -> None:
+    counts = toy_counts()
+    initial = frozenset({StartInput.INITIAL_EVIDENCE})
+    value = frequency_table(toy_kb, counts, 1.0, AnswerMode.VALUE)
+    p1 = BayesPolicy(membership_table(toy_kb, 0.5, 1e-2), uniform_prior(toy_kb), 0.9)
+    majority = ProfileMajority.from_patients(toy_kb, [toy_patient(["douleur"], "douleur")])
+    declared: list[tuple[Referenced, frozenset[StartInput], AnswerMode | None]] = [
+        (MostFrequentDisease.from_counts(toy_kb, counts), frozenset(), None),
+        (initial_only(p1), initial, AnswerMode.BINARY),
+        (SetInclusion(toy_kb), initial, AnswerMode.BINARY),
+        (majority, initial, AnswerMode.BINARY),
+        (FullProfile(p1.table, p1.prior), initial, AnswerMode.BINARY),
+        (FullProfile(value, frequency_prior(counts, 1.0, by_age_sex=True)), frozenset(StartInput), AnswerMode.VALUE),
+    ]
+    for policy, inputs, mode in declared:
+        assert (policy.start_inputs, policy.answer_mode) == (inputs, mode), policy

@@ -30,8 +30,7 @@ from pathlib import Path
 import numpy as np
 
 from ddxkb.data import REPO_ROOT, Patient
-from ddxkb.kb import KB, BoolArray, FloatArray
-from ddxkb.policies.bayes import IndexArray
+from ddxkb.kb import KB, BoolArray, FloatArray, IndexArray
 from ddxkb.policies.episode import Episode
 from ddxkb.simulator import positive_codes
 

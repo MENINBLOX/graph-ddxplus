@@ -10,6 +10,13 @@ Entries describe impact on results and reproduction, not commit titles.
 - **reproduce.sh**: 기본 KG가 `kg_merged27`에서 `kg_merged29`로 바뀌었고, kg 단계가 실제 빌드 경로(전 코퍼스 추가 병합 → 수식어 승격 → 직렬 정규화 → 조립)를 따른다. **영향**: 이전 스크립트로는 논문의 KG가 만들어지지 않았다.
 
 ### ✨ Features
+- **paper1**: DDXPlus 공개 멤버십 KB 연구(`paper1/`)를 공식 대화형 프로토콜로 다시 평가했다. 설정은 나이·성별·초기 evidence 입력, 초기 evidence 뒤 30문항, 공식 GTPA@1 식이다. 평가는 공식 test 전체(134,529명)에서 한 번 했다.
+  - 결과: 목록만 쓰는 P1은 98.44%(공식 정의 98.45%), IL 10.35다. 빈도 Bayes P2는 이진 98.87%, 값 단위 99.53%다.
+  - BED 재현(B-BED): 99.47%, IL 5.48로 보고값(99.47%, 5.47)을 재현했고 DDF1·DSHM·PER도 같다.
+  - 판정: J1·J2·J3′를 모두 충족했다.
+  - 첫 평가(H1·H2, 동결 a06db1e)는 고치지 않고 보존했다(`ddxkb.first_run`이 검사). 개정한 항목을 하나씩 되돌린 차이는 0.06%p 이하다.
+  - 재현 경로: `run_dev` → `freeze` → `run_eval`. 동결은 `paper1/configs/protocol_v2_frozen.yaml`, 산출은 `paper1/outputs/v2/`에 있다.
+  - 평가 게이트 강화: 선택 실행 뒤 `paper1/src`가 바뀌면 평가를 거부한다. 설계 문서가 미커밋이었거나 실행 중 HEAD가 바뀐 선택은 동결하지 않는다.
 - **review**: 사전 그래프 대비 혼합 추출의 비용과 기전을 측정했다. 구축 비용은 혼합 약 136시간(GPU 생성 127시간) 대 사전 약 0.45시간(CPU)이다. 혼합 간선의 86.9%가 사전 그래프에도 있고, 희귀질환 개발 세트에서 혼합의 우세는 혼합 전용 간선 없이도 대부분 유지된다(LLM의 역할은 소견 선택 쪽). HPO 주석 일치율은 혼합 12.6%, 사전 7.8%로 둘 다 감사한 구 그래프보다 낮아, 구 감사 결과(29.5%)를 주 시스템에 옮겨 읽을 수 없다. 의료진 판정용 혼합 그래프 간선 100개 블라인드 시트(`docs/audit/smix_audit_*`)를 준비했다(판정 전).
 - **recall**: 재현율 손실 분해를 v2+v3 그래프에서 다시 쟀다. 수집 손실은 설계 D 그래프 67.0% → 혼합 37.3%, 문헌 없음 22.4% → 0.3%이고, 추출·연결 손실은 늘지 않았다. `recall_decomp.py`의 기본값은 이전 결과를 그대로 재현한다.
 - **confirm-e**: 혼합 추출 그래프(S-mix: LLM이 고른 구절 + 구절 표가 못 붙인 구절 안의 UMLS 사전 이름)를 새 봉인 세트(DDXPlus·SymCat 같은 질환의 새 환자)에서 1회 확증. 설계 D 그래프보다 Top-10 DDXPlus +6.5%p·SymCat +2.4%p, LLM 단독보다 매크로 +1.6%p 높았다. UMLS 사전·합집합 그래프보다는 낮았고(DDXPlus Top-1 −5%p), BM25 결합은 이득이 없었다. 7개 판정이 모두 실행 전에 커밋한 예상과 같다. 결과는 `pilot/cache/v2/confirmE/`와 `docs/research_design.md` E7. 봉인·동결·실행 스크립트: `seal_confirm_e.py`, `freeze_e.py`, `run_confirm_E.sh`, `confirm_e_aux.py`.
@@ -30,6 +37,10 @@ Entries describe impact on results and reproduction, not commit titles.
 - **ablation**: 가중합 결합 변형에 곱셈형용 가중 2.0이 그대로 들어가 근거 채널에 음의 가중이 걸리던 인공적 결과 → 가중합이 실제로 쓰이던 0.4로 평가.
 
 ### 📝 Docs
+- paper1 설계·검토 문서는 다음과 같다.
+  - `docs/ddxplus_data_review_2026-10-23.md`: DDXPlus 데이터 구성 검토(생성 방식, 공식 프로토콜, 분할, 중복).
+  - `docs/design/ddxplus_kb_redo.md`의 '보완 2', '개발 전 확정', '결과 2': 공식 프로토콜 재설계, 코드에만 있던 결정 90건의 기록, 결과.
+  - 국문 초안 `draft/paper1_ko/draft.md`: 공식 test 결과로 다시 썼다.
 - 논문 v3: 리뷰 지적(사전 매칭의 경쟁력, 주 그래프 미감사, DDXPlus 49질환 범위)과 외부 메모 검토에서 채택한 항목(결론 요약, 5.2 후속 연구)을 반영했다. 'threshold-free'로 잘못 적혀 있던 연결기 설명(`normalize_v2.py`)을 실제 동작으로 고쳤다.
 - 국문 논문 초안 v3(`draft/paper_ko_v3/`): 혼합 추출과 설계 D·E 기준. 문장별 근거 로그와 절 간 일관성 검토 기록을 함께 둔다.
 - 설계 E(`docs/research_design.md` 상단): 판정 기준과 예상값을 동결·실행 전에 커밋했고, 결과를 E7에 그대로 기록했다.

@@ -1,7 +1,7 @@
 """Bayes inquiry with greedy EIG question selection (design §3).
 
 P1 and P2 are this one engine with different likelihood tables and priors: P1 knows only whether an
-evidence is on a disease's list (`membership_table`, `uniform_prior`), P2 uses train minus H2 frequencies
+evidence is on a disease's list (`membership_table`, `uniform_prior`), P2 uses train frequencies
 (`frequency_table`, `frequency_prior`). Answers are conditionally independent given the disease. The
 baselines (`ddxkb.policies.baselines`) keep the engine and swap the question `Selector`.
 """
@@ -14,15 +14,12 @@ from dataclasses import dataclass, field
 from typing import Protocol
 
 import numpy as np
-import numpy.typing as npt
 
 from ddxkb.data import Patient
-from ddxkb.frequencies import FrequencyCounts, age_bin, sex_index, value_columns
-from ddxkb.kb import KB, BoolArray, DataType, FloatArray
+from ddxkb.frequencies import AGE_BIN_EDGES, FrequencyCounts, age_bin, check_age_edges, sex_index, value_columns
+from ddxkb.kb import KB, BoolArray, DataType, FloatArray, IndexArray
 from ddxkb.policies.episode import Episode
-from ddxkb.simulator import MAX_IL, Answer, AnswerMode, Interaction, Oracle
-
-IndexArray = npt.NDArray[np.intp]
+from ddxkb.simulator import MAX_IL, Answer, AnswerMode, Hierarchy, Interaction, Oracle, Start, StartInput
 
 # EIGs closer than this (nats) are one tie, broken by KB evidence order. Each EIG is a difference of
 # entropies of order 1, so a smaller gap is rounding, and the BLAS build would otherwise pick the question.
@@ -147,34 +144,49 @@ def frequency_table(kb: KB, counts: FrequencyCounts, lam: float, mode: AnswerMod
 
 @dataclass(frozen=True, eq=False)
 class Prior:
-    """log P(d) in KB order, shape (diseases,), or log P(d | age bin, sex), shape (age bins, sexes, diseases).
+    """log P(d) in KB order, shape (diseases,), or log P(d | age group, sex), shape (age groups, sexes, diseases),
+    the age groups being those of `age_edges`.
 
     Age and sex enter only here; the likelihood tables are per disease.
     """
 
     log_p: FloatArray
+    age_edges: tuple[int, ...] = AGE_BIN_EDGES
 
     def __post_init__(self) -> None:
+        check_age_edges(self.age_edges)
+        if self.log_p.ndim == 3 and self.log_p.shape[0] != len(self.age_edges) + 1:
+            raise ValueError(f"{self.log_p.shape[0]} age groups, but the edges make {len(self.age_edges) + 1}")
         self.log_p.flags.writeable = False
 
-    def __call__(self, patient: Patient) -> FloatArray:
+    @property
+    def inputs(self) -> frozenset[StartInput]:
+        """The start inputs this prior reads."""
+        return frozenset({StartInput.AGE, StartInput.SEX}) if self.log_p.ndim == 3 else frozenset()
+
+    def __call__(self, start: Start) -> FloatArray:
         if self.log_p.ndim == 1:
             return self.log_p
-        return np.asarray(self.log_p[age_bin(patient.age), sex_index(patient.sex)])
+        if start.age is None or start.sex is None:
+            raise ValueError("this prior reads the age and sex, which the start does not give")
+        return np.asarray(self.log_p[age_bin(start.age, self.age_edges), sex_index(start.sex)])
 
 
 def uniform_prior(kb: KB) -> Prior:
     return Prior(np.full(kb.n_diseases, -math.log(kb.n_diseases)))
 
 
-def frequency_prior(counts: FrequencyCounts, lam: float, by_age_sex: bool = False) -> Prior:
+def frequency_prior(
+    counts: FrequencyCounts, lam: float, by_age_sex: bool = False, age_edges: tuple[int, ...] = AGE_BIN_EDGES
+) -> Prior:
+    """P(d), or with `by_age_sex` P(d | age group of `age_edges`, sex), Laplace-smoothed with lam."""
     if lam <= 0:
         raise ValueError("lam must be positive")
     n_diseases = counts.rows.shape[0]
     if not by_age_sex:
         return Prior(np.log((counts.rows + lam) / (counts.rows.sum() + n_diseases * lam)))
-    cells = np.moveaxis(counts.by_age_sex, 0, -1).astype(np.float64)
-    return Prior(np.log((cells + lam) / (cells.sum(axis=-1, keepdims=True) + n_diseases * lam)))
+    cells = np.moveaxis(counts.age_groups(age_edges), 0, -1).astype(np.float64)
+    return Prior(np.log((cells + lam) / (cells.sum(axis=-1, keepdims=True) + n_diseases * lam)), age_edges)
 
 
 def expected_information_gain(table: LikelihoodTable, posterior: FloatArray) -> FloatArray:
@@ -189,19 +201,20 @@ def expected_information_gain(table: LikelihoodTable, posterior: FloatArray) -> 
     return np.asarray(np.maximum.reduceat(gain, table.evidence_start))
 
 
-def select_question(gain: FloatArray, asked: BoolArray) -> int:
-    """The unasked evidence with the largest EIG, ties going to the first in KB order."""
-    open_gain = np.where(asked, -np.inf, gain)
+def select_question(gain: FloatArray, closed: BoolArray) -> int:
+    """The open evidence with the largest EIG, ties going to the first in KB order."""
+    open_gain = np.where(closed, -np.inf, gain)
     best = open_gain.max()
     if not np.isfinite(best):
-        raise RuntimeError("every evidence has been asked")
+        raise RuntimeError("no evidence is left to ask")
     return int(np.argmax(open_gain >= best - EIG_TIE_ATOL))
 
 
 QuestionChoice = Callable[[FloatArray, BoolArray, BoolArray, FloatArray], int]
-"""(posterior, asked mask, positive-answer mask, EIG of every evidence) -> index of the next evidence to ask.
-The masks are read-only views of the episode state and include the initial evidence; the EIG is
-`expected_information_gain` of the posterior, asked evidences included."""
+"""(posterior, closed mask, positive-answer mask, EIG of every evidence) -> index of the next evidence to ask.
+The masks are read-only and in KB order. Closed evidences cannot be asked now: the initial evidence, those asked
+or implied, and children the hierarchy rule holds back (`Interaction.closed`). Positive answers include implied
+ones. The EIG is `expected_information_gain` of the posterior, closed evidences included."""
 
 
 class Selector(Protocol):
@@ -215,8 +228,8 @@ class GreedyEIG:
     """P1 and P2: the unasked evidence with the largest EIG (`select_question`)."""
 
     def start(self, table: LikelihoodTable, patient: Patient) -> QuestionChoice:
-        def choose(posterior: FloatArray, asked: BoolArray, positive: BoolArray, gain: FloatArray) -> int:
-            return select_question(gain, asked)
+        def choose(posterior: FloatArray, closed: BoolArray, positive: BoolArray, gain: FloatArray) -> int:
+            return select_question(gain, closed)
 
         return choose
 
@@ -226,21 +239,23 @@ def normalize(log_posterior: FloatArray) -> FloatArray:
     return np.asarray(w / w.sum())
 
 
-def best_open_gain(gain: FloatArray, asked: BoolArray) -> float:
-    """The largest EIG among the unasked evidences, 0 when every evidence has been asked."""
-    open_gain = gain[~asked]
+def best_open_gain(gain: FloatArray, closed: BoolArray) -> float:
+    """The largest EIG among the open evidences, 0 when none is open."""
+    open_gain = gain[~closed]
     return max(float(open_gain.max()), 0.0) if open_gain.size else 0.0
 
 
 @dataclass(frozen=True, eq=False)
 class BayesPolicy:
-    """Inquiry over the unasked evidences with a Bayes posterior; questions come from `selector`.
+    """Inquiry over the open evidences with a Bayes posterior; questions come from `selector`.
 
-    The episode stops at the first |T| where the max posterior is >= tau, or no unasked evidence has an
-    EIG >= min_gain, or |T| = max_il, or a KB with fewer evidences than max_il has none left to ask; None
-    turns the tau or min_gain condition off. For each budget b the posterior after exactly b questions and
-    the largest unasked EIG there are recorded. Question choice never depends on tau or min_gain, so one
-    trajectory, continued past the stop, gives both the stopped result and the budget curve.
+    The episode stops at the first |T| where the max posterior is >= tau, or no open evidence has an
+    EIG >= min_gain, or |T| reaches the length cap; None turns the tau or min_gain condition off. For each
+    budget b the posterior after exactly b questions and the largest open EIG there are recorded. Question
+    choice never depends on tau or min_gain, so one trajectory, continued past the stop, gives both the stopped
+    result and the budget curve. Answers the hierarchy rule implies enter the posterior with the answer that
+    implied them. The policy reads the initial evidence, and the age and sex only when its prior does
+    (`start_inputs`).
     """
 
     table: LikelihoodTable
@@ -250,6 +265,7 @@ class BayesPolicy:
     max_il: int = MAX_IL
     selector: Selector = GreedyEIG()
     min_gain: float | None = None
+    hierarchy: Hierarchy = Hierarchy.NONE
 
     def __post_init__(self) -> None:
         if self.max_il < 1:
@@ -265,19 +281,28 @@ class BayesPolicy:
 
     @property
     def length_cap(self) -> int:
-        return min(self.max_il, self.table.kb.n_evidences)
+        """max_il, lowered for a KB too small to keep a question open until then: the hierarchy rules close
+        at most the linked evidences without a turn."""
+        kb = self.table.kb
+        reserve = 0 if self.hierarchy is Hierarchy.NONE else int(np.count_nonzero(kb.linked_mask))
+        return min(self.max_il, kb.n_evidences - reserve)
+
+    @property
+    def start_inputs(self) -> frozenset[StartInput]:
+        return frozenset({StartInput.INITIAL_EVIDENCE, *self.prior.inputs})
+
+    @property
+    def answer_mode(self) -> AnswerMode:
+        return self.table.mode
 
     def run(self, patient: Patient) -> Episode:
         kb = self.table.kb
-        it = Interaction(Oracle(kb, patient, self.table.mode), self.length_cap)
+        it = Interaction(Oracle(kb, patient), self.length_cap, self.hierarchy, self.start_inputs)
         choose = self.selector.start(self.table, patient)
-        asked = np.zeros(kb.n_evidences, dtype=np.bool_)
-        positive = np.zeros(kb.n_evidences, dtype=np.bool_)
-        first = kb.evidence_index[patient.initial]
-        asked[first] = positive[first] = True
-        asked_view, positive_view = asked.view(), positive.view()
-        asked_view.flags.writeable = positive_view.flags.writeable = False
-        log_post = self.prior(patient) + self.table.log_likelihood(it.initial)
+        positive = it.positive
+        log_post = self.prior(it.start)
+        for a in (it.initial, *it.implied):
+            log_post = log_post + self.table.log_likelihood(a)
         last_budget = self.budgets[-1] if self.budgets else 0
         snapshots: list[FloatArray] = []
         gains: list[float] = []
@@ -285,7 +310,8 @@ class BayesPolicy:
         while True:
             q = normalize(log_post)
             gain = expected_information_gain(self.table, q)
-            open_gain = best_open_gain(gain, asked)
+            closed = it.closed()
+            open_gain = best_open_gain(gain, closed)
             n_questions = it.il - 1
             if n_questions in self.budgets:
                 snapshots.append(q)
@@ -294,11 +320,9 @@ class BayesPolicy:
                 stop = (it.il, q)
             if stop is not None and n_questions >= last_budget:
                 break
-            j = choose(q, asked_view, positive_view, gain)
-            answer = it.ask(kb.evidences[j].code)
-            asked[j] = True
-            positive[j] = answer.positive
-            log_post = log_post + self.table.log_likelihood(answer)
+            j = choose(q, closed, positive, gain)
+            for answer in it.ask(kb.evidences[j].code):
+                log_post = log_post + self.table.log_likelihood(answer)
         return Episode(
             row=patient.row,
             gold=kb.disease_index[patient.pathology],

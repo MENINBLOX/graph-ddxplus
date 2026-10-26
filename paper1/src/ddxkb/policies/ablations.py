@@ -1,6 +1,6 @@
 """Policy parts that only the ablations of design §3 use: A1 (`HeardAnswers`) and A5 (`CoverageOrder`).
 
-The other ablations swap a table, prior or question unit of P1 and need no code of their own.
+The other ablations swap a table, prior or hierarchy rule of P1 and need no code of their own.
 """
 
 from __future__ import annotations
@@ -50,7 +50,7 @@ def heard_answers(table: LikelihoodTable, heard: Heard) -> HeardAnswers:
 
 @dataclass(frozen=True)
 class CoverageOrder:
-    """A5: the unasked evidence on the most lists of the KB candidate diseases; ties in KB order.
+    """A5: the open evidence on the most lists of the KB candidate diseases; ties in KB order.
 
     Candidates are those of `RandomInKBCandidates` (B2): the diseases with the fewest positive answers off
     their lists. The choice ignores the posterior, the way the earlier study's coverage rule did.
@@ -60,12 +60,12 @@ class CoverageOrder:
         membership = table.kb.membership
         off_list = ~membership
 
-        def choose(posterior: FloatArray, asked: BoolArray, positive: BoolArray, gain: FloatArray) -> int:
+        def choose(posterior: FloatArray, closed: BoolArray, positive: BoolArray, gain: FloatArray) -> int:
             violations = (off_list & positive).sum(axis=1)
             coverage = membership[violations == violations.min()].sum(axis=0)
-            open_coverage = np.where(asked, -1, coverage)
+            open_coverage = np.where(closed, -1, coverage)
             if open_coverage.max() < 0:
-                raise RuntimeError("every evidence has been asked")
+                raise RuntimeError("no evidence is left to ask")
             return int(np.argmax(open_coverage))
 
         return choose

@@ -18,6 +18,7 @@ from ddxkb.kb import KB, BoolArray, FloatArray
 from ddxkb.policies.bayes import (
     BayesPolicy,
     LikelihoodTable,
+    Prior,
     QuestionChoice,
     best_open_gain,
     expected_information_gain,
@@ -27,11 +28,13 @@ from ddxkb.policies.bayes import (
     select_question,
     uniform_prior,
 )
-from ddxkb.protocol import MIN_GAIN
+from ddxkb.protocol import FIRST_AGE_BIN_EDGES, MIN_GAIN
 from ddxkb.runner import chunks, map_items, worker_pool
-from ddxkb.simulator import Answer, AnswerMode
+from ddxkb.simulator import Answer, AnswerMode, Hierarchy, Start, StartInput
 from helpers import binary_kb, toy_counts, toy_patient
 
+# The review prototype's budgets and cap: |T| <= 30 with the initial evidence, as in the first protocol.
+FIRST_CAP = 30
 BUDGETS = (0, 5, 10, 15, 20, 29)
 
 
@@ -228,6 +231,44 @@ def test_a_selector_cannot_repeat_a_question(quad: KB) -> None:
         pol.run(_patient_a())
 
 
+def test_implied_answers_enter_the_posterior_without_a_turn(toy_kb: KB) -> None:
+    table = membership_table(toy_kb, 0.5, 1e-3)
+    script = _Scripted((2, 0, 1))
+    pol = BayesPolicy(table, uniform_prior(toy_kb), None, (0, 1), 6, script, hierarchy=Hierarchy.IMPLICIT)
+    # Three of the seven evidences are linked, so the cap leaves room for them all to close without a turn.
+    assert pol.length_cap == 7 - 3
+    alpha = toy_patient(["toux", "fievre"], initial="toux", pathology="Alpha")
+    with pytest.raises(ValueError, match="already asked"):
+        pol.run(alpha)
+    # douleur (no) implies douleur_intens and douleur_lieu (no): one question, three answers.
+    no = [Answer(c, False) for c in ("douleur", "douleur_intens", "douleur_lieu")]
+    log_post = np.log(np.full(3, 1 / 3)) + table.log_likelihood(Answer("toux", True))
+    expected = log_post + sum(table.log_likelihood(a) for a in no)
+    assert script.seen[1][0] == [False, True, True, True, True, False, False]
+    run = BayesPolicy(table, uniform_prior(toy_kb), None, (0, 1), 2, _Scripted((2,)), hierarchy=Hierarchy.IMPLICIT)
+    ep = run.run(alpha)
+    assert (ep.questions, ep.il) == (("douleur",), 2)
+    assert ep.at_budget(1) == pytest.approx(np.exp(expected) / np.exp(expected).sum())
+
+
+def test_parent_first_keeps_children_closed_until_the_parent_is_positive(toy_kb: KB) -> None:
+    table = membership_table(toy_kb, 0.5, 1e-3)
+    beta = toy_patient(["douleur", "douleur_lieu_@_dos", "atcd"], initial="atcd")
+    blocked = BayesPolicy(table, uniform_prior(toy_kb), None, (), 3, _Scripted((4,)), hierarchy=Hierarchy.PARENT_FIRST)
+    with pytest.raises(ValueError, match="before its parent douleur"):
+        blocked.run(beta)
+    script = _Scripted((2, 4))
+    pol = BayesPolicy(table, uniform_prior(toy_kb), None, (), 3, script, hierarchy=Hierarchy.PARENT_FIRST)
+    assert pol.run(beta).questions == ("douleur", "douleur_lieu")
+    # Before douleur is known positive both of its children are closed; after it, they open.
+    assert script.seen[0][0] == [False, False, False, True, True, False, True]
+    assert script.seen[1][0] == [False, False, True, False, False, False, True]
+    greedy = BayesPolicy(table, uniform_prior(toy_kb), None, (), 4, hierarchy=Hierarchy.PARENT_FIRST)
+    # Alpha has no pain, so its subquestions never open.
+    alpha = toy_patient(["fievre", "toux"], initial="fievre", pathology="Alpha")
+    assert not {"douleur_intens", "douleur_lieu"} & set(greedy.run(alpha).questions)
+
+
 def test_same_output_twice(toy_kb: KB) -> None:
     pol = BayesPolicy(membership_table(toy_kb, 0.5, 1e-3), uniform_prior(toy_kb), 0.99, (0, 1, 3))
     p = toy_patient(["douleur", "douleur_intens_@_2", "douleur_lieu_@_dos", "atcd", "trav1_@_N"], initial="douleur")
@@ -299,10 +340,41 @@ def test_frequency_prior(toy_kb: KB) -> None:
     assert np.exp(flat.log_p) == pytest.approx([11 / 23, 9 / 23, 3 / 23])
     by = frequency_prior(counts, 1.0, by_age_sex=True)
     assert by.log_p.shape == (N_AGE_BINS, 2, 3)
-    boy = dataclasses.replace(toy_patient(["fievre"], initial="fievre"), age=1, sex="M")
-    # Age bin 0, male: only Beta's 2 rows.
+    boy = Start(Answer("fievre", True), age=1, sex="M")
+    # Ages 1-4, male: only Beta's 2 rows.
     assert np.exp(by(boy)) == pytest.approx([1 / 5, 3 / 5, 1 / 5])
     assert np.exp(uniform_prior(toy_kb).log_p) == pytest.approx([1 / 3] * 3)
+    assert np.array_equal(flat(boy), flat(Start(Answer("fievre", True))))
+    assert (flat.inputs, by.inputs) == (frozenset(), frozenset({StartInput.AGE, StartInput.SEX}))
+    with pytest.raises(ValueError, match="age and sex"):
+        by(Start(Answer("fievre", True)))
+
+
+def test_frequency_prior_over_other_age_groups() -> None:
+    counts = toy_counts()
+    first = frequency_prior(counts, 1.0, by_age_sex=True, age_edges=FIRST_AGE_BIN_EDGES)
+    assert first.log_p.shape == (len(FIRST_AGE_BIN_EDGES) + 1, 2, 3) and first.age_edges == FIRST_AGE_BIN_EDGES
+    # Age 3 is in 1-4 of the official groups, which holds Beta's two boys aged 1, but in 2-4 of these, which is empty.
+    boy = Start(Answer("fievre", True), age=3, sex="M")
+    assert np.exp(frequency_prior(counts, 1.0, by_age_sex=True)(boy)) == pytest.approx([1 / 5, 3 / 5, 1 / 5])
+    assert np.exp(first(boy)) == pytest.approx([1 / 3] * 3)
+    with pytest.raises(ValueError, match="age groups"):
+        Prior(first.log_p)
+
+
+def test_a_policy_reads_age_and_sex_only_through_its_prior(toy_kb: KB) -> None:
+    counts = toy_counts()
+    table = frequency_table(toy_kb, counts, 1.0, AnswerMode.BINARY)
+    p = toy_patient(["douleur", "atcd"], initial="douleur")
+    by = BayesPolicy(table, frequency_prior(counts, 1.0, by_age_sex=True), None, (0,), 4)
+    assert by.start_inputs == set(StartInput)
+    expected = by.prior(Start(Answer("douleur", True), 40, "F")) + table.log_likelihood(Answer("douleur", True))
+    assert by.run(p).at_budget(0) == pytest.approx(np.exp(expected) / np.exp(expected).sum())
+    older = by.run(dataclasses.replace(p, age=80, sex="M")).at_budget(0)
+    assert not np.allclose(older, by.run(p).at_budget(0))
+    flat = BayesPolicy(table, frequency_prior(counts, 1.0), None, (0,), 4)
+    assert flat.start_inputs == {StartInput.INITIAL_EVIDENCE}
+    assert np.array_equal(flat.run(p).at_budget(0), flat.run(dataclasses.replace(p, age=80, sex="M")).at_budget(0))
 
 
 def test_table_rejects_zero_likelihoods(quad: KB) -> None:
@@ -319,8 +391,10 @@ def _sample(validation: list[Patient]) -> list[Patient]:
 
 
 def _p1(kb: KB, validation: list[Patient], min_gain: float | None = MIN_GAIN) -> tuple[float, float, list[float]]:
-    """Tie-aware GTPA@1 (%) and mean IL at the stop, and the GTPA@1 curve (%) over BUDGETS."""
-    pol = BayesPolicy(membership_table(kb, 0.5, 1e-3), uniform_prior(kb), 0.99, BUDGETS, min_gain=min_gain)
+    """Tie-aware GTPA@1 (%) and mean IL at the stop, and the GTPA@1 curve (%) over BUDGETS, at the first cap."""
+    pol = BayesPolicy(
+        membership_table(kb, 0.5, 1e-3), uniform_prior(kb), 0.99, BUDGETS, max_il=FIRST_CAP, min_gain=min_gain
+    )
     processes = min(16, os.cpu_count() or 1)
     with worker_pool(processes) as pool:
         s = Scored.concat(map_items(ScoreTask(pol, kb, BUDGETS), chunks(_sample(validation), 4 * processes), pool))
