@@ -10,7 +10,7 @@ DDXPlus는 49개 질환의 합성 환자로 이루어진 대화형 감별진단 
 
 ## 1. 서론
 
-DDXPlus(Fansi Tchango 외, 2022)는 49개 질환의 합성 환자 약 130만 명을 담은 벤치마크다. 대화형 과제에서 에이전트는 나이, 성별, 초기 evidence 1개를 받고, evidence를 하나씩 물은 뒤 감별진단을 낸다. 문헌의 에이전트는 train 환자로 학습하거나(AARLC, BASD, CASANDE [인용]) LLM의 지식을 쓴다(MEDDxAgent [인용]).
+DDXPlus [인용]는 49개 질환의 합성 환자 약 130만 명을 담은 벤치마크다. 대화형 과제에서 에이전트는 나이, 성별, 초기 evidence 1개를 받고, evidence를 하나씩 물은 뒤 감별진단을 낸다. 문헌의 에이전트는 train 환자로 학습하거나(AARLC, BASD, CASANDE [인용]) LLM을 에이전트로 쓴다(MEDDxAgent, MedExAgent, DiagGym [인용]).
 
 DDXPlus 논문과 README에 따르면 환자의 인구학 정보·질환·evidence는 나이·성별에 따라 달라지는 확률을 가진 비공개 의학 KB, 인구조사 자료, Synthea로 합성했다. 정답 감별진단은 상용 규칙 기반 진단 시스템이 만들었다. 환자를 만든 생성기와 정답 감별을 붙인 시스템이 다르고 그 감별이 공개 목록과 맞지 않으므로, 이 연구는 정답 감별진단이 아니라 정답 질환 식별을 잰다(2절). 공개 파일 `release_conditions.json`에는 질환별 증상·병력 목록만 있고, 항목 값은 모두 비어 있다. 환자의 양성 evidence는 모두 정답 질환의 목록 안에 있다(2절). 그러므로 이 목록은 생성기의 지지집합, 곧 생성기가 그 질환에서 만들 수 있는 evidence의 집합을 담는다. 이 연구는 새 방법을 제안하지 않고, 이 목록만으로 도달하는 정확도와 질문 수를 잰다.
 
@@ -297,4 +297,5 @@ train 사전확률(A2)은 GTPA@1을 0.25%p 낮췄다. validation의 질환 분�
 *작성 메모(본문 아님)*
 
 - `[인용]` 자리(AARLC, BASD, CASANDE, Diaformer, BED, COTCAgent, StreamBench, MEDDxAgent)에 출처를 단다. COTCAgent 값은 요약 경유로 읽었으므로 투고 전에 원문과 대조한다(데이터 검토 §8). CASANDE IL의 초기 evidence 포함 여부도 원문·코드로 확인한다. 나머지 문헌 IL 정의는 데이터 검토 §3.2·§6.7을 따랐다.
+- 인용은 번호식([1])으로 통일한다. 서론의 LLM 에이전트 인용(MEDDxAgent ACL 2025, arXiv 2502.19175; MedExAgent arXiv 2605.07058; DiagGym arXiv 2510.24654)은 검색으로 찾았으므로, 각 논문이 DDXPlus를 대화형으로 평가하는지 원문으로 확인한다.
 - 자료·코드 공개 위치, 저자·이해상충 절, 참고문헌 목록은 아직 쓰지 않았다.
