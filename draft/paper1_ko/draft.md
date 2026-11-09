@@ -301,4 +301,5 @@ train 사전확률(A2)은 GTPA@1을 0.25%p 낮췄다. validation의 질환 분�
 - `[인용]` 자리(AARLC, BASD, CASANDE, Diaformer, BED, COTCAgent, StreamBench, MEDDxAgent)에 출처를 단다. COTCAgent 값은 요약 경유로 읽었으므로 투고 전에 원문과 대조한다(데이터 검토 §8). CASANDE IL의 초기 evidence 포함 여부도 원문·코드로 확인한다. 나머지 문헌 IL 정의는 데이터 검토 §3.2·§6.7을 따랐다.
 - 인용은 번호식([1])으로 통일한다. 서론의 LLM 에이전트 인용(MEDDxAgent ACL 2025, arXiv 2502.19175; MedExAgent arXiv 2605.07058; DiagGym arXiv 2510.24654)은 검색으로 찾았으므로, 각 논문이 DDXPlus를 대화형으로 평가하는지 원문으로 확인한다.
 - TODO: 첫 평가와의 변경별 비교(Supplementary B)를 train 전체 빈도 기준으로 다시 돌려 기록한다. 첫 평가가 train에서 떼어 둔 134,529명 때문에 생긴 비교 항목(빈도 분할)을 없애기 위해서다. 결과는 크게 바뀌지 않을 것으로 보지만(기존 측정 ±0.02%p 안) 실행해 확인한다. 원고는 전체 train을 쓴다는 전제로 검토한다.
+- TODO: 질문 상한(초기 evidence 뒤 30문항, IL ≤ 31)의 출처를 원문으로 확인하고 Methods에 인용한다. 지금 근거는 공식 코드다(DDXPlus/BASD `basd/dataset.py` `while curr_turn < 30`, `basd/metrics.py` IL = 유효 턴 + 1, AARLC `--MAXSTEP 30`, CASANDE `turns >= max_turns`, BED `range(30)`; 데이터 검토 §3.2). 논문 본문의 정의가 코드와 다르면 상한을 바꿔 다시 돌려야 한다.
 - 자료·코드 공개 위치, 저자·이해상충 절, 참고문헌 목록은 아직 쓰지 않았다.
