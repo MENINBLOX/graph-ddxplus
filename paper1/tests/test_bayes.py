@@ -28,7 +28,7 @@ from ddxkb.policies.bayes import (
     select_question,
     uniform_prior,
 )
-from ddxkb.protocol import FIRST_AGE_BIN_EDGES, MIN_GAIN
+from ddxkb.protocol import MIN_GAIN
 from ddxkb.runner import chunks, map_items, worker_pool
 from ddxkb.simulator import Answer, AnswerMode, Hierarchy, Start, StartInput
 from helpers import binary_kb, toy_counts, toy_patient
@@ -341,25 +341,16 @@ def test_frequency_prior(toy_kb: KB) -> None:
     by = frequency_prior(counts, 1.0, by_age_sex=True)
     assert by.log_p.shape == (N_AGE_BINS, 2, 3)
     boy = Start(Answer("fievre", True), age=1, sex="M")
-    # Ages 1-4, male: only Beta's 2 rows.
+    # Ages 1-4, male: only Beta's 2 rows, both aged 1.
     assert np.exp(by(boy)) == pytest.approx([1 / 5, 3 / 5, 1 / 5])
+    assert np.array_equal(by(Start(Answer("fievre", True), age=3, sex="M")), by(boy))
     assert np.exp(uniform_prior(toy_kb).log_p) == pytest.approx([1 / 3] * 3)
     assert np.array_equal(flat(boy), flat(Start(Answer("fievre", True))))
     assert (flat.inputs, by.inputs) == (frozenset(), frozenset({StartInput.AGE, StartInput.SEX}))
     with pytest.raises(ValueError, match="age and sex"):
         by(Start(Answer("fievre", True)))
-
-
-def test_frequency_prior_over_other_age_groups() -> None:
-    counts = toy_counts()
-    first = frequency_prior(counts, 1.0, by_age_sex=True, age_edges=FIRST_AGE_BIN_EDGES)
-    assert first.log_p.shape == (len(FIRST_AGE_BIN_EDGES) + 1, 2, 3) and first.age_edges == FIRST_AGE_BIN_EDGES
-    # Age 3 is in 1-4 of the official groups, which holds Beta's two boys aged 1, but in 2-4 of these, which is empty.
-    boy = Start(Answer("fievre", True), age=3, sex="M")
-    assert np.exp(frequency_prior(counts, 1.0, by_age_sex=True)(boy)) == pytest.approx([1 / 5, 3 / 5, 1 / 5])
-    assert np.exp(first(boy)) == pytest.approx([1 / 3] * 3)
     with pytest.raises(ValueError, match="age groups"):
-        Prior(first.log_p)
+        Prior(by.log_p[:-1])
 
 
 def test_a_policy_reads_age_and_sex_only_through_its_prior(toy_kb: KB) -> None:

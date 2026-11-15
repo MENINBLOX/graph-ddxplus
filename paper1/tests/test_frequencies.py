@@ -7,7 +7,6 @@ import pytest
 
 from ddxkb.frequencies import N_AGE_BINS, FrequencyCounts, age_bin, count_frequencies, sex_index, value_columns
 from ddxkb.kb import KB
-from ddxkb.protocol import FIRST_AGE_BIN_EDGES
 from helpers import toy_patient
 
 
@@ -22,24 +21,6 @@ def test_age_bins_are_the_official_eight(age: int, expected: int) -> None:
     # [0,1), 1-4, 5-14, 15-29, 30-44, 45-59, 60-74, 75+ (encode_age of the DDXPlus and CASANDE code).
     assert age_bin(age) == expected
     assert N_AGE_BINS == 8
-
-
-def test_the_first_protocols_age_groups() -> None:
-    # Edges (2, 5, 8, 10, 18, 30, 33, 45, 60, 75): eleven groups, the first [0, 2).
-    assert [age_bin(a, FIRST_AGE_BIN_EDGES) for a in (0, 1, 2, 9, 10, 17, 18, 32, 33, 74, 75, 109)] == [
-        0,
-        0,
-        1,
-        3,
-        4,
-        4,
-        5,
-        6,
-        7,
-        9,
-        10,
-        10,
-    ]
 
 
 def test_bad_age_or_sex_is_rejected() -> None:
@@ -85,11 +66,7 @@ def test_counts_follow_the_oracle_rule(toy_kb: KB) -> None:
     groups = c.age_groups()
     assert groups.shape == (3, N_AGE_BINS, 2)
     assert (groups[1, age_bin(40), sex_index("F")], groups[1, age_bin(1), sex_index("M")]) == (1, 1)
-    first = c.age_groups(FIRST_AGE_BIN_EDGES)
-    assert first.shape == (3, len(FIRST_AGE_BIN_EDGES) + 1, 2)
-    assert (first[1, 7, sex_index("F")], first[1, 0, sex_index("M")], int(first.sum())) == (1, 1, 3)
-    with pytest.raises(ValueError, match="edges"):
-        c.age_groups((5, 5))
+    assert int(groups.sum()) == 3
     # Columns: fievre, toux, douleur, douleur_intens, douleur_lieu, trav1, atcd.
     assert c.positive.tolist() == [[1, 1, 0, 0, 0, 0, 0], [0, 0, 2, 1, 1, 1, 1], [0] * 7]
     # Columns: intens 1/2/3, lieu tete/dos/ventre, trav1 AfriqN/Asie.

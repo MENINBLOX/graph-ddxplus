@@ -23,10 +23,11 @@ class Heard(StrEnum):
 
 @dataclass(frozen=True, eq=False)
 class HeardAnswers(LikelihoodTable):
-    """A1: answers of the other polarity are asked and recorded but leave the posterior unchanged.
+    """A1: answers to questions of the other polarity are asked and recorded but leave the posterior unchanged.
 
-    The initial evidence is a positive answer, so NEGATIVE starts from the prior. Questions and the EIG stop
-    still use the EIG over the full table: the ablation removes what an answer does, not which questions are asked.
+    The initial evidence is a start input, not the answer to a question, so it enters the posterior whichever
+    polarity is heard (보완 3 §2.7). Questions and the EIG stop still use the EIG over the full table: the ablation
+    removes what an answer does, not which questions are asked.
     """
 
     heard: Heard = Heard.POSITIVE

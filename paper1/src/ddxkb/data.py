@@ -1,11 +1,10 @@
 """Loaders for the DDXPlus knowledge base and patients, with the seal of the evaluation sets.
 
-Development code gets the validation split and the whole train split (design 보완 2), or the train split without
-the rows of H2, which `iter_train` skips unparsed. The sealed sets are
+Development code gets the validation split and the whole train split (design 보완 2). The sealed sets are
 read only by `load_heldout`, and only when the environment sets DDXKB_UNSEAL=1: T, every row of the official
 test split (the evaluation set of 보완 2), and H1 and H2 of the first evaluation. Subsets of T reported from
-the same run (H1, T-dedup, T-streambench) are row lists in their manifests; `subset_rows` reads the list, never
-a patient.
+the same run (T-dedup, T-streambench; 보완 3 §2.9) are row lists in their manifests; `subset_rows` reads the list,
+never a patient.
 """
 
 from __future__ import annotations
@@ -38,8 +37,8 @@ INPUT_COLUMNS = ("AGE", "SEX", "EVIDENCES", "INITIAL_EVIDENCE")
 VALUE_SEP = "_@_"
 
 Heldout = Literal["H1", "H2", "T"]
-Subset = Literal["H1", "T-dedup", "T-streambench"]
-SUBSETS: tuple[Subset, ...] = ("H1", "T-dedup", "T-streambench")
+Subset = Literal["T-dedup", "T-streambench"]
+SUBSETS: tuple[Subset, ...] = ("T-dedup", "T-streambench")
 EvidencePair = tuple[str, str | None]
 
 
@@ -113,18 +112,9 @@ def load_validation(root: Path = REPO_ROOT, limit: int | None = None) -> list[Pa
     return list(_read_rows(root / VALIDATION_CSV, "validate", row_ids=None, skip=None, nrows=limit))
 
 
-def iter_train(root: Path = REPO_ROOT, chunk_rows: int = 100_000, without: Heldout | None = None) -> Iterator[Patient]:
-    """Every train row in file order, for frequency estimation; `without` names a sealed set of train rows (H2,
-    whose complement is the first protocol's frequency split), whose rows are skipped unparsed."""
-    if without is None:
-        yield from _read_rows(root / TRAIN_CSV, "train", row_ids=None, skip=None, chunk_rows=chunk_rows)
-        return
-    manifest = read_manifest(without, root)
-    if manifest["csv"] != TRAIN_CSV:
-        raise ValueError(f"{without} does not list train rows")
-    held = frozenset(_indices(manifest))
-    kept = [r for r in range(int(manifest["csv_data_rows"])) if r not in held]
-    yield from _read_rows(root / TRAIN_CSV, "train", kept, skip=held.__contains__, chunk_rows=chunk_rows)
+def iter_train(root: Path = REPO_ROOT, chunk_rows: int = 100_000) -> Iterator[Patient]:
+    """Every train row in file order, for frequency estimation."""
+    yield from _read_rows(root / TRAIN_CSV, "train", row_ids=None, skip=None, chunk_rows=chunk_rows)
 
 
 def load_heldout(name: Heldout, root: Path = REPO_ROOT) -> list[Patient]:

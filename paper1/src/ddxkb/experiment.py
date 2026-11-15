@@ -1,6 +1,6 @@
-"""What the development and evaluation runners share: the run context and the suites of 보완 2 (main policies with
-their changes from the first protocol, baselines and reference points, the BED reproduction, and the hierarchy
-sensitivity analysis)."""
+"""What the development and evaluation runners share: the run context and the suites of 보완 2 and 보완 3 (main
+policies with their stops at the sensitivity thresholds and the factor-by-factor comparisons, baselines and
+reference points, the BED reproduction with its answer differences, and the hierarchy sensitivity analysis)."""
 
 from __future__ import annotations
 
@@ -16,8 +16,8 @@ from typing import Any, Protocol
 
 import numpy as np
 
-from ddxkb.data import MANIFEST_DIR, TRAIN_CSV, Patient, iter_train, read_release_json
-from ddxkb.evaluation import MEANS, PROPORTIONS, RECALLS, Scored, ScoreTask, V1Scored, V1Task, report, write_patients
+from ddxkb.data import TRAIN_CSV, Patient, iter_train, read_release_json
+from ddxkb.evaluation import MEANS, PROPORTIONS, RECALLS, Scored, ScoreTask, compare, report, write_patients
 from ddxkb.frequencies import FrequencyCounts, count_frequencies
 from ddxkb.kb import KB
 from ddxkb.policies.baselines import (
@@ -31,28 +31,38 @@ from ddxkb.policies.baselines import (
     train_frequency_questions,
 )
 from ddxkb.policies.bayes import BayesPolicy
-from ddxkb.policies.bed import BED_STATS, BedKnowledge, BedPolicy, count_knowledge, load_knowledge, text_default_codes
+from ddxkb.policies.bed import (
+    BED_STATS,
+    BedKnowledge,
+    BedPolicy,
+    answer_difference,
+    count_knowledge,
+    load_knowledge,
+    text_default_codes,
+)
 from ddxkb.policies.episode import Policy
-from ddxkb.policies.v1_replay import V1Replay
 from ddxkb.protocol import (
+    BED_REPORTED_GTPA1,
+    BED_REPORTED_IL,
     BUDGETS,
     CURVE,
-    FIRST_AGE_BIN_EDGES,
-    FIRST_FREQUENCIES_WITHOUT,
-    FIRST_MAX_IL,
-    J3_PAIRED,
+    LADDER,
     MIN_GAIN,
     SENSITIVITY_HIERARCHY,
+    SENSITIVITY_TAUS,
+    TAU,
     P1Config,
     P2Config,
 )
 from ddxkb.provenance import environment, file_sha256, git_changes, git_head
 from ddxkb.runner import chunks, map_items
-from ddxkb.simulator import MAX_IL, AnswerMode, Hierarchy, StartInput
+from ddxkb.simulator import AnswerMode, Hierarchy, StartInput
 
 DESIGN_DOC = "docs/design/ddxplus_kb_redo.md"
 DESIGN_DIR = str(PurePosixPath(DESIGN_DOC).parent)
 CHUNKS_PER_WORKER = 4
+# The outputs of the evaluation of 결과 2, kept as they are (보완 3 §2.10).
+SECOND_RUN_OUTPUTS = "paper1/outputs/v2"
 
 logger = logging.getLogger(__name__)
 
@@ -75,7 +85,6 @@ class Context:
     inputs: dict[str, str] = field(default_factory=dict)
     timings: list[dict[str, Any]] = field(default_factory=list)
     train_counts: FrequencyCounts | None = None
-    first_train_counts: FrequencyCounts | None = None
     bed_train_knowledge: BedKnowledge | None = None
     git_state: dict[str, Any] = field(init=False)
 
@@ -100,18 +109,6 @@ class Context:
             self._timed("train counts", started)
         return self.train_counts
 
-    def first_counts(self) -> FrequencyCounts:
-        """The counts over the train rows outside FIRST_FREQUENCIES_WITHOUT, the first protocol's frequencies; the
-        train CSV and that manifest are recorded."""
-        self.record_input(TRAIN_CSV)
-        self.record_input(f"{MANIFEST_DIR}/{FIRST_FREQUENCIES_WITHOUT}.json")
-        if self.first_train_counts is None:
-            started = time.perf_counter()
-            rows = iter_train(self.root, without=FIRST_FREQUENCIES_WITHOUT)
-            self.first_train_counts = count_frequencies(self.kb, rows)
-            self._timed(f"train minus {FIRST_FREQUENCIES_WITHOUT} counts", started)
-        return self.first_train_counts
-
     def bed_counts(self) -> BedKnowledge:
         """BED's statistics counted from every train row (`count_knowledge`); recorded like `counts`."""
         self.record_input(TRAIN_CSV)
@@ -128,12 +125,6 @@ class Context:
         task = ScoreTask(policy, self.kb, budgets)
         started = time.perf_counter()
         scored = Scored.concat(map_items(task, self._chunks(), None if local else self.pool))
-        self._timed(name, started, failures=int(scored.failed.sum()))
-        return scored
-
-    def score_v1(self, name: str, replay: V1Replay) -> V1Scored:
-        started = time.perf_counter()
-        scored = V1Scored.concat(map_items(V1Task(replay), self._chunks(), self.pool))
         self._timed(name, started, failures=int(scored.failed.sum()))
         return scored
 
@@ -154,12 +145,11 @@ def provenance(ctx: Context, stage: str, started_utc: str, started: float, first
     """The code, inputs and environment of one stage's output.
 
     `inputs` lists every file the run has read by then, so a later stage of one run also lists the earlier
-    stages' inputs, and `train_rows` the train rows the frequencies were counted from (None before any count),
-    `first_protocol_train_rows` those of the first protocol's frequencies. `first_timing` is the index of the
-    stage's first entry in `ctx.timings`. The commit and uncommitted files are those at the start of the run;
-    `commit_at_end` is HEAD when the output is written, which differs when a commit landed during the run.
+    stages' inputs, and `train_rows` the train rows the frequencies were counted from (None before any count).
+    `first_timing` is the index of the stage's first entry in `ctx.timings`. The commit and uncommitted files are
+    those at the start of the run; `commit_at_end` is HEAD when the output is written, which differs when a commit
+    landed during the run.
     """
-    first = ctx.first_train_counts
     return {
         "design": DESIGN_DOC,
         "stage": stage,
@@ -169,7 +159,6 @@ def provenance(ctx: Context, stage: str, started_utc: str, started: float, first
         "commit_at_end": git_head(ctx.root),
         "inputs": dict(sorted(ctx.inputs.items())),
         "train_rows": None if ctx.train_counts is None else int(ctx.train_counts.rows.sum()),
-        "first_protocol_train_rows": None if first is None else int(first.rows.sum()),
         "environment": environment(),
         "workers": ctx.workers,
         "started_utc": started_utc,
@@ -178,20 +167,21 @@ def provenance(ctx: Context, stage: str, started_utc: str, started: float, first
     }
 
 
+def second_run_outputs(root: Path, out: Path) -> str | None:
+    """SECOND_RUN_OUTPUTS when `out` is that directory or lies in it, else None. The runners refuse to write
+    there, as into the first run's outputs (`first_run.first_run_outputs`)."""
+    target, kept = out.resolve(), (root / SECOND_RUN_OUTPUTS).resolve()
+    return SECOND_RUN_OUTPUTS if target == kept or kept in target.parents else None
+
+
 Subsets = Mapping[str, Collection[int]]
 
 
 def summarize(
-    scored: Scored,
-    points: Sequence[int],
-    against: Mapping[str, Scored],
-    subsets: Subsets,
-    asks: bool = True,
-    cap: int = MAX_IL,
+    scored: Scored, points: Sequence[int], against: Mapping[str, Scored], subsets: Subsets, asks: bool = True
 ) -> dict[str, Any]:
-    """`report` of a run with length cap `cap`, and under "subsets" the same report over each subset's rows
-    (comparisons too)."""
-    out = report(scored, points=points, against=against, asks=asks, cap=cap)
+    """`report` of a run, and under "subsets" the same report over each subset's rows (comparisons too)."""
+    out = report(scored, points=points, against=against, asks=asks)
     if subsets:
         out["subsets"] = {
             name: report(
@@ -199,11 +189,73 @@ def summarize(
                 points=points,
                 against={k: other.select(rows) for k, other in against.items()},
                 asks=asks,
-                cap=cap,
             )
             for name, rows in subsets.items()
         }
     return out
+
+
+Stops = Mapping[float, Scored]
+
+
+def tau_key(tau: float) -> str:
+    """A stop threshold as the summaries key it: "0.9", "0.95", "0.99", "0.999"."""
+    return f"{tau:g}"
+
+
+def sensitivity_stops(name: str, scored: Scored) -> dict[float, Scored]:
+    """보완 3 §2.1: the stop of a Bayes run at each of SENSITIVITY_TAUS, derived from its one trajectory
+    (`Scored.with_stop` with MIN_GAIN), each reduced to its stop. `scored` must record every budget of CURVE and
+    be a run stopping at TAU: the stop derived at TAU must be the run's own."""
+    stops = {tau: scored.with_stop(tau, MIN_GAIN).restricted(()) for tau in SENSITIVITY_TAUS}
+    if stops[TAU].stop_sha256() != scored.stop_sha256():
+        raise RuntimeError(f"{name}: the stop derived at tau {TAU} is not the policy's own stop")
+    return stops
+
+
+def tau_sensitivity(stops: Stops) -> dict[str, Any]:
+    """The stop summary of `report` (with its intervals) at each threshold of `stops`, keyed by `tau_key`."""
+    return {tau_key(tau): report(s)["stop"] for tau, s in stops.items()}
+
+
+def rung_name(pair: tuple[str, str]) -> str:
+    return f"{pair[0]} - {pair[1]}"
+
+
+def ladder_rung(
+    pair: tuple[str, str],
+    runs: Mapping[str, Scored],
+    budgets: Sequence[int],
+    subsets: Subsets,
+    stops: Mapping[str, Stops] | None = None,
+) -> dict[str, Any]:
+    """보완 3 §2.5: one comparison of LADDER, the first policy of `pair` minus the second over the same patients.
+
+    `compare` of the two runs at the stop and at `budgets`; with `stops` (both policies' `sensitivity_stops`),
+    under "tau_sensitivity" the comparison of their stops at each threshold; and under "subsets" all of it again
+    over each subset's rows.
+    """
+    this, other = pair
+
+    def compared(rows: Collection[int] | None) -> dict[str, Any]:
+        def cut(s: Scored) -> Scored:
+            return s if rows is None else s.select(rows)
+
+        out = compare(cut(runs[this]), cut(runs[other]), points=budgets)
+        if stops is not None:
+            out["tau_sensitivity"] = {
+                tau_key(tau): compare(cut(stops[this][tau]), cut(stops[other][tau]))["stop"] for tau in SENSITIVITY_TAUS
+            }
+        return out
+
+    entry = {"this": this, "other": other, "factor": LADDER[pair], **compared(None)}
+    if subsets:
+        entry["subsets"] = {name: compared(rows) for name, rows in subsets.items()}
+    return entry
+
+
+[BED_PAIR] = [pair for pair in LADDER if pair[0] == "B-BED"]
+BED_RUNG = "B-BED in baselines.json"
 
 
 def main_suite(
@@ -213,82 +265,50 @@ def main_suite(
     budgets: tuple[int, ...] = BUDGETS,
     patients_dir: Path | None = None,
     subsets: Subsets | None = None,
-    first_protocol: bool = False,
+    sensitivity: bool = False,
 ) -> tuple[dict[str, Any], dict[str, Scored]]:
     """P1 and the P2 variants at their configurations, each P2 against P1.
 
     Returns the summaries and the runs, the runs reduced to `budgets`; with `patients_dir` it also writes
     one patient-level file per policy there. Each summary names the start inputs the policy reads, its
-    hierarchy rule and answer unit, and holds the report over each of `subsets` (rows of the run's patients);
-    with `first_protocol`, also each policy's `first_protocol_changes`.
+    hierarchy rule and answer unit, and holds the report over each of `subsets` (rows of the run's patients).
+
+    With `sensitivity`, the summaries also hold what 보완 3 §2.1 and §2.5 add: each policy's stop summary at each
+    of SENSITIVITY_TAUS under "tau_sensitivity" (also in each subset's report), and under "ladder" the comparisons
+    of LADDER between these policies (`ladder_rung`, with the thresholds), so `p2` must then hold every variant
+    LADDER names; the comparison with B-BED (BED_PAIR) is in the summary of `bed_suite`, which "ladder" names in
+    its place.
     """
     configs: list[P1Config | P2Config] = [p1, *p2]
     summary: dict[str, Any] = {}
     runs: dict[str, Scored] = {}
+    stops: dict[str, Stops] = {}
     for cfg in configs:
         policy = cfg.policy(ctx.kb) if isinstance(cfg, P1Config) else cfg.policy(ctx.kb, ctx.counts())
         scored = ctx.score(cfg.name, policy, CURVE)
         against = {"P1": runs["P1"]} if runs else {}
-        summary[cfg.name] = {
+        entry = {
             "config": cfg.as_dict(),
             **protocol_of(policy),
             **summarize(scored, budgets, against, subsets or {}),
         }
-        if first_protocol:
-            summary[cfg.name]["first_protocol"] = first_protocol_changes(ctx, cfg, scored, subsets or {})
+        if sensitivity:
+            stops[cfg.name] = sensitivity_stops(cfg.name, scored)
+            entry["tau_sensitivity"] = tau_sensitivity(stops[cfg.name])
+            for subset, rows in (subsets or {}).items():
+                cut = {tau: s.select(rows) for tau, s in stops[cfg.name].items()}
+                entry["subsets"][subset]["tau_sensitivity"] = tau_sensitivity(cut)
+        summary[cfg.name] = entry
         if patients_dir is not None:
             write_patients(patients_dir / f"{cfg.name}.jsonl.gz", scored, ctx.kb)
         # Only the reported budgets are kept: a full curve is ~0.5 GB per policy on 130k patients.
         runs[cfg.name] = scored.restricted(budgets)
+    if sensitivity:
+        summary["ladder"] = {
+            rung_name(pair): BED_RUNG if pair == BED_PAIR else ladder_rung(pair, runs, budgets, subsets or {}, stops)
+            for pair in LADDER
+        }
     return summary, runs
-
-
-FIRST_PROTOCOL_CHANGES = {
-    "cap30": (
-        f"this run stopped at IL <= {FIRST_MAX_IL} with the initial evidence, the first protocol's cap; the questions"
-        " up to there are the same"
-    ),
-    "train_minus_h2": f"P2 frequencies counted without the train rows of {FIRST_FREQUENCIES_WITHOUT}",
-    "first_age_groups": f"age and sex priors over the first protocol's age groups (edges {list(FIRST_AGE_BIN_EDGES)})",
-    "first_knowledge": "both of train_minus_h2 and first_age_groups",
-    "first_setting": (
-        f"the first protocol's knowledge (train_minus_h2, or first_knowledge when the prior reads age and sex)"
-        f" stopped at IL <= {FIRST_MAX_IL}"
-    ),
-}
-
-
-def first_protocol_changes(ctx: Context, cfg: P1Config | P2Config, scored: Scored, subsets: Subsets) -> dict[str, Any]:
-    """보완 2 §10's table of changes for one main policy, from the same run: the policy at the same configuration
-    with settings of the first protocol back (`FIRST_PROTOCOL_CHANGES`), each against `scored`, its run under the
-    revised protocol, which must record every budget of CURVE.
-
-    P1 reads no frequencies, so only its cap changes; for a P2 variant without age and sex the age groups change
-    nothing, so it has no first_age_groups or first_knowledge entry.
-    """
-
-    def summary(run: Scored, cap: int = MAX_IL) -> dict[str, Any]:
-        return summarize(run, (), {cfg.name: scored}, subsets, cap=cap)
-
-    out: dict[str, Any] = {"cap30": summary(first_cap(scored, cfg.tau), FIRST_MAX_IL)}
-    if isinstance(cfg, P2Config):
-        first = ctx.first_counts()
-        knowledge = ctx.score(f"{cfg.name} train_minus_h2", cfg.policy(ctx.kb, first), CURVE)
-        out["train_minus_h2"] = summary(knowledge)
-        if cfg.variant.age_sex:
-            ages = cfg.policy(ctx.kb, ctx.counts(), age_edges=FIRST_AGE_BIN_EDGES)
-            out["first_age_groups"] = summary(ctx.score(f"{cfg.name} first_age_groups", ages, CURVE))
-            both = cfg.policy(ctx.kb, first, age_edges=FIRST_AGE_BIN_EDGES)
-            knowledge = ctx.score(f"{cfg.name} first_knowledge", both, CURVE)
-            out["first_knowledge"] = summary(knowledge)
-        out["first_setting"] = summary(first_cap(knowledge, cfg.tau), FIRST_MAX_IL)
-    return {"definitions": {k: FIRST_PROTOCOL_CHANGES[k] for k in out}, **out}
-
-
-def first_cap(scored: Scored, tau: float) -> Scored:
-    """`scored`, a run recording every budget of CURVE, stopped as the same policy stops under FIRST_MAX_IL: question
-    choice never depends on the cap, so the trajectory up to there is the same."""
-    return scored.restricted(tuple(range(FIRST_MAX_IL))).with_stop(tau, MIN_GAIN, cap=FIRST_MAX_IL)
 
 
 def baseline_suite(
@@ -351,15 +371,72 @@ def baseline_suite(
     return out
 
 
+BED_MAIN = "stats_file"
 BED_DEFINITIONS = {
-    "stats_file": "BED's own train statistics, the stats file its code loads (J3')",
+    "stats_file": "BED's own train statistics, the stats file its code loads; the main B-BED run",
     "counted": "the same statistics counted from the train split, every value of a multi-choice evidence counted",
     "answers": (
         "BED's own simulator (`bed.record_findings`), not the protocol's oracle: a categorical or multi-choice"
         " question is answered positive whenever the evidence is on the true disease's list, its default value"
         " included, so the answer reveals list membership; comparisons with the main policies include this"
     ),
+    "answer_differences": (
+        "the categorical and multi-choice questions the main run asked up to its stop, over every patient:"
+        " valued_questions of them; oracle_negative of these the protocol's oracle answers negative (the evidence"
+        " is not recorded, or recorded with its default value); oracle_negative_bed_positive of those BED's"
+        " simulator answers positive, both_negative the rest; oracle_negative_bed_filled of the"
+        " oracle_negative_bed_positive answers are for an evidence the record lacks, which BED fills in because the"
+        " true disease knows it, and the others for a recorded default value; patients_with_difference patients got"
+        " at least one answer of the oracle_negative_bed_positive kind"
+    ),
+    "reported": (
+        "the main run minus BED's figures on the official test split (CASANDE Table 1; GTPA@1 as the official"
+        " code computes it), recorded without a judgment"
+    ),
+    "ladder": "the main run against the policy LADDER pairs it with, on the same patients",
 }
+
+
+def bed_answer_differences(k: BedKnowledge, patients: Sequence[Patient], scored: Scored) -> dict[str, Any]:
+    """보완 3 §2.6: where BED's simulator and the protocol's oracle answer differently, counted over the questions
+    the B-BED run `scored` asked each of `patients` up to its stop (`bed.answer_difference`); a failed patient
+    asked none."""
+    if [p.row for p in patients] != scored.rows.tolist():
+        raise ValueError("the run covers other patients")
+    valued = negative = positive = filled = patients_with_difference = 0
+    for i, p in enumerate(patients):
+        d = answer_difference(k, p, scored.questions[i][: int(scored.il[i]) - 1])
+        valued += d.valued
+        negative += d.oracle_negative
+        positive += d.bed_positive
+        filled += d.bed_filled
+        patients_with_difference += d.bed_positive > 0
+    return {
+        "run": BED_MAIN,
+        "patients": len(patients),
+        "valued_questions": valued,
+        "oracle_negative": negative,
+        "oracle_negative_bed_positive": positive,
+        "oracle_negative_bed_filled": filled,
+        "both_negative": negative - positive,
+        "patients_with_difference": patients_with_difference,
+        "patients_with_difference_share": patients_with_difference / len(patients),
+    }
+
+
+def bed_reported_differences(summary: Mapping[str, Any]) -> dict[str, Any]:
+    """보완 3 §2.8: the stop of a B-BED summary minus BED's reported figures, for both GTPA@1 definitions and the
+    mean IL."""
+    stop = summary["stop"]
+    return {
+        "run": BED_MAIN,
+        "bed": {"gtpa1": BED_REPORTED_GTPA1, "il": BED_REPORTED_IL},
+        "this_minus_bed": {
+            "gtpa1": stop["gtpa1"]["estimate"] - BED_REPORTED_GTPA1,
+            "gtpa1_official": stop["gtpa1_official"]["estimate"] - BED_REPORTED_GTPA1,
+            "il": stop["il"]["mean"] - BED_REPORTED_IL,
+        },
+    }
 
 
 def bed_suite(
@@ -369,21 +446,29 @@ def bed_suite(
     patients_dir: Path | None = None,
     subsets: Subsets | None = None,
 ) -> dict[str, Any]:
-    """B-BED of 보완 2 §6 with each knowledge source of `BED_DEFINITIONS`, against P1 and against J3_PAIRED on the
-    same patients; `references` holds the runs of `main_suite`. With `patients_dir` it also writes the
-    patient-level files B-BED.jsonl.gz (stats file) and B-BED-counted.jsonl.gz there."""
+    """B-BED of 보완 2 §6 with each knowledge source of `BED_DEFINITIONS`, against P1 and against the policy LADDER
+    pairs it with, on the same patients; `references` holds the runs of `main_suite`. For the main run (BED_MAIN)
+    the summary also holds its answer differences, its differences from BED's reported figures and its rung of
+    the ladder (보완 3 §2.5, §2.6, §2.8). With `patients_dir` it also writes the patient-level files
+    B-BED.jsonl.gz (stats file) and B-BED-counted.jsonl.gz there."""
     ctx.record_input(BED_STATS)
-    knowledge = {"stats_file": load_knowledge(ctx.kb, ctx.root), "counted": ctx.bed_counts()}
-    against = {name: references[name] for name in ("P1", J3_PAIRED)}
+    knowledge = {BED_MAIN: load_knowledge(ctx.kb, ctx.root), "counted": ctx.bed_counts()}
+    paired = BED_PAIR[1]
+    against = {name: references[name] for name in ("P1", paired)}
     summary: dict[str, Any] = {"definitions": BED_DEFINITIONS}
     for source, k in knowledge.items():
-        name = "B-BED" if source == "stats_file" else f"B-BED-{source}"
+        name = "B-BED" if source == BED_MAIN else f"B-BED-{source}"
         policy = BedPolicy(k, budgets=CURVE)
         scored = ctx.score(name, policy, CURVE)
         protocol = {**protocol_of(policy), "answers": "BED simulator (definitions.answers)"}
         summary[source] = {**protocol, **summarize(scored, budgets, against, subsets or {})}
         if patients_dir is not None:
             write_patients(patients_dir / f"{name}.jsonl.gz", scored, ctx.kb)
+        if source == BED_MAIN:
+            summary["answer_differences"] = bed_answer_differences(k, ctx.patients, scored)
+            summary["reported"] = bed_reported_differences(summary[source])
+            runs = {name: scored.restricted(budgets), paired: references[paired]}
+            summary["ladder"] = {rung_name(BED_PAIR): ladder_rung(BED_PAIR, runs, budgets, subsets or {})}
     return summary
 
 

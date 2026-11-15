@@ -239,8 +239,6 @@ def test_real_t_is_the_whole_test_split_and_holds_its_subsets() -> None:
     assert (t["n"], t["csv"], t["row_indices"]) == (134_529, TEST_CSV, list(range(134_529)))
     if not (REPO_ROOT / TEST_CSV).exists():
         pytest.skip("DDXPlus test CSV not present")
-    h1 = subset_rows("H1")
-    assert h1 is not None and len(h1) == 125_529
     dedup = subset_rows("T-dedup")
     assert dedup is not None and 130_000 < len(dedup) < 134_529
 

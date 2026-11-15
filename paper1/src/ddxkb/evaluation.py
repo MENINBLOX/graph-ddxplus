@@ -1,10 +1,11 @@
-"""Per-patient scores of policy runs and their summaries (design §4 and 보완 2).
+"""Per-patient scores of policy runs and their summaries (design §4, 보완 2 and 보완 3).
 
 Every policy is scored the same way, at its stop and after each recorded budget: GTPA@1 tie-aware, in fixed
 order and as the official code computes it, GTPA@3 and GTPA@5 tie-aware and as the official code computes them,
 GTPA, DDR, DDP, DDF1, DSHM, and PER without and with the initial evidence. A patient whose episode raises scores 0
 on all of them and counts as reaching |T| = MAX_IL: design §2 scores a failure as a wrong answer and reports the
-count.
+count. The primary outcome is the tie-aware GTPA@1 at the stop with the mean IL (보완 3 §2.4); paired comparisons
+take the difference of the tie-aware GTPA@1 and test the fixed-order one (`compare`).
 """
 
 from __future__ import annotations
@@ -28,8 +29,6 @@ from ddxkb.metrics import (
     SEVERE_BELOW,
     PatientScores,
     class_means,
-    gtpa,
-    gtpa_at_k,
     il_summary,
     positive_evidence_recall,
     positive_evidence_recall_official,
@@ -37,7 +36,6 @@ from ddxkb.metrics import (
     score_patient,
 )
 from ddxkb.policies.episode import Policy
-from ddxkb.policies.v1_replay import V1Replay
 from ddxkb.simulator import MAX_IL, positive_codes
 from ddxkb.stats import Interval, bootstrap_intervals, mcnemar_exact, wilson_interval
 
@@ -284,11 +282,10 @@ def _interval(i: Interval) -> dict[str, float]:
 
 
 def point_summary(
-    scores: FloatArray, il: IntArray | None, gold: IntArray, n_diseases: int, asks: bool = True, cap: int = MAX_IL
+    scores: FloatArray, il: IntArray | None, gold: IntArray, n_diseases: int, asks: bool = True
 ) -> dict[str, Any]:
     """Means of METRICS over patients, with Wilson intervals for the proportions, the macro GTPA@1 (the mean
-    over the diseases present of each disease's mean, gold index `gold`), and the summary of `il` under the
-    length cap `cap`.
+    over the diseases present of each disease's mean, gold index `gold`), and the summary of `il`.
 
     `asks` False leaves PER out: a reference that asks no question has nothing to recall.
     """
@@ -306,7 +303,7 @@ def point_summary(
     }
     out["macro"]["diseases"] = int(present.sum())
     if il is not None:
-        out["il"] = dataclasses.asdict(il_summary(il, cap=cap))
+        out["il"] = dataclasses.asdict(il_summary(il, cap=MAX_IL))
     return out
 
 
@@ -322,15 +319,76 @@ def by_disease(s: Scored) -> dict[str, Any]:
     }
 
 
+MCNEMAR_METRIC = "gtpa1_fixed"
+
+
 def _paired(a: FloatArray, b: FloatArray) -> dict[str, Any]:
     g1, fixed, official = COLUMN["gtpa1"], COLUMN["gtpa1_fixed"], COLUMN["gtpa1_official"]
-    test = mcnemar_exact(a[:, fixed], b[:, fixed])
+    tested = COLUMN[MCNEMAR_METRIC]
+    test = mcnemar_exact(a[:, tested], b[:, tested])
     return {
         "gtpa1_diff": float(np.mean(a[:, g1] - b[:, g1])),
         "gtpa1_fixed_diff": float(np.mean(a[:, fixed] - b[:, fixed])),
         "gtpa1_official_diff": float(np.mean(a[:, official] - b[:, official])),
-        "mcnemar": {"only_this": test.only_a, "only_other": test.only_b, "p_value": test.p_value},
+        "mcnemar": {
+            "metric": MCNEMAR_METRIC,
+            "only_this": test.only_a,
+            "only_other": test.only_b,
+            "p_value": test.p_value,
+        },
     }
+
+
+# Per-patient columns to bootstrap, each with the mapping that takes its bounds ("low", "high").
+BootstrapColumns = list[tuple[dict[str, Any], FloatArray]]
+
+
+def _compared(s: Scored, other: Scored, points: Sequence[int], asks: bool) -> dict[str, Any]:
+    """`s` minus `other` at the stop and at the points both runs recorded, as point estimates."""
+    c = {"stop": _paired(s.stop, other.stop)}
+    for b in points:
+        if b in other.budgets:
+            c[str(b)] = _paired(s.at(b), other.at(b))
+    if asks:
+        c["stop"]["il_diff"] = {"estimate": float(np.mean(s.il - other.il))}
+    return c
+
+
+def _differences(c: dict[str, Any], s: Scored, other: Scored) -> BootstrapColumns:
+    """The per-patient difference columns behind the comparison `c` of `s` with `other`, each with the mapping of
+    `c` that takes its bootstrap bounds: the tie-aware GTPA@1 difference of every point, which gets its own key
+    "gtpa1_diff_interval" beside the point estimate "gtpa1_diff", and the IL difference where `c` holds one."""
+    out: BootstrapColumns = []
+    for point, section in c.items():
+        budget = None if point == "stop" else int(point)
+        section["gtpa1_diff_interval"] = {"estimate": section["gtpa1_diff"]}
+        out.append((section["gtpa1_diff_interval"], s.column("gtpa1", budget) - other.column("gtpa1", budget)))
+    if "il_diff" in c["stop"]:
+        out.append((c["stop"]["il_diff"], (s.il - other.il).astype(np.float64)))
+    return out
+
+
+def _fill_intervals(columns: BootstrapColumns) -> None:
+    """Sets the bootstrap bounds of every column in its mapping; all come from one set of resampled patients."""
+    intervals = bootstrap_intervals([column for _, column in columns])
+    for (target, _), ci in zip(columns, intervals, strict=True):
+        target["low"] = ci.low
+        target["high"] = ci.high
+
+
+def compare(s: Scored, other: Scored, *, points: Sequence[int] = (), asks: bool = True) -> dict[str, Any]:
+    """`s` minus `other` over the same patients, as `report` compares a run with each run of `against` (보완 3 §2.5).
+
+    At the stop and at each of `points` both runs recorded: the differences in GTPA@1 (tie-aware, fixed order,
+    official), the discordant counts and exact McNemar on fixed-order GTPA@1 (under "mcnemar", which names that
+    metric), and the patient-bootstrap interval of the tie-aware difference ("gtpa1_diff_interval"); with `asks`,
+    also the mean IL difference at the stop with its interval.
+    """
+    if not np.array_equal(s.rows, other.rows):
+        raise ValueError("the runs to compare cover other patients")
+    c = _compared(s, other, points, asks)
+    _fill_intervals(_differences(c, s, other))
+    return c
 
 
 def report(
@@ -340,16 +398,17 @@ def report(
     against: Mapping[str, Scored] | None = None,
     bootstrap: bool = True,
     asks: bool = True,
-    cap: int = MAX_IL,
 ) -> dict[str, Any]:
-    """The JSON summary of one run, whose length cap is `cap`.
+    """The JSON summary of one run.
 
     `points` are budgets summarized like the stop; every recorded budget also enters the curve as point
     estimates, and "by_disease" holds the per-disease GTPA@1 at the stop. `against` names runs over the same
-    patients to compare with: McNemar on fixed-order GTPA@1 at the stop and at the points both runs recorded,
-    and with `asks`, the mean IL difference at the stop. `bootstrap` adds patient-bootstrap intervals
-    (design §4) to DDF1, DSHM, both PERs and mean IL and to IL differences. `asks` False marks a reference
-    without questions, whose IL and PER mean nothing.
+    patients to compare with, `s` minus each: the GTPA@1 differences and McNemar on fixed-order GTPA@1 at the stop
+    and at the points both runs recorded, and with `asks`, the mean IL difference at the stop. `bootstrap` adds
+    patient-bootstrap intervals (design §4) to DDF1, DSHM, both PERs and mean IL, and to the tie-aware GTPA@1
+    difference ("gtpa1_diff_interval") and the IL difference of each comparison (보완 3 §2.5); without it a
+    comparison holds point estimates only. `asks` False marks a reference without questions, whose IL and PER mean
+    nothing.
     """
     others = dict(against or {})
     for name, other in others.items():
@@ -360,7 +419,7 @@ def report(
         "n": s.n,
         "failures": int(s.failed.sum()),
         "errors": [{"row": r, "error": e} for r, e in s.errors[:ERRORS_SHOWN]],
-        "stop": point_summary(s.stop, s.il if asks else None, s.gold, n_diseases, asks, cap),
+        "stop": point_summary(s.stop, s.il if asks else None, s.gold, n_diseases, asks),
     }
     out["budgets"] = {str(b): point_summary(s.at(b), None, s.gold, n_diseases, asks) for b in points}
     out["by_disease"] = by_disease(s)
@@ -373,15 +432,7 @@ def report(
         curve["gtpa1_low"] = [c.low for c in cis]
         curve["gtpa1_high"] = [c.high for c in cis]
         out["curve"] = curve
-    comparisons: dict[str, Any] = {}
-    for name, other in others.items():
-        c = {"stop": _paired(s.stop, other.stop)}
-        for b in points:
-            if b in other.budgets:
-                c[str(b)] = _paired(s.at(b), other.at(b))
-        if asks:
-            c["stop"]["il_diff"] = {"estimate": float(np.mean(s.il - other.il))}
-        comparisons[name] = c
+    comparisons = {name: _compared(s, other, points, asks) for name, other in others.items()}
     if comparisons:
         out["against"] = comparisons
     if bootstrap:
@@ -393,25 +444,17 @@ def _add_bootstrap(
     out: dict[str, Any], s: Scored, points: Sequence[int], others: Mapping[str, Scored], asks: bool
 ) -> None:
     """Fills in the bootstrap intervals in place; all of them come from one set of resampled patients."""
-    targets: list[dict[str, Any]] = []
-    columns: list[FloatArray] = []
-
-    def add(target: dict[str, Any], column: npt.ArrayLike) -> None:
-        targets.append(target)
-        columns.append(np.asarray(column, dtype=np.float64))
-
+    targets: BootstrapColumns = []
     metrics = ("ddf1", "dshm", "per", "per_official") if asks else ("ddf1", "dshm")
     for metric in metrics:
-        add(out["stop"][metric], s.column(metric))
+        targets.append((out["stop"][metric], s.column(metric)))
         for b in points:
-            add(out["budgets"][str(b)][metric], s.column(metric, b))
+            targets.append((out["budgets"][str(b)][metric], s.column(metric, b)))
     if asks:
-        add(out["stop"]["il"], s.il)
-        for name, other in others.items():
-            add(out["against"][name]["stop"]["il_diff"], s.il - other.il)
-    for target, ci in zip(targets, bootstrap_intervals(columns), strict=True):
-        target["low"] = ci.low
-        target["high"] = ci.high
+        targets.append((out["stop"]["il"], s.il.astype(np.float64)))
+    for name, other in others.items():
+        targets += _differences(out["against"][name], s, other)
+    _fill_intervals(targets)
 
 
 def write_json(path: Path, obj: Any) -> None:
@@ -444,87 +487,3 @@ def write_patients(path: Path, s: Scored, kb: KB) -> None:
             if row in errors:
                 record["error"] = errors[row]
             gz.write((json.dumps(record, ensure_ascii=False) + "\n").encode())
-
-
-V1_TOP = (1, 3, 5, 10)
-
-
-@dataclass(frozen=True, eq=False)
-class V1Scored:
-    """The earlier study's rule over many patients. `hits[i, k]` says the gold disease is in v1's own top
-    V1_TOP[k] (its tie order); `tie_aware` and `gtpa` score its normalized v1 scores like any posterior."""
-
-    rows: IntArray
-    il: IntArray
-    hits: BoolArray
-    tie_aware: FloatArray
-    gtpa: FloatArray
-    failed: BoolArray
-    errors: tuple[tuple[int, str], ...]
-
-    @classmethod
-    def concat(cls, parts: Sequence[V1Scored]) -> V1Scored:
-        if not parts:
-            raise ValueError("nothing to concatenate")
-        return cls(
-            rows=np.concatenate([p.rows for p in parts]),
-            il=np.concatenate([p.il for p in parts]),
-            hits=np.concatenate([p.hits for p in parts]),
-            tie_aware=np.concatenate([p.tie_aware for p in parts]),
-            gtpa=np.concatenate([p.gtpa for p in parts]),
-            failed=np.concatenate([p.failed for p in parts]),
-            errors=tuple(e for p in parts for e in p.errors),
-        )
-
-
-@dataclass(frozen=True, eq=False)
-class V1Task:
-    """Runs a `V1Replay` over a chunk of patients.
-
-    A failed patient scores 0 with the longest |T| the replay allows (its max_questions + 1), as `ScoreTask`
-    counts a failure at the cap.
-    """
-
-    replay: V1Replay
-
-    def __call__(self, patients: Sequence[Patient]) -> V1Scored:
-        n = len(patients)
-        il = np.full(n, self.replay.max_questions + 1, dtype=np.int64)
-        hits = np.zeros((n, len(V1_TOP)), dtype=np.bool_)
-        tie_aware = np.zeros(n)
-        found = np.zeros(n)
-        failed = np.zeros(n, dtype=np.bool_)
-        errors: list[tuple[int, str]] = []
-        for i, p in enumerate(patients):
-            try:
-                ep = self.replay.run(p)
-                il[i] = ep.il
-                hits[i] = [ep.in_top(k) for k in V1_TOP]
-                tie_aware[i] = gtpa_at_k(ep.posterior, ep.gold, 1)
-                found[i] = gtpa(ep.posterior, ep.gold)
-            except Exception as e:
-                logger.exception("v1 episode failed for patient row %d", p.row)
-                failed[i] = True
-                errors.append((p.row, f"{type(e).__name__}: {e}"))
-        rows = np.array([p.row for p in patients], dtype=np.int64)
-        return V1Scored(rows, il, hits, tie_aware, found, failed, tuple(errors))
-
-
-def v1_report(v: V1Scored) -> dict[str, Any]:
-    """v1's IL has no cap of 30 (it asked up to 223 questions), so it is summarized by its own maximum."""
-    n = len(v.rows)
-    out: dict[str, Any] = {"n": n, "failures": int(v.failed.sum())}
-    out["errors"] = [{"row": r, "error": e} for r, e in v.errors[:ERRORS_SHOWN]]
-    for k, top in enumerate(V1_TOP):
-        out[f"top{top}"] = _interval(wilson_interval(float(v.hits[:, k].mean()), n))
-    out["gtpa1"] = _interval(wilson_interval(min(1.0, float(v.tie_aware.mean())), n))
-    out["gtpa"] = _interval(wilson_interval(float(v.gtpa.mean()), n))
-    il = v.il.astype(np.float64)
-    out["il"] = {
-        "mean": float(il.mean()),
-        "median": float(np.median(il)),
-        "p95": float(np.percentile(il, 95, method="linear")),
-        "max": int(v.il.max()),
-        "share_over_cap": float(np.mean(v.il > MAX_IL)),
-    }
-    return out

@@ -1,33 +1,43 @@
-"""The candidate configurations, stop rules, budgets, selection objective and judgment thresholds of design
-§3-§6 as 보완 2 revises them, fixed before development.
+"""The candidate configurations, fixed settings, stop rules, budgets, selection objective and paired comparisons of
+design §3-§5 as 보완 2 and 보완 3 revise them, fixed before development.
 
-The frozen protocol (`ddxkb.freeze`) records every value here, and the evaluation runner refuses to start
-when the code no longer holds the recorded values.
+보완 3 §2.1-2.3: every Bayes policy stops at the one threshold TAU, P2 smooths with the one P2_LAMBDA, and only P1's
+alpha and eps are selected, among nine candidates. The other thresholds of SENSITIVITY_TAUS and the other lambdas
+of P2_SENSITIVITY_LAMBDAS are reported as sensitivity, never selected.
+
+The frozen protocol (`ddxkb.freeze`) records every value here that the evaluation runs with, and the evaluation
+runner refuses to start when the code no longer holds the recorded values.
 """
 
 from __future__ import annotations
 
 import dataclasses
 import itertools
+from collections.abc import Sequence
 from dataclasses import dataclass
 from typing import Any
 
-from ddxkb.data import Heldout
-from ddxkb.frequencies import AGE_BIN_EDGES, FrequencyCounts
+from ddxkb.frequencies import FrequencyCounts
 from ddxkb.kb import KB
 from ddxkb.policies.bayes import BayesPolicy, frequency_prior, frequency_table, membership_table, uniform_prior
 from ddxkb.simulator import MAX_IL, AnswerMode, Hierarchy
 
+# 보완 3 §2.1: the stop threshold of P1, of every P2 variant and of everything built from P1. It is not selected:
+# tau trades accuracy for questions, which the accuracy objective cannot weigh.
+TAU = 0.99
+# 보완 3 §2.1: the thresholds whose stops are reported for every Bayes main policy, each derived from the one
+# trajectory run to the cap (`Scored.with_stop`); TAU is one of them.
+SENSITIVITY_TAUS = (0.9, 0.95, 0.99, 0.999)
 P1_ALPHAS = (0.3, 0.5, 0.7)
 P1_EPSILONS = (1e-2, 1e-3, 1e-4)
-P1_TAUS = (0.9, 0.95, 0.99)
-# 보완 2 §4: the value one step beyond the first and the last of each P1 list, in listed order. The development
-# record holds these where the selection sits at an end of a list; the selection itself stays within the 27.
-# alpha keeps its step of 0.2 and eps its factor of 10; tau continues as the P2 grid does above 0.99 and doubles
-# 1 - tau below 0.9, as from 0.95 to 0.9.
-P1_WIDER = {"alpha": (0.1, 0.9), "eps": (1e-1, 1e-5), "tau": (0.8, 0.999)}
-P2_LAMBDAS = (0.5, 1.0)
-P2_TAUS = (0.9, 0.95, 0.99, 0.999)
+# 보완 3 §2.3: the value one step beyond the first and the last of each P1 list, in listed order. The development
+# record holds these where the selection sits at an end of a list; the selection itself stays within the nine.
+# alpha keeps its step of 0.2 and eps its factor of 10.
+P1_WIDER = {"alpha": (0.1, 0.9), "eps": (1e-1, 1e-5)}
+# 보완 3 §2.2: the Laplace smoothing of every P2 variant (add one), not selected. The other lambdas are run on
+# validation only, as sensitivity.
+P2_LAMBDA = 1.0
+P2_SENSITIVITY_LAMBDAS = (0.5,)
 
 # Questions after the initial evidence: the reported budgets, and every budget for the accuracy curve (0-30).
 BUDGETS = (5, 10, 15, 20, 30)
@@ -42,33 +52,22 @@ A4_HIERARCHIES = (Hierarchy.IMPLICIT, Hierarchy.PARENT_FIRST, Hierarchy.NO_CHILD
 # in other lists (stable angina in unstable angina) leave posteriors near 0.8 that no question can move.
 MIN_GAIN = 1e-6
 
-# 보완 2 §10 reports each change from the first protocol (paper1/configs/protocol_frozen.yaml) on T in the same run:
-# each main policy at its configuration with settings of the first protocol back (`experiment.first_protocol_changes`).
-# Those settings: |T| <= 30 with the initial evidence, P2 frequencies counted without the train rows of H2, and
-# the age groups chosen from train - H2.
-FIRST_MAX_IL = 30
-FIRST_FREQUENCIES_WITHOUT: Heldout = "H2"
-FIRST_AGE_BIN_EDGES = (2, 5, 8, 10, 18, 30, 33, 45, 60, 75)
-
 A2_PRIOR_LAMBDA = 1.0
 A3_EPSILONS = (1e-1, 1e-2, 1e-3, 1e-4, 1e-6, 1e-9)
-V1_TIE_SEEDS = tuple(range(10))
 
-# 보완 2 §8, on T at the stop: J1 for both GTPA@1 definitions, J2 on the tie-aware one and the IL difference.
-J1_MIN_WILSON_LOW = 0.95
-J1_METRICS = ("gtpa1", "gtpa1_official")
-J2_POLICY = "P2-binary"
-J2_MAX_GTPA1_DIFF = 0.01
-J2_IL_DIFF_HIGH_BELOW = 0.0
-# J3': B-BED against BED's figures on the official test (CASANDE Table 1), for both GTPA@1 definitions, and the
-# same-row comparison of the P2 variant closest to BED with it (reported, not judged).
-J3_POLICY = "B-BED"
-J3_BED_GTPA1 = 0.9947
-J3_BED_IL = 5.47
-J3_GTPA1_TOLERANCE = 0.003
-J3_IL_TOLERANCE = 0.5
-J3_METRICS = ("gtpa1", "gtpa1_official")
-J3_PAIRED = "P2-value"
+# 보완 3 §2.5: the paired comparisons that change one factor at a time, each the first policy minus the second on
+# the same patients, mapped to the factor that differs between the two.
+LADDER = {
+    ("P2-binary", "P1"): "the lists replaced by train frequencies (prior and likelihood)",
+    ("P2-binary-agesex", "P2-binary"): "the prior by age and sex",
+    ("P2-value", "P2-binary"): "the values of the answers",
+    ("P2-value-agesex", "P2-value"): "the prior by age and sex",
+    ("B-BED", "P2-value"): "BED's utility, stop, smoothing and simulator (design E)",
+}
+# 보완 3 §2.8: BED's figures on the official test split (CASANDE Table 1), computed the official way. B-BED's
+# differences from them are recorded, not judged.
+BED_REPORTED_GTPA1 = 0.9947
+BED_REPORTED_IL = 5.47
 
 
 @dataclass(frozen=True)
@@ -117,16 +116,10 @@ class P2Config:
     def name(self) -> str:
         return self.variant.name
 
-    def policy(
-        self,
-        kb: KB,
-        counts: FrequencyCounts,
-        budgets: tuple[int, ...] = CURVE,
-        age_edges: tuple[int, ...] = AGE_BIN_EDGES,
-    ) -> BayesPolicy:
+    def policy(self, kb: KB, counts: FrequencyCounts, budgets: tuple[int, ...] = CURVE) -> BayesPolicy:
         return BayesPolicy(
             frequency_table(kb, counts, self.lam, self.variant.mode),
-            frequency_prior(counts, self.lam, self.variant.age_sex, age_edges),
+            frequency_prior(counts, self.lam, self.variant.age_sex),
             self.tau,
             budgets,
             min_gain=MIN_GAIN,
@@ -143,14 +136,14 @@ class P2Config:
 
 
 def p1_grid() -> tuple[P1Config, ...]:
-    """The 27 P1 candidates in listed order (design §5), tau varying fastest."""
-    return tuple(P1Config(a, e, t) for a, e, t in itertools.product(P1_ALPHAS, P1_EPSILONS, P1_TAUS))
+    """The nine P1 candidates in listed order (보완 3 §2.3), eps varying fastest, each stopping at TAU."""
+    return tuple(P1Config(a, e, TAU) for a, e in itertools.product(P1_ALPHAS, P1_EPSILONS))
 
 
 def p1_boundary(cfg: P1Config) -> dict[str, str]:
-    """The parameters of `cfg` at an end of their P1 list, mapped to "first" or "last"."""
+    """The selected parameters of `cfg` (alpha, eps) at an end of their P1 list, mapped to "first" or "last"."""
     out = {}
-    for name, values in (("alpha", P1_ALPHAS), ("eps", P1_EPSILONS), ("tau", P1_TAUS)):
+    for name, values in (("alpha", P1_ALPHAS), ("eps", P1_EPSILONS)):
         value = getattr(cfg, name)
         if value not in values:
             raise ValueError(f"{name} = {value} is not a P1 candidate")
@@ -163,22 +156,36 @@ def p1_boundary(cfg: P1Config) -> dict[str, str]:
 
 def p1_wider_grid(cfg: P1Config) -> tuple[P1Config, ...]:
     """The P1 grid with each list one value longer at the end where `cfg` sits (`P1_WIDER`), in listed order with
-    tau varying fastest; the 27 candidates are part of it. Without a parameter at an end it is the P1 grid."""
+    eps varying fastest; the nine candidates are part of it. Without a parameter at an end it is the P1 grid."""
     ends = p1_boundary(cfg)
     lists = []
-    for name, values in (("alpha", P1_ALPHAS), ("eps", P1_EPSILONS), ("tau", P1_TAUS)):
+    for name, values in (("alpha", P1_ALPHAS), ("eps", P1_EPSILONS)):
         before, after = P1_WIDER[name]
         end = ends.get(name)
         lists.append((before, *values) if end == "first" else (*values, after) if end == "last" else values)
-    return tuple(P1Config(a, e, t) for a, e, t in itertools.product(*lists))
+    return tuple(P1Config(a, e, TAU) for a, e in itertools.product(*lists))
 
 
-def p2_grid(variant: P2Variant) -> tuple[P2Config, ...]:
-    """The 8 candidates of one P2 variant in listed order, tau varying fastest."""
-    return tuple(P2Config(variant, lam, tau) for lam, tau in itertools.product(P2_LAMBDAS, P2_TAUS))
+def p2_fixed(variant: P2Variant) -> P2Config:
+    """The one configuration of a P2 variant (보완 3 §2.1-2.2): P2_LAMBDA and TAU."""
+    return P2Config(variant, P2_LAMBDA, TAU)
+
+
+def check_fixed(p1: P1Config, p2: Sequence[P2Config]) -> None:
+    """ValueError unless every configuration stops at TAU, every P2 configuration smooths with P2_LAMBDA and P1 is
+    one of the nine candidates: what 보완 3 §2.1-2.3 fixes for every run that is reported."""
+    configs: list[P1Config | P2Config] = [p1, *p2]
+    for cfg in configs:
+        if cfg.tau != TAU:
+            raise ValueError(f"{cfg.name} stops at tau {cfg.tau}, the protocol at {TAU}")
+    if p1 not in p1_grid():
+        raise ValueError(f"P1 with alpha {p1.alpha} and eps {p1.eps} is not one of the nine candidates")
+    for p2cfg in p2:
+        if p2cfg.lam != P2_LAMBDA:
+            raise ValueError(f"{p2cfg.name} smooths with lambda {p2cfg.lam}, the protocol with {P2_LAMBDA}")
 
 
 def selection_key(gtpa1: float, il_mean: float, order: int) -> tuple[float, float, int]:
-    """Design §5: the larger tie-aware GTPA@1 as a percentage at two decimals, then the smaller mean IL,
-    then the earlier candidate in listed order. Smaller keys win."""
+    """Design §5, applied to the P1 candidates at TAU (보완 3 §2.3): the larger tie-aware GTPA@1 as a percentage
+    at two decimals, then the smaller mean IL, then the earlier candidate in listed order. Smaller keys win."""
     return (-round(100 * gtpa1, 2), il_mean, order)

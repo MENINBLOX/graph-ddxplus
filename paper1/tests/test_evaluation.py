@@ -17,10 +17,8 @@ from ddxkb.evaluation import (
     SCORED,
     Scored,
     ScoreTask,
-    V1Scored,
-    V1Task,
+    compare,
     report,
-    v1_report,
     write_patients,
 )
 from ddxkb.kb import KB
@@ -32,9 +30,8 @@ from ddxkb.metrics import (
     positive_evidence_recall_official,
     score_patient,
 )
-from ddxkb.policies.baselines import SetInclusion
+from ddxkb.policies.baselines import SetInclusion, random_questions
 from ddxkb.policies.bayes import BayesPolicy, membership_table, uniform_prior
-from ddxkb.policies.v1_replay import V1Replay, code_graph
 from ddxkb.simulator import MAX_IL, positive_codes
 from ddxkb.stats import BOOTSTRAP_B, BOOTSTRAP_SEED, bootstrap_interval, mcnemar_exact
 from helpers import make_repo, toy_patient
@@ -131,7 +128,7 @@ def test_a_failed_patient_scores_zero_at_the_cap(toy_kb: KB) -> None:
     shorter = CAP - 2
     capped = trajectory.restricted(tuple(range(shorter))).with_stop(0.5, 1e-6, cap=shorter)
     assert capped.il[1] == shorter
-    assert report(capped, cap=shorter, bootstrap=False)["failures"] == 1
+    assert report(capped, bootstrap=False)["failures"] == 1
 
 
 def test_concat_and_restricted(toy_kb: KB) -> None:
@@ -210,7 +207,12 @@ def test_report_summarizes_and_compares(toy_kb: KB) -> None:
     c = r["against"]["other"]
     assert set(c) == {"stop", "2", "6"}
     test = mcnemar_exact(a.column("gtpa1_fixed"), b.column("gtpa1_fixed"))
-    assert c["stop"]["mcnemar"] == {"only_this": test.only_a, "only_other": test.only_b, "p_value": test.p_value}
+    assert c["stop"]["mcnemar"] == {
+        "metric": "gtpa1_fixed",
+        "only_this": test.only_a,
+        "only_other": test.only_b,
+        "p_value": test.p_value,
+    }
     # Paired: each replicate draws one set of patients for both runs.
     rng = np.random.default_rng(BOOTSTRAP_SEED)
     replicates = []
@@ -225,6 +227,69 @@ def test_report_summarizes_and_compares(toy_kb: KB) -> None:
     assert "low" not in plain["stop"]["il"] and "budgets" in plain and plain["budgets"] == {}
 
 
+def test_paired_comparisons_give_the_gtpa1_difference_an_interval(toy_kb: KB) -> None:
+    patients = _patients(12)
+    a = ScoreTask(_p1(toy_kb, 0.9), toy_kb, CURVE)(patients)
+    b = ScoreTask(random_questions(_p1(toy_kb, 0.4), seed=0), toy_kb, CURVE)(patients)
+    c = report(a, points=(1, 2), against={"other": b})["against"]["other"]
+    differences = {"stop": a.column("gtpa1") - b.column("gtpa1")}
+    differences.update({str(k): a.column("gtpa1", k) - b.column("gtpa1", k) for k in (1, 2)})
+    assert set(c) == set(differences)
+    for point, column in differences.items():
+        section = c[point]
+        # The point difference keeps its key and type; the interval has a key of its own.
+        assert isinstance(section["gtpa1_diff"], float) and section["gtpa1_diff"] == float(np.mean(column)) > 0
+        interval = section["gtpa1_diff_interval"]
+        ci = bootstrap_interval(column)
+        assert interval == {"estimate": section["gtpa1_diff"], "low": ci.low, "high": ci.high}
+        assert interval["low"] < interval["estimate"] < interval["high"]
+        assert ("il_diff" in section) == (point == "stop")
+    # Reproducible, and the same whether the comparison is part of a report or made on its own.
+    assert report(a, points=(1, 2), against={"other": b})["against"]["other"] == c
+    assert compare(a, b, points=(1, 2)) == c
+    assert compare(a, b) == {"stop": c["stop"]}
+    # The direction is this run minus the other.
+    back = compare(b, a, points=(1, 2))
+    assert back["stop"]["gtpa1_diff"] == -c["stop"]["gtpa1_diff"]
+    assert back["stop"]["il_diff"]["estimate"] == -c["stop"]["il_diff"]["estimate"] == float(np.mean(b.il - a.il)) < 0
+    assert back["stop"]["gtpa1_diff_interval"]["high"] == pytest.approx(-c["stop"]["gtpa1_diff_interval"]["low"])
+    assert c["stop"]["mcnemar"]["only_this"] > 0
+    assert (back["stop"]["mcnemar"]["only_this"], back["stop"]["mcnemar"]["only_other"]) == (
+        c["stop"]["mcnemar"]["only_other"],
+        c["stop"]["mcnemar"]["only_this"],
+    )
+    # The discordant counts and the test read the fixed-order GTPA@1 and say so; the official one differs here.
+    for point, budget in (("stop", None), ("1", 1), ("2", 2)):
+        fixed = mcnemar_exact(a.column("gtpa1_fixed", budget), b.column("gtpa1_fixed", budget))
+        assert c[point]["mcnemar"] == {
+            "metric": "gtpa1_fixed",
+            "only_this": fixed.only_a,
+            "only_other": fixed.only_b,
+            "p_value": fixed.p_value,
+        }
+    official = mcnemar_exact(a.column("gtpa1_official"), b.column("gtpa1_official"))
+    assert (c["stop"]["mcnemar"]["only_this"], c["stop"]["mcnemar"]["only_other"]) == (3, 0)
+    assert (official.only_a, official.only_b) == (6, 3)
+    estimates = report(a, points=(1, 2), against={"other": b}, bootstrap=False)["against"]["other"]
+    assert "gtpa1_diff_interval" not in estimates["stop"] and estimates["stop"]["gtpa1_diff"] == c["stop"]["gtpa1_diff"]
+    with pytest.raises(ValueError, match="other patients"):
+        compare(a, ScoreTask(_p1(toy_kb, 0.4), toy_kb, CURVE)(patients[:4]))
+
+
+def test_the_il_difference_pairs_the_two_runs_patient_by_patient(toy_kb: KB) -> None:
+    patients = _patients(12)
+    a = ScoreTask(_p1(toy_kb, 0.9), toy_kb, CURVE)(patients)
+    b = ScoreTask(random_questions(_p1(toy_kb, 0.9), seed=0), toy_kb, CURVE)(patients)
+    # Both lengths vary from patient to patient, so the order of the patients matters to the differences.
+    assert len(set(a.il.tolist())) > 1 and len(set(b.il.tolist())) > 1
+    paired = bootstrap_interval(a.il - b.il)
+    shuffled = bootstrap_interval(a.il - b.il[::-1])
+    assert (paired.low, paired.high) != (shuffled.low, shuffled.high) and paired.low < paired.high
+    expected = {"estimate": float(np.mean(a.il - b.il)), "low": paired.low, "high": paired.high}
+    assert compare(a, b)["stop"]["il_diff"] == expected
+    assert report(a, against={"other": b})["against"]["other"]["stop"]["il_diff"] == expected
+
+
 def test_a_reference_without_questions_has_no_il_or_per(toy_kb: KB) -> None:
     patients = _patients(8)
     p1 = ScoreTask(_p1(toy_kb, 0.9), toy_kb, CURVE)(patients)
@@ -232,6 +297,9 @@ def test_a_reference_without_questions_has_no_il_or_per(toy_kb: KB) -> None:
     r = report(s, against={"P1": p1}, asks=False)
     assert "il" not in r["stop"] and "per" not in r["stop"] and "curve" not in r
     assert set(r["against"]["P1"]) == {"stop"} and "il_diff" not in r["against"]["P1"]["stop"]
+    interval = r["against"]["P1"]["stop"]["gtpa1_diff_interval"]
+    ci = bootstrap_interval(s.column("gtpa1") - p1.column("gtpa1"))
+    assert (interval["low"], interval["high"]) == (ci.low, ci.high)
     with pytest.raises(ValueError, match="other patients"):
         report(s, against={"P1": ScoreTask(_p1(toy_kb, 0.9), toy_kb, CURVE)(patients[:4])})
 
@@ -259,31 +327,6 @@ def test_patient_file_is_byte_stable(toy_kb: KB, tmp_path: Path) -> None:
             ScoreTask(_p1(toy_kb, None), toy_kb, CURVE)(patients).with_stop(0.9, None, CAP),
             toy_kb,
         )
-
-
-def test_v1_task(toy_kb: KB) -> None:
-    patients = _patients(8)
-    replay = V1Replay(code_graph(toy_kb), deny=2)
-    v = V1Task(replay)(patients)
-    episodes = [replay.run(p) for p in patients]
-    assert v.il.tolist() == [e.il for e in episodes]
-    assert v.hits[:, 0].tolist() == [e.in_top(1) for e in episodes]
-    whole = V1Scored.concat([V1Task(replay)(patients[:3]), V1Task(replay)(patients[3:])])
-    assert np.array_equal(whole.hits, v.hits)
-    r = v1_report(v)
-    assert r["top1"]["estimate"] == v.hits[:, 0].mean()
-    assert r["il"]["max"] == max(e.il for e in episodes)
-
-
-def test_a_failed_v1_patient_counts_at_the_longest_interaction(toy_kb: KB) -> None:
-    patients = _patients(3)
-    # Subattributes have no node in this graph, so an episode starting from one raises.
-    patients[1] = dataclasses.replace(patients[1], initial="douleur_lieu")
-    replay = V1Replay(code_graph(toy_kb, drop_subattributes=True), deny=2, max_questions=40)
-    v = V1Task(replay)(patients)
-    assert v.failed.tolist() == [False, True, False]
-    assert v.il[1] == 41 and v.il[0] == replay.run(patients[0]).il
-    assert (v.hits[1].any(), v.tie_aware[1], v.gtpa[1]) == (False, 0.0, 0.0)
 
 
 def test_metric_columns_are_the_patient_scores_then_both_recalls() -> None:
