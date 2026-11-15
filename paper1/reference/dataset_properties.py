@@ -1,0 +1,105 @@
+"""Dataset properties of the public lists against the train and validation records.
+
+    uv run python reference/dataset_properties.py [--out FILE]
+
+From the train split: the patients with a positive evidence off their disease's list, and for each of the list
+entries (disease, evidence) the share of that disease's train patients in whom the evidence is positive. From the
+validation split: how the reference differential relates to the gold disease and to the lists. A positive
+evidence is one recorded with a value other than its default (`simulator.positive_codes`). No sealed set is read.
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+from pathlib import Path
+
+import numpy as np
+
+from ddxkb.data import REPO_ROOT, iter_train, load_kb, load_validation, unseal_requested
+from ddxkb.simulator import positive_codes
+
+RARE_BELOW = 0.05
+NEAR_CERTAIN_FROM = 0.99
+
+
+def list_entries(root: Path) -> dict[str, object]:
+    kb = load_kb(root)
+    patients = np.zeros(kb.n_diseases, dtype=np.int64)
+    positive = np.zeros((kb.n_diseases, kb.n_evidences), dtype=np.int64)
+    column = {e.code: j for j, e in enumerate(kb.evidences)}
+    outside = n = 0
+    for p in iter_train(root):
+        d = kb.disease_index[p.pathology]
+        codes = positive_codes(kb, p)
+        cols = [column[c] for c in codes]
+        patients[d] += 1
+        positive[d, cols] += 1
+        outside += bool((~kb.membership[d, cols]).any())
+        n += 1
+    rates = (positive / patients[:, None])[kb.membership]
+    return {
+        "n": n,
+        "outside_support": outside,
+        "list_entries": int(kb.membership.sum()),
+        "never_positive": int((rates == 0).sum()),
+        "share_below_rare": float((rates < RARE_BELOW).mean()),
+        "share_near_certain": float((rates >= NEAR_CERTAIN_FROM).mean()),
+        "deciles": [float(q) for q in np.quantile(rates, np.arange(0.1, 1.0, 0.1))],
+        "definitions": {
+            "rate": "of a disease's train patients, the share in whom a listed evidence is positive",
+            "share_below_rare": f"list entries with a rate below {RARE_BELOW}",
+            "share_near_certain": f"list entries with a rate of at least {NEAR_CERTAIN_FROM}",
+        },
+    }
+
+
+def differential(root: Path) -> dict[str, object]:
+    kb = load_kb(root)
+    top = strictly_top = 0
+    excluded_mass = []
+    patients = load_validation(root)
+    for p in patients:
+        probs = dict(p.differential)
+        best = max(probs.values())
+        gold = probs.get(p.pathology, 0.0)
+        top += gold == best
+        strictly_top += gold == best and sum(v == best for v in probs.values()) == 1
+        consistent = kb.diseases_containing(positive_codes(kb, p))
+        total = sum(probs.values())
+        off = sum(v for name, v in probs.items() if not consistent[kb.disease_index[name]])
+        excluded_mass.append(off / total)
+    mass = np.asarray(excluded_mass)
+    return {
+        "n": len(patients),
+        "gold_is_top": {"count": int(top), "share": top / len(patients)},
+        "gold_is_only_top": {"count": int(strictly_top), "share": strictly_top / len(patients)},
+        "mass_on_excluded": {"mean": float(mass.mean()), "median": float(np.median(mass))},
+        "definitions": {
+            "gold_is_top": "the gold disease has the largest probability of the reference differential (ties count)",
+            "gold_is_only_top": "the same without a tie",
+            "mass_on_excluded": (
+                "the share of the differential's probability on diseases whose list does not hold every positive"
+                " evidence of the patient"
+            ),
+        },
+    }
+
+
+def main() -> None:
+    ap = argparse.ArgumentParser(description=__doc__.split("\n")[0] if __doc__ else "")
+    ap.add_argument("--out", type=Path, default=None)
+    ap.add_argument("--root", type=Path, default=REPO_ROOT)
+    args = ap.parse_args()
+    if unseal_requested():
+        raise SystemExit("refused: DDXKB_UNSEAL is set")
+    out = {"train": list_entries(args.root), "validation": differential(args.root)}
+    text = json.dumps(out, indent=1, ensure_ascii=False) + "\n"
+    if args.out is None:
+        print(text)
+    else:
+        args.out.write_text(text)
+
+
+if __name__ == "__main__":
+    main()
