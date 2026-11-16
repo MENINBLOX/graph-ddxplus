@@ -1,15 +1,12 @@
-**Supplementary Table S3. Accuracy (%) on the test set by number of questions asked after the initial evidence**
+**Supplementary Table S3. Results on two subsets of the test set**
 
-| Method | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 15 | 20 | 25 | 30 |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| List-based method (P1) | 25.29 | 33.34 | 42.92 | 50.85 | 57.75 | 64.79 | 70.74 | 79.84 | 85.78 | 93.44 | 96.76 | 97.91 | 98.49 |
-| Frequency-based method (P2) | 33.98 | 44.79 | 58.48 | 68.34 | 75.71 | 81.84 | 86.40 | 90.99 | 94.40 | 97.40 | 98.37 | 98.74 | 98.88 |
-| P2 with age and sex | 34.77 | 46.59 | 59.29 | 68.98 | 76.51 | 82.47 | 86.73 | 92.11 | 94.56 | 97.47 | 98.35 | 98.78 | 98.91 |
-| P2 with answer values | 33.98 | 50.69 | 64.36 | 78.91 | 87.62 | 92.23 | 95.31 | 98.09 | 98.95 | 99.45 | 99.57 | 99.60 | 99.63 |
-| P2 with answer values, age and sex | 34.77 | 52.37 | 66.20 | 80.37 | 87.44 | 92.02 | 95.17 | 98.15 | 98.93 | 99.46 | 99.57 | 99.61 | 99.63 |
-| BED re-implementation | 33.98 | 50.58 | 66.79 | 76.72 | 81.73 | 85.98 | 92.00 | 96.30 | 98.24 | 99.46 | 99.66 | 99.69 | 99.71 |
-| P1, random evidence from the candidate lists^a)^ | 25.29 | 31.87 | 37.54 | 42.55 | 46.94 | 50.81 | 54.32 | 60.26 | 65.16 | 74.32 | 80.66 | 85.15 | 88.45 |
-| P1, most frequent evidence first | 25.29 | 30.72 | 30.72 | 30.72 | 30.72 | 30.72 | 31.18 | 41.67 | 46.93 | 58.86 | 68.16 | 77.91 | 83.57 |
+| Method | No training patient with the same age, sex and evidences (n = 132,540): accuracy, % (95% CI) | Evidence collected, mean | StreamBench patients (n = 1,764): accuracy, % (95% CI) | Evidence collected, mean |
+|---|---|---|---|---|
+| List-based method (P1) | 98.42 (98.36–98.49) | 10.41 | 98.11 (97.36–98.65) | 10.19 |
+| P2, yes-or-no answers | 98.58 (98.52–98.64) | 7.31 | 98.30 (97.58–98.81) | 7.21 |
+| P2, yes-or-no answers, age and sex | 98.64 (98.57–98.70) | 7.18 | 98.19 (97.45–98.71) | 6.86 |
+| P2, answer values | 99.29 (99.25–99.34) | 5.11 | 99.55 (99.11–99.77) | 5.20 |
+| P2, answer values, age and sex | 99.28 (99.23–99.32) | 4.99 | 99.38 (98.89–99.65) | 4.92 |
+| BED re-implementation | 99.46 (99.42–99.50) | 5.48 | 99.38 (98.89–99.65) | 5.36 |
 
-Each method asks exactly the given number of questions without a stop rule.
-^a)^Mean of five random orders.
+CI, confidence interval; P1, list-based method; P2, frequency-based method; BED, Bayesian experimental design.

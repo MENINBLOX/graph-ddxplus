@@ -1,17 +1,18 @@
-**Supplementary Table S7. Further component analysis on the validation set and reference values without questions**
+**Supplementary Table S7. Accuracy (%) on the test set by number of questions asked after the initial evidence**
 
-| Changed component | Accuracy, % (95% CI) | Difference from P1, percentage points (95% CI) | Evidence collected, mean |
-|---|---|---|---|
-| ε = 0.1 | 94.95 (94.83–95.07) | −3.47 (−3.56 to −3.37) | 23.24 |
-| ε = 0.01 | 98.17 (98.09–98.24) | −0.25 (−0.29 to −0.22) | 13.49 |
-| ε = 0.001 | 98.41 (98.34–98.47) | −0.01 (−0.03 to +0.00) | 11.71 |
-| ε = 1e-06 | 98.41 (98.34–98.48) | −0.01 (−0.02 to +0.00) | 10.37 |
-| ε = 1e-09 | 98.37 (98.30–98.43) | −0.06 (−0.08 to −0.04) | 9.90 |
+| Method | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 8 | 10 | 15 | 20 | 25 | 30 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| List-based method (P1) | 25.29 | 33.34 | 42.92 | 50.85 | 57.75 | 64.79 | 70.74 | 79.84 | 85.78 | 93.44 | 96.76 | 97.91 | 98.49 |
+| P2, yes-or-no answers | 33.98 | 44.79 | 58.48 | 68.34 | 75.71 | 81.84 | 86.40 | 90.99 | 94.40 | 97.40 | 98.37 | 98.74 | 98.88 |
+| P2, yes-or-no answers, age and sex | 34.77 | 46.59 | 59.29 | 68.98 | 76.51 | 82.47 | 86.73 | 92.11 | 94.56 | 97.47 | 98.35 | 98.78 | 98.91 |
+| P2, answer values | 33.98 | 50.69 | 64.36 | 78.91 | 87.62 | 92.23 | 95.31 | 98.09 | 98.95 | 99.45 | 99.57 | 99.60 | 99.63 |
+| P2, answer values, age and sex | 34.77 | 52.37 | 66.20 | 80.37 | 87.44 | 92.02 | 95.17 | 98.15 | 98.93 | 99.46 | 99.57 | 99.61 | 99.63 |
+| BED re-implementation | 33.98 | 50.58 | 66.79 | 76.72 | 81.73 | 85.98 | 92.00 | 96.30 | 98.24 | 99.46 | 99.66 | 99.69 | 99.71 |
+| P1, random questions^a)^ | 25.29 | 31.87 | 37.54 | 42.55 | 46.94 | 50.81 | 54.32 | 60.26 | 65.16 | 74.32 | 80.66 | 85.15 | 88.45 |
+| P1, frequency-ordered questions | 25.29 | 30.72 | 30.72 | 30.72 | 30.72 | 30.72 | 31.18 | 41.67 | 46.93 | 58.86 | 68.16 | 77.91 | 83.57 |
 
-| Set | Most frequent disease | Initial evidence only | List check on the full record | P1 probabilities on the full record | Naive Bayes on the full record, yes or no | Naive Bayes on the full record, values |
-|---|---|---|---|---|---|---|
-| Validation | 6.54 (6.40–6.67) | 25.22 (24.98–25.45) | 95.90 (95.79–96.00) | 99.16 (99.11–99.21) | 99.26 (99.21–99.31) | 99.67 (99.64–99.70) |
-| Test | 6.50 (6.37–6.63) | 25.29 (25.06–25.53) | 95.93 (95.82–96.03) | 99.19 (99.14–99.24) | 99.28 (99.24–99.33) | 99.70 (99.67–99.73) |
+P1, list-based method; P2, frequency-based method; BED, Bayesian experimental design.
 
-CI, confidence interval.
-The lower part gives the accuracy, % (95% CI), of methods that ask no question.
+P1 and P2 ask exactly the given number of questions without the stop conditions. BED asks up to the given number and asks no further question once no question has a positive utility.
+
+^a)^Mean of five random orders.

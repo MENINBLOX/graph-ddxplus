@@ -1,27 +1,15 @@
-**Supplementary Table S2. Results on the test set by stop threshold**
+**Supplementary Table S2. Additional metrics on the test set (%)**
 
-| Method | Stop threshold | Accuracy, % (95% CI) | Evidence collected, mean (95% CI) | Stopped at the question limit, % |
-|---|---|---|---|---|
-| List-based method (P1) | 0.9 | 98.11 (98.03–98.18) | 9.02 (8.99–9.06) | 2.09 |
-|  | 0.95 | 98.31 (98.24–98.37) | 9.61 (9.57–9.65) | 2.90 |
-|  | 0.99 | 98.44 (98.38–98.51) | 10.35 (10.31–10.39) | 3.27 |
-|  | 0.999 | 98.49 (98.42–98.55) | 13.25 (13.21–13.28) | 4.46 |
-| Frequency-based method (P2) | 0.9 | 96.79 (96.70–96.89) | 5.84 (5.81–5.87) | 1.16 |
-|  | 0.95 | 97.76 (97.68–97.84) | 6.24 (6.21–6.27) | 1.26 |
-|  | 0.99 | 98.60 (98.54–98.66) | 7.27 (7.24–7.31) | 1.75 |
-|  | 0.999 | 98.86 (98.80–98.91) | 8.91 (8.88–8.95) | 2.33 |
-| P2 with age and sex | 0.9 | 97.06 (96.97–97.15) | 5.74 (5.72–5.77) | 1.11 |
-|  | 0.95 | 97.88 (97.81–97.96) | 6.14 (6.11–6.17) | 1.27 |
-|  | 0.99 | 98.66 (98.60–98.72) | 7.12 (7.09–7.16) | 1.69 |
-|  | 0.999 | 98.89 (98.83–98.94) | 8.76 (8.72–8.79) | 2.25 |
-| P2 with answer values | 0.9 | 98.06 (97.99–98.14) | 4.32 (4.30–4.33) | 0.33 |
-|  | 0.95 | 98.68 (98.62–98.74) | 4.57 (4.55–4.58) | 0.36 |
-|  | 0.99 | 99.30 (99.26–99.35) | 5.10 (5.07–5.12) | 0.41 |
-|  | 0.999 | 99.53 (99.49–99.57) | 6.01 (5.99–6.03) | 0.47 |
-| P2 with answer values, age and sex | 0.9 | 98.22 (98.14–98.29) | 4.25 (4.23–4.26) | 0.31 |
-|  | 0.95 | 98.75 (98.69–98.81) | 4.48 (4.47–4.50) | 0.35 |
-|  | 0.99 | 99.29 (99.24–99.33) | 4.97 (4.95–4.99) | 0.40 |
-|  | 0.999 | 99.52 (99.48–99.56) | 5.87 (5.84–5.89) | 0.45 |
+| Method | Accuracy | Accuracy, official code | GTPA@3 | GTPA@5 | DDR | DDP | DDF1 | DSHM | PER |
+|---|---|---|---|---|---|---|---|---|---|
+| List-based method (P1) | 98.44 | 98.45 | 99.41 | 99.55 | 22.36 | 98.01 | 30.88 | 11.12 | 22.35 |
+| P2, yes-or-no answers | 98.60 | 98.60 | 99.25 | 99.28 | 21.88 | 98.90 | 31.04 | 10.89 | 20.29 |
+| P2, yes-or-no answers, age and sex | 98.66 | 98.66 | 99.28 | 99.30 | 21.87 | 98.93 | 31.05 | 10.87 | 20.04 |
+| P2, answer values | 99.30 | 99.30 | 99.58 | 99.58 | 21.58 | 99.45 | 30.92 | 10.75 | 22.77 |
+| P2, answer values, age and sex | 99.29 | 99.29 | 99.56 | 99.57 | 21.58 | 99.45 | 30.91 | 10.74 | 22.56 |
+| BED re-implementation | 99.47 | 99.47 | 99.75 | 99.76 | 21.65 | 99.44 | 31.01 | 10.78 | 18.62 |
+| BED, reported in the CASANDE paper [@casande] | 99.47 | NR | NR | NR | NR | NR | 31.01 | 10.78 | 18.62 |
 
-CI, confidence interval.
-The main analysis uses the threshold 0.99.
+P1, list-based method; P2, frequency-based method; BED, Bayesian experimental design. NR, not reported.
+
+Accuracy, official code: the accuracy as the official code computes it (Supplementary Methods 5). GTPA@k, the true disease is among the k most probable diseases after removing diseases with probability 0.01 or less, with ties shared as for accuracy. DDR and DDP, mean over patients of the recall and precision against the reference differential diagnosis; DDF1, mean over patients of their harmonic mean. DSHM, mean over patients of the harmonic mean of the rule-in and rule-out rates of severe diseases [@casande]. PER, share of the positive evidences of the patient that were collected, the initial evidence included.

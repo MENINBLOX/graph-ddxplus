@@ -1,18 +1,10 @@
-**Supplementary Table S6. Candidate settings of the list-based method on the validation set**
+**Supplementary Table S6. Accuracy, % (95% CI), of baselines and reference values that ask no question**
 
-| α | ε | Accuracy, % | Evidence collected, mean | Accuracy after 30 questions, % | Role |
-|---|---|---|---|---|---|
-| 0.3 | 0.01 | 97.80 | 16.12 | 97.80 | Candidate |
-| 0.3 | 0.001 | 98.25 | 13.88 | 98.25 | Candidate |
-| 0.3 | 0.0001 | 98.26 | 12.47 | 98.26 | Candidate |
-| 0.5 | 0.01 | 98.17 | 13.49 | 98.16 | Candidate |
-| 0.5 | 0.001 | 98.41 | 11.71 | 98.44 | Candidate |
-| 0.5 | 0.0001 | 98.42 | 10.39 | 98.48 | Candidate |
-| 0.7 | 0.01 | 97.72 | 11.97 | 97.68 | Candidate |
-| 0.7 | 0.001 | 98.13 | 10.47 | 98.26 | Candidate |
-| 0.7 | 0.0001 | 97.90 | 9.33 | 98.31 | Candidate |
-| 0.3 | 1e-05 | 98.26 | 11.82 | 98.26 | Outside the candidates |
-| 0.5 | 1e-05 | 98.41 | 10.35 | 98.47 | Outside the candidates |
-| 0.7 | 1e-05 | 97.79 | 9.23 | 98.35 | Outside the candidates |
+| Set | Most frequent disease | Initial evidence only | List check, all answers | P1 probabilities, all answers | Naive Bayes, yes-or-no answers, all answers | Naive Bayes, answer values, all answers |
+|---|---|---|---|---|---|---|
+| Validation | 6.54 (6.40–6.67) | 25.22 (24.98–25.45) | 95.90 (95.79–96.00) | 99.16 (99.11–99.21) | 99.26 (99.21–99.31) | 99.67 (99.64–99.70) |
+| Test | 6.50 (6.37–6.63) | 25.29 (25.06–25.53) | 95.93 (95.82–96.03) | 99.19 (99.14–99.24) | 99.28 (99.24–99.33) | 99.70 (99.67–99.73) |
 
-The setting with the highest accuracy among the nine candidates was selected (α = 0.5, ε = 0.0001).
+CI, confidence interval; P1, list-based method.
+
+“All answers” gives the answers to all 223 evidences without questions. Naive Bayes uses the probabilities of P2 without age and sex.

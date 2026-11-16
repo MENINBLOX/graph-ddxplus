@@ -39,9 +39,9 @@ plt.rcParams.update(
 )
 # Categorical slots 1-4 of the reference palette, in fixed order; line style is the second encoding for print.
 SERIES = [
-    ("P1", "List-based method", "#2a78d6", "-"),
-    ("P2-binary", "Frequency-based, yes/no answers", "#eb6834", (0, (6, 2))),
-    ("P2-value", "Frequency-based, answer values", "#1baf7a", (0, (2, 1.5))),
+    ("P1", "List-based method (P1)", "#2a78d6", "-"),
+    ("P2-binary", "P2, yes-or-no answers", "#eb6834", (0, (6, 2))),
+    ("P2-value", "P2, answer values", "#1baf7a", (0, (2, 1.5))),
     ("B-BED", "BED re-implementation", "#eda100", (0, (7, 2, 1.5, 2))),
 ]
 
