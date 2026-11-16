@@ -104,6 +104,10 @@ class P2Variant:
 
 # Design §3 lists the variants as binary/value answers x age and sex unused/used, in this order.
 P2_VARIANTS = tuple(P2Variant(m, a) for m in (AnswerMode.BINARY, AnswerMode.VALUE) for a in (False, True))
+# 보완 4 §2.2: P2-value under the answer rule that also says whether a categorical or multi-choice evidence is
+# recorded, with the likelihood that fits it. A validation analysis, not one of P2_VARIANTS: the frozen protocol,
+# the evaluation and the main suite never run it.
+P2_RECORDED = P2Variant(AnswerMode.RECORDED, age_sex=False)
 
 
 @dataclass(frozen=True)

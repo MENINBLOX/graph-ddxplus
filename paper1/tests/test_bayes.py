@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import dataclasses
+import hashlib
 import json
 import math
 import os
@@ -30,7 +31,7 @@ from ddxkb.policies.bayes import (
 )
 from ddxkb.protocol import MIN_GAIN
 from ddxkb.runner import chunks, map_items, worker_pool
-from ddxkb.simulator import Answer, AnswerMode, Hierarchy, Start, StartInput
+from ddxkb.simulator import Answer, AnswerMode, Hierarchy, Oracle, Start, StartInput
 from helpers import binary_kb, toy_counts, toy_patient
 
 # The review prototype's budgets and cap: |T| <= 30 with the initial evidence, as in the first protocol.
@@ -325,7 +326,161 @@ def test_value_mode_eig(toy_kb: KB) -> None:
     assert gain[4] == pytest.approx(max(options), abs=1e-12)
 
 
-def test_both_answer_modes_run_a_frequency_episode(toy_kb: KB) -> None:
+def _component(t: LikelihoodTable, code: str, k: int = 0) -> FloatArray:
+    """The outcome columns of component `k` of an evidence."""
+    c = int(t.evidence_start[t.kb.evidence_index[code]]) + k
+    end = int(t.component_start[c + 1]) if c + 1 < len(t.component_start) else t.probs.shape[1]
+    return np.asarray(t.probs[:, int(t.component_start[c]) : end])
+
+
+def test_frequency_table_recorded_mode(toy_kb: KB) -> None:
+    """보완 4 §2.2 on the toy counts with lam = 1: rows Alpha 10, Beta 8, Gamma 2."""
+    t = frequency_table(toy_kb, toy_counts(), 1.0, AnswerMode.RECORDED)
+    value = frequency_table(toy_kb, toy_counts(), 1.0, AnswerMode.VALUE)
+    assert t.mode is AnswerMode.RECORDED
+    # Components: 3 binaries, intens (not recorded + 4 values), lieu (recorded + 3 options), trav1 (not recorded +
+    # 3 values), atcd.
+    assert t.evidence_start.tolist() == [0, 1, 2, 3, 4, 8, 9]
+    assert t.component_start.tolist() == [0, 2, 4, 6, 11, 13, 15, 17, 19, 23]
+    assert t.probs.shape == (3, 25)
+    assert np.add.reduceat(t.probs, t.component_start, axis=1) == pytest.approx(np.ones((3, 10)), abs=1e-12)
+    # douleur_intens, [not recorded, 0, 1, 2, 3] over n + 5: no record of Alpha holds it; all 8 of Beta do, with
+    # values 1/2/3 by 1/3/4 and so the default by none; both of Gamma's hold value 2.
+    intens = _component(t, "douleur_intens")
+    assert intens[0] == pytest.approx([11 / 15, 1 / 15, 1 / 15, 1 / 15, 1 / 15])
+    assert intens[1] == pytest.approx([1 / 13, 1 / 13, 2 / 13, 4 / 13, 5 / 13])
+    assert intens[2] == pytest.approx([1 / 7, 1 / 7, 1 / 7, 3 / 7, 1 / 7])
+    # trav1, [not recorded, N, AfriqN, Asie] over n + 4: Alpha's 10 records hold it, 9 with the default and 1 with
+    # Asie; 5 of Beta's 8 and 1 of Gamma's 2 hold it, all with the default.
+    trav1 = _component(t, "trav1")
+    assert trav1[0] == pytest.approx([1 / 14, 10 / 14, 1 / 14, 2 / 14])
+    assert trav1[1] == pytest.approx([4 / 12, 6 / 12, 1 / 12, 1 / 12])
+    assert trav1[2] == pytest.approx([2 / 6, 2 / 6, 1 / 6, 1 / 6])
+    # douleur_lieu: [recorded, not recorded] over n + 2 (recorded by 0, 7 and 2 records), then the options as in
+    # value mode.
+    assert _component(t, "douleur_lieu")[:, 0] == pytest.approx([1 / 12, 8 / 10, 3 / 4])
+    assert _component(t, "douleur_lieu").shape == (3, 2)
+    for option in range(3):
+        assert np.array_equal(_component(t, "douleur_lieu", 1 + option), _component(value, "douleur_lieu", option))
+    for code in ("fievre", "toux", "douleur", "atcd"):
+        assert np.array_equal(_component(t, code), _component(value, code))
+
+
+def test_recorded_answers_pick_their_outcome_columns(toy_kb: KB) -> None:
+    t = frequency_table(toy_kb, toy_counts(), 1.0, AnswerMode.RECORDED)
+    intens = int(t.component_start[t.evidence_start[3]])
+    # Categorical: not recorded, recorded with the default, recorded with a value.
+    assert t.outcome_columns(Answer("douleur_intens", False, recorded=False)) == [intens]
+    assert t.outcome_columns(Answer("douleur_intens", False, recorded=True)) == [intens + 1]
+    assert t.outcome_columns(Answer("douleur_intens", True, ("2",), recorded=True)) == [intens + 3]
+    trav1 = int(t.component_start[t.evidence_start[5]])
+    assert t.outcome_columns(Answer("trav1", False, recorded=False)) == [trav1]
+    assert t.outcome_columns(Answer("trav1", False, recorded=True)) == [trav1 + 1]
+    assert t.outcome_columns(Answer("trav1", True, ("Asie",), recorded=True)) == [trav1 + 3]
+    # Multi-choice: the recorded component, then one column per option.
+    lieu = int(t.evidence_start[4])
+    s = [int(t.component_start[lieu + i]) for i in range(4)]
+    chosen = Answer("douleur_lieu", True, ("tete", "ventre"), recorded=True)
+    assert t.outcome_columns(chosen) == [s[0], s[1], s[2] + 1, s[3]]
+    assert t.outcome_columns(Answer("douleur_lieu", False, recorded=True)) == [s[0], s[1] + 1, s[2] + 1, s[3] + 1]
+    assert t.outcome_columns(Answer("douleur_lieu", False, recorded=False)) == [s[0] + 1, s[1] + 1, s[2] + 1, s[3] + 1]
+    assert t.log_likelihood(chosen) == pytest.approx(
+        np.log(t.probs[:, s[0]] * t.probs[:, s[1]] * t.probs[:, s[2] + 1] * t.probs[:, s[3]])
+    )
+    # Binary evidences are answered and read as in the other modes.
+    fievre = int(t.component_start[t.evidence_start[0]])
+    assert t.outcome_columns(Answer("fievre", True)) == [fievre]
+    assert t.outcome_columns(Answer("fievre", False)) == [fievre + 1]
+    # An answer of another rule does not say whether the evidence is recorded, and this table needs it.
+    for code in ("douleur_intens", "douleur_lieu", "trav1"):
+        with pytest.raises(ValueError, match="does not say whether the record holds it"):
+            t.outcome_columns(Answer(code, False))
+    with pytest.raises(ValueError, match="positive and not recorded"):
+        t.outcome_columns(Answer("trav1", True, ("Asie",), recorded=False))
+    with pytest.raises(ValueError, match="categorical"):
+        t.outcome_columns(Answer("douleur_intens", True, ("1", "2"), recorded=True))
+
+
+def test_recorded_mode_eig(toy_kb: KB) -> None:
+    t = frequency_table(toy_kb, toy_counts(), 1.0, AnswerMode.RECORDED)
+    q = np.array([0.2, 0.5, 0.3])
+    gain = expected_information_gain(t, q)
+    assert gain[3] == pytest.approx(_naive_eig(q, _component(t, "douleur_intens")), abs=1e-12)
+    assert gain[5] == pytest.approx(_naive_eig(q, _component(t, "trav1")), abs=1e-12)
+    components = [_naive_eig(q, _component(t, "douleur_lieu", k)) for k in range(4)]
+    assert gain[4] == pytest.approx(max(components), abs=1e-12)
+    # Whether trav1 is recorded tells the diseases apart where its values alone do not.
+    value = expected_information_gain(frequency_table(toy_kb, toy_counts(), 1.0, AnswerMode.VALUE), q)
+    assert gain[5] > value[5] + 0.01
+
+
+def _table_sha256(t: LikelihoodTable) -> str:
+    h = hashlib.sha256()
+    for a in (t.probs, t.component_start.astype(np.int64), t.evidence_start.astype(np.int64)):
+        h.update(np.ascontiguousarray(a).tobytes())
+    return h.hexdigest()
+
+
+# The tables of the four main P2 variants on the toy counts, byte for byte.
+MAIN_TABLES = {
+    (AnswerMode.BINARY, 1.0): "6b2e05a2b9d0ce2877b16e8aff3ecb88f6a147eab6ac735d04b669b3c477cce6",
+    (AnswerMode.BINARY, 0.5): "7121d204177324386de067ced6c42d75df8dc9ca039de068fb5b18d714194152",
+    (AnswerMode.VALUE, 1.0): "80be6e05bd14554cb649f711dcb441b82832ea0d836878cbd2f430831a1bcb37",
+    (AnswerMode.VALUE, 0.5): "8a39aa8abb69dba2823f97cbe9dab5d3d4555351209e8053037f679c51282229",
+}
+
+
+def test_binary_and_value_tables_never_read_the_recorded_counts(toy_kb: KB) -> None:
+    """The tables of the main variants are fixed bytes, whatever the recorded counts of 보완 4 §2.2 hold."""
+    counts = toy_counts()
+    other = dataclasses.replace(counts, recorded=np.maximum(counts.positive, counts.rows[:, None] - 1))
+    assert not np.array_equal(other.recorded, counts.recorded)
+    for (mode, lam), digest in MAIN_TABLES.items():
+        assert _table_sha256(frequency_table(toy_kb, counts, lam, mode)) == digest, (mode, lam)
+        assert _table_sha256(frequency_table(toy_kb, other, lam, mode)) == digest, (mode, lam)
+    recorded = frequency_table(toy_kb, counts, 1.0, AnswerMode.RECORDED)
+    assert _table_sha256(frequency_table(toy_kb, other, 1.0, AnswerMode.RECORDED)) != _table_sha256(recorded)
+
+
+def test_only_a_recorded_policy_is_told_whether_an_evidence_is_recorded(
+    toy_kb: KB, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    """보완 4 §2.1: two records that differ only in a recorded default value are one patient to a policy of the
+    protocol's answer rules, and two to the recorded policy."""
+    counts = toy_counts()
+    with_default = toy_patient(["douleur", "douleur_intens_@_3", "douleur_lieu_@_dos", "trav1_@_N"], initial="douleur")
+    without = dataclasses.replace(with_default, evidences=with_default.evidences[:-1])
+    asked_as: list[AnswerMode] = []
+
+    class Spy(Oracle):
+        def __init__(self, kb: KB, patient: Patient, mode: AnswerMode = AnswerMode.VALUE) -> None:
+            asked_as.append(mode)
+            super().__init__(kb, patient, mode)
+
+    monkeypatch.setattr("ddxkb.policies.bayes.Oracle", Spy)
+    for mode in AnswerMode:
+        # Seven evidences and a cap of seven: every evidence is asked, so the two posteriors hear every answer.
+        pol = BayesPolicy(frequency_table(toy_kb, counts, 1.0, mode), frequency_prior(counts, 1.0), None, (6,), 7)
+        a, b = pol.run(with_default), pol.run(without)
+        assert set(a.questions) == set(b.questions) == {e.code for e in toy_kb.evidences} - {"douleur"}
+        assert asked_as[-2:] == [mode, mode]
+        if mode is AnswerMode.RECORDED:
+            assert not np.allclose(a.posterior, b.posterior)
+            answer = Oracle(toy_kb, with_default, mode).answer("trav1")
+            other = Oracle(toy_kb, without, mode).answer("trav1")
+            ratio = np.exp(pol.table.log_likelihood(answer) - pol.table.log_likelihood(other))
+            # trav1 recorded with the default against not recorded: (r - v + 1) / (n - r + 1) per disease.
+            assert ratio == pytest.approx([10 / 1, 6 / 4, 2 / 2])
+        else:
+            assert a.questions == b.questions
+            assert np.array_equal(a.posterior, b.posterior)
+            assert np.array_equal(a.budget_posteriors, b.budget_posteriors)
+    membership = BayesPolicy(membership_table(toy_kb, 0.5, 1e-3), uniform_prior(toy_kb), None, (), 3)
+    membership.run(with_default)
+    assert asked_as[-1] is AnswerMode.BINARY
+
+
+def test_every_answer_mode_runs_a_frequency_episode(toy_kb: KB) -> None:
     counts = toy_counts()
     p = toy_patient(["douleur", "douleur_intens_@_3", "douleur_lieu_@_dos", "atcd", "trav1_@_N"], initial="douleur")
     for mode in AnswerMode:

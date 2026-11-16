@@ -71,18 +71,43 @@ def test_counts_follow_the_oracle_rule(toy_kb: KB) -> None:
     assert c.positive.tolist() == [[1, 1, 0, 0, 0, 0, 0], [0, 0, 2, 1, 1, 1, 1], [0] * 7]
     # Columns: intens 1/2/3, lieu tete/dos/ventre, trav1 AfriqN/Asie.
     assert c.value.tolist() == [[0] * 8, [0, 1, 0, 1, 1, 0, 0, 1], [0] * 8]
+    # 보완 4 §2.2: a record holds an evidence whatever its value, so the defaults of beta_child and the two
+    # locations of beta each count once; a binary evidence is recorded exactly when it is positive.
+    assert c.recorded.tolist() == [[1, 1, 0, 0, 0, 1, 0], [0, 0, 2, 2, 2, 2, 1], [0] * 7]
+    binary = [j for j, e in enumerate(toy_kb.evidences) if e.is_binary]
+    assert np.array_equal(c.recorded[:, binary], c.positive[:, binary])
 
 
 def test_counts_reject_inconsistent_tables() -> None:
     ok = np.zeros((2, 90, 2), dtype=np.int64)
+    flat = np.zeros((2, 3), np.int64)
     with pytest.raises(ValueError, match="add up"):
         FrequencyCounts(
-            rows=np.array([1, 0]), by_age_sex=ok, positive=np.zeros((2, 3), np.int64), value=np.zeros((2, 1), np.int64)
+            rows=np.array([1, 0]), by_age_sex=ok, positive=flat, value=np.zeros((2, 1), np.int64), recorded=flat
         )
     with pytest.raises(ValueError, match="shape"):
         FrequencyCounts(
             rows=np.array([0, 0]),
             by_age_sex=np.zeros((2, 3, 3), np.int64),
-            positive=np.zeros((2, 3), np.int64),
+            positive=flat,
             value=np.zeros((2, 1), np.int64),
+            recorded=flat,
         )
+
+
+def test_recorded_counts_lie_between_the_positive_counts_and_the_rows() -> None:
+    by_age_sex = np.zeros((2, 90, 2), dtype=np.int64)
+    by_age_sex[:, 40, 0] = [3, 2]
+    rows, value = np.array([3, 2]), np.zeros((2, 1), np.int64)
+    positive = np.array([[1, 0, 2], [0, 2, 1]])
+
+    def counts(recorded: np.ndarray) -> FrequencyCounts:
+        return FrequencyCounts(rows=rows, by_age_sex=by_age_sex, positive=positive, value=value, recorded=recorded)
+
+    counts(np.array([[1, 3, 2], [0, 2, 2]]))
+    with pytest.raises(ValueError, match="between the positive counts and the disease rows"):
+        counts(np.array([[0, 3, 2], [0, 2, 2]]))
+    with pytest.raises(ValueError, match="between the positive counts and the disease rows"):
+        counts(np.array([[1, 3, 2], [0, 3, 2]]))
+    with pytest.raises(ValueError, match="recorded has shape"):
+        counts(np.array([[1, 3], [0, 2]]))

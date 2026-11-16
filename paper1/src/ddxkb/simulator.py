@@ -24,10 +24,13 @@ MAX_IL = 31
 
 
 class AnswerMode(StrEnum):
-    """Whether a policy reads the revealed values (VALUE) or only whether an answer is positive (BINARY)."""
+    """What a policy reads of an answer: only whether it is positive (BINARY), the revealed values too (VALUE), or
+    the values and whether the record holds a categorical or multi-choice evidence with any value (RECORDED,
+    보완 4 §2.1). The oracle says the last only under RECORDED."""
 
     BINARY = "binary"
     VALUE = "value"
+    RECORDED = "recorded"
 
 
 class Hierarchy(StrEnum):
@@ -55,11 +58,15 @@ class StartInput(StrEnum):
 @dataclass(frozen=True, slots=True)
 class Answer:
     """`values` lists the non-default values in catalogue order; it is empty for binary evidences and for
-    negative answers (a categorical answer of () means the default value)."""
+    negative answers (a categorical answer of () means the default value).
+
+    `recorded` says whether the record holds a categorical or multi-choice evidence with any value, its default
+    included. It is None for a binary evidence and under every answer rule but AnswerMode.RECORDED."""
 
     code: str
     positive: bool
     values: tuple[str, ...] = ()
+    recorded: bool | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -103,11 +110,15 @@ def positive_codes(kb: KB, patient: Patient) -> frozenset[str]:
 
 
 class Oracle:
-    """Answers any evidence question about one patient from the record."""
+    """Answers any evidence question about one patient from the record.
 
-    def __init__(self, kb: KB, patient: Patient) -> None:
+    `mode` is the answer rule of the policy that asks. BINARY and VALUE get the protocol's answers; RECORDED gets
+    the same answers with `Answer.recorded` set for a categorical or multi-choice evidence (보완 4 §2.1)."""
+
+    def __init__(self, kb: KB, patient: Patient, mode: AnswerMode = AnswerMode.VALUE) -> None:
         self.kb = kb
         self.patient = patient
+        self.mode = mode
         self._present = present_values(kb, patient.evidences)
 
     @property
@@ -117,9 +128,12 @@ class Oracle:
     def answer(self, code: str) -> Answer:
         if code not in self.kb.evidence_index:
             raise KeyError(f"unknown evidence {code!r}")
+        recorded = None
+        if self.mode is AnswerMode.RECORDED and not self.kb.evidence(code).is_binary:
+            recorded = any(c == code for c, _ in self.patient.evidences)
         if code not in self._present:
-            return Answer(code, positive=False)
-        return Answer(code, positive=True, values=self._present[code])
+            return Answer(code, positive=False, recorded=recorded)
+        return Answer(code, positive=True, values=self._present[code], recorded=recorded)
 
 
 class Interaction:

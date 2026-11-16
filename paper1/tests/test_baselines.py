@@ -127,6 +127,30 @@ def test_full_profile_naive_bayes_reads_values_in_value_mode(toy_kb: KB) -> None
     assert not np.allclose(other.posterior, ep.posterior)
 
 
+def test_full_profile_is_answered_under_the_answer_rule_of_its_table(toy_kb: KB) -> None:
+    """보완 4 §2.1: a table in recorded mode reads whether the record holds a categorical or multi-choice evidence."""
+    counts = toy_counts()
+    table = frequency_table(toy_kb, counts, 1.0, AnswerMode.RECORDED)
+    prior = frequency_prior(counts, 1.0)
+    pol = FullProfile(table, prior)
+    assert pol.answer_mode is AnswerMode.RECORDED
+    patient = _beta()
+    oracle = Oracle(toy_kb, patient, AnswerMode.RECORDED)
+    start = Start(oracle.answer(patient.initial), patient.age, patient.sex)
+    log_post = prior(start) + sum(table.log_likelihood(oracle.answer(e.code)) for e in toy_kb.evidences)
+    expected = np.exp(log_post - log_post.max())
+    ep = pol.run(patient)
+    assert ep.posterior == pytest.approx(expected / expected.sum(), rel=1e-12)
+    # A record without trav1 is another answer than one holding trav1's default value.
+    unrecorded = pol.run(toy_patient(["douleur", "douleur_intens_@_2", "douleur_lieu_@_dos", "atcd"], "douleur"))
+    assert not np.allclose(unrecorded.posterior, ep.posterior)
+    value = FullProfile(frequency_table(toy_kb, counts, 1.0, AnswerMode.VALUE), prior)
+    assert np.array_equal(
+        value.run(patient).posterior,
+        value.run(toy_patient(["douleur", "douleur_intens_@_2", "douleur_lieu_@_dos", "atcd"], "douleur")).posterior,
+    )
+
+
 def test_profile_majority_shares_the_diseases_of_identical_positive_sets(toy_kb: KB) -> None:
     # The default values of douleur_intens and trav1 are negative, so the first three records share one profile.
     patients = [

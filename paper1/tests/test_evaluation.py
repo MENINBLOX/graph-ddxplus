@@ -18,6 +18,7 @@ from ddxkb.evaluation import (
     Scored,
     ScoreTask,
     compare,
+    patient_lines,
     report,
     write_patients,
 )
@@ -321,12 +322,15 @@ def test_patient_file_is_byte_stable(toy_kb: KB, tmp_path: Path) -> None:
     assert set(METRICS) <= set(records[0])
     assert len(records[0]["curve_gtpa1"]) == CAP
     assert records[2]["error"].startswith("ValueError") and records[2]["top"] == []
+    # The file holds the patient lines, one per patient in run order.
+    assert gzip.decompress(raw) == b"".join(patient_lines(s, toy_kb))
+    assert len(list(patient_lines(s, toy_kb))) == 5
+    derived = ScoreTask(_p1(toy_kb, None), toy_kb, CURVE)(patients).with_stop(0.9, None, CAP)
     with pytest.raises(ValueError, match="derived"):
-        write_patients(
-            tmp_path / "c.jsonl.gz",
-            ScoreTask(_p1(toy_kb, None), toy_kb, CURVE)(patients).with_stop(0.9, None, CAP),
-            toy_kb,
-        )
+        write_patients(tmp_path / "c.jsonl.gz", derived, toy_kb)
+    assert not (tmp_path / "c.jsonl.gz").exists()
+    with pytest.raises(ValueError, match="derived"):
+        patient_lines(derived, toy_kb)
 
 
 def test_metric_columns_are_the_patient_scores_then_both_recalls() -> None:

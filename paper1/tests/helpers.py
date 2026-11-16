@@ -87,8 +87,10 @@ def binary_kb(diseases: dict[str, list[str]], evidences: list[str]) -> KB:
 
 
 def toy_counts() -> FrequencyCounts:
-    """Counts for the toy KB: Alpha 10 rows, Beta 8, Gamma 2, aged 40 but two of Beta's aged 1; positive columns
-    fievre ... atcd, value columns douleur_intens 1-3, douleur_lieu tete/dos/ventre, trav1 AfriqN/Asie."""
+    """Counts for the toy KB: Alpha 10 rows, Beta 8, Gamma 2, aged 40 but two of Beta's aged 1; positive and
+    recorded columns fievre ... atcd, value columns douleur_intens 1-3, douleur_lieu tete/dos/ventre, trav1
+    AfriqN/Asie. One of Beta's records holds douleur_lieu with its default only, and trav1 is recorded with its
+    default by 9 of Alpha's records, 5 of Beta's and 1 of Gamma's."""
     rows = np.array([10, 8, 2])
     by_age_sex = np.zeros((3, 41, 2), dtype=np.int64)
     by_age_sex[0, 40, sex_index("F")] = 10
@@ -97,7 +99,8 @@ def toy_counts() -> FrequencyCounts:
     by_age_sex[2, 40, sex_index("M")] = 2
     positive = np.array([[9, 7, 0, 0, 0, 1, 0], [0, 0, 8, 8, 6, 0, 3], [2, 0, 2, 2, 2, 0, 0]])
     value = np.array([[0, 0, 0, 0, 0, 0, 0, 1], [1, 3, 4, 4, 3, 1, 0, 0], [0, 2, 0, 2, 0, 0, 0, 0]])
-    return FrequencyCounts(rows=rows, by_age_sex=by_age_sex, positive=positive, value=value)
+    recorded = np.array([[9, 7, 0, 0, 0, 10, 0], [0, 0, 8, 8, 7, 5, 3], [2, 0, 2, 2, 2, 1, 0]])
+    return FrequencyCounts(rows=rows, by_age_sex=by_age_sex, positive=positive, value=value, recorded=recorded)
 
 
 def toy_patient(evidences: list[str], initial: str, pathology: str = "Beta", row: int = 0) -> Patient:

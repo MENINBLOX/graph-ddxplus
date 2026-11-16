@@ -123,6 +123,19 @@ def test_a_ladder_rung_compares_two_runs_at_the_stop_the_budgets_and_the_thresho
     )
     plain = ladder_rung(pair, runs, (5, 10), {})
     assert set(plain) == {"this", "other", "factor", "stop", "5", "10"}
+    # A pair outside LADDER brings its own factor (보완 4 §2.3) and is compared the same way, minuend first.
+    outside = (other, this)
+    assert outside not in LADDER
+    named = ladder_rung(outside, runs, (5, 10), {}, stops, factor="the other way round")
+    assert (named["this"], named["other"], named["factor"]) == (other, this, "the other way round")
+    assert {k: named[k] for k in ("stop", "5", "10")} == compare(runs[other], runs[this], points=(5, 10))
+    assert named["stop"]["il_diff"]["estimate"] == -rung["stop"]["il_diff"]["estimate"]
+    assert set(named) == set(rung) - {"subsets"}
+    # A pair of LADDER keeps the factor LADDER gives it, and a pair outside it needs one.
+    with pytest.raises(ValueError, match=f"LADDER names what differs between {this} and {other}"):
+        ladder_rung(pair, runs, (5, 10), {}, factor="another")
+    with pytest.raises(KeyError):
+        ladder_rung(outside, runs, (5, 10), {})
 
 
 def test_the_ladder_names_only_the_bed_comparison_in_place_of_a_rung(tmp_path: Path) -> None:

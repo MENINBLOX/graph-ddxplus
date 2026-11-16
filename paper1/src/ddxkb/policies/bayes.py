@@ -34,6 +34,9 @@ class LikelihoodTable:
     probabilities sum to 1 for every disease. A binary question is one [yes, no] component. In value mode
     a categorical evidence is one component over its catalogue values (the default value is the negative
     answer), and a multi-choice evidence has one [chosen, not chosen] component per non-default option.
+    In recorded mode (보완 4 §2.2) a categorical evidence is one component over [not recorded, each catalogue
+    value], the default value being the recorded negative answer, and a multi-choice evidence has a
+    [recorded, not recorded] component before its option components.
     """
 
     kb: KB
@@ -75,14 +78,25 @@ class LikelihoodTable:
         start = int(self.component_start[first])
         if self.mode is AnswerMode.BINARY or e.is_binary:
             return [start + (0 if answer.positive else 1)]
+        reveals = self.mode is AnswerMode.RECORDED
+        if reveals and answer.recorded is None:
+            raise ValueError(f"the answer to {e.code} does not say whether the record holds it")
+        if reveals and answer.positive and not answer.recorded:
+            raise ValueError(f"{e.code} answered positive and not recorded")
         if e.data_type is DataType.CATEGORICAL:
             if answer.positive and len(answer.values) != 1:
                 raise ValueError(f"categorical {e.code} answered with {len(answer.values)} values")
             value = answer.values[0] if answer.positive else e.default
-            return [start + e.values.index(value)]
+            if not reveals:
+                return [start + e.values.index(value)]
+            return [start + 1 + e.values.index(value) if answer.recorded else start]
         chosen = set(answer.values)
         options = [v for v in e.values if v != e.default]
-        return [int(self.component_start[first + i]) + (0 if v in chosen else 1) for i, v in enumerate(options)]
+        shift = 1 if reveals else 0
+        columns = [
+            int(self.component_start[first + shift + i]) + (0 if v in chosen else 1) for i, v in enumerate(options)
+        ]
+        return [start + (0 if answer.recorded else 1), *columns] if reveals else columns
 
     def log_likelihood(self, answer: Answer) -> FloatArray:
         cols = self.outcome_columns(answer)
@@ -120,7 +134,12 @@ def membership_table(kb: KB, alpha: float, eps: float) -> LikelihoodTable:
 
 
 def frequency_table(kb: KB, counts: FrequencyCounts, lam: float, mode: AnswerMode) -> LikelihoodTable:
-    """P2: train frequencies with Laplace smoothing lam, each outcome of a component getting lam pseudo-counts."""
+    """P2: train frequencies with Laplace smoothing lam, each outcome of a component getting lam pseudo-counts.
+
+    In recorded mode (보완 4 §2.2) the records of a disease that do not hold a categorical evidence are its outcome
+    "not recorded", and those that hold it without a non-default value hold the default; a multi-choice evidence
+    gets its [recorded, not recorded] component from the same count and keeps the option components of value mode.
+    """
     if lam <= 0:
         raise ValueError("lam must be positive")
     n = counts.rows.astype(np.float64)
@@ -128,6 +147,7 @@ def frequency_table(kb: KB, counts: FrequencyCounts, lam: float, mode: AnswerMod
         yes = (counts.positive + lam) / (n[:, None] + 2 * lam)
         return _assemble(kb, mode, [[_yes_no(yes[:, j])] for j in range(kb.n_evidences)])
     column = {pair: c for c, pair in enumerate(value_columns(kb))}
+    reveals = mode is AnswerMode.RECORDED
     blocks: list[list[FloatArray]] = []
     for j, e in enumerate(kb.evidences):
         if e.is_binary:
@@ -136,14 +156,21 @@ def frequency_table(kb: KB, counts: FrequencyCounts, lam: float, mode: AnswerMod
             held = np.stack(
                 [np.zeros_like(n) if v == e.default else counts.value[:, column[(j, v)]] for v in e.values], axis=1
             )
-            held[:, e.values.index(e.default)] = n - held.sum(axis=1)
+            if reveals:
+                held[:, e.values.index(e.default)] = counts.recorded[:, j] - held.sum(axis=1)
+                held = np.concatenate([(n - counts.recorded[:, j])[:, None], held], axis=1)
+            else:
+                held[:, e.values.index(e.default)] = n - held.sum(axis=1)
             if (held < 0).any():
                 raise ValueError(f"{e.code}: records hold more than one value of a categorical evidence")
-            blocks.append([np.asarray((held + lam) / (n[:, None] + len(e.values) * lam), dtype=np.float64)])
+            blocks.append([np.asarray((held + lam) / (n[:, None] + held.shape[1] * lam), dtype=np.float64)])
         else:
-            blocks.append(
-                [_yes_no((counts.value[:, column[(j, v)]] + lam) / (n + 2 * lam)) for v in e.values if v != e.default]
-            )
+            options = [
+                _yes_no((counts.value[:, column[(j, v)]] + lam) / (n + 2 * lam)) for v in e.values if v != e.default
+            ]
+            if reveals:
+                options.insert(0, _yes_no((counts.recorded[:, j] + lam) / (n + 2 * lam)))
+            blocks.append(options)
     return _assemble(kb, mode, blocks)
 
 
@@ -193,8 +220,9 @@ def frequency_prior(counts: FrequencyCounts, lam: float, by_age_sex: bool = Fals
 def expected_information_gain(table: LikelihoodTable, posterior: FloatArray) -> FloatArray:
     """EIG of every evidence in nats, I(D; Y) = H(Y) - H(Y | D) per component.
 
-    A multi-choice evidence in value mode scores its most informative option (CASANDE App. B.3): the exact
-    gain over all option sets is intractable for 164 body locations.
+    An evidence asked as several components scores its most informative one. For a multi-choice evidence in
+    value mode that is an option (CASANDE App. B.3): the exact gain over all option sets is intractable for 164
+    body locations. In recorded mode the [recorded, not recorded] component is one of them (보완 4 §2.2).
     """
     p = posterior @ table.probs
     h_answer = -np.add.reduceat(p * np.log(p), table.component_start)
@@ -256,7 +284,7 @@ class BayesPolicy:
     choice never depends on tau or min_gain, so one trajectory, continued past the stop, gives both the stopped
     result and the budget curve. Answers the hierarchy rule implies enter the posterior with the answer that
     implied them. The policy reads the initial evidence, and the age and sex only when its prior does
-    (`start_inputs`).
+    (`start_inputs`); its oracle answers under the table's answer rule (`answer_mode`).
     """
 
     table: LikelihoodTable
@@ -298,7 +326,7 @@ class BayesPolicy:
 
     def run(self, patient: Patient) -> Episode:
         kb = self.table.kb
-        it = Interaction(Oracle(kb, patient), self.length_cap, self.hierarchy, self.start_inputs)
+        it = Interaction(Oracle(kb, patient, self.table.mode), self.length_cap, self.hierarchy, self.start_inputs)
         choose = self.selector.start(self.table, patient)
         positive = it.positive
         log_post = self.prior(it.start) + self.table.initial_log_likelihood(it.initial)

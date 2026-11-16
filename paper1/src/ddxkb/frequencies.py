@@ -1,7 +1,8 @@
 """Train frequencies for the frequency-Bayes policy P2 (design 보완 2, §5), counted from the whole train split
 as BED counts them (Casande-RL `Baselines/BED/data_utils.py`).
 
-A record value equal to the evidence's default counts as absent, as the oracle answers.
+In `positive` and `value` a record value equal to the evidence's default counts as absent, as the oracle answers;
+`recorded` counts the evidence whatever its value.
 """
 
 from __future__ import annotations
@@ -52,13 +53,15 @@ class FrequencyCounts:
     `by_age_sex[d, a, s]` counts records of d aged a years with sex SEXES[s], up to the oldest record;
     `age_groups` sums it over the age groups. `positive[d, j]` counts records of d with evidence j present
     (a non-default value for a categorical or multi-choice one); `value[d, c]` counts records of d holding
-    `value_columns(kb)[c]`.
+    `value_columns(kb)[c]`. `recorded[d, j]` counts records of d holding evidence j with any value, its default
+    included (보완 4 §2.2); for a binary evidence it equals `positive[d, j]`.
     """
 
     rows: IntArray
     by_age_sex: IntArray
     positive: IntArray
     value: IntArray
+    recorded: IntArray
 
     def __post_init__(self) -> None:
         d = self.rows.shape[0]
@@ -68,6 +71,10 @@ class FrequencyCounts:
             raise ValueError("count tables disagree on the number of diseases")
         if not np.array_equal(self.by_age_sex.sum(axis=(1, 2)), self.rows):
             raise ValueError("age/sex cells do not add up to the disease rows")
+        if self.recorded.shape != self.positive.shape:
+            raise ValueError(f"recorded has shape {self.recorded.shape}, positive {self.positive.shape}")
+        if ((self.recorded < self.positive) | (self.recorded > self.rows[:, None])).any():
+            raise ValueError("recorded counts must lie between the positive counts and the disease rows")
 
     def age_groups(self) -> IntArray:
         """Records per disease, age group (`age_bin`) and sex."""
@@ -83,6 +90,7 @@ def count_frequencies(kb: KB, patients: Iterable[Patient]) -> FrequencyCounts:
     by_age_sex = np.zeros((kb.n_diseases, 0, len(SEXES)), dtype=np.int64)
     positive = np.zeros((kb.n_diseases, kb.n_evidences), dtype=np.int64)
     value = np.zeros((kb.n_diseases, len(columns)), dtype=np.int64)
+    recorded = np.zeros((kb.n_diseases, kb.n_evidences), dtype=np.int64)
     for p in patients:
         d = kb.disease_index[p.pathology]
         if p.age < 0:
@@ -96,4 +104,6 @@ def count_frequencies(kb: KB, patients: Iterable[Patient]) -> FrequencyCounts:
             positive[d, j] += 1
             for v in values:
                 value[d, columns[(j, v)]] += 1
-    return FrequencyCounts(rows=rows, by_age_sex=by_age_sex, positive=positive, value=value)
+        for code in {code for code, _ in p.evidences}:
+            recorded[d, kb.evidence_index[code]] += 1
+    return FrequencyCounts(rows=rows, by_age_sex=by_age_sex, positive=positive, value=value, recorded=recorded)

@@ -228,14 +228,18 @@ def ladder_rung(
     budgets: Sequence[int],
     subsets: Subsets,
     stops: Mapping[str, Stops] | None = None,
+    factor: str | None = None,
 ) -> dict[str, Any]:
     """보완 3 §2.5: one comparison of LADDER, the first policy of `pair` minus the second over the same patients.
 
     `compare` of the two runs at the stop and at `budgets`; with `stops` (both policies' `sensitivity_stops`),
     under "tau_sensitivity" the comparison of their stops at each threshold; and under "subsets" all of it again
-    over each subset's rows.
+    over each subset's rows. `factor` names what differs between the two policies of a pair outside LADDER
+    (보완 4 §2.3); a pair of LADDER keeps the factor LADDER gives it and takes none.
     """
     this, other = pair
+    if factor is not None and pair in LADDER:
+        raise ValueError(f"LADDER names what differs between {this} and {other}")
 
     def compared(rows: Collection[int] | None) -> dict[str, Any]:
         def cut(s: Scored) -> Scored:
@@ -248,7 +252,7 @@ def ladder_rung(
             }
         return out
 
-    entry = {"this": this, "other": other, "factor": LADDER[pair], **compared(None)}
+    entry = {"this": this, "other": other, "factor": LADDER[pair] if factor is None else factor, **compared(None)}
     if subsets:
         entry["subsets"] = {name: compared(rows) for name, rows in subsets.items()}
     return entry
