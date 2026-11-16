@@ -1,0 +1,72 @@
+{
+ "train": {
+  "n": 1025602,
+  "outside_support": 0,
+  "list_entries": 888,
+  "never_positive": 46,
+  "share_below_rare": 0.1036036036036036,
+  "share_near_certain": 0.22635135135135134,
+  "deciles": [
+   0.04240714505561484,
+   0.5595865398439687,
+   0.6014338270513155,
+   0.6578848681569822,
+   0.7104299873757571,
+   0.7585092997308531,
+   0.8518532754794962,
+   0.9944318181818181,
+   1.0
+  ],
+  "definitions": {
+   "rate": "of a disease's train patients, the share in whom a listed evidence is positive",
+   "share_below_rare": "list entries with a rate below 0.05",
+   "share_near_certain": "list entries with a rate of at least 0.99"
+  }
+ },
+ "validation": {
+  "n": 132448,
+  "gold_is_top": {
+   "count": 97190,
+   "share": 0.7337974148345011
+  },
+  "gold_is_only_top": {
+   "count": 97047,
+   "share": 0.7327177458323266
+  },
+  "mass_on_excluded": {
+   "mean": 0.7012926270524819,
+   "median": 0.8011330913569377
+  },
+  "definitions": {
+   "gold_is_top": "the gold disease has the largest probability of the reference differential (ties count)",
+   "gold_is_only_top": "the same without a tie",
+   "mass_on_excluded": "the share of the differential's probability on diseases whose list does not hold every positive evidence of the patient"
+  },
+  "valued_records": {
+   "listed": 976405,
+   "listed_not_recorded": 0,
+   "recorded_not_listed": 0,
+   "definitions": {
+    "listed": "pairs of a patient and a categorical or multi-choice evidence on the gold disease's list",
+    "listed_not_recorded": "of these, the pairs whose evidence the record does not hold with any value",
+    "recorded_not_listed": "categorical or multi-choice evidences a record holds off the gold disease's list"
+   }
+  },
+  "nested_lists": [
+   {
+    "disease": "Angine instable",
+    "contained_list": "Angine stable",
+    "patients": 2748,
+    "inside": 56,
+    "share": 0.020378457059679767
+   },
+   {
+    "disease": "Rhinosinusite aigue",
+    "contained_list": "Rhinosinusite chronique",
+    "patients": 1866,
+    "inside": 622,
+    "share": 0.3333333333333333
+   }
+  ]
+ }
+}

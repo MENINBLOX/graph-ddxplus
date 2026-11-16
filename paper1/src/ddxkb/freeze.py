@@ -1,22 +1,22 @@
-"""Write the frozen protocol of design §5, as 보완 2 revises it, from the development selection.
+"""Write the frozen protocol of design §5, as 보완 2 and 보완 3 revise it, from the development selection.
 
     uv run python -m ddxkb.freeze
 
-It reads paper1/outputs/v2/dev/selected.json, which must come from a grid run over every validation row with the code
-of a commit (nothing under paper1/ uncommitted except the development outputs under paper1/outputs/v2/), writes
-paper1/configs/protocol_v2_frozen.yaml (never over an existing one) and prints the protocol digest that the
+It reads paper1/outputs/v3/dev/selected.json, which must come from a grid run over every validation row with the code
+of a commit (nothing under paper1/ uncommitted except the development outputs under paper1/outputs/v3/), writes
+paper1/configs/protocol_v3_frozen.yaml (never over an existing one) and prints the protocol digest that the
 evaluation runner takes as --config-sha256. The yaml goes into a commit of its own: the runner refuses to start
-unless exactly one commit in HEAD's history touches it. The first protocol (paper1/configs/protocol_frozen.yaml)
-is a separate file this tool never writes.
+unless exactly one commit in HEAD's history touches it. The protocols of the earlier evaluations
+(paper1/configs/protocol_frozen.yaml, protocol_v2_frozen.yaml) are separate files this tool never writes.
 
 Besides `config_sha256`, the sha256 of the canonical JSON of every other key (sorted keys, no whitespace,
 UTF-8), the yaml holds:
 
     design: docs/design/ddxplus_kb_redo.md
-    selected: {path: paper1/outputs/v2/dev/selected.json, sha256: ..., commit: <the commit the selection ran>}
+    selected: {path: paper1/outputs/v3/dev/selected.json, sha256: ..., commit: <the commit the selection ran>}
     evaluation_set: T
-    manifests: {T: <sha256 of paper1/manifests/T.json>, H1: ..., T-dedup: ..., T-streambench: ..., H2: ...}
-    subsets: {H1: {available: true, n: ..., rule: ...}, ...}   # what each reporting subset of T holds
+    manifests: {T: <sha256 of paper1/manifests/T.json>, T-dedup: ..., T-streambench: ...}
+    subsets: {T-dedup: {available: true, n: ..., rule: ...}, ...}   # what each reporting subset of T holds
     data: {data/ddxplus/20043374.zip: <sha256>, data/ddxplus/release_train_patients.csv: <sha256>}  # of the dev run
     budgets: [5, 10, 15, 20, 30]
     constants: {...}       # protocol_constants(kb): values the code fixes, compared again before evaluation
@@ -24,10 +24,11 @@ UTF-8), the yaml holds:
     P1: {alpha: ..., eps: ..., tau: ...}
     P2: {P2-binary: {mode: binary, age_sex: false, lam: ..., tau: ...}, ...one entry per P2 variant}
 
-The constants hold the judgments of 보완 2 §8 (J1 on both GTPA@1 definitions, J2, and J3' with BED's figures and
-tolerances), BED's rules with the sha256 of its stats file, so the B-BED reproduction is frozen too, the disease
-order the official GTPA@k read (`KB.official_order`), and the first protocol's settings that the table of changes
-(보완 2 §10) puts back. H2's manifest is frozen because those changes count frequencies without its rows.
+P1 is the selection; its tau and every P2 entry are the fixed settings of 보완 3 §2.1-2.2, and a selection file
+holding other values, or a P1 outside the nine candidates (보완 3 §2.3), is refused. The constants hold those
+settings (tau, the sensitivity thresholds, lambda), the paired comparisons of 보완 3 §2.5, BED's reported figures
+and BED's rules with the sha256 of its stats file, so the B-BED reproduction is frozen too, and the disease order
+the official GTPA@k read (`KB.official_order`).
 """
 
 from __future__ import annotations
@@ -60,43 +61,35 @@ from ddxkb.protocol import (
     A2_PRIOR_LAMBDA,
     A3_EPSILONS,
     A4_HIERARCHIES,
+    BED_REPORTED_GTPA1,
+    BED_REPORTED_IL,
     BUDGETS,
-    FIRST_AGE_BIN_EDGES,
-    FIRST_FREQUENCIES_WITHOUT,
-    FIRST_MAX_IL,
-    J1_METRICS,
-    J1_MIN_WILSON_LOW,
-    J2_IL_DIFF_HIGH_BELOW,
-    J2_MAX_GTPA1_DIFF,
-    J2_POLICY,
-    J3_BED_GTPA1,
-    J3_BED_IL,
-    J3_GTPA1_TOLERANCE,
-    J3_IL_TOLERANCE,
-    J3_METRICS,
-    J3_PAIRED,
-    J3_POLICY,
+    LADDER,
     MAIN_HIERARCHY,
     MIN_GAIN,
     P1_WIDER,
+    P2_LAMBDA,
     P2_VARIANTS,
     SENSITIVITY_HIERARCHY,
+    SENSITIVITY_TAUS,
+    TAU,
     P1Config,
     P2Config,
+    check_fixed,
 )
 from ddxkb.provenance import file_sha256
 from ddxkb.simulator import MAX_IL
 from ddxkb.stats import BOOTSTRAP_B, BOOTSTRAP_SEED
 
-FROZEN_CONFIG = "paper1/configs/protocol_v2_frozen.yaml"
-SELECTED = "paper1/outputs/v2/dev/selected.json"
+FROZEN_CONFIG = "paper1/configs/protocol_v3_frozen.yaml"
+SELECTED = "paper1/outputs/v3/dev/selected.json"
 EVALUATION_SET: Heldout = "T"
-MANIFESTS: tuple[str, ...] = (EVALUATION_SET, *SUBSETS, FIRST_FREQUENCIES_WITHOUT)
+MANIFESTS: tuple[str, ...] = (EVALUATION_SET, *SUBSETS)
 # The selection is made by a development run, whose outputs are the only files under paper1/ it may leave
 # uncommitted.
-DEV_OUTPUTS = "paper1/outputs/v2/"
+DEV_OUTPUTS = "paper1/outputs/v3/"
 FROZEN_DATA = (KB_ZIP, TRAIN_CSV)
-HEADER = "# The frozen protocol of design §5 and 보완 2, written by `python -m ddxkb.freeze`. Never edit it by hand.\n"
+HEADER = "# The frozen protocol of design §5 and 보완 3, written by `python -m ddxkb.freeze`. Never edit it by hand.\n"
 
 
 class FreezeError(RuntimeError):
@@ -111,13 +104,17 @@ def config_digest(config: Mapping[str, Any]) -> str:
 
 
 def protocol_constants(kb: KB) -> dict[str, Any]:
-    """The values fixed in code that the evaluation must run with: the length cap and hierarchy rules, stop and
-    tie rules, metric and interval settings, the disease order of the official metrics over `kb`, the ablation,
-    baseline and BED settings, the first protocol's settings and the judgment thresholds."""
+    """The values fixed in code that the evaluation must run with: the length cap and hierarchy rules, the stop
+    threshold with the sensitivity thresholds and the other stop and tie rules, the P2 smoothing, metric and
+    interval settings, the disease order of the official metrics over `kb`, the paired comparisons, the ablation,
+    baseline and BED settings and BED's reported figures."""
     return {
         "max_il": MAX_IL,
         "hierarchy": str(MAIN_HIERARCHY),
         "sensitivity_hierarchy": str(SENSITIVITY_HIERARCHY),
+        "tau": TAU,
+        "sensitivity_taus": list(SENSITIVITY_TAUS),
+        "p2_lambda": P2_LAMBDA,
         "min_gain": MIN_GAIN,
         "eig_tie_atol": EIG_TIE_ATOL,
         "tie_rtol": TIE_RTOL,
@@ -127,6 +124,7 @@ def protocol_constants(kb: KB) -> dict[str, Any]:
         "age_bin_edges": list(AGE_BIN_EDGES),
         "bootstrap": {"b": BOOTSTRAP_B, "seed": BOOTSTRAP_SEED},
         "p1_wider": {name: list(values) for name, values in P1_WIDER.items()},
+        "ladder": [list(pair) for pair in LADDER],
         "a2_prior_lambda": A2_PRIOR_LAMBDA,
         "a3_epsilons": list(A3_EPSILONS),
         "a4_hierarchies": [str(h) for h in A4_HIERARCHIES],
@@ -138,28 +136,7 @@ def protocol_constants(kb: KB) -> dict[str, Any]:
             "stop_utility": STOP_UTILITY,
             "max_questions": MAX_QUESTIONS,
             "utility_tie_atol": UTILITY_TIE_ATOL,
-        },
-        "first_protocol": {
-            "max_il": FIRST_MAX_IL,
-            "frequencies_without": FIRST_FREQUENCIES_WITHOUT,
-            "age_bin_edges": list(FIRST_AGE_BIN_EDGES),
-        },
-        "judgments": {
-            "J1": {"min_wilson_low": J1_MIN_WILSON_LOW, "metrics": list(J1_METRICS)},
-            "J2": {
-                "policy": J2_POLICY,
-                "max_gtpa1_diff": J2_MAX_GTPA1_DIFF,
-                "il_diff_high_below": J2_IL_DIFF_HIGH_BELOW,
-            },
-            "J3'": {
-                "policy": J3_POLICY,
-                "bed_gtpa1": J3_BED_GTPA1,
-                "bed_il": J3_BED_IL,
-                "gtpa1_tolerance": J3_GTPA1_TOLERANCE,
-                "il_tolerance": J3_IL_TOLERANCE,
-                "metrics": list(J3_METRICS),
-                "paired": J3_PAIRED,
-            },
+            "reported": {"gtpa1": BED_REPORTED_GTPA1, "il": BED_REPORTED_IL},
         },
     }
 
@@ -189,6 +166,10 @@ def frozen_config(root: Path, selected_path: str = SELECTED) -> dict[str, Any]:
     for name, cfg in p2.items():
         if cfg.name != name:
             raise FreezeError(f"{selected_path} lists a {cfg.name} configuration under {name}")
+    try:
+        check_fixed(p1, list(p2.values()))
+    except ValueError as e:
+        raise FreezeError(f"{selected_path} does not hold the fixed settings: {e}") from e
     meta = selected["provenance"]
     commit, changes, design = meta.get("commit"), meta.get("paper1_changes"), meta.get("design_changes")
     if not commit or changes is None or design is None:

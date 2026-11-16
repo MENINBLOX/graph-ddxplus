@@ -7,8 +7,7 @@ A record value equal to the evidence's default counts as absent, as the oracle a
 from __future__ import annotations
 
 import bisect
-import itertools
-from collections.abc import Iterable, Sequence
+from collections.abc import Iterable
 from dataclasses import dataclass
 
 import numpy as np
@@ -27,16 +26,11 @@ N_AGE_BINS = len(AGE_BIN_EDGES) + 1
 SEXES = ("F", "M")
 
 
-def check_age_edges(edges: Sequence[int]) -> None:
-    if not edges or edges[0] < 1 or any(b <= a for a, b in itertools.pairwise(edges)):
-        raise ValueError(f"age bin edges must rise strictly from 1 or more: {list(edges)}")
-
-
-def age_bin(age: int, edges: Sequence[int] = AGE_BIN_EDGES) -> int:
-    """The age group of `age`: group k holds the ages from edges[k - 1] up to edges[k] - 1."""
+def age_bin(age: int) -> int:
+    """The age group of `age`: group k holds the ages from AGE_BIN_EDGES[k - 1] up to AGE_BIN_EDGES[k] - 1."""
     if age < 0:
         raise ValueError(f"negative age {age}")
-    return bisect.bisect_right(edges, age)
+    return bisect.bisect_right(AGE_BIN_EDGES, age)
 
 
 def sex_index(sex: str) -> int:
@@ -55,8 +49,8 @@ def value_columns(kb: KB) -> tuple[tuple[int, str], ...]:
 class FrequencyCounts:
     """Record counts per disease in KB order.
 
-    `by_age_sex[d, a, s]` counts records of d aged a years with sex SEXES[s], up to the oldest record, so that
-    any age grouping is a sum over it (`age_groups`). `positive[d, j]` counts records of d with evidence j present
+    `by_age_sex[d, a, s]` counts records of d aged a years with sex SEXES[s], up to the oldest record;
+    `age_groups` sums it over the age groups. `positive[d, j]` counts records of d with evidence j present
     (a non-default value for a categorical or multi-choice one); `value[d, c]` counts records of d holding
     `value_columns(kb)[c]`.
     """
@@ -75,12 +69,11 @@ class FrequencyCounts:
         if not np.array_equal(self.by_age_sex.sum(axis=(1, 2)), self.rows):
             raise ValueError("age/sex cells do not add up to the disease rows")
 
-    def age_groups(self, edges: Sequence[int] = AGE_BIN_EDGES) -> IntArray:
-        """Records per disease, age group (`age_bin` with `edges`) and sex."""
-        check_age_edges(edges)
-        out = np.zeros((self.rows.shape[0], len(edges) + 1, len(SEXES)), dtype=np.int64)
+    def age_groups(self) -> IntArray:
+        """Records per disease, age group (`age_bin`) and sex."""
+        out = np.zeros((self.rows.shape[0], N_AGE_BINS, len(SEXES)), dtype=np.int64)
         for age in range(self.by_age_sex.shape[1]):
-            out[:, age_bin(age, edges)] += self.by_age_sex[:, age]
+            out[:, age_bin(age)] += self.by_age_sex[:, age]
         return out
 
 

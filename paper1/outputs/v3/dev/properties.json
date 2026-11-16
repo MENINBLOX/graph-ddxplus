@@ -1,0 +1,52 @@
+{
+ "limit": null,
+ "n": 132448,
+ "outside_support": 0,
+ "unique": {
+  "count": 122321,
+  "share": 0.9235398043005557
+ },
+ "unique_recorded": {
+  "count": 122408,
+  "share": 0.9241966658613192
+ },
+ "definitions": {
+  "outside_support": "patients with a positive evidence off their disease's list (default values absent)",
+  "unique": "the gold disease is the only one whose list holds every positive evidence (main figure)",
+  "unique_recorded": "the same over every recorded code whatever its value"
+ },
+ "provenance": {
+  "design": "docs/design/ddxplus_kb_redo.md",
+  "stage": "properties",
+  "split": "validate",
+  "n_patients": 132448,
+  "commit": "cdba126b614bc5cd42940588bcd22fa516fc1329",
+  "paper1_changes": [],
+  "design_changes": [],
+  "commit_at_end": "cdba126b614bc5cd42940588bcd22fa516fc1329",
+  "inputs": {
+   "data/ddxplus/20043374.zip": "d6c1779714955da1cf073907996cca506677fb38219999fe3b7a521e17be7796",
+   "data/ddxplus/release_train_patients.csv": "1bb2376feefa2d703123c4b29ce80f9ebab12211d0422490d1015c85ae4388f9",
+   "data/ddxplus/release_validate_patients.csv": "000e632bc5216b3cbd98d89d3976de1342906a887029f4049db4bbac8907b3bd",
+   "paper1/reference/casande_bed/ddxplus_bed_stats_4.json": "84e781b350800eb8a2087c5749e0d1eb07d81a4e8a50ddffcab3e06e70df533c"
+  },
+  "train_rows": 1025602,
+  "environment": {
+   "python": "3.12.3",
+   "numpy": "2.5.4",
+   "pandas": "3.0.6",
+   "numpy_simd": [
+    "X86_V3"
+   ]
+  },
+  "workers": 20,
+  "started_utc": "2026-11-15T18:18:18+00:00",
+  "elapsed_s": 4.0,
+  "timings": [
+   {
+    "run": "support audit",
+    "seconds": 4.03
+   }
+  ]
+ }
+}

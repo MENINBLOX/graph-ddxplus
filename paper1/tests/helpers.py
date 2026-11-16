@@ -17,7 +17,7 @@ from ddxkb.freeze import SELECTED
 from ddxkb.frequencies import FrequencyCounts, sex_index
 from ddxkb.kb import KB
 from ddxkb.policies.bed import BED_STATS, BedKnowledge, count_knowledge, text_default_codes
-from ddxkb.protocol import P2_VARIANTS, P1Config, P2Config
+from ddxkb.protocol import P2_VARIANTS, TAU, P1Config, p2_fixed
 from ddxkb.provenance import environment
 
 
@@ -148,13 +148,8 @@ requires_data = pytest.mark.skipif(not real_data_present(), reason="DDXPlus rele
 
 SYNTH_DISEASES = tuple(f"Maladie{k}" for k in range(5))
 SYNTH_SYMPTOMS = tuple(f"e{j:02d}" for j in range(34))
-# e00 and e01 share a CUI; e30-e33 and the pain subattributes have none, as 19 real codes have none.
-SYNTH_CODE_CUI = {
-    **{code: f"C{j:03d}" for j, code in enumerate(SYNTH_SYMPTOMS[:30])},
-    "e01": "C000",
-    "douleur": "C100",
-    "trav1": "C200",
-}
+# e30-e33 are antecedents; an initial evidence is a symptom where the patient has one.
+SYNTH_ANTECEDENTS = frozenset(SYNTH_SYMPTOMS[30:])
 
 
 def _synth_lists() -> dict[str, list[str]]:
@@ -171,7 +166,7 @@ def _synth_lists() -> dict[str, list[str]]:
 
 def synth_kb_json() -> tuple[dict[str, Any], dict[str, Any]]:
     """A KB of 38 evidences (enough for IL <= 31), 5 diseases, a categorical antecedent and pain subattributes."""
-    evidences: dict[str, Any] = {code: _binary(code, antecedent=code >= "e30") for code in SYNTH_SYMPTOMS}
+    evidences: dict[str, Any] = {code: _binary(code, antecedent=code in SYNTH_ANTECEDENTS) for code in SYNTH_SYMPTOMS}
     evidences["douleur"] = _binary("douleur")
     evidences["douleur_intens"] = _valued("douleur_intens", "C", [0, 1, 2, 3], 0, "douleur")
     evidences["douleur_lieu"] = _valued(
@@ -186,7 +181,7 @@ def synth_kb_json() -> tuple[dict[str, Any], dict[str, Any]]:
 
 
 def synth_rows(n: int, seed: int) -> list[dict[str, Any]]:
-    """Patients drawn from the synthetic lists: a mapped binary initial evidence, other positives on the list."""
+    """Patients drawn from the synthetic lists: a binary initial evidence, other positives on the list."""
     rng = random.Random(seed)
     lists = _synth_lists()
     rows = []
@@ -195,7 +190,7 @@ def synth_rows(n: int, seed: int) -> list[dict[str, Any]]:
         name = SYNTH_DISEASES[k]
         binary = [c for c in lists[name] if c.startswith("e") or c == "douleur"]
         chosen = rng.sample(binary, rng.randint(2, 6))
-        initial = next((c for c in chosen if c in SYNTH_CODE_CUI), binary[0])
+        initial = next((c for c in chosen if c not in SYNTH_ANTECEDENTS), binary[0])
         evidences = list(dict.fromkeys([initial, *chosen]))
         if "douleur" in evidences:
             evidences += [f"douleur_intens_@_{rng.randint(0, 3)}", f"douleur_lieu_@_{rng.choice(['tete', 'dos'])}"]
@@ -236,9 +231,10 @@ def bed_stats_sha256(root: Path) -> str:
 
 
 def make_repo(root: Path, n_validation: int = 45, n_train: int = 150, n_test: int = 60) -> None:
-    """A repository root with the synthetic KB zip, the three CSVs, v1's CUI files, a BED stats file counted from
-    the synthetic train rows, and the manifests: H2 (every sixth train row), T (every test row), and its reporting
-    subsets H1 (rows 3 on), T-dedup (the even rows) and T-streambench (rows 10-29)."""
+    """A repository root with the synthetic KB zip, the three CSVs, a BED stats file counted from the synthetic
+    train rows, and the manifests: T (every test row) and its reporting subsets T-dedup (the even rows) and
+    T-streambench (rows 10-29), and the first evaluation's H1 (test rows 3 on) and H2 (every sixth train row),
+    which no runner reads."""
     conditions, evidences = synth_kb_json()
     data = root / "data/ddxplus"
     data.mkdir(parents=True, exist_ok=True)
@@ -257,25 +253,13 @@ def make_repo(root: Path, n_validation: int = 45, n_train: int = 150, n_test: in
     }
     for name, (csv_rel, n_rows, rows) in sealed.items():
         write_manifest(root, name, csv_rel, n_rows, rows)
-    (data / "umls_mapping.json").write_text(json.dumps({"mapping": {c: {"cui": u} for c, u in SYNTH_CODE_CUI.items()}}))
-    diseases = {name: {"name_fr": name, "umls_cui": f"D{k:03d}"} for k, name in enumerate(SYNTH_DISEASES)}
-    (data / "disease_umls_mapping.json").write_text(json.dumps({"mapping": diseases}))
-    edges = sorted(
-        {
-            (SYNTH_CODE_CUI[c], f"D{k:03d}")
-            for k, codes in enumerate(_synth_lists().values())
-            for c in codes
-            if c in SYNTH_CODE_CUI
-        }
-    )
-    (data / "kg_edges.json").write_text(json.dumps({"edges": edges}))
     kb = load_kb(root)
     knowledge = count_knowledge(kb, iter_train(root), text_default_codes(evidences))
     (root / BED_STATS).parent.mkdir(parents=True, exist_ok=True)
     (root / BED_STATS).write_text(json.dumps(bed_stats_json(kb, knowledge)))
 
 
-SELECTED_P1 = P1Config(0.5, 1e-3, 0.99)
+SELECTED_P1 = P1Config(0.5, 1e-3, TAU)
 
 
 SELECTION_COMMIT = "5e1ec7" + "0" * 34
@@ -293,9 +277,9 @@ def write_selected(
     KB and train files under `root`, by the code of SELECTION_COMMIT with `paper1_changes` uncommitted (default:
     the development outputs only) and `design_changes` uncommitted under docs/design (default: none)."""
     if p2 is None:
-        p2 = {v.name: P2Config(v, 1.0, 0.99).as_dict() for v in P2_VARIANTS}
+        p2 = {v.name: p2_fixed(v).as_dict() for v in P2_VARIANTS}
     if paper1_changes is None:
-        paper1_changes = ["?? paper1/outputs/v2/dev/configs_tried.jsonl"]
+        paper1_changes = ["?? paper1/outputs/v3/dev/configs_tried.jsonl"]
     inputs = {f: hashlib.sha256((root / f).read_bytes()).hexdigest() for f in (KB_ZIP, TRAIN_CSV)}
     selected = {
         "objective": "test",

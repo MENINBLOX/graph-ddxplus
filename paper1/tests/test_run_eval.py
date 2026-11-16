@@ -19,9 +19,9 @@ from ddxkb.frequencies import FrequencyCounts, count_frequencies
 from ddxkb.kb import KB
 from ddxkb.policies import bed
 from ddxkb.policies.bed import BED_STATS
-from ddxkb.protocol import P2_VARIANTS, P1Config, P2Config
+from ddxkb.protocol import LADDER, P2_VARIANTS, TAU, P1Config, p2_fixed
 from ddxkb.provenance import file_sha256
-from ddxkb.run_eval import FrozenProtocol, GateError, check_gates, evaluate, freeze_commit, judgments, policies
+from ddxkb.run_eval import FrozenProtocol, GateError, check_gates, evaluate, freeze_commit, policies
 from helpers import SELECTED_P1, bed_stats_sha256, make_repo, write_selected
 
 
@@ -93,7 +93,7 @@ def test_refuses_without_a_frozen_protocol(repo: Path) -> None:
 def test_refuses_an_edited_protocol(repo: Path) -> None:
     digest = _digest(repo)
     config = _config(repo)
-    config["P1"]["tau"] = 0.95
+    config["P1"]["eps"] = 0.01
     (repo / FROZEN_CONFIG).write_text(yaml.safe_dump(config, sort_keys=False))
     with pytest.raises(GateError, match="recorded config_sha256"):
         check_gates(repo, digest)
@@ -101,7 +101,7 @@ def test_refuses_an_edited_protocol(repo: Path) -> None:
 
 def test_refuses_a_protocol_other_than_the_frozen_one(repo: Path) -> None:
     first = _digest(repo)
-    second = _freeze(repo, P1Config(0.5, 1e-3, 0.95))
+    second = _freeze(repo, P1Config(0.7, 1e-3, TAU))
     check_gates(repo, second)
     with pytest.raises(GateError, match="not the frozen"):
         check_gates(repo, first)
@@ -121,20 +121,64 @@ def test_refuses_unless_one_commit_froze_the_protocol(
 
 def test_refuses_a_selection_changed_after_the_freeze(repo: Path) -> None:
     digest = _digest(repo)
-    write_selected(repo, P1Config(0.3, 1e-2, 0.9))
+    write_selected(repo, P1Config(0.3, 1e-2, TAU))
     with pytest.raises(GateError, match="not the selection"):
         check_gates(repo, digest)
 
 
 def test_refuses_a_protocol_whose_policies_are_not_the_selected_ones(repo: Path) -> None:
     config = _config(repo)
-    config["P1"]["tau"] = 0.95
+    config["P1"]["alpha"] = 0.7
     with pytest.raises(GateError, match="P1 is not the selected one"):
         check_gates(repo, _rewrite(repo, config))
     config = _config(repo)
-    config["P1"]["tau"] = 0.99
+    config["P1"]["alpha"] = 0.5
     config["P2"]["P2-value"]["lam"] = 0.5
     with pytest.raises(GateError, match="P2-value is not the selected one"):
+        check_gates(repo, _rewrite(repo, config))
+
+
+@pytest.mark.parametrize(
+    ("policy", "key", "value", "message"),
+    [
+        ("P1", "tau", 0.95, r"P1 stops at tau 0\.95, the protocol at 0\.99"),
+        ("P2-value", "tau", 0.999, r"P2-value stops at tau 0\.999, the protocol at 0\.99"),
+        ("P2-binary", "lam", 0.5, r"P2-binary smooths with lambda 0\.5, the protocol with 1\.0"),
+    ],
+)
+def test_refuses_a_selection_whose_tau_or_lambda_is_not_the_fixed_one(
+    repo: Path, policy: str, key: str, value: float, message: str
+) -> None:
+    """The protocol and its selection agree with each other, but not with the constants of the code."""
+    p1 = SELECTED_P1
+    p2 = {v.name: p2_fixed(v).as_dict() for v in P2_VARIANTS}
+    if policy == "P1":
+        p1 = P1Config(p1.alpha, p1.eps, value)
+    else:
+        p2[policy][key] = value
+    write_selected(repo, p1, p2)
+    config = _config(repo)
+    config["selected"]["sha256"] = file_sha256(repo / SELECTED)
+    config["P1"], config["P2"] = p1.as_dict(), p2
+    with pytest.raises(GateError, match=f"does not hold the fixed settings of this code: {message}"):
+        check_gates(repo, _rewrite(repo, config))
+
+
+@pytest.mark.parametrize("p1", [P1Config(0.5, 1e-5, TAU), P1Config(0.9, 1e-4, TAU), P1Config(0.42, 0.5, TAU)])
+def test_refuses_a_selected_p1_outside_the_nine_candidates(repo: Path, p1: P1Config) -> None:
+    """The protocol and its selection agree with each other on a P1 that the selection could not have picked."""
+    write_selected(repo, p1)
+    config = _config(repo)
+    config["selected"]["sha256"] = file_sha256(repo / SELECTED)
+    config["P1"] = p1.as_dict()
+    with pytest.raises(GateError, match=r"fixed settings of this code: P1 with alpha .* is not one of the nine"):
+        check_gates(repo, _rewrite(repo, config))
+
+
+def test_refuses_a_protocol_for_another_evaluation_set(repo: Path) -> None:
+    config = _config(repo)
+    config["evaluation_set"] = "H1"
+    with pytest.raises(GateError, match="the protocol evaluates H1, this runner T"):
         check_gates(repo, _rewrite(repo, config))
 
 
@@ -164,13 +208,17 @@ def test_refuses_other_constants_or_another_environment(repo: Path, monkeypatch:
 
 def test_refuses_other_manifests_or_csvs(repo: Path) -> None:
     digest = _digest(repo)
-    for name in ("T", "T-dedup", "T-streambench", "H1", "H2"):
+    for name in ("T", "T-dedup", "T-streambench"):
         manifest_path = repo / MANIFEST_DIR / f"{name}.json"
         original = manifest_path.read_text()
         manifest_path.write_text(original + " ")
         with pytest.raises(GateError, match=f"{name} manifest"):
             check_gates(repo, digest)
         manifest_path.write_text(original)
+    # The first evaluation's sets are no part of this protocol.
+    for name in ("H1", "H2"):
+        (repo / MANIFEST_DIR / f"{name}.json").unlink()
+    check_gates(repo, digest)
     train = repo / "data/ddxplus/release_train_patients.csv"
     original_train = train.read_bytes()
     train.write_bytes(original_train + b"\n")
@@ -276,14 +324,14 @@ def test_refuses_code_changed_after_the_selection_run(repo: Path, monkeypatch: p
 
 @pytest.mark.skipif(shutil.which("git") is None, reason="git not installed")
 def test_code_changes_reads_paper1_src_between_the_selection_commit_and_head(tmp_path: Path) -> None:
-    for relative in ("paper1/src/a.py", "paper1/outputs/v2/dev/selected.json", "docs/design/d.md"):
+    for relative in ("paper1/src/a.py", "paper1/outputs/v3/dev/selected.json", "docs/design/d.md"):
         (tmp_path / relative).parent.mkdir(parents=True, exist_ok=True)
         (tmp_path / relative).write_text("x\n")
     _git(tmp_path, "init", "-q")
     _git(tmp_path, "add", ".")
     _git(tmp_path, "commit", "-q", "-m", "selection run")
     selected = _git(tmp_path, "rev-parse", "HEAD")
-    for relative in ("paper1/outputs/v2/dev/selected.json", "docs/design/d.md"):
+    for relative in ("paper1/outputs/v3/dev/selected.json", "docs/design/d.md"):
         (tmp_path / relative).write_text("y\n")
     _git(tmp_path, "commit", "-q", "-am", "outputs and results")
     assert run_eval.code_changes(tmp_path, selected) == []
@@ -304,46 +352,9 @@ def test_budgets_must_lie_on_the_curve(repo: Path) -> None:
 
 def test_each_p2_configuration_is_the_variant_it_is_listed_under(repo: Path) -> None:
     config = _config(repo)
-    config["P2"]["P2-binary"] = P2Config(P2_VARIANTS[3], 1.0, 0.99).as_dict()
+    config["P2"]["P2-binary"] = p2_fixed(P2_VARIANTS[3]).as_dict()
     with pytest.raises(GateError, match="P2-value-agesex configuration under P2-binary"):
         policies(config)
-
-
-def _main(low: float, official_low: float, diff: float, il_high: float) -> dict[str, Any]:
-    return {
-        "P1": {"stop": {"gtpa1": {"low": low}, "gtpa1_official": {"low": official_low}}},
-        "P2-binary": {"against": {"P1": {"stop": {"gtpa1_diff": diff, "il_diff": {"high": il_high}}}}},
-    }
-
-
-def _baselines(gtpa1: float, official: float, il: float) -> dict[str, Any]:
-    paired = {"gtpa1_diff": -0.001, "mcnemar": {"only_this": 3, "only_other": 5, "p_value": 0.7}}
-    stop = {"gtpa1": {"estimate": gtpa1}, "gtpa1_official": {"estimate": official}, "il": {"mean": il}}
-    return {"B-BED": {"stats_file": {"stop": stop, "against": {"P2-value": {"stop": paired}}}}}
-
-
-def test_judgments_apply_the_thresholds_of_the_revision() -> None:
-    bed_met = _baselines(0.9947, 0.9947, 5.47)
-    met = judgments(_main(0.97, 0.95, -0.004, -0.1), bed_met)
-    assert (met["J1"]["met"], met["J2"]["met"], met["J3'"]["met"]) == (True, True, True)
-    assert met["J1"]["wilson_low"] == {"gtpa1": 0.97, "gtpa1_official": 0.95}
-    assert (met["J2"]["gtpa1_diff"], met["J2"]["il_diff_high"]) == (-0.004, -0.1)
-    assert set(met) == {"J1", "J2", "J3'"}
-    # J1 needs both GTPA@1 definitions; J2 bounds the difference in both directions and needs a smaller IL.
-    assert not judgments(_main(0.97, 0.9499, 0.0, -1.0), bed_met)["J1"]["met"]
-    assert not judgments(_main(0.9499, 0.97, 0.0, -1.0), bed_met)["J1"]["met"]
-    for diff, il_high in ((0.01, -1.0), (-0.012, -1.0), (0.0, 0.01)):
-        assert not judgments(_main(0.97, 0.97, diff, il_high), bed_met)["J2"]["met"]
-
-
-def test_j3_needs_both_gtpa1_definitions_and_the_il_within_their_tolerances() -> None:
-    main = _main(0.97, 0.97, 0.0, -1.0)
-    j3 = judgments(main, _baselines(0.9918, 0.9976, 5.96))["J3'"]
-    assert j3["met"] and (j3["gtpa1"], j3["il_mean"]) == ({"gtpa1": 0.9918, "gtpa1_official": 0.9976}, 5.96)
-    assert j3["paired"]["mcnemar"] == {"only_this": 3, "only_other": 5, "p_value": 0.7}
-    for gtpa1, official, il in ((0.9916, 0.9947, 5.47), (0.9947, 0.9978, 5.47), (0.9947, 0.9947, 5.98)):
-        assert not judgments(main, _baselines(gtpa1, official, il))["J3'"]["met"]
-    assert not judgments(main, _baselines(0.9947, 0.9947, 4.96))["J3'"]["met"]
 
 
 def test_the_cli_reports_a_refusal(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -352,12 +363,23 @@ def test_the_cli_reports_a_refusal(tmp_path: Path, monkeypatch: pytest.MonkeyPat
         run_eval.main(["--config-sha256", "0" * 64, "--root", str(tmp_path)])
 
 
-@pytest.mark.parametrize("inside", ["paper1/outputs/eval", "paper1/outputs/dev", "paper1/outputs/eval/again"])
-def test_evaluation_never_writes_into_the_first_runs_outputs(repo: Path, inside: str) -> None:
+@pytest.mark.parametrize(
+    "inside",
+    [
+        "paper1/outputs/eval",
+        "paper1/outputs/dev",
+        "paper1/outputs/eval/again",
+        "paper1/outputs/v2",
+        "paper1/outputs/v2/eval",
+        "paper1/outputs/v2/eval/T",
+    ],
+)
+def test_evaluation_never_writes_into_the_outputs_of_an_earlier_run(repo: Path, inside: str) -> None:
     protocol = check_gates(repo, _digest(repo))
-    with pytest.raises(GateError, match="first run's outputs"):
+    with pytest.raises(GateError, match="outputs of an earlier run"):
         evaluate(protocol, repo, repo / inside, workers=1)
     assert not (repo / inside).exists()
+    assert run_eval.OUTPUT_DIR == "paper1/outputs/v3/eval"
 
 
 def test_evaluation_on_a_synthetic_repository(repo: Path, tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -373,50 +395,97 @@ def test_evaluation_on_a_synthetic_repository(repo: Path, tmp_path: Path, monkey
     protocol = check_gates(repo, _digest(repo))
     out = tmp_path / "eval"
     evaluate(protocol, repo, out, workers=1)
-    # Counted once from every train row, and once from the rows outside H2 (every sixth row) for the changes.
-    assert counted == list(range(150)) + [r for r in range(150) if r % 6]
+    # Counted once, from every train row.
+    assert counted == list(range(150))
     main = json.loads((out / "T" / "main.json").read_text())
     assert main["set"] == "T" and main["P1"]["n"] == 60
     assert main["P1"]["config"] == protocol.config["P1"]
-    assert set(main) >= {"P1", *(v.name for v in P2_VARIANTS)}
+    assert set(main) == {"set", "P1", *(v.name for v in P2_VARIANTS), "ladder", "provenance"}
     meta = main["provenance"]
     assert (meta["protocol_sha256"], meta["protocol_commit"], meta["split"]) == (protocol.sha256, "c0ffee", "T")
     assert meta["protocol_freeze_commit"] == "f00d"
-    assert (meta["train_rows"], meta["first_protocol_train_rows"]) == (150, 125)
-    assert f"{MANIFEST_DIR}/H2.json" in meta["inputs"]
-    assert set(meta["inputs"]) >= {f"{MANIFEST_DIR}/{m}.json" for m in ("T", "H1", "T-dedup", "T-streambench")}
+    assert meta["train_rows"] == 150
+    assert set(meta) == {
+        "design",
+        "stage",
+        "split",
+        "n_patients",
+        "commit",
+        "paper1_changes",
+        "design_changes",
+        "commit_at_end",
+        "inputs",
+        "train_rows",
+        "environment",
+        "workers",
+        "started_utc",
+        "elapsed_s",
+        "timings",
+        "protocol_sha256",
+        "protocol_freeze_commit",
+        "protocol_commit",
+        "subsets",
+    }
+    manifests = {path for path in meta["inputs"] if path.startswith(MANIFEST_DIR)}
+    assert manifests == {f"{MANIFEST_DIR}/{m}.json" for m in ("T", "T-dedup", "T-streambench")}
     assert "data/ddxplus/release_train_patients.csv" in meta["inputs"]
     assert meta["subsets"] == {
-        "H1": {"available": True, "n": 57},
         "T-dedup": {"available": True, "n": 30},
         "T-streambench": {"available": True, "n": 20},
     }
     # Each subset is cut from the same run: its report is the report of the run's rows in it.
     p2 = main["P2-binary"]
-    assert set(p2["subsets"]) == {"H1", "T-dedup", "T-streambench"}
+    assert set(p2["subsets"]) == {"T-dedup", "T-streambench"}
     streambench = p2["subsets"]["T-streambench"]
     assert streambench["n"] == 20 and set(streambench["against"]) == {"P1"}
-    # The changes from the first protocol, each against the policy's own run, from the same run.
-    assert set(main["P1"]["first_protocol"]) == {"definitions", "cap30"}
-    assert set(p2["first_protocol"]) == {"definitions", "cap30", "train_minus_h2", "first_setting"}
-    assert set(main["P2-value-agesex"]["first_protocol"]) == {
-        "definitions",
-        "cap30",
-        "train_minus_h2",
-        "first_age_groups",
-        "first_knowledge",
-        "first_setting",
+    summary = {
+        "config",
+        "inputs",
+        "hierarchy",
+        "answers",
+        "n",
+        "failures",
+        "errors",
+        "stop",
+        "budgets",
+        "by_disease",
+        "curve",
+        "subsets",
+        "tau_sensitivity",
     }
-    for change in ("cap30", "first_setting"):
-        entry = p2["first_protocol"][change]
-        assert entry["n"] == 60 and set(entry["against"]) == {"P2-binary"} and entry["stop"]["il"]["mean"] <= 30
-        assert entry["subsets"]["H1"]["n"] == 57
+    assert set(main["P1"]) == summary and set(p2) == summary | {"against"}
     lines = gzip.decompress((out / "T/patients/P2-binary.jsonl.gz").read_bytes()).decode().splitlines()
     records = [json.loads(line) for line in lines]
     assert [r["row"] for r in records] == list(range(60))
     in_subset = [r for r in records if 10 <= r["row"] < 30]
     assert streambench["stop"]["gtpa1"]["estimate"] == pytest.approx(sum(r["gtpa1"] for r in in_subset) / 20)
     assert streambench["stop"]["il"]["mean"] == pytest.approx(sum(r["il"] for r in in_subset) / 20)
+    # 보완 3 §2.1: the stop at each sensitivity threshold, on T and on each subset; at 0.99 it is the policy's own.
+    for name in ("P1", *(v.name for v in P2_VARIANTS)):
+        assert main[name]["config"]["tau"] == TAU
+        for report in (main[name], *main[name]["subsets"].values()):
+            assert list(report["tau_sensitivity"]) == ["0.9", "0.95", "0.99", "0.999"]
+            assert report["tau_sensitivity"]["0.99"] == report["stop"]
+            assert report["tau_sensitivity"]["0.9"]["il"]["mean"] <= report["tau_sensitivity"]["0.999"]["il"]["mean"]
+    assert all(main[v.name]["config"]["lam"] == 1.0 for v in P2_VARIANTS)
+    # 보완 3 §2.5: the five comparisons, those between Bayes policies with the thresholds and the subsets.
+    assert list(main["ladder"]) == [f"{a} - {b}" for a, b in LADDER]
+    assert all(isinstance(compared, dict) for compared in main["ladder"].values())
+    rung = main["ladder"]["P2-value - P2-binary"]
+    assert set(rung) == {"this", "other", "factor", "stop", "5", "10", "15", "20", "30", "tau_sensitivity", "subsets"}
+    assert rung["stop"]["gtpa1_diff"] == pytest.approx(
+        main["P2-value"]["stop"]["gtpa1"]["estimate"] - p2["stop"]["gtpa1"]["estimate"], abs=1e-12
+    )
+    assert {"low", "high"} <= set(rung["stop"]["gtpa1_diff_interval"]) and {"low", "high"} <= set(
+        rung["30"]["gtpa1_diff_interval"]
+    )
+    subset_rung = rung["subsets"]["T-streambench"]
+    assert set(subset_rung) == {"stop", "5", "10", "15", "20", "30", "tau_sensitivity"}
+    assert subset_rung["stop"]["il_diff"]["estimate"] == pytest.approx(
+        main["P2-value"]["subsets"]["T-streambench"]["stop"]["il"]["mean"] - streambench["stop"]["il"]["mean"],
+        abs=1e-12,
+    )
+    assert subset_rung["tau_sensitivity"]["0.99"] == subset_rung["stop"]
     baselines = json.loads((out / "T" / "baselines.json").read_text())
     assert set(baselines) >= {"B0", "B1", "B2", "B6", "B-BED"}
     assert baselines["B1"]["set_inclusion"]["subsets"]["T-streambench"]["n"] == 20
@@ -426,11 +495,24 @@ def test_evaluation_on_a_synthetic_repository(repo: Path, tmp_path: Path, monkey
         ["age", "initial_evidence", "sex"],
         [],
     )
-    assert baselines["B2"]["seeds"]["0"]["subsets"]["H1"]["n"] == 57
+    assert set(baselines["B2"]["seeds"]["0"]["subsets"]) == {"T-dedup", "T-streambench"}
     bed_t = baselines["B-BED"]["stats_file"]
     assert bed_t["n"] == 60 and set(bed_t["against"]) == {"P1", "P2-value"}
     assert set(bed_t["subsets"]["T-dedup"]["against"]) == {"P1", "P2-value"}
     assert {"low", "high"} <= set(bed_t["against"]["P2-value"]["stop"]["il_diff"])
+    assert {"low", "high"} <= set(bed_t["against"]["P2-value"]["stop"]["gtpa1_diff_interval"])
+    # 보완 3 §2.5, §2.6, §2.8 for the main B-BED run, over the whole evaluated set.
+    differences = baselines["B-BED"]["answer_differences"]
+    assert differences["patients"] == 60 and "subsets" not in differences
+    assert differences["oracle_negative_bed_positive"] + differences["both_negative"] == differences["oracle_negative"]
+    assert 0 <= differences["oracle_negative_bed_filled"] <= differences["oracle_negative_bed_positive"]
+    assert baselines["B-BED"]["reported"]["this_minus_bed"]["il"] == bed_t["stop"]["il"]["mean"] - 5.47
+    bed_rung = baselines["B-BED"]["ladder"]["B-BED - P2-value"]
+    assert {k: bed_rung[k] for k in ("stop", "5", "10", "15", "20", "30")} == bed_t["against"]["P2-value"]
+    assert bed_rung["subsets"]["T-dedup"] == bed_t["subsets"]["T-dedup"]["against"]["P2-value"]
+    # 보완 3 §6: main.json holds B-BED's rung too, the one of baselines.json.
+    assert main["ladder"]["B-BED - P2-value"] == bed_rung
+    assert set(bed_rung) == {"this", "other", "factor", "stop", "5", "10", "15", "20", "30", "subsets"}
     written = {p.name for p in (out / "T/patients").iterdir()}
     assert {"P1.jsonl.gz", "B-BED.jsonl.gz", "B-BED-counted.jsonl.gz"} <= written
     assert BED_STATS in baselines["provenance"]["inputs"]
@@ -438,14 +520,18 @@ def test_evaluation_on_a_synthetic_repository(repo: Path, tmp_path: Path, monkey
     assert hierarchy["hierarchy"] == "implicit"
     for name in ("P1", *(v.name for v in P2_VARIANTS)):
         assert hierarchy[name]["n"] == 60 and set(hierarchy[name]["against"]) == {"P1", name}
-        assert hierarchy[name]["subsets"]["H1"]["n"] == 57
+        assert hierarchy[name]["subsets"]["T-dedup"]["n"] == 30
     properties = json.loads((out / "T" / "properties.json").read_text())
     assert (properties["set"], properties["n"], properties["outside_support"]) == ("T", 60, 0)
-    verdicts = json.loads((out / "judgments.json").read_text())
-    assert {k: v for k, v in verdicts.items() if k != "provenance"} == judgments(main, baselines)
-    assert set(verdicts) == {"J1", "J2", "J3'", "provenance"}
-    assert verdicts["J3'"]["paired"]["answers"].startswith("BED's own simulator")
-    assert verdicts["provenance"]["protocol_freeze_commit"] == "f00d"
+    # No judgment is written: the run leaves nothing but the set's directory.
+    assert [path.name for path in out.iterdir()] == ["T"]
+    assert {path.name for path in (out / "T").iterdir()} == {
+        "main.json",
+        "baselines.json",
+        "hierarchy.json",
+        "properties.json",
+        "patients",
+    }
     with pytest.raises(GateError, match="results exist"):
         evaluate(protocol, repo, out, workers=1)
 
@@ -454,5 +540,5 @@ def test_a_subset_without_a_row_list_is_described_and_skipped(repo: Path, monkey
     unavailable = {"set": "T-streambench", "available": False, "reason": "3 of 1764 rows equal no T row"}
     (repo / MANIFEST_DIR / "T-streambench.json").write_text(json.dumps(unavailable))
     rows, described = run_eval.reporting_subsets(repo)
-    assert set(rows) == {"H1", "T-dedup"} and rows["H1"] == frozenset(range(3, 60))
+    assert set(rows) == {"T-dedup"} and rows["T-dedup"] == frozenset(range(0, 60, 2))
     assert described["T-streambench"] == {"available": False, "reason": unavailable["reason"]}

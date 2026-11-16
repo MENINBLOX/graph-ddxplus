@@ -1,37 +1,41 @@
-"""The single evaluation run on T, the whole official test split (design 보완 2), from the frozen protocol only.
+"""The evaluation run on T, the whole official test split (design 보완 2, 보완 3), from the frozen protocol only.
 
     DDXKB_UNSEAL=1 uv run python -m ddxkb.run_eval --config-sha256 <digest> --workers N
 
 It refuses to start unless all of these hold:
 
 - DDXKB_UNSEAL=1 is set;
-- the output directory is not one of the first run's (paper1/outputs/dev, paper1/outputs/eval) or inside one;
+- the output directory is not one of an earlier run's (paper1/outputs/dev and paper1/outputs/eval of the first
+  run, paper1/outputs/v2 of 결과 2) or inside one;
 - nothing under GATED_PATHS (paper1/ and the design documents) is modified, deleted or untracked. Other directories
   hold files of other projects that this run never reads, and the data files it reads are checked by sha256;
-- paper1/configs/protocol_v2_frozen.yaml (written by `ddxkb.freeze`, which describes its keys) exists, its
+- paper1/configs/protocol_v3_frozen.yaml (written by `ddxkb.freeze`, which describes its keys) exists, its
   recorded `config_sha256` is the digest of its content, and that digest is the one given on the command line;
 - exactly one commit in HEAD's history changes the protocol file: the freeze commit;
 - nothing under paper1/src differs between the selection run's commit and HEAD, so the evaluation runs the code
   that made the selection;
 - the protocol's P1 and P2 configurations are those of the selection file it names, whose sha256 it records,
-  and each P2 configuration is the variant it is listed under;
-- the manifests on disk (T, its reporting subsets and H2) are the ones the protocol names, the test CSV is the file
+  each P2 configuration is the variant it is listed under, every configuration holds the fixed settings of
+  this code (tau, and lambda for P2; 보완 3 §2.1-2.2) and P1 is one of the nine candidates (보완 3 §2.3);
+- the manifests on disk (T and its reporting subsets) are the ones the protocol names, the test CSV is the file
   T was sealed from, the KB and train files are those the development run read, and BED's stats file is the one
   the protocol names;
 - the code holds the protocol's constants, and Python, numpy (with its SIMD dispatch) and pandas are those of
   the development run.
 
-The run writes under <out>/T/: main.json (P1 and the P2 variants with curves, each P2 against P1, and each with its
-changes from the first protocol, `experiment.first_protocol_changes`), baselines.json
-(B0, B1, B2, B6 and B-BED, B-BED also against P2-value), hierarchy.json (the main policies under CASANDE's implicit
-answers, against their main runs), properties.json (KB violations and set-inclusion uniqueness) and patient-level
-files under patients/; and <out>/judgments.json with J1, J2 and J3' of 보완 2 §8. Every summary also holds the
-report of each reporting subset of T (H1, T-dedup, T-streambench when its row list was available) cut from the
-same run. Each output records the protocol digest, the freeze commit, the commit run and the input sha256s. An
-existing result is never overwritten: a rerun after a fix goes to a new --out, and both are reported.
+The run writes under <out>/T/: main.json (P1 and the P2 variants with curves, each P2 against P1, each policy's
+stop at the sensitivity thresholds, and the five factor-by-factor comparisons of 보완 3 §2.5, B-BED's included),
+baselines.json (B0, B1, B2, B6 and B-BED; B-BED also against P2-value, with its answer differences from the
+protocol's oracle and its differences from BED's reported figures, 보완 3 §2.6 and §2.8), hierarchy.json (the main
+policies under CASANDE's implicit answers, against their main runs), properties.json (KB violations and
+set-inclusion uniqueness) and patient-level files under patients/. Results are estimates with intervals; no
+judgment rule is applied (보완 3 §2.8). Every summary also holds the report of each reporting subset of T (T-dedup,
+and T-streambench when its row list was available) cut from the same run. Each output records the protocol digest,
+the freeze commit, the commit run and the input sha256s. An existing result is never overwritten: a rerun after a
+fix goes to a new --out, and both are reported.
 
-The first evaluation (H1 and H2 under paper1/configs/protocol_frozen.yaml) is never rerun; `ddxkb.first_run`
-verifies what it left.
+The earlier evaluations (H1 and H2 under paper1/configs/protocol_frozen.yaml, T under protocol_v2_frozen.yaml) are
+never rerun; `ddxkb.first_run` verifies what the first one left.
 """
 
 from __future__ import annotations
@@ -60,7 +64,6 @@ from ddxkb.data import (
 )
 from ddxkb.evaluation import write_json
 from ddxkb.experiment import (
-    BED_DEFINITIONS,
     DESIGN_DOC,
     Context,
     baseline_suite,
@@ -68,29 +71,13 @@ from ddxkb.experiment import (
     hierarchy_suite,
     main_suite,
     provenance,
+    second_run_outputs,
     utc_now,
 )
 from ddxkb.first_run import first_run_outputs
 from ddxkb.freeze import EVALUATION_SET, FROZEN_CONFIG, FROZEN_DATA, MANIFESTS, config_digest, protocol_constants
 from ddxkb.policies.bed import BED_STATS, BED_STATS_SHA256
-from ddxkb.protocol import (
-    CURVE,
-    J1_METRICS,
-    J1_MIN_WILSON_LOW,
-    J2_IL_DIFF_HIGH_BELOW,
-    J2_MAX_GTPA1_DIFF,
-    J2_POLICY,
-    J3_BED_GTPA1,
-    J3_BED_IL,
-    J3_GTPA1_TOLERANCE,
-    J3_IL_TOLERANCE,
-    J3_METRICS,
-    J3_PAIRED,
-    J3_POLICY,
-    P2_VARIANTS,
-    P1Config,
-    P2Config,
-)
+from ddxkb.protocol import CURVE, P2_VARIANTS, P1Config, P2Config, check_fixed
 from ddxkb.provenance import (
     environment,
     file_sha256,
@@ -101,7 +88,7 @@ from ddxkb.provenance import (
 )
 from ddxkb.runner import worker_pool
 
-OUTPUT_DIR = "paper1/outputs/v2/eval"
+OUTPUT_DIR = "paper1/outputs/v3/eval"
 GATED_PATHS = ("paper1", str(PurePosixPath(DESIGN_DOC).parent))
 CODE = "paper1/src"
 
@@ -205,6 +192,12 @@ def _check_selection(root: Path, config: Mapping[str, Any]) -> None:
     for v in P2_VARIANTS:
         if config["P2"][v.name] != selected["P2"][v.name]["config"]:
             raise GateError(f"the protocol's {v.name} is not the selected one")
+    p1 = P1Config.from_dict(selected["P1"]["config"])
+    p2 = [P2Config.from_dict(selected["P2"][v.name]["config"]) for v in P2_VARIANTS]
+    try:
+        check_fixed(p1, p2)
+    except ValueError as e:
+        raise GateError(f"{config['selected']['path']} does not hold the fixed settings of this code: {e}") from e
 
 
 def policies(config: Mapping[str, Any]) -> tuple[P1Config, list[P2Config], tuple[int, ...]]:
@@ -217,48 +210,6 @@ def policies(config: Mapping[str, Any]) -> tuple[P1Config, list[P2Config], tuple
     if not budgets or not set(budgets) <= set(CURVE) or list(budgets) != sorted(set(budgets)):
         raise GateError(f"budgets {budgets} must rise strictly within 0-{CURVE[-1]}")
     return p1, p2, budgets
-
-
-def judgments(main: Mapping[str, Any], baselines: Mapping[str, Any]) -> dict[str, Any]:
-    """J1, J2 and J3' of 보완 2 §8 from the main.json and baselines.json summaries of T, all read at the stop."""
-    lows = {metric: main["P1"]["stop"][metric]["low"] for metric in J1_METRICS}
-    j2 = main[J2_POLICY]["against"]["P1"]["stop"]
-    gtpa1_diff, il_diff_high = j2["gtpa1_diff"], j2["il_diff"]["high"]
-    bed = baselines[J3_POLICY]["stats_file"]
-    bed_gtpa1 = {metric: bed["stop"][metric]["estimate"] for metric in J3_METRICS}
-    bed_il = bed["stop"]["il"]["mean"]
-    paired = bed["against"][J3_PAIRED]["stop"]
-    return {
-        "J1": {
-            "rule": f"Wilson low of P1 GTPA@1 >= {J1_MIN_WILSON_LOW} on T for each of {list(J1_METRICS)}",
-            "wilson_low": lows,
-            "met": all(low >= J1_MIN_WILSON_LOW for low in lows.values()),
-        },
-        "J2": {
-            "rule": (
-                f"|{J2_POLICY} - P1 tie-aware GTPA@1| < {J2_MAX_GTPA1_DIFF} and the upper paired-bootstrap bound of"
-                f" {J2_POLICY} - P1 mean IL < {J2_IL_DIFF_HIGH_BELOW}, on T"
-            ),
-            "gtpa1_diff": gtpa1_diff,
-            "il_diff_high": il_diff_high,
-            "met": abs(gtpa1_diff) < J2_MAX_GTPA1_DIFF and il_diff_high < J2_IL_DIFF_HIGH_BELOW,
-        },
-        "J3'": {
-            "rule": (
-                f"{J3_POLICY} with BED's stats file on T within {J3_GTPA1_TOLERANCE} of BED's GTPA@1 {J3_BED_GTPA1}"
-                f" for each of {list(J3_METRICS)}, and its mean IL within {J3_IL_TOLERANCE} of BED's {J3_BED_IL}"
-            ),
-            "gtpa1": bed_gtpa1,
-            "il_mean": bed_il,
-            "met": all(abs(g - J3_BED_GTPA1) <= J3_GTPA1_TOLERANCE for g in bed_gtpa1.values())
-            and abs(bed_il - J3_BED_IL) <= J3_IL_TOLERANCE,
-            "paired": {
-                "comparison": f"{J3_POLICY} - {J3_PAIRED} on the same rows, reported, not judged",
-                "answers": BED_DEFINITIONS["answers"],
-                **paired,
-            },
-        },
-    }
 
 
 def reporting_subsets(root: Path) -> tuple[dict[str, frozenset[int]], dict[str, Any]]:
@@ -279,12 +230,11 @@ def evaluate(protocol: FrozenProtocol, root: Path, out: Path, workers: int) -> N
     """Every policy, baseline, budget curve and dataset property of the protocol on T in one run, with the
     reporting subsets cut from it."""
     name = EVALUATION_SET
-    kept = first_run_outputs(root, out)
+    kept = first_run_outputs(root, out) or second_run_outputs(root, out)
     if kept is not None:
-        raise GateError(f"{out} is inside {kept}, the first run's outputs, which are never written")
-    existing = [path for path in (out / name, out / "judgments.json") if path.exists()]
-    if existing:
-        raise GateError(f"results exist at {existing}; a rerun goes to a new --out")
+        raise GateError(f"{out} is inside {kept}, the outputs of an earlier run, which are never written")
+    if (out / name).exists():
+        raise GateError(f"results exist at {out / name}; a rerun goes to a new --out")
     p1, p2, budgets = policies(protocol.config)
     kb = load_kb(root)
     subsets, described = reporting_subsets(root)
@@ -304,21 +254,21 @@ def evaluate(protocol: FrozenProtocol, root: Path, out: Path, workers: int) -> N
             ctx.record_input(f"{MANIFEST_DIR}/{subset}.json")
         audit = support_audit(kb, patients)
         patients_dir = ctx.out / "patients"
-        main, runs = main_suite(ctx, p1, p2, budgets, patients_dir=patients_dir, subsets=subsets, first_protocol=True)
+        main, runs = main_suite(ctx, p1, p2, budgets, patients_dir=patients_dir, subsets=subsets, sensitivity=True)
         baselines = baseline_suite(ctx, p1, p2, runs, budgets, subsets=subsets)
         baselines["B-BED"] = bed_suite(ctx, runs, budgets, patients_dir=patients_dir, subsets=subsets)
+        # 보완 3 §6: main.json holds every comparison of the ladder, B-BED's from the run of the baselines.
+        main["ladder"].update(baselines["B-BED"]["ladder"])
         hierarchy = hierarchy_suite(ctx, p1, p2, runs, budgets, subsets=subsets)
         meta = {**provenance(ctx, f"eval {name}", started_utc, started, 0), **stamp, "subsets": described}
         write_json(ctx.out / "main.json", {"set": name, **main, "provenance": meta})
         write_json(ctx.out / "baselines.json", {"set": name, **baselines, "provenance": meta})
         write_json(ctx.out / "hierarchy.json", {"set": name, **hierarchy, "provenance": meta})
         write_json(ctx.out / "properties.json", {"set": name, **audit.summary(), "provenance": meta})
-    design = f"{DESIGN_DOC} 보완 2 §8"
-    write_json(out / "judgments.json", {**judgments(main, baselines), "provenance": {"design": design, **stamp}})
 
 
 def main(argv: Sequence[str] | None = None) -> None:
-    ap = argparse.ArgumentParser(prog="python -m ddxkb.run_eval", description="The single evaluation run on T.")
+    ap = argparse.ArgumentParser(prog="python -m ddxkb.run_eval", description="The evaluation run on T.")
     ap.add_argument("--config-sha256", required=True, help="the protocol digest printed at the freeze")
     ap.add_argument("--workers", type=int, default=1)
     ap.add_argument("--out", type=Path, default=None, help=f"output directory (default {OUTPUT_DIR})")

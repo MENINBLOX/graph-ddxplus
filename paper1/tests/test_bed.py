@@ -20,9 +20,11 @@ from ddxkb.policies.bed import (
     BED_STATS,
     UNSEEN,
     UTILITY_TIE_ATOL,
+    AnswerDifference,
     BedDeadEnd,
     BedKnowledge,
     BedPolicy,
+    answer_difference,
     count_knowledge,
     load_knowledge,
     record_findings,
@@ -128,6 +130,34 @@ def test_record_answers_hold_default_values_and_the_last_multi_choice_value(toy_
     assert ev["atcd"] not in found and ev["fievre"] not in found
     alpha = toy_patient(["fievre"], "fievre", "Alpha")
     assert record_findings(toy, alpha) == {ev["fievre"]: (), ev["trav1"]: (2,)}
+
+
+def test_answer_differences_count_the_valued_questions_the_two_simulators_answer_differently(
+    toy_kb: KB, toy: BedKnowledge
+) -> None:
+    # Every valued evidence is recorded with its default: negative for the oracle, positive for BED.
+    gamma = toy_patient(["fievre", "douleur_intens_@_0", "douleur_lieu_@_nulle_part", "trav1_@_N"], "fievre", "Gamma")
+    asked = ["douleur_intens", "toux", "douleur_lieu", "trav1", "atcd", "douleur"]
+    assert answer_difference(toy, gamma, asked) == AnswerDifference(
+        valued=3, oracle_negative=3, bed_positive=3, bed_filled=0
+    )
+    assert answer_difference(toy, gamma, asked[:2]) == AnswerDifference(1, 1, 1, 0)
+    # A non-default value is positive for both; an evidence neither recorded nor known to Alpha is negative for both.
+    alpha = toy_patient(["fievre", "trav1_@_Asie"], "fievre", "Alpha")
+    assert answer_difference(toy, alpha, ["trav1", "douleur_intens", "douleur_lieu", "toux"]) == AnswerDifference(
+        3, 2, 0, 0
+    )
+    # Beta knows douleur_intens, which this record lacks: BED fills it in as held, the oracle answers negative.
+    # trav1 is recorded with its default, so one of the two differing answers is filled in.
+    beta = toy_patient(["douleur", "douleur_lieu_@_tete", "trav1_@_N"], "douleur", "Beta")
+    assert answer_difference(toy, beta, ["douleur_intens", "trav1", "douleur_lieu", "atcd"]) == AnswerDifference(
+        3, 2, 2, 1
+    )
+    assert answer_difference(toy, beta, ["douleur_intens"]) == AnswerDifference(1, 1, 1, 1)
+    assert answer_difference(toy, beta, ["trav1"]) == AnswerDifference(1, 1, 1, 0)
+    # Binary questions get the same answer from both and are not counted.
+    assert answer_difference(toy, beta, ["atcd", "fievre", "douleur"]) == AnswerDifference(0, 0, 0, 0)
+    assert answer_difference(toy, beta, []) == AnswerDifference(0, 0, 0, 0)
 
 
 def test_answer_likelihoods(toy_kb: KB, toy: BedKnowledge) -> None:

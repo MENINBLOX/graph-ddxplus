@@ -108,15 +108,6 @@ def test_train_iterator_reads_every_row(sealed_root: Path) -> None:
     assert {p.split for p in rows} == {"train"}
 
 
-def test_train_iterator_without_h2_skips_its_rows(sealed_root: Path) -> None:
-    rows = list(iter_train(sealed_root, chunk_rows=3, without="H2"))
-    kept = [1, 2, 3, 5, 6, 8, 9]
-    assert [p.row for p in rows] == kept
-    assert [p.age for p in rows] == [120 + r for r in kept]
-    with pytest.raises(ValueError, match="does not list train rows"):
-        list(iter_train(sealed_root, without="H1"))
-
-
 def test_heldout_is_refused_without_the_flag(sealed_root: Path) -> None:
     for name in ("H1", "H2", "T"):
         with pytest.raises(SealedError):
@@ -134,8 +125,11 @@ def test_heldout_reads_exactly_the_manifest_rows(sealed_root: Path, monkeypatch:
     assert [(p.split, p.row, p.age) for p in t] == [("test", r, 220 + r) for r in range(6)]
 
 
+def test_the_reporting_subsets_are_dedup_and_streambench() -> None:
+    assert data.SUBSETS == ("T-dedup", "T-streambench")
+
+
 def test_subset_rows_are_rows_of_t(sealed_root: Path) -> None:
-    assert subset_rows("H1", sealed_root) == frozenset({1, 2, 5})
     write_manifest(sealed_root, "T-dedup", TEST_CSV, 6, [0, 3])
     assert subset_rows("T-dedup", sealed_root) == frozenset({0, 3})
     write_manifest(sealed_root, "T-dedup", TEST_CSV, 6, [0, 7])

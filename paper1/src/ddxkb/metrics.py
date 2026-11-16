@@ -3,8 +3,8 @@
 Predicted and ground-truth differentials are both post-processed to drop diseases with mass <= 0.01
 before GTPA, GTPA@k, DDR/DDP/DDF1 and DSHM. Probability vectors are indexed in KB disease order, and that
 order is the fixed tie-break. Where this study's definition and the official code's differ, both are kept:
-GTPA@k tie-aware (judgments) and as the code computes it (literature, `gtpa_at_k_official`), PER without and with
-the initial evidence.
+GTPA@k tie-aware (the primary outcome at k = 1, 보완 3 §2.4) and as the code computes it (literature,
+`gtpa_at_k_official`), PER without and with the initial evidence.
 """
 
 from __future__ import annotations

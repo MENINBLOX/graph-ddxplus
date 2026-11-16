@@ -48,11 +48,32 @@ def test_positive_only_episode_by_hand(trio: KB) -> None:
     assert full.at_budget(2) == pytest.approx(normalize(after_initial + np.log([0.25, 0.99**2, 0.99**2])))
 
 
-def test_negative_only_ignores_the_initial_evidence(trio: KB) -> None:
-    p1 = BayesPolicy(membership_table(trio, 0.5, 0.01), uniform_prior(trio), None, (0,))
+def test_negative_only_keeps_the_initial_evidence(trio: KB) -> None:
+    p1 = BayesPolicy(membership_table(trio, 0.5, 0.01), uniform_prior(trio), None, (0, 2, 3))
     ablated = dataclasses.replace(p1, table=heard_answers(p1.table, Heard.NEGATIVE))
-    ep = ablated.run(toy_patient(["e0"], initial="e0", pathology="A"))
-    assert ep.at_budget(0) == pytest.approx([1 / 3] * 3)
+    patient = toy_patient(["e0", "e3"], initial="e0", pathology="B")
+    ep = ablated.run(patient)
+    # The initial evidence e0 (yes) is a start input: it enters the posterior, which is P1's before any question.
+    after_initial = np.log([0.5, 0.5, 0.01])
+    assert ep.at_budget(0) == pytest.approx(normalize(after_initial))
+    assert np.array_equal(ep.at_budget(0), p1.run(patient).at_budget(0))
+    # e1 and e2 are answered no and heard; e3 is answered yes, which this variant drops.
+    assert ep.questions[:3] == ("e1", "e2", "e3")
+    after_two = after_initial + np.log([0.25, 0.99**2, 0.99**2])
+    assert ep.at_budget(2) == pytest.approx(normalize(after_two))
+    assert ep.at_budget(3) == pytest.approx(normalize(after_two))
+    assert p1.run(patient).at_budget(3) == pytest.approx(normalize(after_two + np.log([0.01, 0.5, 0.01])))
+
+
+def test_the_initial_evidence_enters_whichever_polarity_is_heard(trio: KB) -> None:
+    table = membership_table(trio, 0.5, 0.01)
+    initial = Answer("e0", positive=True)
+    for heard in Heard:
+        ablated = heard_answers(table, heard)
+        assert np.array_equal(ablated.initial_log_likelihood(initial), table.log_likelihood(initial))
+    assert np.array_equal(table.initial_log_likelihood(initial), table.log_likelihood(initial))
+    # As the answer to a question, the same positive answer is dropped by the negative-only variant.
+    assert np.array_equal(heard_answers(table, Heard.NEGATIVE).log_likelihood(initial), np.zeros(3))
 
 
 def test_coverage_order_asks_what_most_candidate_lists_hold(trio: KB) -> None:

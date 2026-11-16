@@ -1,4 +1,4 @@
-"""B-BED: the BED baseline of CASANDE ported rule for rule (design 보완 2 §6, J3' of §8).
+"""B-BED: the BED baseline of CASANDE ported rule for rule (design 보완 2 §6, E).
 
 Source: mila-iqia/Casande-RL at 5279013, `Baselines/BED`, run as `run_ddxplus.sh` runs it (solver BED_BATCH,
 KL utility, search depth 1, 30 questions, threshold 0.01). CASANDE reports it on the official test split at
@@ -23,9 +23,10 @@ Answers come from BED's own simulator (`record_findings`, `bayesian_experimental
 from `simulator.Oracle`: an evidence is answered positive when the record holds it, whatever its value, and the
 evidences of the true disease that the record lacks but the disease knows are filled in as held with the default.
 So a categorical or multi-choice question answers whether the evidence is on the true disease's list, which the
-protocol's oracle (a default value is negative) does not reveal. A positive answer restricts the candidate
-diseases to those that know the evidence (`:141-145`). A multi-choice answer carries only the last value the
-record lists for it (`:196-199` stores each value in a new set).
+protocol's oracle (a default value is negative) does not reveal; `answer_difference` counts the questions the two
+answer differently (보완 3 §2.6). A positive answer restricts the candidate diseases to those that know the
+evidence (`:141-145`). A multi-choice answer carries only the last value the record lists for it (`:196-199`
+stores each value in a new set).
 
 Inference (`QMR.py:210-259`), over every disease: the product of the prior, P(o | d) of each positive answer
 (0 when d does not know the evidence) and 1 - P(o | d) of each negative answer, normalized. A negative binary
@@ -55,7 +56,7 @@ import numpy as np
 from ddxkb.data import REPO_ROOT, Patient, read_release_json
 from ddxkb.kb import KB, BoolArray, DataType, FloatArray, IndexArray
 from ddxkb.policies.episode import Episode
-from ddxkb.simulator import AnswerMode, Hierarchy, StartInput
+from ddxkb.simulator import AnswerMode, Hierarchy, StartInput, positive_codes
 
 UNSEEN = 1e-7
 STOP_UTILITY = 0.01
@@ -343,6 +344,39 @@ def record_findings(k: BedKnowledge, patient: Patient) -> Findings:
         if not kb.evidences[j].is_binary and j not in out:
             out[j] = (int(k.default_option[j]),)
     return out
+
+
+@dataclass(frozen=True, slots=True)
+class AnswerDifference:
+    """How BED's simulator and the protocol's oracle answer the categorical and multi-choice questions asked of one
+    patient (보완 3 §2.6); both give a binary question the same answer.
+
+    Of the `valued` such questions, the oracle answers `oracle_negative` negative (the evidence is not recorded, or
+    recorded with its default value), and of those BED's simulator answers `bed_positive` positive: `bed_filled` of
+    them for an evidence the record lacks, filled in because the true disease knows it, the others for a recorded
+    default value (design E.4).
+    """
+
+    valued: int
+    oracle_negative: int
+    bed_positive: int
+    bed_filled: int
+
+
+def answer_difference(k: BedKnowledge, patient: Patient, asked: Iterable[str]) -> AnswerDifference:
+    """The `AnswerDifference` of the questions `asked` of `patient`: the oracle's positives are
+    `simulator.positive_codes`, BED's the evidences of `record_findings`."""
+    kb = k.kb
+    valued = [code for code in asked if not kb.evidence(code).is_binary]
+    if not valued:
+        return AnswerDifference(0, 0, 0, 0)
+    oracle_positive = positive_codes(kb, patient)
+    bed_positive = record_findings(k, patient)
+    recorded = {code for code, _ in patient.evidences}
+    negative = [code for code in valued if code not in oracle_positive]
+    differing = [code for code in negative if kb.evidence_index[code] in bed_positive]
+    filled = [code for code in differing if code not in recorded]
+    return AnswerDifference(len(valued), len(negative), len(differing), len(filled))
 
 
 def _posterior(likelihood: FloatArray, prior: FloatArray) -> FloatArray:

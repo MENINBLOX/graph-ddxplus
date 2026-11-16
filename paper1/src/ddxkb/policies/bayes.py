@@ -16,7 +16,7 @@ from typing import Protocol
 import numpy as np
 
 from ddxkb.data import Patient
-from ddxkb.frequencies import AGE_BIN_EDGES, FrequencyCounts, age_bin, check_age_edges, sex_index, value_columns
+from ddxkb.frequencies import N_AGE_BINS, FrequencyCounts, age_bin, sex_index, value_columns
 from ddxkb.kb import KB, BoolArray, DataType, FloatArray, IndexArray
 from ddxkb.policies.episode import Episode
 from ddxkb.simulator import MAX_IL, Answer, AnswerMode, Hierarchy, Interaction, Oracle, Start, StartInput
@@ -88,6 +88,11 @@ class LikelihoodTable:
         cols = self.outcome_columns(answer)
         return np.asarray(self.log_probs[:, cols].sum(axis=1))
 
+    def initial_log_likelihood(self, answer: Answer) -> FloatArray:
+        """The log-likelihood of the initial evidence, a start input rather than the answer to a question; a table
+        that treats answers to questions differently overrides `log_likelihood` and leaves this one alone."""
+        return LikelihoodTable.log_likelihood(self, answer)
+
 
 def _assemble(kb: KB, mode: AnswerMode, blocks: list[list[FloatArray]]) -> LikelihoodTable:
     """`blocks[j]` lists evidence j's components as (diseases x outcomes) arrays."""
@@ -145,18 +150,16 @@ def frequency_table(kb: KB, counts: FrequencyCounts, lam: float, mode: AnswerMod
 @dataclass(frozen=True, eq=False)
 class Prior:
     """log P(d) in KB order, shape (diseases,), or log P(d | age group, sex), shape (age groups, sexes, diseases),
-    the age groups being those of `age_edges`.
+    the age groups being those of `age_bin`.
 
     Age and sex enter only here; the likelihood tables are per disease.
     """
 
     log_p: FloatArray
-    age_edges: tuple[int, ...] = AGE_BIN_EDGES
 
     def __post_init__(self) -> None:
-        check_age_edges(self.age_edges)
-        if self.log_p.ndim == 3 and self.log_p.shape[0] != len(self.age_edges) + 1:
-            raise ValueError(f"{self.log_p.shape[0]} age groups, but the edges make {len(self.age_edges) + 1}")
+        if self.log_p.ndim == 3 and self.log_p.shape[0] != N_AGE_BINS:
+            raise ValueError(f"{self.log_p.shape[0]} age groups, where `age_bin` makes {N_AGE_BINS}")
         self.log_p.flags.writeable = False
 
     @property
@@ -169,24 +172,22 @@ class Prior:
             return self.log_p
         if start.age is None or start.sex is None:
             raise ValueError("this prior reads the age and sex, which the start does not give")
-        return np.asarray(self.log_p[age_bin(start.age, self.age_edges), sex_index(start.sex)])
+        return np.asarray(self.log_p[age_bin(start.age), sex_index(start.sex)])
 
 
 def uniform_prior(kb: KB) -> Prior:
     return Prior(np.full(kb.n_diseases, -math.log(kb.n_diseases)))
 
 
-def frequency_prior(
-    counts: FrequencyCounts, lam: float, by_age_sex: bool = False, age_edges: tuple[int, ...] = AGE_BIN_EDGES
-) -> Prior:
-    """P(d), or with `by_age_sex` P(d | age group of `age_edges`, sex), Laplace-smoothed with lam."""
+def frequency_prior(counts: FrequencyCounts, lam: float, by_age_sex: bool = False) -> Prior:
+    """P(d), or with `by_age_sex` P(d | age group, sex), Laplace-smoothed with lam."""
     if lam <= 0:
         raise ValueError("lam must be positive")
     n_diseases = counts.rows.shape[0]
     if not by_age_sex:
         return Prior(np.log((counts.rows + lam) / (counts.rows.sum() + n_diseases * lam)))
-    cells = np.moveaxis(counts.age_groups(age_edges), 0, -1).astype(np.float64)
-    return Prior(np.log((cells + lam) / (cells.sum(axis=-1, keepdims=True) + n_diseases * lam)), age_edges)
+    cells = np.moveaxis(counts.age_groups(), 0, -1).astype(np.float64)
+    return Prior(np.log((cells + lam) / (cells.sum(axis=-1, keepdims=True) + n_diseases * lam)))
 
 
 def expected_information_gain(table: LikelihoodTable, posterior: FloatArray) -> FloatArray:
@@ -300,8 +301,8 @@ class BayesPolicy:
         it = Interaction(Oracle(kb, patient), self.length_cap, self.hierarchy, self.start_inputs)
         choose = self.selector.start(self.table, patient)
         positive = it.positive
-        log_post = self.prior(it.start)
-        for a in (it.initial, *it.implied):
+        log_post = self.prior(it.start) + self.table.initial_log_likelihood(it.initial)
+        for a in it.implied:
             log_post = log_post + self.table.log_likelihood(a)
         last_budget = self.budgets[-1] if self.budgets else 0
         snapshots: list[FloatArray] = []

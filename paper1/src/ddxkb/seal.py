@@ -12,7 +12,7 @@ manifest.
 - T (design 보완 2) is the whole official test split; the 9,000-row exclusion of H1 does not apply to it.
 - H1 is the official test split minus the 9,000 rows an earlier study used (development sample seed 0,
   design D confirmation seed 101, design E confirmation seed 202); H2 is a hold-out of the train split.
-  Both belong to the first evaluation and are reported again only as subsets (H1) or not at all (H2).
+  Both belong to the first evaluation and are not reported again.
 - T-dedup keeps the T rows whose input (`data.input_key`: age, sex, initial evidence and the set of recorded
   evidence items) appears in no train row. It is computed from the input columns of train and T only.
 - T-streambench lists the T rows of StreamBench's DDXPlus test set (Wu et al. 2024, 1,764 patients, 36 per
