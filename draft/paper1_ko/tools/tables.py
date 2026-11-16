@@ -116,7 +116,7 @@ def comp(label, r):
 b2 = dbase["B2"]["over_seeds"]["stop"]
 rows = [["List-based method (P1)", pct_ci(p1["stop"]["gtpa1"]), DASH, f(p1["stop"]["il"]["mean"])], ["*Answers used*", "", "", ""]]
 rows += [comp("Only “yes” answers to questions", abl["A1"]["positive_only"]), comp("Only “no” answers to questions", abl["A1"]["negative_only"])]
-rows += [["*Probability of “yes” for an evidence outside the list (ε)*", "", "", ""]]
+rows += [["*Probability of “yes” for an evidence outside the list, ε*", "", "", ""]]
 rows += [comp(f"ε = {eps_label(float(e))}", abl["A3"][e]) for e in ("0.1", "0.01", "0.001", "1e-06", "1e-09")]
 rows += [
     ["*Question selection*", "", "", ""],
@@ -125,7 +125,7 @@ rows += [
     comp("Frequency-ordered questions", dbase["B6"]["P1"]),
     ["*Sub-questions*", "", "", ""],
     comp("Sub-question answers filled in", dhier["P1"]),
-    comp("Asked only after “yes” to the main question", abl["A4"]["parent_first"]),
+    comp("Asked only after “yes” to the parent question", abl["A4"]["parent_first"]),
     comp("Never asked", abl["A4"]["no_children"]),
     ["*Prior probability*", "", "", ""],
     comp("Disease frequencies of the training set", abl["A2"]["train_prior"]),
@@ -135,7 +135,7 @@ write(
     f"Table 2. Component analysis of the list-based method on the validation set ({p1['n']:,} patients)",
     table(["Changed component", "Accuracy, % (95% CI)", "Difference from P1, percentage points (95% CI)", "Evidence collected, mean"], rows),
     [
-        "CI, confidence interval; P1, list-based method (α = 0.5, ε = 10^−4^).",
+        "CI, confidence interval; P1, list-based method; α, probability of “yes” for an evidence on the list; ε, probability of “yes” for an evidence outside the list. P1 uses α = 0.5 and ε = 10^−4^.",
         "Each row changes one component of P1 and keeps the others.",
         "^a)^Mean of five random orders; the range over the five orders is shown in place of the CI.",
     ],
@@ -204,14 +204,14 @@ rows = []
 for key in MAIN + ["B-BED"]:
     s = run(key)["stop"]
     rows.append([NAME[key], f(100 * s["gtpa1"]["estimate"]), f(100 * s["gtpa1_official"]["estimate"]), f(100 * s["gtpa3"]["estimate"]), f(100 * s["gtpa5"]["estimate"]), f(100 * s["ddr"]["estimate"]), f(100 * s["ddp"]["estimate"]), f(100 * s["ddf1"]["estimate"]), f(100 * s["dshm"]["estimate"]), f(100 * s["per_official"]["estimate"])])
-rows.append(["BED, reported in the CASANDE paper [@casande]", "99.47", "NR", "NR", "NR", "NR", "NR", "31.01", "10.78", "18.62"])
+rows.append(["BED, reported in the CASANDE paper [@casande]", "NR", "99.47", "NR", "NR", "NR", "NR", "31.01", "10.78", "18.62"])
 write(
     "tableS2",
     "Supplementary Table S2. Additional metrics on the test set (%)",
     table(["Method", "Accuracy", "Accuracy, official code", "GTPA@3", "GTPA@5", "DDR", "DDP", "DDF1", "DSHM", "PER"], rows),
     [
         f"{ABBR_METHODS} NR, not reported.",
-        "Accuracy, official code: the accuracy as the official code computes it (Supplementary Methods 5). GTPA@k, the true disease is among the k most probable diseases after removing diseases with probability 0.01 or less, with ties shared as for accuracy. DDR and DDP, mean over patients of the recall and precision against the reference differential diagnosis; DDF1, mean over patients of their harmonic mean. DSHM, mean over patients of the harmonic mean of the rule-in and rule-out rates of severe diseases [@casande]. PER, share of the positive evidences of the patient that were collected, the initial evidence included.",
+        "Accuracy, official code: the accuracy as the official code computes it (Supplementary Methods 5); the accuracy reported for BED was computed by the BED code with the same rule. GTPA@k, the true disease is among the k most probable diseases after removing diseases with probability 0.01 or less, with ties shared as for accuracy. DDR and DDP, mean over patients of the recall and precision against the reference differential diagnosis; DDF1, mean over patients of their harmonic mean. DSHM, mean over patients of the harmonic mean of the rule-in and rule-out rates of severe diseases [@casande]. PER, share of the positive evidences of the patient that were collected, the initial evidence included.",
     ],
 )
 
@@ -225,7 +225,7 @@ nd, ns = main["P1"]["subsets"]["T-dedup"]["n"], main["P1"]["subsets"]["T-streamb
 write(
     "tableS3",
     "Supplementary Table S3. Results on two subsets of the test set",
-    table(["Method", f"No training patient with the same age, sex and evidences (n = {nd:,}): accuracy, % (95% CI)", "Evidence collected, mean", f"StreamBench patients (n = {ns:,}): accuracy, % (95% CI)", "Evidence collected, mean"], rows),
+    table(["Method", f"No training patient with the same age, sex, initial evidence and recorded evidences with their values (n = {nd:,}): accuracy, % (95% CI)", "Evidence collected, mean", f"StreamBench patients (n = {ns:,}): accuracy, % (95% CI)", "Evidence collected, mean"], rows),
     [f"CI, confidence interval; {ABBR_METHODS}"],
 )
 
@@ -287,10 +287,10 @@ for split, b in (("Validation", dbase), ("Test", base)):
 write(
     "tableS6",
     "Supplementary Table S6. Accuracy, % (95% CI), of baselines and reference values that ask no question",
-    table(["Set", "Most frequent disease", "Initial evidence only", "List check, all answers", "P1 probabilities, all answers", "Naive Bayes, yes-or-no answers, all answers", "Naive Bayes, answer values, all answers"], ref),
+    table(["Set", "Most frequent disease", "Initial evidence only", "List check, all answers", "P1 probabilities, all answers", "P2 probabilities, yes-or-no answers, all answers", "P2 probabilities, answer values, all answers"], ref),
     [
         "CI, confidence interval; P1, list-based method.",
-        "“All answers” gives the answers to all 223 evidences without questions. Naive Bayes uses the probabilities of P2 without age and sex.",
+        "“All answers” gives the answers to all 223 evidences without questions. P2 probabilities are those of P2 without age and sex. P2, frequency-based method.",
     ],
 )
 

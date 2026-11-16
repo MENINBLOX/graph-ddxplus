@@ -51,6 +51,22 @@
     "listed_not_recorded": "of these, the pairs whose evidence the record does not hold with any value",
     "recorded_not_listed": "categorical or multi-choice evidences a record holds off the gold disease's list"
    }
-  }
+  },
+  "nested_lists": [
+   {
+    "disease": "Angine instable",
+    "contained_list": "Angine stable",
+    "patients": 2748,
+    "inside": 56,
+    "share": 0.020378457059679767
+   },
+   {
+    "disease": "Rhinosinusite aigue",
+    "contained_list": "Rhinosinusite chronique",
+    "patients": 1866,
+    "inside": 622,
+    "share": 0.3333333333333333
+   }
+  ]
  }
 }

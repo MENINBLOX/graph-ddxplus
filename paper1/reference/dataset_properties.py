@@ -5,7 +5,8 @@
 From the train split: the patients with a positive evidence off their disease's list, and for each of the list
 entries (disease, evidence) the share of that disease's train patients in whom the evidence is positive. From the
 validation split: how the reference differential relates to the gold disease and to the lists, and whether the
-records hold the categorical and multi-choice evidences of the gold disease's list. A positive
+records hold the categorical and multi-choice evidences of the gold disease's list, and for the diseases whose
+list holds another disease's list, how many of their patients the lists cannot tell from that disease. A positive
 evidence is one recorded with a value other than its default (`simulator.positive_codes`). No sealed set is read.
 """
 
@@ -76,6 +77,7 @@ def differential(root: Path) -> dict[str, object]:
     return {
         "n": len(patients),
         "valued_records": valued_records(kb, patients),
+        "nested_lists": nested_lists(kb, patients),
         "gold_is_top": {"count": int(top), "share": top / len(patients)},
         "gold_is_only_top": {"count": int(strictly_top), "share": strictly_top / len(patients)},
         "mass_on_excluded": {"mean": float(mass.mean()), "median": float(np.median(mass))},
@@ -110,6 +112,28 @@ def valued_records(kb: KB, patients: Sequence[Patient]) -> dict[str, object]:
             "recorded_not_listed": "categorical or multi-choice evidences a record holds off the gold disease's list",
         },
     }
+
+
+def nested_lists(kb: KB, patients: Sequence[Patient]) -> list[dict[str, object]]:
+    """For each disease whose list holds another disease's whole list, the share of its patients whose positive
+    evidences all lie on the smaller list, so that the lists cannot tell the two diseases apart."""
+    out: list[dict[str, object]] = []
+    for big in kb.diseases:
+        for small in kb.diseases:
+            if big == small or not kb.support(small) < kb.support(big):
+                continue
+            own = [p for p in patients if p.pathology == big]
+            inside = sum(positive_codes(kb, p) <= kb.support(small) for p in own)
+            out.append(
+                {
+                    "disease": big,
+                    "contained_list": small,
+                    "patients": len(own),
+                    "inside": inside,
+                    "share": inside / len(own),
+                }
+            )
+    return out
 
 
 def main() -> None:

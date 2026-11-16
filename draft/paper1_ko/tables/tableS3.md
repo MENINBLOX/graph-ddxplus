@@ -1,6 +1,6 @@
 **Supplementary Table S3. Results on two subsets of the test set**
 
-| Method | No training patient with the same age, sex and evidences (n = 132,540): accuracy, % (95% CI) | Evidence collected, mean | StreamBench patients (n = 1,764): accuracy, % (95% CI) | Evidence collected, mean |
+| Method | No training patient with the same age, sex, initial evidence and recorded evidences with their values (n = 132,540): accuracy, % (95% CI) | Evidence collected, mean | StreamBench patients (n = 1,764): accuracy, % (95% CI) | Evidence collected, mean |
 |---|---|---|---|---|
 | List-based method (P1) | 98.42 (98.36–98.49) | 10.41 | 98.11 (97.36–98.65) | 10.19 |
 | P2, yes-or-no answers | 98.58 (98.52–98.64) | 7.31 | 98.30 (97.58–98.81) | 7.21 |
