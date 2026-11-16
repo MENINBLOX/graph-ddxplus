@@ -43,7 +43,7 @@ def main() -> None:
     parts = {name: (DRAFT / "sections" / f"{name}.md").read_text().strip() for name in SECTIONS}
     for k in ("1", "2", "3"):
         parts["30_results"] = parts["30_results"].replace("{{TABLE%s}}" % k, (tables / f"table{k}.md").read_text().strip())
-    supplementary = [(tables / f"tableS{i}.md").read_text().strip() for i in range(1, 8)]
+    supplementary = [(tables / f"tableS{i}.md").read_text().strip() for i in range(1, 10)]
     parts["80_supp_methods"] = "## Supplementary Material\n\n" + parts["80_supp_methods"].replace(
         "## Supplementary Methods", "### Supplementary Methods"
     ) + "\n\n" + "\n\n".join(supplementary)

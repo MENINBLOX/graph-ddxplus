@@ -1,10 +1,10 @@
-# DDXPlus의 공개 지식베이스는 대화형 과제에서 정답 질환을 얼마나 맞히는가
+# DDXPlus의 공개 목록은 대화형 과제에서 정답 질환을 얼마나 맞히는가
 
-**How much of DDXPlus does its public knowledge base solve?**
+**How Much of DDXPlus Do Its Public Lists Solve?**
 
 ## Abstract
 
-DDXPlus는 대화형 감별진단 에이전트를 평가하는 합성 환자 벤치마크이고, 49개 질환마다 증상과 병력의 목록을 확률 없이 공개한다. 이 연구는 이 공개 목록만으로 정답 질환을 얼마나 맞히는지 쟀다. DDXPlus의 공식 규칙에서 에이전트는 환자의 나이, 성별, 초기 evidence 1개를 받고 최대 30개까지 질문한다. 이 규칙에서 공개 목록만 쓰는 목록 기반 Bayes 방법과 목록 대신 train 환자의 빈도를 쓰는 빈도 기반 방법을 평가했고, 문헌의 Bayes 실험설계 기준선인 BED를 다시 구현했다. 설정은 validation 세트에서 정하고 test 세트 134,529명에서 평가했다. train, validation, test 세트 어디에도 정답 질환의 목록 밖 양성 evidence를 가진 환자는 없었다. 목록 기반 방법은 환자의 98.44%(95% 신뢰구간 98.38–98.51)에서 정답 질환을 맞혔고, 초기 evidence를 포함해 평균 10.35개의 evidence를 모았다. 종료 임계 0.99에서 목록 대신 빈도를 쓰면 수집 evidence가 3.08개 줄었고, 정확도는 0.16%p 높아졌지만 그 차이의 부호는 종료 임계에 따라 바뀌었다. 응답의 값까지 쓰면 정확도가 0.70%p 더 높아지고 수집 evidence가 2.17개 더 줄어, 99.30%와 5.10개가 되었다. BED 재구현은 99.47%와 5.48개로 보고값 99.47%와 5.47개를 재현했다. 다만 BED의 시뮬레이터는 범주형과 다중선택 evidence에 기록된 기본값을 양성으로 답하는데, 공식 규칙에서 이 답은 "아니오"다. test 환자의 38.95%가 이런 답을 한 번 이상 받았다. 공개 목록만으로 DDXPlus 환자의 98%에서 정답 질환이 식별된다. DDXPlus의 대화형 결과를 보고할 때는 같은 규칙에서 돌린 목록 기반 기준선의 결과와 시뮬레이터의 응답 규칙을 함께 적어야 한다.
+DDXPlus는 대화형 감별진단 에이전트를 평가하는 합성 환자 벤치마크이고, 49개 질환마다 증상과 병력의 목록을 확률 없이 공개한다. 이 연구는 이 공개 목록만으로 정답 질환을 얼마나 맞히는지 쟀다. DDXPlus의 공식 규칙에서 에이전트는 환자의 나이, 성별, 초기 evidence 1개를 받고 최대 30개까지 질문한다. 이 규칙에서 공개 목록만 쓰는 목록 기반 Bayes 방법과 목록 대신 train 환자의 빈도를 쓰는 빈도 기반 방법을 평가했고, 문헌의 Bayes 실험설계 기준선인 BED를 다시 구현했다. 설정은 validation 세트에서 정하고 test 세트 134,529명에서 평가했다. train, validation, test 세트 어디에도 정답 질환의 목록 밖 양성 evidence를 가진 환자는 없었다. 목록 기반 방법은 환자의 98.44%(95% 신뢰구간 98.38–98.51)에서 정답 질환을 맞혔고, 초기 evidence를 포함해 평균 10.35개의 evidence를 모았다. 종료 임계 0.99에서 목록 대신 빈도를 쓰면 수집 evidence가 3.08개 줄었고, 정확도는 0.16%p 높아졌지만 그 차이의 부호는 종료 임계에 따라 바뀌었다. 응답의 값까지 쓰면 정확도가 0.70%p 더 높아지고 수집 evidence가 2.17개 더 줄어, 99.30%와 5.10개가 되었다. BED 재구현은 99.47%와 5.48개로 보고값 99.47%와 5.47개를 재현했다. 다만 BED의 시뮬레이터는 범주형과 다중선택 evidence에 기록된 기본값을 양성으로 답하는데, 공식 규칙에서 이 답은 "아니오"다. test 환자의 38.95%가 이런 답을 한 번 이상 받았다. validation 세트에서 이 답이 알려 주는 정보를 빈도 기반 방법에 주면 정확도가 0.10%p 높아지고 수집 evidence가 0.30개 줄었다. 공개 목록만으로 DDXPlus 환자의 98%에서 정답 질환이 식별된다. DDXPlus의 대화형 결과를 보고할 때는 같은 규칙에서 돌린 목록 기반 기준선의 결과와 시뮬레이터의 응답 규칙을 함께 적어야 한다.
 
 **Keywords:** Diagnosis, Differential; Diagnosis, Computer-Assisted; Bayes Theorem; Knowledge Bases; Benchmarking
 
@@ -54,6 +54,8 @@ DDXPlus의 공개 자료 [17]를 썼다. 환자 기록은 나이, 성별, 정답
 
 BED는 CASANDE의 공개 코드 [16]에 든 BED 코드의 규칙대로 다시 구현했다. 지식으로는 그 코드에 든 train 통계 파일을 읽는다. 이 파일은 train 빈도를 담고, 범주형과 다중선택 evidence는 공개 목록에 있으면 그 질환에 넣는다. BED는 나이와 성별을 쓰지 않고, 범주형과 다중선택 evidence의 값을 받으며, 모든 질문의 효용이 0.01 미만이거나 질문이 30개에 이르면 멈춘다. 응답에는 BED 코드의 자체 시뮬레이터를 썼다. 이 시뮬레이터는 공식 규칙과 몇 가지가 다르다. 그 가운데 하나는 공식 규칙에서 "아니오"인 기록된 기본값을 양성으로 답한다는 점이다. 세부는 Supplementary Methods 3에 있다. BED는 공식 규칙으로 답하게 하지 않았다. BED의 확률은 목록에 있는 범주형과 다중선택 evidence를 그 질환의 모든 train 기록이 가진 것으로 세어 만들어서, 공식 규칙의 "아니오"를 넣는 방법이 하나로 정해지지 않기 때문이다. 재구현이 BED 코드와 같은지는 BED 코드를 validation 세트 전체에 돌려 확인했다.
 
+응답 규칙의 효과는 반대 방향으로, P2에서 쟀다. validation 세트에서 P2 값 단위 응답에 범주형과 다중선택 evidence가 값과 무관하게 환자 기록에 있는지를 함께 알려 주었다. BED의 시뮬레이터가 기록된 기본값을 양성으로 답해서 공식 규칙보다 더 알려 주는 정보가 이것이다. 확률은 이 답에 맞춰 train 세트에서 셌고, 사전확률, 평활, 질문 선택, 종료 조건은 P2 값 단위 응답과 같다. 이 연구는 이 변형을 P2 기록 포함 응답이라 부른다.
+
 질문을 하지 않는 기준선 두 가지를 두었다. 하나는 train 세트에서 가장 흔한 질환을 답하는 것이고, 다른 하나는 초기 evidence만 반영한 P1의 사후분포로 답하는 것이다. 223개 evidence 모두의 답을 질문 없이 주는 참조값도 구했다. 양성 evidence를 모두 담는 목록을 가진 질환을 고르는 목록 대조, P1의 확률을 모든 답에 적용한 값, 나이와 성별을 쓰지 않는 P2의 확률을 이진 응답과 값 단위 응답으로 모든 답에 적용한 값이 여기에 든다.
 
 질문 순서의 영향을 보려고 P1의 질문 선택만 바꾼 두 방법을 평가했다. 하나는 후보 질환들의 목록 안에서 무작위로 묻는다. 후보 질환은 초기 evidence를 포함한 지금까지의 양성 evidence 가운데 목록 밖에 있는 것이 가장 적은 질환들이다. 무작위 순서는 다섯 번 바꿔 평균을 냈다. 다른 하나는 공개 목록 없이 train 세트에서 양성인 환자가 많은 evidence부터 묻는다. 이 연구는 두 방법을 무작위 질문과 빈도순 질문이라 부른다. 세부는 Supplementary Methods 4에 있다.
@@ -72,9 +74,9 @@ validation 세트에서 고른 값은 P1의 α와 ε뿐이다. 후보는 α 0.3,
 
 종료 임계와 무관한 비교를 위해 질문 수에 따른 정확도도 구했다. P1과 P2는 종료 조건 없이 정해진 수만큼 물었다. BED는 정해진 수까지 묻되, 효용이 0보다 큰 질문이 남지 않으면 더 묻지 않고 그때의 사후분포를 썼다. 정확도가 95%에 처음 이르는 질문 수도 함께 적었다. 정확도는 정답 질환별로도 구했다.
 
-자료의 성질로는 다음을 쟀다. 정답 질환의 목록 밖에 양성 evidence를 가진 환자 수는 train, validation, test 세트에서 셌다. 양성 evidence를 모두 담는 목록이 정답 질환 하나뿐인 환자의 비율은 validation과 test 세트에서 구했다. 목록의 질환과 evidence 쌍마다 그 질환의 train 환자 가운데 evidence가 양성인 비율을 구했다. validation 세트에서는 정답 감별진단에서 확률이 가장 큰 질환이 정답 질환인 환자의 비율을 구했다. 가장 큰 확률이 여러 질환의 동점이면 정답 질환이 그 안에 있을 때 맞은 것으로 셌다. 또 정답 감별진단의 확률 가운데 환자의 양성 evidence를 모두 담지 못하는 목록의 질환에 놓인 몫을 환자마다 구해 평균했다. validation 세트의 기록에서는 범주형과 다중선택 evidence가 정답 질환의 목록에 있을 때 기록되어 있는지와, 목록에 없을 때 기록되어 있지 않은지를 확인했다. 목록이 다른 질환의 목록에 모두 포함되는 두 쌍에서는, 큰 목록을 가진 질환의 validation 환자 가운데 양성 evidence가 모두 작은 목록 안에 있는 환자의 비율을 구했다. BED 재구현에서는 종료할 때까지 물은 범주형과 다중선택 질문 가운데, 공식 규칙으로는 "아니오"인데 BED의 시뮬레이터가 양성으로 답한 질문의 수와, 그런 답을 한 번 이상 받은 환자 수를 셌다. 문헌 보고값은 DDXPlus 환자에서 1위 진단이 정답 질환과 같은 환자의 비율을 보고한 연구의 원문에서 평가 조건과 함께 옮겼다. 자유 텍스트 진단과 정답의 일치를 LLM이 채점한 연구 [11,12]는 넣지 않았다.
+자료의 성질로는 다음을 쟀다. 정답 질환의 목록 밖에 양성 evidence를 가진 환자 수는 train, validation, test 세트에서 셌다. 양성 evidence를 모두 담는 목록이 정답 질환 하나뿐인 환자의 비율은 validation과 test 세트에서 구했다. 목록의 질환과 evidence 쌍마다 그 질환의 train 환자 가운데 evidence가 양성인 비율을 구했다. validation 세트에서는 정답 감별진단에서 확률이 가장 큰 질환이 정답 질환인 환자의 비율을 구했다. 가장 큰 확률이 여러 질환의 동점이면 정답 질환이 그 안에 있을 때 맞은 것으로 셌다. 또 정답 감별진단의 확률 가운데 환자의 양성 evidence를 모두 담지 못하는 목록의 질환에 놓인 몫을 환자마다 구해 평균했다. train과 validation 세트의 기록에서는 범주형과 다중선택 evidence가 정답 질환의 목록에 있을 때 기록되어 있는지와, 목록에 없을 때 기록되어 있지 않은지를 확인했다. 목록이 다른 질환의 목록에 모두 포함되는 두 쌍에서는, 큰 목록을 가진 질환의 validation 환자 가운데 양성 evidence가 모두 작은 목록 안에 있는 환자의 비율을 구했다. 또 validation 세트의 환자를 양성 evidence를 모두 담는 목록이 정답 질환 하나뿐인 환자와 나머지 환자로 나눠, 정확도와 잃은 점수의 몫을 구했다. 잃은 점수는 환자마다 1에서 정확도 점수를 뺀 값을 더한 것이다. BED 재구현에서는 종료할 때까지 물은 범주형과 다중선택 질문 가운데, 공식 규칙으로는 "아니오"인데 BED의 시뮬레이터가 양성으로 답한 질문의 수와, 그런 답을 한 번 이상 받은 환자 수를 셌다. 문헌 보고값은 DDXPlus 환자에서 1위 진단이 정답 질환과 같은 환자의 비율을 보고한 연구의 원문에서 평가 조건과 함께 옮겼다. 자유 텍스트 진단과 정답의 일치를 LLM이 채점한 연구 [11,12]는 넣지 않았다.
 
-비율에는 Wilson 95% 신뢰구간 [21]을 달았고, 동점을 나눠 센 정확도도 비율로 보고 같은 구간을 구했다. 평균과, 같은 환자에서 구한 두 방법의 차이에는 환자를 복원추출하는 bootstrap 2,000회의 백분위 95% 신뢰구간 [22]을 달았다. 두 방법의 비교는 같은 환자에서 앞의 방법에서 뒤의 방법을 뺀 차이로 했다. P1과 P2의 네 변형 사이에서는 한 요인만 다른 네 쌍을 비교했다. P2 이진 응답과 P1, 나이와 성별을 쓰는 P2 이진 응답과 P2 이진 응답, P2 값 단위 응답과 P2 이진 응답, 나이와 성별을 쓰는 P2 값 단위 응답과 P2 값 단위 응답이다. BED 재구현은 P2 값 단위 응답과 비교했다. 차이는 종료 시점과 질문 5, 10, 20, 30개에서 구했고, 앞의 네 쌍은 네 종료 임계에서도 구했다. 하위 질문의 답을 채우는 규칙은 이 규칙을 적용한 방법과 적용하지 않은 같은 방법을 비교했다. 비교마다 한쪽 방법만 맞힌 환자 수도 적었고, 이 수는 동점을 공개 자료의 순서로 가른 정확도로 셌다. 신뢰구간은 환자 표집의 변동만 반영한다.
+비율에는 Wilson 95% 신뢰구간 [21]을 달았고, 동점을 나눠 센 정확도도 비율로 보고 같은 구간을 구했다. 평균과, 같은 환자에서 구한 두 방법의 차이에는 환자를 복원추출하는 bootstrap 2,000회의 백분위 95% 신뢰구간 [22]을 달았다. 두 방법의 비교는 같은 환자에서 앞의 방법에서 뒤의 방법을 뺀 차이로 했다. P1과 P2의 네 변형 사이에서는 한 요인만 다른 네 쌍을 비교했다. P2 이진 응답과 P1, 나이와 성별을 쓰는 P2 이진 응답과 P2 이진 응답, P2 값 단위 응답과 P2 이진 응답, 나이와 성별을 쓰는 P2 값 단위 응답과 P2 값 단위 응답이다. BED 재구현은 P2 값 단위 응답과 비교했다. 차이는 종료 시점과 질문 5, 10, 20, 30개에서 구했고, 앞의 네 쌍은 네 종료 임계에서도 구했다. 하위 질문의 답을 채우는 규칙은 이 규칙을 적용한 방법과 적용하지 않은 같은 방법을 비교했다. P2 기록 포함 응답은 validation 세트에서 P2 값 단위 응답, BED 재구현과 비교했다. 비교마다 한쪽 방법만 맞힌 환자 수도 적었고, 이 수는 동점을 공개 자료의 순서로 가른 정확도로 셌다. 신뢰구간은 환자 표집의 변동만 반영한다.
 
 ## 3. Results
 
@@ -82,7 +84,7 @@ validation 세트에서 고른 값은 P1의 α와 ε뿐이다. 후보는 α 0.3,
 
 정답 질환의 목록 밖에 양성 evidence를 가진 환자는 train, validation, test 세트 어디에도 없었다. 양성 evidence를 모두 담는 목록이 정답 질환 하나뿐인 환자는 validation 세트에서 92.35%, test 세트에서 92.40%였다.
 
-반대로 목록에 있는 evidence가 그 질환의 환자에게 늘 나타나지는 않았다. 질환과 evidence의 쌍으로 센 목록 항목은 888개다. 이 가운데 46개는 train 세트에서 한 번도 양성이 아니었다. 그 질환의 train 환자 가운데 evidence가 양성인 비율이 5% 미만인 항목은 10.36%였고, 99% 이상인 항목은 22.64%였다. validation 세트의 기록에서 범주형과 다중선택 evidence는 정답 질환의 목록에 있으면 값이 기본값이어도 모두 기록되어 있었고, 목록에 없으면 기록되어 있지 않았다. validation 세트의 급성 부비동염 환자 1,866명 가운데 622명(33.33%)은 양성 evidence가 모두 만성 부비동염의 목록 안에 있었고, 불안정형 협심증 환자 2,748명 가운데 56명(2.04%)은 양성 evidence가 모두 안정형 협심증의 목록 안에 있었다.
+반대로 목록에 있는 evidence가 그 질환의 환자에게 늘 나타나지는 않았다. 질환과 evidence의 쌍으로 센 목록 항목은 888개다. 이 가운데 46개는 train 세트에서 한 번도 양성이 아니었다. 그 질환의 train 환자 가운데 evidence가 양성인 비율이 5% 미만인 항목은 10.36%였고, 99% 이상인 항목은 22.64%였다. train과 validation 세트의 기록에서 범주형과 다중선택 evidence는 정답 질환의 목록에 있으면 값이 기본값이어도 모두 기록되어 있었고, 목록에 없으면 기록되어 있지 않았다. validation 세트의 급성 부비동염 환자 1,866명 가운데 622명(33.33%)은 양성 evidence가 모두 만성 부비동염의 목록 안에 있었고, 불안정형 협심증 환자 2,748명 가운데 56명(2.04%)은 양성 evidence가 모두 안정형 협심증의 목록 안에 있었다.
 
 validation 세트에서 정답 감별진단의 1위가 정답 질환인 환자는 73.38%였다. 정답 감별진단의 확률 가운데 평균 70.13%는 환자의 양성 evidence를 모두 담지 못하는 목록의 질환에 놓여 있었다.
 
@@ -133,11 +135,15 @@ validation 세트에서 BED 코드는 정확도 99.442%와 수집 evidence 5.472
 
 BED 재구현이 test 세트에서 종료할 때까지 물은 범주형과 다중선택 질문은 315,692개였다. 이 가운데 193,028개는 공식 규칙으로 "아니오"였고, 그 가운데 60,261개에 BED의 시뮬레이터는 양성으로 답했다. 이 답은 모두 기본값이 기록된 evidence에 대한 것이었다. 이런 답을 한 번 이상 받은 환자는 52,404명으로 test 세트의 38.95%였다.
 
-같은 환자에서 P2 값 단위 응답과 비교하면, BED 재구현은 정확도가 0.16%p(0.12–0.21) 높았고 수집 evidence가 0.38개(0.36–0.40) 많았다. P2 값 단위 응답의 종료 임계를 0.999로 두면 정확도는 99.53%, 수집 evidence는 6.01개였다(Supplementary Table S5). 질문 수의 상한을 맞춰 비교하면 질문 5개에서는 P2 값 단위 응답이 6.25%p, 10개에서는 0.71%p 높았고, 20개에서는 BED 재구현이 0.09%p, 30개에서는 0.08%p 높았다(Supplementary Table S4).
+같은 환자에서 P2 값 단위 응답과 비교하면, BED 재구현은 정확도가 0.16%p(0.12–0.21) 높았고 수집 evidence가 0.38개(0.36–0.40) 많았다. 질문 수의 상한을 맞춰 비교하면 질문 5개에서는 P2 값 단위 응답이 6.25%p, 10개에서는 0.71%p 높았고, 20개에서는 BED 재구현이 0.09%p, 30개에서는 0.08%p 높았다(Supplementary Table S4).
 
-### 5) 요소 분석
+응답 규칙의 효과는 validation 세트에서 쟀다(Supplementary Table S8). P2 값 단위 응답의 정확도는 99.26%, 수집 evidence는 5.10개였다. 기록 여부를 함께 받는 P2 기록 포함 응답은 정확도가 0.10%p(0.06–0.14) 높았고 수집 evidence가 0.30개(0.29–0.31) 적어, 99.36%와 4.79개였다. BED 재구현은 validation 세트에서 99.44%와 5.48개였다. P2 값 단위 응답보다 정확도가 0.18%p(0.14–0.22) 높았고, P2 기록 포함 응답보다는 0.08%p(0.05–0.11) 높았다. 수집 evidence는 P2 기록 포함 응답보다 0.68개(0.66–0.70) 많았다.
+
+### 5) 요소 분석과 환자층별 정확도
 
 Table 2는 validation 세트에서 P1의 요소를 하나씩 바꾼 결과다. 질문에 대한 "예"만 반영하면 정확도가 86.64%였고, "아니오"만 반영하면 57.94%였다. 초기 evidence만 쓴 정확도는 25.22%였다(Supplementary Table S6). ε를 10⁻²에서 10⁻⁹까지 바꾸면 정확도는 98.17–98.42%였고, ε가 0.1이면 94.95%였다. 질문 선택을 바꾸면 정확도가 83.30–91.11%였다. 하위 질문을 상위 질문이 "예"일 때만 물으면 정확도가 0.24%p 높았고, 하위 질문을 묻지 않으면 0.20%p 높았으며, 답을 채우는 규칙을 적용하면 0.10%p 낮았다. 사전확률을 train 세트의 질환 빈도로 바꾸면 정확도가 0.25%p 낮았다.
+
+validation 세트에서 양성 evidence를 모두 담는 목록이 정답 질환 하나뿐인 환자는 122,321명(92.35%)이었다. 이 환자들에서 P1의 정확도는 99.30%였고, 나머지 10,127명에서는 87.76%였다. P1이 잃은 점수의 59.28%가 나머지 환자에서 나왔다. 나머지 환자에서의 정확도는 P2 이진 응답 90.45%, P2 값 단위 응답 95.61%였고, 정답이 하나로 정해지는 환자에서는 각각 99.25%와 99.57%였다(Supplementary Table S9).
 
 **Table 2. Component analysis of the list-based method on the validation set (132,448 patients)**
 
@@ -213,17 +219,17 @@ AARLC, adaptive alignment of reinforcement learning and classification; BASD, ba
 
 목록 기반 방법 P1은 공식 규칙의 test 세트 전체에서 환자의 98.44%에서 정답 질환을 맞혔다. P1은 환자 자료에서 확률을 추정하지 않았고, validation 세트에서 고른 값은 α와 ε 둘뿐이다. 아홉 후보 설정도 validation 세트에서 모두 97.72–98.42%였다. DDXPlus에서 98% 수준의 대화형 정확도는 학습이나 LLM 없이 공개 목록만으로도 얻어진다.
 
-이 결과는 세 세트의 어느 환자도 정답 질환의 목록 밖에 양성 evidence를 갖지 않는다는 성질과 이어져 있다. P1은 목록 밖 evidence에 "예"가 나오면 그 질환의 확률을 크게 낮춘다. 목록 밖 양성 evidence를 가진 환자가 없으므로 이 규칙은 정답 질환을 지우지 않는다. 요소 분석에서 "예"만 반영하면 정확도가 86.64%, "아니오"만 반영하면 57.94%여서, 정답 질환에 이르려면 두 답이 모두 필요했다. 모든 답을 주어도 양성 evidence만 보는 목록 대조의 정확도는 95.93%로, "아니오"까지 쓰는 P1의 확률의 99.19%보다 낮았다. ε를 10⁻²에서 10⁻⁹까지 바꾸면 정확도는 98.17–98.42%였고, ε가 0.1이면 94.95%였다. 질문 선택의 몫도 컸다. 같은 확률을 쓰고 질문 순서만 바꾸면 정확도가 83.30–91.11%로 낮아졌다. 질환별로는 급성 부비동염의 정확도가 가장 낮았다. 만성 부비동염의 목록은 급성 부비동염의 목록에 포함되므로, 양성 evidence가 모두 만성 부비동염의 목록 안에 있는 급성 부비동염 환자에게는 공개 목록에서 급성 부비동염을 가리킬 근거가 없다. validation 세트에서 이런 환자는 급성 부비동염 환자의 33.33%였다. 실제 환자 기록에서도 이 성질이 성립하는지는 이 연구가 재지 않았다. 그러므로 DDXPlus의 높은 대화형 정확도만으로는 실제 환자에서의 진단 능력을 판단할 수 없다.
+이 결과는 세 세트의 어느 환자도 정답 질환의 목록 밖에 양성 evidence를 갖지 않는다는 성질과 이어져 있다. P1은 목록 밖 evidence에 "예"가 나오면 그 질환의 확률을 크게 낮춘다. 목록 밖 양성 evidence를 가진 환자가 없으므로 이 규칙은 정답 질환을 지우지 않는다. 요소 분석에서 "예"만 반영하면 정확도가 86.64%, "아니오"만 반영하면 57.94%여서, 정답 질환에 이르려면 두 답이 모두 필요했다. 모든 답을 주어도 양성 evidence만 보는 목록 대조의 정확도는 95.93%로, "아니오"까지 쓰는 P1의 확률의 99.19%보다 낮았다. ε를 10⁻²에서 10⁻⁹까지 바꾸면 정확도는 98.17–98.42%였고, ε가 0.1이면 94.95%였다. 질문 선택의 몫도 컸다. 같은 확률을 쓰고 질문 순서만 바꾸면 정확도가 83.30–91.11%로 낮아졌다. 오답은 목록으로 정답이 하나로 정해지지 않는 환자에 몰려 있었다. validation 세트에서 이런 환자는 7.65%였지만 P1이 잃은 점수의 59.28%가 여기서 나왔고, 이 환자들에서 P1의 정확도는 87.76%였다. 질환별로는 급성 부비동염의 정확도가 가장 낮았다. 만성 부비동염의 목록은 급성 부비동염의 목록에 포함되므로, 양성 evidence가 모두 만성 부비동염의 목록 안에 있는 급성 부비동염 환자에게는 공개 목록에서 급성 부비동염을 가리킬 근거가 없다. validation 세트에서 이런 환자는 급성 부비동염 환자의 33.33%였다. 실제 환자 기록에서도 이 성질이 성립하는지는 이 연구가 재지 않았다. 그러므로 DDXPlus의 높은 대화형 정확도만으로는 실제 환자에서의 진단 능력을 판단할 수 없다.
 
-목록을 train 빈도로 바꾸면 정확도보다 수집 evidence 수가 크게 달라졌다. 종료 임계 0.99에서 정확도는 0.16%p 높아졌고 수집 evidence는 3.08개 줄었다. 정확도 차이는 종료 임계에 따라 부호가 바뀌었지만, 수집 evidence는 모든 임계에서 3개 이상 줄었다. 질문 수를 맞추면 정확도 차이는 질문이 적을 때 컸고, 질문 30개에서는 0.39%p로 줄었다. 종료 임계 0.99에서 응답의 값은 정확도를 0.70%p 높이고 수집 evidence를 2.17개 줄여, 정확도에 주는 몫이 빈도보다 컸다. 네 종료 임계와 질문 30개에서도 응답의 값이 더한 정확도가 컸지만, 질문 5, 10, 20개에서는 빈도가 더한 정확도가 더 컸다. 종료 임계 0.99에서 나이와 성별을 사전확률에 더한 효과는 정확도에서 0.06%p 이하, 수집 evidence에서 0.15개 이하였다. 다만 생성기는 나이와 성별을 evidence의 확률에도 쓰는데 [5], 이 연구는 사전확률에만 넣었다.
+목록을 train 빈도로 바꾸면 정확도보다 수집 evidence 수가 크게 달라졌다. 종료 임계 0.99에서 정확도는 0.16%p 높아졌고 수집 evidence는 3.08개 줄었다. 정확도 차이는 종료 임계에 따라 부호가 바뀌었지만, 수집 evidence는 모든 임계에서 3개 이상 줄었다. 질문 수를 맞추면 정확도 차이는 질문이 적을 때 컸고, 질문 30개에서는 0.39%p로 줄었다. 종료 임계 0.99에서 응답의 값은 정확도를 0.70%p 높이고 수집 evidence를 2.17개 줄여, 정확도에 주는 몫이 빈도보다 컸다. 네 종료 임계와 질문 30개에서도 응답의 값이 더한 정확도가 컸지만, 질문 5, 10, 20개에서는 빈도가 더한 정확도가 더 컸다. 빈도와 값이 더한 정확도는 주로 목록으로 정답이 하나로 정해지지 않는 환자에서 나왔다. validation 세트의 이 환자들에서 정확도는 P1 87.76%, P2 이진 응답 90.45%, P2 값 단위 응답 95.61%였고, 나머지 환자에서는 세 방법 모두 99.25–99.57%였다. 종료 임계 0.99에서 나이와 성별을 사전확률에 더한 효과는 정확도에서 0.06%p 이하, 수집 evidence에서 0.15개 이하였다. 다만 생성기는 나이와 성별을 evidence의 확률에도 쓰는데 [5], 이 연구는 사전확률에만 넣었다.
 
-BED 재구현은 BED 코드의 결과와 보고값을 재현했다. 그러나 BED의 시뮬레이터는 범주형과 다중선택 evidence에 기록된 기본값을 양성으로 답하며, 공식 규칙에서 이 답은 "아니오"다. validation 세트의 기록에서 이런 evidence는 정답 질환의 목록에 있을 때만, 값이 기본값이어도 기록되어 있었다. 그래서 이 답은 그 evidence가 정답 질환의 목록에 있는지를 알려 준다. 공식 규칙의 에이전트는 받을 수 없는 정보이고, test 환자의 38.95%가 이런 답을 한 번 이상 받았다. 반대로 BED의 시뮬레이터는 다중선택 evidence의 양성 답에 기록의 마지막 값 하나만 싣고, BED 코드는 기본값이 정수 0인 범주형 evidence 6개의 음성 답에서 정보를 얻지 못한다(Supplementary Methods 3). 이 차이들이 BED의 수치에 주는 몫은 이 연구에서 분리하지 못했다. 공식 규칙으로 답을 받는 P2 값 단위 응답과 비교하면, 종료 임계 0.99에서 P2 값 단위 응답은 BED 재구현보다 정확도가 0.16%p 낮고 수집 evidence가 0.38개 적었으며, 임계 0.999에서는 정확도 99.53%에 수집 evidence 6.01개였다. 두 방법은 효용, 종료 조건, 평활, 양성 답에 따른 후보 제한, 다중선택 evidence의 집계도 다르므로 이 차이를 시뮬레이터의 효과로 읽을 수는 없다. 다만 P2 값 단위 응답도 종료 임계를 0.999로 높이면, 수집 evidence가 6.01개로 BED의 보고값 5.47개보다 많았지만 정확도는 99.53%로 BED의 보고 정확도 99.47%에 이르렀다. BED의 수치를 인용할 때는 시뮬레이터의 응답 규칙을 함께 적어야 한다.
+BED 재구현은 BED 코드의 결과와 보고값을 재현했다. 그러나 BED의 시뮬레이터는 범주형과 다중선택 evidence에 기록된 기본값을 양성으로 답하며, 공식 규칙에서 이 답은 "아니오"다. 기록에서 이런 evidence는 정답 질환의 목록에 있을 때만, 값이 기본값이어도 기록되어 있었다. 그래서 이 답은 그 evidence가 정답 질환의 목록에 있는지를 알려 준다. 공식 규칙의 에이전트는 받을 수 없는 정보이고, test 환자의 38.95%가 이런 답을 한 번 이상 받았다. 이 정보의 효과는 P2에서 쟀다. validation 세트에서 P2 값 단위 응답에 이 정보를 주면 정확도가 0.10%p 높아지고 수집 evidence가 0.30개 줄었다. BED 재구현과 P2 값 단위 응답의 정확도 차이는 0.18%p였는데, 같은 정보를 받은 P2와의 차이는 0.08%p였다. 수집 evidence는 같은 정보를 받은 P2보다 BED 재구현이 0.68개 많았다. P2를 기준으로 보면 정확도 차이의 절반가량은 응답 규칙이 다른 데서 나왔고, BED가 evidence를 더 모으는 것은 응답 규칙으로 설명되지 않는다. 남는 차이에는 효용, 종료 조건, 평활, 양성 답에 따른 후보 제한이 들어 있다. 0.10%p는 작은 값이지만 P2의 변형들과 BED 사이의 차이와 같은 크기다. 이 수준의 차이를 비교하려면 시뮬레이터의 응답 규칙이 같아야 하고, BED의 수치를 인용할 때는 그 응답 규칙을 함께 적어야 한다. 이 측정은 BED 자체를 공식 규칙으로 돌린 것이 아니다. BED의 시뮬레이터는 다중선택 evidence의 양성 답에 기록의 마지막 값 하나만 싣는 것처럼 공식 규칙보다 정보를 덜 주는 곳도 있다(Supplementary Methods 3).
 
 문헌에서 정답 질환으로 학습한 모형의 정확도는 91.81–99.21%로 보고되었고 [5,8], P1의 98.44%는 이 범위 안에 있다. 이 모형들은 P1과 달리 응답의 값을 받고, Diaformer를 뺀 세 모형은 나이와 성별도 받는다. 보고값은 세 번 실행한 평균이고, 함께 보고된 95% 신뢰구간 값은 0.54–1.95%p였다. 입력과 응답 방식이 다르므로 이 값들로 우열을 말할 수 없다. P1은 세 세트의 모든 환자에서 양성 evidence를 모두 담은 목록을 미리 알고 시작한다는 점에서도 다르다. 이 연구가 보인 것은 학습한 모형이 무엇을 배웠는지가 아니라, 공개 목록만으로 이르는 수준이다. 공개 목록만 쓴 다른 기준선 [14]과 LLM을 쓴 연구는 평가한 환자 수와 질문 상한이 달라 같은 선에서 비교할 수 없다. DDXPlus 논문이 밝혔듯이 정답 질환 정확도는 감별진단 분포를 예측하도록 학습한 모형에는 맞지 않는 지표이므로 [5], 그런 모형의 값과 섞어 비교해서는 안 된다.
 
-이 결과에서 보고에 관한 권고가 나온다. DDXPlus의 대화형 결과를 보고할 때는 같은 규칙에서 돌린 목록 기반 기준선의 결과를 함께 적을 것을 권한다. 목록 기반 기준선만으로 정답 질환 정확도가 98.44%에 이르므로, 이 값이 함께 있어야 다른 에이전트의 정확도를 읽을 수 있다. 시뮬레이터가 기본값을 어떻게 답하는지와 하위 질문의 답을 채우는지도 적어야 한다. 하위 질문의 답을 채우는 규칙만으로 test 세트의 정확도가 0.10–0.14%p 달라졌기 때문이다. 종료 조건과 수집 evidence 수의 정의도 함께 적어야 한다. 종료 임계에 따라 P1의 수집 evidence는 9.02개에서 13.25개까지 달라졌고, 문헌에는 초기 evidence를 세지 않은 질문 수로 보고한 연구도 있었다 [14,23].
+이 결과에서 보고에 관한 권고가 나온다. DDXPlus의 대화형 결과를 보고할 때는 같은 규칙에서 돌린 목록 기반 기준선의 결과를 함께 적을 것을 권한다. 목록 기반 기준선만으로 정답 질환 정확도가 98.44%에 이르므로, 이 값이 함께 있어야 다른 에이전트의 정확도를 읽을 수 있다. 시뮬레이터가 기본값을 어떻게 답하는지와 하위 질문의 답을 채우는지도 적어야 한다. 하위 질문의 답을 채우는 규칙만으로 test 세트의 정확도가 0.10–0.14%p 달라졌고, 기록된 기본값을 양성으로 답해 주는 정보로 validation 세트의 정확도가 0.10%p 달라졌기 때문이다. 종료 조건과 수집 evidence 수의 정의도 함께 적어야 한다. 종료 임계에 따라 P1의 수집 evidence는 9.02개에서 13.25개까지 달라졌고, 문헌에는 초기 evidence를 세지 않은 질문 수로 보고한 연구도 있었다 [14,23].
 
-이 연구에는 한계가 있다. 첫째, 합성 자료에서 얻은 결과이며, 임상 적용 가능성이나 다른 에이전트에 대한 우위를 뜻하지 않는다. 둘째, 두 방법은 질환이 주어지면 evidence가 서로 독립이라고 가정한다. DDXPlus의 생성기는 질환과 나이, 성별이 주어질 때 evidence를 독립으로 두되 지식베이스에 적힌 종속은 예외로 둔다 [5]. 하위 질문은 상위 질문에 종속되므로 이 가정이 맞지 않는다. 요소 분석에서 하위 질문을 제한하면 정확도가 0.20–0.24%p 높았지만, 이 차이가 가정의 위반에서 오는지는 재지 않았다. 셋째, 나이와 성별은 사전확률에만 넣었고, evidence의 확률에 넣은 효과는 재지 않았다. 넷째, 종료 임계는 고르지 않고 0.99로 두었다. 신뢰구간은 환자 표집의 변동만 담으므로, 임계와 같은 설계 선택에 따른 차이는 신뢰구간보다 클 수 있다. 다섯째, BED 재구현이 BED 코드와 같은지는 validation 세트에서 확인했고, test 세트에서는 BED 코드를 돌리지 않았다. 기록과 목록의 관계도 validation 세트에서만 셌다. 여섯째, 정답 감별진단은 목표로 삼지 않았고, 감별진단 지표는 문헌의 보고값과 대조하는 데에만 썼다. 정답 감별진단은 생성기가 아닌 별도의 진단 시스템이 붙인 레이블이고, validation 세트에서 그 확률의 평균 70.13%가 환자의 양성 evidence를 모두 담지 못하는 목록의 질환에 놓여 있었다.
+이 연구에는 한계가 있다. 첫째, 합성 자료에서 얻은 결과이며, 임상 적용 가능성이나 다른 에이전트에 대한 우위를 뜻하지 않는다. 둘째, 두 방법은 질환이 주어지면 evidence가 서로 독립이라고 가정한다. DDXPlus의 생성기는 질환과 나이, 성별이 주어질 때 evidence를 독립으로 두되 지식베이스에 적힌 종속은 예외로 둔다 [5]. 하위 질문은 상위 질문에 종속되므로 이 가정이 맞지 않는다. 요소 분석에서 하위 질문을 제한하면 정확도가 0.20–0.24%p 높았지만, 이 차이가 가정의 위반에서 오는지는 재지 않았다. 셋째, 나이와 성별은 사전확률에만 넣었고, evidence의 확률에 넣은 효과는 재지 않았다. 넷째, 종료 임계는 고르지 않고 0.99로 두었다. 신뢰구간은 환자 표집의 변동만 담으므로, 임계와 같은 설계 선택에 따른 차이는 신뢰구간보다 클 수 있다. 다섯째, BED 재구현이 BED 코드와 같은지는 validation 세트에서 확인했고, test 세트에서는 BED 코드를 돌리지 않았다. 기록과 목록의 관계는 train과 validation 세트에서 셌고, 응답 규칙의 효과와 환자층별 정확도는 validation 세트에서만 쟀다. 여섯째, 정답 감별진단은 목표로 삼지 않았고, 감별진단 지표는 문헌의 보고값과 대조하는 데에만 썼다. 정답 감별진단은 생성기가 아닌 별도의 진단 시스템이 붙인 레이블이고, validation 세트에서 그 확률의 평균 70.13%가 환자의 양성 evidence를 모두 담지 못하는 목록의 질환에 놓여 있었다.
 
 결론적으로, 공개 목록만 쓰는 목록 기반 방법 P1은 DDXPlus의 공식 규칙에서 환자의 98.44%에서 정답 질환을 맞혔다. train 빈도는 주로 수집 evidence 수를 줄였고, 응답의 값은 정확도를 높이면서 수집 evidence 수도 줄였다. DDXPlus로 대화형 진단 에이전트를 평가할 때는 같은 규칙의 목록 기반 기준선과 시뮬레이터의 응답 규칙을 함께 보고할 것을 권한다.
 
@@ -269,7 +275,7 @@ DDXPlus는 공개 자료다 [17]. 이 연구의 코드, 설정, 환자별 출력
 
 ### Supplementary Methods
 
-**1. 확률의 정의.** P1에서 질환 d의 목록에 evidence e가 있으면 P(예 ∣ d) = α, 없으면 ε다. P2에서 n(d)는 train 세트의 질환 d 환자 수, n(d, e)는 그 가운데 e가 양성인 환자 수, n(d, e, v)는 e에 값 v가 기록된 환자 수다. 기본값의 n(d, e, v)는 e에 기본값이 아닌 값이 기록되지 않은 환자 수로 둔다. 이진 응답 방식의 확률은 P(예 ∣ d) = (n(d, e) + 1) / (n(d) + 2)다. 값 단위 응답 방식에서 범주형 evidence는 기본값을 포함한 값 K개에 대해 P(값 v ∣ d) = (n(d, e, v) + 1) / (n(d) + K)로 두고, 다중선택 evidence는 기본값이 아닌 선택지마다 P(선택 ∣ d) = (n(d, e, v) + 1) / (n(d) + 2)로 둔다. 사전확률은 P(d) = (n(d) + 1) / (N + 49)이고, N은 train 세트의 환자 수다. 나이와 성별을 쓰는 변형에서는 사전확률의 식만 나이 구간과 성별의 칸마다 적용한다. 이때 n(d)는 그 칸의 질환 d 환자 수이고 N은 그 칸의 환자 수다. evidence의 확률은 나이와 성별을 쓰지 않는 변형과 같다. 나이 구간은 1세 미만, 1–4세, 5–14세, 15–29세, 30–44세, 45–59세, 60–74세, 75세 이상이다.
+**1. 확률의 정의.** P1에서 질환 d의 목록에 evidence e가 있으면 P(예 ∣ d) = α, 없으면 ε다. P2에서 n(d)는 train 세트의 질환 d 환자 수, n(d, e)는 그 가운데 e가 양성인 환자 수, n(d, e, v)는 e에 값 v가 기록된 환자 수다. 기본값의 n(d, e, v)는 e에 기본값이 아닌 값이 기록되지 않은 환자 수로 둔다. 이진 응답 방식의 확률은 P(예 ∣ d) = (n(d, e) + 1) / (n(d) + 2)다. 값 단위 응답 방식에서 범주형 evidence는 기본값을 포함한 값 K개에 대해 P(값 v ∣ d) = (n(d, e, v) + 1) / (n(d) + K)로 두고, 다중선택 evidence는 기본값이 아닌 선택지마다 P(선택 ∣ d) = (n(d, e, v) + 1) / (n(d) + 2)로 둔다. 사전확률은 P(d) = (n(d) + 1) / (N + 49)이고, N은 train 세트의 환자 수다. 나이와 성별을 쓰는 변형에서는 사전확률의 식만 나이 구간과 성별의 칸마다 적용한다. 이때 n(d)는 그 칸의 질환 d 환자 수이고 N은 그 칸의 환자 수다. evidence의 확률은 나이와 성별을 쓰지 않는 변형과 같다. 나이 구간은 1세 미만, 1–4세, 5–14세, 15–29세, 30–44세, 45–59세, 60–74세, 75세 이상이다. P2 기록 포함 응답에서는 r(d, e)를 질환 d의 train 환자 가운데 e가 값과 무관하게 기록된 환자 수로 둔다. 범주형 evidence는 기록 없음과 값 K개를 합친 K + 1개의 결과를 가지며, 확률은 (수 + 1) / (n(d) + K + 1)이다. 기록 없음의 수는 n(d) − r(d, e)이고, 기본값의 수는 r(d, e)에서 기본값이 아닌 값의 수를 뺀 것이다. 다중선택 evidence는 기록 여부의 확률을 (r(d, e) + 1) / (n(d) + 2)로 두고, 선택지의 확률은 값 단위 응답과 같다. 이진 evidence와 사전확률은 P2 값 단위 응답과 같다.
 
 **2. 질문 선택과 종료.** 기대 정보이득은 현재 사후분포의 엔트로피에서, 가능한 답마다 갱신한 사후분포의 엔트로피를 그 답의 확률로 평균한 값을 뺀 것이다. 값 단위 응답 방식의 다중선택 evidence는 선택지마다 기대 정보이득을 구해 그 최댓값을 쓴다. 기대 정보이득의 차이가 10⁻¹² nats 이하인 evidence는 동점으로 보고, 공개 자료에 적힌 순서가 앞선 것을 묻는다. 종료 조건은 질문을 고르기 전에 판단한다.
 
@@ -444,12 +450,54 @@ P1 and P2 ask exactly the given number of questions without the stop conditions.
 
 ^a)^Mean of five random orders.
 
+**Supplementary Table S8. Effect of the answer rule on the validation set (132,448 patients)**
+
+| Method | Answers | Accuracy, % (95% CI) | Evidence collected, mean (95% CI) |
+|---|---|---|---|
+| P2, answer values | Official rules | 99.26 (99.22–99.31) | 5.10 (5.07–5.12) |
+| P2, answer values with record status | Official rules, and whether the record holds a categorical or multi-choice evidence | 99.36 (99.32–99.40) | 4.79 (4.77–4.82) |
+| BED re-implementation | BED simulator | 99.44 (99.40–99.48) | 5.48 (5.46–5.50) |
+
+| Comparison | Factor changed | Point | Accuracy difference, percentage points (95% CI) | Difference in evidence collected (95% CI) | Patients correct in only the first / only the second method |
+|---|---|---|---|---|---|
+| P2, answer values with record status − P2, answer values | Record status added to the answers | At the stop | +0.10 (+0.06 to +0.14) | −0.30 (−0.31 to −0.29) | 397 / 267 |
+|  |  | After 5 questions | +1.84 (+1.74 to +1.94) | – | 3,792 / 1,354 |
+|  |  | After 10 questions | +0.33 (+0.29 to +0.36) | – | 559 / 128 |
+|  |  | After 20 questions | +0.12 (+0.10 to +0.14) | – | 165 / 7 |
+|  |  | After 30 questions | +0.07 (+0.06 to +0.08) | – | 93 / 1 |
+|  |  | Stop threshold 0.9 | +0.15 (+0.10 to +0.21) | −0.23 (−0.23 to −0.22) | 885 / 682 |
+|  |  | Stop threshold 0.95 | +0.28 (+0.23 to +0.33) | −0.22 (−0.22 to −0.21) | 777 / 406 |
+|  |  | Stop threshold 0.999 | +0.09 (+0.06 to +0.11) | −0.51 (−0.52 to −0.50) | 193 / 78 |
+| BED re-implementation − P2, answer values with record status | BED and the rest of its simulator | At the stop | +0.08 (+0.05 to +0.11) | +0.68 (+0.66 to +0.70) | 250 / 143 |
+|  |  | After 5 questions | −8.05 (−8.23 to −7.86) | – | 2,965 / 13,627 |
+|  |  | After 10 questions | −1.07 (−1.13 to −1.01) | – | 144 / 1,559 |
+|  |  | After 20 questions | −0.06 (−0.08 to −0.04) | – | 29 / 107 |
+|  |  | After 30 questions | −0.02 (−0.03 to −0.01) | – | 32 / 57 |
+
+CI, confidence interval; P1, list-based method; P2, frequency-based method; BED, Bayesian experimental design.
+
+Record status: whether the patient record holds the evidence with any value, the default value included. The lower part gives the first method minus the second on the same patients; the stop uses the threshold 0.99 unless stated.
+
+**Supplementary Table S9. Accuracy on the validation set by whether the public lists single out the true disease**
+
+| Method | Singled out (n = 122,321): accuracy, % (95% CI) | Evidence collected, mean | Not singled out (n = 10,127): accuracy, % (95% CI) | Evidence collected, mean | Share of the lost score in patients not singled out, % |
+|---|---|---|---|---|---|
+| List-based method (P1) | 99.30 (99.26–99.35) | 9.45 | 87.76 (87.11–88.39) | 21.75 | 59.28 |
+| P2, yes-or-no answers | 99.25 (99.20–99.30) | 6.30 | 90.45 (89.86–91.01) | 19.34 | 51.35 |
+| P2, answer values | 99.57 (99.53–99.60) | 4.48 | 95.61 (95.19–95.99) | 12.50 | 45.59 |
+| P2, answer values with record status | 99.66 (99.63–99.69) | 4.14 | 95.72 (95.31–96.10) | 12.74 | 51.18 |
+| BED re-implementation | 99.76 (99.73–99.79) | 5.27 | 95.60 (95.18–95.98) | 7.97 | 60.35 |
+
+CI, confidence interval; P1, list-based method; P2, frequency-based method; BED, Bayesian experimental design.
+
+Singled out: the true disease is the only disease whose list holds every positive evidence of the patient. Lost score: the sum over patients of 1 minus the accuracy score.
+
 ---
 
 *작성 메모(본문 아님)*
 
-- 제목과 초록은 저자가 원고 전체를 검토한 뒤 정한다. 지금 제목은 그대로 두었다. 본문은 공개된 질환별 목록을 '공개 목록'이라 부르므로, 제목의 '공개 지식베이스'와 이름이 다르다. 국문 제목 후보: "DDXPlus의 공개 목록은 대화형 과제에서 정답 질환을 얼마나 맞히는가". 영문 제목 후보(10단어 미만): "Public Disease Lists Solve Most of the DDXPlus Benchmark", "How Accurately Do DDXPlus Public Lists Identify the Disease?". DDXPlus가 약어 금지 규정에 걸리는지는 투고 규정으로 확인한다.
-- 영문 초록 초안(249단어): DDXPlus is a benchmark of synthetic patients for interactive differential diagnosis, and it publishes, without probabilities, the list of symptoms and antecedents of each of 49 diseases. We measured how accurately these public lists alone identify the true disease. Under the official rules, an agent receives age, sex and one initial evidence and may ask up to 30 questions. We evaluated a list-based Bayesian method and a frequency-based method that uses training frequencies instead, and re-implemented a published Bayesian experimental design baseline (BED). Settings were chosen on the validation set, and the methods were evaluated on the 134,529 test patients. No patient in any set had a positive evidence outside the list of the true disease. The list-based method identified the true disease in 98.44% of patients (95% confidence interval, 98.38–98.51) after collecting 10.35 evidences on average, including the initial one. At a stop threshold of 0.99, frequencies reduced the evidences collected by 3.08, and the accuracy gain of 0.16 percentage points changed sign with the threshold. Answer values raised accuracy by a further 0.70 points and reduced the evidences by 2.17. The re-implemented BED reproduced the reported 99.47% and 5.47 evidences, but its simulator answers recorded default values positively, which the official rules answer no; 38.95% of test patients received such answers. The public lists alone identify the true disease in 98% of DDXPlus patients. Interactive results on DDXPlus should be reported with a list-based baseline under the same rules and with the answer rules of the simulator.
+- 제목과 초록은 저자가 원고 전체를 검토한 뒤 정한다. 영문 원제("How much of DDXPlus does its public knowledge base solve?")는 10단어라 '10단어 미만' 규정을 넘고, 본문은 공개된 질환별 목록을 '공개 목록'이라 부른다. 그래서 질문 형식을 살린 채 "How Much of DDXPlus Do Its Public Lists Solve?"(9단어)와 그에 맞는 국문 제목으로 바꿔 두었다. 다른 후보: "Public Disease Lists Solve Most of the DDXPlus Benchmark". DDXPlus가 약어 금지 규정에 걸리는지는 투고 규정으로 확인한다.
+- 영문 초록 초안(249단어): DDXPlus, a benchmark of synthetic patients for interactive differential diagnosis, publishes the symptoms and antecedents of each of 49 diseases as lists without probabilities. We measured how accurately these public lists alone identify the true disease. Under the official rules, an agent receives age, sex and one initial evidence and may ask up to 30 questions. We evaluated a list-based Bayesian method, a frequency-based method using training frequencies instead, and a re-implemented Bayesian experimental design baseline (BED). Settings were chosen on the validation set and evaluated on the 134,529 test patients. No patient in any set had a positive evidence outside the list of the true disease. The list-based method identified the true disease in 98.44% of patients (95% confidence interval, 98.38–98.51) after collecting 10.35 evidences on average. At a stop threshold of 0.99, frequencies reduced the evidences collected by 3.08, and the accuracy gain of 0.16 percentage points changed sign with the threshold. Answer values raised accuracy by a further 0.70 points and reduced the evidences by 2.17. The re-implemented BED reproduced the reported 99.47% and 5.47 evidences, but its simulator answers recorded default values positively, unlike the official rules; 38.95% of test patients received such answers. Giving this information to the frequency-based method raised validation accuracy by 0.10 points and saved 0.30 evidences. The public lists alone identify the true disease in 98% of DDXPlus patients. Interactive results on DDXPlus should be reported with a list-based baseline under the same rules and with the simulator's answer rules.
 - 표와 그림의 제목과 각주는 투고 규정에 따라 영문으로 썼다. 원고는 `sections/`의 원문에서 `python3 tools/build_ms.py`로 만든다. 표와 그림은 같은 도구가 평가 산출물(`paper1/outputs/v3/`)에서 만들고, Word 파일은 `tools/build_docx.py`가 만든다.
 - 남은 항목: 자료와 코드의 공개 주소, Acknowledgments, 이해상충, 윤리 문장의 정확한 문구(투고 규정과 기관 확인), Supplementary Table S7이 Figure 1의 값을 담는 것이 규정에 맞는지.
 - 프리프린트 인용(BED, MedExAgent, DiagGym, COTCAgent, CaRDI)은 투고 직전에 출판 여부를 다시 확인한다. ACL 학회집의 출판지는 ACL Anthology에서 확인한다.

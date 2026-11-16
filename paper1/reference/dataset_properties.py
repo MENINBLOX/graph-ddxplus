@@ -32,6 +32,8 @@ def list_entries(root: Path) -> dict[str, object]:
     patients = np.zeros(kb.n_diseases, dtype=np.int64)
     positive = np.zeros((kb.n_diseases, kb.n_evidences), dtype=np.int64)
     column = {e.code: j for j, e in enumerate(kb.evidences)}
+    valued = np.array([not e.is_binary for e in kb.evidences])
+    recorded = np.zeros((kb.n_diseases, kb.n_evidences), dtype=np.int64)
     outside = n = 0
     for p in iter_train(root):
         d = kb.disease_index[p.pathology]
@@ -39,6 +41,7 @@ def list_entries(root: Path) -> dict[str, object]:
         cols = [column[c] for c in codes]
         patients[d] += 1
         positive[d, cols] += 1
+        recorded[d, sorted({column[code] for code, _ in p.evidences})] += 1
         outside += bool((~kb.membership[d, cols]).any())
         n += 1
     rates = (positive / patients[:, None])[kb.membership]
@@ -50,10 +53,21 @@ def list_entries(root: Path) -> dict[str, object]:
         "share_below_rare": float((rates < RARE_BELOW).mean()),
         "share_near_certain": float((rates >= NEAR_CERTAIN_FROM).mean()),
         "deciles": [float(q) for q in np.quantile(rates, np.arange(0.1, 1.0, 0.1))],
+        "valued_pairs": {
+            "pairs": int(valued.sum()) * kb.n_diseases,
+            "listed": int(kb.membership[:, valued].sum()),
+            "listed_in_every_record": int((recorded == patients[:, None])[:, valued][kb.membership[:, valued]].sum()),
+            "unlisted_in_no_record": int((recorded == 0)[:, valued][~kb.membership[:, valued]].sum()),
+        },
         "definitions": {
             "rate": "of a disease's train patients, the share in whom a listed evidence is positive",
             "share_below_rare": f"list entries with a rate below {RARE_BELOW}",
             "share_near_certain": f"list entries with a rate of at least {NEAR_CERTAIN_FROM}",
+            "valued_pairs": (
+                "pairs of a disease and a categorical or multi-choice evidence: how many are on the disease's list, how"
+                " many listed ones every train record of the disease holds with some value, and how many unlisted ones"
+                " no train record of the disease holds"
+            ),
         },
     }
 
