@@ -801,7 +801,10 @@ validation 앞 3,000행에서 P1과 B-BED의 환자별 출력은 결과 2의 개
 - **전체 기록 참조값(T)**: 목록 대조 95.93%, P1 확률 99.19%, naive Bayes 이진 99.28%, 값 단위 99.70%다.
 - **데이터셋 성질**: 목록 밖 양성 환자는 train, validation, T 모두 0명이다. 목록 대조로 정답이 하나로 정해지는 환자는 validation 92.35%, T 92.40%다.
   목록 항목 888개 가운데 46개는 train에서 한 번도 양성이 아니다. validation에서 정답 질환이 정답 감별진단의 1위인 환자는 73.38%(동점 포함)이고,
-  감별 확률의 평균 70.1%가 목록상 배제되는 질환에 있다(`paper1/reference/dataset_properties.py`, 산출 `paper1/outputs/v3/dataset_properties.json`).
+  감별 확률의 평균 70.1%가 목록상 배제되는 질환에 있다. validation 기록에서 범주형·다중선택 evidence는 정답 질환의 목록에 있으면 기본값까지
+  모두 기록되어 있고(976,405쌍 중 빠진 것 0), 목록 밖 기록은 0이다. 목록이 포함되는 두 쌍에서 큰 목록 질환의 validation 환자 가운데 양성이
+  모두 작은 목록 안에 있는 비율은 급성 부비동염 33.33%(622/1,866), 불안정형 협심증 2.04%(56/2,748)다
+  (`paper1/reference/dataset_properties.py`, 산출 `paper1/outputs/v3/dataset_properties.json`).
 - **질환별(T)**: 가장 낮은 질환은 급성 부비동염으로 P1 67.2%, P2 이진 67.1%, P2 값 단위 84.4%다.
 
 **validation 요소 분석**(P1 98.42%, IL 10.39 대비)
