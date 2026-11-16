@@ -1,0 +1,407 @@
+{
+ "limit": null,
+ "definitions": {
+  "strata": "unique: the gold disease is the only one whose list holds every positive evidence of the record (a default value is not positive), the `unique` figure of properties.json; not_unique: every other patient",
+  "policies": "each policy at its own stop, over every patient (`all`) and over each stratum: n, tie-aware GTPA@1 with its Wilson interval and mean IL, as the stop summaries of the other outputs compute them. P2-recorded is the policy of answer_rule.json, B-BED the main B-BED run (BED's stats file, BED's own simulator)",
+  "lost_score": "the sum over the patients of 1 - tie-aware GTPA@1 at the stop (`total`), the part of it lost on not_unique patients, and that part's share of the total (null when nothing is lost)",
+  "question_limit": "patients whose episode reached the limit of 30 questions after the initial evidence (IL = 31 whatever ended the episode: one that met its stop condition with the 30th answer and a failed one are among them) and those whose episode stopped earlier: n and tie-aware GTPA@1 with its Wilson interval (null for an empty group)",
+  "reproduces": "the records of the earlier stages in the same output directory this run was found equal to: under `strata`, properties.json for its `unique` count; under each policy, the file whose stop summary of that policy has the failures, the tie-aware GTPA@1 with its interval and the mean IL of `all`; empty where a limited run found no record over the same rows"
+ },
+ "n": 132448,
+ "strata": {
+  "unique": {
+   "n": 122321,
+   "share": 0.9235398043005557
+  },
+  "not_unique": {
+   "n": 10127,
+   "share": 0.07646019569944432
+  }
+ },
+ "policies": {
+  "P1": {
+   "config": {
+    "alpha": 0.5,
+    "eps": 0.0001,
+    "tau": 0.99
+   },
+   "failures": 0,
+   "all": {
+    "n": 132448,
+    "gtpa1": {
+     "estimate": 0.984218418633056,
+     "low": 0.9835330464124323,
+     "high": 0.9848757035867166
+    },
+    "il_mean": 10.390266368688089
+   },
+   "strata": {
+    "unique": {
+     "n": 122321,
+     "gtpa1": {
+      "estimate": 0.9930418507224607,
+      "low": 0.9925602865930494,
+      "high": 0.9934924481251819
+     },
+     "il_mean": 9.450102598899617
+    },
+    "not_unique": {
+     "n": 10127,
+     "gtpa1": {
+      "estimate": 0.8776428250112462,
+      "low": 0.8711168721500827,
+      "high": 0.8838823852036254
+     },
+     "il_mean": 21.746222968302558
+    }
+   },
+   "lost_score": {
+    "total": 2090.238888888889,
+    "not_unique": 1239.111111111111,
+    "not_unique_share": 0.5928083711856432
+   },
+   "question_limit": {
+    "reached": {
+     "n": 4372,
+     "gtpa1": {
+      "estimate": 0.7025986072989737,
+      "low": 0.6888757229108927,
+      "high": 0.7159657776081086
+     }
+    },
+    "stopped_earlier": {
+     "n": 128076,
+     "gtpa1": {
+      "estimate": 0.9938317873762453,
+      "low": 0.9933879311286865,
+      "high": 0.9942460209376117
+     }
+    }
+   }
+  },
+  "P2-binary": {
+   "config": {
+    "mode": "binary",
+    "age_sex": false,
+    "lam": 1.0,
+    "tau": 0.99
+   },
+   "failures": 0,
+   "all": {
+    "n": 132448,
+    "gtpa1": {
+     "estimate": 0.9857830997825562,
+     "low": 0.9851313080748686,
+     "high": 0.9864067134633768
+    },
+    "il_mean": 7.296433317226383
+   },
+   "strata": {
+    "unique": {
+     "n": 122321,
+     "gtpa1": {
+      "estimate": 0.9925115066096581,
+      "low": 0.9920126715597252,
+      "high": 0.9929794082424895
+     },
+     "il_mean": 6.298983821257184
+    },
+    "not_unique": {
+     "n": 10127,
+     "gtpa1": {
+      "estimate": 0.9045126888515849,
+      "low": 0.898634489182635,
+      "high": 0.9100841185759081
+     },
+     "il_mean": 19.34432704650933
+    }
+   },
+   "lost_score": {
+    "total": 1883.0,
+    "not_unique": 967.0,
+    "not_unique_share": 0.5135422198619225
+   },
+   "question_limit": {
+    "reached": {
+     "n": 2276,
+     "gtpa1": {
+      "estimate": 0.7231985940246046,
+      "low": 0.7044529101160516,
+      "high": 0.7411921131679587
+     }
+    },
+    "stopped_earlier": {
+     "n": 130172,
+     "gtpa1": {
+      "estimate": 0.9903742740374274,
+      "low": 0.9898292109669385,
+      "high": 0.9908903954462481
+     }
+    }
+   }
+  },
+  "P2-value": {
+   "config": {
+    "mode": "value",
+    "age_sex": false,
+    "lam": 1.0,
+    "tau": 0.99
+   },
+   "failures": 0,
+   "all": {
+    "n": 132448,
+    "gtpa1": {
+     "estimate": 0.9926310703068374,
+     "low": 0.9921559703657244,
+     "high": 0.9930775950020415
+    },
+    "il_mean": 5.097079608601112
+   },
+   "strata": {
+    "unique": {
+     "n": 122321,
+     "gtpa1": {
+      "estimate": 0.9956589628927167,
+      "low": 0.9952746489970637,
+      "high": 0.9960121456874035
+     },
+     "il_mean": 4.484585639424139
+    },
+    "not_unique": {
+     "n": 10127,
+     "gtpa1": {
+      "estimate": 0.9560580626049175,
+      "low": 0.9518901550042582,
+      "high": 0.9598801098395917
+     },
+     "il_mean": 12.49521082255357
+    }
+   },
+   "lost_score": {
+    "total": 976.0,
+    "not_unique": 445.0,
+    "not_unique_share": 0.45594262295081966
+   },
+   "question_limit": {
+    "reached": {
+     "n": 538,
+     "gtpa1": {
+      "estimate": 0.620817843866171,
+      "low": 0.5790998691099806,
+      "high": 0.6608227095035905
+     }
+    },
+    "stopped_earlier": {
+     "n": 131910,
+     "gtpa1": {
+      "estimate": 0.9941475248275339,
+      "low": 0.993721261755089,
+      "high": 0.9945450077909774
+     }
+    }
+   }
+  },
+  "P2-recorded": {
+   "config": {
+    "mode": "recorded",
+    "age_sex": false,
+    "lam": 1.0,
+    "tau": 0.99
+   },
+   "failures": 0,
+   "all": {
+    "n": 132448,
+    "gtpa1": {
+     "estimate": 0.9936125875815415,
+     "low": 0.993169000285329,
+     "high": 0.9940275426985757
+    },
+    "il_mean": 4.7943872312152696
+   },
+   "strata": {
+    "unique": {
+     "n": 122321,
+     "gtpa1": {
+      "estimate": 0.9966236378054463,
+      "low": 0.9962825950836032,
+      "high": 0.9969334888375023
+     },
+     "il_mean": 4.1364442736733675
+    },
+    "not_unique": {
+     "n": 10127,
+     "gtpa1": {
+      "estimate": 0.9572430137256838,
+      "low": 0.9531263310277698,
+      "high": 0.9610129374272367
+     },
+     "il_mean": 12.741483163819492
+    }
+   },
+   "lost_score": {
+    "total": 846.0,
+    "not_unique": 433.0,
+    "not_unique_share": 0.5118203309692672
+   },
+   "question_limit": {
+    "reached": {
+     "n": 497,
+     "gtpa1": {
+      "estimate": 0.6579476861167002,
+      "low": 0.6151715449171146,
+      "high": 0.6983009067638623
+     }
+    },
+    "stopped_earlier": {
+     "n": 131951,
+     "gtpa1": {
+      "estimate": 0.9948768861168161,
+      "low": 0.9944770092508656,
+      "high": 0.9952479493498857
+     }
+    }
+   }
+  },
+  "B-BED": {
+   "failures": 0,
+   "all": {
+    "n": 132448,
+    "gtpa1": {
+     "estimate": 0.9944204517999516,
+     "low": 0.994004708993218,
+     "high": 0.9948075155670468
+    },
+    "il_mean": 5.475756523314811
+   },
+   "strata": {
+    "unique": {
+     "n": 122321,
+     "gtpa1": {
+      "estimate": 0.9976046631404256,
+      "low": 0.9973146525041827,
+      "high": 0.9978634204711314
+     },
+     "il_mean": 5.269070723751441
+    },
+    "not_unique": {
+     "n": 10127,
+     "gtpa1": {
+      "estimate": 0.955959316678187,
+      "low": 0.9517871764809088,
+      "high": 0.9597856713953449
+     },
+     "il_mean": 7.972252394588724
+    }
+   },
+   "lost_score": {
+    "total": 739.0,
+    "not_unique": 446.0,
+    "not_unique_share": 0.6035182679296346
+   },
+   "question_limit": {
+    "reached": {
+     "n": 24,
+     "gtpa1": {
+      "estimate": 0.7083333333333334,
+      "low": 0.5083230633550337,
+      "high": 0.8508535180303913
+     }
+    },
+    "stopped_earlier": {
+     "n": 132424,
+     "gtpa1": {
+      "estimate": 0.9944723010934574,
+      "low": 0.9940583745076313,
+      "high": 0.994857540434038
+     }
+    }
+   }
+  }
+ },
+ "reproduces": {
+  "strata": [
+   "properties.json"
+  ],
+  "P1": [
+   "main.json"
+  ],
+  "P2-binary": [
+   "main.json"
+  ],
+  "P2-value": [
+   "main.json"
+  ],
+  "P2-recorded": [
+   "answer_rule.json"
+  ],
+  "B-BED": [
+   "baselines.json"
+  ]
+ },
+ "provenance": {
+  "design": "docs/design/ddxplus_kb_redo.md",
+  "stage": "uniqueness",
+  "split": "validate",
+  "n_patients": 132448,
+  "commit": "53d62bff29e05d018ac6b5f94ce1a253d0806ced",
+  "paper1_changes": [
+   "?? paper1/outputs/v3/dev/answer_rule.json",
+   "?? paper1/outputs/v3/dev/patients/P2-recorded.jsonl.gz"
+  ],
+  "design_changes": [],
+  "commit_at_end": "53d62bff29e05d018ac6b5f94ce1a253d0806ced",
+  "inputs": {
+   "data/ddxplus/20043374.zip": "d6c1779714955da1cf073907996cca506677fb38219999fe3b7a521e17be7796",
+   "data/ddxplus/release_train_patients.csv": "1bb2376feefa2d703123c4b29ce80f9ebab12211d0422490d1015c85ae4388f9",
+   "data/ddxplus/release_validate_patients.csv": "000e632bc5216b3cbd98d89d3976de1342906a887029f4049db4bbac8907b3bd",
+   "paper1/reference/casande_bed/ddxplus_bed_stats_4.json": "84e781b350800eb8a2087c5749e0d1eb07d81a4e8a50ddffcab3e06e70df533c"
+  },
+  "train_rows": 1025602,
+  "environment": {
+   "python": "3.12.3",
+   "numpy": "2.5.4",
+   "pandas": "3.0.6",
+   "numpy_simd": [
+    "X86_V3"
+   ]
+  },
+  "workers": 20,
+  "started_utc": "2026-11-16T17:53:22+00:00",
+  "elapsed_s": 78.5,
+  "timings": [
+   {
+    "run": "unique list match",
+    "seconds": 2.39
+   },
+   {
+    "run": "train counts",
+    "seconds": 35.62
+   },
+   {
+    "run": "uniqueness P1",
+    "seconds": 4.68,
+    "failures": 0
+   },
+   {
+    "run": "uniqueness P2-binary",
+    "seconds": 4.44,
+    "failures": 0
+   },
+   {
+    "run": "uniqueness P2-value",
+    "seconds": 5.23,
+    "failures": 0
+   },
+   {
+    "run": "uniqueness P2-recorded",
+    "seconds": 5.42,
+    "failures": 0
+   },
+   {
+    "run": "uniqueness B-BED",
+    "seconds": 20.1,
+    "failures": 0
+   }
+  ]
+ }
+}

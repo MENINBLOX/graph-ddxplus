@@ -17,31 +17,21 @@
    0.9944318181818181,
    1.0
   ],
+  "valued_pairs": {
+   "pairs": 735,
+   "listed": 320,
+   "listed_in_every_record": 320,
+   "unlisted_in_no_record": 415
+  },
   "definitions": {
    "rate": "of a disease's train patients, the share in whom a listed evidence is positive",
    "share_below_rare": "list entries with a rate below 0.05",
-   "share_near_certain": "list entries with a rate of at least 0.99"
+   "share_near_certain": "list entries with a rate of at least 0.99",
+   "valued_pairs": "pairs of a disease and a categorical or multi-choice evidence: how many are on the disease's list, how many listed ones every train record of the disease holds with some value, and how many unlisted ones no train record of the disease holds"
   }
  },
  "validation": {
   "n": 132448,
-  "gold_is_top": {
-   "count": 97190,
-   "share": 0.7337974148345011
-  },
-  "gold_is_only_top": {
-   "count": 97047,
-   "share": 0.7327177458323266
-  },
-  "mass_on_excluded": {
-   "mean": 0.7012926270524819,
-   "median": 0.8011330913569377
-  },
-  "definitions": {
-   "gold_is_top": "the gold disease has the largest probability of the reference differential (ties count)",
-   "gold_is_only_top": "the same without a tie",
-   "mass_on_excluded": "the share of the differential's probability on diseases whose list does not hold every positive evidence of the patient"
-  },
   "valued_records": {
    "listed": 976405,
    "listed_not_recorded": 0,
@@ -67,6 +57,23 @@
     "inside": 622,
     "share": 0.3333333333333333
    }
-  ]
+  ],
+  "gold_is_top": {
+   "count": 97190,
+   "share": 0.7337974148345011
+  },
+  "gold_is_only_top": {
+   "count": 97047,
+   "share": 0.7327177458323266
+  },
+  "mass_on_excluded": {
+   "mean": 0.7012926270524819,
+   "median": 0.8011330913569377
+  },
+  "definitions": {
+   "gold_is_top": "the gold disease has the largest probability of the reference differential (ties count)",
+   "gold_is_only_top": "the same without a tie",
+   "mass_on_excluded": "the share of the differential's probability on diseases whose list does not hold every positive evidence of the patient"
+  }
  }
 }

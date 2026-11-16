@@ -2,7 +2,7 @@
 
     python3 tables.py <repo root> <output dir>
 
-Writes table1.md to table3.md and tableS1.md to tableS7.md. The supplementary tables are numbered in the order the
+Writes table1.md to table3.md and tableS1.md to tableS9.md. The supplementary tables are numbered in the order the
 text first cites them.
 """
 
@@ -136,7 +136,7 @@ write(
     table(["Changed component", "Accuracy, % (95% CI)", "Difference from P1, percentage points (95% CI)", "Evidence collected, mean"], rows),
     [
         "CI, confidence interval; P1, list-based method; α, probability of “yes” for an evidence on the list; ε, probability of “yes” for an evidence outside the list. P1 uses α = 0.5 and ε = 10^−4^.",
-        "Each row changes one component of P1 and keeps the others.",
+        "Each row changes one component of P1 and keeps the others. Differences were computed before rounding.",
         "^a)^Mean of five random orders; the range over the five orders is shown in place of the CI.",
     ],
 )
@@ -263,7 +263,7 @@ write(
     table(["Comparison", "Factor changed", "Point", "Accuracy difference, percentage points (95% CI)", "Difference in evidence collected (95% CI)", "Patients correct in only the first / only the second method"], rows),
     [
         f"CI, confidence interval; {ABBR_METHODS}",
-        "Differences are the first method minus the second on the same patients; the stop uses the threshold 0.99 unless stated. The last column counts patients with ties broken in the listed order of the public data.",
+        "Differences are the first method minus the second on the same patients and were computed before rounding; the stop uses the threshold 0.99 unless stated. The last column counts patients with ties broken in the listed order of the public data.",
     ],
 )
 
@@ -310,6 +310,63 @@ write(
         f"{ABBR_METHODS}",
         "P1 and P2 ask exactly the given number of questions without the stop conditions. BED asks up to the given number and asks no further question once no question has a positive utility.",
         "^a)^Mean of five random orders.",
+    ],
+)
+# Table S8: the answer rule, on validation
+ans, unq = load(DEV / "answer_rule.json"), load(DEV / "uniqueness.json")
+RECORDED = "P2, answer values with record status"
+levels = [
+    ("P2-value", NAME["P2-value"], "Official rules"),
+    ("P2-recorded", RECORDED, "Official rules, and whether the record holds a categorical or multi-choice evidence"),
+    ("B-BED", NAME["B-BED"], "BED simulator"),
+]
+rows = [[label, answers, pct_ci(ans[key]["stop"]["gtpa1"]), mean_ci(ans[key]["stop"]["il"])] for key, label, answers in levels]
+upper = table(["Method", "Answers", "Accuracy, % (95% CI)", "Evidence collected, mean (95% CI)"], rows)
+ANSWER_PAIRS = [
+    (ans["comparisons"]["P2-recorded - P2-value"], f"{RECORDED} \u2212 {NAME['P2-value']}", "Record status added to the answers"),
+    (ans["comparisons"]["B-BED - P2-recorded"], f"{NAME['B-BED']} \u2212 {RECORDED}", "BED and the rest of its simulator"),
+    (dbase["B-BED"]["ladder"]["B-BED - P2-value"], f"{NAME['B-BED']} \u2212 {NAME['P2-value']}", "BED and its simulator"),
+]
+rows = []
+for r, label, factor in ANSWER_PAIRS:
+    points = [("At the stop", r["stop"])] + [(f"After {b} questions", r[b]) for b in ("5", "10", "20", "30")]
+    points += [(f"Stop threshold {t}", c) for t, c in r.get("tau_sensitivity", {}).items() if t != "0.99"]
+    rows += pair_rows(label, factor, points)
+lower = table(["Comparison", "Factor changed", "Point", "Accuracy difference, percentage points (95% CI)", "Difference in evidence collected (95% CI)", "Patients correct in only the first / only the second method"], rows)
+write(
+    "tableS8",
+    f"Supplementary Table S8. Effect of the answer rule on the validation set ({ans['P2-value']['n']:,} patients)",
+    upper + "\n\n" + lower,
+    [
+        "CI, confidence interval; P2, frequency-based method; BED, Bayesian experimental design.",
+        "Record status: whether the patient record holds the evidence with any value, the default value included. The lower part gives the first method minus the second on the same patients; the stop uses the threshold 0.99 unless stated. Differences were computed before rounding. The last column counts patients with ties broken in the listed order of the public data.",
+    ],
+)
+
+# Table S9: accuracy by whether the lists single out the true disease, on validation
+strata = unq["strata"]
+rows = []
+for key, label in (("P1", NAME["P1"]), ("P2-binary", NAME["P2-binary"]), ("P2-value", NAME["P2-value"]), ("P2-recorded", RECORDED), ("B-BED", NAME["B-BED"])):
+    v = unq["policies"][key]
+    u, o = v["strata"]["unique"], v["strata"]["not_unique"]
+    rows.append([label, pct_ci(u["gtpa1"]), f(u["il_mean"]), pct_ci(o["gtpa1"]), f(o["il_mean"]), f(100 * v["lost_score"]["not_unique_share"])])
+write(
+    "tableS9",
+    "Supplementary Table S9. Accuracy on the validation set by whether the public lists single out the true disease",
+    table(
+        [
+            "Method",
+            f"Singled out (n = {strata['unique']['n']:,}): accuracy, % (95% CI)",
+            "Evidence collected, mean",
+            f"Not singled out (n = {strata['not_unique']['n']:,}): accuracy, % (95% CI)",
+            "Evidence collected, mean",
+            "Share of the lost score in patients not singled out, %",
+        ],
+        rows,
+    ),
+    [
+        f"CI, confidence interval; {ABBR_METHODS}",
+        "Singled out: the true disease is the only disease whose list holds every positive evidence of the patient. Lost score: the sum over patients of 1 minus the accuracy score.",
     ],
 )
 print("tables written")

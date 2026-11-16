@@ -47,4 +47,4 @@
 
 CI, confidence interval; P1, list-based method; P2, frequency-based method; BED, Bayesian experimental design.
 
-Differences are the first method minus the second on the same patients; the stop uses the threshold 0.99 unless stated. The last column counts patients with ties broken in the listed order of the public data.
+Differences are the first method minus the second on the same patients and were computed before rounding; the stop uses the threshold 0.99 unless stated. The last column counts patients with ties broken in the listed order of the public data.

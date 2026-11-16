@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import dataclasses
+
 import numpy as np
 import pytest
 
@@ -8,6 +10,7 @@ from ddxkb.kb import KB
 from ddxkb.simulator import (
     MAX_IL,
     Answer,
+    AnswerMode,
     Hierarchy,
     Interaction,
     Oracle,
@@ -58,6 +61,44 @@ def test_multi_choice_with_only_the_default_is_negative(toy_kb: KB) -> None:
 def test_multi_choice_drops_a_default_listed_with_other_values(toy_kb: KB) -> None:
     pairs = [("douleur_lieu", "nulle_part"), ("douleur_lieu", "dos")]
     assert present_values(toy_kb, pairs) == {"douleur_lieu": ("dos",)}
+
+
+def test_the_recorded_rule_also_says_whether_a_valued_evidence_is_recorded(toy_kb: KB) -> None:
+    """보완 4 §2.1: the protocol's answer, and for a categorical or multi-choice evidence whether the record holds
+    it with any value, its default included."""
+    o = Oracle(toy_kb, toy_patient(RECORD, initial="douleur"), AnswerMode.RECORDED)
+    # trav1 is recorded with its default: a negative answer, and recorded.
+    assert o.answer("trav1") == Answer("trav1", False, (), recorded=True)
+    assert o.answer("douleur_intens") == Answer("douleur_intens", True, ("2",), recorded=True)
+    assert o.answer("douleur_lieu") == Answer("douleur_lieu", True, ("tete", "ventre"), recorded=True)
+    bare = Oracle(toy_kb, toy_patient(["fievre", "douleur_lieu_@_nulle_part"], initial="fievre"), AnswerMode.RECORDED)
+    assert bare.answer("trav1") == Answer("trav1", False, (), recorded=False)
+    assert bare.answer("douleur_intens") == Answer("douleur_intens", False, (), recorded=False)
+    assert bare.answer("douleur_lieu") == Answer("douleur_lieu", False, (), recorded=True)
+    # A binary evidence is answered as the protocol answers it.
+    for oracle in (o, bare):
+        for code in ("fievre", "toux", "douleur", "atcd"):
+            assert oracle.answer(code) == Oracle(toy_kb, oracle.patient).answer(code)
+            assert oracle.answer(code).recorded is None
+    it = Interaction(o)
+    assert it.ask("trav1") == (Answer("trav1", False, (), recorded=True),)
+
+
+@pytest.mark.parametrize("record", [RECORD, ["fievre", "douleur_lieu_@_nulle_part"], ["douleur", "trav1_@_Asie"]])
+def test_only_the_recorded_rule_says_whether_an_evidence_is_recorded(toy_kb: KB, record: list[str]) -> None:
+    p = toy_patient(record, initial=record[0])
+    default = Oracle(toy_kb, p)
+    assert default.mode is AnswerMode.VALUE
+    for e in toy_kb.evidences:
+        official = default.answer(e.code)
+        assert official.recorded is None
+        assert official == Answer(e.code, official.positive, official.values)
+        for mode in (AnswerMode.BINARY, AnswerMode.VALUE):
+            assert Oracle(toy_kb, p, mode).answer(e.code) == official
+        # The recorded rule adds to the protocol's answer and changes nothing of it.
+        told = Oracle(toy_kb, p, AnswerMode.RECORDED).answer(e.code)
+        assert dataclasses.replace(told, recorded=None) == official
+        assert (told.recorded is None) == e.is_binary
 
 
 @pytest.mark.parametrize(

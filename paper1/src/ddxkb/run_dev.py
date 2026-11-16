@@ -1,6 +1,7 @@
-"""Development runs on the validation split (design §3-§5 as 보완 2 and 보완 3 revise them). No sealed set is read.
+"""Development runs on the validation split (design §3-§5 with 보완 2 to 보완 4). No sealed set is read.
 
-    uv run python -m ddxkb.run_dev --stage grid|ablations|properties|all --workers N [--limit N] [--out DIR]
+    uv run python -m ddxkb.run_dev --stage grid|ablations|properties|answer_rule|uniqueness|all --workers N
+        [--limit N] [--out DIR]
 
 Stages, each writing JSON under the output directory (default paper1/outputs/v3/dev). paper1/outputs/dev and
 paper1/outputs/eval hold the first protocol's runs and paper1/outputs/v2 those of 결과 2; an output directory in any
@@ -26,6 +27,22 @@ of them is refused.
   differences from the protocol's oracle, its differences from BED's reported figures and its comparison with
   P2-value (보완 3 §2.5, §2.6, §2.8). Needs the selected.json of a grid run over the same validation rows.
 - properties: KB violations and set-inclusion uniqueness into properties.json.
+- answer_rule (보완 4 §2): P2-value, P2-recorded (P2-value under the answer rule that also says whether a categorical
+  or multi-choice evidence is recorded) and B-BED on the same patients into answer_rule.json, with the comparisons
+  P2-recorded - P2-value and B-BED - P2-recorded, and P2-recorded's patient-level file under patients/. The P2-value
+  and B-BED runs must reproduce what main.json, baselines.json and their patient-level files record. Needs the
+  selected.json of a grid run over the same validation rows, as uniqueness does.
+- uniqueness (보완 4 §3): P1, P2-binary, P2-value, P2-recorded and B-BED at their stop, split by whether matching
+  the lists gives the gold disease alone, into uniqueness.json; the split must be the one properties.json counts,
+  and each policy's stop the one main.json, answer_rule.json or baselines.json records.
+
+A run of answer_rule or uniqueness over every validation row needs the records it is checked against and stops
+without them; a limited run checks against those written over the same rows and goes on without the others.
+
+`all` runs the five stages in this order and so writes every output again, grid appending its lines to
+configs_tried.jsonl. Where the output directory holds a development run whose files must stay as they are,
+answer_rule and then uniqueness are run by name: they write answer_rule.json, patients/P2-recorded.jsonl.gz and
+uniqueness.json only.
 
 `--limit N` keeps the first N validation rows, for smoke runs; its default output directory is then
 paper1/outputs/v3/dev_limitN, so a smoke run never mixes into the configurations tried on the full split.
@@ -35,30 +52,42 @@ from __future__ import annotations
 
 import argparse
 import dataclasses
+import gzip
 import json
 import logging
 import time
-from collections.abc import Sequence
+from collections.abc import Mapping, Sequence
 from pathlib import Path
 from typing import Any
 
-from ddxkb.audit import support_audit
+import numpy as np
+
+from ddxkb.audit import list_match_is_unique, support_audit
 from ddxkb.data import REPO_ROOT, load_kb, load_validation, unseal_requested
-from ddxkb.evaluation import Scored, report, write_json
+from ddxkb.evaluation import Scored, patient_lines, point_summary, report, write_json, write_patients
 from ddxkb.experiment import (
+    BED_MAIN,
     Context,
+    Stops,
     baseline_suite,
     bed_suite,
     hierarchy_suite,
+    ladder_rung,
     main_suite,
     protocol_of,
     provenance,
+    rung_name,
     second_run_outputs,
+    sensitivity_stops,
+    tau_sensitivity,
     utc_now,
 )
 from ddxkb.first_run import first_run_outputs
+from ddxkb.kb import BoolArray
 from ddxkb.policies.ablations import CoverageOrder, Heard, heard_answers
 from ddxkb.policies.bayes import BayesPolicy, frequency_prior, membership_table
+from ddxkb.policies.bed import BED_STATS, BedPolicy, load_knowledge
+from ddxkb.policies.episode import Policy
 from ddxkb.protocol import (
     A2_PRIOR_LAMBDA,
     A3_EPSILONS,
@@ -67,6 +96,7 @@ from ddxkb.protocol import (
     CURVE,
     MIN_GAIN,
     P2_LAMBDA,
+    P2_RECORDED,
     P2_SENSITIVITY_LAMBDAS,
     P2_VARIANTS,
     SENSITIVITY_HIERARCHY,
@@ -83,9 +113,9 @@ from ddxkb.protocol import (
     selection_key,
 )
 from ddxkb.runner import worker_pool
-from ddxkb.simulator import AnswerMode, Hierarchy
+from ddxkb.simulator import MAX_IL, AnswerMode, Hierarchy
 
-STAGES = ("grid", "ablations", "properties")
+STAGES = ("grid", "ablations", "properties", "answer_rule", "uniqueness")
 OUTPUT_DIR = "paper1/outputs/v3/dev"
 TRIED = "configs_tried.jsonl"
 SELECTED = "selected.json"
@@ -376,7 +406,308 @@ def stage_properties(ctx: Context, limit: int | None) -> None:
     write_json(ctx.out / "properties.json", {"limit": limit, **audit.summary(), "provenance": meta})
 
 
-STAGE_RUNNERS = {"grid": stage_grid, "ablations": stage_ablations, "properties": stage_properties}
+def _recorded(path: Path, keys: Sequence[str], n: int, required: bool) -> Any | None:
+    """What the JSON file at `path` holds under `keys`, when that is a run over `n` patients; else None, or with
+    `required` an error: FileNotFoundError without the file, ValueError for another number of patients."""
+    if not path.exists():
+        if required:
+            raise FileNotFoundError(f"{path} does not exist; the stage that writes it runs first")
+        return None
+    record = json.loads(path.read_text())
+    for key in keys:
+        record = record[key]
+    if record["n"] != n:
+        if required:
+            raise ValueError(f"{path} records a run over {record['n']} patients, not over these {n}")
+        return None
+    return record
+
+
+def _check_reproduced(
+    ctx: Context, limit: int | None, name: str, scored: Scored, summary: Mapping[str, Any], file: str, *keys: str
+) -> list[str]:
+    """보완 4 §2.4: the run `scored` of a policy an earlier stage also runs, with its `summary`, against what that
+    stage recorded in the same output directory: the stop summary of `file` under `keys`, and every line of the
+    patient-level file patients/`name`.jsonl.gz. RuntimeError where they differ; returns the files found equal.
+
+    A run over every validation row needs the records. A limited run compares with a record over the same number
+    of rows and with nothing when there is none.
+    """
+    record = _recorded(ctx.out / file, keys, scored.n, required=limit is None)
+    if record is None:
+        return []
+    if record["stop"] != summary["stop"]:
+        raise RuntimeError(f"{name}: the stop of this run is not the one {file} records")
+    patients = f"patients/{name}.jsonl.gz"
+    if not (ctx.out / patients).exists():
+        raise FileNotFoundError(f"{ctx.out / patients} does not exist; the stage that wrote {file} writes it too")
+    if gzip.decompress((ctx.out / patients).read_bytes()) != b"".join(patient_lines(scored, ctx.kb)):
+        raise RuntimeError(f"{name}: a patient of this run differs from {patients}")
+    return [file, patients]
+
+
+# 보완 4 §2.3: the paired comparisons of the answer-rule analysis, each the first policy minus the second on the same
+# patients, mapped to what differs between the two.
+ANSWER_RULE_LADDER = {
+    (P2_RECORDED.name, "P2-value"): (
+        "the answer rule: whether a categorical or multi-choice evidence is recorded, with the likelihood that fits it"
+    ),
+    ("B-BED", P2_RECORDED.name): (
+        "what is left once both get that information: BED's utility, stop, smoothing and candidate restriction, and"
+        " the one value BED's simulator gives of a multi-choice answer"
+    ),
+}
+ANSWER_RULE_DEFINITIONS = {
+    "answer_rule": (
+        "recorded (보완 4 §2.1): the protocol's answers (a default value is negative, a categorical answer carries its"
+        " value, a multi-choice answer all of its values) and, for a categorical or multi-choice evidence, whether the"
+        " patient's record holds it with any value, its default included; a binary evidence is answered as the"
+        " protocol answers it. It is the one thing BED's simulator gives beyond the protocol's answers, by reading a"
+        " recorded default value as positive; the rule is not that simulator"
+    ),
+    "P2-value": "the main policy, run again here on the same patients",
+    P2_RECORDED.name: (
+        "P2-value under the recorded answer rule, with the likelihood that fits it, counted from the train records of"
+        " each disease: a categorical evidence is one question over not recorded and each of its values, the default"
+        " included, and a multi-choice evidence gets a recorded or not recorded outcome beside its options. Prior,"
+        " smoothing, question choice and stop are those of P2-value"
+    ),
+    "B-BED": (
+        "the main B-BED run of baselines.json (BED's stats file, answers from BED's own simulator), run again here on"
+        " the same patients"
+    ),
+    "comparisons": (
+        "each the first policy minus the second on the same patients, `factor` naming what differs between the two:"
+        " at the stop and after 5, 10, 15, 20 and 30 questions, the difference in tie-aware GTPA@1 with its"
+        " patient-bootstrap interval and the patients only one of the two gets right in fixed order with exact"
+        " McNemar; at the stop, also the difference in mean IL with its interval; for the two P2 policies, the same at"
+        " the stop of each sensitivity threshold"
+    ),
+    "reproduces": (
+        "the records of the earlier stages in the same output directory that the P2-value and B-BED runs of this stage"
+        " were found equal to, the stop summary and every line of the patient-level file (보완 4 §2.4); empty where a"
+        " limited run found no record over the same rows"
+    ),
+}
+
+
+def stage_answer_rule(ctx: Context, limit: int | None) -> None:
+    started_utc, started, first = utc_now(), time.perf_counter(), len(ctx.timings)
+    _, p2cfgs = read_selected(ctx.out, len(ctx.patients), limit)
+    [value] = [cfg for cfg in p2cfgs if cfg.name == "P2-value"]
+    recorded = p2_fixed(P2_RECORDED)
+    kb, counts = ctx.kb, ctx.counts()
+    summaries: dict[str, dict[str, Any]] = {}
+    runs: dict[str, Scored] = {}
+    stops: dict[str, Stops] = {}
+
+    def bayes(cfg: P2Config) -> Scored:
+        policy = cfg.policy(kb, counts)
+        scored = ctx.score(f"answer rule {cfg.name}", policy, CURVE)
+        stops[cfg.name] = sensitivity_stops(cfg.name, scored)
+        summaries[cfg.name] = {
+            "config": cfg.as_dict(),
+            **protocol_of(policy),
+            **report(scored, points=BUDGETS),
+            "tau_sensitivity": tau_sensitivity(stops[cfg.name]),
+        }
+        runs[cfg.name] = scored.restricted(BUDGETS)
+        return scored
+
+    # The policies of the earlier stages run first: a difference from their records stops this stage before it
+    # writes anything.
+    scored = bayes(value)
+    reproduces = {
+        value.name: _check_reproduced(ctx, limit, value.name, scored, summaries[value.name], "main.json", value.name)
+    }
+    ctx.record_input(BED_STATS)
+    bed = BedPolicy(load_knowledge(kb, ctx.root), budgets=CURVE)
+    scored = ctx.score("answer rule B-BED", bed, CURVE)
+    summaries["B-BED"] = {
+        **protocol_of(bed),
+        "answers": "BED simulator (definitions.B-BED)",
+        **report(scored, points=BUDGETS),
+    }
+    runs["B-BED"] = scored.restricted(BUDGETS)
+    reproduces["B-BED"] = _check_reproduced(
+        ctx, limit, "B-BED", scored, summaries["B-BED"], "baselines.json", "B-BED", BED_MAIN
+    )
+    scored = bayes(recorded)
+    comparisons = {
+        rung_name(pair): ladder_rung(
+            pair, runs, BUDGETS, {}, stops if all(name in stops for name in pair) else None, factor
+        )
+        for pair, factor in ANSWER_RULE_LADDER.items()
+    }
+    meta = provenance(ctx, "answer_rule", started_utc, started, first)
+    write_patients(ctx.out / "patients" / f"{recorded.name}.jsonl.gz", scored, kb)
+    write_json(
+        ctx.out / "answer_rule.json",
+        {
+            "limit": limit,
+            "budgets": list(BUDGETS),
+            "definitions": ANSWER_RULE_DEFINITIONS,
+            **{name: summaries[name] for name in (value.name, recorded.name, "B-BED")},
+            "comparisons": comparisons,
+            "reproduces": reproduces,
+            "provenance": meta,
+        },
+    )
+
+
+UNIQUENESS_DEFINITIONS = {
+    "strata": (
+        "unique: the gold disease is the only one whose list holds every positive evidence of the record (a default"
+        " value is not positive), the `unique` figure of properties.json; not_unique: every other patient"
+    ),
+    "policies": (
+        "each policy at its own stop, over every patient (`all`) and over each stratum: n, tie-aware GTPA@1 with its"
+        " Wilson interval and mean IL, as the stop summaries of the other outputs compute them. P2-recorded is the"
+        " policy of answer_rule.json, B-BED the main B-BED run (BED's stats file, BED's own simulator)"
+    ),
+    "lost_score": (
+        "the sum over the patients of 1 - tie-aware GTPA@1 at the stop (`total`), the part of it lost on not_unique"
+        " patients, and that part's share of the total (null when nothing is lost)"
+    ),
+    "question_limit": (
+        "patients whose episode reached the limit of 30 questions after the initial evidence (IL = 31 whatever ended"
+        " the episode: one that met its stop condition with the 30th answer and a failed one are among them) and those"
+        " whose episode stopped earlier: n and tie-aware GTPA@1 with its Wilson interval (null for an empty group)"
+    ),
+    "reproduces": (
+        "the records of the earlier stages in the same output directory this run was found equal to: under `strata`,"
+        " properties.json for its `unique` count; under each policy, the file whose stop summary of that policy has"
+        " the failures, the tie-aware GTPA@1 with its interval and the mean IL of `all`; empty where a limited run"
+        " found no record over the same rows"
+    ),
+}
+# Where the earlier stages record the stop of each policy the uniqueness stage runs again: file and keys.
+UNIQUENESS_RECORDS: dict[str, tuple[str, tuple[str, ...]]] = {
+    "P1": ("main.json", ("P1",)),
+    "P2-binary": ("main.json", ("P2-binary",)),
+    "P2-value": ("main.json", ("P2-value",)),
+    P2_RECORDED.name: ("answer_rule.json", (P2_RECORDED.name,)),
+    "B-BED": ("baselines.json", ("B-BED", BED_MAIN)),
+}
+
+
+def _by_stratum(scored: Scored, rows: Sequence[int], unique: BoolArray) -> dict[str, Any]:
+    """보완 4 §3.2-3.4 for one run at its stop; `unique[i]` says whether the patient of row `rows[i]` is in the
+    unique stratum, and the run must hold these patients in this order.
+
+    A group's GTPA@1 and mean IL are those of `evaluation.point_summary` over its patients, so `all` is the stop the
+    other outputs record for the same run, to the last bit.
+    """
+    if unique.shape != (len(rows),) or scored.rows.tolist() != list(rows):
+        raise ValueError("the strata cover other patients")
+    gtpa1 = scored.column("gtpa1")
+
+    def group(mask: BoolArray, il: bool = True) -> dict[str, Any]:
+        k = int(mask.sum())
+        out: dict[str, Any] = {"n": k, "gtpa1": None}
+        if il:
+            out["il_mean"] = None
+        if k:
+            summary = point_summary(scored.stop[mask], scored.il[mask], scored.gold[mask], len(scored.diseases))
+            out["gtpa1"] = summary["gtpa1"]
+            if il:
+                out["il_mean"] = summary["il"]["mean"]
+        return out
+
+    lost = 1.0 - gtpa1
+    total, not_unique = float(lost.sum()), float(lost[~unique].sum())
+    at_limit = scored.il == MAX_IL
+    return {
+        "failures": int(scored.failed.sum()),
+        "all": group(np.ones(scored.n, dtype=np.bool_)),
+        "strata": {"unique": group(unique), "not_unique": group(~unique)},
+        "lost_score": {
+            "total": total,
+            "not_unique": not_unique,
+            "not_unique_share": not_unique / total if total > 0 else None,
+        },
+        "question_limit": {"reached": group(at_limit, il=False), "stopped_earlier": group(~at_limit, il=False)},
+    }
+
+
+def _check_stop_recorded(name: str, entry: Mapping[str, Any], record: Mapping[str, Any] | None) -> list[str]:
+    """The `_by_stratum` entry of a policy the uniqueness stage ran again, against the summary `record` that the
+    stage reporting the policy wrote of it (UNIQUENESS_RECORDS): the failures and, over every patient, the tie-aware
+    GTPA@1 with its interval and the mean IL. RuntimeError where they differ; returns the file found equal, or
+    nothing without a record."""
+    if record is None:
+        return []
+    file, everyone, stop = UNIQUENESS_RECORDS[name][0], entry["all"], record["stop"]
+    if (entry["failures"], everyone["gtpa1"], everyone["il_mean"]) != (
+        record["failures"],
+        stop["gtpa1"],
+        stop["il"]["mean"],
+    ):
+        raise RuntimeError(f"{name}: the stop of this run is not the one {file} records")
+    return [file]
+
+
+def stage_uniqueness(ctx: Context, limit: int | None) -> None:
+    started_utc, started, first = utc_now(), time.perf_counter(), len(ctx.timings)
+    p1cfg, p2cfgs = read_selected(ctx.out, len(ctx.patients), limit)
+    kb, n = ctx.kb, len(ctx.patients)
+    t = time.perf_counter()
+    rows = [p.row for p in ctx.patients]
+    unique = np.fromiter((list_match_is_unique(kb, p) for p in ctx.patients), dtype=np.bool_, count=n)
+    ctx.timings.append({"run": "unique list match", "seconds": round(time.perf_counter() - t, 2)})
+    sizes = {"unique": int(unique.sum()), "not_unique": int((~unique).sum())}
+    properties = _recorded(ctx.out / "properties.json", (), n, required=limit is None)
+    if properties is not None and properties["unique"] != {"count": sizes["unique"], "share": sizes["unique"] / n}:
+        raise RuntimeError(
+            f"the unique stratum holds {sizes['unique']} of {n} patients, properties.json records"
+            f" {properties['unique']['count']}"
+        )
+    # Read before any policy runs: a run over every validation row stops here without one of them.
+    records = {
+        name: _recorded(ctx.out / file, keys, n, required=limit is None)
+        for name, (file, keys) in UNIQUENESS_RECORDS.items()
+    }
+    counts = ctx.counts()
+    p2 = {cfg.name: cfg for cfg in (*p2cfgs, p2_fixed(P2_RECORDED))}
+    configs: dict[str, Config] = {
+        "P1": p1cfg,
+        **{name: p2[name] for name in ("P2-binary", "P2-value", P2_RECORDED.name)},
+    }
+    policies: dict[str, Policy] = {
+        name: cfg.policy(kb, ()) if isinstance(cfg, P1Config) else cfg.policy(kb, counts, ())
+        for name, cfg in configs.items()
+    }
+    ctx.record_input(BED_STATS)
+    policies["B-BED"] = BedPolicy(load_knowledge(kb, ctx.root))
+    entries: dict[str, Any] = {}
+    reproduces = {"strata": [] if properties is None else ["properties.json"]}
+    for name, policy in policies.items():
+        config = {"config": configs[name].as_dict()} if name in configs else {}
+        entry = _by_stratum(ctx.score(f"uniqueness {name}", policy, ()), rows, unique)
+        reproduces[name] = _check_stop_recorded(name, entry, records[name])
+        entries[name] = {**config, **entry}
+    meta = provenance(ctx, "uniqueness", started_utc, started, first)
+    write_json(
+        ctx.out / "uniqueness.json",
+        {
+            "limit": limit,
+            "definitions": UNIQUENESS_DEFINITIONS,
+            "n": n,
+            "strata": {name: {"n": k, "share": k / n} for name, k in sizes.items()},
+            "policies": entries,
+            "reproduces": reproduces,
+            "provenance": meta,
+        },
+    )
+
+
+STAGE_RUNNERS = {
+    "grid": stage_grid,
+    "ablations": stage_ablations,
+    "properties": stage_properties,
+    "answer_rule": stage_answer_rule,
+    "uniqueness": stage_uniqueness,
+}
 
 
 def run_dev(stages: Sequence[str], root: Path, out: Path, workers: int, limit: int | None = None) -> None:

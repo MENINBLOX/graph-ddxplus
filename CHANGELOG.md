@@ -15,7 +15,9 @@ Entries describe impact on results and reproduction, not commit titles.
   - 결과(종료 임계 0.99 공통): 목록만 쓰는 P1은 98.44%, 수집 evidence 10.35개다. 빈도 Bayes P2는 이진 98.60% / 7.27개, 값 단위 99.30% / 5.10개다. BED 재구현은 99.47% / 5.48개로 보고값(99.47%, 5.47)과 같다.
   - 한 요인씩 바꾼 짝비교 다섯 쌍(목록→빈도, 나이·성별, 응답의 값, BED)에 정확도 차이와 수집 evidence 차이의 bootstrap 95% 구간이 붙는다. 종료 임계 0.9–0.999의 민감도도 함께 낸다.
   - BED 시뮬레이터가 공식 규칙의 "아니오"를 양성으로 답한 응답을 세트 전체에서 센다(test 환자의 38.95%가 1개 이상 받음).
-  - 재현 경로: `run_dev` → `freeze` → `run_eval`. 동결은 `paper1/configs/protocol_v3_frozen.yaml`, 산출은 `paper1/outputs/v3/`다. 데이터셋 성질은 `paper1/reference/dataset_properties.py`가 낸다.
+  - 응답 규칙의 효과를 validation에서 잰다(설계 '보완 4'). BED 시뮬레이터가 더 주는 정보(범주형·다중선택 evidence의 기록 여부)를 P2 값 단위에 주면 정확도 +0.10%p, 수집 evidence −0.30개다. BED 재구현과의 정확도 차이는 0.18%p에서 0.08%p로 준다.
+  - validation 환자를 목록 대조로 정답이 하나로 정해지는지로 나눠 정확도를 낸다. P1이 잃은 점수의 59.28%가 정해지지 않는 7.65%의 환자에서 나온다(P1 87.76%, P2 값 단위 95.61%).
+  - 재현 경로: `run_dev` → `freeze` → `run_eval`. 동결은 `paper1/configs/protocol_v3_frozen.yaml`, 산출은 `paper1/outputs/v3/`다. 데이터셋 성질은 `paper1/reference/dataset_properties.py`가 낸다. 추가 분석은 `run_dev --stage answer_rule`, 이어서 `--stage uniqueness`로 돌리고 `outputs/v3/dev/answer_rule.json`, `uniqueness.json`에 쓴다(기존 산출과 환자 단위로 대조한 뒤에만 쓴다).
   - 평가 게이트: 선택 실행 뒤 `paper1/src`가 바뀌었거나, P1 설정이 9개 후보 밖이거나, τ·λ가 코드 상수와 다르면 동결과 평가를 거부한다.
 - **review**: 사전 그래프 대비 혼합 추출의 비용과 기전을 측정했다. 구축 비용은 혼합 약 136시간(GPU 생성 127시간) 대 사전 약 0.45시간(CPU)이다. 혼합 간선의 86.9%가 사전 그래프에도 있고, 희귀질환 개발 세트에서 혼합의 우세는 혼합 전용 간선 없이도 대부분 유지된다(LLM의 역할은 소견 선택 쪽). HPO 주석 일치율은 혼합 12.6%, 사전 7.8%로 둘 다 감사한 구 그래프보다 낮아, 구 감사 결과(29.5%)를 주 시스템에 옮겨 읽을 수 없다. 의료진 판정용 혼합 그래프 간선 100개 블라인드 시트(`docs/audit/smix_audit_*`)를 준비했다(판정 전).
 - **recall**: 재현율 손실 분해를 v2+v3 그래프에서 다시 쟀다. 수집 손실은 설계 D 그래프 67.0% → 혼합 37.3%, 문헌 없음 22.4% → 0.3%이고, 추출·연결 손실은 늘지 않았다. `recall_decomp.py`의 기본값은 이전 결과를 그대로 재현한다.
@@ -40,7 +42,7 @@ Entries describe impact on results and reproduction, not commit titles.
 - paper1 설계·검토 문서는 다음과 같다.
   - `docs/ddxplus_data_review_2026-10-23.md`: DDXPlus 데이터 구성 검토(생성 방식, 공식 프로토콜, 분할, 중복).
   - `docs/design/ddxplus_kb_redo.md`의 '보완 3'과 '결과 3': 공통 종료 임계·고정 평활 재설계와 그 결과. '보완 2', '결과 2'는 이전 판의 기록이다.
-  - 국문 초안 `draft/paper1_ko/draft.md`: 학술지 형식(번호 소제목 아래 산문, 본문 표 3개와 그림 1개, 보충 표 7개, 참고문헌 23편)으로 다시 썼다. 원문은 `sections/`이고 `tools/build_ms.py`가 산출물에서 표·그림·참고문헌 번호를 만들어 조립한다.
+  - 국문 초안 `draft/paper1_ko/draft.md`: 학술지 형식(번호 소제목 아래 산문, 본문 표 3개와 그림 1개, 보충 표 9개, 참고문헌 23편)으로 다시 썼다. 원문은 `sections/`이고 `tools/build_ms.py`가 산출물에서 표·그림·참고문헌 번호를 만들어 조립한다.
 - 논문 v3: 리뷰 지적(사전 매칭의 경쟁력, 주 그래프 미감사, DDXPlus 49질환 범위)과 외부 메모 검토에서 채택한 항목(결론 요약, 5.2 후속 연구)을 반영했다. 'threshold-free'로 잘못 적혀 있던 연결기 설명(`normalize_v2.py`)을 실제 동작으로 고쳤다.
 - 국문 논문 초안 v3(`draft/paper_ko_v3/`): 혼합 추출과 설계 D·E 기준. 문장별 근거 로그와 절 간 일관성 검토 기록을 함께 둔다.
 - 설계 E(`docs/research_design.md` 상단): 판정 기준과 예상값을 동결·실행 전에 커밋했고, 결과를 E7에 그대로 기록했다.

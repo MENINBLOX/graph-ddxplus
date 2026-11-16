@@ -1,7 +1,9 @@
 from __future__ import annotations
 
+import numpy as np
 import pytest
 
+from ddxkb.freeze import protocol_constants
 from ddxkb.kb import KB
 from ddxkb.protocol import (
     A4_HIERARCHIES,
@@ -14,6 +16,7 @@ from ddxkb.protocol import (
     MIN_GAIN,
     P1_WIDER,
     P2_LAMBDA,
+    P2_RECORDED,
     P2_SENSITIVITY_LAMBDAS,
     P2_VARIANTS,
     SENSITIVITY_HIERARCHY,
@@ -113,6 +116,35 @@ def test_configs_round_trip_and_build_policies(toy_kb: KB) -> None:
     assert plain.start_inputs == {StartInput.INITIAL_EVIDENCE}
     with pytest.raises(ValueError):
         P2Config.from_dict({"mode": "neither", "age_sex": False, "lam": 1.0, "tau": 0.9})
+
+
+def test_the_recorded_variant_is_no_main_variant(toy_kb: KB) -> None:
+    """보완 4 §2.2: P2-recorded is P2-value with another answer rule and its likelihood, outside the frozen protocol."""
+    assert (P2_RECORDED.mode, P2_RECORDED.age_sex, P2_RECORDED.name) == (AnswerMode.RECORDED, False, "P2-recorded")
+    assert P2_RECORDED not in P2_VARIANTS and len(P2_VARIANTS) == 4
+    assert {v.mode for v in P2_VARIANTS} == {AnswerMode.BINARY, AnswerMode.VALUE}
+    assert not any("P2-recorded" in pair for pair in LADDER)
+    constants = protocol_constants(toy_kb)
+    assert "recorded" not in str(constants)
+    cfg = p2_fixed(P2_RECORDED)
+    assert cfg == P2Config(P2_RECORDED, P2_LAMBDA, TAU)
+    assert cfg.as_dict() == {"mode": "recorded", "age_sex": False, "lam": 1.0, "tau": 0.99}
+    assert P2Config.from_dict(cfg.as_dict()) == cfg
+    check_fixed(P1Config(0.5, 1e-4, TAU), [cfg])
+    recorded = cfg.policy(toy_kb, toy_counts(), (0,))
+    value = p2_fixed(P2Variant(AnswerMode.VALUE, age_sex=False)).policy(toy_kb, toy_counts(), (0,))
+    assert recorded.table.mode is recorded.answer_mode is AnswerMode.RECORDED
+    # Everything but the answer rule and its likelihood is P2-value's.
+    assert np.array_equal(recorded.prior.log_p, value.prior.log_p)
+    assert recorded.start_inputs == value.start_inputs == {StartInput.INITIAL_EVIDENCE}
+    assert (recorded.tau, recorded.min_gain, recorded.hierarchy, recorded.selector, recorded.max_il) == (
+        value.tau,
+        value.min_gain,
+        value.hierarchy,
+        value.selector,
+        value.max_il,
+    )
+    assert recorded.table.probs.shape != value.table.probs.shape
 
 
 def test_the_wider_grid_adds_one_value_at_each_end_the_selection_reaches() -> None:

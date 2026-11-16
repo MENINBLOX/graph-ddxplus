@@ -15,7 +15,7 @@ import gzip
 import hashlib
 import json
 import logging
-from collections.abc import Collection, Mapping, Sequence
+from collections.abc import Collection, Iterator, Mapping, Sequence
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -462,19 +462,17 @@ def write_json(path: Path, obj: Any) -> None:
     path.write_text(json.dumps(obj, indent=1, ensure_ascii=False, allow_nan=False) + "\n")
 
 
-def write_patients(path: Path, s: Scored, kb: KB) -> None:
-    """One JSON line per patient: the stop, its differential head, its scores and the tie-aware GTPA@1 curve.
-
-    The gzip header carries no name or timestamp, so the same results give the same bytes.
-    """
+def patient_lines(s: Scored, kb: KB) -> Iterator[bytes]:
+    """One JSON line per patient: the stop, its differential head, its scores and the tie-aware GTPA@1 curve."""
     if s.top is None or s.top_p is None:
         raise ValueError("a derived stop has no differential to write")
+    top, top_p = s.top, s.top_p
     errors = dict(s.errors)
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open("wb") as raw, gzip.GzipFile(filename="", mode="wb", fileobj=raw, mtime=0) as gz:
+
+    def lines() -> Iterator[bytes]:
         for i in range(s.n):
             row = int(s.rows[i])
-            head = zip(s.top[i], s.top_p[i], strict=True)
+            head = zip(top[i], top_p[i], strict=True)
             record: dict[str, Any] = {
                 "row": row,
                 "pathology": kb.diseases[s.gold[i]] if s.gold[i] >= 0 else None,
@@ -486,4 +484,18 @@ def write_patients(path: Path, s: Scored, kb: KB) -> None:
             record["curve_gtpa1"] = [round(float(x), 4) for x in s.at_budget[i, :, COLUMN["gtpa1"]]]
             if row in errors:
                 record["error"] = errors[row]
-            gz.write((json.dumps(record, ensure_ascii=False) + "\n").encode())
+            yield (json.dumps(record, ensure_ascii=False) + "\n").encode()
+
+    return lines()
+
+
+def write_patients(path: Path, s: Scored, kb: KB) -> None:
+    """`patient_lines` gzipped into `path`.
+
+    The gzip header carries no name or timestamp, so the same results give the same bytes.
+    """
+    lines = patient_lines(s, kb)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with path.open("wb") as raw, gzip.GzipFile(filename="", mode="wb", fileobj=raw, mtime=0) as gz:
+        for line in lines:
+            gz.write(line)

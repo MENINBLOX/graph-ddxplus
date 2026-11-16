@@ -25,6 +25,6 @@
 
 CI, confidence interval; P1, list-based method; α, probability of “yes” for an evidence on the list; ε, probability of “yes” for an evidence outside the list. P1 uses α = 0.5 and ε = 10^−4^.
 
-Each row changes one component of P1 and keeps the others.
+Each row changes one component of P1 and keeps the others. Differences were computed before rounding.
 
 ^a)^Mean of five random orders; the range over the five orders is shown in place of the CI.

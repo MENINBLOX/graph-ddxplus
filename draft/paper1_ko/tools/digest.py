@@ -175,6 +175,25 @@ for rule in ("parent_first", "no_children"):
     abl_line(f"A4 {rule}", abl["A4"][rule])
 abl_line("A5 coverage", abl["A5"]["coverage"])
 
+ans, unq = load(DEV / "answer_rule.json"), load(DEV / "uniqueness.json")
+section("validation: answer rule (보완 4)")
+for key in ("P2-value", "P2-recorded", "B-BED"):
+    print(f"- **{key}** n={ans[key]['n']}: {stop_line(ans[key]['stop'])}")
+    if "tau_sensitivity" in ans[key]:
+        print("  - tau: " + "; ".join(f"{t}: {pct(ans[key]['tau_sensitivity'][t]['gtpa1']['estimate'])}/{ans[key]['tau_sensitivity'][t]['il']['mean']:.2f}" for t in TAUS))
+for name, r in ans["comparisons"].items():
+    print(f"- **{name}** ({r['factor']})")
+    print(f"  - stop: {pair_line(r['stop'])}")
+    for b in BUDGETS:
+        print(f"  - budget {b}: {pair_line(r[b])}")
+    for t, c in r.get("tau_sensitivity", {}).items():
+        print(f"  - tau {t}: {pair_line(c)}")
+section("validation: uniqueness strata (보완 4)")
+print(json.dumps(unq["strata"]))
+for key, v in unq["policies"].items():
+    u, o, q = v["strata"]["unique"], v["strata"]["not_unique"], v["question_limit"]
+    print(f"- **{key}** unique {ci(u['gtpa1'])} IL {u['il_mean']:.2f} | not unique {ci(o['gtpa1'])} IL {o['il_mean']:.2f} | lost {v['lost_score']['total']:.1f}, share not unique {pct(v['lost_score']['not_unique_share'])} | limit reached n={q['reached']['n']} {pct(q['reached']['gtpa1']['estimate'])}, earlier {pct(q['stopped_earlier']['gtpa1']['estimate'])}")
+
 if (EVAL / "main.json").exists():
     t_main, t_base = load(EVAL / "main.json"), load(EVAL / "baselines.json")
     main_block("test", t_main, t_base, load(EVAL / "hierarchy.json"), load(EVAL / "properties.json"))

@@ -120,7 +120,7 @@ class FullProfile:
 
     def run(self, patient: Patient) -> Episode:
         kb = self.table.kb
-        oracle = Oracle(kb, patient)
+        oracle = Oracle(kb, patient, self.table.mode)
         columns = [c for e in kb.evidences for c in self.table.outcome_columns(oracle.answer(e.code))]
         start = Start(oracle.answer(patient.initial), patient.age, patient.sex)
         log_post = self.prior(start) + self.table.log_probs[:, columns].sum(axis=1)

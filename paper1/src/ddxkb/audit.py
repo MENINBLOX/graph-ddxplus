@@ -59,5 +59,11 @@ def support_audit(kb: KB, patients: Iterable[Patient]) -> SupportAudit:
     return SupportAudit(n=n, outside_support=outside, unique=unique, unique_recorded=unique_recorded)
 
 
+def list_match_is_unique(kb: KB, patient: Patient) -> bool:
+    """`SupportAudit.unique` for one patient: the gold disease is the only one whose list holds every positive
+    evidence of the record."""
+    return _only(kb.diseases_containing(positive_codes(kb, patient)), kb.disease_index[patient.pathology])
+
+
 def _only(mask: BoolArray, gold: int) -> bool:
     return bool(mask[gold]) and int(np.count_nonzero(mask)) == 1
