@@ -21,7 +21,12 @@
 |  |  | After 10 questions | −1.07 (−1.13 to −1.01) | – | 144 / 1,559 |
 |  |  | After 20 questions | −0.06 (−0.08 to −0.04) | – | 29 / 107 |
 |  |  | After 30 questions | −0.02 (−0.03 to −0.01) | – | 32 / 57 |
+| BED re-implementation − P2, answer values | BED and its simulator | At the stop | +0.18 (+0.14 to +0.22) | +0.38 (+0.36 to +0.40) | 479 / 242 |
+|  |  | After 5 questions | −6.21 (−6.41 to −6.02) | – | 4,612 / 12,836 |
+|  |  | After 10 questions | −0.74 (−0.81 to −0.68) | – | 503 / 1,487 |
+|  |  | After 20 questions | +0.06 (+0.04 to +0.08) | – | 188 / 108 |
+|  |  | After 30 questions | +0.05 (+0.03 to +0.07) | – | 123 / 56 |
 
-CI, confidence interval; P1, list-based method; P2, frequency-based method; BED, Bayesian experimental design.
+CI, confidence interval; P2, frequency-based method; BED, Bayesian experimental design.
 
-Record status: whether the patient record holds the evidence with any value, the default value included. The lower part gives the first method minus the second on the same patients; the stop uses the threshold 0.99 unless stated.
+Record status: whether the patient record holds the evidence with any value, the default value included. The lower part gives the first method minus the second on the same patients; the stop uses the threshold 0.99 unless stated. Differences were computed before rounding. The last column counts patients with ties broken in the listed order of the public data.

@@ -136,7 +136,7 @@ write(
     table(["Changed component", "Accuracy, % (95% CI)", "Difference from P1, percentage points (95% CI)", "Evidence collected, mean"], rows),
     [
         "CI, confidence interval; P1, list-based method; α, probability of “yes” for an evidence on the list; ε, probability of “yes” for an evidence outside the list. P1 uses α = 0.5 and ε = 10^−4^.",
-        "Each row changes one component of P1 and keeps the others.",
+        "Each row changes one component of P1 and keeps the others. Differences were computed before rounding.",
         "^a)^Mean of five random orders; the range over the five orders is shown in place of the CI.",
     ],
 )
@@ -263,7 +263,7 @@ write(
     table(["Comparison", "Factor changed", "Point", "Accuracy difference, percentage points (95% CI)", "Difference in evidence collected (95% CI)", "Patients correct in only the first / only the second method"], rows),
     [
         f"CI, confidence interval; {ABBR_METHODS}",
-        "Differences are the first method minus the second on the same patients; the stop uses the threshold 0.99 unless stated. The last column counts patients with ties broken in the listed order of the public data.",
+        "Differences are the first method minus the second on the same patients and were computed before rounding; the stop uses the threshold 0.99 unless stated. The last column counts patients with ties broken in the listed order of the public data.",
     ],
 )
 
@@ -323,12 +323,12 @@ levels = [
 rows = [[label, answers, pct_ci(ans[key]["stop"]["gtpa1"]), mean_ci(ans[key]["stop"]["il"])] for key, label, answers in levels]
 upper = table(["Method", "Answers", "Accuracy, % (95% CI)", "Evidence collected, mean (95% CI)"], rows)
 ANSWER_PAIRS = [
-    ("P2-recorded - P2-value", f"{RECORDED} \u2212 {NAME['P2-value']}", "Record status added to the answers"),
-    ("B-BED - P2-recorded", f"{NAME['B-BED']} \u2212 {RECORDED}", "BED and the rest of its simulator"),
+    (ans["comparisons"]["P2-recorded - P2-value"], f"{RECORDED} \u2212 {NAME['P2-value']}", "Record status added to the answers"),
+    (ans["comparisons"]["B-BED - P2-recorded"], f"{NAME['B-BED']} \u2212 {RECORDED}", "BED and the rest of its simulator"),
+    (dbase["B-BED"]["ladder"]["B-BED - P2-value"], f"{NAME['B-BED']} \u2212 {NAME['P2-value']}", "BED and its simulator"),
 ]
 rows = []
-for key, label, factor in ANSWER_PAIRS:
-    r = ans["comparisons"][key]
+for r, label, factor in ANSWER_PAIRS:
     points = [("At the stop", r["stop"])] + [(f"After {b} questions", r[b]) for b in ("5", "10", "20", "30")]
     points += [(f"Stop threshold {t}", c) for t, c in r.get("tau_sensitivity", {}).items() if t != "0.99"]
     rows += pair_rows(label, factor, points)
@@ -338,8 +338,8 @@ write(
     f"Supplementary Table S8. Effect of the answer rule on the validation set ({ans['P2-value']['n']:,} patients)",
     upper + "\n\n" + lower,
     [
-        f"CI, confidence interval; {ABBR_METHODS}",
-        "Record status: whether the patient record holds the evidence with any value, the default value included. The lower part gives the first method minus the second on the same patients; the stop uses the threshold 0.99 unless stated.",
+        "CI, confidence interval; P2, frequency-based method; BED, Bayesian experimental design.",
+        "Record status: whether the patient record holds the evidence with any value, the default value included. The lower part gives the first method minus the second on the same patients; the stop uses the threshold 0.99 unless stated. Differences were computed before rounding. The last column counts patients with ties broken in the listed order of the public data.",
     ],
 )
 
