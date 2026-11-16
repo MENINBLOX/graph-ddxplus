@@ -41,6 +41,16 @@
    "gold_is_top": "the gold disease has the largest probability of the reference differential (ties count)",
    "gold_is_only_top": "the same without a tie",
    "mass_on_excluded": "the share of the differential's probability on diseases whose list does not hold every positive evidence of the patient"
+  },
+  "valued_records": {
+   "listed": 976405,
+   "listed_not_recorded": 0,
+   "recorded_not_listed": 0,
+   "definitions": {
+    "listed": "pairs of a patient and a categorical or multi-choice evidence on the gold disease's list",
+    "listed_not_recorded": "of these, the pairs whose evidence the record does not hold with any value",
+    "recorded_not_listed": "categorical or multi-choice evidences a record holds off the gold disease's list"
+   }
   }
  }
 }

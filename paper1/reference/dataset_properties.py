@@ -4,7 +4,8 @@
 
 From the train split: the patients with a positive evidence off their disease's list, and for each of the list
 entries (disease, evidence) the share of that disease's train patients in whom the evidence is positive. From the
-validation split: how the reference differential relates to the gold disease and to the lists. A positive
+validation split: how the reference differential relates to the gold disease and to the lists, and whether the
+records hold the categorical and multi-choice evidences of the gold disease's list. A positive
 evidence is one recorded with a value other than its default (`simulator.positive_codes`). No sealed set is read.
 """
 
@@ -12,11 +13,13 @@ from __future__ import annotations
 
 import argparse
 import json
+from collections.abc import Sequence
 from pathlib import Path
 
 import numpy as np
 
-from ddxkb.data import REPO_ROOT, iter_train, load_kb, load_validation, unseal_requested
+from ddxkb.data import REPO_ROOT, Patient, iter_train, load_kb, load_validation, unseal_requested
+from ddxkb.kb import KB
 from ddxkb.simulator import positive_codes
 
 RARE_BELOW = 0.05
@@ -72,6 +75,7 @@ def differential(root: Path) -> dict[str, object]:
     mass = np.asarray(excluded_mass)
     return {
         "n": len(patients),
+        "valued_records": valued_records(kb, patients),
         "gold_is_top": {"count": int(top), "share": top / len(patients)},
         "gold_is_only_top": {"count": int(strictly_top), "share": strictly_top / len(patients)},
         "mass_on_excluded": {"mean": float(mass.mean()), "median": float(np.median(mass))},
@@ -82,6 +86,28 @@ def differential(root: Path) -> dict[str, object]:
                 "the share of the differential's probability on diseases whose list does not hold every positive"
                 " evidence of the patient"
             ),
+        },
+    }
+
+
+def valued_records(kb: KB, patients: Sequence[Patient]) -> dict[str, object]:
+    """How the records hold the categorical and multi-choice evidences against the gold disease's list."""
+    valued = {e.code for e in kb.evidences if not e.is_binary}
+    listed_missing = recorded_unlisted = listed = 0
+    for p in patients:
+        on_list = kb.support(p.pathology) & valued
+        recorded = {code for code, _ in p.evidences if code in valued}
+        listed += len(on_list)
+        listed_missing += len(on_list - recorded)
+        recorded_unlisted += len(recorded - on_list)
+    return {
+        "listed": listed,
+        "listed_not_recorded": listed_missing,
+        "recorded_not_listed": recorded_unlisted,
+        "definitions": {
+            "listed": "pairs of a patient and a categorical or multi-choice evidence on the gold disease's list",
+            "listed_not_recorded": "of these, the pairs whose evidence the record does not hold with any value",
+            "recorded_not_listed": "categorical or multi-choice evidences a record holds off the gold disease's list",
         },
     }
 
